@@ -3,20 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Wires 2026 - Prototyping System</title>
-  <!-- Vite entry point: imports CSS, works in dev & production -->
+
+  <!-- Load Web Component first (required!) -->
   <script type="module" src="/src/main.js"></script>
+
+  <!-- HTML Include: additional head metadata -->
+  <html-include src="/_includes/head.html"></html-include>
 </head>
 <body>
-  <header class="mb-6">
-    <nav>
-      <ul class="cluster">
-        <li><a href="/">Home</a></li>
-        <li><a href="/example/">Article</a></li>
-        <li><a href="/guide/">Style Guide</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- HTML Include: site header -->
+  <html-include src="/_includes/header.html"></html-include>
 
   <main>
     <article class="stack-comfortable">
@@ -108,8 +104,7 @@
     </article>
   </main>
 
-  <footer class="mt-6 pt-4 text-center text-2 text-muted">
-    <p>Live Wires 2026 &middot; Built with modern CSS &middot; <a href="https://github.com/design-machines-studio/livewires">View on GitHub</a></p>
-  </footer>
+  <!-- HTML Include: site footer -->
+  <html-include src="/_includes/footer.html"></html-include>
 </body>
 </html>

@@ -25,18 +25,22 @@ Vite provides instant HMR (Hot Module Replacement). Edit CSS or HTML files and s
 ### Directory Structure
 
 ```
-├── src/css/                # All CSS source files
-│   ├── 0_config/          # Cascade layer definitions
-│   ├── 1_settings/        # Design tokens (tokens, typography, color)
-│   ├── 3_generic/         # CSS reset
-│   ├── 4_elements/        # Semantic HTML defaults
-│   ├── 5_layouts/         # Layout primitives (stack, grid, cluster)
-│   ├── 6_components/      # UI components (future)
-│   ├── 7_utilities/       # Utility classes (spacing, typography, color, grid)
-│   └── main.css           # Main entry point
+├── src/
+│   ├── css/               # All CSS source files
+│   │   ├── 0_config/      # Cascade layer definitions
+│   │   ├── 1_settings/    # Design tokens (tokens, typography, color)
+│   │   ├── 3_generic/     # CSS reset
+│   │   ├── 4_elements/    # Semantic HTML defaults
+│   │   ├── 5_layouts/     # Layout primitives (stack, grid, cluster)
+│   │   ├── 6_components/  # UI components (future)
+│   │   ├── 7_utilities/   # Utility classes (spacing, typography, color, grid)
+│   │   └── main.css       # CSS entry point
+│   ├── main.js            # Vite entry point (loads CSS + Web Components)
+│   └── html-include.js    # Web Component for HTML includes
 │
 ├── public/                # Your prototype (site root)
 │   ├── index.html         # Your HTML
+│   ├── _includes/         # HTML includes (header, footer, etc.)
 │   ├── fonts/             # Web fonts
 │   └── img/               # Images
 │
@@ -278,6 +282,100 @@ Example:
 4. **Extract patterns** - If you find yourself repeating the same class combinations, consider creating a component.
 
 **Remember:** Each Live Wires installation is one prototype. Build your HTML directly in `public/`.
+
+## HTML Includes
+
+Live Wires uses a **zero-dependency Web Component** for HTML includes, aligning with the "native CSS, minimal dependencies" philosophy.
+
+### How It Works
+
+The `<html-include>` custom element is defined in [src/html-include.js](src/html-include.js) and automatically loaded via [src/main.js](src/main.js). It fetches and renders HTML fragments at runtime using native browser APIs.
+
+### Usage
+
+**Important:** Load the Web Component script BEFORE any `<html-include>` tags:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (required!) -->
+    <script type="module" src="/src/main.js"></script>
+
+    <!-- Now includes will work -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body>
+    <html-include src="/_includes/header.html"></html-include>
+
+    <main>
+      <!-- Your page content -->
+    </main>
+
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
+```
+
+### Include Files
+
+Create reusable HTML fragments in [public/_includes/](public/_includes/):
+
+- **head.html** - Meta tags, title, Vite entry point
+- **header.html** - Site header and navigation
+- **footer.html** - Site footer
+- *(Add more as needed)*
+
+### Example Include
+
+```html
+<!-- public/_includes/header.html -->
+<header class="py-3 px-4 scheme-dark">
+  <div class="cluster cluster-space-between">
+    <div class="logo">
+      <a href="/"><img src="/img/logo.svg" alt="Site Name"></a>
+    </div>
+    <nav>
+      <ul class="cluster">
+        <li><a href="/">Home</a></li>
+        <li><a href="/guide/">Guide</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+```
+
+### SEO Considerations
+
+**Important:** Content loaded via `<html-include>` is fetched at runtime (not pre-rendered), which means:
+
+- Search engines may not see the included content
+- There will be a brief flash before includes load
+
+**Best practices:**
+- Use includes for **repeated UI elements** (header, footer, navigation)
+- Keep **unique page content** in the main HTML (not in includes)
+- For production sites requiring SEO, consider a build-time solution like `vite-plugin-handlebars`
+
+### Why Web Components?
+
+1. **Zero build dependencies** - Pure web standards
+2. **No syntax to learn** - Standard HTML
+3. **Works in dev and production** - No build step required
+4. **Aligns with philosophy** - Native CSS, native HTML, native JavaScript
+
+### Alternative: Build-Time Includes
+
+If SEO is critical, you can switch to a build-time solution:
+
+```bash
+npm install -D vite-plugin-handlebars
+```
+
+See the [HTML Includes research](https://github.com/anthropics/claude-code/discussions) for more options.
 
 ## Tailwind Compatibility
 
