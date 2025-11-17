@@ -9,7 +9,9 @@ export default defineConfig({
     cssMinify: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'public/index.html')
+        main: resolve(__dirname, 'public/index.html'),
+        guide: resolve(__dirname, 'public/guide/index.html'),
+        // Add other HTML files as needed
       }
     }
   },
