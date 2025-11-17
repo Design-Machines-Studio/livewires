@@ -2,10 +2,9 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
-  root: '.', // Changed from 'public' to project root so we can access src/
-  publicDir: 'public',
+  root: 'public',
   build: {
-    outDir: 'dist',
+    outDir: '../dist',
     emptyOutDir: true,
     cssMinify: true,
     rollupOptions: {
@@ -16,6 +15,11 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: '/public/'
+    open: '/',
+    fs: {
+      // Allow serving files from one level up (parent directory)
+      // This lets us access /src/css/main.css from HTML in /public/
+      allow: ['..']
+    }
   }
 });
