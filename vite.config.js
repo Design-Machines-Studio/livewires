@@ -3,6 +3,11 @@ import { resolve } from 'path';
 
 export default defineConfig({
   root: 'public',
+  resolve: {
+    alias: {
+      '/src': resolve(__dirname, 'src')
+    }
+  },
   build: {
     outDir: 'dist',
     emptyOutDir: true,
