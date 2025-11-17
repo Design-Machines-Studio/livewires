@@ -1,0 +1,144 @@
+/**
+ * Display & Position Utilities
+ *
+ * Comprehensive display, position, overflow, and z-index utilities
+ * Based on Louder Than Ten but modernized with logical properties
+ */
+
+@layer utilities {
+  /*
+   * DISPLAY
+   */
+  .block { display: block; }
+  .inline-block { display: inline-block; }
+  .inline { display: inline; }
+  .flex { display: flex; }
+  .inline-flex { display: inline-flex; }
+  .grid { display: grid; }
+  .inline-grid { display: inline-grid; }
+  .table { display: table; }
+  .table-cell { display: table-cell; }
+  .hidden { display: none; }
+
+  /*
+   * VISIBILITY
+   * Hides element but maintains layout space
+   */
+  .visible { visibility: visible; }
+  .invisible { visibility: hidden; }
+
+  /*
+   * POSITION
+   */
+  .static { position: static; }
+  .relative { position: relative; }
+  .absolute { position: absolute; }
+  .fixed { position: fixed; }
+  .sticky {
+    position: sticky;
+    top: 0;
+  }
+
+  /*
+   * POSITIONING VALUES
+   * Using logical properties for internationalization
+   */
+  .inset-0 { inset: 0; }
+
+  .top-0 { inset-block-start: 0; }
+  .bottom-0 { inset-block-end: 0; }
+  .left-0 { inset-inline-start: 0; }
+  .right-0 { inset-inline-end: 0; }
+
+  .top-auto { inset-block-start: auto; }
+  .bottom-auto { inset-block-end: auto; }
+  .left-auto { inset-inline-start: auto; }
+  .right-auto { inset-inline-end: auto; }
+
+  /*
+   * Z-INDEX SCALE
+   * 0-10 scale for layering control
+   */
+  .z-0 { z-index: 0; }
+  .z-1 { z-index: 1; }
+  .z-2 { z-index: 2; }
+  .z-3 { z-index: 3; }
+  .z-4 { z-index: 4; }
+  .z-5 { z-index: 5; }
+  .z-6 { z-index: 6; }
+  .z-7 { z-index: 7; }
+  .z-8 { z-index: 8; }
+  .z-9 { z-index: 9; }
+  .z-10 { z-index: 10; }
+  .z-auto { z-index: auto; }
+
+  /*
+   * OVERFLOW
+   */
+  .overflow-auto { overflow: auto; }
+  .overflow-hidden { overflow: hidden; }
+  .overflow-visible { overflow: visible; }
+  .overflow-scroll { overflow: scroll; }
+
+  .overflow-x-auto { overflow-x: auto; }
+  .overflow-x-hidden { overflow-x: hidden; }
+  .overflow-x-visible { overflow-x: visible; }
+  .overflow-x-scroll { overflow-x: scroll; }
+
+  .overflow-y-auto { overflow-y: auto; }
+  .overflow-y-hidden { overflow-y: hidden; }
+  .overflow-y-visible { overflow-y: visible; }
+  .overflow-y-scroll { overflow-y: scroll; }
+
+  /*
+   * FLOAT & CLEAR
+   * For legacy support and specific use cases
+   */
+  .float-left { float: left; }
+  .float-right { float: right; }
+  .float-none { float: none; }
+  .clear-left { clear: left; }
+  .clear-right { clear: right; }
+  .clear-both { clear: both; }
+  .clear-none { clear: none; }
+
+  /*
+   * CLEARFIX
+   * For clearing floats
+   */
+  .clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /*
+   * OPACITY
+   * 0-100% in 10% increments
+   */
+  .opacity-0 { opacity: 0; }
+  .opacity-10 { opacity: 0.1; }
+  .opacity-20 { opacity: 0.2; }
+  .opacity-30 { opacity: 0.3; }
+  .opacity-40 { opacity: 0.4; }
+  .opacity-50 { opacity: 0.5; }
+  .opacity-60 { opacity: 0.6; }
+  .opacity-70 { opacity: 0.7; }
+  .opacity-80 { opacity: 0.8; }
+  .opacity-90 { opacity: 0.9; }
+  .opacity-100 { opacity: 1; }
+
+  /*
+   * POINTER EVENTS
+   */
+  .pointer-events-none { pointer-events: none; }
+  .pointer-events-auto { pointer-events: auto; }
+
+  /*
+   * USER SELECT
+   */
+  .select-none { user-select: none; }
+  .select-text { user-select: text; }
+  .select-all { user-select: all; }
+  .select-auto { user-select: auto; }
+}

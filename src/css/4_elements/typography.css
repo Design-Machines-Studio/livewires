@@ -51,8 +51,10 @@
 
   /*
    * Lead paragraph (first paragraph often larger)
+   * Only applies to first paragraph in articles, not globally
    */
-  p:first-of-type {
+  article > p:first-of-type,
+  .lead {
     font-size: var(--text-4);
   }
 

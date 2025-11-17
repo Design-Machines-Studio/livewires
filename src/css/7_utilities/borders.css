@@ -1,0 +1,122 @@
+/**
+ * Border & Radius Utilities
+ *
+ * Comprehensive border and border-radius utilities
+ * Based on Louder Than Ten but modernized with logical properties
+ */
+
+@layer utilities {
+  /*
+   * BORDER WIDTH
+   * Using baseline multiples for borders
+   */
+  .border { border: 1px solid var(--color-border); }
+  .border-0 { border: 0; }
+  .border-1 { border: 1px solid var(--color-border); }
+  .border-2 { border: 2px solid var(--color-border); }
+  .border-3 { border: 3px solid var(--color-border); }
+  .border-4 { border: 4px solid var(--color-border); }
+
+  /*
+   * BORDER SIDES (using logical properties)
+   */
+  .border-t { border-block-start: 1px solid var(--color-border); }
+  .border-b { border-block-end: 1px solid var(--color-border); }
+  .border-l { border-inline-start: 1px solid var(--color-border); }
+  .border-r { border-inline-end: 1px solid var(--color-border); }
+
+  .border-t-0 { border-block-start: 0; }
+  .border-b-0 { border-block-end: 0; }
+  .border-l-0 { border-inline-start: 0; }
+  .border-r-0 { border-inline-end: 0; }
+
+  .border-t-2 { border-block-start: 2px solid var(--color-border); }
+  .border-b-2 { border-block-end: 2px solid var(--color-border); }
+  .border-l-2 { border-inline-start: 2px solid var(--color-border); }
+  .border-r-2 { border-inline-end: 2px solid var(--color-border); }
+
+  .border-t-4 { border-block-start: 4px solid var(--color-border); }
+  .border-b-4 { border-block-end: 4px solid var(--color-border); }
+  .border-l-4 { border-inline-start: 4px solid var(--color-border); }
+  .border-r-4 { border-inline-end: 4px solid var(--color-border); }
+
+  /*
+   * BORDER STYLES
+   */
+  .border-solid { border-style: solid; }
+  .border-dashed { border-style: dashed; }
+  .border-dotted { border-style: dotted; }
+  .border-double { border-style: double; }
+  .border-none { border-style: none; }
+
+  /*
+   * BORDER COLORS
+   * Semantic colors for borders
+   */
+  .border-current { border-color: currentColor; }
+  .border-transparent { border-color: transparent; }
+  .border-black { border-color: var(--color-black); }
+  .border-white { border-color: var(--color-white); }
+  .border-accent { border-color: var(--color-accent); }
+  .border-muted { border-color: var(--color-muted); }
+  .border-subtle { border-color: var(--color-subtle); }
+
+  /*
+   * BORDER RADIUS
+   * Using rem-based values for consistency
+   */
+  .rounded-none { border-radius: 0; }
+  .rounded-sm { border-radius: 0.125rem; }
+  .rounded { border-radius: 0.25rem; }
+  .rounded-md { border-radius: 0.375rem; }
+  .rounded-lg { border-radius: 0.5rem; }
+  .rounded-xl { border-radius: 0.75rem; }
+  .rounded-2xl { border-radius: 1rem; }
+  .rounded-3xl { border-radius: 1.5rem; }
+  .rounded-full { border-radius: 9999px; }
+
+  /*
+   * BORDER RADIUS - INDIVIDUAL CORNERS
+   * Using logical properties where applicable
+   */
+  .rounded-t { border-start-start-radius: 0.25rem; border-start-end-radius: 0.25rem; }
+  .rounded-b { border-end-start-radius: 0.25rem; border-end-end-radius: 0.25rem; }
+  .rounded-l { border-start-start-radius: 0.25rem; border-end-start-radius: 0.25rem; }
+  .rounded-r { border-start-end-radius: 0.25rem; border-end-end-radius: 0.25rem; }
+
+  .rounded-tl { border-start-start-radius: 0.25rem; }
+  .rounded-tr { border-start-end-radius: 0.25rem; }
+  .rounded-bl { border-end-start-radius: 0.25rem; }
+  .rounded-br { border-end-end-radius: 0.25rem; }
+
+  /*
+   * OUTLINE
+   * For focus states and emphasis
+   */
+  .outline-none { outline: 2px solid transparent; outline-offset: 2px; }
+  .outline { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .outline-accent { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .outline-white { outline: 2px solid var(--color-white); outline-offset: 2px; }
+  .outline-black { outline: 2px solid var(--color-black); outline-offset: 2px; }
+
+  /*
+   * RING (for focus states)
+   * Modern focus indicator pattern
+   */
+  .ring { box-shadow: 0 0 0 3px var(--color-accent); }
+  .ring-accent { box-shadow: 0 0 0 3px var(--color-accent); }
+  .ring-white { box-shadow: 0 0 0 3px var(--color-white); }
+  .ring-black { box-shadow: 0 0 0 3px var(--color-black); }
+  .ring-0 { box-shadow: none; }
+
+  /*
+   * DIVIDE (borders between children)
+   * Useful for lists and stacked elements
+   */
+  .divide-y > * + * { border-block-start: 1px solid var(--color-border); }
+  .divide-x > * + * { border-inline-start: 1px solid var(--color-border); }
+  .divide-y-0 > * + * { border-block-start: 0; }
+  .divide-x-0 > * + * { border-inline-start: 0; }
+  .divide-y-2 > * + * { border-block-start: 2px solid var(--color-border); }
+  .divide-x-2 > * + * { border-inline-start: 2px solid var(--color-border); }
+}

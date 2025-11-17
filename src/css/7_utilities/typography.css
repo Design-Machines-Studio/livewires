@@ -55,5 +55,98 @@
 
   /* Text decoration */
   .underline { text-decoration: underline; }
+  .line-through { text-decoration: line-through; }
   .no-underline { text-decoration: none; }
+
+  /*
+   * LETTER SPACING (tracking)
+   * Essential for editorial typography refinement
+   */
+  .tracking-tighter { letter-spacing: -0.05em; }
+  .tracking-tight { letter-spacing: -0.025em; }
+  .tracking-normal { letter-spacing: 0; }
+  .tracking-wide { letter-spacing: 0.025em; }
+  .tracking-wider { letter-spacing: 0.05em; }
+  .tracking-widest { letter-spacing: 0.1em; }
+
+  /*
+   * LINE HEIGHT (leading)
+   * Fine-grained control for typography
+   */
+  .leading-none { line-height: 1; }
+  .leading-tight { line-height: var(--leading-tight); }
+  .leading-snug { line-height: 1.375; }
+  .leading-normal { line-height: var(--leading-normal); }
+  .leading-relaxed { line-height: 1.625; }
+  .leading-loose { line-height: var(--leading-loose); }
+
+  /* Numeric line heights for precise control */
+  .leading-3 { line-height: 0.75rem; }
+  .leading-4 { line-height: 1rem; }
+  .leading-5 { line-height: 1.25rem; }
+  .leading-6 { line-height: 1.5rem; }
+  .leading-7 { line-height: 1.75rem; }
+  .leading-8 { line-height: 2rem; }
+  .leading-9 { line-height: 2.25rem; }
+  .leading-10 { line-height: 2.5rem; }
+
+  /*
+   * WHITE SPACE
+   * Control text wrapping and whitespace
+   */
+  .whitespace-normal { white-space: normal; }
+  .whitespace-nowrap { white-space: nowrap; }
+  .whitespace-pre { white-space: pre; }
+  .whitespace-pre-line { white-space: pre-line; }
+  .whitespace-pre-wrap { white-space: pre-wrap; }
+
+  /*
+   * WORD BREAK
+   * Control line breaking
+   */
+  .break-normal { overflow-wrap: normal; word-break: normal; }
+  .break-words { overflow-wrap: break-word; }
+  .break-all { word-break: break-all; }
+
+  /*
+   * TEXT OVERFLOW
+   * Handle overflowing text
+   */
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .text-ellipsis { text-overflow: ellipsis; }
+  .text-clip { text-overflow: clip; }
+
+  /*
+   * VERTICAL ALIGNMENT
+   */
+  .align-baseline { vertical-align: baseline; }
+  .align-top { vertical-align: top; }
+  .align-middle { vertical-align: middle; }
+  .align-bottom { vertical-align: bottom; }
+  .align-text-top { vertical-align: text-top; }
+  .align-text-bottom { vertical-align: text-bottom; }
+
+  /*
+   * LIST STYLE
+   */
+  .list-none { list-style-type: none; }
+  .list-disc { list-style-type: disc; }
+  .list-decimal { list-style-type: decimal; }
+  .list-inside { list-style-position: inside; }
+  .list-outside { list-style-position: outside; }
+
+  /*
+   * FONT VARIANT
+   * For special typographic features
+   */
+  .font-variant-normal { font-variant: normal; }
+  .small-caps { font-variant: small-caps; }
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+  .diagonal-fractions { font-variant-numeric: diagonal-fractions; }
+  .oldstyle-nums { font-variant-numeric: oldstyle-nums; }
 }

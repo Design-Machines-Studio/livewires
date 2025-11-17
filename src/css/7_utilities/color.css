@@ -1,7 +1,8 @@
 /**
  * Color Utilities
  *
- * Text colors, background colors, and color schemes
+ * Minimal color utilities for prototyping and wireframing
+ * Keep this simple - theming should be handled in projects, not the framework
  */
 
 @layer utilities {
@@ -9,41 +10,17 @@
   .text-fg { color: var(--color-fg); }
   .text-accent { color: var(--color-accent); }
   .text-muted { color: var(--color-muted); }
+  .text-white { color: var(--color-white); }
+  .text-black { color: var(--color-black); }
 
   /* Background colors */
   .bg-white { background: var(--color-white); }
+  .bg-black { background: var(--color-black); }
   .bg-subtle { background: var(--color-subtle); }
   .bg-accent { background: var(--color-accent); color: var(--color-white); }
+  .bg-transparent { background: transparent; }
 
   /* Border colors */
   .border-default { border-color: var(--color-border); }
   .border-accent { border-color: var(--color-accent); }
-
-  /*
-   * Color Schemes
-   * Override component colors for art direction
-   */
-  .scheme-warm {
-    --color-bg: var(--scheme-warm-bg);
-    --color-fg: var(--scheme-warm-fg);
-    --color-accent: var(--scheme-warm-accent);
-    background: var(--color-bg);
-    color: var(--color-fg);
-  }
-
-  .scheme-cool {
-    --color-bg: var(--scheme-cool-bg);
-    --color-fg: var(--scheme-cool-fg);
-    --color-accent: var(--scheme-cool-accent);
-    background: var(--color-bg);
-    color: var(--color-fg);
-  }
-
-  .scheme-dark {
-    --color-bg: var(--scheme-dark-bg);
-    --color-fg: var(--scheme-dark-fg);
-    --color-accent: var(--scheme-dark-accent);
-    background: var(--color-bg);
-    color: var(--color-fg);
-  }
 }

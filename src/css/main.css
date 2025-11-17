@@ -42,7 +42,6 @@
 @import './6_components/callouts.css';
 @import './6_components/rows.css';
 @import './6_components/rules.css';
-@import './6_components/color-schemes.css';
 @import './6_components/drawers.css';
 @import './6_components/navigation.css';
 @import './6_components/tabs.css';
@@ -61,7 +60,12 @@
 @import './6_components/text-styles.css';
 
 /* Utilities */
+@import './7_utilities/display.css';
 @import './7_utilities/spacing.css';
+@import './7_utilities/flexbox.css';
+@import './7_utilities/sizing.css';
+@import './7_utilities/borders.css';
 @import './7_utilities/typography.css';
 @import './7_utilities/color.css';
+@import './7_utilities/media.css';
 @import './7_utilities/grid.css';

@@ -1,0 +1,155 @@
+/**
+ * Flexbox Utilities
+ *
+ * Comprehensive flex layout utilities based on Louder Than Ten
+ * Modernized with logical properties and container queries
+ */
+
+@layer utilities {
+  /*
+   * FLEX DIRECTION
+   */
+  .flex-row { flex-direction: row; }
+  .flex-row-reverse { flex-direction: row-reverse; }
+  .flex-column { flex-direction: column; }
+  .flex-column-reverse { flex-direction: column-reverse; }
+
+  /*
+   * FLEX WRAP
+   */
+  .flex-wrap { flex-wrap: wrap; }
+  .flex-wrap-reverse { flex-wrap: wrap-reverse; }
+  .flex-nowrap { flex-wrap: nowrap; }
+
+  /*
+   * FLEX GROW, SHRINK, BASIS
+   */
+  .flex-auto {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+  }
+  .flex-1 { flex: 1 1 0%; }
+  .flex-initial { flex: 0 1 auto; }
+  .flex-none { flex: none; }
+
+  .flex-grow { flex-grow: 1; }
+  .flex-grow-0 { flex-grow: 0; }
+  .flex-shrink { flex-shrink: 1; }
+  .flex-shrink-0 { flex-shrink: 0; }
+
+  /*
+   * JUSTIFY CONTENT
+   * Main axis alignment
+   */
+  .justify-start { justify-content: flex-start; }
+  .justify-end { justify-content: flex-end; }
+  .justify-center { justify-content: center; }
+  .justify-between { justify-content: space-between; }
+  .justify-around { justify-content: space-around; }
+  .justify-evenly { justify-content: space-evenly; }
+  .justify-stretch { justify-content: stretch; }
+
+  /*
+   * JUSTIFY ITEMS
+   * Grid and flex item positioning
+   */
+  .justify-items-start { justify-items: start; }
+  .justify-items-end { justify-items: end; }
+  .justify-items-center { justify-items: center; }
+  .justify-items-stretch { justify-items: stretch; }
+
+  /*
+   * JUSTIFY SELF
+   * Individual item positioning
+   */
+  .justify-self-auto { justify-self: auto; }
+  .justify-self-start { justify-self: start; }
+  .justify-self-end { justify-self: end; }
+  .justify-self-center { justify-self: center; }
+  .justify-self-stretch { justify-self: stretch; }
+
+  /*
+   * ALIGN ITEMS
+   * Cross axis alignment
+   */
+  .items-start { align-items: flex-start; }
+  .items-end { align-items: flex-end; }
+  .items-center { align-items: center; }
+  .items-baseline { align-items: baseline; }
+  .items-stretch { align-items: stretch; }
+
+  /*
+   * ALIGN CONTENT
+   * Multi-line alignment
+   */
+  .content-start { align-content: flex-start; }
+  .content-end { align-content: flex-end; }
+  .content-center { align-content: center; }
+  .content-between { align-content: space-between; }
+  .content-around { align-content: space-around; }
+  .content-evenly { align-content: space-evenly; }
+  .content-stretch { align-content: stretch; }
+
+  /*
+   * ALIGN SELF
+   * Individual cross axis alignment
+   */
+  .self-auto { align-self: auto; }
+  .self-start { align-self: flex-start; }
+  .self-end { align-self: flex-end; }
+  .self-center { align-self: center; }
+  .self-stretch { align-self: stretch; }
+  .self-baseline { align-self: baseline; }
+
+  /*
+   * ORDER
+   * Control visual order of flex items
+   */
+  .order-first { order: -1; }
+  .order-last { order: 99999; }
+  .order-none { order: 0; }
+  .order-1 { order: 1; }
+  .order-2 { order: 2; }
+  .order-3 { order: 3; }
+  .order-4 { order: 4; }
+  .order-5 { order: 5; }
+  .order-6 { order: 6; }
+  .order-7 { order: 7; }
+  .order-8 { order: 8; }
+  .order-9 { order: 9; }
+  .order-10 { order: 10; }
+  .order-11 { order: 11; }
+  .order-12 { order: 12; }
+
+  /*
+   * GAP
+   * Flex and grid gap utilities (already in spacing, but repeated here for completeness)
+   */
+  .gap-0 { gap: var(--space-0); }
+  .gap-025 { gap: var(--space-025); }
+  .gap-05 { gap: var(--space-05); }
+  .gap-075 { gap: var(--space-075); }
+  .gap-1 { gap: var(--space-1); }
+  .gap-15 { gap: var(--space-15); }
+  .gap-2 { gap: var(--space-2); }
+  .gap-3 { gap: var(--space-3); }
+  .gap-4 { gap: var(--space-4); }
+  .gap-5 { gap: var(--space-5); }
+  .gap-6 { gap: var(--space-6); }
+  .gap-1px { gap: var(--space-1px); }
+
+  /* Row gaps */
+  .row-gap-0 { row-gap: var(--space-0); }
+  .row-gap-1 { row-gap: var(--space-1); }
+  .row-gap-2 { row-gap: var(--space-2); }
+  .row-gap-3 { row-gap: var(--space-3); }
+  .row-gap-4 { row-gap: var(--space-4); }
+
+  /* Column gaps */
+  .column-gap-0 { column-gap: var(--space-0); }
+  .column-gap-1 { column-gap: var(--space-1); }
+  .column-gap-2 { column-gap: var(--space-2); }
+  .column-gap-3 { column-gap: var(--space-3); }
+  .column-gap-4 { column-gap: var(--space-4); }
+}
