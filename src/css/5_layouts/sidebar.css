@@ -1,0 +1,36 @@
+/**
+ * Sidebar Layout
+ *
+ * Flexible two-column layout (sidebar + main content)
+ * Inspired by Every Layout
+ */
+
+@layer layouts {
+  .sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sidebar-space, var(--gutter));
+  }
+
+  .sidebar > * {
+    flex-grow: 1;
+  }
+
+  /* Sidebar element (narrower) */
+  .sidebar > :first-child {
+    flex-basis: var(--sidebar-width, 20rem);
+    flex-grow: 0;
+  }
+
+  /* Main content (wider) */
+  .sidebar > :last-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: var(--sidebar-content-min, 50%);
+  }
+
+  /* Reverse layout (sidebar on right) */
+  .sidebar-reverse {
+    flex-direction: row-reverse;
+  }
+}

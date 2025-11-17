@@ -1,0 +1,14 @@
+/**
+ * Body Element
+ *
+ * Center content with comfortable margins
+ */
+
+@layer base {
+  body {
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: var(--margin);
+    padding-block: var(--space-4);
+  }
+}

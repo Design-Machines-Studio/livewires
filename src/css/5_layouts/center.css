@@ -1,0 +1,29 @@
+/**
+ * Center Layout
+ *
+ * Horizontally center content with max-width
+ * Inspired by Every Layout
+ */
+
+@layer layouts {
+  .center {
+    box-sizing: content-box;
+    max-inline-size: var(--center-max-width, var(--measure));
+    margin-inline: auto;
+    padding-inline: var(--center-padding, var(--space-2));
+  }
+
+  /* Width variations */
+  .center-wide {
+    --center-max-width: var(--measure-wide);
+  }
+
+  .center-narrow {
+    --center-max-width: var(--measure-narrow);
+  }
+
+  /* Text centering */
+  .center-text {
+    text-align: center;
+  }
+}

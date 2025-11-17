@@ -1,127 +1,114 @@
 <!DOCTYPE html>
-<html class="no-js">
-  <head>
-    <!-- Include meta tags -->
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="HandheldFriendly" content="True" />
-<meta name="MobileOptimized" content="320" />
-<meta name="viewport" content="initial-scale=1.0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Wires 2026 - Prototyping System</title>
+  <link rel="stylesheet" href="/src/css/main.css">
+</head>
+<body>
+  <header class="mb-6">
+    <nav>
+      <ul class="cluster">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="article.html">Article</a></li>
+        <li><a href="style-guide.html">Style Guide</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- Title block allowing child pages to override -->
-<title>Live Wires</title>
+  <main>
+    <article class="stack-comfortable">
+      <header class="stack mb-6">
+        <h1>Live Wires 2026</h1>
+        <p class="text-4 measure">A prototyping-first design system for editorial websites. Built with modern CSS, rooted in timeless design principles.</p>
+      </header>
 
-<meta name="description" content="">
+      <section class="stack">
+        <h2>Philosophy: Good Defaults + Additive Art Direction</h2>
 
-<link rel="canonical" href="">
-<link rel="alternate" type="application/rss+xml" title="" href="" />
-<link rel="shortcut icon" href="/img/favicon.ico" />
-<link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon-precomposed.png" />
+        <p>This page demonstrates that semantic HTML looks good with minimal classes. The baseline typography, spacing, and layout just work.</p>
 
-<!-- Fontawesome icons. Remove if not using -->
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <p>Live Wires is not a component library. It's a design philosophy and workflow tool that helps you:</p>
 
+        <ul>
+          <li>Prototype quickly in HTML & CSS</li>
+          <li>Systematize patterns as you discover them</li>
+          <li>Add art direction through utility classes</li>
+          <li>Maintain perfect vertical rhythm</li>
+        </ul>
 
-<link href="/css/app.css" rel="stylesheet" media="all" />
+        <h3>The Sacred Baseline</h3>
 
-<meta name="description" content="">
+        <p>Everything in Live Wires derives from the <code>--line</code> variable. Change the base font size or line height, and the entire system recalculates. This ensures perfect vertical rhythm across your design.</p>
 
-<!-- global Open Graph tags -->
-<meta property="og:title" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:image" content="" />
-<meta property="og:description" content="" />
-<meta property="og:url" content="" />
-<meta property="og:site_name" content="" />
+        <blockquote>
+          <p>Good design is as little design as possible. Start with sensible defaults, then add classes for art direction.</p>
+        </blockquote>
+      </section>
 
-<!-- Twitter social tags -->
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:url" content="" />
-<meta name="twitter:site" content="">
-  </head>
-  <body>
+      <section class="stack mt-6">
+        <h2>Layout Primitives</h2>
 
-    <!-- Header section -->
-    <header class="row row--tight">
-  <div class="logo"><a href="/"><img src="/img/logo.svg" alt="LOGO" /></a></div>
-  <nav class="horizontal-nav pull-right">
-    <ul>
-      <li><a href="/example/">Live Wires example</a></li>
-      <li><a href="/guide/">Live Wires guide</a></li>
-    </ul>
-  </nav>
-</header>
+        <p>Instead of traditional grid systems, Live Wires uses compositional layout primitives inspired by <a href="https://every-layout.dev">Every Layout</a>.</p>
 
-    <!-- Content block, child page inject content -->
-    <main class="main" id="main" role="main">
-    <div class="row">
-  <section class="primary-content">
-    <h1>Your Live Wires playground</h1>
-    <p class="lead"><em>Today we stop making trash and, instead, start building living, breathing beauties that will look and act the way they were imagined.</em></p>
+        <div class="grid grid-columns-3 mt-4">
+          <div class="p-3 bg-subtle">
+            <h4 class="mb-2">Stack</h4>
+            <p class="text-2">Vertical spacing between elements</p>
+          </div>
+          <div class="p-3 bg-subtle">
+            <h4 class="mb-2">Grid</h4>
+            <p class="text-2">Auto-responsive grid layouts</p>
+          </div>
+          <div class="p-3 bg-subtle">
+            <h4 class="mb-2">Cluster</h4>
+            <p class="text-2">Horizontal groups with wrapping</p>
+          </div>
+        </div>
+      </section>
 
-    <p>Good stuff! You&rsquo;ve downloaded and set up Live Wires successfully on your machine. Here's how it works:</p>
-    <p>Live Wires is a platform-agnostic design framework made with Sass that allows you to create responsive grey-box wireframes and prototypes in HTML &amp; SCSS. You can keep all your code without needing to create static mock ups or other deliverables you end up throwing away.<p>
-  </section>
+      <section class="stack mt-6">
+        <h2>Color Schemes for Art Direction</h2>
 
-  <section class="secondary-content">
-    <h2>Recommended workflow<h2>
-    <h3>Step one</h3>
-    <p>Begin by creating your low-fidelity wireframes right here. This page will act as the index or home page of your project. Feel free to delete or overwrite the content on this page with your own.</p>
-    <h3>Step two</h3>
-    <p>Use the <a href="/guide/">linked style guide</a> to style your elements, components, and modules.</p>
-    <h3>Step three</h3>
-    <p>Refine your templates and share with your team or clients as fully-responsive high-fidelity prototypes.</p>
-    <h3>Step four</h3>
-    <p>Apply your prototype to a CMS or app and you&rsquo;re done.</p>
-  </section>
-</div>
+        <p>Apply color schemes to sections for editorial variety:</p>
 
-<div class="row">
-  <h2>How do I use Live Wires?</h2>
+        <div class="stack-compact mt-4">
+          <div class="scheme-warm p-4">
+            <h4>Warm Scheme</h4>
+            <p>Perfect for friendly, approachable content.</p>
+          </div>
 
-  <section class="three-up">
-    <p><a href="http://livewires.io"class="button button--grey">Explore the Live Wires site</a></p>
-    <p>Check out the Live Wires site for general workflow and features.</p>
-  </section>
+          <div class="scheme-cool p-4">
+            <h4>Cool Scheme</h4>
+            <p>Great for professional, technical topics.</p>
+          </div>
 
-  <section class="three-up">
-    <p><a href="/guide/" class="button button--blue">View your Live Wires guide</a></p>
-    <p>It provides documentation on how Live Wires works and doubles as your project&rsquo;s style guide when you&rsquo;re ready to dig into design.</p>
-  </section>
+          <div class="scheme-dark p-4">
+            <h4>Dark Scheme</h4>
+            <p>High contrast for emphasis.</p>
+          </div>
+        </div>
+      </section>
 
-  <section class="three-up">
-    <p><a href="/example/" class="button button--red">See a Live Wires example</a></p>
-    <p>Examples are also contained in your example folder.</p>
-  </section>
-</div>
+      <section class="stack mt-6">
+        <h2>Utility Classes</h2>
 
-<div class="row reverse">
-  <section class="split-content">
-    <h2>Support</h2>
-    <p>Submit your bug reports, pull requests, and questions to <a href="https://github.com/louderthanten/livewires/issues">GitHub</a>.</p>
-    <p>Questions? Visit <a href="http://livewires.io">Live Wires</a>.</p>
-  </section>
+        <p>Tailwind-compatible utilities for precise control:</p>
 
-  <section class="split-content">
-    <h2>About</h2>
-    <p><a href="http://twitter.com/louderthanten">Follow us on Twitter</a> and stay tuned for more detailed video how-tos about this design workflow.</p>
-    <p>Live Wires was built by <a href="http://www.louderthanten.com"></a>.</p>
-  </section>
-</div>
-    </main>
+        <div class="cluster mt-3">
+          <code class="bg-subtle p-2">.mt-4</code>
+          <code class="bg-subtle p-2">.text-center</code>
+          <code class="bg-subtle p-2">.font-bold</code>
+          <code class="bg-subtle p-2">.measure</code>
+          <code class="bg-subtle p-2">.grid-span-2</code>
+        </div>
+      </section>
+    </article>
+  </main>
 
-    <!-- Footer section -->
-    <footer class="footer row subtle">
-  <p><small><a href="/">Home</a> | <a href="/guide/">Guide</a> | <a href="/example/">Example</a></small></p>
-  <p><small>&copy; Louder Than Ten. Rapidly built with <a href="http://www.livewires.io">Live Wires</a>.</small></p>
-</footer>
-
-    <!-- JS Includes -->
-    <!-- Third party js plugins -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js" defer></script>
-<script src="/bower_components/fitvids/jquery.fitvids.js" defer></script>
-
-<!-- Project js -->
-<script src="/js/app.min.js" defer></script>
-  </body>
+  <footer class="mt-6 pt-4 text-center text-2 text-muted">
+    <p>Live Wires 2026 &middot; Built with modern CSS &middot; <a href="https://github.com/design-machines-studio/livewires">View on GitHub</a></p>
+  </footer>
+</body>
 </html>

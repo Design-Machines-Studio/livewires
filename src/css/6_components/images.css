@@ -1,0 +1,35 @@
+/**
+ * Images Component
+ *
+ * Image positioning and figure helpers.
+ * Ported from source/scss/5_components/_media--images.scss
+ */
+
+@layer components {
+  /* Image positioning helpers - applied at larger screens */
+  @media (min-width: 48em) {
+    .img--right {
+      margin-block-end: var(--space-2);
+      margin-inline-start: var(--space-2);
+      float: right;
+    }
+
+    .img--left {
+      margin-block-end: var(--space-2);
+      margin-inline-end: var(--space-2);
+      float: left;
+    }
+
+    .img--center {
+      display: block;
+      margin-inline: auto;
+      margin-block-end: var(--space-2);
+    }
+
+    /* Caption source alignment */
+    .source {
+      float: right;
+      text-align: right;
+    }
+  }
+}

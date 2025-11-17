@@ -1,0 +1,24 @@
+/**
+ * Links
+ *
+ * Simple, accessible link styles
+ */
+
+@layer base {
+  a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    transition: all 0.2s linear;
+
+    &:hover {
+      color: var(--color-fg);
+    }
+  }
+
+  /* Global transitions for interactive elements */
+  button,
+  input[type="submit"] {
+    transition: all 0.2s linear;
+  }
+}

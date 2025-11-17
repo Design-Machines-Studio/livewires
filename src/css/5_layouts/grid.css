@@ -1,0 +1,63 @@
+/**
+ * Grid Layout
+ *
+ * Auto-responsive grid with container queries
+ * No breakpoints needed for basic layouts
+ */
+
+@layer layouts {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+    gap: var(--grid-gap, var(--gutter));
+    container-type: inline-size;
+  }
+
+  /* Fixed column grids */
+  .grid-columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid-columns-6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .grid-columns-12 {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  /* Column spanning */
+  .grid-span-2 { grid-column: span 2; }
+  .grid-span-3 { grid-column: span 3; }
+  .grid-span-4 { grid-column: span 4; }
+  .grid-span-6 { grid-column: span 6; }
+  .grid-span-full { grid-column: 1 / -1; }
+
+  /* Gap variations */
+  .grid-gap-0 { gap: 0; }
+  .grid-gap-1 { gap: var(--space-1); }
+  .grid-gap-2 { gap: var(--space-2); }
+  .grid-gap-3 { gap: var(--space-3); }
+  .grid-gap-4 { gap: var(--space-4); }
+
+  /* Container query responsive spanning */
+  @container (min-width: 40rem) {
+    .grid-span-2\@md { grid-column: span 2; }
+    .grid-span-3\@md { grid-column: span 3; }
+    .grid-span-4\@md { grid-column: span 4; }
+  }
+
+  @container (min-width: 60rem) {
+    .grid-span-2\@lg { grid-column: span 2; }
+    .grid-span-3\@lg { grid-column: span 3; }
+    .grid-span-4\@lg { grid-column: span 4; }
+  }
+}

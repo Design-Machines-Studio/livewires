@@ -1,0 +1,14 @@
+/**
+ * CSS Cascade Layers
+ *
+ * Define explicit cascade order for predictable specificity.
+ * Layers declared later have higher priority.
+ *
+ * - reset: Browser normalization
+ * - base: Semantic HTML element defaults
+ * - layouts: Compositional layout primitives
+ * - components: Named UI patterns
+ * - utilities: Single-purpose classes (always win)
+ */
+
+@layer reset, base, layouts, components, utilities;

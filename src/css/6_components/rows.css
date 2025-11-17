@@ -1,0 +1,72 @@
+/**
+ * Row Component
+ *
+ * Row classes separate page sections and establish the grid within those sections.
+ * Ported from source/scss/5_components/_layout--rows.scss
+ */
+
+@layer components {
+  .row {
+    position: relative;
+    padding-block: var(--space-3);
+    padding-inline: var(--gutter);
+  }
+
+  /* Remove vertical padding variants */
+  .row--tight {
+    padding-block: 0;
+  }
+
+  .row--top {
+    padding-block-end: 0;
+  }
+
+  .row--bottom {
+    padding-block-start: 0;
+  }
+
+  /* Edge to edge on mobile */
+  .row--m-full {
+    padding-inline: 0;
+  }
+
+  /* Responsive spacing */
+  @media (min-width: 48em) {
+    .row,
+    .row--mobile-full {
+      padding-block: var(--space-4);
+
+      /* Add gutters to immediate children unless they have .collapse class */
+      & .gutters,
+      & > *:not(.collapse) {
+        padding-inline: var(--space-2);
+      }
+    }
+
+    .row--tight {
+      padding-block: 0;
+    }
+
+    .row--top {
+      padding-block-end: 0;
+    }
+
+    .row--bottom {
+      padding-block-start: 0;
+    }
+
+    .row--snug {
+      padding-block: var(--space-3);
+    }
+
+    .row--loose {
+      padding-block: var(--space-6);
+    }
+  }
+
+  @media (min-width: 64em) {
+    .row {
+      padding-inline: calc(var(--gutter) * 2);
+    }
+  }
+}

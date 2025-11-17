@@ -1,0 +1,116 @@
+/**
+ * Typography Elements
+ *
+ * Headings, paragraphs, and text elements
+ * Should look good with zero classes applied
+ */
+
+@layer base {
+  /*
+   * Headings
+   */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--leading-tight);
+    margin-block-end: var(--space-2);
+  }
+
+  h1 {
+    font-size: var(--text-7);
+    margin-block-end: var(--space-3);
+  }
+
+  h2 {
+    font-size: var(--text-6);
+  }
+
+  h3 {
+    font-size: var(--text-5);
+  }
+
+  h4 {
+    font-size: var(--text-4);
+  }
+
+  h5 {
+    font-size: var(--text-3);
+  }
+
+  h6 {
+    font-size: var(--text-2);
+  }
+
+  /*
+   * Paragraphs
+   */
+  p {
+    margin-block-end: var(--space-2);
+    max-width: var(--measure);
+  }
+
+  /*
+   * Lead paragraph (first paragraph often larger)
+   */
+  p:first-of-type {
+    font-size: var(--text-4);
+  }
+
+  /*
+   * Blockquotes
+   */
+  blockquote {
+    margin-inline-start: var(--space-3);
+    padding-inline-start: var(--space-2);
+    border-inline-start: 4px solid var(--color-border);
+    font-style: italic;
+    color: var(--color-muted);
+
+    & p {
+      margin-block-end: var(--space-2);
+    }
+  }
+
+  /*
+   * Code
+   */
+  code {
+    font-family: var(--font-code);
+    font-size: 0.9em;
+    background: var(--color-subtle);
+    padding-inline: 0.25em;
+    padding-block: 0.125em;
+    border-radius: 0.25em;
+  }
+
+  pre {
+    background: var(--color-subtle);
+    padding: var(--space-2);
+    overflow-x: auto;
+    border-radius: 0.5em;
+    margin-block-end: var(--space-3);
+
+    & code {
+      background: none;
+      padding: 0;
+    }
+  }
+
+  /*
+   * Emphasis
+   */
+  strong, b {
+    font-weight: var(--font-weight-bold);
+  }
+
+  em, i {
+    font-style: italic;
+  }
+
+  /*
+   * Small text
+   */
+  small {
+    font-size: var(--text-2);
+  }
+}

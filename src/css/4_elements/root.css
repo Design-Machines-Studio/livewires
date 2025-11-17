@@ -1,0 +1,15 @@
+/**
+ * Root Element
+ *
+ * Set base font properties on the root element
+ */
+
+@layer base {
+  :root {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--line-height-ratio);
+    color: var(--color-fg);
+    background: var(--color-bg);
+  }
+}

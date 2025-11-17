@@ -1,0 +1,109 @@
+/**
+ * Spacing Utilities
+ *
+ * Margin and padding utilities using logical properties
+ * Tailwind-compatible naming where sensible
+ */
+
+@layer utilities {
+  /* Margin block (top/bottom) */
+  .mt-0 { margin-block-start: var(--space-0); }
+  .mt-1 { margin-block-start: var(--space-1); }
+  .mt-2 { margin-block-start: var(--space-2); }
+  .mt-3 { margin-block-start: var(--space-3); }
+  .mt-4 { margin-block-start: var(--space-4); }
+  .mt-5 { margin-block-start: var(--space-5); }
+  .mt-6 { margin-block-start: var(--space-6); }
+
+  .mb-0 { margin-block-end: var(--space-0); }
+  .mb-1 { margin-block-end: var(--space-1); }
+  .mb-2 { margin-block-end: var(--space-2); }
+  .mb-3 { margin-block-end: var(--space-3); }
+  .mb-4 { margin-block-end: var(--space-4); }
+  .mb-5 { margin-block-end: var(--space-5); }
+  .mb-6 { margin-block-end: var(--space-6); }
+
+  /* Margin inline (left/right) */
+  .ml-0 { margin-inline-start: var(--space-0); }
+  .ml-1 { margin-inline-start: var(--space-1); }
+  .ml-2 { margin-inline-start: var(--space-2); }
+  .ml-3 { margin-inline-start: var(--space-3); }
+  .ml-4 { margin-inline-start: var(--space-4); }
+
+  .mr-0 { margin-inline-end: var(--space-0); }
+  .mr-1 { margin-inline-end: var(--space-1); }
+  .mr-2 { margin-inline-end: var(--space-2); }
+  .mr-3 { margin-inline-end: var(--space-3); }
+  .mr-4 { margin-inline-end: var(--space-4); }
+
+  /* Margin all sides */
+  .m-0 { margin: var(--space-0); }
+  .m-1 { margin: var(--space-1); }
+  .m-2 { margin: var(--space-2); }
+  .m-3 { margin: var(--space-3); }
+  .m-4 { margin: var(--space-4); }
+
+  /* Margin x-axis */
+  .mx-0 { margin-inline: var(--space-0); }
+  .mx-1 { margin-inline: var(--space-1); }
+  .mx-2 { margin-inline: var(--space-2); }
+  .mx-3 { margin-inline: var(--space-3); }
+  .mx-4 { margin-inline: var(--space-4); }
+  .mx-auto { margin-inline: auto; }
+
+  /* Margin y-axis */
+  .my-0 { margin-block: var(--space-0); }
+  .my-1 { margin-block: var(--space-1); }
+  .my-2 { margin-block: var(--space-2); }
+  .my-3 { margin-block: var(--space-3); }
+  .my-4 { margin-block: var(--space-4); }
+
+  /* Padding block (top/bottom) */
+  .pt-0 { padding-block-start: var(--space-0); }
+  .pt-1 { padding-block-start: var(--space-1); }
+  .pt-2 { padding-block-start: var(--space-2); }
+  .pt-3 { padding-block-start: var(--space-3); }
+  .pt-4 { padding-block-start: var(--space-4); }
+
+  .pb-0 { padding-block-end: var(--space-0); }
+  .pb-1 { padding-block-end: var(--space-1); }
+  .pb-2 { padding-block-end: var(--space-2); }
+  .pb-3 { padding-block-end: var(--space-3); }
+  .pb-4 { padding-block-end: var(--space-4); }
+
+  /* Padding inline (left/right) */
+  .pl-0 { padding-inline-start: var(--space-0); }
+  .pl-1 { padding-inline-start: var(--space-1); }
+  .pl-2 { padding-inline-start: var(--space-2); }
+  .pl-3 { padding-inline-start: var(--space-3); }
+  .pl-4 { padding-inline-start: var(--space-4); }
+
+  .pr-0 { padding-inline-end: var(--space-0); }
+  .pr-1 { padding-inline-end: var(--space-1); }
+  .pr-2 { padding-inline-end: var(--space-2); }
+  .pr-3 { padding-inline-end: var(--space-3); }
+  .pr-4 { padding-inline-end: var(--space-4); }
+
+  /* Padding all sides */
+  .p-0 { padding: var(--space-0); }
+  .p-1 { padding: var(--space-1); }
+  .p-2 { padding: var(--space-2); }
+  .p-3 { padding: var(--space-3); }
+  .p-4 { padding: var(--space-4); }
+  .p-5 { padding: var(--space-5); }
+  .p-6 { padding: var(--space-6); }
+
+  /* Padding x-axis */
+  .px-0 { padding-inline: var(--space-0); }
+  .px-1 { padding-inline: var(--space-1); }
+  .px-2 { padding-inline: var(--space-2); }
+  .px-3 { padding-inline: var(--space-3); }
+  .px-4 { padding-inline: var(--space-4); }
+
+  /* Padding y-axis */
+  .py-0 { padding-block: var(--space-0); }
+  .py-1 { padding-block: var(--space-1); }
+  .py-2 { padding-block: var(--space-2); }
+  .py-3 { padding-block: var(--space-3); }
+  .py-4 { padding-block: var(--space-4); }
+}

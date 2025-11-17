@@ -1,0 +1,79 @@
+/**
+ * Modern CSS Reset
+ *
+ * Sensible defaults for modern browsers
+ */
+
+@layer reset {
+  /*
+   * Box sizing reset
+   */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /*
+   * Remove default margins
+   */
+  * {
+    margin: 0;
+  }
+
+  /*
+   * Body defaults
+   */
+  body {
+    line-height: var(--line-height-ratio);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /*
+   * Media elements
+   */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /*
+   * Form elements inherit fonts
+   */
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  /*
+   * Avoid text overflows
+   */
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+
+  /*
+   * Improve table defaults
+   */
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  /*
+   * Remove button styles
+   */
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  /*
+   * Remove list styles
+   */
+  ul, ol {
+    list-style: none;
+    padding: 0;
+  }
+}

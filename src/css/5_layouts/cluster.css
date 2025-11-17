@@ -1,0 +1,34 @@
+/**
+ * Cluster Layout
+ *
+ * Horizontal grouping with wrapping (navigation, tags, etc.)
+ * Inspired by Every Layout
+ */
+
+@layer layouts {
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cluster-space, var(--space-2));
+    align-items: var(--cluster-align, center);
+    justify-content: var(--cluster-justify, flex-start);
+  }
+
+  /* Spacing variations */
+  .cluster-compact {
+    --cluster-space: var(--space-1);
+  }
+
+  /* Alignment variations */
+  .cluster-center {
+    --cluster-justify: center;
+  }
+
+  .cluster-end {
+    --cluster-justify: flex-end;
+  }
+
+  .cluster-between {
+    --cluster-justify: space-between;
+  }
+}

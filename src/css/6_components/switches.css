@@ -1,0 +1,128 @@
+/**
+ * Switches Component
+ *
+ * Toggle switch for two-option radio fields.
+ * Ported from source/scss/5_components/_forms--switches.scss
+ *
+ * Usage:
+ * <div class="field switch">
+ *   <input id="option-off" name="switch-x" type="radio" checked>
+ *   <label for="option-off" onclick="">Off</label>
+ *   <input id="option-on" name="switch-x" type="radio">
+ *   <label for="option-on" onclick="">On</label>
+ *   <span></span>
+ * </div>
+ */
+
+@layer components {
+  .switch {
+    transition: all 0.2s linear;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    block-size: calc(var(--line) * 1.5);
+    padding: 0;
+    margin-block-end: calc(var(--line) * 0.25);
+    line-height: 2.5;
+    font-family: var(--font-sans);
+    border-radius: var(--button-radius, 0.25rem);
+    background: var(--color-fg);
+
+    & label {
+      transition: opacity 0.3s linear;
+      position: relative;
+      inset-inline-start: 0;
+      block-size: 100%;
+      margin: 0;
+      float: left;
+      z-index: 2;
+      text-align: start;
+      color: var(--color-bg);
+
+      &:first-of-type {
+        padding-block: 0;
+        padding-inline: calc(var(--line) * 0.67) calc(var(--line) * 0.67);
+      }
+
+      &:last-of-type {
+        padding-block: 0;
+        padding-inline: 0 calc(var(--line) * 0.67);
+      }
+    }
+
+    & input {
+      position: absolute;
+      z-index: 3;
+      opacity: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      cursor: pointer;
+      appearance: none;
+
+      &:first-of-type:checked ~ span:last-child {
+        inset-inline-start: 100%;
+        margin-inline-start: calc(var(--line) * -1.5 + 1px);
+      }
+    }
+
+    & span:last-child {
+      transition: all 0.2s linear;
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      display: block;
+      inline-size: calc(var(--line) * 1.5);
+      block-size: calc(var(--line) * 1.5);
+      padding: 0;
+      z-index: 1;
+      border-width: 1px;
+      border-style: solid;
+      border-radius: var(--button-radius, 0.25rem);
+      cursor: pointer;
+      border-color: var(--color-fg);
+      box-shadow:
+        2px 0 10px 0 rgba(0, 0, 0, 0.07),
+        1000px 0 0 980px var(--color-black),
+        -2px 0 10px 0 rgba(0, 0, 0, 0.07),
+        -1000px 0 0 1000px var(--color-accent);
+    }
+
+    & input:not(:checked) + label {
+      opacity: 0;
+    }
+
+    & input:checked {
+      display: none !important;
+    }
+
+    & input {
+      inset-inline-start: 0;
+      display: block !important;
+    }
+
+    /* Left label alignment */
+    & input:first-of-type + label,
+    & input:first-of-type + span + label {
+      inset-inline-start: -50%;
+    }
+
+    & input:first-of-type:checked + label,
+    & input:first-of-type:checked + span + label {
+      inset-inline-start: 0%;
+    }
+
+    /* Right label alignment */
+    & input:last-of-type + label,
+    & input:last-of-type + span + label {
+      inset-inline-end: -50%;
+      inset-inline-start: auto;
+      text-align: end;
+    }
+
+    & input:last-of-type:checked + label,
+    & input:last-of-type:checked + span + label {
+      inset-inline-end: 0%;
+      inset-inline-start: auto;
+    }
+  }
+}

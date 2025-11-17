@@ -1,0 +1,22 @@
+/**
+ * Breadcrumbs Component
+ *
+ * Hierarchical navigation showing current page location.
+ * Ported from source/scss/5_components/_nav--breadcrumbs.scss
+ *
+ * Usage:
+ * <nav class="breadcrumbs">
+ *   <p>
+ *     <a href="/">Home</a> /
+ *     <a href="/parent">Parent page</a> /
+ *     <span class="active">Current page</span>
+ *   </p>
+ * </nav>
+ */
+
+@layer components {
+  .breadcrumbs {
+    padding-block-start: var(--space-2);
+    margin-block-end: var(--space-3);
+  }
+}

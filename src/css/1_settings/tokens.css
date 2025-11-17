@@ -1,0 +1,44 @@
+/**
+ * Design Tokens
+ *
+ * THE SACRED BASELINE:
+ * Everything in Live Wires derives from the --line variable.
+ * This ensures perfect vertical rhythm across the entire design.
+ *
+ * Changing --text-base or --line-height-ratio automatically
+ * recalculates all spacing throughout the system.
+ */
+
+:root {
+  /*
+   * Base Typography
+   * Fluid scaling from 16px (1rem) to 18px (1.125rem)
+   */
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --line-height-ratio: 1.5;
+
+  /*
+   * THE BASELINE
+   * All spacing derives from this value
+   */
+  --line: calc(var(--text-base) * var(--line-height-ratio));
+
+  /*
+   * Spacing Scale
+   * Based on multiples of --line for perfect vertical rhythm
+   */
+  --space-0: 0;
+  --space-1: calc(var(--line) * 0.5);    /* Half line */
+  --space-2: var(--line);                 /* One line */
+  --space-3: calc(var(--line) * 1.5);    /* 1.5 lines */
+  --space-4: calc(var(--line) * 2);      /* Two lines */
+  --space-5: calc(var(--line) * 3);      /* Three lines */
+  --space-6: calc(var(--line) * 4);      /* Four lines */
+
+  /*
+   * Layout Tokens
+   */
+  --gutter: var(--line);
+  --margin: var(--space-2);
+  --max-width: 80rem;
+}

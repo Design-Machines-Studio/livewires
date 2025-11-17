@@ -1,0 +1,59 @@
+/**
+ * Typography Utilities
+ *
+ * Font size, weight, alignment, and reading measure utilities
+ */
+
+@layer utilities {
+  /* Font sizes */
+  .text-1 { font-size: var(--text-1); }
+  .text-2 { font-size: var(--text-2); }
+  .text-3 { font-size: var(--text-3); }
+  .text-4 { font-size: var(--text-4); }
+  .text-5 { font-size: var(--text-5); }
+  .text-6 { font-size: var(--text-6); }
+  .text-7 { font-size: var(--text-7); }
+
+  /* Font weights */
+  .font-normal { font-weight: var(--font-weight-normal); }
+  .font-medium { font-weight: var(--font-weight-medium); }
+  .font-semibold { font-weight: var(--font-weight-semibold); }
+  .font-bold { font-weight: var(--font-weight-bold); }
+
+  /* Text alignment */
+  .text-start { text-align: start; }
+  .text-center { text-align: center; }
+  .text-end { text-align: end; }
+  .text-justify { text-align: justify; }
+
+  /* Line height */
+  .leading-tight { line-height: var(--leading-tight); }
+  .leading-normal { line-height: var(--leading-normal); }
+  .leading-loose { line-height: var(--leading-loose); }
+
+  /* Measure (optimal reading line length) */
+  .measure {
+    max-inline-size: var(--measure);
+  }
+
+  .measure-wide {
+    max-inline-size: var(--measure-wide);
+  }
+
+  .measure-narrow {
+    max-inline-size: var(--measure-narrow);
+  }
+
+  /* Text transform */
+  .uppercase { text-transform: uppercase; }
+  .lowercase { text-transform: lowercase; }
+  .capitalize { text-transform: capitalize; }
+
+  /* Font style */
+  .italic { font-style: italic; }
+  .not-italic { font-style: normal; }
+
+  /* Text decoration */
+  .underline { text-decoration: underline; }
+  .no-underline { text-decoration: none; }
+}

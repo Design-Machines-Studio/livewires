@@ -1,0 +1,91 @@
+/**
+ * Form Fields Component
+ *
+ * Field wrappers, layouts, and sizing for form elements.
+ * Ported from source/scss/5_components/_forms--fields.scss and _forms--labels.scss
+ *
+ * Usage:
+ * <div class="field">
+ *   <label for="name">Name <sup>*</sup></label>
+ *   <input type="text" id="name" class="text-input" required />
+ * </div>
+ */
+
+@layer components {
+  /* Field wrapper */
+  .field {
+    position: relative;
+    padding-block-end: var(--space-3);
+  }
+
+  /* Checkbox field variant */
+  .field--check {
+    & label {
+      /* Clearfix for checkbox groups */
+    }
+  }
+
+  /* Checkbox labels */
+  .check-label,
+  .field--check label,
+  .field--check .label {
+    display: inline-block;
+  }
+
+  /* Checkbox/radio lists */
+  .check-list {
+    list-style: none;
+
+    & label {
+      cursor: pointer;
+    }
+  }
+
+  /* Input size variants */
+  .text-input--small {
+    font-size: var(--text-2);
+  }
+
+  .text-input--large {
+    font-size: var(--text-4);
+  }
+
+  /* Field sizing - responsive widths based on 12-column grid */
+  @media (min-width: 48em) {
+    .field--quarter,
+    .field--half,
+    .field--three-quarter,
+    .field--third,
+    .field--two-third {
+      float: left;
+      padding-inline: 0;
+    }
+
+    .field--quarter {
+      inline-size: 25%;
+    }
+
+    .field--half {
+      inline-size: 50%;
+    }
+
+    .field--three-quarter {
+      inline-size: 75%;
+    }
+
+    .field--third {
+      inline-size: 33.333%;
+    }
+
+    .field--two-third {
+      inline-size: 66.666%;
+    }
+  }
+
+  /* Error labels */
+  .label--error {
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-end: 0;
+  }
+}

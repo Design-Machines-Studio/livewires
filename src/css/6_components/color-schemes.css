@@ -1,0 +1,41 @@
+/**
+ * Color Schemes Component
+ *
+ * Named color combinations for sections and containers.
+ * Ported from source/scss/5_components/_layout--colors.scss
+ *
+ * Note: These are component-level classes. For utility-based schemes,
+ * see 7_utilities/color.css (scheme-warm, scheme-cool, scheme-dark)
+ */
+
+@layer components {
+  /* Subtle background - slightly darker than white */
+  .subtle {
+    background: var(--color-subtle);
+    color: var(--color-fg);
+  }
+
+  /* Reverse - dark background with light text */
+  .reverse {
+    background: var(--color-fg);
+    color: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Brand blue background */
+  .blue {
+    background: var(--color-brand);
+    color: var(--color-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Red background - define color token if needed */
+  .red {
+    background: #CC3333;
+    color: var(--color-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

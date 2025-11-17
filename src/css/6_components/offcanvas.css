@@ -1,0 +1,259 @@
+/**
+ * Offcanvas Component
+ *
+ * Slide-out navigation/content panels that can appear from any edge.
+ * Ported from source/scss/5_components/_nav--offcanvas.scss
+ *
+ * Usage:
+ * <body class="offcanvas--push">
+ *   <nav class="offcanvas--left" id="offcanvas">
+ *     <!-- Offcanvas content -->
+ *   </nav>
+ *   <main>
+ *     <a href="#offcanvas" class="js-open-canvas">Toggle</a>
+ *   </main>
+ * </body>
+ *
+ * Directions: offcanvas--top, offcanvas--right, offcanvas--bottom, offcanvas--left
+ * Body modes: offcanvas--push, offcanvas--squish
+ * JavaScript should toggle .offcanvas--open class
+ */
+
+@layer components {
+  /* Configuration */
+  .offcanvas--top,
+  .offcanvas--left,
+  .offcanvas--bottom,
+  .offcanvas--right {
+    --offcanvas-width: calc(var(--line) * 10);
+    --offcanvas-height: calc(var(--line) * 4);
+    --offcanvas-transition: all 500ms cubic-bezier(0.745, -0.190, 0.210, 1.310);
+
+    position: fixed;
+    z-index: 1000;
+    transition: var(--offcanvas-transition);
+
+    & a {
+      padding: var(--space-3);
+      display: block;
+      text-decoration: none;
+      font-family: var(--font-sans);
+    }
+
+    & ul {
+      border-block-start: 2px solid var(--color-black);
+
+      & a {
+        padding-block: var(--space-2);
+        padding-inline: var(--space-3);
+      }
+    }
+  }
+
+  /* Vertical offcanvas (left/right) */
+  .offcanvas--right,
+  .offcanvas--left {
+    overflow: auto;
+    inline-size: var(--offcanvas-width);
+    block-size: 100%;
+
+    & li {
+      display: block;
+    }
+  }
+
+  /* Horizontal offcanvas (top/bottom) */
+  .offcanvas--top,
+  .offcanvas--bottom {
+    inline-size: 100%;
+    block-size: var(--offcanvas-height);
+    inset-inline-start: 0;
+    overflow: hidden;
+
+    & a {
+      float: left;
+    }
+  }
+
+  /* Left slide-out */
+  .offcanvas--left {
+    inset-inline-start: 0;
+    border-inline-end: 2px solid var(--color-black);
+
+    &.offcanvas--open {
+      inset-inline-start: calc(var(--offcanvas-width) * -1);
+    }
+
+    & a {
+      &:link,
+      &:visited {
+        background: transparent;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: var(--color-accent);
+        text-shadow: none;
+        color: var(--color-bg);
+      }
+    }
+  }
+
+  /* Right slide-out */
+  .offcanvas--right {
+    inset-inline-end: calc(var(--offcanvas-width) * -1);
+
+    &.offcanvas--open {
+      inset-inline-end: 0;
+    }
+  }
+
+  /* Top slide-down */
+  .offcanvas--top {
+    inset-block-start: calc(var(--offcanvas-height) * -1);
+
+    &.offcanvas--open {
+      inset-block-start: 0;
+    }
+  }
+
+  /* Bottom slide-up */
+  .offcanvas--bottom {
+    inset-block-end: calc(var(--offcanvas-height) * -1);
+
+    &.offcanvas--open {
+      inset-block-end: 0;
+    }
+  }
+
+  /* Push mode - body pushes aside when panel opens */
+  .offcanvas--push {
+    overflow-x: hidden;
+    inset-inline-start: var(--offcanvas-width);
+    transition: var(--offcanvas-transition);
+
+    &.offcanvas--push-right {
+      inset-inline-start: calc(var(--offcanvas-width) * -1);
+    }
+
+    &.offcanvas--push-left {
+      inset-inline-start: 0;
+    }
+  }
+
+  /* Squish mode - content squishes instead of pushing */
+  .offcanvas--squish {
+    overflow-x: hidden;
+    inset-inline-start: var(--offcanvas-width);
+    transition: var(--offcanvas-transition);
+
+    &.offcanvas--squish-right {
+      inset-inline-start: calc(var(--offcanvas-width) * -1);
+    }
+
+    &.offcanvas--squish-left {
+      inset-inline-start: 0;
+    }
+
+    @media (min-width: 48em) {
+      &.offcanvas--squish-right {
+        margin-inline-end: var(--offcanvas-width);
+        inset-inline-start: auto;
+      }
+
+      &.offcanvas--squish-left {
+        margin-inline-start: var(--offcanvas-width);
+        inset-inline-start: auto;
+      }
+    }
+  }
+
+  /* Guide-specific trigger (can be removed if not needed) */
+  .trigger--guide {
+    position: fixed;
+    inset-block-start: var(--space-2);
+    inset-inline-start: calc(var(--offcanvas-width) - 0.3125rem);
+    background: var(--color-fg);
+    z-index: 1000;
+    padding-block: calc(var(--line) * 0.25) calc(var(--line) * 0.25);
+    padding-inline: calc(var(--line) * 0.67) var(--space-2);
+    text-align: center;
+    transition: var(--offcanvas-transition);
+    border-start-end-radius: 0.25rem;
+    border-end-end-radius: 0.25rem;
+    cursor: pointer;
+
+    & a {
+      background: none;
+    }
+
+    & strong {
+      color: var(--color-bg);
+    }
+
+    &.active {
+      inset-inline-start: -0.3125rem;
+
+      & img {
+        transform: rotate(180deg);
+        animation: spin-left 300ms ease-out;
+      }
+    }
+
+    & img {
+      display: block;
+      inline-size: var(--line);
+      block-size: var(--line);
+      margin: 0 auto;
+      transform: rotate(0deg);
+      margin-block-end: calc(var(--line) * 0.25);
+      animation: spin-right 300ms ease-out;
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (min-width: 48em) {
+    .offcanvas--left {
+      inset-inline-start: calc(var(--offcanvas-width) * -1);
+
+      &.offcanvas--open {
+        inset-inline-start: 0;
+      }
+    }
+
+    .offcanvas--squish {
+      inset-inline-start: 0;
+      margin-inline-start: 0;
+
+      &.offcanvas--squish-left {
+        margin-inline-start: var(--offcanvas-width);
+      }
+    }
+
+    .trigger--guide {
+      inset-inline-start: -0.3125rem;
+
+      & strong {
+        /* Visually hidden */
+        border: 0;
+        clip: rect(0 0 0 0);
+        block-size: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        inline-size: 1px;
+      }
+
+      &.active {
+        inset-inline-start: calc(var(--offcanvas-width) - 0.3125rem);
+        opacity: 0.2;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

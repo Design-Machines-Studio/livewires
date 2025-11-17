@@ -1,0 +1,74 @@
+/**
+ * Forms
+ *
+ * Form elements and controls
+ */
+
+@layer base {
+  label {
+    display: block;
+    font-weight: var(--font-weight-medium);
+    margin-block-end: var(--space-1);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="url"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  select {
+    width: 100%;
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: 0.25em;
+    background: var(--color-bg);
+    color: var(--color-fg);
+
+    &:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+      border-color: var(--color-accent);
+    }
+  }
+
+  textarea {
+    min-height: calc(var(--line) * 5);
+    resize: vertical;
+  }
+
+  button,
+  input[type="submit"],
+  input[type="button"] {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-accent);
+    color: var(--color-white);
+    border: none;
+    border-radius: 0.25em;
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  fieldset {
+    border: 1px solid var(--color-border);
+    padding: var(--space-3);
+    margin-block-end: var(--space-3);
+  }
+
+  legend {
+    font-weight: var(--font-weight-bold);
+    padding-inline: var(--space-1);
+  }
+}

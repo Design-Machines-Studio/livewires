@@ -1,0 +1,30 @@
+/**
+ * Stack Layout
+ *
+ * Vertical spacing between child elements
+ * Inspired by Every Layout
+ */
+
+@layer layouts {
+  .stack {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stack > * + * {
+    margin-block-start: var(--stack-space, var(--space-3));
+  }
+
+  /* Spacing variations */
+  .stack-compact {
+    --stack-space: var(--space-2);
+  }
+
+  .stack-comfortable {
+    --stack-space: var(--space-4);
+  }
+
+  .stack-spacious {
+    --stack-space: var(--space-5);
+  }
+}

@@ -1,0 +1,38 @@
+/**
+ * Lists
+ *
+ * Ordered and unordered lists
+ */
+
+@layer base {
+  /*
+   * Content lists (restore list styles for article content)
+   */
+  article ul,
+  article ol {
+    list-style: revert;
+    padding-inline-start: var(--space-3);
+    margin-block-end: var(--space-3);
+  }
+
+  article li {
+    margin-block-end: var(--space-1);
+  }
+
+  /*
+   * Definition lists
+   */
+  dl {
+    margin-block-end: var(--space-3);
+  }
+
+  dt {
+    font-weight: var(--font-weight-bold);
+    margin-block-start: var(--space-2);
+  }
+
+  dd {
+    margin-inline-start: var(--space-3);
+    margin-block-end: var(--space-1);
+  }
+}

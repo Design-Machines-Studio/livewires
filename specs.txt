@@ -1,0 +1,901 @@
+Live Wires 2026 Project Specification
+For Claude Code Implementation
+
+Project Context
+Project Name: Live Wires 2026
+Type: CSS Framework + Prototyping System + CMS Integration
+Purpose: Modern evolution of a prototyping-first web design workflow
+Primary Use Case: Editorial/magazine-style websites with art direction flexibility
+Philosophy (Critical to Understand)
+Live Wires is not a component library like Bootstrap or Tailwind. It's a prototyping-to-production workflow that:
+
+Starts with HTML prototypes (semantic, minimal classes)
+Systematizes patterns into a style guide
+Layers art direction via utility classes
+Integrates with CMS (primarily Craft CMS)
+
+Core principle: Good defaults + additive art direction. Pages should look decent with zero classes, great with thoughtful class application.
+Reference Implementation
+The current implementation lives at:
+/Users/trav/Websites/louder-than-ten/louderthanten
+Key areas to reference:
+
+/src/css/ - CSS architecture (ITCSS-based, study the layer structure)
+/templates/_components/ - Twig component patterns
+/templates/_components/utilities/ - Class generation macros
+Study but don't copy: the baseline system, grid utilities, and component patterns
+
+
+Technical Specifications
+Technology Stack
+Required:
+
+PostCSS (for CSS processing)
+CSS Nesting (native, no preprocessor)
+CSS Cascade Layers (native)
+Modern CSS features (container queries, custom properties, :has(), etc.)
+
+Not Required:
+
+SCSS/Sass (migrate away from preprocessing)
+JavaScript frameworks (vanilla JS only if needed)
+Build complexity (keep it simple)
+
+Development Tools:
+
+Vite (for dev server + building)
+Modern normalize/reset
+No jQuery, no legacy browser support
+
+Browser Support
+Target: Last 2 versions of modern browsers (Chrome, Firefox, Safari, Edge)
+No support for: IE11, legacy Edge, old mobile browsers
+
+Project Structure
+Create this exact directory structure:
+live-wires-2026/
+├── README.md
+├── package.json
+├── vite.config.js
+├── postcss.config.js
+│
+├── docs/
+│   ├── philosophy.md          # The "why" behind Live Wires
+│   ├── workflow.md            # How to use it (prototype → systematize → art direct)
+│   ├── migration-guide.md     # Migrating from old Live Wires
+│   └── cms-integration.md     # Craft CMS setup guide
+│
+├── src/
+│   ├── css/
+│   │   ├── 0_config/
+│   │   │   └── layers.css
+│   │   ├── 1_settings/
+│   │   │   ├── tokens.css
+│   │   │   ├── typography.css
+│   │   │   ├── color.css
+│   │   │   ├── spacing.css
+│   │   │   └── grid.css
+│   │   ├── 2_tools/
+│   │   │   └── (empty for now)
+│   │   ├── 3_generic/
+│   │   │   └── reset.css
+│   │   ├── 4_elements/
+│   │   │   ├── root.css
+│   │   │   ├── body.css
+│   │   │   ├── typography.css
+│   │   │   ├── links.css
+│   │   │   ├── lists.css
+│   │   │   ├── media.css
+│   │   │   ├── tables.css
+│   │   │   └── forms.css
+│   │   ├── 5_layouts/
+│   │   │   ├── stack.css
+│   │   │   ├── cluster.css
+│   │   │   ├── grid.css
+│   │   │   ├── sidebar.css
+│   │   │   └── center.css
+│   │   ├── 6_components/
+│   │   │   ├── header.css
+│   │   │   ├── nav.css
+│   │   │   ├── article.css
+│   │   │   ├── card.css
+│   │   │   ├── callout.css
+│   │   │   └── footer.css
+│   │   ├── 7_utilities/
+│   │   │   ├── color.css
+│   │   │   ├── spacing.css
+│   │   │   ├── typography.css
+│   │   │   └── grid.css
+│   │   └── main.css           # Main entry point
+│   │
+│   └── js/
+│       └── main.js            # Minimal JS if needed
+│
+├── templates/
+│   └── craft/                 # Craft CMS integration templates
+│       ├── components/
+│       │   └── utilities/     # Twig macros for class generation
+│       └── examples/
+│
+├── prototypes/                # Where prototyping starts
+│   ├── template.html          # Clean starting template
+│   ├── article.html           # Example article layout
+│   ├── homepage.html          # Example homepage
+│   └── about.html             # Example about page
+│
+├── styleguide/                # Living style guide
+│   ├── index.html
+│   ├── tokens.html
+│   ├── typography.html
+│   ├── layouts.html
+│   ├── components.html
+│   └── utilities.html
+│
+└── public/
+    └── index.html             # Dev server entry
+
+Detailed File Specifications
+1. CSS Layer Configuration
+File: src/css/0_config/layers.css
+css/**
+ * CSS Cascade Layers
+ * Define explicit cascade order
+ * Lower layers lose to higher layers in specificity battles
+ */
+
+@layer 
+  reset,      /* Browser resets */
+  base,       /* Semantic HTML defaults */
+  layouts,    /* Layout primitives */
+  components, /* Named patterns */
+  utilities,  /* Single-purpose classes */
+  overrides;  /* Art direction & custom CSS */
+2. Design Tokens (Settings Layer)
+File: src/css/1_settings/tokens.css
+Requirements:
+
+Use CSS custom properties only
+All values derive from a baseline
+Support fluid scaling
+Include semantic color names
+
+Key variables to define:
+css:root {
+  /* Typography baseline - EVERYTHING derives from this */
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.0625rem); /* 16px → 17px */
+  --line-height: 1.5;
+  --line: calc(var(--text-base) * var(--line-height)); /* The sacred baseline */
+  
+  /* Type scale (modular scale: 1.25 ratio) */
+  --text-1: /* smaller than base */
+  --text-2: /* base */
+  --text-3: /* larger */
+  --text-4: /* larger */
+  --text-5: /* display size */
+  
+  /* Spacing system (based on --line) */
+  --space-0: 0;
+  --space-1: calc(var(--line) * 0.25);
+  --space-2: calc(var(--line) * 0.5);
+  --space-3: var(--line);
+  --space-4: calc(var(--line) * 2);
+  --space-5: calc(var(--line) * 4);
+  
+  /* Color system */
+  --color-bg: #ffffff;
+  --color-fg: #1a1a1a;
+  --color-accent: #0066cc;
+  --color-muted: #666666;
+  
+  /* Grid */
+  --gutter: var(--line);
+  --max-width: 80rem;
+}
+File: src/css/1_settings/typography.css
+Requirements:
+
+Font stacks for different contexts
+Weight variables
+Measure (line length) controls
+
+Study the pattern in /Users/trav/Websites/louder-than-ten/louderthanten/src/css/1_settings/typography.css but create modern fluid implementations.
+File: src/css/1_settings/spacing.css
+Requirements:
+
+All spacing derives from --line
+Fluid margin/padding system
+Reference the approach in LT10 but modernize
+
+3. Reset Layer
+File: src/css/3_generic/reset.css
+Use a modern CSS reset. Good options:
+
+Andy Bell's Modern CSS Reset
+Josh Comeau's Custom CSS Reset
+Or create a minimal one
+
+Must include:
+
+Box sizing reset
+Margin/padding removal
+Image responsiveness
+Font inheritance for form elements
+
+4. Semantic HTML Defaults (Elements Layer)
+File: src/css/4_elements/root.css
+css@layer base {
+  :root {
+    /* Apply tokens */
+    font-size: var(--text-base);
+    line-height: var(--line-height);
+  }
+}
+File: src/css/4_elements/body.css
+Requirements:
+
+Apply base typography
+Set default colors
+Center content with max-width
+Add comfortable padding
+
+Critical principle: Body text should be readable with ZERO classes applied.
+File: src/css/4_elements/typography.css
+Requirements:
+
+Style h1-h6 with appropriate sizing
+Set default margins (vertical rhythm based on --line)
+Style p, blockquote, code, pre
+Ensure good line-height for readability
+
+Reference pattern from: /Users/trav/Websites/louder-than-ten/louderthanten/src/css/4_elements/headlines.css and /src/css/4_elements/text.css
+All other element files: Create sensible defaults for links, lists, media, tables, forms using the baseline system.
+5. Layout Primitives (Layouts Layer)
+These are the core compositional patterns. Inspired by Every Layout.
+File: src/css/5_layouts/stack.css
+css@layer layouts {
+  /**
+   * Stack: Vertical spacing between elements
+   * Usage: <div class="stack">...</div>
+   */
+  .stack {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stack > * + * {
+    margin-block-start: var(--stack-space, var(--space-3));
+  }
+  
+  /* Modifiers */
+  .stack-compact { --stack-space: var(--space-2); }
+  .stack-comfortable { --stack-space: var(--space-4); }
+  .stack-spacious { --stack-space: var(--space-5); }
+}
+File: src/css/5_layouts/cluster.css
+Horizontal grouping with wrapping (nav items, tags, etc.)
+File: src/css/5_layouts/grid.css
+Requirements:
+
+Auto-responsive grid (no breakpoints needed)
+Use container queries
+Span utilities for art direction
+Reference LT10's grid but modernize with container queries
+
+css@layer layouts {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+    gap: var(--grid-gap, var(--gutter));
+    container-type: inline-size;
+    container-name: grid;
+  }
+  
+  /* Span utilities */
+  .grid-span-2 { grid-column: span 2; }
+  .grid-span-3 { grid-column: span 3; }
+  .grid-span-full { grid-column: 1 / -1; }
+  
+  /* Container query adjustments */
+  @container grid (min-width: 40rem) {
+    .grid-span-2\@container { grid-column: span 2; }
+  }
+}
+File: src/css/5_layouts/sidebar.css
+Two-column layout (sidebar + main)
+File: src/css/5_layouts/center.css
+Horizontally center with max-width
+6. Components (Components Layer)
+File: src/css/6_components/article.css
+Requirements:
+
+Container for article content
+Set optimal measure (line length)
+Vertical rhythm for nested elements
+Container query context
+
+File: src/css/6_components/card.css
+File: src/css/6_components/callout.css
+Pattern to follow:
+css@layer components {
+  .callout {
+    container-type: inline-size;
+    padding: var(--space-3);
+    border-inline-start: 4px solid var(--accent, currentColor);
+    background: var(--bg, transparent);
+  }
+  
+  @container (min-width: 40rem) {
+    .callout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-4);
+    }
+  }
+}
+7. Utilities (Utilities Layer)
+File: src/css/7_utilities/color.css
+Requirements:
+
+Preset color schemes
+Text color utilities
+Background color utilities
+Use CSS custom properties for easy overriding
+
+css@layer utilities {
+  /* Schemes (preset combinations) */
+  .scheme-brand {
+    --bg: var(--color-brand-bg);
+    --fg: var(--color-brand-fg);
+    --accent: var(--color-brand-accent);
+  }
+  
+  .scheme-warm {
+    --bg: var(--color-warm-bg);
+    --fg: var(--color-warm-fg);
+    --accent: var(--color-warm-accent);
+  }
+  
+  /* Apply scheme colors */
+  [class*="scheme-"] {
+    background: var(--bg);
+    color: var(--fg);
+  }
+  
+  /* Individual utilities (for art direction) */
+  .bg-brand { background: var(--color-brand); }
+  .text-muted { color: var(--color-muted); }
+}
+File: src/css/7_utilities/spacing.css
+Requirements:
+
+Margin utilities (mt-, mb-, ml-, mr-, mx-, my-)
+Padding utilities (pt-, pb-, pl-, pr-, px-, py-)
+Use logical properties (block, inline)
+Size scale: 0-5
+
+css@layer utilities {
+  /* Margin block (top/bottom) */
+  .mt-0 { margin-block-start: var(--space-0); }
+  .mt-1 { margin-block-start: var(--space-1); }
+  /* ... through mt-5 */
+  
+  .mb-0 { margin-block-end: var(--space-0); }
+  /* ... etc */
+  
+  /* Padding */
+  .p-0 { padding: var(--space-0); }
+  .p-1 { padding: var(--space-1); }
+  /* ... etc */
+}
+File: src/css/7_utilities/typography.css
+Requirements:
+
+Font size utilities (text-1 through text-5)
+Font weight utilities
+Text alignment
+Line height adjustments
+Measure (max-width for text)
+
+css@layer utilities {
+  .text-1 { font-size: var(--text-1); }
+  .text-2 { font-size: var(--text-2); }
+  /* ... through text-5 */
+  
+  .font-bold { font-weight: 700; }
+  .font-normal { font-weight: 400; }
+  
+  .text-start { text-align: start; }
+  .text-center { text-align: center; }
+  
+  .measure { max-inline-size: 65ch; }
+  .measure-wide { max-inline-size: 80ch; }
+}
+File: src/css/7_utilities/grid.css
+Additional grid utilities for art direction (span controls, etc.)
+8. Main Entry Point
+File: src/css/main.css
+css/**
+ * Live Wires 2026
+ * A prototyping-first web design system
+ */
+
+/* Layer definitions */
+@import './0_config/layers.css';
+
+/* Settings (design tokens) */
+@import './1_settings/tokens.css';
+@import './1_settings/typography.css';
+@import './1_settings/color.css';
+@import './1_settings/spacing.css';
+@import './1_settings/grid.css';
+
+/* Generic (resets) */
+@import './3_generic/reset.css' layer(reset);
+
+/* Elements (semantic HTML defaults) */
+@import './4_elements/root.css' layer(base);
+@import './4_elements/body.css' layer(base);
+@import './4_elements/typography.css' layer(base);
+@import './4_elements/links.css' layer(base);
+@import './4_elements/lists.css' layer(base);
+@import './4_elements/media.css' layer(base);
+@import './4_elements/tables.css' layer(base);
+@import './4_elements/forms.css' layer(base);
+
+/* Layouts (compositional patterns) */
+@import './5_layouts/stack.css' layer(layouts);
+@import './5_layouts/cluster.css' layer(layouts);
+@import './5_layouts/grid.css' layer(layouts);
+@import './5_layouts/sidebar.css' layer(layouts);
+@import './5_layouts/center.css' layer(layouts);
+
+/* Components (named patterns) */
+@import './6_components/header.css' layer(components);
+@import './6_components/nav.css' layer(components);
+@import './6_components/article.css' layer(components);
+@import './6_components/card.css' layer(components);
+@import './6_components/callout.css' layer(components);
+@import './6_components/footer.css' layer(components);
+
+/* Utilities (single-purpose classes) */
+@import './7_utilities/color.css' layer(utilities);
+@import './7_utilities/spacing.css' layer(utilities);
+@import './7_utilities/typography.css' layer(utilities);
+@import './7_utilities/grid.css' layer(utilities);
+
+Prototype Templates
+Base Template
+File: prototypes/template.html
+Requirements:
+
+Clean, semantic HTML5
+No classes initially (tests base styles)
+Include basic meta tags
+Link to compiled CSS
+Minimal, readable starting point
+
+html<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Wires Prototype</title>
+  <link rel="stylesheet" href="/src/css/main.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <!-- Navigation -->
+    </nav>
+  </header>
+  
+  <main>
+    <article>
+      <header>
+        <h1>Article Title</h1>
+        <p>By Author Name · <time datetime="2026-01-01">January 1, 2026</time></p>
+      </header>
+      
+      <p>First paragraph of content. This should look good with zero classes applied.</p>
+      
+      <p>Second paragraph demonstrates vertical rhythm.</p>
+      
+      <h2>Section Heading</h2>
+      
+      <p>More content here.</p>
+      
+      <blockquote>
+        <p>A pull quote that looks good without any classes.</p>
+      </blockquote>
+      
+      <ul>
+        <li>List item one</li>
+        <li>List item two</li>
+        <li>List item three</li>
+      </ul>
+    </article>
+  </main>
+  
+  <footer>
+    <p>Footer content</p>
+  </footer>
+</body>
+</html>
+Article Example
+File: prototypes/article.html
+More complex article layout showing:
+
+Hero section
+Article content with mixed media
+Sidebar content
+Use of layout primitives (stack, grid, etc.)
+Minimal utility class usage
+
+
+Style Guide Pages
+Index
+File: styleguide/index.html
+Requirements:
+
+Overview of the system
+Links to all other pages
+Quick reference table
+Design principles
+
+Tokens
+File: styleguide/tokens.html
+Requirements:
+
+Visual display of all design tokens
+Color swatches
+Typography scale
+Spacing scale
+Live examples
+
+Typography
+File: styleguide/typography.html
+Requirements:
+
+All heading levels
+Body text examples
+Lists, blockquotes, code
+Font combinations
+Type scale demonstration
+
+Layouts
+File: styleguide/layouts.html
+Requirements:
+
+Stack examples (different spacing)
+Cluster examples
+Grid examples (different configurations)
+Sidebar layout
+Center layout
+Live, interactive examples
+
+Components
+File: styleguide/components.html
+Requirements:
+
+All components with variants
+Code examples
+Usage guidelines
+Do's and don'ts
+
+Utilities
+File: styleguide/utilities.html
+Requirements:
+
+All utility classes listed
+Examples of usage
+Combination examples
+Art direction patterns
+
+
+Craft CMS Integration
+Utility Macros
+File: templates/craft/components/utilities/classes.twig
+Requirements:
+
+Generate class strings from CMS fields
+Support both old and new field structures
+Validate classes
+Provide fallbacks
+
+Pattern (create this in Twig syntax):
+twig{#
+  Usage: {{ classes.generate(block) }}
+  
+  Generates utility class string from block fields
+#}
+
+{% macro generate(block) %}
+  {% set classList = [] %}
+  
+  {# Layout utilities #}
+  {% if block.gridSpan is defined %}
+    {% set classList = classList|merge(['grid-span-' ~ block.gridSpan]) %}
+  {% endif %}
+  
+  {# Typography utilities #}
+  {% if block.fontSize is defined %}
+    {% set classList = classList|merge(['text-' ~ block.fontSize]) %}
+  {% endif %}
+  
+  {% if block.fontWeight is defined %}
+    {% set classList = classList|merge(['font-' ~ block.fontWeight]) %}
+  {% endif %}
+  
+  {# Color scheme #}
+  {% if block.colorScheme is defined and block.colorScheme != 'default' %}
+    {% set classList = classList|merge(['scheme-' ~ block.colorScheme]) %}
+  {% endif %}
+  
+  {# Spacing #}
+  {% if block.spacing is defined %}
+    {% set classList = classList|merge([block.spacing]) %}
+  {% endif %}
+  
+  {# Custom classes (power users) #}
+  {% if block.customClasses is defined and block.customClasses %}
+    {% set classList = classList|merge(block.customClasses|split(' ')) %}
+  {% endif %}
+  
+  {{ classList|join(' ')|trim }}
+{% endmacro %}
+Example Component
+File: templates/craft/components/text-block.twig
+Shows how a Craft CMS content block would render using the system.
+
+Configuration Files
+package.json
+Requirements:
+json{
+  "name": "live-wires-2026",
+  "version": "1.0.0",
+  "description": "A prototyping-first web design system",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "postcss": "^8.4.0",
+    "autoprefixer": "^10.4.0"
+  }
+}
+vite.config.js
+Requirements:
+
+Configure build for both prototypes and library
+Set up dev server
+CSS optimization
+
+javascriptimport { defineConfig } from 'vite';
+
+export default defineConfig({
+  root: 'public',
+  build: {
+    outDir: '../dist',
+    rollupOptions: {
+      input: {
+        main: './public/index.html',
+        styleguide: './styleguide/index.html'
+      }
+    }
+  },
+  css: {
+    postcss: './postcss.config.js'
+  }
+});
+postcss.config.js
+Requirements:
+
+Autoprefixer
+CSS nesting support
+No other transformations (keep CSS native)
+
+javascriptexport default {
+  plugins: {
+    autoprefixer: {}
+  }
+};
+
+Documentation Requirements
+README.md
+Structure:
+markdown# Live Wires 2026
+
+A prototyping-first web design system for editorial websites.
+
+## Philosophy
+
+[Explain the approach]
+
+## Quick Start
+
+[Installation and basic usage]
+
+## Workflow
+
+[Prototype → Systematize → Art Direct]
+
+## Documentation
+
+[Links to all docs]
+
+## License
+
+MIT
+docs/philosophy.md
+Content:
+
+Explain prototyping-first approach
+Why good defaults matter
+The art direction layer
+How it differs from component libraries
+
+docs/workflow.md
+Content:
+
+Step-by-step prototyping workflow
+How to use layout primitives
+When to use utilities
+Art direction patterns
+Real examples
+
+docs/migration-guide.md
+Content:
+
+Differences from old Live Wires
+How to migrate existing projects
+Breaking changes
+New features
+
+docs/cms-integration.md
+Content:
+
+Craft CMS field setup
+Twig macro usage
+Example content types
+Best practices
+
+
+Critical Implementation Notes
+1. Baseline System
+Everything must derive from --line (the baseline height):
+
+All spacing: calc(var(--line) * n)
+Grid gaps: var(--line)
+Component padding: multiples of var(--line)
+Margin between elements: multiples of var(--line)
+
+Why: Maintains vertical rhythm across the entire design.
+2. Fluid Typography
+Use clamp() for all type sizes:
+css--text-3: clamp(1.25rem, 1.15rem + 0.5vw, 1.75rem);
+Why: No breakpoint management, smooth scaling.
+3. Container Queries
+All components should use container queries, not media queries:
+css.component {
+  container-type: inline-size;
+}
+
+@container (min-width: 40rem) {
+  .component { /* adjustments */ }
+}
+Why: Components are truly portable.
+4. CSS Custom Properties for Theming
+Components should use local custom properties:
+css.component {
+  --bg: var(--color-bg);
+  --fg: var(--color-fg);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Utilities can override */
+.scheme-brand .component {
+  --bg: var(--color-brand-bg);
+  --fg: var(--color-brand-fg);
+}
+5. Logical Properties
+Always use logical properties:
+
+margin-block-start not margin-top
+padding-inline not padding-left/right
+inset-inline-start not left
+
+Why: International-ready by default.
+6. Progressive Enhancement
+The CSS should work without JavaScript. Any JS should enhance, not enable.
+
+Testing Requirements
+Create these test files:
+File: prototypes/test-baseline.html
+
+Tests vertical rhythm
+All spacing should align to baseline grid
+Include grid overlay option
+
+File: prototypes/test-semantics.html
+
+Tests semantic HTML styling
+Zero classes applied
+Should look good
+
+File: prototypes/test-utilities.html
+
+Tests all utility classes
+Visual regression reference
+
+File: prototypes/test-responsive.html
+
+Tests layout primitives at different sizes
+Container query behavior
+
+
+Design Decisions to Make
+Before starting, Claude Code should ask about or make sensible defaults for:
+
+Color palette: How many brand colors? Should it include a full palette or minimal set?
+Type scale ratio: 1.2 (minor third), 1.25 (major third), 1.333 (perfect fourth), or 1.5 (perfect fifth)?
+Grid columns: 12-column or 4-column system (or both)?
+Measure (line length): What's the optimal characters per line? (typically 65-75ch)
+Breakpoints: What container query breakpoints? (suggest: 30rem, 40rem, 60rem)
+
+Recommended approach: Start with sensible defaults, document where they are, make them easy to customize.
+
+Success Criteria
+The project is successfully scaffolded when:
+✅ Running npm run dev shows a working prototype
+✅ Prototypes look good with zero classes applied
+✅ Style guide displays all tokens, layouts, components
+✅ All CSS uses modern features (layers, nesting, container queries)
+✅ Vertical rhythm is maintained (baseline grid alignment)
+✅ Fluid typography scales smoothly
+✅ Components respond to their container, not viewport
+✅ Documentation explains the philosophy and workflow
+✅ Craft CMS utility macros are ready to use
+
+Reference the Louder Than Ten Implementation
+Study these patterns from /Users/trav/Websites/louder-than-ten/louderthanten/:
+
+Baseline system: How --line is defined and used throughout
+Utility naming: The class naming conventions (descriptive, readable)
+Component structure: How components like callouts, cards are organized
+Twig macros: How class strings are generated from CMS fields
+Grid system: The approach to grid start/end positions (modernize with container queries)
+
+Do NOT copy verbatim. Instead:
+
+Understand the patterns
+Modernize with 2026 CSS features
+Simplify where possible
+Document differences
+
+
+First Steps for Implementation
+
+Set up project structure (all directories and placeholder files)
+Create package.json and config files
+Build the baseline system (typography tokens, --line variable)
+Create semantic HTML defaults (4_elements layer)
+Build layout primitives (stack, grid, cluster)
+Create base template for prototyping
+Set up style guide index
+Write README with quick start
+
+Then iterate on components, utilities, and documentation.
+
+Questions to Resolve
+Before starting full implementation, consider:
+
+Should the system include dark mode utilities out of the box?
+Should there be a "minimal" vs. "full" build option?
+Should utility classes be generated programmatically or written manually?
+Should there be example Craft CMS field definitions in YAML?
+Should the style guide be interactive (with code copying, theme switching)?
+
+Recommendation: Start minimal, add features based on actual usage.

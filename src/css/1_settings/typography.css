@@ -1,0 +1,59 @@
+/**
+ * Typography Settings
+ *
+ * Type scale, font stacks, and reading measures
+ */
+
+:root {
+  /*
+   * Type Scale - 1.25 ratio (Major Third)
+   * Fluid scaling using clamp() for smooth responsive typography
+   */
+  --text-1: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+  --text-2: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+  --text-3: var(--text-base);                              /* Base size */
+  --text-4: clamp(1.25rem, 1.15rem + 0.5vw, 1.563rem);
+  --text-5: clamp(1.563rem, 1.4rem + 0.8vw, 1.953rem);
+  --text-6: clamp(1.953rem, 1.75rem + 1vw, 2.441rem);
+  --text-7: clamp(2.441rem, 2.1rem + 1.5vw, 3.052rem);
+
+  /*
+   * Font Stacks
+   * System fonts for maximum performance and native feel
+   */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+               "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: Consolas, Monaco, "Courier New", monospace;
+
+  /*
+   * Semantic Font Assignments
+   */
+  --font-body: var(--font-sans);
+  --font-heading: var(--font-sans);
+  --font-code: var(--font-mono);
+
+  /*
+   * Font Weights
+   */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /*
+   * Measure (Optimal Reading Line Length)
+   * Based on characters per line for readability
+   */
+  --measure: 65ch;
+  --measure-wide: 80ch;
+  --measure-narrow: 45ch;
+
+  /*
+   * Line Height Variations
+   */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-loose: 1.8;
+}

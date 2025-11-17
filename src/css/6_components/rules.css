@@ -1,0 +1,33 @@
+/**
+ * Rules Component
+ *
+ * Horizontal dividers and keylines for visual separation.
+ * Ported from source/scss/5_components/_layout--rules.scss
+ */
+
+@layer components {
+  /* Hairline rule - 1px subtle divider */
+  .rule--hairline {
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  /* Light rule - 2px lighter divider */
+  .rule--light {
+    border-block-start: 2px solid var(--color-grey-200);
+  }
+
+  /* Accent rule - 3px brand color */
+  .rule--accent {
+    border-block-start: 3px solid var(--color-accent);
+  }
+
+  /* White rule - useful on dark backgrounds */
+  .rule--white {
+    border-block-start: 2px solid var(--color-white);
+  }
+
+  /* Black rule - strong visual divider */
+  .rule--black {
+    border-block-start: 2px solid var(--color-black);
+  }
+}

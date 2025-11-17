@@ -1,0 +1,24 @@
+/**
+ * Videos Component
+ *
+ * Wrapper for responsive video embeds.
+ * Ported from source/scss/5_components/_media--videos.scss
+ *
+ * Usage:
+ * <figure class="video">
+ *   <iframe src="..."></iframe>
+ *   <figcaption>
+ *     Caption text.
+ *     <footer class="source">Source: <cite>Source Name</cite></footer>
+ *   </figcaption>
+ * </figure>
+ *
+ * Note: For automatic responsive behavior, consider using a library like fitvids.js
+ */
+
+@layer components {
+  .video {
+    /* Base wrapper for video embeds */
+    /* Custom controls and styling can be added here */
+  }
+}
