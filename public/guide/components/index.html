@@ -72,7 +72,7 @@
 </header>
     <!-- Content block, child page inject content -->
     <main class="main offcanvas--squish offcanvas--squish-left" id="main" role="main">
-        <nav class="horizontal-nav horizontal-nav--guide row" id="header">
+        <nav class="horizontal-nav horizontal-nav--guide stack mt-4" id="header">
     <p class="trigger"><a href="#sections" class="js-reveal">Sections</a></p>
     <ul class="collapse" id="sections">
       <li><a href="#media" class="js-scroll">Media</a></li>
@@ -84,19 +84,19 @@
   </nav>
 
 
-<header class="row">
+<header class="stack mt-4">
   <h1>Components</h1>
   <p class="lead">Components combine basic HTML elements into small reusable pieces that act as the building blocks of our modules and layouts.</p>
 </header>
 
-<section class="row" id="media">
+<section class="stack mt-4" id="media">
   <h2>Media</h2>
   <hr>
 
   <p>We can make our images responsive by wrapping them in<code>&lt;figure&gt;</code> elements. Add a <code>video</code> class for responsive videos, or <code>map</code> for maps.</p>
 
   <aside class="callout callout--clear">
-    <div class="content subtle">
+    <div class="bg-subtle p-4">
       <h3>Tip: Automatically wrap that media</h3>
       <p>Uncomment the first script inside of <code>/source/coffee/components/_media.coffee</code> to automatically add appropriate figure tags to images, videos, and maps inside of elements with a <code>content</code> class. Nice for those pesky CMS-powered content blocks.</p>
     </div>
@@ -109,14 +109,14 @@
     <figcaption><p>Explanatory caption to compliment image. <small class="source">Photographer: First Last</small></p></figcaption>
   </figure>
 
-  <div class="split-content">
+  <div class="grid grid-columns-2">
     <h3>Responsive embedded video</h3>
     <figure class="video">
       <iframe src="//player.vimeo.com/video/13752801"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
     </figure>
   </div>
 
-  <div class="split-content">
+  <div class="grid grid-columns-2">
     <h3>Responsive map</h3>
     <figure class="map">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20821.939822233115!2d-123.12433310318293!3d49.28127672734369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548673f143a94fb3%3A0xbb9196ea9b81f38b!2sVancouver%2C+BC!5e0!3m2!1sen!2s!4v1392173356350" width="800" height="600" frameborder="0" style="border:0"></iframe>
@@ -126,7 +126,7 @@
   <p class="more"><a href="#header" class="js-scroll">To top</a></p>
 </section>
 
-<section class="row" id="tables">
+<section class="stack mt-4" id="tables">
   <h2>Tables</h2>
   <hr>
 
@@ -322,7 +322,7 @@
   <p class="more"><a href="#header" class="js-scroll">To top</a></p>
 </section>
 
-<section class="row" id="code">
+<section class="stack mt-4" id="code">
   <h2>Code</h2>
   <hr>
 
@@ -361,18 +361,18 @@
     <p class="more"><a href="#header" class="js-scroll">To top</a></p>
 </section>
 
-<section class="row" id="nav">
+<section class="stack mt-4" id="nav">
   <h2>Navigation</h2>
   <hr>
 
-  <div class="split-content">
+  <div class="grid grid-columns-2">
     <h3>Breadcrumbs</h3>
     <nav class="breadcrumbs">
       <p><a href="/">Home</a> / <a href="">Parent page</a> / <span class="active">Current page</span></p>
     </nav>
   </div>
 
-  <div class="split-content">
+  <div class="grid grid-columns-2">
     <h3>Pagination</h3>
 
     <h4>Standard</h4>
@@ -394,7 +394,7 @@
     </nav>
   </div>
 
-  <div class="split-content">
+  <div class="grid grid-columns-2">
     <h3>Vertical navigation</h3>
     <nav class="vertical-nav">
       <ul>
@@ -414,7 +414,7 @@
     &lt;/nav&gt;</code></pre>
   </div>
 
-  <div class="split-content">
+  <div class="grid grid-columns-2">
     <h3>Horizontal navigation</h3>
     <nav class="horizontal-nav">
       <ul>
@@ -437,7 +437,7 @@
   <p class="more"><a href="#header" class="js-scroll">To top</a></p>
 </section>
 
-<section class="row" id="callouts">
+<section class="stack mt-4" id="callouts">
   <h2>Callouts</h2>
   <hr>
 
@@ -459,14 +459,14 @@
 
 <section class="row callouts">
   <aside class="callout">
-    <div class="content subtle">
+    <div class="bg-subtle p-4">
       <h2>Callout</h2>
       <p>Callout content is a related aside that doesn't fit directly inside normal page content. It may also be used to highlight important sections. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam quis risus eget urna mollis ornare vel eu leo. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
     </div>
   </aside>
 
   <aside class="callout">
-    <div class="content reverse">
+    <div class="bg-black text-white p-4">
       <h2>Dark Callout</h2>
       <p>Callout content is a related aside that doesn't fit directly inside normal page content. It may also be used to highlight important sections. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam quis risus eget urna mollis ornare vel eu leo. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
     </div>
@@ -476,7 +476,7 @@
     <figure>
       <img src="http://placehold.it/800x400" alt="">
     </figure>
-    <div class="content subtle">
+    <div class="bg-subtle p-4">
       <h2>Image Callout</h2>
       <p>Callout content is a related aside that doesn't fit directly inside normal page content. It may also be used to highlight important sections.</p>
     </div>
@@ -486,14 +486,14 @@
     <figure class="video">
       <iframe src="//player.vimeo.com/video/13752801"  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
     </figure>
-    <div class="content subtle">
+    <div class="bg-subtle p-4">
       <h2>Video Callout</h2>
       <p>Callout content is a related aside that doesn't fit directly inside normal page content. It may also be used to highlight important sections.</p>
     </div>
   </aside>
 
   <aside class="callout">
-    <div class="content reverse">
+    <div class="bg-black text-white p-4">
       <h2>Form Callout</h2>
       <p>Callout content is a related aside that doesn't fit directly inside normal page content.</p>
       <form action="#">
@@ -510,7 +510,7 @@
   </aside>
 
   <aside class="callout">
-    <div class="content reverse">
+    <div class="bg-black text-white p-4">
       <h2>Callout with drawer</h2>
       <p>Callout content is a related aside that doesn't fit directly inside normal page content.</p>
       <p><a href="#callout-drawer-1" class="js-reveal button button--red">Open drawer</a></p>
@@ -530,7 +530,7 @@
   <p class="more"><a href="#header" class="js-scroll">To top</a></p>
 </section>
       <!-- Footer section -->
-      <footer class="footer row subtle">
+      <footer class="footer stack mt-4 bg-subtle p-4">
   <p><small><a href="/">Home</a> | <a href="/guide/">Guide</a> | <a href="/example/">Example</a></small></p>
   <p><small>&copy; Louder Than Ten. Rapidly built with <a href="http://www.livewires.io">Live Wires</a>.</small></p>
 </footer>

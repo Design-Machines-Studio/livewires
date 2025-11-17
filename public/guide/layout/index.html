@@ -72,7 +72,7 @@
 </header>
     <!-- Content block, child page inject content -->
     <main class="main offcanvas--squish offcanvas--squish-left" id="main" role="main">
-        <nav class="horizontal-nav horizontal-nav--guide row" id="header">
+        <nav class="horizontal-nav horizontal-nav--guide stack mt-4" id="header">
     <p class="trigger"><a href="#sections" class="js-reveal">Sections</a></p>
     <ul class="collapse" id="sections">
       <li><a href="#howto" class="js-scroll">How to use</a></li>
@@ -82,13 +82,13 @@
     </ul>
   </nav>
 
-<header class="row">
+<header class="stack mt-4">
   <h1>Layout</h1>
   <p class="lead">A grid should be unique to each project based on content and typographic decisions. Unlike most grid frameworks, this system does not impose a pre-determined number of columns or breakpoints and is not bound to a collection of CSS classes.</p>
   <p> Instead, it uses a collection of Sass grid variables. This approach encourages you to define your own semantic layout classes, keeps the markup clean, and makes the layout easier to modify across breakpoints. You can even combine column variables to experiment with compound or asymetrical grids.</p>
 </header>
 
-<section class="row" id="howto">
+<section class="stack mt-4" id="howto">
   <h2>How to use</h2>
   <hr>
   <p>Our grid concept inspired by <a href="http://www.jonikorpi.com/">Joni Korpi&rsquo;s</a> <a href="http://goldengridsystem.com/">Golden Grid System</a>. The margins and columns are fluid while the gutters maintain a fixed width. This ensures consistent proportional spacing and alignment at all screen widths.</p>
@@ -159,7 +159,7 @@ $c16: 100% / 16;</code></pre>
   </div>
 
 </section>
-<section class="row">
+<section class="stack mt-4">
   <h2>Rows</h2>
   <hr>
   <p>By default, our grid stretches across the entire width of the browser, which may not be ideal for most situations. To give your page some margins, we have created a special <code>.row</code> class to add structure and extra theming hooks.</p>
@@ -168,7 +168,7 @@ $c16: 100% / 16;</code></pre>
 
 
   <div class="code">
-    <pre class="language-markup line-numbers"><code>    &lt;div class="row"&gt; &lt;!-- Adds margins and optional backgrounds to your section --&gt;
+    <pre class="language-markup line-numbers"><code>    &lt;div class="stack mt-4"&gt; &lt;!-- Adds margins and optional backgrounds to your section --&gt;
       &lt;section class="object"&gt;
         &lt;!-- Content that aligns to the grid and has gutters applied --&gt;
       &lt;/section&gt;
@@ -178,7 +178,7 @@ $c16: 100% / 16;</code></pre>
     &lt;/div&gt;</code></pre>
   </div>
 </section>
-<section class="row">
+<section class="stack mt-4">
   <h2>Gutters</h2>
   <hr>
   <p>We use fixed-width gutters defined with a rem unit. This ensures that spacing stays consistent at all sizes. By default, our gutter size is equal to the <code>$line</code> variable set in <code>/source/scss/1_settings/_variables.scss</code>, which also happens to be the baseline grid.</p>
@@ -188,7 +188,7 @@ $c16: 100% / 16;</code></pre>
   <p>By default, the immediate children of a <code>.row</code> wrapper already have gutters applied using this <code>gutter</code> mixin. To prevent gutters from being applied to one of these immediate children, add the <code>.collapse</code> class to it.</p>
 
 </section>
-<section class="row">
+<section class="stack mt-4">
 
   <h2>Page Margins</h2>
   <hr>
@@ -211,7 +211,7 @@ $c16: 100% / 16;</code></pre>
   </div>
 
 </section>
-<section class="row">
+<section class="stack mt-4">
   <h2>Background colors</h2>
   <hr>
   <p>We&rsquo;ve included a few background classes in <code>/source/scss/7_theme/_layout.scss</code> to give you some easy background variations for rows and other elements:</p>
@@ -243,7 +243,7 @@ $c16: 100% / 16;</code></pre>
   <p class="more"><a href="#header" class="js-scroll">To top</a></p>
 </section>
 
-<section class="row" id="resizing">
+<section class="stack mt-4" id="resizing">
   <h2>Units &amp; resizing</h2>
   <hr>
   <p>Every dimension in our project is defined using relative units. Aside from grid units and margins which use percentages, we stick with <a href="http://snook.ca/archives/html_and_css/font-size-with-rem">Rems</a>. When everything is set using Rems, we can proportionally zoom the entire project by changing the font-size of our <code>&lt;html&gt;</code> element. Handy for zooming in or out at different break points.</p>
@@ -279,7 +279,7 @@ html {
   </div>
 
   <aside class="callout callout--clear">
-    <div class="content subtle">
+    <div class="bg-subtle p-4">
         <h3>Tip: Keeping it relative</h3>
         <p>Use the <code>$line</code> variable to declare your Sass arguments whenever possible. Not only does it allow you to proportionally adjust the spacing across your project with a single variable, it ensures that every mesaurement is based on your paragraph&rsquo;s line-height. It takes out guess work and the typography gods will smile upon your beautiful, rationally spaced creation.</p>
     </div>
@@ -376,7 +376,7 @@ html {
   <p class="more"><a href="#header" class="js-scroll">To top</a></p>
 </section>
 
-<section class="row" id="modular-scale">
+<section class="stack mt-4" id="modular-scale">
   <h2>Modular scale</h2>
   <hr>
   <p>Here&rsquo;s a custom modular scale to provide a rational list of related numbers to use throughout the project. This keeps typographic and structural dimensions consistent and in proportion. You can refer to this scale when determining font sizes, gutter units, media proportions, and spacing.</p>
@@ -404,7 +404,7 @@ html {
   <p class="more"><a href="#header" class="js-scroll">To top</a></p>
 </section>
       <!-- Footer section -->
-      <footer class="footer row subtle">
+      <footer class="footer stack mt-4 bg-subtle p-4">
   <p><small><a href="/">Home</a> | <a href="/guide/">Guide</a> | <a href="/example/">Example</a></small></p>
   <p><small>&copy; Louder Than Ten. Rapidly built with <a href="http://www.livewires.io">Live Wires</a>.</small></p>
 </footer>
