@@ -12,10 +12,6 @@
   article ol {
     list-style: revert;
     padding-inline-start: var(--space-025);
-    margin-block-end: var(--space-025);
-  }
-
-  article li {
     margin-block-end: var(--space-1);
   }
 

@@ -14,11 +14,11 @@
   .text-black { color: var(--color-black); }
 
   /* Background colors */
-  .bg-white { background: var(--color-white); }
-  .bg-black { background: var(--color-black); }
-  .bg-subtle { background: var(--color-subtle); }
-  .bg-accent { background: var(--color-accent); color: var(--color-white); }
-  .bg-transparent { background: transparent; }
+  .bg-white { background-color: var(--color-white); }
+  .bg-black { background-color: var(--color-black); }
+  .bg-subtle { background-color: var(--color-subtle); }
+  .bg-accent { background-color: var(--color-accent); color: var(--color-white); }
+  .bg-transparent { background-color: transparent; }
 
   /* Border colors */
   .border-default { border-color: var(--color-border); }

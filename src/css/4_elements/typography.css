@@ -45,7 +45,7 @@
    * Paragraphs
    */
   p {
-    margin-block-end: var(--space-05);
+
     max-inline-size: var(--measure);
   }
 

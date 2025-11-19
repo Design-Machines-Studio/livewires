@@ -36,12 +36,12 @@
    * Semantic Colors
    * These are what components and utilities reference
    */
-  --color-bg: var(--white);
-  --color-fg: var(--grey-900);
-  --color-accent: var(--brand);
-  --color-muted: var(--grey-500);
-  --color-border: var(--grey-300);
-  --color-subtle: var(--grey-100);
+  --color-bg: var(--color-white);
+  --color-fg: var(--color-grey-900);
+  --color-accent: var(--color-brand);
+  --color-muted: var(--color-grey-500);
+  --color-border: var(--color-grey-300);
+  --color-subtle: var(--color-grey-100);
 
   /*
    * Add additional color variables here
@@ -56,9 +56,9 @@
  */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: var(--color-grey-900);
-    --color-fg: var(--color-white);
-    --color-accent: #66AAFF;
+    --color-bg: var(--color-fg);
+    --color-fg: var(--color-bg);
+    --color-accent: var(--color-brand);
     --color-border: var(--color-grey-700);
     --color-subtle: var(--color-grey-800);
   }
