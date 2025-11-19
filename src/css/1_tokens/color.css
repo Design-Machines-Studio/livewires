@@ -9,7 +9,7 @@
    * Base Palette
    */
   --color-white: #FFFFFF;
-  --color-black: #1A1A1A;
+  --color-black: #000000;
 
   /*
    * Grey Scale
@@ -22,7 +22,7 @@
   --color-grey-600: #666666;
   --color-grey-700: #4A4A4A;
   --color-grey-800: #2E2E2E;
-  --color-grey-900: var(--color-black);
+  --color-grey-900: #1A1A1A;
 
   /*
    * Brand Colors
@@ -36,32 +36,18 @@
    * Semantic Colors
    * These are what components and utilities reference
    */
-  --color-bg: var(--color-white);
-  --color-fg: var(--color-grey-900);
-  --color-accent: var(--color-brand);
-  --color-muted: var(--color-grey-500);
-  --color-border: var(--color-grey-300);
-  --color-subtle: var(--color-grey-100);
+  --color-bg: var(--white);
+  --color-fg: var(--grey-900);
+  --color-accent: var(--brand);
+  --color-muted: var(--grey-500);
+  --color-border: var(--grey-300);
+  --color-subtle: var(--grey-100);
 
   /*
-   * Color Schemes (for art direction)
+   * Add additional color variables here
    * Override --color-bg, --color-fg, --color-accent in components
    */
 
-  /* Warm scheme */
-  --scheme-warm-bg: #FFF9F0;
-  --scheme-warm-fg: #2C1810;
-  --scheme-warm-accent: #FF6B35;
-
-  /* Cool scheme */
-  --scheme-cool-bg: #F0F5FF;
-  --scheme-cool-fg: #102840;
-  --scheme-cool-accent: #3366CC;
-
-  /* Dark scheme */
-  --scheme-dark-bg: var(--color-grey-900);
-  --scheme-dark-fg: var(--color-white);
-  --scheme-dark-accent: #66AAFF;
 }
 
 /*

@@ -13,9 +13,9 @@
 @import './0_config/layers.css';
 
 /* Settings (design tokens) */
-@import './1_settings/tokens.css';
-@import './1_settings/typography.css';
-@import './1_settings/color.css';
+@import './1_tokens/spacing.css';
+@import './1_tokens/typography.css';
+@import './1_tokens/color.css';
 
 /* Reset */
 @import './3_generic/reset.css';
@@ -31,6 +31,8 @@
 @import './4_elements/forms.css';
 
 /* Layout primitives */
+@import './5_layouts/section.css';
+@import './5_layouts/box.css';
 @import './5_layouts/stack.css';
 @import './5_layouts/cluster.css';
 @import './5_layouts/grid.css';

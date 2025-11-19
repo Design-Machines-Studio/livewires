@@ -11,8 +11,8 @@
   article ul,
   article ol {
     list-style: revert;
-    padding-inline-start: var(--space-3);
-    margin-block-end: var(--space-3);
+    padding-inline-start: var(--space-025);
+    margin-block-end: var(--space-025);
   }
 
   article li {
@@ -23,16 +23,16 @@
    * Definition lists
    */
   dl {
-    margin-block-end: var(--space-3);
+    margin-block-end: var(--space-1);
   }
 
   dt {
-    font-weight: var(--font-weight-bold);
-    margin-block-start: var(--space-2);
+    font-weight: var(--font-bold);
+    margin-block-start: var(--space-1);
   }
 
   dd {
-    margin-inline-start: var(--space-3);
+    margin-inline-start: var(--space-025);
     margin-block-end: var(--space-1);
   }
 }

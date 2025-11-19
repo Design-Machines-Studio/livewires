@@ -1,0 +1,12 @@
+/**
+ * Box Layout
+ *
+ * Standard box with padding
+ * Inspired by Every Layout
+ */
+
+@layer layouts {
+  .box {
+    padding: var(--space-1);
+  }
+}

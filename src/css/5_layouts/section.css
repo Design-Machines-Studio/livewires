@@ -1,0 +1,15 @@
+/**
+ * Section Layout
+ *
+ * Section for large page sections
+ * Inspired by Every Layout
+ */
+
+@layer layouts {
+  .section {
+    container-type: inline-size;
+    container-name: section;
+    width: 100%;
+    padding: var(--vertical-margin) var(--horizontal-margin);
+  }
+}

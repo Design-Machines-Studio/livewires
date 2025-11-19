@@ -14,7 +14,6 @@
    * Base Typography
    * Fluid scaling from 16px (1rem) to 18px (1.125rem)
    */
-  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
   --line-height-ratio: 1.5;
 
   /*
@@ -46,7 +45,7 @@
   /*
    * Layout Tokens
    */
-  --gutter: var(--line);
-  --margin: var(--space-2);
-  --max-width: 80rem;
+  --gutter: var(--space-1);
+  --vertical-margin: var(--space-1);
+  --horizontal-margin: var(--space-05);
 }

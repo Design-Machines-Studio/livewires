@@ -5,10 +5,9 @@
  */
 
 @layer base {
-  body {
-    max-width: var(--max-width);
-    margin-inline: auto;
-    padding-inline: var(--margin);
-    padding-block: var(--space-4);
+  html,
+  body,
+  main {
+    padding:0;
   }
 }
