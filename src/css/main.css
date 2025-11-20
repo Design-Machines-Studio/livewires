@@ -40,6 +40,7 @@
 @import './5_layouts/center.css';
 
 /* Components */
+@import './6_components/logo.css';
 @import './6_components/buttons.css';
 @import './6_components/callouts.css';
 @import './6_components/rows.css';
