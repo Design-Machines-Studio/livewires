@@ -20,7 +20,7 @@
    * Type Scale - 1.25 ratio (Major Third)
    * Fluid scaling using clamp() for smooth responsive typography
    */
-  --text-xs: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+  --text-xs: clamp(0.6rem, 0.75rem + 0.25vw, 0.7rem);
   --text-sm: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
   --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);                              /* Base size */
   --text-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.563rem);

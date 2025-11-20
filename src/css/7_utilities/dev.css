@@ -1,0 +1,135 @@
+/**
+ * Development & Prototyping Utilities
+ *
+ * These utilities are for design and development only.
+ * Remove this file in production builds.
+ */
+
+@layer utilities {
+  /* Development Grids - Visual guides for baseline and columns */
+
+  /* Baseline Grid - Shows horizontal lines at each baseline increment */
+  .show-baseline {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--line) - 1px),
+      color-mix(in srgb, var(--color-accent) 15%, transparent) calc(var(--line) - 1px),
+      color-mix(in srgb, var(--color-accent) 15%, transparent) var(--line)
+    );
+    background-size: 100% var(--line);
+    background-position: 0 0;
+  }
+
+  /* Column Grid - Shows vertical guides that match .grid-columns-* layouts */
+  /* These create vertical lines at column boundaries with proper gap spacing */
+
+  .show-columns-2::before,
+  .show-columns-3::before,
+  .show-columns-4::before,
+  .show-columns-6::before,
+  .show-columns-12::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  /* 2 columns: 1 divider */
+  .show-columns-2::before {
+    background: linear-gradient(
+      to right,
+      transparent calc(50% - var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-accent) 20%, transparent) calc(50% - var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-accent) 20%, transparent) calc(50% + var(--grid-gap, var(--gutter)) / 2),
+      transparent calc(50% + var(--grid-gap, var(--gutter)) / 2)
+    );
+  }
+
+  /* 3 columns: 2 dividers */
+  .show-columns-3::before {
+    background:
+      linear-gradient(
+        to right,
+        transparent calc(33.333% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(33.333% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(33.333% + var(--grid-gap, var(--gutter)) / 2),
+        transparent calc(33.333% + var(--grid-gap, var(--gutter)) / 2),
+        transparent calc(66.666% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(66.666% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(66.666% + var(--grid-gap, var(--gutter)) / 2),
+        transparent calc(66.666% + var(--grid-gap, var(--gutter)) / 2)
+      );
+  }
+
+  /* 4 columns: 3 dividers */
+  .show-columns-4::before {
+    background:
+      linear-gradient(
+        to right,
+        transparent calc(25% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(25% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(25% + var(--grid-gap, var(--gutter)) / 2),
+        transparent calc(25% + var(--grid-gap, var(--gutter)) / 2),
+        transparent calc(50% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(50% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(50% + var(--grid-gap, var(--gutter)) / 2),
+        transparent calc(50% + var(--grid-gap, var(--gutter)) / 2),
+        transparent calc(75% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(75% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(75% + var(--grid-gap, var(--gutter)) / 2),
+        transparent calc(75% + var(--grid-gap, var(--gutter)) / 2)
+      );
+  }
+
+  /* 6 columns: 5 dividers */
+  .show-columns-6::before {
+    background: repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc((100% / 6) - var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-accent) 20%, transparent) calc((100% / 6) - var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-accent) 20%, transparent) calc((100% / 6) + var(--grid-gap, var(--gutter)) / 2),
+      transparent calc((100% / 6) + var(--grid-gap, var(--gutter)) / 2),
+      transparent calc(100% / 6 * 2)
+    );
+    background-size: calc(100% / 6) 100%;
+  }
+
+  /* 12 columns: 11 dividers */
+  .show-columns-12::before {
+    background: repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc((100% / 12) - var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-accent) 20%, transparent) calc((100% / 12) - var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-accent) 20%, transparent) calc((100% / 12) + var(--grid-gap, var(--gutter)) / 2),
+      transparent calc((100% / 12) + var(--grid-gap, var(--gutter)) / 2),
+      transparent calc(100% / 12 * 2)
+    );
+    background-size: calc(100% / 12) 100%;
+  }
+
+  /*
+   * PROTOTYPING FONTS
+   * Special fonts for design and prototyping
+   */
+  .redact {
+    font-family: var(--font-blokk);
+  }
+
+  /*
+   * DARK MODE
+   * Manual dark mode toggle for prototyping
+   */
+  .dark-mode {
+    --color-bg: var(--color-grey-900);
+    --color-fg: var(--color-white);
+    --color-subtle: var(--color-grey-800);
+    --color-border: var(--color-grey-700);
+    --color-muted: var(--color-grey-400);
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+}

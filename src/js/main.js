@@ -4,3 +4,6 @@ import '../css/main.css';
 
 // HTML Includes via Web Components
 import './html-include.js';
+
+// Development Tools (prototyping utilities)
+import './dev-tools.js';
