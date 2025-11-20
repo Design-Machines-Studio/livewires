@@ -149,4 +149,12 @@
   .tabular-nums { font-variant-numeric: tabular-nums; }
   .diagonal-fractions { font-variant-numeric: diagonal-fractions; }
   .oldstyle-nums { font-variant-numeric: oldstyle-nums; }
+
+  /*
+   * PROTOTYPING FONTS
+   * Special fonts for design and prototyping
+   */
+  .redact {
+    font-family: var(--font-blokk);
+  }
 }
