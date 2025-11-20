@@ -5,6 +5,12 @@
  * Remove this file in production builds.
  */
 
+ @layer base {
+  :root {
+    --font-flow-block: 'Flow Block', sans-serif;
+ }
+}
+
 @layer utilities {
   /* Development Grids - Visual guides for baseline and columns */
 
@@ -116,7 +122,7 @@
    * Special fonts for design and prototyping
    */
   .redact {
-    font-family: var(--font-blokk);
+    font-family: var(--font-flow-block);
   }
 
   /*

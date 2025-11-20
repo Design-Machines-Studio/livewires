@@ -4,20 +4,6 @@
  * Type scale, font stacks, and reading measures
  */
 
-/*
- * Custom Fonts
- */
-@font-face {
-  font-family: 'BLOKK';
-  src: url('/fonts/BLOKKNeue-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-
-  /* Font metric overrides to match system fonts */
-  size-adjust: 80%;         /* Overall size scaling */
-}
-
 :root {
   /*
    * Type Scale - 1.25 ratio (Major Third)
@@ -40,7 +26,6 @@
                "Segoe UI Emoji", "Segoe UI Symbol";
   --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: Consolas, Monaco, "Courier New", monospace;
-  --font-blokk: 'BLOKK', sans-serif;
 
   /*
    * Semantic Font Assignments

@@ -49,11 +49,6 @@
     max-inline-size: var(--measure);
   }
 
-  /*
-   * Lead paragraph (first paragraph often larger)
-   * Only applies to first paragraph in articles, not globally
-   */
-  article > p:first-of-type,
   .lead {
     font-size: var(--text-lg);
   }
