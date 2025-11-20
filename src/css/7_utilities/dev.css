@@ -14,8 +14,8 @@
       to bottom,
       transparent 0,
       transparent calc(var(--line) - 1px),
-      color-mix(in srgb, var(--color-accent) 15%, transparent) calc(var(--line) - 1px),
-      color-mix(in srgb, var(--color-accent) 15%, transparent) var(--line)
+      color-mix(in srgb, var(--color-fg) 25%, transparent) calc(var(--line) - 1px),
+      color-mix(in srgb, var(--color-fg) 25%, transparent) var(--line)
     );
     background-size: 100% var(--line);
     background-position: 0 0;
@@ -41,8 +41,8 @@
     background: linear-gradient(
       to right,
       transparent calc(50% - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-accent) 20%, transparent) calc(50% - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-accent) 20%, transparent) calc(50% + var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-fg) 30%, transparent) calc(50% - var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-fg) 30%, transparent) calc(50% + var(--grid-gap, var(--gutter)) / 2),
       transparent calc(50% + var(--grid-gap, var(--gutter)) / 2)
     );
   }
@@ -53,12 +53,12 @@
       linear-gradient(
         to right,
         transparent calc(33.333% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(33.333% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(33.333% + var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(33.333% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(33.333% + var(--grid-gap, var(--gutter)) / 2),
         transparent calc(33.333% + var(--grid-gap, var(--gutter)) / 2),
         transparent calc(66.666% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(66.666% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(66.666% + var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(66.666% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(66.666% + var(--grid-gap, var(--gutter)) / 2),
         transparent calc(66.666% + var(--grid-gap, var(--gutter)) / 2)
       );
   }
@@ -69,16 +69,16 @@
       linear-gradient(
         to right,
         transparent calc(25% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(25% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(25% + var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(25% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(25% + var(--grid-gap, var(--gutter)) / 2),
         transparent calc(25% + var(--grid-gap, var(--gutter)) / 2),
         transparent calc(50% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(50% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(50% + var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(50% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(50% + var(--grid-gap, var(--gutter)) / 2),
         transparent calc(50% + var(--grid-gap, var(--gutter)) / 2),
         transparent calc(75% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(75% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-accent) 20%, transparent) calc(75% + var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(75% - var(--grid-gap, var(--gutter)) / 2),
+        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(75% + var(--grid-gap, var(--gutter)) / 2),
         transparent calc(75% + var(--grid-gap, var(--gutter)) / 2)
       );
   }
@@ -89,8 +89,8 @@
       to right,
       transparent 0,
       transparent calc((100% / 6) - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-accent) 20%, transparent) calc((100% / 6) - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-accent) 20%, transparent) calc((100% / 6) + var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-fg) 30%, transparent) calc((100% / 6) - var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-fg) 30%, transparent) calc((100% / 6) + var(--grid-gap, var(--gutter)) / 2),
       transparent calc((100% / 6) + var(--grid-gap, var(--gutter)) / 2),
       transparent calc(100% / 6 * 2)
     );
@@ -103,8 +103,8 @@
       to right,
       transparent 0,
       transparent calc((100% / 12) - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-accent) 20%, transparent) calc((100% / 12) - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-accent) 20%, transparent) calc((100% / 12) + var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-fg) 30%, transparent) calc((100% / 12) - var(--grid-gap, var(--gutter)) / 2),
+      color-mix(in srgb, var(--color-fg) 30%, transparent) calc((100% / 12) + var(--grid-gap, var(--gutter)) / 2),
       transparent calc((100% / 12) + var(--grid-gap, var(--gutter)) / 2),
       transparent calc(100% / 12 * 2)
     );
@@ -129,7 +129,7 @@
     --color-subtle: var(--color-grey-800);
     --color-border: var(--color-grey-700);
     --color-muted: var(--color-grey-400);
-    background: var(--color-bg);
+    background-color: var(--color-bg);
     color: var(--color-fg);
   }
 }

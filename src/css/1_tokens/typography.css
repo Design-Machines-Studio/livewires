@@ -13,6 +13,9 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+
+  /* Font metric overrides to match system fonts */
+  size-adjust: 80%;         /* Overall size scaling */
 }
 
 :root {
