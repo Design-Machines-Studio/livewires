@@ -12,8 +12,8 @@
   input[type="submit"] {
     --button-bg: var(--color-fg);
     --button-fg: var(--color-bg);
-    --button-padding-block: var(--space-2);
-    --button-padding-inline: var(--space-3);
+    --button-padding-block: var(--space-025);
+    --button-padding-inline: var(--space-05);
     --button-radius: 0.25rem;
 
     display: inline-flex;

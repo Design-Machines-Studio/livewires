@@ -15,7 +15,7 @@
   /* Field wrapper */
   .field {
     position: relative;
-    padding-block-end: var(--space-3);
+    padding-block-end: var(--space-1);
   }
 
   /* Checkbox field variant */

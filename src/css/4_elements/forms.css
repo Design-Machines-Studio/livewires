@@ -8,7 +8,7 @@
   label {
     display: block;
     font-weight: var(--font-medium);
-    margin-block-end: var(--space-1);
+    margin-block-end: var(--space-025);
   }
 
   input[type="text"],
@@ -21,7 +21,7 @@
   textarea,
   select {
     width: 100%;
-    padding: var(--space-05) var(--space-05);
+    padding: var(--space-025) var(--space-025);
     border: 1px solid var(--color-border);
     border-radius: 0.25em;
     background: var(--color-bg);
@@ -43,7 +43,7 @@
   input[type="submit"],
   input[type="button"] {
     display: inline-block;
-    padding: var(--space-05) var(--space-05);
+    padding: var(--space-025) var(--space-025);
     background: var(--color-accent);
     color: var(--color-white);
     border: none;
