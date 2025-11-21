@@ -5,9 +5,7 @@
  */
 
 @layer base {
-  html,
-  body,
-  main {
-    padding:0;
+  html {
+    scroll-behavior: smooth;
   }
 }
