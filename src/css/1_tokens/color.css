@@ -47,6 +47,28 @@
    * Add additional color variables here
    * Override --color-bg, --color-fg, --color-accent in components
    */
+   .theme-white {
+    --color-bg: var(--color-white);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-brand);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-300);
+    --color-subtle: var(--color-grey-100);  
+   }
+   .theme-black {
+    --color-bg: var(--color-black);
+    --color-fg: var(--color-white);
+    --color-accent: var(--color-brand);
+    --color-border: var(--color-grey-700);
+    --color-subtle: var(--color-grey-800);
+   }
+   .theme-brand {
+    --color-bg: var(--color-brand);
+    --color-fg: var(--color-white);
+    --color-accent: var(--color-white);
+    --color-border: var(--color-white);
+    --color-subtle: var(--color-white);
+   }
 
 }
 
@@ -63,3 +85,5 @@
     --color-subtle: var(--color-grey-800);
   }
 }
+
+

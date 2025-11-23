@@ -1,0 +1,35 @@
+@layer components {
+  /* Numerical and delete columns - right aligned */
+  .numerical,
+  .delete {
+    text-align: end;
+  }
+
+  /* Table variants */
+  .table--bordered {
+    & th,
+    & td {
+      border: 1px solid var(--color-border);
+
+      &:empty {
+        border: none;
+      }
+    }
+  }
+
+  .table--striped {
+    & tbody tr:nth-of-type(odd) {
+      background-color: var(--color-subtle);
+    }
+  }
+
+  .table--lined {
+    & thead tr {
+      border-block-end: 2px solid var(--color-border);
+    }
+
+    & tbody tr {
+      border-block-end: 1px solid var(--color-border);
+    }
+  }
+}

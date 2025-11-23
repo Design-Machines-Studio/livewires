@@ -12,4 +12,7 @@
     color: var(--color-fg);
     background: var(--color-bg);
   }
+  html {
+    scroll-behavior: smooth;
+  }
 }
