@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include  class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Getting started</h1>
+          <hr />
+        </header>
+        <div class="stack">
+          <section class="section">
+            <h2>Installation</h2>
+            <p>TODO</p>
+          </section>
+          <section class="section">
+            <h2>Running</h2>
+            <p>Live Wires uses <a href="https://vitejs.dev/">Vite</a> for development with instant HMR (Hot Module Replacement). No build step during development, just instant updates.</p>
+
+            <p><strong>What Vite does:</strong></p>
+            <ul>
+              <li>Instant CSS updates (no refresh needed)</li>
+              <li><a href="https://github.com/ai/autoprefixer">Autoprefixer</a> for vendor prefixes</li>
+              <li>Dev server with automatic browser sync</li>
+              <li>Optimized production builds</li>
+            </ul>
+
+            <p><strong>Getting started:</strong></p>
+            <dl>
+              <dt>Step 1</dt>
+              <dd>Install <a href="https://nodejs.org/">Node.js</a> (18+ required)</dd>
+
+              <dt>Step 2</dt>
+              <dd>Clone this repository and navigate to the project folder</dd>
+
+              <dt>Step 3</dt>
+              <dd>Run <code>npm install</code> to install dependencies</dd>
+
+              <dt>Step 4</dt>
+              <dd>Run <code>npm run dev</code> to start the development server</dd>
+
+              <dt>Step 5</dt>
+              <dd>Open <a href="http://localhost:3000">http://localhost:3000</a> in your browser</dd>
+            </dl>
+
+            <aside class="box bg-subtle">
+              <p><strong>Core commands:</strong></p>
+              <ul>
+                <li><code>npm run dev</code> - Start dev server (run this when working)</li>
+                <li><code>npm run build</code> - Build optimized CSS to <code>dist/</code></li>
+                <li><code>npm run preview</code> - Preview production build</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h2>Project structure</h2>
+            <p>Each Live Wires installation is a single prototype. No templates, no build complexity. Just HTML, CSS, and a simple Web Component for includes.</p>
+
+            <p><strong>Directory overview:</strong></p>
+
+            <dl>
+              <dt><code>/src/css/</code></dt>
+              <dd>All CSS source files organized by cascade layers (tokens, elements, layouts, utilities)</dd>
+
+              <dt><code>/src/css/1_tokens/</code></dt>
+              <dd>Design tokens: <a href="/src/css/1_tokens/spacing.css">spacing.css</a>, <a href="/src/css/1_settings/typography.css">typography.css</a>, <a href="/src/css/1_settings/color.css">color.css</a></dd>
+
+              <dt><code>/src/css/4_elements/</code></dt>
+              <dd>Semantic HTML defaults (headings, paragraphs, links, lists, forms, tables)</dd>
+
+              <dt><code>/src/css/5_layouts/</code></dt>
+              <dd>Layout primitives: <a href="/src/css/5_layouts/box.css">box</a>, <a href="/src/css/5_layouts/stack.css">stack</a>, <a href="/src/css/5_layouts/grid.css">grid</a>, <a href="/src/css/5_layouts/cluster.css">cluster</a>, <a href="/src/css/5_layouts/sidebar.css">sidebar</a>, <a href="/src/css/5_layouts/center.css">center</a>, and <a href="/src/css/5_layouts/section.css">section</a></dd>
+
+              <dt><code>/src/css/7_utilities/</code></dt>
+              <dd>Utility classes: <a href="/src/css/7_utilities/spacing.css">spacing</a>, <a href="/src/css/7_utilities/typography.css">typography</a>, <a href="/src/css/7_utilities/color.css">color</a></dd>
+
+              <dt><code>/src/main.js</code></dt>
+              <dd>Vite entry point (loads CSS and Web Components)</dd>
+
+              <dt><code>/src/html-include.js</code></dt>
+              <dd>Zero-dependency Web Component for HTML includes</dd>
+
+              <dt><code>/public/</code></dt>
+              <dd><strong>Your prototype lives here.</strong> Build HTML pages directly in this folder.</dd>
+
+              <dt><code>/public/_includes/</code></dt>
+              <dd>Reusable HTML fragments (header, footer, etc.) used with <code>&lt;html-include&gt;</code>. Customize and covert easily for your own front-end system.</dd>
+
+              <dt><code>/public/fonts/</code></dt>
+              <dd>Web font files</dd>
+
+              <dt><code>/public/img/</code></dt>
+              <dd>Images and graphics</dd>
+
+              <dt><code>/public/guide/</code></dt>
+              <dd>This style guide (you're reading it). Also functions as a component library.</dd>
+            </dl>
+          </section>
+        </div>
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

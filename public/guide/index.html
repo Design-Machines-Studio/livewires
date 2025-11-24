@@ -17,27 +17,13 @@
 
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
-      <nav class="bg-subtle box">
-        <ul class="stack stack-compact">
-          <li><a href="#howto">How to use this guide</a></li>
-          <li><a href="#setup">Setup</a></li>
-          <li><a href="#structure">Project structure</a></li>
-          <li><a href="#markup">Markup</a></li>
-          <li><a href="#css">CSS</a></li>
-          <li><a href="#helpers">Utility classes</a></li>
-          <li><a href="#js">JavaScript</a></li>
-          <li><a href="#compatibility">Compatibility</a></li>
-          <li><a href="#support">Support</a></li>
-        </ul>
-      </nav>
+      <html-include  class="bg-subtle" src="_includes/nav-docs.html"></html-include>
       <article class="stack box">
         <header>
           <h1>Live Wires Guide</h1>
-
+          <hr />
           <p class="lead">A prototyping-first design system for editorial websites. Built with modern CSS and minimal dependencies.</p>
-
-          <p><strong>Philosophy:</strong> Good defaults + additive art direction. Semantic HTML looks good for prototyping out of the box, utility classes provide precise control for art direction.</p>
-          </header>
+        </header>
           <section id="howto">
             <h2>How do I use this guide?</h2>
             <hr>
@@ -46,103 +32,10 @@
             <p><strong>Start here:</strong> Write semantic HTML in <code>public/index.html</code>. It'll look good with zero classes. Add layout primitives (<code>.stack</code>, <code>.grid</code>) for composition. Use utilities for precise art direction.</p>
           </section>
             
-          <section id="setup">
-            <h2>Setup</h2>
-            <hr>
-
-            <p>Live Wires uses <a href="https://vitejs.dev/">Vite</a> for development with instant HMR (Hot Module Replacement). No build step during development, just instant updates.</p>
-
-            <p><strong>What Vite does:</strong></p>
-            <ul>
-              <li>Instant CSS updates (no refresh needed)</li>
-              <li><a href="https://github.com/ai/autoprefixer">Autoprefixer</a> for vendor prefixes</li>
-              <li>Dev server with automatic browser sync</li>
-              <li>Optimized production builds</li>
-            </ul>
-
-            <p><strong>Getting started:</strong></p>
-            <dl>
-              <dt>Step 1</dt>
-              <dd>Install <a href="https://nodejs.org/">Node.js</a> (18+ required)</dd>
-
-              <dt>Step 2</dt>
-              <dd>Clone this repository and navigate to the project folder</dd>
-
-              <dt>Step 3</dt>
-              <dd>Run <code>npm install</code> to install dependencies</dd>
-
-              <dt>Step 4</dt>
-              <dd>Run <code>npm run dev</code> to start the development server</dd>
-
-              <dt>Step 5</dt>
-              <dd>Open <a href="http://localhost:3000">http://localhost:3000</a> in your browser</dd>
-            </dl>
-
-            <aside class="box bg-subtle">
-              <p><strong>Core commands:</strong></p>
-              <ul>
-                <li><code>npm run dev</code> - Start dev server (run this when working)</li>
-                <li><code>npm run build</code> - Build optimized CSS to <code>dist/</code></li>
-                <li><code>npm run preview</code> - Preview production build</li>
-              </ul>
-            </aside>
-
-            <p class="more"><a href="#header">To top</a></p>
-          </section>
-            
-          <section id="structure">
-            <h2>Project structure</h2>
-            <hr>
-
-            <p>Each Live Wires installation is a single prototype. No templates, no build complexity. Just HTML, CSS, and a simple Web Component for includes.</p>
-
-            <p><strong>Directory overview:</strong></p>
-
-            <dl>
-              <dt><code>/src/css/</code></dt>
-              <dd>All CSS source files organized by cascade layers (tokens, elements, layouts, utilities)</dd>
-
-              <dt><code>/src/css/1_tokens/</code></dt>
-              <dd>Design tokens: <a href="/src/css/1_tokens/spacing.css">spacing.css</a>, <a href="/src/css/1_settings/typography.css">typography.css</a>, <a href="/src/css/1_settings/color.css">color.css</a></dd>
-
-              <dt><code>/src/css/4_elements/</code></dt>
-              <dd>Semantic HTML defaults (headings, paragraphs, links, lists, forms, tables)</dd>
-
-              <dt><code>/src/css/5_layouts/</code></dt>
-              <dd>Layout primitives: <a href="/src/css/5_layouts/box.css">box</a>, <a href="/src/css/5_layouts/stack.css">stack</a>, <a href="/src/css/5_layouts/grid.css">grid</a>, <a href="/src/css/5_layouts/cluster.css">cluster</a>, <a href="/src/css/5_layouts/sidebar.css">sidebar</a>, <a href="/src/css/5_layouts/center.css">center</a>, and <a href="/src/css/5_layouts/section.css">section</a></dd>
-
-              <dt><code>/src/css/7_utilities/</code></dt>
-              <dd>Utility classes: <a href="/src/css/7_utilities/spacing.css">spacing</a>, <a href="/src/css/7_utilities/typography.css">typography</a>, <a href="/src/css/7_utilities/color.css">color</a></dd>
-
-              <dt><code>/src/main.js</code></dt>
-              <dd>Vite entry point (loads CSS and Web Components)</dd>
-
-              <dt><code>/src/html-include.js</code></dt>
-              <dd>Zero-dependency Web Component for HTML includes</dd>
-
-              <dt><code>/public/</code></dt>
-              <dd><strong>Your prototype lives here.</strong> Build HTML pages directly in this folder.</dd>
-
-              <dt><code>/public/_includes/</code></dt>
-              <dd>Reusable HTML fragments (header, footer, etc.) used with <code>&lt;html-include&gt;</code>. Customize and covert easily for your own front-end system.</dd>
-
-              <dt><code>/public/fonts/</code></dt>
-              <dd>Web font files</dd>
-
-              <dt><code>/public/img/</code></dt>
-              <dd>Images and graphics</dd>
-
-              <dt><code>/public/guide/</code></dt>
-              <dd>This style guide (you're reading it). Also functions as a component library.</dd>
-            </dl>
-
-            <p class="more"><a href="#header">To top</a></p>
-          </section>
-            
           <section id="markup">
-            <h2 id="markup">Markup</h2>
+            <h2 id="markup">Philosophy</h2>
             <hr>
-
+            <p class="lead">Good defaults + additive art direction. Semantic HTML looks good for prototyping out of the box, utility classes provide precise control for art direction.</p>
             <p>Write semantic HTML5. That's it. Your content will look good with zero classes.</p>
 
             <p><strong>The three-tier approach:</strong></p>
