@@ -28,19 +28,23 @@ Vite provides instant HMR (Hot Module Replacement). Edit CSS or HTML files and s
 ├── src/
 │   ├── css/               # All CSS source files
 │   │   ├── 0_config/      # Cascade layer definitions
-│   │   ├── 1_settings/    # Design tokens (tokens, typography, color)
+│   │   ├── 1_tokens/      # Design tokens (spacing, typography, color)
 │   │   ├── 3_generic/     # CSS reset
 │   │   ├── 4_elements/    # Semantic HTML defaults
-│   │   ├── 5_layouts/     # Layout primitives (stack, grid, cluster)
-│   │   ├── 6_components/  # UI components (future)
-│   │   ├── 7_utilities/   # Utility classes (spacing, typography, color, grid)
+│   │   ├── 5_layouts/     # Layout primitives (stack, grid, cluster, center, sidebar)
+│   │   ├── 6_components/  # UI components (22 production-ready components)
+│   │   ├── 7_utilities/   # Utility classes (spacing, typography, color, grid, display)
 │   │   └── main.css       # CSS entry point
-│   ├── main.js            # Vite entry point (loads CSS + Web Components)
-│   └── html-include.js    # Web Component for HTML includes
+│   ├── js/                # JavaScript files
+│   │   ├── main.js        # Vite entry point (loads CSS + Web Components)
+│   │   ├── html-include.js # Web Component for HTML includes
+│   │   └── dev-tools.js   # Development utilities
 │
 ├── public/                # Your prototype (site root)
 │   ├── index.html         # Your HTML
 │   ├── _includes/         # HTML includes (header, footer, etc.)
+│   ├── guide/             # Comprehensive documentation site
+│   ├── example/           # Example site implementation
 │   ├── fonts/             # Web fonts
 │   └── img/               # Images
 │
@@ -81,16 +85,26 @@ This ensures utilities always win over components, components over layouts, etc.
    - [grid.css](src/css/5_layouts/grid.css) - Auto-responsive grid layouts
    - [sidebar.css](src/css/5_layouts/sidebar.css) - Sidebar + main content layout
    - [center.css](src/css/5_layouts/center.css) - Centered content with max-width
-4. **`components`** - Named UI patterns ([6_components/](src/css/6_components/)) - Future
+   - [box.css](src/css/5_layouts/box.css) - Simple padding wrapper
+   - [section.css](src/css/5_layouts/section.css) - Section wrapper
+4. **`components`** - Named UI patterns ([6_components/](src/css/6_components/))
+   - 22 production-ready components including buttons, navigation, forms, tables, callouts, tabs, pagination, switches, offcanvas, and more
 5. **`utilities`** - Single-purpose classes ([7_utilities/](src/css/7_utilities/))
    - [spacing.css](src/css/7_utilities/spacing.css) - Margin and padding utilities
    - [typography.css](src/css/7_utilities/typography.css) - Font size, weight, alignment
    - [color.css](src/css/7_utilities/color.css) - Text/bg colors, color schemes
-   - [grid.css](src/css/7_utilities/grid.css) - Display, flex, gap utilities
+   - [grid.css](src/css/7_utilities/grid.css) - Grid utilities
+   - [flexbox.css](src/css/7_utilities/flexbox.css) - Flexbox utilities
+   - [display.css](src/css/7_utilities/display.css) - Display utilities
+   - [borders.css](src/css/7_utilities/borders.css) - Border utilities
+   - [media.css](src/css/7_utilities/media.css) - Responsive media utilities
+   - [sizing.css](src/css/7_utilities/sizing.css) - Width/height utilities
+   - [tables.css](src/css/7_utilities/tables.css) - Table utilities
+   - [dev.css](src/css/7_utilities/dev.css) - Development/prototyping utilities
 
 ### The Sacred Baseline System
 
-**CRITICAL:** Everything in Live Wires derives from the `--line` variable defined in [src/css/1_settings/tokens.css](src/css/1_settings/tokens.css#L22).
+**CRITICAL:** Everything in Live Wires derives from the `--line` variable defined in [src/css/1_tokens/spacing.css](src/css/1_tokens/spacing.css).
 
 ```css
 :root {
@@ -103,12 +117,16 @@ This ensures utilities always win over components, components over layouts, etc.
 
   /* All spacing is multiples of --line */
   --space-0: 0;
-  --space-1: calc(var(--line) * 0.5);
-  --space-2: var(--line);
-  --space-3: calc(var(--line) * 1.5);
-  --space-4: calc(var(--line) * 2);
-  --space-5: calc(var(--line) * 3);
-  --space-6: calc(var(--line) * 4);
+  --space-025: calc(var(--line) * 0.25);
+  --space-05: calc(var(--line) * 0.5);
+  --space-075: calc(var(--line) * 0.75);
+  --space-1: var(--line);
+  --space-15: calc(var(--line) * 1.5);
+  --space-2: calc(var(--line) * 2);
+  --space-3: calc(var(--line) * 3);
+  --space-4: calc(var(--line) * 4);
+  --space-5: calc(var(--line) * 5);
+  --space-6: calc(var(--line) * 6);
 }
 ```
 
@@ -118,22 +136,26 @@ This ensures utilities always win over components, components over layouts, etc.
 
 ### Design Tokens
 
-All design tokens are CSS custom properties in [src/css/1_settings/](src/css/1_settings/):
+All design tokens are CSS custom properties in [src/css/1_tokens/](src/css/1_tokens/):
 
-#### [tokens.css](src/css/1_settings/tokens.css)
+#### [spacing.css](src/css/1_tokens/spacing.css)
 - Baseline calculation (`--line`)
-- Spacing scale (`--space-0` through `--space-6`)
+- Spacing scale (`--space-0` through `--space-6`) with fractional values (`--space-025`, `--space-05`, `--space-075`, `--space-15`)
 - Layout tokens (`--gutter`, `--margin`, `--max-width`)
 
-#### [typography.css](src/css/1_settings/typography.css)
-- Type scale (`--text-1` through `--text-7`) using `clamp()` for fluid scaling
+#### [typography.css](src/css/1_tokens/typography.css)
+- Type scale (`--text-xs`, `--text-sm`, `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl`, `--text-3xl`) using `clamp()` for fluid scaling
+- Major Third ratio (1.25) for harmonious type scaling
 - Font stacks (`--font-sans`, `--font-serif`, `--font-mono`)
-- Font weights (`--font-weight-normal`, `--font-weight-bold`, etc.)
+- Font weights from thin (100) to black (900)
+- Leading variations (`--leading-tight`, `--leading-normal`, `--leading-loose`)
 - Reading measures (`--measure`, `--measure-wide`, `--measure-narrow`)
 
-#### [color.css](src/css/1_settings/color.css)
-- Base palette (grey scale, brand colors)
+#### [color.css](src/css/1_tokens/color.css)
+- Extended grey scale (100-900)
+- Brand colors and semantic colors
 - Semantic colors (`--color-bg`, `--color-fg`, `--color-accent`)
+- Theme classes (`.theme-white`, `.theme-black`, `.theme-brand`)
 - Color schemes (`--scheme-warm-*`, `--scheme-cool-*`, `--scheme-dark-*`)
 - Automatic dark mode via `@media (prefers-color-scheme: dark)`
 
@@ -194,6 +216,131 @@ Horizontal grouping with wrapping (navigation, tags):
 <div class="cluster-center">  <!-- Center alignment -->
 ```
 
+## Components
+
+Live Wires includes 22 production-ready components in [6_components/](src/css/6_components/):
+
+### Navigation Components
+- **[navigation.css](src/css/6_components/navigation.css)** - Horizontal and vertical navigation patterns
+- **[breadcrumbs.css](src/css/6_components/breadcrumbs.css)** - Breadcrumb navigation
+- **[pagination.css](src/css/6_components/pagination.css)** - Page navigation
+- **[offcanvas.css](src/css/6_components/offcanvas.css)** - Slide-out panels from any direction with push/squish modes
+
+### Form Components
+- **[buttons.css](src/css/6_components/buttons.css)** - Button variants (colors, sizes, states, groups)
+- **[fields.css](src/css/6_components/fields.css)** - Form field layouts with size variants
+- **[inline-forms.css](src/css/6_components/inline-forms.css)** - Inline form patterns
+- **[option-buttons.css](src/css/6_components/option-buttons.css)** - Custom radio/checkbox button groups
+- **[switches.css](src/css/6_components/switches.css)** - Toggle switch controls
+
+### Content Components
+- **[callouts.css](src/css/6_components/callouts.css)** - Content callouts and alerts
+- **[tables.css](src/css/6_components/tables.css)** - Enhanced table styles
+- **[code-highlighting.css](src/css/6_components/code-highlighting.css)** - Code syntax highlighting
+- **[images.css](src/css/6_components/images.css)** - Image components and treatments
+- **[videos.css](src/css/6_components/videos.css)** - Responsive video embeds
+- **[maps.css](src/css/6_components/maps.css)** - Responsive map embeds
+
+### Interactive Components
+- **[tabs.css](src/css/6_components/tabs.css)** - Tab navigation and panels
+- **[drawers.css](src/css/6_components/drawers.css)** - Expandable/collapsible drawers
+
+### Utility Components
+- **[logo.css](src/css/6_components/logo.css)** - Logo styling and positioning
+- **[text-styles.css](src/css/6_components/text-styles.css)** - Common text style patterns
+- **[rows.css](src/css/6_components/rows.css)** - Row-based layouts
+- **[rules.css](src/css/6_components/rules.css)** - Decorative rules and dividers
+- **[addresses.css](src/css/6_components/addresses.css)** - Contact information formatting (vcard)
+
+All components follow these principles:
+- Use custom properties for theming
+- Leverage container queries for responsive behavior
+- Work within the cascade layers system (components layer)
+- Support utility class overrides
+
+### Component Examples
+
+#### Button Component
+```html
+<!-- Basic button -->
+<button class="button">Click me</button>
+
+<!-- Color variants -->
+<button class="button button--red">Delete</button>
+<button class="button button--blue">Primary</button>
+
+<!-- Size variants -->
+<button class="button button--small">Small</button>
+<button class="button button--large">Large</button>
+
+<!-- Button group -->
+<div class="button-group">
+  <button class="button">Left</button>
+  <button class="button">Center</button>
+  <button class="button">Right</button>
+</div>
+```
+
+#### Navigation
+```html
+<!-- Horizontal navigation -->
+<nav class="horizontal-nav">
+  <a href="/">Home</a>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+</nav>
+
+<!-- Vertical navigation -->
+<nav class="vertical-nav">
+  <a href="/">Home</a>
+  <a href="/about/">About</a>
+</nav>
+
+<!-- Breadcrumbs -->
+<nav class="breadcrumbs">
+  <a href="/">Home</a>
+  <a href="/news/">News</a>
+  <span>Article Title</span>
+</nav>
+```
+
+#### Table Variants
+```html
+<!-- Bordered table -->
+<table class="table--bordered">...</table>
+
+<!-- Striped table -->
+<table class="table--striped">...</table>
+
+<!-- Lined table -->
+<table class="table--lined">...</table>
+```
+
+#### Form Fields
+```html
+<!-- Field with size variant -->
+<div class="field field--half">
+  <label>Email</label>
+  <input type="email">
+</div>
+
+<!-- Option buttons (custom radio group) -->
+<div class="option-buttons">
+  <input type="radio" name="size" id="small">
+  <label for="small">Small</label>
+  <input type="radio" name="size" id="large">
+  <label for="large">Large</label>
+</div>
+
+<!-- Toggle switch -->
+<div class="switch">
+  <input type="checkbox" id="toggle">
+  <label for="toggle">Enable feature</label>
+</div>
+```
+
+See [public/guide/components/](public/guide/components/) for complete component documentation.
+
 ## Utility Classes
 
 Tailwind-compatible naming where sensible. All utilities are in the `utilities` cascade layer, so they always win.
@@ -219,7 +366,42 @@ Tailwind-compatible naming where sensible. All utilities are in the `utilities` 
 <section class="scheme-warm">  <!-- Applies warm color palette -->
 <section class="scheme-cool">  <!-- Applies cool color palette -->
 <section class="scheme-dark">  <!-- Applies dark color palette -->
+<section class="theme-white">  <!-- White theme variant -->
+<section class="theme-black">  <!-- Black theme variant -->
+<section class="theme-brand">  <!-- Brand theme variant -->
 ```
+
+## Development Tools
+
+Live Wires includes development utilities to help with prototyping and design quality assurance:
+
+### Baseline Grid Overlay ([7_utilities/dev.css](src/css/7_utilities/dev.css))
+```html
+<body class="show-baseline">  <!-- Shows baseline grid overlay -->
+```
+Displays the vertical rhythm grid to ensure all spacing aligns to the baseline.
+
+### Column Grid Overlays
+```html
+<body class="show-columns-2">  <!-- Shows 2-column grid overlay -->
+<body class="show-columns-3">  <!-- Shows 3-column grid overlay -->
+<body class="show-columns-4">  <!-- Shows 4-column grid overlay -->
+```
+Visualize column layouts during development.
+
+### Prototyping Font
+```html
+<p class="redact">  <!-- Uses redacted/placeholder text rendering -->
+```
+Useful for showing type hierarchy without readable content.
+
+### Manual Dark Mode
+```html
+<body class="dark-mode">  <!-- Forces dark mode regardless of system preference -->
+```
+
+### Dev Tools JavaScript ([src/js/dev-tools.js](src/js/dev-tools.js))
+Additional development utilities loaded via the main.js entry point.
 
 ## Adding New Features
 
@@ -289,7 +471,7 @@ Live Wires uses a **zero-dependency Web Component** for HTML includes, aligning 
 
 ### How It Works
 
-The `<html-include>` custom element is defined in [src/html-include.js](src/html-include.js) and automatically loaded via [src/main.js](src/main.js). It fetches and renders HTML fragments at runtime using native browser APIs.
+The `<html-include>` custom element is defined in [src/js/html-include.js](src/js/html-include.js) and automatically loaded via [src/js/main.js](src/js/main.js). It fetches and renders HTML fragments at runtime using native browser APIs.
 
 ### Usage
 
@@ -391,6 +573,44 @@ This provides:
 
 But Live Wires is **zero-dependency**. No Tailwind required.
 
+## Documentation & Guide
+
+Live Wires includes a comprehensive documentation site at [public/guide/](public/guide/):
+
+### Guide Pages
+- **[index.html](public/guide/index.html)** - Getting started, usage, and core concepts
+- **[identity/index.html](public/guide/identity/index.html)** - Brand identity (logos, colors, typography)
+- **[layout/index.html](public/guide/layout/index.html)** - Grid and layout documentation
+- **[elements/index.html](public/guide/elements/index.html)** - HTML element documentation
+- **[components/index.html](public/guide/components/index.html)** - Component documentation
+- **[templates/index.html](public/guide/templates/index.html)** - Template patterns
+- **[modules/index.html](public/guide/modules/index.html)** - Module patterns
+
+### Custom Guide Components
+
+The guide includes specialized Web Components for documentation:
+
+#### Color Swatch Component ([public/guide/_components/swatch.js](public/guide/_components/swatch.js))
+```html
+<color-swatch value="#FF5733"></color-swatch>
+```
+Displays color information with automatic conversion to RGB, HSLA, and OKLCH formats. Automatically selects light/dark theme based on color luminance.
+
+#### Type Sample Component ([public/guide/_components/type-sample.js](public/guide/_components/type-sample.js))
+```html
+<type-sample></type-sample>
+```
+Displays typography samples with all type scale values.
+
+### Example Site
+
+A complete example site implementation is available at [public/example/](public/example/) demonstrating:
+- Multi-page structure
+- Navigation patterns
+- Content layouts
+- Component usage
+- HTML include patterns
+
 ## Key Principles
 
 1. **Baseline-driven spacing** - Everything is a multiple of `--line`
@@ -404,14 +624,14 @@ But Live Wires is **zero-dependency**. No Tailwind required.
 ## Common Tasks
 
 ### Change the baseline
-Edit [src/css/1_settings/tokens.css](src/css/1_settings/tokens.css#L15):
+Edit [src/css/1_tokens/spacing.css](src/css/1_tokens/spacing.css):
 ```css
 --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem); /* Adjust min/max */
 --line-height-ratio: 1.5; /* Adjust for different fonts */
 ```
 
 ### Add a color scheme
-Edit [src/css/1_settings/color.css](src/css/1_settings/color.css):
+Edit [src/css/1_tokens/color.css](src/css/1_tokens/color.css):
 ```css
 --scheme-custom-bg: #color;
 --scheme-custom-fg: #color;
@@ -429,10 +649,25 @@ Then add the utility in [src/css/7_utilities/color.css](src/css/7_utilities/colo
 }
 ```
 
+### Add a theme
+Edit [src/css/1_tokens/color.css](src/css/1_tokens/color.css):
+```css
+--theme-custom-bg: #color;
+--theme-custom-fg: #color;
+```
+
+Then add the utility in [src/css/7_utilities/color.css](src/css/7_utilities/color.css):
+```css
+.theme-custom {
+  background: var(--theme-custom-bg);
+  color: var(--theme-custom-fg);
+}
+```
+
 ### Add a font
 1. Add font files to [public/fonts/](public/fonts/)
-2. Define `@font-face` in [src/css/1_settings/typography.css](src/css/1_settings/typography.css)
-3. Update font stack variables (e.g., `--font-heading`)
+2. Define `@font-face` in [src/css/1_tokens/typography.css](src/css/1_tokens/typography.css)
+3. Update font stack variables (e.g., `--font-sans`, `--font-serif`)
 
 ## Testing
 
@@ -445,10 +680,23 @@ Check:
 - Color schemes apply properly
 - Typography scales smoothly on resize
 
-## Next Steps
+## Project Status
 
-Future enhancements to consider:
-- Additional components (card, callout, article, header, nav, footer)
-- Build additional HTML pages in [public/](public/) as needed
-- Craft CMS, Astro, or Nuxt integration examples
+### What's Built
+- ✅ Complete cascade layer system with 5 layers
+- ✅ Comprehensive design token system (spacing, typography, color)
+- ✅ 22 production-ready components
+- ✅ 7 layout primitives
+- ✅ Complete utility class system (10+ utility modules)
+- ✅ Development tools (baseline grid, column overlays)
+- ✅ HTML includes via Web Components
+- ✅ Comprehensive guide documentation site
+- ✅ Example site implementation
+- ✅ Custom Web Components for guide (swatch, type-sample)
+
+### Future Enhancements to Consider
+- Framework integrations (Craft CMS, Astro, Nuxt)
+- Build-time HTML includes for better SEO
+- Additional example templates
 - Framework-specific installation guides
+- Component playground/interactive documentation
