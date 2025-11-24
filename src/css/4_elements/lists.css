@@ -8,8 +8,8 @@
   /*
    * Content lists (restore list styles for article content)
    */
-  article ul,
-  article ol {
+  .content ul,
+  .content ol {
     list-style: revert;
     padding-inline-start: var(--space-025);
     margin-block-end: var(--space-1);
