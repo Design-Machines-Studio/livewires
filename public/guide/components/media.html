@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Media</h1>
+          <hr />
+        </header>
+        <div class="section stack">
+          <section>
+            <header>
+              <h2>Images</h2>
+            </header>
+            <div>
+              <h3>Placeholder image</h3>
+              <figure>
+                <img src="https://placehold.co/2000x1200" alt="">
+              </figure>
+            </div>
+            <div>
+              <h3>Image with caption</h3>
+              <figure>
+                <img src="https://placehold.co/2000x1200" alt="">
+                <caption>This is a placeholder image with a caption.</caption>
+              </figure>
+            </div>
+          </section>
+          <section>
+            <header>
+              <h2>Video</h2>
+            </header>
+
+          </section>
+        </div>
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

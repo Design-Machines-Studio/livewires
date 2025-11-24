@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Borders</h1>
+          <hr />
+        </header>
+        <div class="section grid grid-columns-2">
+          <section class="stack">
+            <header>
+              <h3>Border weights</h3>
+              <hr />
+            </header>
+            <div>
+              <h4>border-hairline</h4>
+              <hr class="border-weight-hairline" />
+            </div>
+            <div>
+              <h4>border-standard <small>(default)</small></h4>
+              <hr class="" />
+            </div>
+            <div>
+              <h4>border-thick</h4>
+              <hr class="border-thick" />
+            </div>
+          </section>
+          <section class="stack">
+            <header>
+              <h3>Border colors</h3>
+              <hr />
+            </header>
+            <div>
+              <h4>border-red</h4>
+              <hr class="rule--red" />
+            </div>
+          </section>
+        </div>
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
