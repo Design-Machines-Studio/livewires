@@ -19,10 +19,13 @@
 
 
 /* Typography scale mode (choose one) */
-@import './1_tokens/typography-scale-auto.css';  /* Default: automatic, ratio-based */
-@import './2_tools/typography-scale-auto.css';  /* Calculations for ratio mode */
-/* @import './1_tokens/typography-scale-manual.css'; */  /* Alternative: manual, baseline-aligned */
-/* @import './2_tools/typography-scale-manual.css'; */  /* Calculations for manual mode */
+/* Default: automatic, ratio-based */
+/* @import './1_tokens/typography-scale-auto.css';  
+@import './2_tools/typography-scale-auto.css'; */
+
+/* Alternative: manual, baseline-aligned */
+@import './1_tokens/typography-scale-manual.css'; 
+@import './2_tools/typography-scale-manual.css';
 
 
 /* Tools (CSS functions and type definitions) */
@@ -52,6 +55,7 @@
 @import './5_layouts/center.css';
 
 /* Components */
+/* Only use what you need */
 @import './6_components/logo.css';
 @import './6_components/buttons.css';
 @import './6_components/callouts.css';
@@ -73,8 +77,11 @@
 @import './6_components/code-highlighting.css';
 @import './6_components/addresses.css';
 @import './6_components/text-styles.css';
+@import './6_components/prose.css';
+
 
 /* Utilities */
+/* Only use what you need */
 @import './7_utilities/display.css';
 @import './7_utilities/spacing.css';
 @import './7_utilities/flexbox.css';

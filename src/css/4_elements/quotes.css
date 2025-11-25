@@ -1,0 +1,30 @@
+:lang(en) > * { quotes: '“' '”' '‘' '’' ; } /* “Generic English ‘style’” */
+:lang(en-GB) > * { quotes: '‘' '’' '“' '”'; } /* ‘British “style”’ */
+:lang(fr) > * { quotes: '«?0202F' '?0202F»' '“' '”'; } /* « French “style” » */
+
+q::before { content: open-quote }
+q::after  { content: close-quote }
+
+.quote,
+.quote q {
+  quotes: '“' '”' '‘' '’';
+}
+
+.quote p:first-of-type::before {
+  content: open-quote;
+}
+.quote p:last-of-type::after  {
+  content: close-quote;
+}
+
+.quote p:first-of-type::before {
+  margin-inline-start: -0.87ch; /* Adjust according to font */
+}
+.quote p {
+  hanging-punctuation: first last;
+}
+@supports(hanging-punctuation: first last) {
+  .quote p:first-of-type::before {
+      margin-inline-start: 0;
+  }
+}

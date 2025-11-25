@@ -17,6 +17,10 @@
     border-bottom: 1px solid var(--color-border);
   }
 
+  td {
+    font-variant-numeric: tabular-nums lining-nums slashed-zero;    
+  }
+
   th {
     font-weight: var(--font-bold);
     background: var(--color-subtle);
@@ -26,67 +30,6 @@
     background: var(--color-subtle);
   }
 
-  /* Column width helpers - percentage-based column sizing */
-  .t1 { inline-size: 1%; }
-  .t5 { inline-size: 5%; }
-  .t10 { inline-size: 10%; }
-  .t12 { inline-size: 12.5%; } /* 1/8 */
-  .t15 { inline-size: 15%; }
-  .t20 { inline-size: 20%; }
-  .t25 { inline-size: 25%; } /* 1/4 */
-  .t30 { inline-size: 30%; }
-  .t33 { inline-size: 33.333%; } /* 1/3 */
-  .t35 { inline-size: 35%; }
-  .t37 { inline-size: 37.5%; } /* 3/8 */
-  .t40 { inline-size: 40%; }
-  .t45 { inline-size: 45%; }
-  .t50 { inline-size: 50%; } /* 1/2 */
-  .t55 { inline-size: 55%; }
-  .t60 { inline-size: 60%; }
-  .t62 { inline-size: 62.5%; } /* 5/8 */
-  .t65 { inline-size: 65%; }
-  .t66 { inline-size: 66.666%; } /* 2/3 */
-  .t70 { inline-size: 70%; }
-  .t75 { inline-size: 75%; } /* 3/4 */
-  .t80 { inline-size: 80%; }
-  .t85 { inline-size: 85%; }
-  .t87 { inline-size: 87.5%; } /* 7/8 */
-  .t90 { inline-size: 90%; }
-  .t95 { inline-size: 95%; }
-
-  /* Numerical and delete columns - right aligned */
-  .numerical,
-  .delete {
-    text-align: end;
-  }
-
-  /* Table variants */
-  .table--bordered {
-    & th,
-    & td {
-      border: 1px solid var(--color-border);
-
-      &:empty {
-        border: none;
-      }
-    }
-  }
-
-  .table--striped {
-    & tbody tr:nth-of-type(odd) {
-      background-color: var(--color-subtle);
-    }
-  }
-
-  .table--lined {
-    & thead tr {
-      border-block-end: 2px solid var(--color-border);
-    }
-
-    & tbody tr {
-      border-block-end: 1px solid var(--color-border);
-    }
-  }
 
   /* Responsive tables - stack on mobile */
   @container (width < 48em) {

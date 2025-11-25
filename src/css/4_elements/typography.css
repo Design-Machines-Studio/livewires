@@ -15,6 +15,7 @@
     font-family: var(--font-heading);
     font-weight: var(--font-bold);
     margin-block-end: var(--space-05);
+    font-variant-numeric: lining-nums;
     text-wrap: balance; /* Balanced line lengths for headings */
   }
 
@@ -23,6 +24,7 @@
     line-height: var(--line-height-3xl);
     letter-spacing: var(--tracking-3xl);
     margin-block-end: var(--space-1);
+    font-variant-ligatures: discretionary-ligatures;
   }
 
   h2 {
@@ -160,4 +162,26 @@
   sup {
     top: -0.5em;
   }
+  @supports ( font-variant-position: sub ) {
+    sub, .sub {
+        vertical-align: baseline;
+        font-size: 100%;
+        line-height: inherit;
+        font-variant-position: sub;
+    }
+  }
+
+  @supports ( font-variant-position: super ) {
+    sup, .sup {
+        vertical-align: baseline;
+        font-size: 100%;
+        line-height: inherit;
+        font-variant-position: super;
+    }
+  }
+
+  math, time[datetime*=":"] {
+    font-variant-numeric: tabular-nums lining-nums slashed-zero;    
+  }
+
 }

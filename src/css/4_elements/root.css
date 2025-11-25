@@ -11,6 +11,7 @@
     line-height: var(--line-height-ratio);
     color: var(--color-fg);
     background: var(--color-bg);
+    font-variation-settings: "GRAD" var(--vf-grad, 0);
   }
   html {
     scroll-behavior: smooth;

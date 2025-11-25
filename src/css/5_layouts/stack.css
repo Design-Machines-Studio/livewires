@@ -12,7 +12,7 @@
   }
 
   .stack > * + * {
-    margin-block-start: var(--stack-space, var(--space-3));
+    margin-block-start: var(--stack-space, var(--line));
   }
 
   /* Spacing variations */

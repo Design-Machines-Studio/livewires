@@ -18,7 +18,13 @@
   * {
     margin: 0;
     scroll-behavior: smooth;
+    font-variation-settings: "GRAD" var(--vf-grad, 0);
   }
+
+  html {
+    text-size-adjust: none;
+  }
+  
 
   /*
    * Body defaults
@@ -44,7 +50,8 @@
    * Form elements inherit fonts
    */
   input, button, textarea, select {
-    font: inherit;
+    font-family: inherit;
+    font-size: inherit;
   }
 
   /*

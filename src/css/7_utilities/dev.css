@@ -148,6 +148,7 @@
    * PROTOTYPING FONTS
    * Special fonts for design and prototyping
    */
+  .redact .prose,
   .redact .content {
     font-family: var(--font-flow-block);
   }

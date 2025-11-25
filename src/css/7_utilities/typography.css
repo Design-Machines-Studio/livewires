@@ -243,12 +243,77 @@
 
   /* ===============================================
      FONT VARIANT
-     Special typographic features
+     Special typographic features, inspured by
+     Richard Rutter's, TODS: https://clagnut.com/blog/2433/
      =============================================== */
 
   .font-variant-normal { font-variant: normal; }
-  .small-caps { font-variant: small-caps; }
-  .tabular-nums { font-variant-numeric: tabular-nums; }
-  .diagonal-fractions { font-variant-numeric: diagonal-fractions; }
-  .oldstyle-nums { font-variant-numeric: oldstyle-nums; }
+
+  .dlig { font-variant-ligatures: discretionary-ligatures; }
+  .hlig { font-variant-ligatures: historical-ligatures; }
+  .dlig.hlig { font-variant-ligatures: discretionary-ligatures historical-ligatures; } /* Apply both historic and discretionary */
+
+  .pnum { font-variant-numeric: proportional-nums; }
+  .tnum { font-variant-numeric: tabular-nums;    }
+  .lnum { font-variant-numeric: lining-nums; }
+  .onum { font-variant-numeric: oldstyle-nums; }
+  .zero { font-variant-numeric: slashed-zero;    }
+  .pnum.zero { font-variant-numeric: proportional-nums slashed-zero; } /* Apply slashed zeroes to proportional numerals */
+  .tnum.zero { font-variant-numeric: tabular-nums slashed-zero; }
+  .lnum.zero { font-variant-numeric: lining-nums slashed-zero; }
+  .onum.zero { font-variant-numeric: oldstyle-nums slashed-zero; }
+  .tnum.lnum.zero { font-variant-numeric: tabular-nums lining-nums slashed-zero; }
+  .frac { font-variant-numeric: diagonal-fractions; }
+  .afrc { font-variant-numeric: stacked-fractions; }
+  .ordn { font-variant-numeric: ordinal; }
+
+  .smcp { font-variant-caps: small-caps; }
+  .c2sc { font-variant-caps: unicase; }
+  .hist { font-variant-alternates: historical-forms; }
+
+
+  /* Stylesets */
+  .ss01 { font-variant-alternates: styleset(cursive); }
+  .ss02 { font-variant-alternates: styleset(swoopy); }
+
+  /* Character variants */
+  .cv01 { font-variant-alternates: character-variant(ampersand); }
+  .cv02 { font-variant-alternates: character-variant(capital-q); }
+
+  /* Stylistic alternates */
+  .salt1 { font-variant-alternates: stylistic(two-story-g); }
+  .salt2 { font-variant-alternates: stylistic(straight-y); }
+
+  /* Swashes */
+  .swsh1 { font-variant-alternates: swash(swishy); }
+  .swsh2 { font-variant-alternates: swash(flowing); }
+
+  /* Ornaments */
+  .ornm1 { font-variant-alternates: ornaments(clover); }
+  .ornm2 { font-variant-alternates: ornaments(fleuron); }
+
+  /* Alternative numerals */
+  .nalt1 { font-variant-alternates: annotation(circled); }
+  .nalt2 { font-variant-alternates: annotation(boxed); }
+
+  :root {
+    --opentype-case: "case" off;
+    --opentype-sinf: "sinf" off;
+  }
+
+  /* If class is applied, update custom property */
+  .case {
+      --opentype-case: "case" on;
+  }
+
+  .sinf {
+      --opentype-sinf: "sinf" on;
+  }
+
+  /* Apply current state of all custom properties, defaulting to off */
+  * { 
+      font-feature-settings: var(--opentype-case, "case" off), var(--opentype-sinf, "sinf" off);
+  }
+
+
 }
