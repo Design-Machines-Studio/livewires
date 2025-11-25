@@ -15,16 +15,43 @@
   /* Development Grids - Visual guides for baseline and columns */
 
   /* Baseline Grid - Shows horizontal lines at each baseline increment */
+
   .show-baseline {
-    background-image: repeating-linear-gradient(
+    /* Control subdivisions with --subdivisions (1 = no subdivisions, 2 = halves, 4 = quarters, etc.) */
+    --subdivisions: 2;
+    --baseline-transparency: 0.92; /* Make bg- classes slightly transparent to see grid */
+
+    /* Main baseline grid at full line-height intervals */
+    --baseline-grid: repeating-linear-gradient(
       to bottom,
       transparent 0,
       transparent calc(var(--line) - 1px),
       color-mix(in srgb, var(--color-fg) 25%, transparent) calc(var(--line) - 1px),
       color-mix(in srgb, var(--color-fg) 25%, transparent) var(--line)
     );
-    background-size: 100% var(--line);
+
+    /* Subdivision grid (lighter lines) - calculated based on --subdivisions */
+    --subdivision-grid: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--line) / var(--subdivisions) - 1px),
+      color-mix(in srgb, var(--color-fg) 12%, transparent) calc(var(--line) / var(--subdivisions) - 1px),
+      color-mix(in srgb, var(--color-fg) 12%, transparent) calc(var(--line) / var(--subdivisions))
+    );
+
+    /* Apply grid to body/root element */
+    background-image: var(--baseline-grid), var(--subdivision-grid);
+    background-size: 100% var(--line), 100% calc(var(--line) / var(--subdivisions));
     background-position: 0 0;
+  }
+
+  /* Make bg- classes slightly transparent so grid shows through */
+  .show-baseline :is([class*="bg-"]):not(.bg-transparent) {
+    background-color: color-mix(
+      in srgb,
+      var(--bg-color) var(--baseline-transparency),
+      transparent
+    ) !important;
   }
 
   /* Column Grid - Shows vertical guides that match .grid-columns-* layouts */
@@ -121,7 +148,7 @@
    * PROTOTYPING FONTS
    * Special fonts for design and prototyping
    */
-  .redact {
+  .redact .content {
     font-family: var(--font-flow-block);
   }
 
