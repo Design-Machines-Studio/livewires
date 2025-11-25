@@ -1,0 +1,98 @@
+/* ===============================================
+   CSS FUNCTIONS LIBRARY
+   Reusable calculations via CSS @function
+   Browser support: Chrome 134+, with fallbacks
+   =============================================== */
+
+/* Fluid Typography Function
+   Generates clamp() values from min/max with viewport scaling
+
+   Parameters:
+   --min: Minimum font size in pixels (e.g., 16)
+   --max: Maximum font size in pixels (e.g., 24)
+   --rate: Viewport scaling rate (default: 0.5vw)
+
+   Usage:
+   --text-lg: --fluid-type(20, 25);
+
+   Result:
+   clamp(1.25rem, 1.25rem + 0.313vw, 1.563rem)
+*/
+@function --fluid-type(--min, --max, --rate: 0.5vw) {
+  result: clamp(
+    calc(var(--min) / 16 * 1rem),
+    calc(var(--min) / 16 * 1rem + (var(--max) - var(--min)) * var(--rate) / 16),
+    calc(var(--max) / 16 * 1rem)
+  );
+}
+
+/* Fluid Line-Height Function
+   Generates clamp() values for line-heights
+
+   Parameters:
+   --min: Minimum line-height in pixels (e.g., 24)
+   --max: Maximum line-height in pixels (e.g., 36)
+   --rate: Viewport scaling rate (default: 0.5vw)
+
+   Usage:
+   --leading-lg: --fluid-leading(24, 36);
+
+   Result:
+   clamp(1.5rem, 1.5rem + 0.75vw, 2.25rem)
+*/
+@function --fluid-leading(--min, --max, --rate: 0.5vw) {
+  result: clamp(
+    calc(var(--min) / 16 * 1rem),
+    calc(var(--min) / 16 * 1rem + (var(--max) - var(--min)) * var(--rate) / 16),
+    calc(var(--max) / 16 * 1rem)
+  );
+}
+
+/* Negation Function
+   Returns the negative value of a number
+
+   Parameters:
+   --value: The value to negate
+
+   Usage:
+   margin-top: --negate(var(--space-3));
+
+   Result:
+   margin-top: calc(-1 * var(--space-3));
+*/
+@function --negate(--value) {
+  result: calc(-1 * var(--value));
+}
+
+/* Spacing Multiplier Function
+   Multiplies the baseline spacing unit
+
+   Parameters:
+   --multiplier: Number to multiply --line by
+
+   Usage:
+   margin-block: --space-calc(3);
+
+   Result:
+   margin-block: calc(var(--line) * 3);
+*/
+@function --space-calc(--multiplier) {
+  result: calc(var(--line) * var(--multiplier));
+}
+
+/* Opacity Variant Function
+   Creates a semi-transparent version of a color
+
+   Parameters:
+   --color: The base color
+   --alpha: Opacity level (0-1, default: 0.5)
+
+   Usage:
+   background: --with-opacity(var(--color-brand), 0.2);
+
+   Result:
+   background: color-mix(in srgb, var(--color-brand) 20%, transparent);
+*/
+@function --with-opacity(--color, --alpha: 0.5) {
+  result: color-mix(in srgb, var(--color) calc(var(--alpha) * 100%), transparent);
+}

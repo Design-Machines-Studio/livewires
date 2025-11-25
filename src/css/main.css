@@ -13,9 +13,21 @@
 @import './0_config/layers.css';
 
 /* Settings (design tokens) */
-@import './1_tokens/spacing.css';
-@import './1_tokens/typography.css';
 @import './1_tokens/color.css';
+@import './1_tokens/spacing.css';
+@import './1_tokens/typography-base.css';
+
+
+/* Typography scale mode (choose one) */
+@import './1_tokens/typography-scale-auto.css';  /* Default: automatic, ratio-based */
+@import './2_tools/typography-scale-auto.css';  /* Calculations for ratio mode */
+/* @import './1_tokens/typography-scale-manual.css'; */  /* Alternative: manual, baseline-aligned */
+/* @import './2_tools/typography-scale-manual.css'; */  /* Calculations for manual mode */
+
+
+/* Tools (CSS functions and type definitions) */
+/* @import './2_tools/functions.css'; Check browser support before using: https://caniuse.com/?search=%40function */
+@import './2_tools/properties.css';
 
 /* Reset */
 @import './3_generic/reset.css';

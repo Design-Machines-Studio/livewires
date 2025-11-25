@@ -1,0 +1,201 @@
+/**
+ * Typography @property Definitions
+ *
+ * Enables browser optimizations and type safety for typography tokens.
+ * Browser support: Chrome 85+, Edge 85+, Safari 16.4+
+ * Older browsers: Gracefully ignored (no breaking changes)
+ *
+ * Benefits:
+ * - Browser can optimize custom property calculations
+ * - Provides type validation
+ * - Enables better developer experience
+ * - Required for some CSS @function usage
+ */
+
+/* ===============================================
+   CONFIGURATION VALUES
+   Core typography settings
+   =============================================== */
+
+@property --type-scale-ratio {
+  syntax: "<number>";
+  initial-value: 1.25;
+  inherits: true;
+}
+
+@property --type-scale-rate {
+  syntax: "<length>";
+  initial-value: 0.5vw;
+  inherits: true;
+}
+
+@property --line-height-ratio-body {
+  syntax: "<number>";
+  initial-value: 1.5;
+  inherits: true;
+}
+
+@property --line-height-ratio-heading {
+  syntax: "<number>";
+  initial-value: 1.3;
+  inherits: true;
+}
+
+@property --line-height-ratio-display {
+  syntax: "<number>";
+  initial-value: 1.1;
+  inherits: true;
+}
+
+@property --text-base-min {
+  syntax: "<number>";
+  initial-value: 16;
+  inherits: true;
+}
+
+@property --text-base-max {
+  syntax: "<number>";
+  initial-value: 22;
+  inherits: true;
+}
+
+/* ===============================================
+   RATIO MODE: PRE-CALCULATED POWERS
+   =============================================== */
+
+@property --ratio-2 {
+  syntax: "<number>";
+  initial-value: 1.5625;
+  inherits: true;
+}
+
+@property --ratio-3 {
+  syntax: "<number>";
+  initial-value: 1.953125;
+  inherits: true;
+}
+
+@property --ratio-4 {
+  syntax: "<number>";
+  initial-value: 2.44140625;
+  inherits: true;
+}
+
+@property --ratio-5 {
+  syntax: "<number>";
+  initial-value: 3.0517578125;
+  inherits: true;
+}
+
+@property --ratio-6 {
+  syntax: "<number>";
+  initial-value: 3.814697265625;
+  inherits: true;
+}
+
+@property --ratio-7 {
+  syntax: "<number>";
+  initial-value: 4.76837158203125;
+  inherits: true;
+}
+
+@property --ratio-8 {
+  syntax: "<number>";
+  initial-value: 5.9604644775390625;
+  inherits: true;
+}
+
+@property --ratio-9 {
+  syntax: "<number>";
+  initial-value: 7.450580596923828;
+  inherits: true;
+}
+
+@property --ratio-10 {
+  syntax: "<number>";
+  initial-value: 9.313225746154785;
+  inherits: true;
+}
+
+/* ===============================================
+   MANUAL MODE: SIZE/LINE MIN/MAX VALUES
+   Define types for whole-number pixel values
+   =============================================== */
+
+/* xs size/line */
+@property --size-xs-min { syntax: "<number>"; initial-value: 12; inherits: true; }
+@property --size-xs-max { syntax: "<number>"; initial-value: 14; inherits: true; }
+@property --line-xs-min { syntax: "<number>"; initial-value: 18; inherits: true; }
+@property --line-xs-max { syntax: "<number>"; initial-value: 24; inherits: true; }
+
+/* sm size/line */
+@property --size-sm-min { syntax: "<number>"; initial-value: 14; inherits: true; }
+@property --size-sm-max { syntax: "<number>"; initial-value: 16; inherits: true; }
+@property --line-sm-min { syntax: "<number>"; initial-value: 21; inherits: true; }
+@property --line-sm-max { syntax: "<number>"; initial-value: 28; inherits: true; }
+
+/* base size/line */
+@property --size-base-min { syntax: "<number>"; initial-value: 16; inherits: true; }
+@property --size-base-max { syntax: "<number>"; initial-value: 18; inherits: true; }
+@property --line-base-min { syntax: "<number>"; initial-value: 24; inherits: true; }
+@property --line-base-max { syntax: "<number>"; initial-value: 27; inherits: true; }
+
+/* lg size/line */
+@property --size-lg-min { syntax: "<number>"; initial-value: 20; inherits: true; }
+@property --size-lg-max { syntax: "<number>"; initial-value: 25; inherits: true; }
+@property --line-lg-min { syntax: "<number>"; initial-value: 24; inherits: true; }
+@property --line-lg-max { syntax: "<number>"; initial-value: 32; inherits: true; }
+
+/* xl size/line */
+@property --size-xl-min { syntax: "<number>"; initial-value: 25; inherits: true; }
+@property --size-xl-max { syntax: "<number>"; initial-value: 31; inherits: true; }
+@property --line-xl-min { syntax: "<number>"; initial-value: 30; inherits: true; }
+@property --line-xl-max { syntax: "<number>"; initial-value: 40; inherits: true; }
+
+/* 2xl size/line */
+@property --size-2xl-min { syntax: "<number>"; initial-value: 31; inherits: true; }
+@property --size-2xl-max { syntax: "<number>"; initial-value: 39; inherits: true; }
+@property --line-2xl-min { syntax: "<number>"; initial-value: 36; inherits: true; }
+@property --line-2xl-max { syntax: "<number>"; initial-value: 48; inherits: true; }
+
+/* 3xl size/line */
+@property --size-3xl-min { syntax: "<number>"; initial-value: 39; inherits: true; }
+@property --size-3xl-max { syntax: "<number>"; initial-value: 49; inherits: true; }
+@property --line-3xl-min { syntax: "<number>"; initial-value: 48; inherits: true; }
+@property --line-3xl-max { syntax: "<number>"; initial-value: 48; inherits: true; }
+
+/* 4xl size/line */
+@property --size-4xl-min { syntax: "<number>"; initial-value: 49; inherits: true; }
+@property --size-4xl-max { syntax: "<number>"; initial-value: 61; inherits: true; }
+@property --line-4xl-min { syntax: "<number>"; initial-value: 48; inherits: true; }
+@property --line-4xl-max { syntax: "<number>"; initial-value: 64; inherits: true; }
+
+/* 5xl size/line */
+@property --size-5xl-min { syntax: "<number>"; initial-value: 61; inherits: true; }
+@property --size-5xl-max { syntax: "<number>"; initial-value: 76; inherits: true; }
+@property --line-5xl-min { syntax: "<number>"; initial-value: 60; inherits: true; }
+@property --line-5xl-max { syntax: "<number>"; initial-value: 72; inherits: true; }
+
+/* 6xl size/line */
+@property --size-6xl-min { syntax: "<number>"; initial-value: 76; inherits: true; }
+@property --size-6xl-max { syntax: "<number>"; initial-value: 95; inherits: true; }
+@property --line-6xl-min { syntax: "<number>"; initial-value: 72; inherits: true; }
+@property --line-6xl-max { syntax: "<number>"; initial-value: 96; inherits: true; }
+
+/* 7xl size/line */
+@property --size-7xl-min { syntax: "<number>"; initial-value: 95; inherits: true; }
+@property --size-7xl-max { syntax: "<number>"; initial-value: 119; inherits: true; }
+@property --line-7xl-min { syntax: "<number>"; initial-value: 96; inherits: true; }
+@property --line-7xl-max { syntax: "<number>"; initial-value: 120; inherits: true; }
+
+/* 8xl size/line */
+@property --size-8xl-min { syntax: "<number>"; initial-value: 119; inherits: true; }
+@property --size-8xl-max { syntax: "<number>"; initial-value: 149; inherits: true; }
+@property --line-8xl-min { syntax: "<number>"; initial-value: 120; inherits: true; }
+@property --line-8xl-max { syntax: "<number>"; initial-value: 160; inherits: true; }
+
+/* 9xl size/line */
+@property --size-9xl-min { syntax: "<number>"; initial-value: 149; inherits: true; }
+@property --size-9xl-max { syntax: "<number>"; initial-value: 186; inherits: true; }
+@property --line-9xl-min { syntax: "<number>"; initial-value: 144; inherits: true; }
+@property --line-9xl-max { syntax: "<number>"; initial-value: 192; inherits: true; }

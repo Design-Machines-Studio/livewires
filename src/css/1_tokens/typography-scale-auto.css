@@ -1,0 +1,89 @@
+/**
+ * Typography Scale - Ratio-Based (Default)
+ *
+ * Automatically calculates entire type scale from base size and ratio.
+ * Perfect for quick setup and consistent rhythm.
+ *
+ * How it works:
+ * 1. Set base font size min/max
+ * 2. Set type scale ratio (Major Third = 1.25)
+ * 3. All sizes calculate automatically (see 2_tools/typography-scale-ratio-computed.css)
+ * 4. Line-heights use simple ratios (no calculation needed)
+ *
+ * To use: Import this file in main.css instead of typography-scale-manual.css
+ */
+
+@layer tokens {
+  :root {
+    /* ===============================================
+       CONFIGURATION
+       Change these to customize your scale
+       =============================================== */
+
+    /* Base font size (px) */
+    --text-base-min: 16;
+    --text-base-max: 22;
+
+    /* Type scale ratio - Common scales:
+       - Minor Third: 1.2
+       - Major Third: 1.25
+       - Perfect Fourth: 1.333
+       - Augmented Fourth: 1.414
+       - Perfect Fifth: 1.5
+       - Golden Ratio: 1.618
+    */
+    --type-scale-ratio: 1.25;
+
+    /* Line-height ratios (different ratios for different sizes)
+       Smaller ratios = tighter line-height for display text */
+    --line-height-ratio-body: 1.5;    /* xs, sm, base, lg */
+    --line-height-ratio-heading: 1.3; /* xl, 2xl */
+    --line-height-ratio-display: 1.1; /* 3xl, 4xl, 5xl, 6xl, 7xl, 8xl, 9xl */
+
+    /* Letter-spacing per size (visual refinement) */
+    --tracking-xs: 0.01em;
+    --tracking-sm: 0em;
+    --tracking-base: 0em;
+    --tracking-lg: -0.01em;
+    --tracking-xl: -0.015em;
+    --tracking-2xl: -0.02em;
+    --tracking-3xl: -0.025em;
+    --tracking-4xl: -0.03em;
+    --tracking-5xl: -0.035em;
+    --tracking-6xl: -0.04em;
+    --tracking-7xl: -0.045em;
+    --tracking-8xl: -0.05em;
+    --tracking-9xl: -0.055em;
+
+    /* ===============================================
+       COMPUTED VALUES
+       Font sizes (--text-*) are calculated in:
+       2_tools/typography-scale-ratio-computed.css
+       =============================================== */
+
+    /* ===============================================
+       LINE-HEIGHTS AS UNITLESS NUMBERS
+       Use ratios directly - no runtime calculation needed!
+       Progressive ratios: body (1.5), heading (1.3), display (1.1)
+       =============================================== */
+
+    /* Body sizes (1.5 ratio) */
+    --line-height-xs: var(--line-height-ratio-body);
+    --line-height-sm: var(--line-height-ratio-body);
+    --line-height-base: var(--line-height-ratio-body);
+    --line-height-lg: var(--line-height-ratio-body);
+
+    /* Heading sizes (1.3 ratio) */
+    --line-height-xl: var(--line-height-ratio-heading);
+    --line-height-2xl: var(--line-height-ratio-heading);
+
+    /* Display sizes (1.1 ratio) */
+    --line-height-3xl: var(--line-height-ratio-display);
+    --line-height-4xl: var(--line-height-ratio-display);
+    --line-height-5xl: var(--line-height-ratio-display);
+    --line-height-6xl: var(--line-height-ratio-display);
+    --line-height-7xl: var(--line-height-ratio-display);
+    --line-height-8xl: var(--line-height-ratio-display);
+    --line-height-9xl: var(--line-height-ratio-display);
+  }
+}

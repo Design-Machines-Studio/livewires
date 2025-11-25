@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article>
+        <header class="section">
+          <h1>Typography system</h1>
+          <hr />
+        </header>
+
+        <div class="section">
+          <section class="section">
+            <h2>Overview</h2>
+            <p>Live Wires uses a sophisticated typography system that combines modern CSS features with practical flexibility. The system provides <strong>13 type sizes</strong> (xs through 9xl) with fluid scaling, associated line-heights, and letter-spacing—all controlled through clean, maintainable tokens.</p>
+
+            <h3>Key features</h3>
+            <ul>
+              <li><strong>Complete packages:</strong> Single utility class applies font-size + line-height + letter-spacing</li>
+              <li><strong>Fluid scaling:</strong> Smooth responsive typography using <code>clamp()</code></li>
+              <li><strong>Performance optimized:</strong> Pre-calculated values eliminate runtime calculations</li>
+              <li><strong>Flexible modes:</strong> Choose ratio-based (automatic) or manual (baseline-aligned) line-heights</li>
+              <li><strong>Modular files:</strong> Clean separation of tokens (user settings) and tools (calculations)</li>
+              <li><strong>Semantic naming:</strong> Consistent naming across font sizes, line-heights, and letter-spacing</li>
+              <li><strong>Modern CSS:</strong> Uses CSS @property for browser optimizations (with graceful fallback)</li>
+              <li><strong>Progressive enhancement:</strong> Automatic text-wrap for balanced headings and fewer orphans</li>
+            </ul>
+
+            <h3>File structure</h3>
+            <p>The typography system is organized into two folders:</p>
+
+            <h4>Tokens (user-changeable settings)</h4>
+            <dl>
+              <dt><a href="/src/css/1_tokens/typography-base.css">typography-base.css</a></dt>
+              <dd>Font stacks, weights, measure, and baseline settings (always imported)</dd>
+
+              <dt><a href="/src/css/1_tokens/typography-scale-ratio.css">typography-scale-ratio.css</a></dt>
+              <dd>Ratio-based configuration (default) - just set the ratio and base size, no clamp() functions to see</dd>
+
+              <dt><a href="/src/css/1_tokens/typography-scale-manual.css">typography-scale-manual.css</a></dt>
+              <dd>Manual baseline configuration (alternative) - set min/max values for each size, no clamp() functions to see</dd>
+            </dl>
+
+            <h4>Tools (calculations and optimizations)</h4>
+            <dl>
+              <dt><a href="/src/css/2_tools/typography-properties.css">typography-properties.css</a></dt>
+              <dd>CSS @property declarations for browser optimizations (auto-imported)</dd>
+
+              <dt><a href="/src/css/2_tools/typography-scale-ratio-computed.css">typography-scale-ratio-computed.css</a></dt>
+              <dd>All clamp() calculations for ratio mode (auto-imported with ratio mode)</dd>
+
+              <dt><a href="/src/css/2_tools/typography-scale-manual-computed.css">typography-scale-manual-computed.css</a></dt>
+              <dd>All clamp() calculations for manual mode (auto-imported with manual mode)</dd>
+            </dl>
+
+            <p>Choose which scale mode to use in <a href="/src/css/main.css">main.css</a>. Ratio mode is enabled by default.</p>
+          </section>
+
+          <section class="section">
+            <h2>How it works</h2>
+
+            <h3>Performance-optimized calculations</h3>
+            <p>The system uses smart pre-calculations for maximum performance:</p>
+
+            <pre><code>/* Ratio mode: Pre-calculate ratio powers once */
+--ratio-2: calc(var(--type-scale-ratio) * var(--type-scale-ratio));
+--ratio-10: calc(var(--ratio-9) * var(--type-scale-ratio));
+
+/* Then use them in clean, readable type definitions */
+--text-9xl: clamp(
+  calc(var(--text-base-min) * var(--ratio-10) / 16 * 1rem),
+  /* ...fluid calculation... */,
+  calc(var(--text-base-max) * var(--ratio-10) / 16 * 1rem)
+);</code></pre>
+
+            <h3>Complete packages with unitless line-heights</h3>
+            <p>Each <code>.text-*</code> utility applies <strong>three properties</strong> together, with line-heights pre-calculated as unitless numbers for best performance:</p>
+
+            <pre><code>.text-lg {
+  font-size: var(--text-lg);              /* Fluid 20-25px */
+  line-height: var(--line-height-lg);     /* Pre-calculated unitless ratio (no runtime calc!) */
+  letter-spacing: var(--tracking-lg);     /* -0.01em */
+}</code></pre>
+
+            <p>This means one class gives you perfectly balanced typography with zero runtime calculations—the browser can render faster.</p>
+
+            <h3>Automatic text wrapping</h3>
+            <p>Headings and paragraphs get modern text-wrap by default (Chrome 117+, Safari 17.5+):</p>
+            <ul>
+              <li><strong>Headings:</strong> <code>text-wrap: balance</code> for balanced line lengths</li>
+              <li><strong>Paragraphs:</strong> <code>text-wrap: pretty</code> to reduce orphans</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>Configuration modes</h2>
+
+            <p>Live Wires provides two typography configuration modes in separate files. Choose the one that fits your workflow by importing it in <a href="/src/css/main.css">main.css</a>.</p>
+
+            <h3>Mode 1: Ratio-based (default)</h3>
+            <p><strong>File:</strong> <a href="/src/css/1_tokens/typography-scale-ratio.css">typography-scale-ratio.css</a></p>
+            <p><strong>Best for:</strong> Prototyping, quick setup, consistent rhythm</p>
+            <p>Line-heights are automatically calculated using progressive ratios (1.5 for body, 1.3 for headings, 1.1 for display):</p>
+
+            <pre><code>/* In main.css (enabled by default) */
+@import './1_tokens/typography-scale-ratio.css';
+
+/* In typography-scale-ratio.css - just set the ratio */
+--type-scale-ratio: 1.25;  /* Major Third scale */
+--line-height-ratio-body: 1.5;    /* Body text */
+--line-height-ratio-heading: 1.3; /* Headings */
+--line-height-ratio-display: 1.1; /* Display text */
+
+/* Pre-calculated ratio powers for performance */
+--ratio-2: calc(var(--type-scale-ratio) * var(--type-scale-ratio));
+--ratio-10: /* ...calculated once... */;
+
+/* Everything else auto-calculates */</code></pre>
+
+            <h3>Mode 2: Manual baseline-aligned</h3>
+            <p><strong>File:</strong> <a href="/src/css/1_tokens/typography-scale-manual.css">typography-scale-manual.css</a></p>
+            <p><strong>Best for:</strong> Production, precise baseline grid alignment, editorial design</p>
+            <p>Define explicit line-height min/max values for pixel-perfect baseline grid alignment:</p>
+
+            <pre><code>/* In main.css - uncomment to enable */
+/* @import './1_tokens/typography-scale-ratio.css'; */  /* Comment this out */
+@import './1_tokens/typography-scale-manual.css';  /* Uncomment this */
+
+/* In typography-scale-manual.css - define explicit values */
+--size-lg-min: 20;   --size-lg-max: 25;
+--line-lg-min: 24;   --line-lg-max: 32;
+
+/* Line-heights snap to your 24px baseline grid */</code></pre>
+
+            <h3>Switching modes</h3>
+            <p>In <a href="/src/css/main.css">main.css</a>, comment/uncomment the desired mode (both the config and computed files):</p>
+
+            <pre><code>/* Default: Ratio-based (for prototyping) */
+@import './1_tokens/typography-scale-ratio.css';
+@import './2_tools/typography-scale-ratio-computed.css';
+/* @import './1_tokens/typography-scale-manual.css'; */
+/* @import './2_tools/typography-scale-manual-computed.css'; */
+
+/* Production: Manual baseline-aligned */
+/* @import './1_tokens/typography-scale-ratio.css'; */
+/* @import './2_tools/typography-scale-ratio-computed.css'; */
+@import './1_tokens/typography-scale-manual.css';
+@import './2_tools/typography-scale-manual-computed.css';</code></pre>
+          </section>
+
+          <section class="section">
+            <h2>Customization guide</h2>
+
+            <h3>Change the type scale</h3>
+            <p>Edit min/max values for any size in your chosen scale file:</p>
+
+            <pre><code>/* In typography-scale-ratio.css or typography-scale-manual.css */
+
+/* Make large text bigger */
+--size-lg-min: 22;   /* Was 20 */
+--size-lg-max: 28;   /* Was 25 */</code></pre>
+
+            <h3>Adjust line-height ratios (ratio mode)</h3>
+            <p>In <a href="/src/css/1_tokens/typography-scale-ratio.css">typography-scale-ratio.css</a>, change the progressive ratios:</p>
+
+            <pre><code>/* Adjust line-heights for different text styles */
+--line-height-ratio-body: 1.4;    /* Tighter body text (was 1.5) */
+--line-height-ratio-heading: 1.2; /* Tighter headings (was 1.3) */
+--line-height-ratio-display: 1.0; /* Tighter display (was 1.1) */</code></pre>
+
+            <h3>Set baseline-aligned line-heights (manual mode)</h3>
+            <p>In <a href="/src/css/1_tokens/typography-scale-manual.css">typography-scale-manual.css</a>, edit explicit values to snap to your baseline grid:</p>
+
+            <pre><code>/* Baseline is 24px, use multiples */
+--line-xs-min: 18;   --line-xs-max: 24;   /* 0.75-1× */
+--line-sm-min: 21;   --line-sm-max: 24;   /* 0.875-1× */
+--line-base-min: 24; --line-base-max: 27; /* 1-1.125× */
+--line-lg-min: 24;   --line-lg-max: 36;   /* 1-1.5× */</code></pre>
+
+            <h3>Customize letter-spacing</h3>
+            <p>Adjust tracking for any size (uses semantic names now):</p>
+
+            <pre><code>/* Tighter tracking for display text */
+--tracking-3xl: -0.03em;  /* Was -0.025em */
+--tracking-6xl: -0.05em;  /* Tighter for very large text */</code></pre>
+
+            <h3>Change viewport scaling rate</h3>
+            <p>Control how quickly type scales across viewports:</p>
+
+            <pre><code>/* Slower scaling */
+--type-scale-rate: 0.3vw;  /* Was 0.5vw */
+
+/* Faster scaling */
+--type-scale-rate: 0.8vw;</code></pre>
+          </section>
+
+          <section class="section">
+            <h2>Override utilities</h2>
+            <p>Sometimes you need to break the rules. Override utilities use <code>!important</code> to modify complete packages:</p>
+
+            <h3>Line-height overrides</h3>
+            <pre><code>&lt;h1 class="text-3xl leading-tight"&gt;Tighter headline&lt;/h1&gt;
+&lt;p class="text-lg leading-relaxed"&gt;More spacious paragraph&lt;/p&gt;</code></pre>
+
+            <p>Available: <code>.leading-none</code>, <code>.leading-tight</code>, <code>.leading-snug</code>, <code>.leading-normal</code>, <code>.leading-relaxed</code>, <code>.leading-loose</code></p>
+
+            <h3>Letter-spacing overrides</h3>
+            <pre><code>&lt;h2 class="text-2xl tracking-wider"&gt;Spaced out title&lt;/h2&gt;
+&lt;p class="text-base tracking-tight"&gt;Tighter body text&lt;/p&gt;</code></pre>
+
+            <p>Available: <code>.tracking-tighter</code>, <code>.tracking-tight</code>, <code>.tracking-normal</code>, <code>.tracking-wide</code>, <code>.tracking-wider</code>, <code>.tracking-widest</code></p>
+          </section>
+
+          <section class="section">
+            <h2>Modern CSS features</h2>
+
+            <h3>Automatic text wrapping (enabled by default)</h3>
+            <p>All headings and paragraphs get modern <code>text-wrap</code> automatically (Chrome 117+, Safari 17.5+):</p>
+
+            <pre><code>/* Already applied to all headings */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;  /* Balanced line lengths */
+}
+
+/* Already applied to all paragraphs and list items */
+p, li {
+  text-wrap: pretty;  /* Reduces orphans */
+}</code></pre>
+
+            <p>You can also apply these manually with utility classes:</p>
+            <ul>
+              <li><code>.text-balance</code> - Balances line lengths (great for headings)</li>
+              <li><code>.text-pretty</code> - Reduces orphans (great for paragraphs)</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>Performance optimizations</h2>
+
+            <h3>Pre-calculated ratio powers (ratio mode)</h3>
+            <p>Instead of multiplying the ratio 10 times for each size, we calculate powers once:</p>
+            <pre><code>/* Calculate once */
+--ratio-10: calc(var(--ratio-9) * var(--type-scale-ratio));
+
+/* Use many times - much faster! */
+--text-9xl: clamp(
+  calc(var(--text-base-min) * var(--ratio-10) / 16 * 1rem),
+  /* ... */
+);</code></pre>
+
+            <h3>Unitless line-heights</h3>
+            <p>Line-heights are pre-calculated as unitless numbers (CSS best practice):</p>
+            <pre><code>/* Pre-calculated in tokens (once) */
+--line-height-lg: 1.5;  /* or calc(var(--leading-lg) / var(--text-lg)) in manual mode */
+
+/* Used in utilities (no runtime calculation) */
+.text-lg {
+  line-height: var(--line-height-lg);  /* Just a number - instant! */
+}</code></pre>
+
+            <h3>CSS @property declarations</h3>
+            <p>The system uses CSS @property for better browser optimization (Chrome 85+, Safari 16.4+). Defined in <a href="/src/css/2_tools/typography-properties.css">2_tools/typography-properties.css</a>:</p>
+            <pre><code>@property --type-scale-ratio {
+  syntax: "&lt;number&gt;";
+  initial-value: 1.25;
+  inherits: true;
+}</code></pre>
+            <p>Older browsers gracefully ignore these declarations (no breaking changes).</p>
+          </section>
+
+          <section class="section">
+            <h2>Browser support</h2>
+
+            <h3>Core features (all modern browsers)</h3>
+            <ul>
+              <li><strong>Fluid typography:</strong> <code>clamp()</code> supported in all modern browsers</li>
+              <li><strong>Unitless line-heights:</strong> Universal CSS feature (best practice)</li>
+              <li><strong>Custom properties:</strong> Universal support</li>
+            </ul>
+
+            <h3>Progressive enhancements</h3>
+            <ul>
+              <li><strong>CSS @property:</strong> Chrome 85+, Safari 16.4+ (gracefully ignored by older browsers)</li>
+              <li><strong>text-wrap:</strong> Chrome 117+, Safari 17.5+ (ignored by older browsers, no breaking changes)</li>
+            </ul>
+
+            <p><strong>Bottom line:</strong> The system works everywhere. Modern browsers get performance optimizations and better typography automatically.</p>
+          </section>
+
+          <section class="section">
+            <h2>Code examples</h2>
+
+            <h3>Basic usage</h3>
+            <pre><code>&lt;h1 class="text-4xl"&gt;Hero headline&lt;/h1&gt;
+&lt;p class="text-lg"&gt;Lead paragraph&lt;/p&gt;
+&lt;p class="text-base"&gt;Body text&lt;/p&gt;</code></pre>
+
+            <h3>With overrides</h3>
+            <pre><code>&lt;h2 class="text-3xl leading-tight tracking-tighter"&gt;
+  Tight, condensed heading
+&lt;/h2&gt;</code></pre>
+
+            <h3>Display typography</h3>
+            <pre><code>&lt;h1 class="text-9xl text-balance"&gt;
+  Massive hero text
+&lt;/h1&gt;</code></pre>
+
+            <h3>Semantic HTML (zero classes)</h3>
+            <pre><code>&lt;article&gt;
+  &lt;h1&gt;Automatically sized (3xl)&lt;/h1&gt;
+  &lt;p&gt;Body text with perfect measure&lt;/p&gt;
+  &lt;h2&gt;Subheading (2xl)&lt;/h2&gt;
+  &lt;p&gt;More content&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+          </section>
+
+          <section class="section">
+            <h2>Related documentation</h2>
+            <ul>
+              <li><a href="/guide/docs/structure.html">Project structure</a> - Where typography files live</li>
+              <li><a href="/guide/docs/utility-classes.html">Utility classes</a> - Other available utilities</li>
+              <li><a href="/guide/identity/">Identity</a> - Typography in the design system</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

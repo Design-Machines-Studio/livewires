@@ -1,0 +1,115 @@
+/**
+ * Typography Scale - Manual Baseline-Aligned
+ *
+ * Explicit line-height control for precise baseline grid alignment.
+ * The --line (baseline) itself scales fluidly with the viewport.
+ *
+ * How it works:
+ * 1. --line scales from 24px (mobile) to 32px (desktop)
+ * 2. All spacing derives from this fluid --line
+ * 3. Each size has min/max values in whole numbers
+ * 4. Font sizes and line-heights are calculated (see 2_tools/typography-scale-manual-computed.css)
+ *
+ * To use: Import this file in main.css instead of typography-scale-ratio.css
+ */
+
+@layer tokens {
+  :root {
+    /* ===============================================
+       CONFIGURATION
+       =============================================== */
+
+    /* Letter-spacing per size (visual refinement) */
+    --tracking-xs: 0.01em;
+    --tracking-sm: 0em;
+    --tracking-base: 0em;
+    --tracking-lg: -0.01em;
+    --tracking-xl: -0.015em;
+    --tracking-2xl: -0.02em;
+    --tracking-3xl: -0.025em;
+    --tracking-4xl: -0.03em;
+    --tracking-5xl: -0.035em;
+    --tracking-6xl: -0.04em;
+    --tracking-7xl: -0.045em;
+    --tracking-8xl: -0.05em;
+    --tracking-9xl: -0.055em;
+
+    /* ===============================================
+       TYPE SCALE DEFINITIONS
+       Define min/max for size AND line-height
+       =============================================== */
+
+    --size-xs-min: 12;
+    --line-xs-min: 18;
+    --size-xs-max: 14;
+    --line-xs-max: 24;
+
+    --size-sm-min: 14;
+    --line-sm-min: 21;
+    --size-sm-max: 16;
+    --line-sm-max: 28;
+
+    --size-base-min: 16;
+    --line-base-min: 24;
+    --size-base-max: 18;
+    --line-base-max: 27;
+
+    --size-lg-min: 20;
+    --line-lg-min: 24;
+    --size-lg-max: 25;
+    --line-lg-max: 32;
+
+    --size-xl-min: 25;
+    --line-xl-min: 30;
+    --size-xl-max: 31;
+    --line-xl-max: 40;
+
+    --size-2xl-min: 31;
+    --line-2xl-min: 36;
+    --size-2xl-max: 39;
+    --line-2xl-max: 48;
+
+    --size-3xl-min: 39;
+    --line-3xl-min: 48;
+    --size-3xl-max: 49;
+    --line-3xl-max: 48;
+
+    --size-4xl-min: 49;
+    --line-4xl-min: 48;
+    --size-4xl-max: 61;
+    --line-4xl-max: 64;
+
+    --size-5xl-min: 61;
+    --line-5xl-min: 60;
+    --size-5xl-max: 76;
+    --line-5xl-max: 72;
+
+    --size-6xl-min: 76;
+    --line-6xl-min: 72;
+    --size-6xl-max: 95;
+    --line-6xl-max: 96;
+
+    --size-7xl-min: 95;
+    --line-7xl-min: 96;
+    --size-7xl-max: 119;
+    --line-7xl-max: 120;
+
+    --size-8xl-min: 119;
+    --line-8xl-min: 120;
+    --size-8xl-max: 149;
+    --line-8xl-max: 160;
+
+    --size-9xl-min: 149;
+    --line-9xl-min: 144;
+    --size-9xl-max: 186;
+    --line-9xl-max: 192;
+
+    /* ===============================================
+       COMPUTED VALUES
+       Font sizes (--text-*), line-heights (--leading-*),
+       and unitless line-height ratios (--line-height-*)
+       are calculated in:
+       2_tools/typography-scale-manual-computed.css
+       =============================================== */
+  }
+}

@@ -1,117 +1,216 @@
 /**
  * Typography Utilities
  *
- * Font size, weight, alignment, and reading measure utilities
+ * Complete typography packages and fine-grained control utilities.
+ * Each .text-* class applies font-size + line-height + letter-spacing together.
  */
 
 @layer utilities {
-  /* Font sizes */
-  .text-xs { font-size: var(--text-xs); }
-  .text-s { font-size: var(--text-sm); }
-  .text-base { font-size: var(--text-base); }
-  .text-lg { font-size: var(--text-lg); }
-  .text-xl { font-size: var(--text-xl); }
-  .text-2xl { font-size: var(--text-2xl); }
-  .text-3xl { font-size: var(--text-3xl); }
+  /* ===============================================
+     COMPLETE TYPE PACKAGES
+     Single class applies size + leading + tracking
+     Performance: Uses pre-calculated unitless line-heights
+     =============================================== */
 
-  /* Font weights */
+  .text-xs {
+    font-size: var(--text-xs);
+    line-height: var(--line-height-xs);
+    letter-spacing: var(--tracking-xs);
+  }
+
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
+  }
+
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--line-height-base);
+    letter-spacing: var(--tracking-base);
+  }
+
+  .text-lg {
+    font-size: var(--text-lg);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--tracking-lg);
+  }
+
+  .text-xl {
+    font-size: var(--text-xl);
+    line-height: var(--line-height-xl);
+    letter-spacing: var(--tracking-xl);
+  }
+
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--line-height-2xl);
+    letter-spacing: var(--tracking-2xl);
+  }
+
+  .text-3xl {
+    font-size: var(--text-3xl);
+    line-height: var(--line-height-3xl);
+    letter-spacing: var(--tracking-3xl);
+  }
+
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--line-height-4xl);
+    letter-spacing: var(--tracking-4xl);
+  }
+
+  .text-5xl {
+    font-size: var(--text-5xl);
+    line-height: var(--line-height-5xl);
+    letter-spacing: var(--tracking-5xl);
+  }
+
+  .text-6xl {
+    font-size: var(--text-6xl);
+    line-height: var(--line-height-6xl);
+    letter-spacing: var(--tracking-6xl);
+  }
+
+  .text-7xl {
+    font-size: var(--text-7xl);
+    line-height: var(--line-height-7xl);
+    letter-spacing: var(--tracking-7xl);
+  }
+
+  .text-8xl {
+    font-size: var(--text-8xl);
+    line-height: var(--line-height-8xl);
+    letter-spacing: var(--tracking-8xl);
+  }
+
+  .text-9xl {
+    font-size: var(--text-9xl);
+    line-height: var(--line-height-9xl);
+    letter-spacing: var(--tracking-9xl);
+  }
+
+  /* ===============================================
+     FONT WEIGHTS
+     =============================================== */
+
+  .font-thin { font-weight: var(--font-thin); }
+  .font-extralight { font-weight: var(--font-extralight); }
+  .font-light { font-weight: var(--font-light); }
   .font-normal { font-weight: var(--font-normal); }
   .font-medium { font-weight: var(--font-medium); }
   .font-semibold { font-weight: var(--font-semibold); }
   .font-bold { font-weight: var(--font-bold); }
+  .font-extrabold { font-weight: var(--font-extrabold); }
+  .font-black { font-weight: var(--font-black); }
 
-  /* Text alignment */
-  .text-start { text-align: start; }
+  /* ===============================================
+     TEXT ALIGNMENT
+     =============================================== */
+
+  .text-left { text-align: left; }
   .text-center { text-align: center; }
-  .text-end { text-align: end; }
+  .text-right { text-align: right; }
   .text-justify { text-align: justify; }
+  .text-start { text-align: start; }
+  .text-end { text-align: end; }
 
-  /* Line height */
-  .leading-tight { line-height: var(--leading-tight); }
-  .leading-normal { line-height: var(--leading-normal); }
-  .leading-loose { line-height: var(--leading-loose); }
+  /* ===============================================
+     LINE-HEIGHT OVERRIDES
+     Use !important to override complete packages
+     =============================================== */
 
-  /* Measure (optimal reading line length) */
-  .measure {
-    max-inline-size: var(--measure);
-  }
+  .leading-none { line-height: 1 !important; }
+  .leading-tight { line-height: 1.25 !important; }
+  .leading-snug { line-height: 1.375 !important; }
+  .leading-normal { line-height: 1.5 !important; }
+  .leading-relaxed { line-height: 1.625 !important; }
+  .leading-loose { line-height: 2 !important; }
 
-  .measure-wide {
-    max-inline-size: var(--measure-wide);
-  }
+  /* Numeric line heights for precise control */
+  .leading-3 { line-height: 0.75rem !important; }
+  .leading-4 { line-height: 1rem !important; }
+  .leading-5 { line-height: 1.25rem !important; }
+  .leading-6 { line-height: 1.5rem !important; }
+  .leading-7 { line-height: 1.75rem !important; }
+  .leading-8 { line-height: 2rem !important; }
+  .leading-9 { line-height: 2.25rem !important; }
+  .leading-10 { line-height: 2.5rem !important; }
 
-  .measure-narrow {
-    max-inline-size: var(--measure-narrow);
-  }
+  /* ===============================================
+     LETTER-SPACING OVERRIDES
+     Use !important to override complete packages
+     =============================================== */
 
-  /* Text transform */
+  .tracking-tighter { letter-spacing: -0.05em !important; }
+  .tracking-tight { letter-spacing: -0.025em !important; }
+  .tracking-normal { letter-spacing: 0 !important; }
+  .tracking-wide { letter-spacing: 0.025em !important; }
+  .tracking-wider { letter-spacing: 0.05em !important; }
+  .tracking-widest { letter-spacing: 0.1em !important; }
+
+  /* ===============================================
+     MEASURE (Reading Line Length)
+     =============================================== */
+
+  .measure { max-inline-size: var(--measure); }
+  .measure-wide { max-inline-size: var(--measure-wide); }
+  .measure-narrow { max-inline-size: var(--measure-narrow); }
+
+  /* ===============================================
+     TEXT WRAPPING (Modern CSS)
+     =============================================== */
+
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .text-nowrap { white-space: nowrap; }
+
+  /* ===============================================
+     TEXT TRANSFORM
+     =============================================== */
+
   .uppercase { text-transform: uppercase; }
   .lowercase { text-transform: lowercase; }
   .capitalize { text-transform: capitalize; }
+  .normal-case { text-transform: none; }
 
-  /* Font style */
+  /* ===============================================
+     FONT STYLE
+     =============================================== */
+
   .italic { font-style: italic; }
   .not-italic { font-style: normal; }
 
-  /* Text decoration */
+  /* ===============================================
+     TEXT DECORATION
+     =============================================== */
+
   .underline { text-decoration: underline; }
   .line-through { text-decoration: line-through; }
   .no-underline { text-decoration: none; }
 
-  /*
-   * LETTER SPACING (tracking)
-   * Essential for editorial typography refinement
-   */
-  .tracking-tighter { letter-spacing: -0.05em; }
-  .tracking-tight { letter-spacing: -0.025em; }
-  .tracking-normal { letter-spacing: 0; }
-  .tracking-wide { letter-spacing: 0.025em; }
-  .tracking-wider { letter-spacing: 0.05em; }
-  .tracking-widest { letter-spacing: 0.1em; }
+  /* ===============================================
+     WHITE SPACE
+     =============================================== */
 
-  /*
-   * LINE HEIGHT (leading)
-   * Fine-grained control for typography
-   */
-  .leading-none { line-height: 1; }
-  .leading-tight { line-height: var(--leading-tight); }
-  .leading-snug { line-height: 1.375; }
-  .leading-normal { line-height: var(--leading-normal); }
-  .leading-relaxed { line-height: 1.625; }
-  .leading-loose { line-height: var(--leading-loose); }
-
-  /* Numeric line heights for precise control */
-  .leading-3 { line-height: 0.75rem; }
-  .leading-4 { line-height: 1rem; }
-  .leading-5 { line-height: 1.25rem; }
-  .leading-6 { line-height: 1.5rem; }
-  .leading-7 { line-height: 1.75rem; }
-  .leading-8 { line-height: 2rem; }
-  .leading-9 { line-height: 2.25rem; }
-  .leading-10 { line-height: 2.5rem; }
-
-  /*
-   * WHITE SPACE
-   * Control text wrapping and whitespace
-   */
   .whitespace-normal { white-space: normal; }
   .whitespace-nowrap { white-space: nowrap; }
   .whitespace-pre { white-space: pre; }
   .whitespace-pre-line { white-space: pre-line; }
   .whitespace-pre-wrap { white-space: pre-wrap; }
 
-  /*
-   * WORD BREAK
-   * Control line breaking
-   */
+  /* ===============================================
+     WORD BREAK
+     =============================================== */
+
   .break-normal { overflow-wrap: normal; word-break: normal; }
   .break-words { overflow-wrap: break-word; }
   .break-all { word-break: break-all; }
 
-  /*
-   * TEXT OVERFLOW
-   * Handle overflowing text
-   */
+  /* ===============================================
+     TEXT OVERFLOW
+     =============================================== */
+
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -121,9 +220,10 @@
   .text-ellipsis { text-overflow: ellipsis; }
   .text-clip { text-overflow: clip; }
 
-  /*
-   * VERTICAL ALIGNMENT
-   */
+  /* ===============================================
+     VERTICAL ALIGNMENT
+     =============================================== */
+
   .align-baseline { vertical-align: baseline; }
   .align-top { vertical-align: top; }
   .align-middle { vertical-align: middle; }
@@ -131,19 +231,21 @@
   .align-text-top { vertical-align: text-top; }
   .align-text-bottom { vertical-align: text-bottom; }
 
-  /*
-   * LIST STYLE
-   */
+  /* ===============================================
+     LIST STYLE
+     =============================================== */
+
   .list-none { list-style-type: none; }
   .list-disc { list-style-type: disc; }
   .list-decimal { list-style-type: decimal; }
   .list-inside { list-style-position: inside; }
   .list-outside { list-style-position: outside; }
 
-  /*
-   * FONT VARIANT
-   * For special typographic features
-   */
+  /* ===============================================
+     FONT VARIANT
+     Special typographic features
+     =============================================== */
+
   .font-variant-normal { font-variant: normal; }
   .small-caps { font-variant: small-caps; }
   .tabular-nums { font-variant-numeric: tabular-nums; }

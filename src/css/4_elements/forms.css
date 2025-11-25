@@ -35,8 +35,8 @@
   }
 
   textarea {
-    min-height: var(--space-5);
-    resize: vertical;
+    min-height: 5lh;
+    field-sizing: content;
   }
 
   button,
