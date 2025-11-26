@@ -254,10 +254,10 @@
   .dlig.hlig { font-variant-ligatures: discretionary-ligatures historical-ligatures; } /* Apply both historic and discretionary */
 
   .pnum { font-variant-numeric: proportional-nums; }
-  .tnum { font-variant-numeric: tabular-nums;    }
+  .tnum { font-variant-numeric: tabular-nums; }
   .lnum { font-variant-numeric: lining-nums; }
   .onum { font-variant-numeric: oldstyle-nums; }
-  .zero { font-variant-numeric: slashed-zero;    }
+  .zero { font-variant-numeric: slashed-zero; }
   .pnum.zero { font-variant-numeric: proportional-nums slashed-zero; } /* Apply slashed zeroes to proportional numerals */
   .tnum.zero { font-variant-numeric: tabular-nums slashed-zero; }
   .lnum.zero { font-variant-numeric: lining-nums slashed-zero; }
@@ -303,16 +303,16 @@
 
   /* If class is applied, update custom property */
   .case {
-      --opentype-case: "case" on;
+    --opentype-case: "case" on;
   }
 
   .sinf {
-      --opentype-sinf: "sinf" on;
+    --opentype-sinf: "sinf" on;
   }
 
   /* Apply current state of all custom properties, defaulting to off */
-  * { 
-      font-feature-settings: var(--opentype-case, "case" off), var(--opentype-sinf, "sinf" off);
+  * {
+    font-feature-settings: var(--opentype-case, "case" off), var(--opentype-sinf, "sinf" off);
   }
 
 

@@ -25,6 +25,6 @@ q::after  { content: close-quote }
 }
 @supports(hanging-punctuation: first last) {
   .quote p:first-of-type::before {
-      margin-inline-start: 0;
+    margin-inline-start: 0;
   }
 }

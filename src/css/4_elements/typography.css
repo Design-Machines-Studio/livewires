@@ -164,24 +164,24 @@
   }
   @supports ( font-variant-position: sub ) {
     sub, .sub {
-        vertical-align: baseline;
-        font-size: 100%;
-        line-height: inherit;
-        font-variant-position: sub;
+      vertical-align: baseline;
+      font-size: 100%;
+      line-height: inherit;
+      font-variant-position: sub;
     }
   }
 
   @supports ( font-variant-position: super ) {
     sup, .sup {
-        vertical-align: baseline;
-        font-size: 100%;
-        line-height: inherit;
-        font-variant-position: super;
+      vertical-align: baseline;
+      font-size: 100%;
+      line-height: inherit;
+      font-variant-position: super;
     }
   }
 
   math, time[datetime*=":"] {
-    font-variant-numeric: tabular-nums lining-nums slashed-zero;    
+    font-variant-numeric: tabular-nums lining-nums slashed-zero;
   }
 
 }

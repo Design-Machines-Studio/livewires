@@ -20,11 +20,11 @@
 
 /* Typography scale mode (choose one) */
 /* Default: automatic, ratio-based */
-/* @import './1_tokens/typography-scale-auto.css';  
+/* @import './1_tokens/typography-scale-auto.css';
 @import './2_tools/typography-scale-auto.css'; */
 
 /* Alternative: manual, baseline-aligned */
-@import './1_tokens/typography-scale-manual.css'; 
+@import './1_tokens/typography-scale-manual.css';
 @import './2_tools/typography-scale-manual.css';
 
 

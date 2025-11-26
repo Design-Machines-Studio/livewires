@@ -62,5 +62,18 @@
       calc(var(--line-height-min) / 16 * 1rem + (var(--line-height-max) - var(--line-height-min)) * var(--type-scale-rate) / 16),
       calc(var(--line-height-max) / 16 * 1rem)
     );
+
+    /* ===============================================
+       GRADE settings for light-on-dark text
+       =============================================== */
+
+    --vf-grad: 0;
   }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --vf-grad: -50;
+    }
+  }
+
 }

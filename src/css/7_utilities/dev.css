@@ -5,10 +5,10 @@
  * Remove this file in production builds.
  */
 
- @layer base {
+@layer base {
   :root {
     --font-flow-block: 'Flow Block', sans-serif;
- }
+  }
 }
 
 @layer utilities {

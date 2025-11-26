@@ -8,23 +8,23 @@
 
   hyphens: auto;
   hyphenate-limit-chars: 7 4 3;
-  hyphenate-limit-lines: 2;    
+  hyphenate-limit-lines: 2;
   hyphenate-limit-zone: 8%;
   hyphenate-limit-last: always;
 
   pre,
   code,
-  var, 
-  samp, 
+  var,
+  samp,
   kbd,
-  h1, 
+  h1,
   h2,
   h3,
-  h4, 
-  h5, 
+  h4,
+  h5,
   h6 {
-      -webkit-hyphens: manual;
-      hyphens: manual;
+    -webkit-hyphens: manual;
+    hyphens: manual;
   }
 }
 
