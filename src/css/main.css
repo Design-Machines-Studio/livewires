@@ -42,10 +42,12 @@
 @import './4_elements/quotes.css';
 @import './4_elements/links.css';
 @import './4_elements/lists.css';
+@import './4_elements/addresses.css';
 @import './4_elements/media.css';
 @import './4_elements/tables.css';
 @import './4_elements/forms.css';
-@import './4_elements/borders.css';
+@import './4_elements/hr.css';
+@import './4_elements/details.css';
 
 /* Layout primitives */
 @import './5_layouts/section.css';
@@ -56,29 +58,28 @@
 @import './5_layouts/sidebar.css';
 @import './5_layouts/center.css';
 
-/* Components */
+/* Custom components and expanded elements */
 /* Only use what you need */
 @import './6_components/logo.css';
 @import './6_components/prose.css';
+@import './6_components/dividers.css';
 @import './6_components/buttons.css';
-/*@import './6_components/callouts.css';
-@import './6_components/rows.css';
-@import './6_components/rules.css';
-@import './6_components/drawers.css';
-@import './6_components/navigation.css';
+@import './6_components/switches.css';
+@import './6_components/tables.css';
+/*
+
+
 @import './6_components/tabs.css';
 @import './6_components/breadcrumbs.css';
 @import './6_components/pagination.css';
 @import './6_components/offcanvas.css';
-@import './6_components/fields.css';
 @import './6_components/option-buttons.css';
-@import './6_components/switches.css';
+
 @import './6_components/inline-forms.css';
 @import './6_components/images.css';
 @import './6_components/videos.css';
 @import './6_components/maps.css';
 @import './6_components/code-highlighting.css';
-@import './6_components/addresses.css';
 @import './6_components/text-styles.css';
 @import './6_components/theme.css';
 */

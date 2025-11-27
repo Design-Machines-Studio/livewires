@@ -9,7 +9,7 @@
     color: var(--color-accent);
     text-decoration: underline;
     text-underline-offset: 0.2em;
-    transition: all 0.2s linear;
+    transition: var(--transition-link);
 
     &:hover {
       color: var(--color-fg);

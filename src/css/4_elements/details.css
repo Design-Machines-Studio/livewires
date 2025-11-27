@@ -1,0 +1,12 @@
+summary {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+}
+summary::-webkit-details-marker { 
+  display: none; 
+}
+summary:focus {
+  outline: 1px dotted var(--foreground);
+}

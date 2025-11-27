@@ -1,0 +1,17 @@
+@layer base {
+  :root {
+    --divider-width: var(--space-1px);
+    --divider-color: var(--color-border);
+    --divider-style: solid;
+  }
+
+  hr {
+    clear:both;
+    height: 0;
+    border: 0;
+    box-sizing: border-box;
+    border-top-width: var(--divider-width);
+    border-style: var(--divider-style);
+    border-color: var(--divider-color);
+  }
+}

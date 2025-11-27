@@ -16,16 +16,16 @@
 
 @layer components {
   .switch {
-    transition: all 0.2s linear;
+    transition: var(--transition-link);
     position: relative;
     overflow: hidden;
     display: inline-block;
-    block-size: calc(var(--line) * 1.5);
+    block-size: var(--space-15);
     padding: 0;
-    margin-block-end: calc(var(--line) * 0.25);
+    margin-block-end: var(--space-1);
     line-height: 2.5;
     font-family: var(--font-sans);
-    border-radius: var(--button-radius, 0.25rem);
+    border-radius: var(--button-radius);
     background: var(--color-fg);
 
     & label {
@@ -41,12 +41,12 @@
 
       &:first-of-type {
         padding-block: 0;
-        padding-inline: calc(var(--line) * 0.67) calc(var(--line) * 0.67);
+        padding-inline: var(--space-075);
       }
 
       &:last-of-type {
         padding-block: 0;
-        padding-inline: 0 calc(var(--line) * 0.67);
+        padding-inline: 0 var(--space-075);
       }
     }
 
@@ -61,23 +61,23 @@
 
       &:first-of-type:checked ~ span:last-child {
         inset-inline-start: 100%;
-        margin-inline-start: calc(var(--line) * -1.5 + 1px);
+        margin-inline-start: calc(var(--space-1) * -1.5 + 1px);
       }
     }
 
     & span:last-child {
-      transition: all 0.2s linear;
+      transition: var(--transition-link);
       position: absolute;
       inset-block-start: 0;
       inset-inline-start: 0;
       display: block;
-      inline-size: calc(var(--line) * 1.5);
-      block-size: calc(var(--line) * 1.5);
+      inline-size: calc(var(--space-1) * 1.5);
+      block-size: calc(var(--space-1) * 1.5);
       padding: 0;
       z-index: 1;
       border-width: 1px;
       border-style: solid;
-      border-radius: var(--button-radius, 0.25rem);
+      border-radius: var(--button-radius);
       cursor: pointer;
       border-color: var(--color-fg);
       box-shadow:

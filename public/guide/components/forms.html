@@ -168,17 +168,7 @@
                   <label for="file">File upload</label>
                   <input type="file" name="file" id="file" />
                 </div>
-              </div>
-            </div>
-          </section>
-          <section class="stack">
-            <header>
-              <h2>Buttons</h2>
-              <hr />
-            </header>
-            <div class="grid grid-columns-2">
-              <div class="stack">
-                <h3>Native buttons</h3>
+
                 <div class="field">
                   <button type="submit">Button input</button>
                 </div>
@@ -190,10 +180,20 @@
                 <div class="field">
                   <button type="submit" disabled>Disabled button</button>
                 </div>
+
               </div>
+            </div>
+          </section>
+          <section class="stack">
+            <header>
+              <h2>Custom input components</h2>
+              <hr />
+              <p>Uncomment @imports in main.css to style.</p>
+            </header>
+            <div class="grid grid-columns-2">
               <div class="stack">
-                <h3>Button components</h3>
-                <p>Uncomment @import './6_components/buttons.css'; in main.css to style.</p>
+                <h3>Button components <small>6_components/buttons.css</small></h3>
+                
                 <div class="field">
                   <a href="#" class="button">Button link</a>
                 </div>
@@ -218,28 +218,21 @@
                   <a href="#" class="button">Button group</a>
                 </div>
               </div>
+              <div class="stack">
+                <h3>Custom controls</h3>
+                <div>
               
+                  <label for="switch">Switch</label>
+                  <div class="field switch">
+                    <input id="x" name="switch" type="radio" checked>
+                    <label for="x" onclick="">Off</label>
+                    <input id="y" name="switch" type="radio">
+                    <label for="y" onclick="">On</label>
+                    <span></span>
+                  </div>
+                  <p>6_components/switches.css</p>
+              </div>              
         
-              
-              
-            </div>
-          </section>
-          <section>
-            <header>
-              <h2>Custom inputs</h2>
-              <hr />
-            </header>
-            <div>
-              
-              <label for="switch">Switch</label>
-              <div class="field switch">
-                <input id="x" name="switch" type="radio" checked>
-                <label for="x" onclick="">Off</label>
-                <input id="y" name="switch" type="radio">
-                <label for="y" onclick="">On</label>
-                <span></span>
-              </div>
-
             </div>
           </section>
         </div>

@@ -49,7 +49,7 @@
     --color-fg: var(--color-grey-900);
     --color-accent: var(--color-brand);
     --color-muted: var(--color-grey-500);
-    --color-border: var(--color-grey-300);
+    --color-border: var(--color-fg);
     --color-subtle: var(--color-grey-100);
 
   }
@@ -63,7 +63,7 @@
       --color-bg: var(--color-fg);
       --color-fg: var(--color-bg);
       --color-accent: var(--color-brand);
-      --color-border: var(--color-grey-700);
+      --color-border: var(--color-bg);
       --color-subtle: var(--color-grey-800);
       --vf-grad: -50; /* Adjust per font reduces font grade */
     }

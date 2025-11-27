@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Disclosure</h1>
+          <hr />
+        </header>
+        <div class="section center stack">
+          <section class="stack">
+            <header>
+              <h2>Details</h2>
+              <hr />
+            </header>
+            <div>
+              <details>
+                <summary>See the details</summary>
+                <div class="content">
+                  <p>The movement began in <a href="#">Nottingham, England</a> around 1811, named after the <strong>mythical leader Ned Ludd</strong>. These weren't anti-technology peasants—they were <em>skilled artisans</em> who understood their craft intimately. Before resorting to machine-breaking, they tried negotiation. They even proposed alternatives, like a textile tax to fund workers' pensions, demonstrating remarkable economic sophistication.</p>
+                  <p>What made the Luddites unique was their <mark>clear-eyed analysis of power</mark>. They didn't object to <abbr title="technology" class="acr">tech</abbr> itself, but to its deployment within exploitative economic structures. When technology helped them do their jobs better, they welcomed it. When it enriched <code>factory_owners</code> at workers' expense, they resisted. This wasn't <del>irrational fear</del> but <ins>rational opposition</ins> to a system designed to extract maximum value from their labor.</p>
+                </div>
+              </details>
+            </div>
+          </section>
+        </div>
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

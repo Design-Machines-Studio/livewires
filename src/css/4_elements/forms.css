@@ -70,6 +70,7 @@
   input[type="password"],
   input[type="search"],
   input[type="url"],
+  input[type="range"],
   textarea {
     width: 100%;
   }
@@ -95,7 +96,7 @@
     border-radius: var(--button-radius);
     font-weight: var(--font-medium);
     cursor: pointer;
-    transition: all 0.2s linear;
+    transition: var(--transition-link);
     text-decoration: none;
     line-height: var(--leading-none);
     user-select: none;

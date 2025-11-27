@@ -1,0 +1,5 @@
+@layer tokens {
+  :root {
+    --transition-link: all 0.2s linear;
+  }
+}

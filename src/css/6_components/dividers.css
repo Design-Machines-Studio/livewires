@@ -1,0 +1,39 @@
+/**
+ * Dividers
+ *
+ * Horizontal dividers and keylines for visual separation.
+ * 
+ */
+
+@layer components {
+
+  /* Divider thickness */
+  .divider--hairline {
+    --divider-color: var(--color-muted);
+  }
+  .divider--semibold {
+    --divider-width: var(--space-025);
+  }
+  .divider--bold {
+    --divider-width: var(--space-05);
+  }
+  .divider--extrabold {
+    --divider-width: var(--space-075);
+  }
+  .divider--heavy {
+    --divider-width: var(--space-1);
+  }
+
+  /* Divider colors */
+  .divider--accent {
+    --divider-color: var(--color-accent);
+  }
+
+  /* Divider patterns */
+  .divider--dotted {
+    --divider-style: dotted;
+  }
+  .divider--dashed {
+    --divider-style: dashed;
+  }
+}
