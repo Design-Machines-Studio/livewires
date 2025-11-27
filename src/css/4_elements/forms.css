@@ -80,6 +80,12 @@
     field-sizing: content;
   }
 
+  .error {
+    color: var(--color-error);
+  }
+  input.error {
+    --color-border: var(--color-error);
+  }
   /*
    * Buttons
    */

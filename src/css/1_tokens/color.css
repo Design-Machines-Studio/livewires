@@ -41,6 +41,10 @@
     --color-yellow: #ffff00;
     --color-green: #22ff00;
 
+    --color-error: var(--color-red);
+    --color-warning: var(--color-yellow);
+    --color-success: var(--color-green);
+
     /*
     * Semantic Colors
     * These are what components and utilities reference
@@ -60,11 +64,11 @@
   */
   @media (prefers-color-scheme: dark) {
     :root {
-      --color-bg: var(--color-fg);
-      --color-fg: var(--color-bg);
+      --color-bg: var(--color-grey-900);
+      --color-fg: var(--color-grey-100);
       --color-accent: var(--color-brand);
-      --color-border: var(--color-bg);
-      --color-subtle: var(--color-grey-800);
+      --color-border: var(--color-grey-500);
+      --color-subtle: var(--color-black);
       --vf-grad: -50; /* Adjust per font reduces font grade */
     }
   }
