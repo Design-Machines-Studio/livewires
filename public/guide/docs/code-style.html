@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include src="../_includes/nav-docs.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Code style guide</h1>
+          <hr />
+          <p class="lead">CSS and HTML naming conventions for Live Wires, based on CUBE CSS methodology.</p>
+        </header>
+
+        <nav class="stack-compact">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#philosophy">Philosophy</a></li>
+            <li><a href="#layers">The four layers</a></li>
+            <li><a href="#utilities">Utilities</a></li>
+            <li><a href="#composition">Composition</a></li>
+            <li><a href="#blocks">Blocks</a></li>
+            <li><a href="#exceptions">Exceptions</a></li>
+            <li><a href="#html">HTML conventions</a></li>
+          </ul>
+        </nav>
+
+        <section id="philosophy" class="stack">
+          <h2>Philosophy</h2>
+          <hr>
+
+          <p>Live Wires uses <strong>CUBE CSS</strong>, a methodology created by Andy Bell that embraces the cascade rather than fighting it. CUBE stands for:</p>
+
+          <ul>
+            <li><strong>Composition</strong> &mdash; Layout primitives that control flow and spacing</li>
+            <li><strong>Utility</strong> &mdash; Single-purpose classes for design tokens</li>
+            <li><strong>Block</strong> &mdash; Component-specific styles</li>
+            <li><strong>Exception</strong> &mdash; State variations and deviations</li>
+          </ul>
+
+          <p>The key insight: <strong>most styling is done by global defaults and utilities</strong>. By the time you reach "blocks" (components), there's minimal work left. This aligns perfectly with Live Wires' cascade layers.</p>
+
+          <h3>How CUBE maps to Live Wires layers</h3>
+
+          <table class="table--lined">
+            <thead>
+              <tr>
+                <th>CUBE Layer</th>
+                <th>Live Wires Layer</th>
+                <th>Directory</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>&mdash;</td>
+                <td><code>reset</code></td>
+                <td><a href="/src/css/3_generic/">3_generic/</a></td>
+              </tr>
+              <tr>
+                <td>&mdash;</td>
+                <td><code>base</code></td>
+                <td><a href="/src/css/4_elements/">4_elements/</a></td>
+              </tr>
+              <tr>
+                <td>Composition</td>
+                <td><code>layouts</code></td>
+                <td><a href="/src/css/5_layouts/">5_layouts/</a></td>
+              </tr>
+              <tr>
+                <td>Block</td>
+                <td><code>components</code></td>
+                <td><a href="/src/css/6_components/">6_components/</a></td>
+              </tr>
+              <tr>
+                <td>Utility</td>
+                <td><code>utilities</code></td>
+                <td><a href="/src/css/7_utilities/">7_utilities/</a></td>
+              </tr>
+              <tr>
+                <td>Exception</td>
+                <td><em>(inline via <code>data-*</code>)</em></td>
+                <td>&mdash;</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="layers" class="stack">
+          <h2>The four layers</h2>
+          <hr>
+
+          <p>Each layer has specific naming conventions. Understanding which layer a class belongs to helps predict its behavior and specificity.</p>
+
+          <div class="callout scheme-subtle">
+            <div class="content">
+              <p><strong>Cascade layers handle specificity.</strong> Utilities always beat components, components always beat layouts. No <code>!important</code> needed.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="utilities" class="stack">
+          <h2>Utilities</h2>
+          <hr>
+
+          <p>Single-purpose classes that do one thing well. Named using <strong>Tailwind-style conventions</strong>: lowercase, abbreviated, with numeric scales.</p>
+
+          <h3>Naming pattern</h3>
+          <pre><code>.{property-abbrev}-{value}</code></pre>
+
+          <h3>Examples</h3>
+          <table class="table--lined">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Property</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>.mt-4</code></td>
+                <td>margin-block-start</td>
+                <td><code>var(--space-4)</code></td>
+              </tr>
+              <tr>
+                <td><code>.px-3</code></td>
+                <td>padding-inline</td>
+                <td><code>var(--space-3)</code></td>
+              </tr>
+              <tr>
+                <td><code>.text-center</code></td>
+                <td>text-align</td>
+                <td>center</td>
+              </tr>
+              <tr>
+                <td><code>.font-bold</code></td>
+                <td>font-weight</td>
+                <td>700</td>
+              </tr>
+              <tr>
+                <td><code>.scheme-warm</code></td>
+                <td>color scheme</td>
+                <td>warm palette</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Abbreviations</h3>
+          <dl>
+            <dt>Spacing</dt>
+            <dd><code>m</code> margin, <code>p</code> padding, <code>t</code> top, <code>b</code> bottom, <code>l</code> left, <code>r</code> right, <code>x</code> horizontal, <code>y</code> vertical</dd>
+
+            <dt>Typography</dt>
+            <dd><code>text-</code> for size/alignment, <code>font-</code> for family/weight, <code>leading-</code> for line-height</dd>
+
+            <dt>Color</dt>
+            <dd><code>scheme-</code> for color schemes, <code>theme-</code> for theme variants, <code>bg-</code> for backgrounds, <code>fg-</code> for foreground</dd>
+          </dl>
+
+          <h3>Numeric scales</h3>
+          <p>Spacing and typography use numeric scales that map to design tokens:</p>
+          <ul>
+            <li><code>0</code>, <code>025</code>, <code>05</code>, <code>075</code>, <code>1</code>, <code>15</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code></li>
+            <li>Negative values: <code>.-mt-2</code> (note leading dot-dash)</li>
+          </ul>
+        </section>
+
+        <section id="composition" class="stack">
+          <h2>Composition (Layouts)</h2>
+          <hr>
+
+          <p>Layout primitives that control flow, spacing, and structure. They are <strong>context-agnostic</strong>&mdash;they don't know or care what's inside them.</p>
+
+          <h3>Naming pattern</h3>
+          <pre><code>.{layout-name}
+.{layout-name}--{variant}</code></pre>
+
+          <h3>Core layouts</h3>
+          <table class="table--lined">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>.stack</code></td>
+                <td>Vertical flow with consistent spacing</td>
+              </tr>
+              <tr>
+                <td><code>.cluster</code></td>
+                <td>Horizontal grouping that wraps</td>
+              </tr>
+              <tr>
+                <td><code>.grid</code></td>
+                <td>Auto-responsive grid</td>
+              </tr>
+              <tr>
+                <td><code>.sidebar</code></td>
+                <td>Main content with sidebar</td>
+              </tr>
+              <tr>
+                <td><code>.center</code></td>
+                <td>Horizontally centered with max-width</td>
+              </tr>
+              <tr>
+                <td><code>.box</code></td>
+                <td>Padding container</td>
+              </tr>
+              <tr>
+                <td><code>.section</code></td>
+                <td>Sectional wrapper</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Variants use double-dash</h3>
+          <pre><code>.stack--compact
+.stack--comfortable
+.stack--spacious
+.cluster--center
+.cluster--space-between
+.grid--columns-3
+.grid--columns-4</code></pre>
+
+          <p><strong>Why double-dash?</strong> It visually separates the base layout from its variation, making the relationship explicit. The base class sets up the pattern; the variant modifies it.</p>
+        </section>
+
+        <section id="blocks" class="stack">
+          <h2>Blocks (Components)</h2>
+          <hr>
+
+          <p>Component-specific styles. Because global defaults and utilities handle most styling, blocks should be <strong>minimal</strong>&mdash;only what's truly unique to that component.</p>
+
+          <h3>Naming pattern</h3>
+          <pre><code>.{component-name}
+.{component-name}--{variant}</code></pre>
+
+          <h3>Rules</h3>
+          <ol>
+            <li><strong>Lowercase with hyphens</strong> for multi-word names: <code>.horizontal-nav</code>, <code>.button-group</code></li>
+            <li><strong>Double-dash for variants</strong>: <code>.button--red</code>, <code>.table--striped</code></li>
+            <li><strong>CSS nesting for children</strong>, not BEM <code>__</code> syntax</li>
+          </ol>
+
+          <h3>Child elements</h3>
+          <p>Use native CSS nesting to style children. This keeps HTML clean and leverages the cascade:</p>
+
+          <div class="code">
+            <pre><code class="language-css">/* Good: CSS nesting */
+.callout {
+  & .content {
+    padding: var(--space-3);
+  }
+
+  & .title {
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+/* Avoid: BEM element syntax */
+.callout__content { }
+.callout__title { }</code></pre>
+          </div>
+
+          <p><strong>Why not BEM elements?</strong> With CSS nesting now native, the <code>__</code> convention adds verbosity without benefit. Nesting makes the relationship clear in CSS while keeping HTML cleaner.</p>
+
+          <h3>Component variants</h3>
+          <div class="code">
+            <pre><code class="language-css">.button { }
+.button--red { }
+.button--large { }
+.button--disabled { }
+
+.table--bordered { }
+.table--striped { }
+.table--lined { }
+
+.field--half { }
+.field--quarter { }</code></pre>
+          </div>
+
+          <h3>HTML usage</h3>
+          <div class="code">
+            <pre><code class="language-html">&lt;button class="button button--red button--large"&gt;
+  Delete
+&lt;/button&gt;
+
+&lt;table class="table--bordered table--striped"&gt;
+  ...
+&lt;/table&gt;
+
+&lt;div class="callout scheme-warm"&gt;
+  &lt;div class="content"&gt;
+    ...
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="exceptions" class="stack">
+          <h2>Exceptions (State)</h2>
+          <hr>
+
+          <p>Exceptions handle <strong>state changes</strong> and <strong>contextual deviations</strong>. Live Wires uses <code>data-*</code> attributes for state, which provides semantic meaning and easy JavaScript integration.</p>
+
+          <h3>State with data attributes</h3>
+          <pre><code>[data-state="active"]
+[data-state="open"]
+[data-state="disabled"]
+[data-state="loading"]
+[data-state="error"]</code></pre>
+
+          <h3>Boolean states</h3>
+          <p>For simple on/off states, use attribute presence:</p>
+          <pre><code>[data-open]
+[data-active]
+[data-expanded]
+[data-hidden]</code></pre>
+
+          <h3>CSS usage</h3>
+          <div class="code">
+            <pre><code class="language-css">.offcanvas {
+  transform: translateX(-100%);
+
+  &[data-open] {
+    transform: translateX(0);
+  }
+}
+
+.nav-link {
+  color: var(--color-fg);
+
+  &[data-state="active"] {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+.button {
+  &[data-state="loading"] {
+    opacity: 0.7;
+    cursor: wait;
+  }
+
+  &[data-state="disabled"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}</code></pre>
+          </div>
+
+          <h3>HTML usage</h3>
+          <div class="code">
+            <pre><code class="language-html">&lt;!-- Boolean state --&gt;
+&lt;nav class="offcanvas" data-open&gt;...&lt;/nav&gt;
+
+&lt;!-- Named state --&gt;
+&lt;a href="/" class="nav-link" data-state="active"&gt;Home&lt;/a&gt;
+
+&lt;!-- Multiple states --&gt;
+&lt;button class="button" data-state="loading" data-busy&gt;
+  Saving...
+&lt;/button&gt;</code></pre>
+          </div>
+
+          <h3>JavaScript integration</h3>
+          <div class="code">
+            <pre><code class="language-js">// Toggle boolean state
+element.toggleAttribute('data-open');
+
+// Set named state
+element.dataset.state = 'active';
+
+// Check state
+if (element.dataset.state === 'active') { }
+if (element.hasAttribute('data-open')) { }</code></pre>
+          </div>
+
+          <h3>Why data attributes over classes?</h3>
+          <ul>
+            <li><strong>Semantic</strong>: State is data, not styling</li>
+            <li><strong>JavaScript-friendly</strong>: <code>dataset</code> API is cleaner than classList manipulation</li>
+            <li><strong>Explicit</strong>: Clear separation between structural classes and state</li>
+            <li><strong>Queryable</strong>: Easy to select elements by state: <code>[data-state="active"]</code></li>
+          </ul>
+        </section>
+
+        <section id="html" class="stack">
+          <h2>HTML conventions</h2>
+          <hr>
+
+          <h3>Attribute order</h3>
+          <p>For consistency, order attributes as:</p>
+          <ol>
+            <li><code>class</code></li>
+            <li><code>id</code></li>
+            <li><code>data-*</code></li>
+            <li><code>src</code>, <code>href</code>, <code>for</code></li>
+            <li><code>type</code>, <code>name</code>, <code>value</code></li>
+            <li><code>aria-*</code>, <code>role</code></li>
+          </ol>
+
+          <div class="code">
+            <pre><code class="language-html">&lt;button class="button button--red" id="delete-btn" data-state="disabled" type="button" aria-label="Delete item"&gt;
+  Delete
+&lt;/button&gt;</code></pre>
+          </div>
+
+          <h3>Class order</h3>
+          <p>Order classes from general to specific:</p>
+          <ol>
+            <li>Layout/composition classes</li>
+            <li>Block/component classes</li>
+            <li>Variant modifiers</li>
+            <li>Utility classes</li>
+          </ol>
+
+          <div class="code">
+            <pre><code class="language-html">&lt;!-- Layout &rarr; Block &rarr; Variant &rarr; Utilities --&gt;
+&lt;section class="stack box callout callout--featured scheme-warm mt-4"&gt;</code></pre>
+          </div>
+
+          <h3>Semantic HTML first</h3>
+          <p>Always start with appropriate semantic elements. Add classes only when needed:</p>
+
+          <div class="code">
+            <pre><code class="language-html">&lt;!-- Good: semantic element, minimal classes --&gt;
+&lt;article class="stack"&gt;
+  &lt;h2&gt;Article title&lt;/h2&gt;
+  &lt;p&gt;Content that looks good by default.&lt;/p&gt;
+&lt;/article&gt;
+
+&lt;!-- Avoid: div soup --&gt;
+&lt;div class="article-wrapper"&gt;
+  &lt;div class="article-title"&gt;...&lt;/div&gt;
+  &lt;div class="article-content"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="summary" class="stack">
+          <h2>Quick reference</h2>
+          <hr>
+
+          <table class="table--bordered">
+            <thead>
+              <tr>
+                <th>Layer</th>
+                <th>Pattern</th>
+                <th>Examples</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Utility</td>
+                <td><code>.{abbrev}-{value}</code></td>
+                <td><code>.mt-4</code>, <code>.text-center</code></td>
+              </tr>
+              <tr>
+                <td>Composition</td>
+                <td><code>.{layout}</code><br><code>.{layout}--{variant}</code></td>
+                <td><code>.stack</code>, <code>.grid--columns-3</code></td>
+              </tr>
+              <tr>
+                <td>Block</td>
+                <td><code>.{component}</code><br><code>.{component}--{variant}</code></td>
+                <td><code>.button</code>, <code>.button--red</code></td>
+              </tr>
+              <tr>
+                <td>Exception</td>
+                <td><code>[data-state="{state}"]</code><br><code>[data-{boolean}]</code></td>
+                <td><code>[data-state="active"]</code>, <code>[data-open]</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
