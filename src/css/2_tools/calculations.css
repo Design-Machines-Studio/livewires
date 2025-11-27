@@ -1,0 +1,8 @@
+@layer tokens {
+  /* Calculate the baseline responsively */
+  --line: clamp(
+    calc(var(--line-height-min) / 16 * 1rem),
+    calc(var(--line-height-min) / 16 * 1rem + (var(--line-height-max) - var(--line-height-min)) * var(--type-scale-rate) / 16),
+    calc(var(--line-height-max) / 16 * 1rem)
+  );
+}

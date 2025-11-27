@@ -1,0 +1,23 @@
+/**
+ * Borders
+ *
+ * Set your line widths, patterns, and corners.
+ */
+@layer tokens {
+  :root {
+    /*
+    * Rounded corner radiuses 
+    */
+    --radius-tight: 1.5px;
+    --radius-normal: 3px;
+    --radius-loose: 6px;
+
+    /*
+    * Thickness
+    */
+
+    /*
+    * Rounded corner radiuses 
+    */
+  }
+}

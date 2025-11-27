@@ -16,9 +16,4 @@
     }
   }
 
-  /* Global transitions for interactive elements */
-  button,
-  input[type="submit"] {
-    transition: all 0.2s linear;
-  }
 }

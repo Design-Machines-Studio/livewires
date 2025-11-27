@@ -14,18 +14,19 @@
 
 /* Settings (design tokens) */
 @import './1_tokens/color.css';
+@import './1_tokens/borders.css';
 @import './1_tokens/spacing.css';
 @import './1_tokens/typography-base.css';
 
 
 /* Typography scale mode (choose one) */
 /* Default: automatic, ratio-based */
-/* @import './1_tokens/typography-scale-auto.css';
-@import './2_tools/typography-scale-auto.css'; */
+@import './1_tokens/typography-scale-auto.css';
+@import './2_tools/typography-scale-auto.css'; 
 
-/* Alternative: manual, baseline-aligned */
+/* Alternative: manual, baseline-aligned 
 @import './1_tokens/typography-scale-manual.css';
-@import './2_tools/typography-scale-manual.css';
+@import './2_tools/typography-scale-manual.css';*/
 
 
 /* Tools (CSS functions and type definitions) */
@@ -36,14 +37,15 @@
 @import './3_generic/reset.css';
 
 /* Base element styles */
-@import './4_elements/root.css';
-@import './4_elements/body.css';
+@import './4_elements/document.css';
 @import './4_elements/typography.css';
+@import './4_elements/quotes.css';
 @import './4_elements/links.css';
 @import './4_elements/lists.css';
 @import './4_elements/media.css';
 @import './4_elements/tables.css';
 @import './4_elements/forms.css';
+@import './4_elements/borders.css';
 
 /* Layout primitives */
 @import './5_layouts/section.css';
@@ -57,8 +59,9 @@
 /* Components */
 /* Only use what you need */
 @import './6_components/logo.css';
+@import './6_components/prose.css';
 @import './6_components/buttons.css';
-@import './6_components/callouts.css';
+/*@import './6_components/callouts.css';
 @import './6_components/rows.css';
 @import './6_components/rules.css';
 @import './6_components/drawers.css';
@@ -77,7 +80,8 @@
 @import './6_components/code-highlighting.css';
 @import './6_components/addresses.css';
 @import './6_components/text-styles.css';
-@import './6_components/prose.css';
+@import './6_components/theme.css';
+*/
 
 
 /* Utilities */

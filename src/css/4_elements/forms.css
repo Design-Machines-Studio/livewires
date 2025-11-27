@@ -5,60 +5,16 @@
  */
 
 @layer base {
-  label {
-    display: block;
-    font-weight: var(--font-medium);
-    margin-block-end: var(--space-025);
-  }
-
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  input[type="search"],
-  input[type="url"],
-  input[type="tel"],
-  input[type="number"],
-  textarea,
-  select {
-    width: 100%;
-    padding: var(--space-025) var(--space-025);
-    border: 1px solid var(--color-border);
-    border-radius: 0.25em;
-    background: var(--color-bg);
-    color: var(--color-fg);
-
-    &:focus {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 2px;
-      border-color: var(--color-accent);
-    }
-  }
-
-  textarea {
-    min-height: 5lh;
-    field-sizing: content;
-  }
-
-  button,
-  input[type="submit"],
-  input[type="button"] {
-    display: inline-block;
-    padding: var(--space-025) var(--space-025);
-    background: var(--color-accent);
-    color: var(--color-white);
-    border: none;
-    border-radius: 0.25em;
-    font-weight: var(--font-medium);
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.9;
-    }
-
-    &:focus {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 2px;
-    }
+  /*
+   * Form variables
+   */
+  :root {
+    --button-bg: var(--color-fg);
+    --button-fg: var(--color-bg);
+    --button-h-space: var(--space-075);
+    --button-v-space: var(--space-05);
+    --button-radius: var(--radius-normal);
+    --button-font-size: var(--text-base);
   }
 
   fieldset {
@@ -70,5 +26,103 @@
   legend {
     font-weight: var(--font-bold);
     padding-inline: var(--space-1);
+  }
+
+  label {
+    display: block;
+    font-weight: var(--font-medium);
+    margin-block-end: var(--space-025);
+  }
+
+  /*
+   * Inputs
+   */
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="url"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  input[type="time"],
+  textarea,
+  select {
+    padding: var(--space-025) var(--space-025);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-normal);
+    background: var(--color-bg);
+    color: var(--color-fg);
+
+    &:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+      border-color: var(--color-accent);
+    }
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="url"],
+  textarea {
+    width: 100%;
+  }
+
+  textarea {
+    min-height: 5lh;
+    field-sizing: content;
+  }
+
+  /*
+   * Buttons
+   */
+  button,
+  input[type="submit"],
+  input[type="button"],
+  .button {
+    display: inline-block;
+    padding-block: var(--button-v-space);
+    padding-inline: var(--button-h-space);
+    background: var(--button-bg);
+    color: var(--button-fg);
+    border: none;
+    border-radius: var(--button-radius);
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    transition: all 0.2s linear;
+    text-decoration: none;
+    line-height: var(--leading-none);
+    user-select: none;
+    text-align: center;
+    font-size: var(--button-font-size);
+
+    &:hover {
+      opacity: 0.9;
+      color: var(--button-fg);
+    }
+
+    &:active {
+      opacity: 0.9;
+      color: var(--button-fg);
+    }
+
+    &:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    &:disabled,
+    &.button--disabled {
+      cursor: default;
+      pointer-events: none;
+      background-color: var(--color-muted);
+      color: var(--color-white);
+    }
   }
 }

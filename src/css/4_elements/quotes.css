@@ -28,3 +28,16 @@ q::after  { content: close-quote }
     margin-inline-start: 0;
   }
 }
+
+  /*
+   * Blockquotes
+   */
+   blockquote {
+    padding-inline-start: var(--space-1);
+    border-inline-start: 4px solid var(--color-border);
+    font-style: italic;
+
+    & p {
+      margin-block-end: var(--space-05);
+    }
+  }

@@ -1,0 +1,8 @@
+hr {
+  clear:both;
+  height: 0;
+  border: 0;
+  box-sizing: border-box;
+  border-top-width: 1px;
+  border-style: solid;
+}

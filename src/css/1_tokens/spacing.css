@@ -1,51 +1,35 @@
 /**
- * Design Tokens
- *
- * THE SACRED BASELINE:
- * Everything in Live Wires derives from the --line variable.
- * This ensures perfect vertical rhythm across the entire design.
- *
- * Changing --text-base or --line-height-ratio automatically
- * recalculates all spacing throughout the system.
+ * Spacing Tokens
+ * These are derrived from the baseline height defined in typography-base.css
  */
+@layer tokens {
+  :root {
 
-:root {
-  /*
-   * Base Typography
-   * Fluid scaling from 16px (1rem) to 18px (1.125rem)
-   */
-  --line-height-ratio: 1.5;
+    /*
+    * Spacing Scale
+    * Based on multiples of --line for perfect vertical rhythm
+    * Includes fine-grained fractional values and larger multipliers
+    */
+    --space-0: 0;
+    --space-025: calc(var(--line) * 0.25);  /* Quarter line */
+    --space-05: calc(var(--line) * 0.5);    /* Half line */
+    --space-075: calc(var(--line) * 0.75);  /* Three-quarter line */
+    --space-1: var(--line);                  /* One line (baseline) */
+    --space-15: calc(var(--line) * 1.5);    /* 1.5 lines */
+    --space-2: calc(var(--line) * 2);       /* Two lines */
+    --space-3: calc(var(--line) * 3);       /* Three lines */
+    --space-4: calc(var(--line) * 4);       /* Four lines */
+    --space-5: calc(var(--line) * 5);       /* Five lines */
+    --space-6: calc(var(--line) * 6);       /* Six lines */
 
-  /*
-   * THE BASELINE
-   * All spacing derives from this value
-   */
-  --line: calc(var(--text-base) * var(--line-height-ratio));
+    /* Pixel-precise spacing for borders, fine details */
+    --space-1px: 1px;
 
-  /*
-   * Spacing Scale
-   * Based on multiples of --line for perfect vertical rhythm
-   * Includes fine-grained fractional values and larger multipliers
-   */
-  --space-0: 0;
-  --space-025: calc(var(--line) * 0.25);  /* Quarter line */
-  --space-05: calc(var(--line) * 0.5);    /* Half line */
-  --space-075: calc(var(--line) * 0.75);  /* Three-quarter line */
-  --space-1: var(--line);                  /* One line (baseline) */
-  --space-15: calc(var(--line) * 1.5);    /* 1.5 lines */
-  --space-2: calc(var(--line) * 2);       /* Two lines */
-  --space-3: calc(var(--line) * 3);       /* Three lines */
-  --space-4: calc(var(--line) * 4);       /* Four lines */
-  --space-5: calc(var(--line) * 5);       /* Five lines */
-  --space-6: calc(var(--line) * 6);       /* Six lines */
-
-  /* Pixel-precise spacing for borders, fine details */
-  --space-1px: 1px;
-
-  /*
-   * Layout Tokens
-   */
-  --gutter: var(--space-1);
-  --vertical-margin: var(--space-1);
-  --horizontal-margin: var(--space-05);
+    /*
+    * Layout Tokens
+    */
+    --gutter: var(--space-1);
+    --vertical-margin: var(--space-1);
+    --horizontal-margin: var(--space-05);
+  }
 }

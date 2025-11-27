@@ -24,7 +24,7 @@
           <hr />
         </header>
         <div class="section center stack">
-          <section class="">
+          <section class="stack">
             <header>
               <h2>Text inputs</h2>
               <hr />
@@ -74,110 +74,153 @@
             <div class="field">
               <label for="error">Invalid input</label>
               <input type="text" name="error" id="error" value="Bad input" placeholder="" class="error text-input"  />
-              <label class="error label--error">Error message for invalid field.</label>
+              <label class="error">Error message for invalid field.</label>
             </div>
           </section>
-          <section>
+          <section class="stack">
             <header>
               <h2>Control inputs</h2>
               <hr />
             </header>
-            <div class="field">
-              <label for="datetime">Datetime input</label>
-              <input type="datetime" name="datetime" id="datetime" value="" class="text-input" />
-            </div>
-      
-            <div class="field">
-              <label for="datetime-local">Datetime-local input</label>
-              <input type="datetime-local" name="datetime-local" id="datetime-local" value="" class="text-input" />
-            </div>
-      
-            <div class="field">
-              <label for="month">Month input</label>
-              <input type="month" name="month" value="" id="month" class="text-input" />
-            </div>
-      
-            <div class="field">
-              <label for="week">Week input</label>
-              <input type="week" name="week" value="" id="week" class="text-input" />
-            </div>
-      
-            <div class="field">
-              <label for="time">Time input</label>
-              <input type="time" name="time" value="" id="time" class="text-input" />
-            </div>
-      
-            <div class="field">
-              <label for="range">Range input</label>
-              <input type="range" name="range" id="range" value="0" />
-            </div>
-      
-            <div class="field">
-              <label for="color">Colour input</label>
-              <input type="color" name="color" id="color" value="" />
-            </div>
-            <div class="field">
-              <label for="checkbox">Checkboxes</label>
-              <ul class="check-list">
-                <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
-                <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
-                <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
-              </ul>
-            </div>
-      
-            <div class="field">
-              <label for="radio">Radios</label>
-              <ul class="check-list">
-                <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
-                <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
-                <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
-              </ul>
-            </div>
-            <div class="field">
-              <label for="file">File upload</label>
-              <input type="file" name="file" id="file" />
-            </div>
+            <div class="grid grid-columns-2">
+              <div class="stack">
+
+                <div class="field">
+                  <label for="datetime">Datetime input</label>
+                  <input type="datetime" name="datetime" id="datetime" value="" />
+                </div>
           
+                <div class="field">
+                  <label for="datetime-local">Datetime-local input</label>
+                  <input type="datetime-local" name="datetime-local" id="datetime-local" value="" />
+                </div>
+          
+                <div class="field">
+                  <label for="month">Month input</label>
+                  <input type="month" name="month" value="" id="month" />
+                </div>
+          
+                <div class="field">
+                  <label for="week">Week input</label>
+                  <input type="week" name="week" value="" id="week" />
+                </div>
+          
+                <div class="field">
+                  <label for="time">Time input</label>
+                  <input type="time" name="time" value="" id="time" />
+                </div>
+
+                <div class="field">
+                  <label for="select">Select</label>
+                  <select name="select">
+                    <optgroup>
+                      <option>Choose one</option>
+                    </optgroup>
+                    <optgroup>
+                      <option value="option1">Option 1</option>
+                      <option value="option2">Option 2</option>
+                      <option value="option3">Option 3</option>
+                      <option value="option4">Option 4</option>
+                    </optgroup>
+                  </select>
+                </div>
+    
+                <div class="field">
+                  <label for="multi">Multi-select</label>
+                  <select name="multi" multiple>
+                      <option value="option1">Option 1</option>
+                      <option value="option2">Option 2</option>
+                      <option value="option3">Option 3</option>
+                      <option value="option4">Option 4</option>
+                  </select>
+                </div>
+              </div>
+              <div class="stack">
+                <div class="field">
+                  <label for="range">Range input</label>
+                  <input type="range" name="range" id="range" value="0" />
+                </div>
+          
+                <div class="field">
+                  <label for="color">Colour input</label>
+                  <input type="color" name="color" id="color" value="" />
+                </div>
+
+                <div class="field">
+                  <label for="checkbox">Checkboxes</label>
+                  <ul class="check-list">
+                    <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
+                    <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
+                    <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
+                  </ul>
+                </div>
+          
+                <div class="field">
+                  <label for="radio">Radios</label>
+                  <ul class="check-list">
+                    <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
+                    <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
+                    <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
+                  </ul>
+                </div>
+                
+                <div class="field">
+                  <label for="file">File upload</label>
+                  <input type="file" name="file" id="file" />
+                </div>
+              </div>
+            </div>
           </section>
-          <section>
+          <section class="stack">
             <header>
               <h2>Buttons</h2>
               <hr />
             </header>
-            <div>
-              <div class="field">
-                <button type="submit">Button input</button>
+            <div class="grid grid-columns-2">
+              <div class="stack">
+                <h3>Native buttons</h3>
+                <div class="field">
+                  <button type="submit">Button input</button>
+                </div>
+          
+                <div class="field">
+                  <input type="submit" value="Submit input" />
+                </div>
+  
+                <div class="field">
+                  <button type="submit" disabled>Disabled button</button>
+                </div>
               </div>
+              <div class="stack">
+                <h3>Button components</h3>
+                <p>Uncomment @import './6_components/buttons.css'; in main.css to style.</p>
+                <div class="field">
+                  <a href="#" class="button">Button link</a>
+                </div>
+          
+          
+                <div class="field">
+                  <a href="#" class="button button--accent">Accent button</a>
+                </div>
+          
+                
+          
+                <div class="field">
+                  <a href="#" class="button button--small">Small button link</a>
+                </div>
+          
+                <div class="field">
+                  <a href="#" class="button button--large">Large button link</a>
+                </div>
+                <div class="field button-group">
+                  <a href="#" class="button">Button group</a>
+                  <a href="#" class="button">Button group</a>
+                  <a href="#" class="button">Button group</a>
+                </div>
+              </div>
+              
         
-              <div class="field">
-                <input type="submit" value="Submit input" />
-              </div>
-        
-              <div class="field">
-                <a href="#" class="button">Button link</a>
-              </div>
-        
-        
-              <div class="field">
-                <a href="#" class="button button--blue">Blue button</a>
-              </div>
-        
-              <div class="field">
-                <a href="#" class="button button--disabled">Disabled button</a>
-              </div>
-        
-              <div class="field">
-                <a href="#" class="button button--small">Small button link</a>
-              </div>
-        
-              <div class="field">
-                <a href="#" class="button button--large">Large button link</a>
-              </div>
-              <div class="field button-group">
-                <a href="#" class="button">Button group</a>
-                <a href="#" class="button">Button group</a>
-                <a href="#" class="button">Button group</a>
-              </div>
+              
               
             </div>
           </section>

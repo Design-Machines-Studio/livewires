@@ -8,7 +8,7 @@
   :root {
     font-family: var(--font-body);
     font-size: var(--text-base);
-    line-height: var(--line-height-ratio);
+    line-height: var(--line);
     color: var(--color-fg);
     background: var(--color-bg);
     font-variation-settings: "GRAD" var(--vf-grad, 0);

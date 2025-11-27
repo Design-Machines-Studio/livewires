@@ -14,47 +14,46 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: var(--font-bold);
-    margin-block-end: var(--space-05);
+    margin-block-end: var(--space-025);
     font-variant-numeric: lining-nums;
     text-wrap: balance; /* Balanced line lengths for headings */
   }
 
   h1 {
-    font-size: var(--text-3xl);
-    line-height: var(--line-height-3xl);
-    letter-spacing: var(--tracking-3xl);
-    margin-block-end: var(--space-1);
+    font-size: var(--text-4xl);
+    line-height: var(--line-height-4xl);
+    letter-spacing: var(--tracking-4xl);
     font-variant-ligatures: discretionary-ligatures;
   }
 
   h2 {
+    font-size: var(--text-3xl);
+    line-height: var(--line-height-3xl);
+    letter-spacing: var(--tracking-3xl);
+  }
+
+  h3 {
     font-size: var(--text-2xl);
     line-height: var(--line-height-2xl);
     letter-spacing: var(--tracking-2xl);
   }
 
-  h3 {
+  h4 {
     font-size: var(--text-xl);
     line-height: var(--line-height-xl);
     letter-spacing: var(--tracking-xl);
   }
 
-  h4 {
+  h5 {
     font-size: var(--text-lg);
     line-height: var(--line-height-lg);
     letter-spacing: var(--tracking-lg);
   }
 
-  h5 {
+  h6 {
     font-size: var(--text-base);
     line-height: var(--line-height-base);
     letter-spacing: var(--tracking-base);
-  }
-
-  h6 {
-    font-size: var(--text-sm);
-    line-height: var(--line-height-sm);
-    letter-spacing: var(--tracking-sm);
   }
 
   /*
@@ -64,6 +63,7 @@
   p {
     max-inline-size: var(--measure);
     text-wrap: pretty; /* Reduces orphans automatically */
+    margin-block-end: var(--space-05);
   }
 
   /* Lists also benefit from pretty wrapping */
@@ -71,26 +71,16 @@
     text-wrap: pretty;
   }
 
+
+
+
   .lead {
     font-size: var(--text-lg);
     line-height: var(--line-height-lg);
     letter-spacing: var(--tracking-lg);
   }
 
-  /*
-   * Blockquotes
-   */
-  blockquote {
-    margin-inline-start: var(--space-2);
-    padding-inline-start: var(--space-2);
-    border-inline-start: 4px solid var(--color-border);
-    font-style: italic;
-    color: var(--color-muted);
 
-    & p {
-      margin-block-end: var(--space-2);
-    }
-  }
 
   /*
    * Code
@@ -183,5 +173,60 @@
   math, time[datetime*=":"] {
     font-variant-numeric: tabular-nums lining-nums slashed-zero;
   }
+
+  /* 
+    From Liam Johnson: Vertical Spacing in Long-Form Text:
+    Non-heading elements should have a big gap after them if followed by a heading.
+    Star selector means that a bunch of stuff should "just work",
+    e.g. if you insert images or other elements between text nodes.
+    But you could change the `*` to `:is(h1,h2,h3,h4,h5,h6)` if you don't want that. 
+
+    - https://css-tricks.com/solved-with-has-vertical-spacing-in-long-form-text/
+  */
+  *:has(+ h2) {
+    margin-bottom: var(--space-2);
+  }
+  *:has(+ h3) {
+    margin-bottom: var(--space-2);
+  }
+  *:has(+ h4) {
+    margin-bottom: var(--space-15);
+  }
+  *:has(+ h5) {
+    margin-bottom: var(--space-1);
+  }
+  *:has(+ h6) {
+    margin-bottom: var(--space-1);
+  }
+
+  /* Headings followed immediately by a heading of a level down
+     should have only a small gap below.
+     Using :where() for consistent specificity. 
+  */
+  :where(h1):has(+ h2) {
+    margin-bottom: var(--space-025);
+  }
+  :where(h2):has(+ h3) {
+    margin-bottom: var(--space-025);
+  }
+  :where(h3):has(+ h4) {
+    margin-bottom: var(--space-025);
+  }
+  :where(h4):has(+ h5) {
+    margin-bottom: var(--space-025);
+  }
+  :where(h5):has(+ h6) {
+    margin-bottom: var(--space-025);
+  }
+
+  /* List item spacing. */
+  :where(li):has(+ li) {
+    margin-bottom: 0;
+  }
+  /* Nested list spacing. */
+  :where(li) :is(ul, ol) {
+    margin-top: var(--space-025);
+  }
+
 
 }

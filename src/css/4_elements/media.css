@@ -15,11 +15,11 @@
     margin-block: var(--space-1);
 
     & img {
-      margin-block-end: var(--space-1);
+      margin-block-end: var(--space-025);
     }
   }
 
   figcaption {
-    font-size: var(--text-2sm);
+    font-size: var(--text-sm);
   }
 }

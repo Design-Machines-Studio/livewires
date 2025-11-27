@@ -8,10 +8,11 @@
   /*
    * Content lists (restore list styles for article content)
    */
+  .prose ul,
+  .prose ol,
   .content ul,
   .content ol {
     list-style: revert;
-    padding-inline-start: var(--space-025);
     margin-block-end: var(--space-1);
   }
 
@@ -28,7 +29,7 @@
   }
 
   dd {
-    margin-inline-start: var(--space-025);
     margin-block-end: var(--space-1);
+    max-inline-size: var(--measure);
   }
 }

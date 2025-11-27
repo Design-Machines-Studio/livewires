@@ -44,9 +44,19 @@
     --measure: 65ch;
     --measure-wide: 80ch;
     --measure-narrow: 45ch;
+    
+    /* ===============================================
+       LEADING Line-height overrides
+       =============================================== */
+
+    --leading-none: 1em;
+    --leading-tight: 1.25em;
+    --leading-snug: 1.333em;
+    --leading-normal: 1.5em;
+  
 
     /* ===============================================
-       THE SACRED BASELINE
+       THE BASELINE
        --line scales from 24px (mobile) to 32px (desktop)
        All spacing derives from this
        =============================================== */
