@@ -68,11 +68,12 @@
 @import './6_components/tables.css';
 @import './6_components/images.css';
 @import './6_components/videos.css';
+@import './6_components/breadcrumbs.css';
 /*
 
 
-@import './6_components/tabs.css';
-@import './6_components/breadcrumbs.css';
+
+
 @import './6_components/pagination.css';
 
 @import './6_components/option-buttons.css';

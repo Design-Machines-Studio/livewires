@@ -6,7 +6,6 @@
 
     <!-- Load Web Component first (before any html-include tags) -->
     <script type="module" src="/src/js/main.js"></script>
-    <script type="module" src="/guide/_components/scheme.js"></script>
 
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
@@ -21,14 +20,26 @@
       <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
       <article class="stack">
         <header class="section">
-          <h1>Color schemes</h1>
+          <h1>Navigation</h1>
           <hr />
         </header>
-        <div class="section">
-          <scheme-panel scheme="scheme-light" title="White"></scheme-panel>
-          <scheme-panel scheme="scheme-subtle" title="Subtle"></scheme-panel>
-          <scheme-panel scheme="scheme-dark" title="Black"></scheme-panel>
-          <scheme-panel scheme="scheme-accent" title="Accent"></scheme-panel>
+        <div class="section center stack">
+          <section class="stack">
+            <header>
+              <h2>Breadcrumbs</h2>
+              <hr />
+            </header>
+            <div>
+              <nav class="breadcrumbs">
+                <ol>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/guide/">Guide</a></li>
+                  <li><a href="/components/">Component Library</a></li>
+                  <li>Navigation</li>
+                </ol>
+              </nav>
+            </div>
+          </section>
         </div>
       </article>
     </main>

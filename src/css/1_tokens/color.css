@@ -85,6 +85,15 @@
     --color-subtle: var(--color-grey-100);
   }
 
+  .scheme-subtle {
+    --color-bg: var(--color-grey-100);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-brand);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-300);
+    --color-subtle: var(--color-grey-200);
+  }
+
   .scheme-dark {
     --color-bg: var(--color-black);
     --color-fg: var(--color-white);
@@ -96,8 +105,8 @@
   .scheme-accent {
     --color-bg: var(--color-brand);
     --color-fg: var(--color-white);
-    --color-accent: var(--color-white);
+    --color-accent: var(--color-black);
     --color-border: var(--color-white);
-    --color-subtle: var(--color-white);
+    --color-subtle: var(--color-brand-light);
   }
 }
