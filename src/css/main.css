@@ -66,6 +66,8 @@
 @import './6_components/buttons.css';
 @import './6_components/switches.css';
 @import './6_components/tables.css';
+@import './6_components/images.css';
+@import './6_components/videos.css';
 /*
 
 
@@ -76,8 +78,8 @@
 @import './6_components/option-buttons.css';
 
 @import './6_components/inline-forms.css';
-@import './6_components/images.css';
-@import './6_components/videos.css';
+
+
 @import './6_components/maps.css';
 @import './6_components/code-highlighting.css';
 @import './6_components/text-styles.css';

@@ -5,21 +5,12 @@
  */
 
 @layer base {
-  img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-
   figure {
-    margin-block: var(--space-1);
 
-    & img {
-      margin-block-end: var(--space-025);
-    }
   }
-
   figcaption {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-xs);
+    letter-spacing: var(--tracking-xs);
   }
 }

@@ -10,14 +10,15 @@
     margin-block-start: var(--space-1);
     margin-block-end: var(--space-1);
     border-collapse: collapse;
-
-    caption {
-      text-align: start;
-      font-weight: var(--font-bold);
-      font-size: var(--text-lg);
-      line-height: var(--line-height-lg);
-      letter-spacing: var(--tracking-lg);
-    }
+  }
+  
+  caption {
+    text-align: start;
+    font-weight: var(--font-bold);
+    font-size: var(--text-lg);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--tracking-lg);
+    margin-block-end: var(--space-025);
   }
 
   th, td {

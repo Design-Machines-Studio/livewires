@@ -6,30 +6,14 @@
  */
 
 @layer components {
-  /* Image positioning helpers - applied at larger screens */
-  @media (min-width: 48em) {
-    .img--right {
-      margin-block-end: var(--space-2);
-      margin-inline-start: var(--space-2);
-      float: right;
-    }
-
-    .img--left {
-      margin-block-end: var(--space-2);
-      margin-inline-end: var(--space-2);
+  figure {
+    p:has(+ .source) {
       float: left;
     }
-
-    .img--center {
-      display: block;
-      margin-inline: auto;
-      margin-block-end: var(--space-2);
-    }
-
-    /* Caption source alignment */
     .source {
+      text-align: end;
+      max-inline-size: none;
       float: right;
-      text-align: right;
     }
   }
 }

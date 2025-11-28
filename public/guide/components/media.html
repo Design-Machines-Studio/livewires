@@ -24,29 +24,50 @@
           <hr />
         </header>
         <div class="section stack">
-          <section>
+          <section class="stack">
             <header>
               <h2>Images</h2>
             </header>
             <div>
-              <h3>Placeholder image</h3>
+              <h3>Simple placeholder image</h3>
+              <p>Use a service like <a href="https://placehold.co/">Placehold.co</a> for image blocking in prototypes.</p>
               <figure>
                 <img src="https://placehold.co/2000x1200" alt="">
               </figure>
             </div>
             <div>
+              <h3>Linked image</h3>
+              <figure>
+                <a href="#"><img src="/img/guide/ludd-hd.webp" alt=""></a>
+              </figure>
+            </div>
+            <div>
               <h3>Image with caption</h3>
               <figure>
-                <img src="https://placehold.co/2000x1200" alt="">
-                <caption>This is a placeholder image with a caption.</caption>
+                <img src="/img/guide/ludd-hd.webp" alt="">
+                <figcaption><p>The Leader of the Luddites, 1812.</p></figcaption>
+              </figure>
+            </div>
+            <h2>Additional enhancements</h2>
+            <div>
+              <h3>Image with .source</h3>
+              <figure>
+                <img src="/img/guide/ludd-hd.webp" alt="">
+                <figcaption>
+                  <p>The Leader of the Luddites, 1812.</p>
+                  <p class="source">Credit: <a href="http://146.87.210.2/detail.aspx?parentpriref=110003456">Working Class Movement Library catalogue</a></p>
+                </figcaption>
               </figure>
             </div>
           </section>
           <section>
             <header>
               <h2>Video</h2>
+              <p>16:9 default aspect ratio. Use .aspect-X utility classes to change aspect ratio.</p>
             </header>
-
+            <figure class="video">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/bmg8SjjoE-o?si=3NCWXBVE6qwQWfgy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </figure>
           </section>
         </div>
       </article>
