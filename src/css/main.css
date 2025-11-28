@@ -71,10 +71,15 @@
 @import './6_components/switches.css';
 
 /* Utilities */
-/* Only use what you need 
-@import './7_utilities/display.css';
+
 @import './7_utilities/spacing.css';
 @import './7_utilities/flexbox.css';
+
+@import './7_utilities/visibility.css';
+/* Only use what you need 
+@import './7_utilities/display.css';
+
+
 @import './7_utilities/sizing.css';
 @import './7_utilities/borders.css';
 @import './7_utilities/typography.css';
@@ -82,7 +87,7 @@
 @import './7_utilities/media.css';
 @import './7_utilities/grid.css';
 @import './7_utilities/tables.css';*/
-@import './7_utilities/visibility.css';
+
 
 /* Development utilities (remove in production) */
 @import './7_utilities/dev.css';
