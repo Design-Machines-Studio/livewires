@@ -74,7 +74,7 @@
 @import './6_components/tabs.css';
 @import './6_components/breadcrumbs.css';
 @import './6_components/pagination.css';
-@import './6_components/offcanvas.css';
+
 @import './6_components/option-buttons.css';
 
 @import './6_components/inline-forms.css';
@@ -83,7 +83,6 @@
 @import './6_components/maps.css';
 @import './6_components/code-highlighting.css';
 @import './6_components/text-styles.css';
-@import './6_components/theme.css';
 */
 
 

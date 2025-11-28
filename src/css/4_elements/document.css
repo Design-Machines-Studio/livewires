@@ -9,11 +9,19 @@
     font-family: var(--font-body);
     font-size: var(--text-base);
     line-height: var(--line);
-    color: var(--color-fg);
     background: var(--color-bg);
+    color: var(--color-fg);
     font-variation-settings: "GRAD" var(--vf-grad, 0);
   }
   html {
     scroll-behavior: smooth;
+  }
+
+  /*
+   * Apply color schemes definied in 1_tokens/color.css
+   */
+  [class*='scheme-'] {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
   }
 }

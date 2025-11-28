@@ -57,7 +57,6 @@
     --color-subtle: var(--color-grey-100);
 
   }
-
   /*
   * Dark Mode Support
   * Automatically adjusts for system preference
@@ -71,5 +70,34 @@
       --color-subtle: var(--color-black);
       --vf-grad: -50; /* Adjust per font reduces font grade */
     }
+  }
+
+
+  /*
+  * Color schemes for different colored blocks and areas across the project
+  */
+  .scheme-light {
+    --color-bg: var(--color-white);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-brand);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-300);
+    --color-subtle: var(--color-grey-100);
+  }
+
+  .scheme-dark {
+    --color-bg: var(--color-black);
+    --color-fg: var(--color-white);
+    --color-accent: var(--color-brand);
+    --color-border: var(--color-grey-700);
+    --color-subtle: var(--color-grey-800);
+  }
+
+  .scheme-accent {
+    --color-bg: var(--color-brand);
+    --color-fg: var(--color-white);
+    --color-accent: var(--color-white);
+    --color-border: var(--color-white);
+    --color-subtle: var(--color-white);
   }
 }
