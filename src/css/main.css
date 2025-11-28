@@ -59,7 +59,6 @@
 @import './5_layouts/center.css';
 
 /* Custom components and expanded elements */
-/* Only use what you need */
 @import './6_components/logo.css';
 @import './6_components/prose.css';
 @import './6_components/dividers.css';
