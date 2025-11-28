@@ -63,32 +63,16 @@
 @import './6_components/logo.css';
 @import './6_components/prose.css';
 @import './6_components/dividers.css';
-@import './6_components/buttons.css';
-@import './6_components/switches.css';
 @import './6_components/tables.css';
 @import './6_components/images.css';
-@import './6_components/videos.css';
+@import './6_components/embeds.css';
 @import './6_components/breadcrumbs.css';
-/*
-
-
-
-
 @import './6_components/pagination.css';
-
-@import './6_components/option-buttons.css';
-
-@import './6_components/inline-forms.css';
-
-
-@import './6_components/maps.css';
-@import './6_components/code-highlighting.css';
-@import './6_components/text-styles.css';
-*/
-
+@import './6_components/buttons.css';
+@import './6_components/switches.css';
 
 /* Utilities */
-/* Only use what you need */
+/* Only use what you need 
 @import './7_utilities/display.css';
 @import './7_utilities/spacing.css';
 @import './7_utilities/flexbox.css';
@@ -98,7 +82,8 @@
 @import './7_utilities/color.css';
 @import './7_utilities/media.css';
 @import './7_utilities/grid.css';
-@import './7_utilities/tables.css';
+@import './7_utilities/tables.css';*/
+@import './7_utilities/visibility.css';
 
 /* Development utilities (remove in production) */
 @import './7_utilities/dev.css';

@@ -26,5 +26,12 @@
     -webkit-hyphens: manual;
     hyphens: manual;
   }
+
+  .lead {
+    font-size: var(--text-lg);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--tracking-lg);
+  }
+
 }
 

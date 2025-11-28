@@ -1,21 +1,19 @@
 /**
- * Videos Component
+ * Embed Component
  *
  * Wrapper for responsive video embeds.
  *
  * Usage:
- * <figure class="video">
+ * <div class="video">
  *   <iframe src="..."></iframe>
- *   <figcaption>
- *     Caption text.
- *     <footer class="source">Source: <cite>Source Name</cite></footer>
- *   </figcaption>
- * </figure>
+ *     <p>Caption text.
+ *     <footer class="source">Source: <cite>Source Name</cite></footer></p>
+ * </div>
  *
  */
 
 @layer components {
-  .video {
+  .embed {
     aspect-ratio: 16 / 9;
 
     iframe,

@@ -17,13 +17,13 @@
 
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
-      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <html-include class="scheme-subtle" src="../_includes/nav-components.html"></html-include>
       <article class="stack">
         <header class="section">
           <h1>Navigation</h1>
           <hr />
         </header>
-        <div class="section center stack">
+        <div class="section grid grid-columns-2">
           <section class="stack">
             <header>
               <h2>Breadcrumbs</h2>
@@ -37,6 +37,34 @@
                   <li><a href="/components/">Component Library</a></li>
                   <li>Navigation</li>
                 </ol>
+              </nav>
+            </div>
+          </section>
+          <section class="stack">
+            <header>
+              <h2>Pagination</h2>
+              <hr />
+            </header>
+            <div>
+              <nav class="pagination" aria-label="pagination">
+                <ol>
+                  <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="visuallyhidden">previous set of pages</span></a></li>
+                  <li class="current"><a href="#"><span class="visuallyhidden">page </span>1</a></li>
+                  <li><a href="#"><span class="visuallyhidden">page </span>2</a></li>
+                  <li><a href="#"><span class="visuallyhidden">page </span>3</a></li>
+                  <li><a href="#"><span class="visuallyhidden">page </span>4</a></li>
+                  <li><a href="#"><span class="visuallyhidden">page </span>5</a></li>
+                  <li><a href="#"><span class="visuallyhidden">next set of pages</span
+                    ><span aria-hidden="true">&raquo;</span></a></li>
+                </ol>
+              </nav>
+            </div>
+            <div>
+              <nav class="pagination" aria-label="pagination">
+                <ul>
+                  <li><a href="">&laquo; Previous</a></li>
+                  <li><a href="">Next &raquo;</a></li>
+                </ul>
               </nav>
             </div>
           </section>

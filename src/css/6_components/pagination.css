@@ -2,7 +2,6 @@
  * Pagination Component
  *
  * Navigation controls for multi-page content.
- * Ported from source/scss/5_components/_nav--pagination.scss
  *
  * Usage:
  * <nav class="pagination">
@@ -17,38 +16,20 @@
  *   </ul>
  * </nav>
  *
- * Mini pagination:
- * <nav class="pagination pagination--mini">
- *   <p>
- *     <a href="" class="prev">&laquo; Prev</a>
- *     <a href="" class="next">Next &raquo;</a>
- *   </p>
- * </nav>
  */
 
 @layer components {
   .pagination {
-    margin-block-start: var(--space-3);
 
-    & li {
-      display: block;
-      float: left;
-    }
-
-    & a {
-      display: block;
+    ol,
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-025);
     }
 
     & .current a {
       cursor: default;
-    }
-  }
-
-  /* Mini pagination variant - simple prev/next */
-  .pagination--mini {
-    & a {
-      display: block;
-      float: left;
     }
   }
 }
