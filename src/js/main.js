@@ -7,4 +7,4 @@ import '../css/prototyping.css';
 import './html-include.js';
 
 // Development Tools (prototyping utilities)
-import './dev-tools.js';
+import './prototyping.js';
