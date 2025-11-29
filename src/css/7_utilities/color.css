@@ -20,18 +20,4 @@
   .bg-accent { --bg-color: var(--color-accent); background-color: var(--bg-color); color: var(--color-white); }
   .bg-transparent { background-color: transparent; }
 
-  /* Border colors */
-  .border-default { border-color: var(--color-border); }
-  .border-accent { border-color: var(--color-accent); }
-
-  .bg-grey-100 { --bg-color: var(--color-grey-100); background-color: var(--bg-color); }
-  .bg-grey-200 { --bg-color: var(--color-grey-200); background-color: var(--bg-color); }
-  .bg-grey-300 { --bg-color: var(--color-grey-300); background-color: var(--bg-color); }
-  .bg-grey-400 { --bg-color: var(--color-grey-400); background-color: var(--bg-color); }
-  .bg-grey-500 { --bg-color: var(--color-grey-500); background-color: var(--bg-color); }
-  .bg-grey-600 { --bg-color: var(--color-grey-600); background-color: var(--bg-color); }
-  .bg-grey-700 { --bg-color: var(--color-grey-700); background-color: var(--bg-color); }
-  .bg-grey-800 { --bg-color: var(--color-grey-800); background-color: var(--bg-color); }
-  .bg-grey-900 { --bg-color: var(--color-grey-900); background-color: var(--bg-color); }
-
 }

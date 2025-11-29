@@ -62,32 +62,36 @@
   .border-subtle { border-color: var(--color-subtle); }
 
   /*
+   * BORDER WIDTHS
+   */
+  .border-width-semibold { border-width: var(--space-025); }
+  .border-width-bold { border-width: var(--space-05); }
+  .border-width-extrabold { border-width: var(--space-075); }
+  .border-width-heavy { border-width: var(--space-1); }
+
+  /*
    * BORDER RADIUS
    * Using rem-based values for consistency
    */
   .rounded-none { border-radius: 0; }
-  .rounded-sm { border-radius: 0.125rem; }
-  .rounded { border-radius: 0.25rem; }
-  .rounded-md { border-radius: 0.375rem; }
-  .rounded-lg { border-radius: 0.5rem; }
-  .rounded-xl { border-radius: 0.75rem; }
-  .rounded-2xl { border-radius: 1rem; }
-  .rounded-3xl { border-radius: 1.5rem; }
+  .rounded-sm { border-radius: var(--radius-tight); }
+  .rounded { border-radius: var(--radius-normal); }
+  .rounded-lg { border-radius: var(--radius-loose); }
   .rounded-full { border-radius: 9999px; }
 
   /*
    * BORDER RADIUS - INDIVIDUAL CORNERS
    * Using logical properties where applicable
    */
-  .rounded-t { border-start-start-radius: 0.25rem; border-start-end-radius: 0.25rem; }
-  .rounded-b { border-end-start-radius: 0.25rem; border-end-end-radius: 0.25rem; }
-  .rounded-l { border-start-start-radius: 0.25rem; border-end-start-radius: 0.25rem; }
-  .rounded-r { border-start-end-radius: 0.25rem; border-end-end-radius: 0.25rem; }
+  .rounded-t { border-start-start-radius: var(--radius-normal); border-start-end-radius: var(--radius-normal); }
+  .rounded-b { border-end-start-radius: var(--radius-normal); border-end-end-radius: var(--radius-normal); }
+  .rounded-l { border-start-start-radius: var(--radius-normal); border-end-start-radius: var(--radius-normal); }
+  .rounded-r { border-start-end-radius: var(--radius-normal);; border-end-end-radius: var(--radius-normal); }
 
-  .rounded-tl { border-start-start-radius: 0.25rem; }
-  .rounded-tr { border-start-end-radius: 0.25rem; }
-  .rounded-bl { border-end-start-radius: 0.25rem; }
-  .rounded-br { border-end-end-radius: 0.25rem; }
+  .rounded-tl { border-start-start-radius: var(--radius-normal); }
+  .rounded-tr { border-start-end-radius: var(--radius-normal); }
+  .rounded-bl { border-end-start-radius: var(--radius-normal); }
+  .rounded-br { border-end-end-radius: var(--radius-normal); }
 
   /*
    * OUTLINE

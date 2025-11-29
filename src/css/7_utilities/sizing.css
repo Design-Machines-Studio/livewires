@@ -37,11 +37,6 @@
   .max-w-measure-wide { max-width: var(--measure-wide); }
   .max-w-measure-narrow { max-width: var(--measure-narrow); }
 
-  /* Prose widths for readability */
-  .max-w-prose { max-width: 65ch; }
-  .max-w-prose-wide { max-width: 80ch; }
-  .max-w-prose-narrow { max-width: 45ch; }
-
   /* Container widths */
   .max-w-xs { max-width: 20rem; }
   .max-w-sm { max-width: 24rem; }

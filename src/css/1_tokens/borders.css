@@ -8,9 +8,9 @@
     /*
     * Rounded corner radiuses 
     */
-    --radius-tight: 1.5px;
-    --radius-normal: 3px;
-    --radius-loose: 6px;
+    --radius-tight: calc(var(--line) / 16);
+    --radius-normal: calc(var(--line) / 8);
+    --radius-loose: calc(var(--line) / 4);
 
     /*
     * Thickness

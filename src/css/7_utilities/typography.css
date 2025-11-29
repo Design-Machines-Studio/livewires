@@ -120,22 +120,10 @@
      Use !important to override complete packages
      =============================================== */
 
-  .leading-none { line-height: 1 !important; }
-  .leading-tight { line-height: 1.25 !important; }
-  .leading-snug { line-height: 1.375 !important; }
-  .leading-normal { line-height: 1.5 !important; }
-  .leading-relaxed { line-height: 1.625 !important; }
-  .leading-loose { line-height: 2 !important; }
-
-  /* Numeric line heights for precise control */
-  .leading-3 { line-height: 0.75rem !important; }
-  .leading-4 { line-height: 1rem !important; }
-  .leading-5 { line-height: 1.25rem !important; }
-  .leading-6 { line-height: 1.5rem !important; }
-  .leading-7 { line-height: 1.75rem !important; }
-  .leading-8 { line-height: 2rem !important; }
-  .leading-9 { line-height: 2.25rem !important; }
-  .leading-10 { line-height: 2.5rem !important; }
+  .leading-none { line-height: var(--line-height-none) !important; }
+  .leading-tight { line-height: var(--line-height-tight) !important; }
+  .leading-snug { line-height: var(--line-height-snug) !important; }
+  .leading-normal { line-height: var(--line-height-normal) !important; }
 
   /* ===============================================
      LETTER-SPACING OVERRIDES
