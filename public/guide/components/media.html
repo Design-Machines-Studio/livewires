@@ -10,7 +10,7 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-">
+  <body class="pg-media">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
@@ -22,35 +22,39 @@
         <header class="section">
           <h1>Media</h1>
           <hr />
+          <p class="lead">Images, figures, and embedded media. All media is responsive by default with proper aspect ratio handling.</p>
         </header>
-        <div class="section stack">
-          <section class="stack">
-            <header>
-              <h2>Images</h2>
-            </header>
-            <div>
-              <h3>Simple placeholder image</h3>
+
+        <!-- Images -->
+        <section class="section stack">
+          <header>
+            <h2>Images</h2>
+            <p>Use <code>&lt;figure&gt;</code> for images with optional captions via <code>&lt;figcaption&gt;</code>.</p>
+          </header>
+          <div class="stack">
+            <section>
+              <h3>Placeholder image</h3>
               <p>Use a service like <a href="https://placehold.co/">Placehold.co</a> for image blocking in prototypes.</p>
               <figure>
                 <img src="https://placehold.co/2000x1200" alt="">
               </figure>
-            </div>
-            <div>
+            </section>
+            <section>
               <h3>Linked image</h3>
               <figure>
                 <a href="#"><img src="/img/guide/ludd-hd.webp" alt=""></a>
               </figure>
-            </div>
-            <div>
+            </section>
+            <section>
               <h3>Image with caption</h3>
               <figure>
                 <img src="/img/guide/ludd-hd.webp" alt="">
                 <figcaption><p>The Leader of the Luddites, 1812.</p></figcaption>
               </figure>
-            </div>
-            <h2>Additional enhancements</h2>
-            <div>
-              <h3>Image with .source</h3>
+            </section>
+            <section>
+              <h3>Image with source credit</h3>
+              <p>Use <code>.source</code> for attribution.</p>
               <figure>
                 <img src="/img/guide/ludd-hd.webp" alt="">
                 <figcaption>
@@ -58,23 +62,31 @@
                   <p class="source">Credit: <a href="http://146.87.210.2/detail.aspx?parentpriref=110003456">Working Class Movement Library catalogue</a></p>
                 </figcaption>
               </figure>
-            </div>
-          </section>
-          <section>
-            <header>
-              <h2>Embedable media</h2>
-              <p>16:9 default aspect ratio. Use .aspect-X utility classes to change aspect ratio.</p>
-            </header>
-            <h3>Video embed</h3>
-            <div class="embed">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/bmg8SjjoE-o?si=3NCWXBVE6qwQWfgy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <h3>Map embed</h3>
-            <div class="embed">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21712.475735904616!2d-1.2262177946624793!3d52.947972195321306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4879e9fa1ab9c26b%3A0x6ef3c01ac4a5dbe4!2sNottingham%20Industrial%20Museum!5e0!3m2!1sen!2sid!4v1764309691359!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </section>
-        </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Embeddable media -->
+        <section class="section stack">
+          <header>
+            <h2>Embeddable media</h2>
+            <p>Responsive embeds with <code>.embed</code>. Default 16:9 aspect ratio—use <code>.aspect-*</code> utilities to change.</p>
+          </header>
+          <div class="stack">
+            <section>
+              <h3>Video embed</h3>
+              <div class="embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/bmg8SjjoE-o?si=3NCWXBVE6qwQWfgy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </section>
+            <section>
+              <h3>Map embed</h3>
+              <div class="embed">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21712.475735904616!2d-1.2262177946624793!3d52.947972195321306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4879e9fa1ab9c26b%3A0x6ef3c01ac4a5dbe4!2sNottingham%20Industrial%20Museum!5e0!3m2!1sen!2sid!4v1764309691359!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </section>
+          </div>
+        </section>
       </article>
     </main>
     <!-- HTML Include: site footer -->

@@ -10,18 +10,19 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-">
+  <body class="pg-typography">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
 
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
-      <html-include class="bg-subtlexx" src="../_includes/nav-components.html"></html-include>
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
       <article class="stack">
         <header class="section">
           <h1>Typography</h1>
           <hr />
+          <p class="lead">Base typographic styles for headings, paragraphs, inline elements, and the complete type scale.</p>
         </header>
         <div class="stack">
           <section class="section stack">
@@ -30,7 +31,7 @@
               <hr />
             </header>
             <div class="grid grid-columns-2">
-              <div>
+              <section>
                 <h3>Default</h3>
                 <hr>
                 <h1>First heading</h1>
@@ -39,9 +40,8 @@
                 <h4>Fourth heading</h4>
                 <h5>Fifth heading</h5>
                 <h6>Sixth heading</h6>
-              </div>
-              <div id="section-1282495"
-                class="text-block content block-1282495    default -text measure  tracking-- grid-column-full grid-column-start-7_sm grid-column-end-13_sm">
+              </section>
+              <section>
                 <h3>Linked</h3>
                 <hr>
                 <h1><a href="#">First heading</a></h1>
@@ -50,15 +50,15 @@
                 <h4><a href="#">Fourth heading</a></h4>
                 <h5><a href="#">Fifth heading</a></h5>
                 <h6><a href="#">Sixth heading</a></h6>
-              </div>
+              </section>
             </div>
-            <div class="">
+            <section>
               <h3>Combos</h3>
               <hr>
               <h1>Primary<small> Sub heading</small></h1>
               <h2>Secondary<small> Sub heading</small></h2>
               <h3>Tertiary<small> Sub heading</small></h3>
-            </div>
+            </section>
           </section>
           <section class="section">
             <header>
@@ -94,16 +94,16 @@
               <hr />
             </header>
             <div class="grid grid-columns-4">
-              <div>
+              <section>
                 <h3>Timestamp</h3>
                 <p><time>January 12<sup>th</sup>, 2016</time></p>
-              </div>
-              <div>
+              </section>
+              <section>
                 <h3>Prices</h3>
                 <hr>
                 <p class="price">$100.00</p>
-              </div>
-              <div>
+              </section>
+              <section>
                 <h3>Addresses</h3>
                 <hr>
                 <address class="vcard">
@@ -118,13 +118,13 @@
                   <p class="email"><span class="type">Email</span><a href="mailto:name@example.com" title="name@example.com"
                       class="value">name@example.com</a></p>
                 </address>
-              </div>
-              <div>
+              </section>
+              <section>
                 <h3>Links</h3>
                 <hr>
                 <p><a href="#">Standard text link</a></p>
                 <p class="more"><a href="#">More link</a></p>
-              </div>
+              </section>
             </div>
           </section>
           <section class="section">
@@ -140,7 +140,7 @@
               </blockquote>
             </div>
           </section>
-          <section>
+          <section class="section">
             <header>
               <h2>Putting it all together</h2>
               <hr />
@@ -149,7 +149,7 @@
               <h1>The Luddites: Misunderstood Revolutionaries</h1>
               <p class="lead">Between 1811 and 1816, skilled textile workers in England rose up against machines—not because they feared technology, but because they understood exploitation.</p>
               <p><span role="text"><span aria-hidden="true"><span class="dropcap">T</span>he</span><span class="visuallyhidden">The</span></span>
-                name <q>Luddite</q> has become synonymous with backward thinking <i class="amp">&amp;</i> resistance to progress. Yet this characterization could not be further from the truth. The Luddites were sophisticated craftspeople who embraced technology when it empowered workers, but rejected it when deployed to undermine livelihoods and concentrate wealth. Their struggle offers profound lessons for our current moment.<sup id="fnref:1"><a href="#fn:1" rel="footnote" class="js-scrollto footnote-ref">1</a></sup></p>
+                name <q>Luddite</q> has become synonymous with backward thinking <i class="amp">&amp;</i> resistance to progress. Yet this characterization could not be further from the truth. The Luddites were sophisticated craftspeople who embraced technology when it empowered workers, but rejected it when deployed to undermine livelihoods and concentrate wealth. Their struggle offers profound lessons for our current moment.<sup id="fnref:1"><a href="#fn:1" rel="footnote" class="footnote-ref">1</a></sup></p>
               <p>The movement began in <a href="#">Nottingham, England</a> around 1811, named after the <strong>mythical leader Ned Ludd</strong>. These weren't anti-technology peasants—they were <em>skilled artisans</em> who understood their craft intimately. Before resorting to machine-breaking, they tried negotiation. They even proposed alternatives, like a textile tax to fund workers' pensions, demonstrating remarkable economic sophistication.</p>
               <p>What made the Luddites unique was their <mark>clear-eyed analysis of power</mark>. They didn't object to <abbr title="technology" class="acr">tech</abbr> itself, but to its deployment within exploitative economic structures. When technology helped them do their jobs better, they welcomed it. When it enriched <code>factory_owners</code> at workers' expense, they resisted. This wasn't <del>irrational fear</del> but <ins>rational opposition</ins> to a system designed to extract maximum value from their labor.</p>
               <h2>The Movement's Composition and Strategy</h2>
@@ -160,7 +160,7 @@
               </blockquote>
               <p>Their demands were remarkably progressive for the early 19<sup>th</sup> century. They sought fair compensation, minimum wages (a novel concept at the time), and labor standards that would protect workers' health and dignity. These weren't radicals seeking to <del>destroy society</del>—they were craftspeople fighting to preserve their communities <i class="amp">&amp;</i> livelihoods against an economic system that treated them as disposable.</p>
               <h3>Why the Luddites Lost: A Structural Analysis</h3>
-              <p>Understanding the Luddites' defeat requires examining the <em>power structures</em> they faced. The British government deployed <strong>14,000 troops</strong> to crush the movement—a larger force than Wellington commanded against Napoleon at the Battle of Waterloo.<sup id="fnref:2"><a href="#fn:2" rel="footnote" class="js-scrollto footnote-ref">2</a></sup> This wasn't merely law enforcement; it was <mark>state violence</mark> in service of capital accumulation.</p>
+              <p>Understanding the Luddites' defeat requires examining the <em>power structures</em> they faced. The British government deployed <strong>14,000 troops</strong> to crush the movement—a larger force than Wellington commanded against Napoleon at the Battle of Waterloo.<sup id="fnref:2"><a href="#fn:2" rel="footnote" class="footnote-ref">2</a></sup> This wasn't merely law enforcement; it was <mark>state violence</mark> in service of capital accumulation.</p>
               <p>The reasons for their defeat illuminate the challenges facing labor movements then <i class="amp">&amp;</i> now:</p>
               <ul>
                 <li><strong>State power asymmetry:</strong> Local worker organizations faced a national military apparatus</li>
@@ -207,7 +207,7 @@
               <hr>
               <h3>Sans</h3>
             </header>
-            <div class="text-xs">
+            <section class="text-xs">
               <hr>
               <h4>text-xs</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple and tex&shy;tile work&shy;ers who rose up in
@@ -216,8 +216,8 @@
                 ex&shy;ploi&shy;ta&shy;tion. They ac&shy;cept&shy;ed tech&shy;nol&shy;o&shy;gy that helped them do their jobs
                 bet&shy;ter, but re&shy;ject&shy;ed tech&shy;nol&shy;o&shy;gy de&shy;ployed to en&shy;rich cap&shy;i&shy;tal&shy;ists
                 at work&shy;ers' ex&shy;pense.</p>
-            </div>
-            <div class="text-sm">
+            </section>
+            <section class="text-sm">
               <hr>
               <h4>text-sm</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple and tex&shy;tile work&shy;ers who rose up in
@@ -226,8 +226,8 @@
                 ex&shy;ploi&shy;ta&shy;tion. They ac&shy;cept&shy;ed tech&shy;nol&shy;o&shy;gy that helped them do their jobs
                 bet&shy;ter, but re&shy;ject&shy;ed tech&shy;nol&shy;o&shy;gy de&shy;ployed to en&shy;rich cap&shy;i&shy;tal&shy;ists
                 at work&shy;ers' ex&shy;pense.</p>
-            </div>
-            <div class="text-base">
+            </section>
+            <section class="text-base">
               <hr>
               <h4>text-base</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple and tex&shy;tile work&shy;ers who rose up in
@@ -236,8 +236,8 @@
                 ex&shy;ploi&shy;ta&shy;tion. They ac&shy;cept&shy;ed tech&shy;nol&shy;o&shy;gy that helped them do their jobs
                 bet&shy;ter, but re&shy;ject&shy;ed tech&shy;nol&shy;o&shy;gy de&shy;ployed to en&shy;rich cap&shy;i&shy;tal&shy;ists
                 at work&shy;ers' ex&shy;pense.</p>
-            </div>
-            <div class="text-lg">
+            </section>
+            <section class="text-lg">
               <hr>
               <h4>text-lg</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple and tex&shy;tile work&shy;ers who rose up in
@@ -246,8 +246,8 @@
                 ex&shy;ploi&shy;ta&shy;tion. They ac&shy;cept&shy;ed tech&shy;nol&shy;o&shy;gy that helped them do their jobs
                 bet&shy;ter, but re&shy;ject&shy;ed tech&shy;nol&shy;o&shy;gy de&shy;ployed to en&shy;rich cap&shy;i&shy;tal&shy;ists
                 at work&shy;ers' ex&shy;pense.</p>
-            </div>
-            <div class="text-xl">
+            </section>
+            <section class="text-xl">
               <hr>
               <h4>text-xl</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple and tex&shy;tile work&shy;ers who rose up in
@@ -256,8 +256,8 @@
                 ex&shy;ploi&shy;ta&shy;tion. They ac&shy;cept&shy;ed tech&shy;nol&shy;o&shy;gy that helped them do their jobs
                 bet&shy;ter, but re&shy;ject&shy;ed tech&shy;nol&shy;o&shy;gy de&shy;ployed to en&shy;rich cap&shy;i&shy;tal&shy;ists
                 at work&shy;ers' ex&shy;pense.</p>
-            </div>
-            <div class="text-2xl">
+            </section>
+            <section class="text-2xl">
               <hr>
               <h4>text-2xl</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple and tex&shy;tile work&shy;ers who rose up in
@@ -266,8 +266,8 @@
                 ex&shy;ploi&shy;ta&shy;tion. They ac&shy;cept&shy;ed tech&shy;nol&shy;o&shy;gy that helped them do their jobs
                 bet&shy;ter, but re&shy;ject&shy;ed tech&shy;nol&shy;o&shy;gy de&shy;ployed to en&shy;rich cap&shy;i&shy;tal&shy;ists
                 at work&shy;ers' ex&shy;pense.</p>
-            </div>
-            <div class="text-3xl">
+            </section>
+            <section class="text-3xl">
               <hr>
               <h4>text-3xl</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple and tex&shy;tile work&shy;ers who rose up in
@@ -276,40 +276,40 @@
                 ex&shy;ploi&shy;ta&shy;tion. They ac&shy;cept&shy;ed tech&shy;nol&shy;o&shy;gy that helped them do their jobs
                 bet&shy;ter, but re&shy;ject&shy;ed tech&shy;nol&shy;o&shy;gy de&shy;ployed to en&shy;rich cap&shy;i&shy;tal&shy;ists
                 at work&shy;ers' ex&shy;pense.</p>
-            </div>
-            <div class="text-4xl">
+            </section>
+            <section class="text-4xl">
               <hr>
               <h4>text-4xl</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple and tex&shy;tile work&shy;ers who rose up in
                 Not&shy;ting&shy;ham, Eng&shy;land around 1811. They weren't anti-tech&shy;nol&shy;o&shy;gy peas&shy;ants
                 fear&shy;ing prog&shy;ress.</p>
-            </div>
-            <div class="text-5xl">
+            </section>
+            <section class="text-5xl">
               <hr>
               <h4>text-5xl</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple and tex&shy;tile work&shy;ers who rose up in
                 Not&shy;ting&shy;ham, Eng&shy;land around 1811.</p>
-            </div>
-            <div class="text-6xl">
+            </section>
+            <section class="text-6xl">
               <hr>
               <h4>text-6xl</h4>
               <p>The Lud&shy;dites were skilled crafts&shy;peo&shy;ple</p>
-            </div>
-            <div class="text-7xl">
+            </section>
+            <section class="text-7xl">
               <hr>
               <h4>text-7xl</h4>
               <p>The Lud&shy;dites were skilled</p>
-            </div>
-            <div class="text-8xl">
+            </section>
+            <section class="text-8xl">
               <hr>
               <h4>text-8xl</h4>
               <p>The Lud&shy;dites</p>
-            </div>
-            <div class="text-9xl">
+            </section>
+            <section class="text-9xl">
               <hr>
               <h4>text-9xl</h4>
               <p>The Luddites</p>
-            </div>
+            </section>
           </section>
         </div>
       </article>

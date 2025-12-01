@@ -10,7 +10,7 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-">
+  <body class="pg-forms">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
@@ -22,6 +22,7 @@
         <header class="section">
           <h1>Forms</h1>
           <hr />
+          <p class="lead">Native form elements with sensible defaults.</p>
         </header>
         <div class="section center stack">
           <section class="stack">
@@ -29,12 +30,12 @@
               <h2>Text inputs</h2>
               <hr />
             </header>
-            
+
             <div class="field">
               <label for="text">Text input</label>
               <input type="text" name="text" id="text" value="" placeholder="Text" class="text-input"  />
             </div>
-      
+
             <div class="field">
               <label for="email">Email input</label>
               <input type="email" name="email" id="email" value="" placeholder="name@example.com" class="text-input"  />
@@ -44,17 +45,17 @@
               <label for="password">Password input</label>
               <input type="password" name="password" id="password" value="" placeholder="" class="text-input"  />
             </div>
-      
+
             <div class="field">
               <label for="url">URL input</label>
               <input type="url" name="url" id="url" value="" placeholder="http://example.com" class="text-input"  />
             </div>
-      
+
             <div class="field">
               <label for="tel">Telephone input</label>
               <input type="tel" name="tel" id="tel" value="" placeholder="555-555-5555" class="text-input"  />
             </div>
-      
+
             <div class="field">
               <label for="number">Number input</label>
               <input type="number" name="number" id="number" value="" placeholder="" class="text-input"  />
@@ -64,13 +65,13 @@
               <label for="search">Search input</label>
               <input type="search" name="search" id="search" value="" placeholder="Search" class="search-input"  />
             </div>
-      
+
 
             <div class="field">
               <label for="textarea">Text area</label>
               <textarea name="textarea" id="textarea"></textarea>
             </div>
-      
+
             <div class="field">
               <label for="error">Invalid input</label>
               <input type="text" name="error" id="error" value="Bad input" placeholder="" class="error text-input"  />
@@ -89,22 +90,22 @@
                   <label for="datetime">Datetime input</label>
                   <input type="datetime" name="datetime" id="datetime" value="" />
                 </div>
-          
+
                 <div class="field">
                   <label for="datetime-local">Datetime-local input</label>
                   <input type="datetime-local" name="datetime-local" id="datetime-local" value="" />
                 </div>
-          
+
                 <div class="field">
                   <label for="month">Month input</label>
                   <input type="month" name="month" value="" id="month" />
                 </div>
-          
+
                 <div class="field">
                   <label for="week">Week input</label>
                   <input type="week" name="week" value="" id="week" />
                 </div>
-          
+
                 <div class="field">
                   <label for="time">Time input</label>
                   <input type="time" name="time" value="" id="time" />
@@ -124,7 +125,7 @@
                     </optgroup>
                   </select>
                 </div>
-    
+
                 <div class="field">
                   <label for="multi">Multi-select</label>
                   <select name="multi" multiple>
@@ -140,7 +141,7 @@
                   <label for="range">Range input</label>
                   <input type="range" name="range" id="range" value="0" />
                 </div>
-          
+
                 <div class="field">
                   <label for="color">Colour input</label>
                   <input type="color" name="color" id="color" value="" />
@@ -154,7 +155,7 @@
                     <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
                   </ul>
                 </div>
-          
+
                 <div class="field">
                   <label for="radio">Radios</label>
                   <ul class="check-list">
@@ -163,7 +164,7 @@
                     <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
                   </ul>
                 </div>
-                
+
                 <div class="field">
                   <label for="file">File upload</label>
                   <input type="file" name="file" id="file" />
@@ -172,11 +173,11 @@
                 <div class="field">
                   <button type="submit">Button input</button>
                 </div>
-          
+
                 <div class="field">
                   <input type="submit" value="Submit input" />
                 </div>
-  
+
                 <div class="field">
                   <button type="submit" disabled>Disabled button</button>
                 </div>
@@ -191,24 +192,24 @@
               <p>Uncomment @imports in main.css to style.</p>
             </header>
             <div class="grid grid-columns-2">
-              <div class="stack">
+              <section class="stack">
                 <h3>Button components <small>6_components/buttons.css</small></h3>
-                
+
                 <div class="field">
                   <a href="#" class="button">Button link</a>
                 </div>
-          
-          
+
+
                 <div class="field">
                   <a href="#" class="button button--accent">Accent button</a>
                 </div>
-          
-                
-          
+
+
+
                 <div class="field">
                   <a href="#" class="button button--small">Small button link</a>
                 </div>
-          
+
                 <div class="field">
                   <a href="#" class="button button--large">Large button link</a>
                 </div>
@@ -217,11 +218,11 @@
                   <a href="#" class="button">Button group</a>
                   <a href="#" class="button">Button group</a>
                 </div>
-              </div>
-              <div class="stack">
+              </section>
+              <section class="stack">
                 <h3>Custom controls</h3>
                 <div>
-              
+
                   <label for="switch">Switch</label>
                   <div class="field switch">
                     <input id="x" name="switch" type="radio" checked>
@@ -231,10 +232,10 @@
                     <span></span>
                   </div>
                   <p>6_components/switches.css</p>
-              </div>              
-        
-            </div>
-          </section>
+              </div>
+
+            </section>
+          </div>
         </div>
       </article>
     </main>

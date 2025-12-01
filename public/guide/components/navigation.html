@@ -10,26 +10,29 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-">
+  <body class="pg-navigation">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
 
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
-      <html-include class="scheme-subtle" src="../_includes/nav-components.html"></html-include>
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
       <article class="stack">
         <header class="section">
           <h1>Navigation</h1>
           <hr />
+          <p class="lead">Navigation patterns for breadcrumbs, pagination, and wayfinding. Built on semantic lists with proper ARIA attributes.</p>
         </header>
-        <div class="section grid grid-columns-2">
-          <section class="stack">
-            <header>
-              <h2>Breadcrumbs</h2>
-              <hr />
-            </header>
-            <div>
+
+        <section class="section stack">
+          <div class="grid grid-columns-2">
+            <!-- Breadcrumbs -->
+            <section class="stack">
+              <header>
+                <h2>Breadcrumbs</h2>
+                <p>Show the user's location in the site hierarchy.</p>
+              </header>
               <nav class="breadcrumbs">
                 <ol>
                   <li><a href="/">Home</a></li>
@@ -38,37 +41,40 @@
                   <li>Navigation</li>
                 </ol>
               </nav>
-            </div>
-          </section>
-          <section class="stack">
-            <header>
-              <h2>Pagination</h2>
-              <hr />
-            </header>
-            <div>
-              <nav class="pagination" aria-label="pagination">
-                <ol>
-                  <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="visually-hidden">previous set of pages</span></a></li>
-                  <li class="current"><a href="#"><span class="visually-hidden">page </span>1</a></li>
-                  <li><a href="#"><span class="visually-hidden">page </span>2</a></li>
-                  <li><a href="#"><span class="visually-hidden">page </span>3</a></li>
-                  <li><a href="#"><span class="visually-hidden">page </span>4</a></li>
-                  <li><a href="#"><span class="visually-hidden">page </span>5</a></li>
-                  <li><a href="#"><span class="visually-hidden">next set of pages</span
-                    ><span aria-hidden="true">&raquo;</span></a></li>
-                </ol>
-              </nav>
-            </div>
-            <div>
-              <nav class="pagination" aria-label="pagination">
-                <ul>
-                  <li><a href="">&laquo; Previous</a></li>
-                  <li><a href="">Next &raquo;</a></li>
-                </ul>
-              </nav>
-            </div>
-          </section>
-        </div>
+            </section>
+
+            <!-- Pagination -->
+            <section class="stack">
+              <header>
+                <h2>Pagination</h2>
+                <p>Navigate through multi-page content.</p>
+              </header>
+              <section>
+                <h3>Numbered</h3>
+                <nav class="pagination" aria-label="pagination">
+                  <ol>
+                    <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="visually-hidden">previous set of pages</span></a></li>
+                    <li class="current"><a href="#"><span class="visually-hidden">page </span>1</a></li>
+                    <li><a href="#"><span class="visually-hidden">page </span>2</a></li>
+                    <li><a href="#"><span class="visually-hidden">page </span>3</a></li>
+                    <li><a href="#"><span class="visually-hidden">page </span>4</a></li>
+                    <li><a href="#"><span class="visually-hidden">page </span>5</a></li>
+                    <li><a href="#"><span class="visually-hidden">next set of pages</span><span aria-hidden="true">&raquo;</span></a></li>
+                  </ol>
+                </nav>
+              </section>
+              <section>
+                <h3>Previous/Next</h3>
+                <nav class="pagination" aria-label="pagination">
+                  <ul>
+                    <li><a href="">&laquo; Previous</a></li>
+                    <li><a href="">Next &raquo;</a></li>
+                  </ul>
+                </nav>
+              </section>
+            </section>
+          </div>
+        </section>
       </article>
     </main>
     <!-- HTML Include: site footer -->

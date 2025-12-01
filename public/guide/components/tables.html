@@ -10,7 +10,7 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-">
+  <body class="pg-tables">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
@@ -22,174 +22,182 @@
         <header class="section">
           <h1>Tables</h1>
           <hr />
+          <p class="lead">Data tables with multiple style variants. Use <code>data-th</code> attributes on cells for responsive labeling.</p>
         </header>
-        <div class="section stack">
-          <section>
-            <header>
-              <h2>Default table</h2>
-            </header>
-            <table class="content">
-              <caption>Traditional crafts and their modern replacements</caption>
-              <thead>
-                <tr>
-                  <th>Craft</th>
-                  <th>Description</th>
-                  <th class="numeric">Years to master</th>
-                  <th class="numeric">Practitioners (est.)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-th="Craft">Hand weaving</td>
-                  <td data-th="Description">Cloth production on wooden looms</td>
-                  <td data-th="Years to master" class="numeric">7</td>
-                  <td data-th="Practitioners" class="numeric">12,400</td>
-                </tr>
-                <tr>
-                  <td data-th="Craft">Letterpress</td>
-                  <td data-th="Description">Movable type printing on iron presses</td>
-                  <td data-th="Years to master" class="numeric">5</td>
-                  <td data-th="Practitioners" class="numeric">3,200</td>
-                </tr>
-                <tr>
-                  <td data-th="Craft">Blacksmithing</td>
-                  <td data-th="Description">Forging metal by hand with hammer and anvil</td>
-                  <td data-th="Years to master" class="numeric">10</td>
-                  <td data-th="Practitioners" class="numeric">8,750</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
 
-          <section>
-            <header>
-              <h2>Bordered table</h2>
-            </header>
-            <table class="content table--bordered">
-              <caption>Artisan goods price list</caption>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Material</th>
-                  <th class="numeric">Weight (oz)</th>
-                  <th class="numeric">Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-th="Item">Hand-bound journal</td>
-                  <td data-th="Material">Cotton rag paper, leather</td>
-                  <td data-th="Weight" class="numeric">8.5</td>
-                  <td data-th="Price" class="numeric">$45.00</td>
-                </tr>
-                <tr>
-                  <td data-th="Item">Copper letter opener</td>
-                  <td data-th="Material">Hammered copper, walnut</td>
-                  <td data-th="Weight" class="numeric">3.2</td>
-                  <td data-th="Price" class="numeric">$28.00</td>
-                </tr>
-                <tr>
-                  <td data-th="Item">Wool blanket</td>
-                  <td data-th="Material">Undyed merino wool</td>
-                  <td data-th="Weight" class="numeric">64.0</td>
-                  <td data-th="Price" class="numeric">$185.00</td>
-                </tr>
-                <tr>
-                  <td data-th="Item">Ceramic ink well</td>
-                  <td data-th="Material">Stoneware, salt glaze</td>
-                  <td data-th="Weight" class="numeric">6.4</td>
-                  <td data-th="Price" class="numeric">$32.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+        <!-- Default table -->
+        <section class="section stack">
+          <header>
+            <h2>Default table</h2>
+            <p>Clean table styling with minimal borders. Use <code>.numeric</code> for right-aligned number columns.</p>
+          </header>
+          <table>
+            <caption>Traditional crafts and their modern replacements</caption>
+            <thead>
+              <tr>
+                <th>Craft</th>
+                <th>Description</th>
+                <th class="numeric">Years to master</th>
+                <th class="numeric">Practitioners (est.)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-th="Craft">Hand weaving</td>
+                <td data-th="Description">Cloth production on wooden looms</td>
+                <td data-th="Years to master" class="numeric">7</td>
+                <td data-th="Practitioners" class="numeric">12,400</td>
+              </tr>
+              <tr>
+                <td data-th="Craft">Letterpress</td>
+                <td data-th="Description">Movable type printing on iron presses</td>
+                <td data-th="Years to master" class="numeric">5</td>
+                <td data-th="Practitioners" class="numeric">3,200</td>
+              </tr>
+              <tr>
+                <td data-th="Craft">Blacksmithing</td>
+                <td data-th="Description">Forging metal by hand with hammer and anvil</td>
+                <td data-th="Years to master" class="numeric">10</td>
+                <td data-th="Practitioners" class="numeric">8,750</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
 
-          <section>
-            <header>
-              <h2>Striped table</h2>
-            </header>
-            <table class="content table--striped">
-              <caption>Luddite uprisings, 1811&ndash;1816</caption>
-              <thead>
-                <tr>
-                  <th>Location</th>
-                  <th>Industry</th>
-                  <th class="numeric">Year</th>
-                  <th class="numeric">Machines destroyed</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-th="Location">Nottinghamshire</td>
-                  <td data-th="Industry">Stocking frames</td>
-                  <td data-th="Year" class="numeric">1811</td>
-                  <td data-th="Machines" class="numeric">200+</td>
-                </tr>
-                <tr>
-                  <td data-th="Location">Yorkshire</td>
-                  <td data-th="Industry">Wool shearing</td>
-                  <td data-th="Year" class="numeric">1812</td>
-                  <td data-th="Machines" class="numeric">150</td>
-                </tr>
-                <tr>
-                  <td data-th="Location">Lancashire</td>
-                  <td data-th="Industry">Cotton weaving</td>
-                  <td data-th="Year" class="numeric">1812</td>
-                  <td data-th="Machines" class="numeric">175</td>
-                </tr>
-                <tr>
-                  <td data-th="Location">Leicestershire</td>
-                  <td data-th="Industry">Lace making</td>
-                  <td data-th="Year" class="numeric">1816</td>
-                  <td data-th="Machines" class="numeric">55</td>
-                </tr>
-                <tr>
-                  <td data-th="Location">Derbyshire</td>
-                  <td data-th="Industry">Stocking frames</td>
-                  <td data-th="Year" class="numeric">1814</td>
-                  <td data-th="Machines" class="numeric">80</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+        <!-- Bordered table -->
+        <section class="section stack">
+          <header>
+            <h2>Bordered table</h2>
+            <p>Full cell borders with <code>.table--bordered</code>.</p>
+          </header>
+          <table class="table--bordered">
+            <caption>Artisan goods price list</caption>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Material</th>
+                <th class="numeric">Weight (oz)</th>
+                <th class="numeric">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-th="Item">Hand-bound journal</td>
+                <td data-th="Material">Cotton rag paper, leather</td>
+                <td data-th="Weight" class="numeric">8.5</td>
+                <td data-th="Price" class="numeric">$45.00</td>
+              </tr>
+              <tr>
+                <td data-th="Item">Copper letter opener</td>
+                <td data-th="Material">Hammered copper, walnut</td>
+                <td data-th="Weight" class="numeric">3.2</td>
+                <td data-th="Price" class="numeric">$28.00</td>
+              </tr>
+              <tr>
+                <td data-th="Item">Wool blanket</td>
+                <td data-th="Material">Undyed merino wool</td>
+                <td data-th="Weight" class="numeric">64.0</td>
+                <td data-th="Price" class="numeric">$185.00</td>
+              </tr>
+              <tr>
+                <td data-th="Item">Ceramic ink well</td>
+                <td data-th="Material">Stoneware, salt glaze</td>
+                <td data-th="Weight" class="numeric">6.4</td>
+                <td data-th="Price" class="numeric">$32.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
 
-          <section>
-            <header>
-              <h2>Lined table</h2>
-            </header>
-            <table class="content table--lined">
-              <caption>Workshop schedule, Spring 1812</caption>
-              <thead>
-                <tr>
-                  <th>Workshop</th>
-                  <th>Instructor</th>
-                  <th class="numeric">Duration (hrs)</th>
-                  <th class="numeric">Fee</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-th="Workshop">Introduction to the hand loom</td>
-                  <td data-th="Instructor">N. Ludd</td>
-                  <td data-th="Duration" class="numeric">16</td>
-                  <td data-th="Fee" class="numeric">&pound;2.10</td>
-                </tr>
-                <tr>
-                  <td data-th="Workshop">Natural dye extraction</td>
-                  <td data-th="Instructor">M. Cartwright</td>
-                  <td data-th="Duration" class="numeric">8</td>
-                  <td data-th="Fee" class="numeric">&pound;1.05</td>
-                </tr>
-                <tr>
-                  <td data-th="Workshop">Pamphlet printing &amp; binding</td>
-                  <td data-th="Instructor">J. Horsfall</td>
-                  <td data-th="Duration" class="numeric">12</td>
-                  <td data-th="Fee" class="numeric">&pound;1.75</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-        </div>
+        <!-- Striped table -->
+        <section class="section stack">
+          <header>
+            <h2>Striped table</h2>
+            <p>Alternating row backgrounds with <code>.table--striped</code>.</p>
+          </header>
+          <table class="table--striped">
+            <caption>Luddite uprisings, 1811&ndash;1816</caption>
+            <thead>
+              <tr>
+                <th>Location</th>
+                <th>Industry</th>
+                <th class="numeric">Year</th>
+                <th class="numeric">Machines destroyed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-th="Location">Nottinghamshire</td>
+                <td data-th="Industry">Stocking frames</td>
+                <td data-th="Year" class="numeric">1811</td>
+                <td data-th="Machines" class="numeric">200+</td>
+              </tr>
+              <tr>
+                <td data-th="Location">Yorkshire</td>
+                <td data-th="Industry">Wool shearing</td>
+                <td data-th="Year" class="numeric">1812</td>
+                <td data-th="Machines" class="numeric">150</td>
+              </tr>
+              <tr>
+                <td data-th="Location">Lancashire</td>
+                <td data-th="Industry">Cotton weaving</td>
+                <td data-th="Year" class="numeric">1812</td>
+                <td data-th="Machines" class="numeric">175</td>
+              </tr>
+              <tr>
+                <td data-th="Location">Leicestershire</td>
+                <td data-th="Industry">Lace making</td>
+                <td data-th="Year" class="numeric">1816</td>
+                <td data-th="Machines" class="numeric">55</td>
+              </tr>
+              <tr>
+                <td data-th="Location">Derbyshire</td>
+                <td data-th="Industry">Stocking frames</td>
+                <td data-th="Year" class="numeric">1814</td>
+                <td data-th="Machines" class="numeric">80</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Lined table -->
+        <section class="section stack">
+          <header>
+            <h2>Lined table</h2>
+            <p>Horizontal row dividers only with <code>.table--lined</code>.</p>
+          </header>
+          <table class="table--lined">
+            <caption>Workshop schedule, Spring 1812</caption>
+            <thead>
+              <tr>
+                <th>Workshop</th>
+                <th>Instructor</th>
+                <th class="numeric">Duration (hrs)</th>
+                <th class="numeric">Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-th="Workshop">Introduction to the hand loom</td>
+                <td data-th="Instructor">N. Ludd</td>
+                <td data-th="Duration" class="numeric">16</td>
+                <td data-th="Fee" class="numeric">&pound;2.10</td>
+              </tr>
+              <tr>
+                <td data-th="Workshop">Natural dye extraction</td>
+                <td data-th="Instructor">M. Cartwright</td>
+                <td data-th="Duration" class="numeric">8</td>
+                <td data-th="Fee" class="numeric">&pound;1.05</td>
+              </tr>
+              <tr>
+                <td data-th="Workshop">Pamphlet printing &amp; binding</td>
+                <td data-th="Instructor">J. Horsfall</td>
+                <td data-th="Duration" class="numeric">12</td>
+                <td data-th="Fee" class="numeric">&pound;1.75</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
       </article>
     </main>
     <!-- HTML Include: site footer -->

@@ -11,7 +11,7 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-">
+  <body class="pg-schemes">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
@@ -23,13 +23,21 @@
         <header class="section">
           <h1>Color schemes</h1>
           <hr />
+          <p class="lead">Pre-defined color combinations for backgrounds, text, and accents. Apply to any container to change its color context.</p>
         </header>
-        <div class="section">
-          <scheme-panel scheme="scheme-light" title="White"></scheme-panel>
-          <scheme-panel scheme="scheme-subtle" title="Subtle"></scheme-panel>
-          <scheme-panel scheme="scheme-dark" title="Black"></scheme-panel>
-          <scheme-panel scheme="scheme-accent" title="Accent"></scheme-panel>
-        </div>
+
+        <section class="section stack">
+          <header>
+            <h2>Available schemes</h2>
+            <p>Each scheme sets <code>--color-bg</code>, <code>--color-fg</code>, and <code>--color-accent</code> for its descendants.</p>
+          </header>
+          <div class="stack">
+            <scheme-panel scheme="scheme-light" title="Light"></scheme-panel>
+            <scheme-panel scheme="scheme-subtle" title="Subtle"></scheme-panel>
+            <scheme-panel scheme="scheme-dark" title="Dark"></scheme-panel>
+            <scheme-panel scheme="scheme-accent" title="Accent"></scheme-panel>
+          </div>
+        </section>
       </article>
     </main>
     <!-- HTML Include: site footer -->

@@ -15,5 +15,8 @@
       color: var(--color-fg);
     }
   }
+  .more {
+    font-weight: var(--font-bold);
+  }
 
 }

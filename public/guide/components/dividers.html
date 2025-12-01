@@ -10,7 +10,7 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-">
+  <body class="pg-dividers">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
@@ -22,57 +22,64 @@
         <header class="section">
           <h1>Dividers</h1>
           <hr />
+          <p class="lead">Horizontal rules with various weights and styles. Use to separate content sections or add visual structure.</p>
         </header>
-        <div class="section grid grid-columns-2">
-          <section class="stack">
-            <header>
-              <h3>Divider weights</h3>
-              <hr />
-            </header>
-            <div>
-              <h4>Hairline</h4>
-              <hr class="divider--hairline" />
-            </div>
-            <div>
-              <h4>Regular</h4>
-              <hr class="" />
-            </div>
-            <div>
-              <h4>Semibold</h4>
-              <hr class="divider--semibold" />
-            </div>
-            <div>
-              <h4>Bold</h4>
-              <hr class="divider--bold" />
-            </div>
-            <div>
-              <h4>Extra bold</h4>
-              <hr class="divider--extrabold" />
-            </div>
-            <div>
-              <h4>Heavy</h4>
-              <hr class="divider--heavy" />
-            </div>
-          </section>
-          <section class="stack">
-            <header>
-              <h3>Divider colors</h3>
-              <hr />
-            </header>
-            <div>
-              <h4>Accent</h4>
-              <hr class="divider--accent" />
-            </div>
-            <div>
-              <h4>Dotted</h4>
-              <hr class="divider--dotted" />
-            </div>
-            <div>
-              <h4>Dashed</h4>
-              <hr class="divider--dashed" />
-            </div>
-          </section>
-        </div>
+
+        <section class="section stack">
+          <div class="grid">
+            <!-- Weights -->
+            <section class="stack">
+              <header>
+                <h2>Weights</h2>
+                <p>Control line thickness from hairline to heavy.</p>
+              </header>
+              <section>
+                <h3>Hairline</h3>
+                <hr class="divider--hairline" />
+              </section>
+              <section>
+                <h3>Regular (default)</h3>
+                <hr />
+              </section>
+              <section>
+                <h3>Semibold</h3>
+                <hr class="divider--semibold" />
+              </section>
+              <section>
+                <h3>Bold</h3>
+                <hr class="divider--bold" />
+              </section>
+              <section>
+                <h3>Extra bold</h3>
+                <hr class="divider--extrabold" />
+              </section>
+              <section>
+                <h3>Heavy</h3>
+                <hr class="divider--heavy" />
+              </section>
+            </section>
+
+            <!-- Styles -->
+            <section class="stack">
+              <header>
+                <h2>Styles</h2>
+                <p>Color and pattern variations.</p>
+              </header>
+              <section>
+                <h3>Accent</h3>
+                <hr class="divider--accent" />
+              </section>
+              <section>
+                <h3>Dotted</h3>
+                <hr class="divider--dotted" />
+              </section>
+              <section>
+                <h3>Dashed</h3>
+                <hr class="divider--dashed" />
+              </section>
+            </section>
+          </div>
+        </section>
       </article>
     </main>
     <!-- HTML Include: site footer -->
