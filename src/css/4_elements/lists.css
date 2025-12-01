@@ -13,23 +13,23 @@
   .content ul,
   .content ol {
     list-style: revert;
-    margin-block-end: var(--space-1);
+    margin-block-end: var(--line-1);
   }
 
   /*
    * Definition lists
    */
   dl {
-    margin-block-end: var(--space-1);
+    margin-block-end: var(--line-1);
   }
 
   dt {
     font-weight: var(--font-bold);
-    margin-block-start: var(--space-1);
+    margin-block-start: var(--line-1);
   }
 
   dd {
-    margin-block-end: var(--space-1);
+    margin-block-end: var(--line-1);
     max-inline-size: var(--measure);
   }
 }

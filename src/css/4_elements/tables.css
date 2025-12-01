@@ -7,8 +7,8 @@
 @layer base {
   table {
     width: 100%;
-    margin-block-start: var(--space-1);
-    margin-block-end: var(--space-1);
+    margin-block-start: var(--line-1);
+    margin-block-end: var(--line-1);
     border-collapse: collapse;
   }
   
@@ -18,11 +18,11 @@
     font-size: var(--text-lg);
     line-height: var(--line-height-lg);
     letter-spacing: var(--tracking-lg);
-    margin-block-end: var(--space-025);
+    margin-block-end: var(--line-025);
   }
 
   th, td {
-    padding: var(--space-025) var(--space-025);
+    padding: var(--line-025) var(--line-025);
     text-align: start;
   }
 

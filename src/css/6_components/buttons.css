@@ -15,14 +15,14 @@
 
   /* Size variants */
   .button--small {
-    --button-h-space: var(--space-025);
-    --button-v-space: var(--space-025);
+    --button-h-space: var(--line-025);
+    --button-v-space: var(--line-025);
     --button-font-size: var(--text-xs);
   }
 
   .button--large {
-    --button-h-space: var(--space-1);
-    --button-v-space: var(--space-05);
+    --button-h-space: var(--line-1);
+    --button-v-space: var(--line-05);
     --button-radius: var(--radius-loose);
     --button-font-size: var(--text-lg);
   }

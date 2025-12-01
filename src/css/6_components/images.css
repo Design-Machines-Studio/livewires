@@ -31,6 +31,6 @@
   }
   
   .with-icon .icon {
-    margin-inline-end: var(--space-05);
+    margin-inline-end: var(--line-05);
   }
 }

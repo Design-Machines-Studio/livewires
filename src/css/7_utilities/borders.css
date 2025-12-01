@@ -64,10 +64,10 @@
   /*
    * BORDER WIDTHS
    */
-  .border-width-semibold { border-width: var(--space-025); }
-  .border-width-bold { border-width: var(--space-05); }
-  .border-width-extrabold { border-width: var(--space-075); }
-  .border-width-heavy { border-width: var(--space-1); }
+  .border-width-semibold { border-width: var(--line-025); }
+  .border-width-bold { border-width: var(--line-05); }
+  .border-width-extrabold { border-width: var(--line-075); }
+  .border-width-heavy { border-width: var(--line-1); }
 
   /*
    * BORDER RADIUS

@@ -55,10 +55,10 @@
    --value: The value to negate
 
    Usage:
-   margin-top: --negate(var(--space-3));
+   margin-top: --negate(var(--line-3));
 
    Result:
-   margin-top: calc(-1 * var(--space-3));
+   margin-top: calc(-1 * var(--line-3));
 */
 @function --negate(--value) {
   result: calc(-1 * var(--value));

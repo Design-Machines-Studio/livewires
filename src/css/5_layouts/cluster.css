@@ -9,14 +9,14 @@
   .cluster {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--cluster-space, var(--space-1));
+    gap: var(--cluster-space, var(--line-1));
     align-items: var(--cluster-align, center);
     justify-content: var(--cluster-justify, flex-start);
   }
 
   /* Spacing variations */
   .cluster-compact {
-    --cluster-space: var(--space-05);
+    --cluster-space: var(--line-05);
   }
 
   /* Alignment variations */

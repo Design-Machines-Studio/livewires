@@ -10,25 +10,25 @@
     * Based on multiples of --line for perfect vertical rhythm
     * Includes fine-grained fractional values and larger multipliers
     */
-    --space-0: 0;
-    --space-025: calc(var(--line) * 0.25);  /* Quarter line */
-    --space-05: calc(var(--line) * 0.5);    /* Half line */
-    --space-075: calc(var(--line) * 0.75);  /* Three-quarter line */
-    --space-1: var(--line);                  /* One line (baseline) */
-    --space-15: calc(var(--line) * 1.5);    /* 1.5 lines */
-    --space-2: calc(var(--line) * 2);       /* Two lines */
-    --space-3: calc(var(--line) * 3);       /* Three lines */
-    --space-4: calc(var(--line) * 4);       /* Four lines */
-    --space-5: calc(var(--line) * 5);       /* Five lines */
-    --space-6: calc(var(--line) * 6);       /* Six lines */
+    --line-0: 0;
+    --line-025: calc(var(--line) * 0.25);  /* Quarter line */
+    --line-05: calc(var(--line) * 0.5);    /* Half line */
+    --line-075: calc(var(--line) * 0.75);  /* Three-quarter line */
+    --line-1: var(--line);                  /* One line (baseline) */
+    --line-15: calc(var(--line) * 1.5);    /* 1.5 lines */
+    --line-2: calc(var(--line) * 2);       /* Two lines */
+    --line-3: calc(var(--line) * 3);       /* Three lines */
+    --line-4: calc(var(--line) * 4);       /* Four lines */
+    --line-5: calc(var(--line) * 5);       /* Five lines */
+    --line-6: calc(var(--line) * 6);       /* Six lines */
 
     /* Pixel-precise spacing for borders, fine details */
-    --space-1px: 1px;
+    --line-1px: 1px;
 
     /*
     * Layout Tokens
     */
-    --gutter: var(--space-1);
+    --gutter: var(--line-1);
   }
 
 }

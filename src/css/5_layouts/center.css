@@ -10,7 +10,7 @@
     box-sizing: content-box;
     max-inline-size: var(--measure);
     margin-inline: auto;
-    padding-inline: var(--space-1);
+    padding-inline: var(--line-1);
   }
 
   /* Width variations */

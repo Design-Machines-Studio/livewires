@@ -1,6 +1,6 @@
 @layer base {
   :root {
-    --divider-width: var(--space-1px);
+    --divider-width: var(--line-1px);
     --divider-color: var(--color-border);
     --divider-style: solid;
   }

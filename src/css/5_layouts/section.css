@@ -7,8 +7,8 @@
 
 @layer layouts {
   :root {
-    --vertical-margin: var(--space-2);
-    --horizontal-margin: var(--space-075);
+    --vertical-margin: var(--line-2);
+    --horizontal-margin: var(--line-075);
   }
   .section {
     container-type: inline-size;
@@ -22,15 +22,15 @@
     padding: 0;
   }
   .section-wide {
-    padding-left: var(--space-1);
-    padding-right: var(--space-1);
+    padding-left: var(--line-1);
+    padding-right: var(--line-1);
   }
   .section-v-snug {
-    --vertical-margin: var(--space-1);
+    --vertical-margin: var(--line-1);
   }
   .section-v-snug {
-    padding-top: var(--space-1);
-    padding-bottom: var(--space-1);
+    padding-top: var(--line-1);
+    padding-bottom: var(--line-1);
   }
   .section-v-tight {
     padding-top: 0;
@@ -47,22 +47,22 @@
 
   @container (min-width: 30rem) {
     .section {
-      --vertical-margin: var(--space-3);
-      --horizontal-margin: var(--space-2);
+      --vertical-margin: var(--line-3);
+      --horizontal-margin: var(--line-2);
     }
     .section-wide {
-      --horizontal-margin: var(--space-1);
+      --horizontal-margin: var(--line-1);
     }
   }
   @container (min-width: 60rem) {
     .section {
-      --vertical-margin: var(--space-6);
-      --horizontal-margin: var(--space-4);
+      --vertical-margin: var(--line-6);
+      --horizontal-margin: var(--line-4);
     }
   }
   @container (min-width: 70rem) {
     .section {
-      --horizontal-margin: calc((100% / 9) + var(--space-1));
+      --horizontal-margin: calc((100% / 9) + var(--line-1));
     }
   }
 }

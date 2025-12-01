@@ -7,7 +7,7 @@
 
 @layer layouts {
   :root {
-    --sidebar-space: var(--space-1);
+    --sidebar-space: var(--line-1);
   }
   .sidebar {
     display: flex;
@@ -41,12 +41,12 @@
     --sidebar-space: 0;
   }
   .sidebar-1px {
-    --sidebar-space: var(--space-1px);
+    --sidebar-space: var(--line-1px);
   }
   .sidebar-snug {
-    --sidebar-space: var(--space-05);
+    --sidebar-space: var(--line-05);
   }
   .sidebar-loose {
-    --sidebar-space: var(--space-2);
+    --sidebar-space: var(--line-2);
   }
 }

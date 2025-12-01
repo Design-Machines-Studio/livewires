@@ -24,12 +24,12 @@
     ul {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--space-025);
+      gap: var(--line-025);
     }
 
     :where(li):has(+ li):after {
       content:'/';
-      margin-inline-start: var(--space-025);
+      margin-inline-start: var(--line-025);
     }
   }
 }

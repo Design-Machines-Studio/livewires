@@ -33,11 +33,11 @@ q::after  { content: close-quote }
    * Blockquotes
    */
    blockquote {
-    padding-inline-start: var(--space-1);
+    padding-inline-start: var(--line-1);
     border-inline-start: 4px solid var(--color-border);
     font-style: italic;
 
     & p {
-      margin-block-end: var(--space-05);
+      margin-block-end: var(--line-05);
     }
   }

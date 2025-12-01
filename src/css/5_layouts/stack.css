@@ -17,14 +17,14 @@
 
   /* Spacing variations */
   .stack-compact {
-    --stack-space: var(--space-05);
+    --stack-space: var(--line-05);
   }
 
   .stack-comfortable {
-    --stack-space: var(--space-2);
+    --stack-space: var(--line-2);
   }
 
   .stack-spacious {
-    --stack-space: var(--space-4);
+    --stack-space: var(--line-4);
   }
 }

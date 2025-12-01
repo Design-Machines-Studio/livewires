@@ -14,7 +14,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: var(--font-bold);
-    margin-block-end: var(--space-025);
+    margin-block-end: var(--line-025);
     font-variant-numeric: lining-nums;
     text-wrap: balance; /* Balanced line lengths for headings */
   }
@@ -63,7 +63,7 @@
   p {
     max-inline-size: var(--measure);
     text-wrap: pretty; /* Reduces orphans automatically */
-    margin-block-end: var(--space-05);
+    margin-block-end: var(--line-05);
   }
 
   /* Lists also benefit from pretty wrapping */
@@ -85,10 +85,10 @@
 
   pre {
     background: var(--color-subtle);
-    padding: var(--space-2);
+    padding: var(--line-2);
     overflow-x: auto;
     border-radius: 0.5em;
-    margin-block-end: var(--space-2);
+    margin-block-end: var(--line-2);
 
     & code {
       background: none;
@@ -173,19 +173,19 @@
     - https://css-tricks.com/solved-with-has-vertical-spacing-in-long-form-text/
   */
   *:has(+ h2) {
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--line-2);
   }
   *:has(+ h3) {
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--line-2);
   }
   *:has(+ h4) {
-    margin-bottom: var(--space-15);
+    margin-bottom: var(--line-15);
   }
   *:has(+ h5) {
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--line-1);
   }
   *:has(+ h6) {
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--line-1);
   }
 
   /* Headings followed immediately by a heading of a level down
@@ -193,19 +193,19 @@
      Using :where() for consistent specificity. 
   */
   :where(h1):has(+ h2) {
-    margin-bottom: var(--space-025);
+    margin-bottom: var(--line-025);
   }
   :where(h2):has(+ h3) {
-    margin-bottom: var(--space-025);
+    margin-bottom: var(--line-025);
   }
   :where(h3):has(+ h4) {
-    margin-bottom: var(--space-025);
+    margin-bottom: var(--line-025);
   }
   :where(h4):has(+ h5) {
-    margin-bottom: var(--space-025);
+    margin-bottom: var(--line-025);
   }
   :where(h5):has(+ h6) {
-    margin-bottom: var(--space-025);
+    margin-bottom: var(--line-025);
   }
 
   /* List item spacing. */
@@ -214,7 +214,7 @@
   }
   /* Nested list spacing. */
   :where(li) :is(ul, ol) {
-    margin-top: var(--space-025);
+    margin-top: var(--line-025);
   }
 
 

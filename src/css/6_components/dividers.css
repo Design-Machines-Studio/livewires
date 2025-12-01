@@ -12,16 +12,16 @@
     --divider-color: var(--color-muted);
   }
   .divider--semibold {
-    --divider-width: var(--space-025);
+    --divider-width: var(--line-025);
   }
   .divider--bold {
-    --divider-width: var(--space-05);
+    --divider-width: var(--line-05);
   }
   .divider--extrabold {
-    --divider-width: var(--space-075);
+    --divider-width: var(--line-075);
   }
   .divider--heavy {
-    --divider-width: var(--space-1);
+    --divider-width: var(--line-1);
   }
 
   /* Divider colors */
