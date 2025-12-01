@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-docs">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Utility classes</h1>
+          <hr />
+          <p class="lead">Single-purpose classes for precise control over styling.</p>
+        </header>
+
+        <nav class="stack-compact">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#spacing">Spacing</a></li>
+            <li><a href="#typography">Typography</a></li>
+            <li><a href="#color">Color</a></li>
+            <li><a href="#sizing">Sizing</a></li>
+            <li><a href="#display">Display</a></li>
+            <li><a href="#flexbox">Flexbox</a></li>
+            <li><a href="#grid">Grid</a></li>
+            <li><a href="#borders">Borders</a></li>
+            <li><a href="#media">Media</a></li>
+            <li><a href="#tables">Tables</a></li>
+          </ul>
+        </nav>
+
+        <section class="section stack">
+          <h2>Philosophy</h2>
+          <p>Utilities are the final layer in Live Wires' cascade. They always win over components, layouts, and base styles&mdash;no <code>!important</code> needed. This is handled by CSS Cascade Layers.</p>
+
+          <p>Use utilities for:</p>
+          <ul>
+            <li><strong>Art direction</strong>&mdash;One-off adjustments to specific elements</li>
+            <li><strong>Spacing overrides</strong>&mdash;Fine-tuning margins and padding</li>
+            <li><strong>Responsive behavior</strong>&mdash;Changing layout at different sizes</li>
+            <li><strong>Quick iteration</strong>&mdash;Trying options without writing CSS</li>
+          </ul>
+        </section>
+
+        <section id="spacing" class="section stack">
+          <h2>Spacing</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/spacing.css">7_utilities/spacing.css</a></p>
+          <p>All spacing utilities use <code>--line-*</code> tokens, keeping everything on the baseline grid.</p>
+
+          <h3>Scale</h3>
+          <p><code>0</code>, <code>025</code>, <code>05</code>, <code>075</code>, <code>1</code>, <code>15</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code>, <code>1px</code>, <code>auto</code></p>
+
+          <h3>Margin</h3>
+          <table class="table--lined">
+            <thead>
+              <tr>
+                <th class="col-25">Pattern</th>
+                <th class="col-35">Property</th>
+                <th class="col-40">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>.mt-{n}</code></td><td>margin-block-start</td><td><code>.mt-4</code></td></tr>
+              <tr><td><code>.mb-{n}</code></td><td>margin-block-end</td><td><code>.mb-2</code></td></tr>
+              <tr><td><code>.ml-{n}</code></td><td>margin-inline-start</td><td><code>.ml-1</code></td></tr>
+              <tr><td><code>.mr-{n}</code></td><td>margin-inline-end</td><td><code>.mr-3</code></td></tr>
+              <tr><td><code>.mx-{n}</code></td><td>margin-inline</td><td><code>.mx-auto</code></td></tr>
+              <tr><td><code>.my-{n}</code></td><td>margin-block</td><td><code>.my-2</code></td></tr>
+              <tr><td><code>.m-{n}</code></td><td>margin</td><td><code>.m-0</code></td></tr>
+            </tbody>
+          </table>
+
+          <h3>Padding</h3>
+          <table class="table--lined">
+            <thead>
+              <tr>
+                <th class="col-25">Pattern</th>
+                <th class="col-35">Property</th>
+                <th class="col-40">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>.pt-{n}</code></td><td>padding-block-start</td><td><code>.pt-3</code></td></tr>
+              <tr><td><code>.pb-{n}</code></td><td>padding-block-end</td><td><code>.pb-4</code></td></tr>
+              <tr><td><code>.pl-{n}</code></td><td>padding-inline-start</td><td><code>.pl-2</code></td></tr>
+              <tr><td><code>.pr-{n}</code></td><td>padding-inline-end</td><td><code>.pr-2</code></td></tr>
+              <tr><td><code>.px-{n}</code></td><td>padding-inline</td><td><code>.px-3</code></td></tr>
+              <tr><td><code>.py-{n}</code></td><td>padding-block</td><td><code>.py-4</code></td></tr>
+              <tr><td><code>.p-{n}</code></td><td>padding</td><td><code>.p-2</code></td></tr>
+            </tbody>
+          </table>
+
+          <h3>Negative margins</h3>
+          <p>Prefix with a dash for negative values:</p>
+          <pre><code>.-mt-2  /* margin-block-start: calc(var(--line-2) * -1) */
+.-mb-3  /* margin-block-end: calc(var(--line-3) * -1) */</code></pre>
+        </section>
+
+        <section id="typography" class="section stack">
+          <h2>Typography</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/typography.css">7_utilities/typography.css</a></p>
+
+          <h3>Font size (with line-height)</h3>
+          <p>Each <code>.text-*</code> class sets font-size, line-height, and letter-spacing as a package:</p>
+          <pre><code>.text-xs   .text-sm   .text-base   .text-lg   .text-xl
+.text-2xl  .text-3xl  .text-4xl    .text-5xl  .text-6xl
+.text-7xl  .text-8xl  .text-9xl</code></pre>
+
+          <h3>Font weight</h3>
+          <pre><code>.font-thin       /* 100 */
+.font-extralight /* 200 */
+.font-light      /* 300 */
+.font-normal     /* 400 */
+.font-medium     /* 500 */
+.font-semibold   /* 600 */
+.font-bold       /* 700 */
+.font-extrabold  /* 800 */
+.font-black      /* 900 */</code></pre>
+
+          <h3>Font family</h3>
+          <pre><code>.font-sans   /* var(--font-sans) */
+.font-serif  /* var(--font-serif) */
+.font-mono   /* var(--font-mono) */</code></pre>
+
+          <h3>Text alignment</h3>
+          <pre><code>.text-left    .text-center    .text-right    .text-justify</code></pre>
+
+          <h3>Line height overrides</h3>
+          <pre><code>.leading-none     /* 1 */
+.leading-tight    /* 1.1 */
+.leading-snug     /* 1.25 */
+.leading-normal   /* 1.5 */
+.leading-relaxed  /* 1.625 */
+.leading-loose    /* 2 */</code></pre>
+
+          <h3>Letter spacing overrides</h3>
+          <pre><code>.tracking-tighter  /* -0.05em */
+.tracking-tight    /* -0.025em */
+.tracking-normal   /* 0 */
+.tracking-wide     /* 0.025em */
+.tracking-wider    /* 0.05em */
+.tracking-widest   /* 0.1em */</code></pre>
+
+          <h3>Text transform</h3>
+          <pre><code>.uppercase    .lowercase    .capitalize    .normal-case</code></pre>
+
+          <h3>Measure (max-width for readability)</h3>
+          <pre><code>.measure         /* 65ch */
+.measure-narrow  /* 45ch */
+.measure-wide    /* 80ch */</code></pre>
+
+          <h3>Text wrapping</h3>
+          <pre><code>.text-balance  /* text-wrap: balance */
+.text-pretty   /* text-wrap: pretty */</code></pre>
+        </section>
+
+        <section id="color" class="section stack">
+          <h2>Color</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/color.css">7_utilities/color.css</a></p>
+
+          <h3>Color schemes</h3>
+          <p>Apply a color scheme to a container. All children inherit the colors:</p>
+          <pre><code>.scheme-warm    /* Warm palette */
+.scheme-cool    /* Cool palette */
+.scheme-dark    /* Dark palette */</code></pre>
+
+          <h3>Theme classes</h3>
+          <p>Set background and foreground together:</p>
+          <pre><code>.theme-white   /* Light theme */
+.theme-black   /* Dark theme */
+.theme-brand   /* Brand color theme */</code></pre>
+
+          <h3>Background colors</h3>
+          <pre><code>.bg-white      .bg-black      .bg-subtle
+.bg-accent     .bg-muted</code></pre>
+
+          <h3>Text colors</h3>
+          <pre><code>.fg-white      .fg-black      .fg-subtle
+.fg-accent     .fg-muted</code></pre>
+        </section>
+
+        <section id="sizing" class="section stack">
+          <h2>Sizing</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/sizing.css">7_utilities/sizing.css</a></p>
+
+          <h3>Width</h3>
+          <pre><code>.w-auto   .w-full   .w-screen
+.w-min    .w-max    .w-fit
+.w-25     .w-33     .w-50     .w-66     .w-75</code></pre>
+
+          <h3>Height</h3>
+          <pre><code>.h-auto   .h-full   .h-screen
+.h-min    .h-max    .h-fit</code></pre>
+
+          <h3>Max-width</h3>
+          <pre><code>.max-w-none     .max-w-xs      .max-w-sm
+.max-w-md       .max-w-lg      .max-w-xl
+.max-w-2xl      .max-w-full    .max-w-prose</code></pre>
+        </section>
+
+        <section id="display" class="section stack">
+          <h2>Display</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/display.css">7_utilities/display.css</a></p>
+
+          <h3>Display type</h3>
+          <pre><code>.block          .inline-block   .inline
+.flex           .inline-flex    .grid
+.inline-grid    .hidden         .contents</code></pre>
+
+          <h3>Visibility</h3>
+          <pre><code>.visible        .invisible
+.sr-only        /* Screen reader only */</code></pre>
+
+          <h3>Overflow</h3>
+          <pre><code>.overflow-auto     .overflow-hidden   .overflow-visible
+.overflow-scroll   .overflow-x-auto   .overflow-y-auto</code></pre>
+
+          <h3>Position</h3>
+          <pre><code>.static    .relative    .absolute    .fixed    .sticky</code></pre>
+        </section>
+
+        <section id="flexbox" class="section stack">
+          <h2>Flexbox</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/flexbox.css">7_utilities/flexbox.css</a></p>
+
+          <h3>Direction</h3>
+          <pre><code>.flex-row      .flex-row-reverse
+.flex-col      .flex-col-reverse</code></pre>
+
+          <h3>Wrap</h3>
+          <pre><code>.flex-wrap     .flex-nowrap    .flex-wrap-reverse</code></pre>
+
+          <h3>Justify content</h3>
+          <pre><code>.justify-start     .justify-end      .justify-center
+.justify-between   .justify-around   .justify-evenly</code></pre>
+
+          <h3>Align items</h3>
+          <pre><code>.items-start   .items-end      .items-center
+.items-baseline .items-stretch</code></pre>
+
+          <h3>Align self</h3>
+          <pre><code>.self-auto     .self-start     .self-end
+.self-center   .self-stretch</code></pre>
+
+          <h3>Gap</h3>
+          <pre><code>.gap-0   .gap-1   .gap-2   .gap-3   .gap-4   .gap-5   .gap-6</code></pre>
+        </section>
+
+        <section id="grid" class="section stack">
+          <h2>Grid</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/grid.css">7_utilities/grid.css</a></p>
+
+          <h3>Grid columns</h3>
+          <pre><code>.grid-cols-1   .grid-cols-2   .grid-cols-3
+.grid-cols-4   .grid-cols-5   .grid-cols-6
+.grid-cols-12</code></pre>
+
+          <h3>Column span</h3>
+          <pre><code>.col-span-1    .col-span-2    .col-span-3
+.col-span-4    .col-span-5    .col-span-6
+.col-span-full</code></pre>
+
+          <h3>Grid gap</h3>
+          <pre><code>.gap-0   .gap-1   .gap-2   .gap-3   .gap-4   .gap-5   .gap-6</code></pre>
+        </section>
+
+        <section id="borders" class="section stack">
+          <h2>Borders</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/borders.css">7_utilities/borders.css</a></p>
+
+          <h3>Border radius</h3>
+          <pre><code>.rounded-none  .rounded-sm    .rounded
+.rounded-md    .rounded-lg    .rounded-xl
+.rounded-2xl   .rounded-full</code></pre>
+
+          <h3>Border width</h3>
+          <pre><code>.border-0   .border   .border-2   .border-4</code></pre>
+
+          <h3>Border sides</h3>
+          <pre><code>.border-t   .border-b   .border-l   .border-r</code></pre>
+        </section>
+
+        <section id="media" class="section stack">
+          <h2>Media</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/media.css">7_utilities/media.css</a></p>
+
+          <h3>Object fit</h3>
+          <pre><code>.object-contain   .object-cover   .object-fill
+.object-none      .object-scale-down</code></pre>
+
+          <h3>Object position</h3>
+          <pre><code>.object-center   .object-top      .object-bottom
+.object-left     .object-right</code></pre>
+
+          <h3>Aspect ratio</h3>
+          <pre><code>.aspect-auto     .aspect-square   .aspect-video
+.aspect-4-3      .aspect-3-2</code></pre>
+        </section>
+
+        <section id="tables" class="section stack">
+          <h2>Tables</h2>
+          <p><strong>File:</strong> <a href="/src/css/7_utilities/tables.css">7_utilities/tables.css</a></p>
+
+          <h3>Column widths</h3>
+          <p>Use on <code>&lt;th&gt;</code> or <code>&lt;td&gt;</code> elements:</p>
+          <pre><code>.col-1     .col-5     .col-10    .col-15    .col-20
+.col-25    .col-30    .col-33    .col-40    .col-50
+.col-60    .col-66    .col-70    .col-75    .col-80</code></pre>
+        </section>
+
+        <section class="section stack">
+          <h2>Related documentation</h2>
+          <ul>
+            <li><a href="/guide/docs/code-style.html">Code style guide</a> &mdash; Naming conventions for utilities</li>
+            <li><a href="/guide/docs/typography.html">Typography system</a> &mdash; Deep dive into type utilities</li>
+            <li><a href="/guide/docs/structure.html">Project structure</a> &mdash; Where utility files live</li>
+          </ul>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

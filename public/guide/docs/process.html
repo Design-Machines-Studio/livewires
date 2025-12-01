@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-docs">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Design process</h1>
+          <hr />
+          <p class="lead">A practical workflow for building prototypes with Live Wires.</p>
+        </header>
+
+        <section class="section stack">
+          <h2>Philosophy</h2>
+          <p>Live Wires is built for <strong>fast iteration</strong>. The workflow prioritizes getting ideas into the browser quickly, then refining through progressive enhancement.</p>
+
+          <p>The key insight: <strong>semantic HTML looks good by default</strong>. Start with structure, not styling. Add classes only when you need specific control.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>The four-phase workflow</h2>
+
+          <h3>Phase 1: Rapid prototyping</h3>
+          <p>Build structure first. Write semantic HTML without worrying about visual details.</p>
+          <ol>
+            <li><strong>Create your page</strong> in <code>/public/</code></li>
+            <li><strong>Write semantic HTML</strong>&mdash;headings, paragraphs, lists, forms</li>
+            <li><strong>Add layout primitives</strong>&mdash;<code>.stack</code>, <code>.grid</code>, <code>.sidebar</code></li>
+            <li><strong>Use HTML includes</strong> for repeated elements (header, footer, nav)</li>
+          </ol>
+          <p>At this stage, your page should be functional and readable. The baseline styles handle typography, spacing, and color automatically.</p>
+
+          <h3>Phase 2: Configure design tokens</h3>
+          <p>Once structure is solid, customize the system-wide settings.</p>
+          <dl>
+            <dt><a href="/src/css/1_tokens/typography-base.css">typography-base.css</a></dt>
+            <dd>Font stacks, base size, line height ratio. Changes here ripple through the entire system.</dd>
+
+            <dt><a href="/src/css/1_tokens/color.css">color.css</a></dt>
+            <dd>Color palette, semantic colors, schemes. Define your brand colors here.</dd>
+
+            <dt><a href="/src/css/1_tokens/spacing.css">spacing.css</a></dt>
+            <dd>The sacred <code>--line</code> variable. All spacing derives from this.</dd>
+
+            <dt><a href="/src/css/1_tokens/borders.css">borders.css</a></dt>
+            <dd>Border radius scale for consistent roundness.</dd>
+          </dl>
+          <p>Token changes are global. Set them once, use them everywhere.</p>
+
+          <h3>Phase 3: Art direction with utilities</h3>
+          <p>Add utility classes for specific visual adjustments.</p>
+          <pre><code>&lt;!-- Before: semantic HTML with layout --&gt;
+&lt;article class="stack"&gt;
+  &lt;h2&gt;Article Title&lt;/h2&gt;
+  &lt;p&gt;Content...&lt;/p&gt;
+&lt;/article&gt;
+
+&lt;!-- After: adding art direction --&gt;
+&lt;article class="stack scheme-warm px-3 py-4"&gt;
+  &lt;h2 class="text-3xl"&gt;Article Title&lt;/h2&gt;
+  &lt;p class="text-lg measure"&gt;Content...&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+          <p>Use utilities sparingly. If you're adding the same utilities to every element, consider adjusting the token or creating a component.</p>
+
+          <h3>Phase 4: Polish and review</h3>
+          <p>Use the style guide as a checklist to verify consistency.</p>
+          <ul>
+            <li><strong>Typography</strong>&mdash;Check the <a href="/guide/elements/">Elements</a> page for heading hierarchy</li>
+            <li><strong>Spacing</strong>&mdash;Enable the baseline grid overlay (<code>.show-baseline</code>) to verify vertical rhythm</li>
+            <li><strong>Color</strong>&mdash;Review color contrast and scheme consistency</li>
+            <li><strong>Components</strong>&mdash;Cross-reference with the <a href="/guide/components/">Components</a> page</li>
+            <li><strong>Responsive</strong>&mdash;Test at various viewport sizes</li>
+          </ul>
+        </section>
+
+        <section class="section stack">
+          <h2>Development tools</h2>
+          <p>Live Wires includes development utilities to help verify your work.</p>
+
+          <h3>Baseline grid overlay</h3>
+          <pre><code>&lt;body class="show-baseline"&gt;</code></pre>
+          <p>Shows the baseline grid to verify vertical rhythm alignment. All spacing should snap to lines.</p>
+
+          <h3>Column overlays</h3>
+          <pre><code>&lt;body class="show-columns-2"&gt;
+&lt;body class="show-columns-3"&gt;
+&lt;body class="show-columns-4"&gt;</code></pre>
+          <p>Visualize column layouts during development.</p>
+
+          <h3>Dark mode toggle</h3>
+          <pre><code>&lt;body class="dark-mode"&gt;</code></pre>
+          <p>Force dark mode regardless of system preference.</p>
+
+          <p>These can also be toggled via keyboard shortcuts defined in <a href="/src/js/dev-tools.js">dev-tools.js</a>.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Using the style guide</h2>
+          <p>The <code>/guide/</code> folder serves multiple purposes:</p>
+
+          <dl>
+            <dt>Documentation</dt>
+            <dd>Reference for available components, utilities, and patterns.</dd>
+
+            <dt>Component library</dt>
+            <dd>Copy HTML snippets directly from the examples.</dd>
+
+            <dt>Testing ground</dt>
+            <dd>A pre-built site to verify token changes affect things correctly.</dd>
+
+            <dt>Starting point</dt>
+            <dd>Duplicate and modify guide pages as templates for your prototype.</dd>
+          </dl>
+
+          <p>When you change design tokens, check the guide pages to see the effects across all components and elements.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Tips for fast iteration</h2>
+
+          <h3>Start with content</h3>
+          <p>Don't design empty boxes. Use real (or realistic) content from the start. This reveals layout problems early.</p>
+
+          <h3>Embrace good defaults</h3>
+          <p>Before adding a class, ask: "Does this actually need styling?" Often the answer is no. Semantic HTML with default styles is usually enough.</p>
+
+          <h3>Use the cascade</h3>
+          <p>Apply utilities to parent elements when possible. A <code>.scheme-warm</code> on a section affects all children.</p>
+
+          <h3>Inspect while you work</h3>
+          <p>Keep browser DevTools open. Inspect computed values. Check the cascade layers panel to understand specificity.</p>
+
+          <h3>Commit early, commit often</h3>
+          <p>Prototype quickly means you'll try things that don't work. Use Git to checkpoint working states.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>When to create components</h2>
+          <p>Live Wires encourages using utilities and layout primitives over custom components. But sometimes a component is the right choice.</p>
+
+          <h3>Create a component when:</h3>
+          <ul>
+            <li>You're repeating the same utility combination 3+ times</li>
+            <li>The pattern has internal structure (children that relate to each other)</li>
+            <li>You need container queries for responsive behavior</li>
+            <li>The pattern will be used across multiple pages</li>
+          </ul>
+
+          <h3>Keep using utilities when:</h3>
+          <ul>
+            <li>Each instance is slightly different</li>
+            <li>The styling is a one-off adjustment</li>
+            <li>You're still exploring options</li>
+          </ul>
+
+          <p>See the <a href="/guide/docs/code-style.html">Code style guide</a> for component naming conventions.</p>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

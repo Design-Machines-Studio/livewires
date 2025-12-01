@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-docs">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Browser compatibility</h1>
+          <hr />
+          <p class="lead">Live Wires uses modern CSS features with graceful degradation for older browsers.</p>
+        </header>
+
+        <section class="section stack">
+          <h2>Target browsers</h2>
+          <p>Live Wires targets <strong>modern evergreen browsers</strong>&mdash;the last 2 versions of major browsers:</p>
+          <ul>
+            <li>Chrome / Edge (Chromium)</li>
+            <li>Firefox</li>
+            <li>Safari</li>
+          </ul>
+          <p>All core functionality works in browsers released since 2022.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Core features</h2>
+          <p>These features are required and have excellent browser support:</p>
+
+          <table class="table--lined">
+            <thead>
+              <tr>
+                <th class="col-30">Feature</th>
+                <th class="col-40">Used for</th>
+                <th class="col-30">Support</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CSS Custom Properties</td>
+                <td>Design tokens, theming</td>
+                <td>All modern browsers</td>
+              </tr>
+              <tr>
+                <td>CSS Cascade Layers</td>
+                <td>Specificity control</td>
+                <td>Chrome 99+, Firefox 97+, Safari 15.4+</td>
+              </tr>
+              <tr>
+                <td>Flexbox</td>
+                <td>Layout primitives</td>
+                <td>All modern browsers</td>
+              </tr>
+              <tr>
+                <td>CSS Grid</td>
+                <td>Grid layouts</td>
+                <td>All modern browsers</td>
+              </tr>
+              <tr>
+                <td><code>clamp()</code></td>
+                <td>Fluid typography</td>
+                <td>Chrome 79+, Firefox 75+, Safari 13.1+</td>
+              </tr>
+              <tr>
+                <td>Logical Properties</td>
+                <td>Internationalization</td>
+                <td>Chrome 87+, Firefox 66+, Safari 14.1+</td>
+              </tr>
+              <tr>
+                <td>Custom Elements</td>
+                <td>HTML includes</td>
+                <td>All modern browsers</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="section stack">
+          <h2>Progressive enhancements</h2>
+          <p>These features provide enhanced experiences in newer browsers but degrade gracefully:</p>
+
+          <table class="table--lined">
+            <thead>
+              <tr>
+                <th class="col-30">Feature</th>
+                <th class="col-40">Used for</th>
+                <th class="col-30">Support</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CSS Nesting</td>
+                <td>Component styles</td>
+                <td>Chrome 120+, Firefox 117+, Safari 17.2+</td>
+              </tr>
+              <tr>
+                <td>Container Queries</td>
+                <td>Responsive components</td>
+                <td>Chrome 105+, Firefox 110+, Safari 16+</td>
+              </tr>
+              <tr>
+                <td><code>@property</code></td>
+                <td>Type optimization</td>
+                <td>Chrome 85+, Safari 16.4+, Firefox 128+</td>
+              </tr>
+              <tr>
+                <td><code>text-wrap: balance</code></td>
+                <td>Heading layout</td>
+                <td>Chrome 114+, Safari 17.5+, Firefox 121+</td>
+              </tr>
+              <tr>
+                <td><code>text-wrap: pretty</code></td>
+                <td>Orphan control</td>
+                <td>Chrome 117+, Safari 17.5+</td>
+              </tr>
+              <tr>
+                <td><code>:has()</code></td>
+                <td>Parent selectors</td>
+                <td>Chrome 105+, Safari 15.4+, Firefox 121+</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Graceful degradation</h3>
+          <p>When progressive features aren't supported:</p>
+          <ul>
+            <li><strong>CSS Nesting</strong>&mdash;Only affects authoring; compiled CSS works everywhere</li>
+            <li><strong>Container Queries</strong>&mdash;Components use fallback sizes</li>
+            <li><strong>@property</strong>&mdash;Properties work as regular custom properties</li>
+            <li><strong>text-wrap</strong>&mdash;Text wraps normally</li>
+          </ul>
+        </section>
+
+        <section class="section stack">
+          <h2>CSS Cascade Layers</h2>
+          <p>Cascade Layers (<code>@layer</code>) are the foundation of Live Wires' specificity management. This is the most important modern feature required.</p>
+
+          <h3>Browser support</h3>
+          <ul>
+            <li>Chrome 99+ (March 2022)</li>
+            <li>Firefox 97+ (February 2022)</li>
+            <li>Safari 15.4+ (March 2022)</li>
+            <li>Edge 99+ (March 2022)</li>
+          </ul>
+
+          <h3>Why it matters</h3>
+          <p>Without cascade layers, utilities wouldn't reliably override components without <code>!important</code>. The layer order defines specificity independent of selector complexity.</p>
+
+          <h3>Fallback</h3>
+          <p>Browsers without layer support will see all styles applied with normal cascade rules. This may cause specificity conflicts. For legacy browser support, consider using PostCSS with <code>postcss-cascade-layers</code>.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>JavaScript requirements</h2>
+          <p>Live Wires requires JavaScript only for:</p>
+
+          <dl>
+            <dt>HTML Includes</dt>
+            <dd>The <code>&lt;html-include&gt;</code> Web Component requires JavaScript. Without it, includes won't load.</dd>
+
+            <dt>Development tools</dt>
+            <dd>Keyboard shortcuts for baseline grid, column overlays, and dark mode toggle.</dd>
+          </dl>
+
+          <p>All CSS functionality works without JavaScript. Only the include system requires it.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>PostCSS configuration</h2>
+          <p>Live Wires uses a minimal PostCSS setup:</p>
+          <pre><code>// postcss.config.js
+export default {
+  plugins: {
+    autoprefixer: {}
+  }
+};</code></pre>
+
+          <p><strong>Only Autoprefixer</strong> is enabled. This adds vendor prefixes where needed for:</p>
+          <ul>
+            <li>Flexbox (older Safari)</li>
+            <li>Grid (older browsers)</li>
+            <li>User-select and appearance properties</li>
+          </ul>
+
+          <p>No transpilation or polyfilling is performed. Native CSS features are used directly.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Print styles</h2>
+          <p>Live Wires includes print styles in <code>/src/css/print.css</code>. Include it separately in your HTML:</p>
+          <pre><code>&lt;link rel="stylesheet" href="/css/print.css" media="print"&gt;</code></pre>
+
+          <p>Print styles:</p>
+          <ul>
+            <li>Remove backgrounds and shadows</li>
+            <li>Optimize typography for paper</li>
+            <li>Handle page breaks</li>
+            <li>Show URLs after links</li>
+          </ul>
+        </section>
+
+        <section class="section stack">
+          <h2>Testing recommendations</h2>
+          <p>Test your prototype in:</p>
+
+          <h3>Primary targets</h3>
+          <ul>
+            <li>Chrome (latest)</li>
+            <li>Safari (latest) &mdash; especially for iOS</li>
+            <li>Firefox (latest)</li>
+          </ul>
+
+          <h3>Device testing</h3>
+          <ul>
+            <li>Mobile Safari (iPhone)</li>
+            <li>Chrome on Android</li>
+            <li>Various viewport sizes</li>
+          </ul>
+
+          <h3>Accessibility</h3>
+          <ul>
+            <li>Screen readers (VoiceOver, NVDA)</li>
+            <li>Keyboard navigation</li>
+            <li>Reduced motion preferences</li>
+            <li>High contrast mode</li>
+          </ul>
+        </section>
+
+        <section class="section stack">
+          <h2>Known limitations</h2>
+
+          <h3>Internet Explorer</h3>
+          <p>IE11 and earlier are not supported. Modern CSS features used throughout are not available.</p>
+
+          <h3>Legacy Safari</h3>
+          <p>Safari 14 and earlier may have issues with cascade layers and container queries. Safari 15.4+ is recommended.</p>
+
+          <h3>Firefox container queries</h3>
+          <p>Firefox added container query support in version 110 (February 2023). Earlier versions won't see container-responsive behavior.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="https://caniuse.com/css-cascade-layers">Can I Use: CSS Cascade Layers</a></li>
+            <li><a href="https://caniuse.com/css-container-queries">Can I Use: Container Queries</a></li>
+            <li><a href="https://caniuse.com/css-nesting">Can I Use: CSS Nesting</a></li>
+            <li><a href="https://caniuse.com/mdn-css_types_clamp">Can I Use: clamp()</a></li>
+          </ul>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

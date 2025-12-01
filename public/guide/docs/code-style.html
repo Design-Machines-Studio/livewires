@@ -29,7 +29,7 @@
           <p><strong>On this page:</strong></p>
           <ul class="cluster">
             <li><a href="#philosophy">Philosophy</a></li>
-            <li><a href="#layers">The four layers</a></li>
+            <li><a href="#layers">Cascade layers</a></li>
             <li><a href="#utilities">Utilities</a></li>
             <li><a href="#composition">Composition</a></li>
             <li><a href="#blocks">Blocks</a></li>
@@ -66,6 +66,11 @@
             <tbody>
               <tr>
                 <td>&mdash;</td>
+                <td><code>tokens</code></td>
+                <td><a href="/src/css/1_tokens/">1_tokens/</a></td>
+              </tr>
+              <tr>
+                <td>&mdash;</td>
                 <td><code>reset</code></td>
                 <td><a href="/src/css/3_generic/">3_generic/</a></td>
               </tr>
@@ -99,10 +104,10 @@
         </section>
 
         <section id="layers" class="stack">
-          <h2>The four layers</h2>
+          <h2>The cascade layers</h2>
           <hr>
 
-          <p>Each layer has specific naming conventions. Understanding which layer a class belongs to helps predict its behavior and specificity.</p>
+          <p>Live Wires defines six cascade layers: <code>tokens</code>, <code>reset</code>, <code>base</code>, <code>layouts</code>, <code>components</code>, and <code>utilities</code>. Each layer has specific naming conventions. Understanding which layer a class belongs to helps predict its behavior and specificity.</p>
 
           <div class="callout scheme-subtle">
             <div class="content">
@@ -133,12 +138,12 @@
               <tr>
                 <td><code>.mt-4</code></td>
                 <td>margin-block-start</td>
-                <td><code>var(--space-4)</code></td>
+                <td><code>var(--line-4)</code></td>
               </tr>
               <tr>
                 <td><code>.px-3</code></td>
                 <td>padding-inline</td>
-                <td><code>var(--space-3)</code></td>
+                <td><code>var(--line-3)</code></td>
               </tr>
               <tr>
                 <td><code>.text-center</code></td>
@@ -171,9 +176,11 @@
           </dl>
 
           <h3>Numeric scales</h3>
-          <p>Spacing and typography use numeric scales that map to design tokens:</p>
+          <p>Spacing utilities use numeric scales that map to <code>--line-*</code> tokens:</p>
           <ul>
             <li><code>0</code>, <code>025</code>, <code>05</code>, <code>075</code>, <code>1</code>, <code>15</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code></li>
+            <li>Pixel-precise: <code>1px</code> (e.g., <code>.mt-1px</code>)</li>
+            <li>Auto: <code>.mt-auto</code>, <code>.mx-auto</code></li>
             <li>Negative values: <code>.-mt-2</code> (note leading dot-dash)</li>
           </ul>
         </section>
@@ -225,19 +232,23 @@
                 <td><code>.section</code></td>
                 <td>Sectional wrapper</td>
               </tr>
+              <tr>
+                <td><code>.cover</code></td>
+                <td>Full-height centered layout</td>
+              </tr>
             </tbody>
           </table>
 
-          <h3>Variants use double-dash</h3>
-          <pre><code>.stack--compact
-.stack--comfortable
-.stack--spacious
-.cluster--center
-.cluster--space-between
-.grid--columns-3
-.grid--columns-4</code></pre>
+          <h3>Variants use single-dash</h3>
+          <pre><code>.stack-compact
+.stack-comfortable
+.stack-spacious
+.cluster-center
+.cluster-space-between
+.grid-columns-3
+.grid-columns-4</code></pre>
 
-          <p><strong>Why double-dash?</strong> It visually separates the base layout from its variation, making the relationship explicit. The base class sets up the pattern; the variant modifies it.</p>
+          <p><strong>Why single-dash for layouts?</strong> Layout variants are applied alongside the base class (e.g., <code>class="stack stack-compact"</code>), so they read naturally. Component variants use double-dash to indicate modification of a base component.</p>
         </section>
 
         <section id="blocks" class="stack">
@@ -264,7 +275,7 @@
             <pre><code class="language-css">/* Good: CSS nesting */
 .callout {
   & .content {
-    padding: var(--space-3);
+    padding: var(--line-3);
   }
 
   & .title {

@@ -10,62 +10,212 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-">
+  <body class="pg-docs">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
 
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
-      <html-include src="../_includes/nav-docs.html"></html-include>
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
       <article class="stack">
         <header class="section">
           <h1>Project structure</h1>
           <hr />
+          <p class="lead">How Live Wires is organized and where everything lives.</p>
         </header>
-        <div class="stack">
-          <p>Each Live Wires installation is a single prototype. No templates, no build complexity. Just HTML, CSS, and a simple Web Component for includes.</p>
 
-          <p><strong>Directory overview:</strong></p>
+        <section class="section stack">
+          <h2>Philosophy</h2>
+          <p>Each Live Wires installation is a single prototype. No templates to manage, no build complexity. Just HTML, CSS, and a simple Web Component for includes.</p>
+          <p>The <code>/public/</code> folder is your site root. Build your prototype directly there.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Directory overview</h2>
+          <pre><code>livewires/
+├── src/
+│   ├── css/                  # All CSS source files
+│   │   ├── 0_config/         # Cascade layer definitions
+│   │   ├── 1_tokens/         # Design tokens
+│   │   ├── 2_tools/          # CSS functions & properties
+│   │   ├── 3_generic/        # Reset
+│   │   ├── 4_elements/       # Base HTML element styling
+│   │   ├── 5_layouts/        # Layout primitives
+│   │   ├── 6_components/     # UI components
+│   │   ├── 7_utilities/      # Utility classes
+│   │   ├── main.css          # Entry point
+│   │   ├── print.css         # Print styles
+│   │   └── prototyping.css   # Dev tools (baseline grid, etc.)
+│   └── js/
+│       ├── main.js           # Vite entry point
+│       ├── html-include.js   # Include Web Component
+│       └── dev-tools.js      # Development utilities
+├── public/                   # Your prototype (site root)
+│   ├── index.html            # Your pages
+│   ├── _includes/            # HTML fragments
+│   ├── guide/                # This documentation
+│   ├── fonts/                # Web fonts
+│   └── img/                  # Images
+├── vite.config.js            # Vite configuration
+├── postcss.config.js         # PostCSS (autoprefixer only)
+└── package.json              # Dependencies</code></pre>
+        </section>
+
+        <section class="section stack">
+          <h2>CSS architecture</h2>
+          <p>CSS is organized using <strong>ITCSS</strong> (Inverted Triangle CSS) principles with <strong>CSS Cascade Layers</strong> for explicit specificity control.</p>
+
+          <h3>The cascade layers</h3>
+          <p>Defined in <code>0_config/layers.css</code>:</p>
+          <pre><code>@layer tokens, reset, base, layouts, components, utilities;</code></pre>
+          <p>This ensures utilities always win over components, components over layouts, and so on&mdash;no <code>!important</code> needed.</p>
+
+          <h3>Layer breakdown</h3>
+          <dl>
+            <dt><code>0_config/</code> &mdash; Configuration</dt>
+            <dd>Cascade layer definitions. The foundation that makes everything else work.</dd>
+
+            <dt><code>1_tokens/</code> &mdash; Design tokens</dt>
+            <dd>
+              <ul>
+                <li><a href="/src/css/1_tokens/spacing.css">spacing.css</a> &mdash; The sacred <code>--line</code> variable and all spacing tokens</li>
+                <li><a href="/src/css/1_tokens/typography-base.css">typography-base.css</a> &mdash; Font stacks, weights, measures</li>
+                <li><a href="/src/css/1_tokens/typography-scale-auto.css">typography-scale-auto.css</a> &mdash; Fluid type scale (ratio-based)</li>
+                <li><a href="/src/css/1_tokens/color.css">color.css</a> &mdash; Color palette and schemes</li>
+                <li><a href="/src/css/1_tokens/borders.css">borders.css</a> &mdash; Border radius tokens</li>
+                <li><a href="/src/css/1_tokens/animation.css">animation.css</a> &mdash; Timing and easing tokens</li>
+              </ul>
+            </dd>
+
+            <dt><code>2_tools/</code> &mdash; CSS tools</dt>
+            <dd>
+              <ul>
+                <li><a href="/src/css/2_tools/properties.css">properties.css</a> &mdash; <code>@property</code> definitions for type-safe custom properties</li>
+                <li><a href="/src/css/2_tools/typography-scale-auto.css">typography-scale-auto.css</a> &mdash; Type scale calculations</li>
+              </ul>
+            </dd>
+
+            <dt><code>3_generic/</code> &mdash; Reset</dt>
+            <dd>Modern CSS reset with sensible defaults. Makes semantic HTML look good immediately.</dd>
+
+            <dt><code>4_elements/</code> &mdash; Base element styles</dt>
+            <dd>
+              <ul>
+                <li><a href="/src/css/4_elements/document.css">document.css</a> &mdash; Root and body setup</li>
+                <li><a href="/src/css/4_elements/typography.css">typography.css</a> &mdash; Headings, paragraphs, code</li>
+                <li><a href="/src/css/4_elements/links.css">links.css</a> &mdash; Link styles</li>
+                <li><a href="/src/css/4_elements/lists.css">lists.css</a> &mdash; List styles</li>
+                <li><a href="/src/css/4_elements/tables.css">tables.css</a> &mdash; Table defaults</li>
+                <li><a href="/src/css/4_elements/forms.css">forms.css</a> &mdash; Form elements</li>
+                <li><a href="/src/css/4_elements/media.css">media.css</a> &mdash; Images and figures</li>
+                <li><a href="/src/css/4_elements/quotes.css">quotes.css</a> &mdash; Blockquotes and smart quotes</li>
+                <li><a href="/src/css/4_elements/details.css">details.css</a> &mdash; Disclosure widgets</li>
+                <li><a href="/src/css/4_elements/hr.css">hr.css</a> &mdash; Horizontal rules</li>
+                <li><a href="/src/css/4_elements/addresses.css">addresses.css</a> &mdash; Address element</li>
+              </ul>
+            </dd>
+
+            <dt><code>5_layouts/</code> &mdash; Layout primitives</dt>
+            <dd>
+              <ul>
+                <li><a href="/src/css/5_layouts/stack.css">stack.css</a> &mdash; Vertical spacing</li>
+                <li><a href="/src/css/5_layouts/cluster.css">cluster.css</a> &mdash; Horizontal grouping with wrapping</li>
+                <li><a href="/src/css/5_layouts/grid.css">grid.css</a> &mdash; Auto-responsive grid</li>
+                <li><a href="/src/css/5_layouts/sidebar.css">sidebar.css</a> &mdash; Sidebar + main content</li>
+                <li><a href="/src/css/5_layouts/center.css">center.css</a> &mdash; Centered content with max-width</li>
+                <li><a href="/src/css/5_layouts/box.css">box.css</a> &mdash; Padding container</li>
+                <li><a href="/src/css/5_layouts/section.css">section.css</a> &mdash; Section wrapper</li>
+                <li><a href="/src/css/5_layouts/cover.css">cover.css</a> &mdash; Full-height centering</li>
+              </ul>
+            </dd>
+
+            <dt><code>6_components/</code> &mdash; UI components</dt>
+            <dd>
+              <ul>
+                <li><a href="/src/css/6_components/buttons.css">buttons.css</a> &mdash; Button variants</li>
+                <li><a href="/src/css/6_components/breadcrumbs.css">breadcrumbs.css</a> &mdash; Breadcrumb navigation</li>
+                <li><a href="/src/css/6_components/pagination.css">pagination.css</a> &mdash; Page navigation</li>
+                <li><a href="/src/css/6_components/tables.css">tables.css</a> &mdash; Enhanced table styles</li>
+                <li><a href="/src/css/6_components/switches.css">switches.css</a> &mdash; Toggle switches</li>
+                <li><a href="/src/css/6_components/dividers.css">dividers.css</a> &mdash; Horizontal dividers</li>
+                <li><a href="/src/css/6_components/images.css">images.css</a> &mdash; Image treatments</li>
+                <li><a href="/src/css/6_components/embeds.css">embeds.css</a> &mdash; Responsive video embeds</li>
+                <li><a href="/src/css/6_components/prose.css">prose.css</a> &mdash; Long-form text</li>
+                <li><a href="/src/css/6_components/logo.css">logo.css</a> &mdash; Logo sizing</li>
+              </ul>
+            </dd>
+
+            <dt><code>7_utilities/</code> &mdash; Utility classes</dt>
+            <dd>
+              <ul>
+                <li><a href="/src/css/7_utilities/spacing.css">spacing.css</a> &mdash; Margin and padding</li>
+                <li><a href="/src/css/7_utilities/typography.css">typography.css</a> &mdash; Text styling</li>
+                <li><a href="/src/css/7_utilities/color.css">color.css</a> &mdash; Colors and schemes</li>
+                <li><a href="/src/css/7_utilities/display.css">display.css</a> &mdash; Display and visibility</li>
+                <li><a href="/src/css/7_utilities/flexbox.css">flexbox.css</a> &mdash; Flexbox utilities</li>
+                <li><a href="/src/css/7_utilities/grid.css">grid.css</a> &mdash; Grid utilities</li>
+                <li><a href="/src/css/7_utilities/sizing.css">sizing.css</a> &mdash; Width and height</li>
+                <li><a href="/src/css/7_utilities/borders.css">borders.css</a> &mdash; Border utilities</li>
+                <li><a href="/src/css/7_utilities/media.css">media.css</a> &mdash; Object-fit, filters, blend modes</li>
+                <li><a href="/src/css/7_utilities/tables.css">tables.css</a> &mdash; Table column widths</li>
+              </ul>
+            </dd>
+          </dl>
+        </section>
+
+        <section class="section stack">
+          <h2>JavaScript</h2>
+          <p>Minimal JavaScript&mdash;just what's needed for the development environment and HTML includes.</p>
 
           <dl>
-            <dt><code>/src/css/</code></dt>
-            <dd>All CSS source files organized by cascade layers (tokens, elements, layouts, utilities)</dd>
+            <dt><code>/src/js/main.js</code></dt>
+            <dd>Vite entry point. Loads CSS and initializes Web Components.</dd>
 
-            <dt><code>/src/css/1_tokens/</code></dt>
-            <dd>Design tokens: <a href="/src/css/1_tokens/spacing.css">spacing.css</a>, <a href="/src/css/1_settings/typography.css">typography.css</a>, <a href="/src/css/1_settings/color.css">color.css</a></dd>
+            <dt><code>/src/js/html-include.js</code></dt>
+            <dd>Zero-dependency Web Component for including HTML fragments. See <a href="/guide/docs/includes.html">HTML includes documentation</a>.</dd>
 
-            <dt><code>/src/css/4_elements/</code></dt>
-            <dd>Semantic HTML defaults (headings, paragraphs, links, lists, forms, tables)</dd>
+            <dt><code>/src/js/dev-tools.js</code></dt>
+            <dd>Development utilities: keyboard shortcuts for baseline grid, column overlays, and dark mode toggle.</dd>
+          </dl>
+        </section>
 
-            <dt><code>/src/css/5_layouts/</code></dt>
-            <dd>Layout primitives: <a href="/src/css/5_layouts/box.css">box</a>, <a href="/src/css/5_layouts/stack.css">stack</a>, <a href="/src/css/5_layouts/grid.css">grid</a>, <a href="/src/css/5_layouts/cluster.css">cluster</a>, <a href="/src/css/5_layouts/sidebar.css">sidebar</a>, <a href="/src/css/5_layouts/center.css">center</a>, and <a href="/src/css/5_layouts/section.css">section</a></dd>
+        <section class="section stack">
+          <h2>Public folder</h2>
+          <p>The <code>/public/</code> folder is your site root. Everything in here is your prototype.</p>
 
-            <dt><code>/src/css/7_utilities/</code></dt>
-            <dd>Utility classes: <a href="/src/css/7_utilities/spacing.css">spacing</a>, <a href="/src/css/7_utilities/typography.css">typography</a>, <a href="/src/css/7_utilities/color.css">color</a></dd>
-
-            <dt><code>/src/main.js</code></dt>
-            <dd>Vite entry point (loads CSS and Web Components)</dd>
-
-            <dt><code>/src/html-include.js</code></dt>
-            <dd>Zero-dependency Web Component for HTML includes</dd>
-
-            <dt><code>/public/</code></dt>
-            <dd><strong>Your prototype lives here.</strong> Build HTML pages directly in this folder.</dd>
+          <dl>
+            <dt><code>/public/index.html</code></dt>
+            <dd>Your homepage and any other pages you create.</dd>
 
             <dt><code>/public/_includes/</code></dt>
-            <dd>Reusable HTML fragments (header, footer, etc.) used with <code>&lt;html-include&gt;</code>. Customize and covert easily for your own front-end system.</dd>
+            <dd>Reusable HTML fragments (header, footer, navigation) loaded via <code>&lt;html-include&gt;</code>. Easy to convert to any CMS templating system.</dd>
 
             <dt><code>/public/fonts/</code></dt>
-            <dd>Web font files</dd>
+            <dd>Web font files. Reference them in <code>1_tokens/typography-base.css</code>.</dd>
 
             <dt><code>/public/img/</code></dt>
-            <dd>Images and graphics</dd>
+            <dd>Images and graphics for your prototype.</dd>
 
             <dt><code>/public/guide/</code></dt>
-            <dd>This style guide (you're reading it). Also functions as a component library.</dd>
+            <dd>This style guide. Also serves as a component library and testing ground.</dd>
           </dl>
-        </div>
+        </section>
+
+        <section class="section stack">
+          <h2>Configuration files</h2>
+          <dl>
+            <dt><code>vite.config.js</code></dt>
+            <dd>Vite configuration. Sets <code>/public/</code> as root, configures dev server on port 3000.</dd>
+
+            <dt><code>postcss.config.js</code></dt>
+            <dd>PostCSS configuration. Only uses Autoprefixer&mdash;no other processing.</dd>
+
+            <dt><code>package.json</code></dt>
+            <dd>Project dependencies. Just Vite, Autoprefixer, and the static copy plugin for print styles.</dd>
+          </dl>
+        </section>
+
       </article>
     </main>
     <!-- HTML Include: site footer -->

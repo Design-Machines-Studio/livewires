@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-docs">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>HTML includes</h1>
+          <hr />
+          <p class="lead">A zero-dependency Web Component for reusable HTML fragments.</p>
+        </header>
+
+        <section class="section stack">
+          <h2>Overview</h2>
+          <p>Live Wires uses a custom <code>&lt;html-include&gt;</code> element to load HTML fragments at runtime. This enables you to share headers, footers, navigation, and other repeated content across pages without build-time processing.</p>
+
+          <h3>Key features</h3>
+          <ul>
+            <li><strong>Zero dependencies</strong>&mdash;Pure Web Components API, no libraries</li>
+            <li><strong>Runtime loading</strong>&mdash;Fragments are fetched when the page loads</li>
+            <li><strong>Script support</strong>&mdash;JavaScript in includes executes correctly</li>
+            <li><strong>Error handling</strong>&mdash;Shows debug messages in development mode</li>
+            <li><strong>Standard HTML</strong>&mdash;No special syntax or templating language</li>
+          </ul>
+        </section>
+
+        <section class="section stack">
+          <h2>Basic usage</h2>
+
+          <h3>1. Load the Web Component first</h3>
+          <p>The <code>&lt;html-include&gt;</code> element must be defined <strong>before</strong> any instances appear in the document. Include the script in your <code>&lt;head&gt;</code>:</p>
+          <pre><code>&lt;head&gt;
+  &lt;!-- Load Web Component first (required!) --&gt;
+  &lt;script type="module" src="/src/js/main.js"&gt;&lt;/script&gt;
+
+  &lt;!-- Now includes will work --&gt;
+  &lt;html-include src="/_includes/head.html"&gt;&lt;/html-include&gt;
+&lt;/head&gt;</code></pre>
+
+          <h3>2. Use the element anywhere</h3>
+          <pre><code>&lt;body&gt;
+  &lt;html-include src="/_includes/header.html"&gt;&lt;/html-include&gt;
+
+  &lt;main&gt;
+    &lt;!-- Your page content --&gt;
+  &lt;/main&gt;
+
+  &lt;html-include src="/_includes/footer.html"&gt;&lt;/html-include&gt;
+&lt;/body&gt;</code></pre>
+
+          <h3>3. Create your include files</h3>
+          <p>Store reusable fragments in <code>/public/_includes/</code>:</p>
+          <pre><code>&lt;!-- /public/_includes/header.html --&gt;
+&lt;header class="py-3 px-4"&gt;
+  &lt;nav class="cluster cluster-space-between"&gt;
+    &lt;a href="/" class="logo"&gt;
+      &lt;img src="/img/logo.svg" alt="Site Name"&gt;
+    &lt;/a&gt;
+    &lt;ul class="cluster"&gt;
+      &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/about/"&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/contact/"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+        </section>
+
+        <section class="section stack">
+          <h2>Path conventions</h2>
+          <p>The <code>src</code> attribute accepts both absolute and relative paths:</p>
+
+          <h3>Absolute paths (recommended)</h3>
+          <pre><code>&lt;!-- Always works, regardless of page location --&gt;
+&lt;html-include src="/_includes/header.html"&gt;&lt;/html-include&gt;</code></pre>
+
+          <h3>Relative paths</h3>
+          <pre><code>&lt;!-- From /guide/docs/index.html --&gt;
+&lt;html-include src="../_includes/header.html"&gt;&lt;/html-include&gt;</code></pre>
+
+          <p>Absolute paths starting with <code>/</code> are resolved from the site root, making them more portable. Use relative paths when the include is specific to a section.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Passing classes</h2>
+          <p>Classes on the <code>&lt;html-include&gt;</code> element are preserved:</p>
+          <pre><code>&lt;html-include class="bg-subtle" src="/_includes/nav.html"&gt;&lt;/html-include&gt;</code></pre>
+          <p>This lets you apply styling or layout to the include wrapper without modifying the include file itself.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>JavaScript in includes</h2>
+          <p>Scripts inside include files are re-executed after loading. This works because the component explicitly creates new <code>&lt;script&gt;</code> elements:</p>
+          <pre><code>&lt;!-- /public/_includes/analytics.html --&gt;
+&lt;script&gt;
+  console.log('Analytics loaded');
+  // Your tracking code here
+&lt;/script&gt;</code></pre>
+          <p>Both inline scripts and external scripts (with <code>src</code>) are supported.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Error handling</h2>
+          <p>If an include fails to load, the component logs an error to the console:</p>
+          <pre><code>HtmlInclude: failed to load /_includes/missing.html</code></pre>
+          <p>In development mode (Vite dev server), a visible error message is displayed in place of the include:</p>
+          <pre><code style="color: red;">Failed to load include: /_includes/missing.html</code></pre>
+          <p>This helps catch typos and missing files during development.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Common includes</h2>
+          <p>A typical Live Wires project uses these includes:</p>
+
+          <dl>
+            <dt><code>/_includes/head.html</code></dt>
+            <dd>Meta tags, title, favicon, additional CSS</dd>
+
+            <dt><code>/_includes/header.html</code></dt>
+            <dd>Site header with logo and navigation</dd>
+
+            <dt><code>/_includes/footer.html</code></dt>
+            <dd>Site footer with copyright, links</dd>
+
+            <dt><code>/_includes/nav-*.html</code></dt>
+            <dd>Section-specific navigation (e.g., nav-docs.html, nav-guide.html)</dd>
+          </dl>
+        </section>
+
+        <section class="section stack">
+          <h2>SEO considerations</h2>
+          <p>Because content is loaded at runtime via JavaScript, search engines may not see included content. This has implications:</p>
+
+          <h3>Use includes for</h3>
+          <ul>
+            <li>Headers and footers (not unique page content)</li>
+            <li>Navigation (links are still crawlable)</li>
+            <li>Repeated UI elements</li>
+          </ul>
+
+          <h3>Keep in main HTML</h3>
+          <ul>
+            <li>Page titles and meta descriptions</li>
+            <li>Main content (articles, product info, etc.)</li>
+            <li>Unique content you want indexed</li>
+          </ul>
+
+          <h3>For SEO-critical sites</h3>
+          <p>If you need all content pre-rendered for search engines, consider a build-time solution like:</p>
+          <ul>
+            <li><code>vite-plugin-handlebars</code> for static site generation</li>
+            <li>A CMS with server-side rendering</li>
+            <li>11ty, Astro, or similar static site generators</li>
+          </ul>
+          <p>Live Wires' HTML and CSS patterns work with any build tool.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>How it works</h2>
+          <p>The component is defined in <a href="/src/js/html-include.js">src/js/html-include.js</a>:</p>
+          <ol>
+            <li>When a <code>&lt;html-include&gt;</code> element connects to the DOM, <code>connectedCallback()</code> fires</li>
+            <li>The <code>src</code> attribute is read</li>
+            <li>The HTML is fetched via <code>fetch()</code></li>
+            <li>Content is parsed using a <code>&lt;template&gt;</code> element</li>
+            <li>The parsed content replaces the element's children</li>
+            <li>Any <code>&lt;script&gt;</code> tags are re-created to execute</li>
+          </ol>
+          <p>Total code: ~60 lines. No dependencies.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Troubleshooting</h2>
+
+          <h3>Include not loading</h3>
+          <ul>
+            <li>Check that <code>main.js</code> is loaded before the include element</li>
+            <li>Verify the <code>src</code> path is correct (check browser console)</li>
+            <li>Ensure the include file exists at the specified path</li>
+          </ul>
+
+          <h3>Styles not applying</h3>
+          <ul>
+            <li>Include content inherits styles normally&mdash;no shadow DOM</li>
+            <li>Check that your CSS is loaded before the include renders</li>
+          </ul>
+
+          <h3>Scripts not running</h3>
+          <ul>
+            <li>Scripts execute after the include loads</li>
+            <li>If accessing DOM elements, ensure they exist (use <code>DOMContentLoaded</code> or put scripts at end)</li>
+          </ul>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

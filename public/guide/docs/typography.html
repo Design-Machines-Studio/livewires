@@ -49,26 +49,26 @@
               <dt><a href="/src/css/1_tokens/typography-base.css">typography-base.css</a></dt>
               <dd>Font stacks, weights, measure, and baseline settings (always imported)</dd>
 
-              <dt><a href="/src/css/1_tokens/typography-scale-ratio.css">typography-scale-ratio.css</a></dt>
-              <dd>Ratio-based configuration (default) - just set the ratio and base size, no clamp() functions to see</dd>
+              <dt><a href="/src/css/1_tokens/typography-scale-auto.css">typography-scale-auto.css</a></dt>
+              <dd>Automatic ratio-based configuration (default) - just set the ratio and base size</dd>
 
               <dt><a href="/src/css/1_tokens/typography-scale-manual.css">typography-scale-manual.css</a></dt>
-              <dd>Manual baseline configuration (alternative) - set min/max values for each size, no clamp() functions to see</dd>
+              <dd>Manual baseline configuration (alternative) - set min/max values for each size</dd>
             </dl>
 
             <h4>Tools (calculations and optimizations)</h4>
             <dl>
-              <dt><a href="/src/css/2_tools/typography-properties.css">typography-properties.css</a></dt>
-              <dd>CSS @property declarations for browser optimizations (auto-imported)</dd>
+              <dt><a href="/src/css/2_tools/properties.css">properties.css</a></dt>
+              <dd>CSS @property declarations for browser optimizations</dd>
 
-              <dt><a href="/src/css/2_tools/typography-scale-ratio-computed.css">typography-scale-ratio-computed.css</a></dt>
-              <dd>All clamp() calculations for ratio mode (auto-imported with ratio mode)</dd>
+              <dt><a href="/src/css/2_tools/typography-scale-auto.css">typography-scale-auto.css</a></dt>
+              <dd>All clamp() calculations for auto mode (imported with auto mode)</dd>
 
-              <dt><a href="/src/css/2_tools/typography-scale-manual-computed.css">typography-scale-manual-computed.css</a></dt>
-              <dd>All clamp() calculations for manual mode (auto-imported with manual mode)</dd>
+              <dt><a href="/src/css/2_tools/typography-scale-manual.css">typography-scale-manual.css</a></dt>
+              <dd>All clamp() calculations for manual mode (imported with manual mode)</dd>
             </dl>
 
-            <p>Choose which scale mode to use in <a href="/src/css/main.css">main.css</a>. Ratio mode is enabled by default.</p>
+            <p>Choose which scale mode to use in <a href="/src/css/main.css">main.css</a>. Auto mode is enabled by default.</p>
           </section>
 
           <section class="section">
@@ -112,15 +112,15 @@
 
             <p>Live Wires provides two typography configuration modes in separate files. Choose the one that fits your workflow by importing it in <a href="/src/css/main.css">main.css</a>.</p>
 
-            <h3>Mode 1: Ratio-based (default)</h3>
-            <p><strong>File:</strong> <a href="/src/css/1_tokens/typography-scale-ratio.css">typography-scale-ratio.css</a></p>
+            <h3>Mode 1: Auto (default)</h3>
+            <p><strong>File:</strong> <a href="/src/css/1_tokens/typography-scale-auto.css">typography-scale-auto.css</a></p>
             <p><strong>Best for:</strong> Prototyping, quick setup, consistent rhythm</p>
             <p>Line-heights are automatically calculated using progressive ratios (1.5 for body, 1.3 for headings, 1.1 for display):</p>
 
             <pre><code>/* In main.css (enabled by default) */
-@import './1_tokens/typography-scale-ratio.css';
+@import './1_tokens/typography-scale-auto.css';
 
-/* In typography-scale-ratio.css - just set the ratio */
+/* In typography-scale-auto.css - just set the ratio */
 --type-scale-ratio: 1.25;  /* Major Third scale */
 --line-height-ratio-body: 1.5;    /* Body text */
 --line-height-ratio-heading: 1.3; /* Headings */
@@ -138,7 +138,7 @@
             <p>Define explicit line-height min/max values for pixel-perfect baseline grid alignment:</p>
 
             <pre><code>/* In main.css - uncomment to enable */
-/* @import './1_tokens/typography-scale-ratio.css'; */  /* Comment this out */
+/* @import './1_tokens/typography-scale-auto.css'; */  /* Comment this out */
 @import './1_tokens/typography-scale-manual.css';  /* Uncomment this */
 
 /* In typography-scale-manual.css - define explicit values */
@@ -148,19 +148,19 @@
 /* Line-heights snap to your 24px baseline grid */</code></pre>
 
             <h3>Switching modes</h3>
-            <p>In <a href="/src/css/main.css">main.css</a>, comment/uncomment the desired mode (both the config and computed files):</p>
+            <p>In <a href="/src/css/main.css">main.css</a>, comment/uncomment the desired mode (both the tokens and tools files):</p>
 
-            <pre><code>/* Default: Ratio-based (for prototyping) */
-@import './1_tokens/typography-scale-ratio.css';
-@import './2_tools/typography-scale-ratio-computed.css';
+            <pre><code>/* Default: Auto mode (for prototyping) */
+@import './1_tokens/typography-scale-auto.css';
+@import './2_tools/typography-scale-auto.css';
 /* @import './1_tokens/typography-scale-manual.css'; */
-/* @import './2_tools/typography-scale-manual-computed.css'; */
+/* @import './2_tools/typography-scale-manual.css'; */
 
 /* Production: Manual baseline-aligned */
-/* @import './1_tokens/typography-scale-ratio.css'; */
-/* @import './2_tools/typography-scale-ratio-computed.css'; */
+/* @import './1_tokens/typography-scale-auto.css'; */
+/* @import './2_tools/typography-scale-auto.css'; */
 @import './1_tokens/typography-scale-manual.css';
-@import './2_tools/typography-scale-manual-computed.css';</code></pre>
+@import './2_tools/typography-scale-manual.css';</code></pre>
           </section>
 
           <section class="section">
@@ -169,14 +169,14 @@
             <h3>Change the type scale</h3>
             <p>Edit min/max values for any size in your chosen scale file:</p>
 
-            <pre><code>/* In typography-scale-ratio.css or typography-scale-manual.css */
+            <pre><code>/* In typography-scale-auto.css or typography-scale-manual.css */
 
 /* Make large text bigger */
 --size-lg-min: 22;   /* Was 20 */
 --size-lg-max: 28;   /* Was 25 */</code></pre>
 
-            <h3>Adjust line-height ratios (ratio mode)</h3>
-            <p>In <a href="/src/css/1_tokens/typography-scale-ratio.css">typography-scale-ratio.css</a>, change the progressive ratios:</p>
+            <h3>Adjust line-height ratios (auto mode)</h3>
+            <p>In <a href="/src/css/1_tokens/typography-scale-auto.css">typography-scale-auto.css</a>, change the progressive ratios:</p>
 
             <pre><code>/* Adjust line-heights for different text styles */
 --line-height-ratio-body: 1.4;    /* Tighter body text (was 1.5) */
@@ -252,7 +252,7 @@ p, li {
           <section class="section">
             <h2>Performance optimizations</h2>
 
-            <h3>Pre-calculated ratio powers (ratio mode)</h3>
+            <h3>Pre-calculated ratio powers (auto mode)</h3>
             <p>Instead of multiplying the ratio 10 times for each size, we calculate powers once:</p>
             <pre><code>/* Calculate once */
 --ratio-10: calc(var(--ratio-9) * var(--type-scale-ratio));
@@ -274,7 +274,7 @@ p, li {
 }</code></pre>
 
             <h3>CSS @property declarations</h3>
-            <p>The system uses CSS @property for better browser optimization (Chrome 85+, Safari 16.4+). Defined in <a href="/src/css/2_tools/typography-properties.css">2_tools/typography-properties.css</a>:</p>
+            <p>The system uses CSS @property for better browser optimization (Chrome 85+, Safari 16.4+). Defined in <a href="/src/css/2_tools/properties.css">2_tools/properties.css</a>:</p>
             <pre><code>@property --type-scale-ratio {
   syntax: "&lt;number&gt;";
   initial-value: 1.25;

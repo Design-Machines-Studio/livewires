@@ -27,7 +27,25 @@
         <div class="stack">
           <section class="section">
             <h2>Installation</h2>
-            <p>TODO</p>
+            <p>Live Wires is a self-contained prototyping system. No package to install from npm&mdash;just clone or download and start building.</p>
+
+            <h3>Prerequisites</h3>
+            <ul>
+              <li><a href="https://nodejs.org/">Node.js</a> version 18 or higher</li>
+              <li>A code editor (VS Code recommended)</li>
+              <li>Basic familiarity with HTML and CSS</li>
+            </ul>
+
+            <h3>Quick start</h3>
+            <ol>
+              <li><strong>Clone or download</strong> the Live Wires repository</li>
+              <li><strong>Open a terminal</strong> and navigate to the project folder</li>
+              <li><strong>Install dependencies:</strong> <code>npm install</code></li>
+              <li><strong>Start the dev server:</strong> <code>npm run dev</code></li>
+              <li><strong>Open your browser</strong> to <a href="http://localhost:3000">http://localhost:3000</a></li>
+            </ol>
+
+            <p>That's it. Edit any HTML or CSS file and see changes instantly in your browser.</p>
           </section>
           <section class="section">
             <h2>Running</h2>
@@ -79,7 +97,7 @@
               <dd>All CSS source files organized by cascade layers (tokens, elements, layouts, utilities)</dd>
 
               <dt><code>/src/css/1_tokens/</code></dt>
-              <dd>Design tokens: <a href="/src/css/1_tokens/spacing.css">spacing.css</a>, <a href="/src/css/1_settings/typography.css">typography.css</a>, <a href="/src/css/1_settings/color.css">color.css</a></dd>
+              <dd>Design tokens: <a href="/src/css/1_tokens/spacing.css">spacing.css</a>, <a href="/src/css/1_tokens/typography-base.css">typography-base.css</a>, <a href="/src/css/1_tokens/color.css">color.css</a></dd>
 
               <dt><code>/src/css/4_elements/</code></dt>
               <dd>Semantic HTML defaults (headings, paragraphs, links, lists, forms, tables)</dd>
@@ -90,10 +108,10 @@
               <dt><code>/src/css/7_utilities/</code></dt>
               <dd>Utility classes: <a href="/src/css/7_utilities/spacing.css">spacing</a>, <a href="/src/css/7_utilities/typography.css">typography</a>, <a href="/src/css/7_utilities/color.css">color</a></dd>
 
-              <dt><code>/src/main.js</code></dt>
+              <dt><code>/src/js/main.js</code></dt>
               <dd>Vite entry point (loads CSS and Web Components)</dd>
 
-              <dt><code>/src/html-include.js</code></dt>
+              <dt><code>/src/js/html-include.js</code></dt>
               <dd>Zero-dependency Web Component for HTML includes</dd>
 
               <dt><code>/public/</code></dt>

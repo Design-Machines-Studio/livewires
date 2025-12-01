@@ -32,7 +32,7 @@ Vite provides instant HMR (Hot Module Replacement). Edit CSS or HTML files and s
 │   │   ├── 3_generic/     # CSS reset
 │   │   ├── 4_elements/    # Semantic HTML defaults
 │   │   ├── 5_layouts/     # Layout primitives (stack, grid, cluster, center, sidebar)
-│   │   ├── 6_components/  # UI components (22 production-ready components)
+│   │   ├── 6_components/  # UI components
 │   │   ├── 7_utilities/   # Utility classes (spacing, typography, color, grid, display)
 │   │   └── main.css       # CSS entry point
 │   ├── js/                # JavaScript files
@@ -59,27 +59,31 @@ Vite provides instant HMR (Hot Module Replacement). Edit CSS or HTML files and s
 
 Live Wires follows ITCSS (Inverted Triangle CSS) principles but uses modern CSS Cascade Layers for explicit specificity control.
 
-#### Cascade Layers (defined in [0_config/layers.css](src/css/0_config/layers.css#L13))
+#### Cascade Layers (defined in [0_config/layers.css](src/css/0_config/layers.css#L15))
 
 ```css
-@layer reset, base, layouts, components, utilities;
+@layer tokens, reset, base, layouts, components, utilities;
 ```
 
-This ensures utilities always win over components, components over layouts, etc.
+This ensures utilities always win over components, components over layouts, etc. The `tokens` layer contains design tokens (CSS custom properties).
 
 #### Layer Mapping
 
-1. **`reset`** - Browser normalization ([3_generic/reset.css](src/css/3_generic/reset.css))
-2. **`base`** - Semantic HTML element defaults ([4_elements/](src/css/4_elements/))
-   - [root.css](src/css/4_elements/root.css) - Base font properties
-   - [body.css](src/css/4_elements/body.css) - Body layout
+1. **`tokens`** - Design tokens ([1_tokens/](src/css/1_tokens/))
+2. **`reset`** - Browser normalization ([3_generic/reset.css](src/css/3_generic/reset.css))
+3. **`base`** - Semantic HTML element defaults ([4_elements/](src/css/4_elements/))
+   - [document.css](src/css/4_elements/document.css) - Root and body setup
    - [typography.css](src/css/4_elements/typography.css) - Headings, paragraphs, code
    - [links.css](src/css/4_elements/links.css) - Link styles
    - [lists.css](src/css/4_elements/lists.css) - List styles
    - [media.css](src/css/4_elements/media.css) - Images, figures
    - [tables.css](src/css/4_elements/tables.css) - Table styles
    - [forms.css](src/css/4_elements/forms.css) - Form elements
-3. **`layouts`** - Compositional layout primitives ([5_layouts/](src/css/5_layouts/))
+   - [quotes.css](src/css/4_elements/quotes.css) - Blockquotes
+   - [addresses.css](src/css/4_elements/addresses.css) - Address element
+   - [hr.css](src/css/4_elements/hr.css) - Horizontal rules
+   - [details.css](src/css/4_elements/details.css) - Disclosure widgets
+4. **`layouts`** - Compositional layout primitives ([5_layouts/](src/css/5_layouts/))
    - [stack.css](src/css/5_layouts/stack.css) - Vertical spacing
    - [cluster.css](src/css/5_layouts/cluster.css) - Horizontal grouping with wrapping
    - [grid.css](src/css/5_layouts/grid.css) - Auto-responsive grid layouts
@@ -87,9 +91,19 @@ This ensures utilities always win over components, components over layouts, etc.
    - [center.css](src/css/5_layouts/center.css) - Centered content with max-width
    - [box.css](src/css/5_layouts/box.css) - Simple padding wrapper
    - [section.css](src/css/5_layouts/section.css) - Section wrapper
-4. **`components`** - Named UI patterns ([6_components/](src/css/6_components/))
-   - 22 production-ready components including buttons, navigation, forms, tables, callouts, tabs, pagination, switches, offcanvas, and more
-5. **`utilities`** - Single-purpose classes ([7_utilities/](src/css/7_utilities/))
+   - [cover.css](src/css/5_layouts/cover.css) - Full-height centering
+5. **`components`** - Named UI patterns ([6_components/](src/css/6_components/))
+   - [buttons.css](src/css/6_components/buttons.css) - Button variants
+   - [breadcrumbs.css](src/css/6_components/breadcrumbs.css) - Breadcrumb navigation
+   - [pagination.css](src/css/6_components/pagination.css) - Page navigation
+   - [tables.css](src/css/6_components/tables.css) - Enhanced table styles
+   - [switches.css](src/css/6_components/switches.css) - Toggle switches
+   - [dividers.css](src/css/6_components/dividers.css) - Horizontal dividers
+   - [images.css](src/css/6_components/images.css) - Image treatments
+   - [embeds.css](src/css/6_components/embeds.css) - Responsive video embeds
+   - [prose.css](src/css/6_components/prose.css) - Long-form text
+   - [logo.css](src/css/6_components/logo.css) - Logo sizing
+6. **`utilities`** - Single-purpose classes ([7_utilities/](src/css/7_utilities/))
    - [spacing.css](src/css/7_utilities/spacing.css) - Margin and padding utilities
    - [typography.css](src/css/7_utilities/typography.css) - Font size, weight, alignment
    - [color.css](src/css/7_utilities/color.css) - Text/bg colors, color schemes
@@ -100,7 +114,6 @@ This ensures utilities always win over components, components over layouts, etc.
    - [media.css](src/css/7_utilities/media.css) - Responsive media utilities
    - [sizing.css](src/css/7_utilities/sizing.css) - Width/height utilities
    - [tables.css](src/css/7_utilities/tables.css) - Table utilities
-   - [dev.css](src/css/7_utilities/dev.css) - Development/prototyping utilities
 
 ### The Sacred Baseline System
 
@@ -108,29 +121,24 @@ This ensures utilities always win over components, components over layouts, etc.
 
 ```css
 :root {
-  /* Fluid base typography */
-  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
-  --line-height-ratio: 1.5;
-
-  /* THE BASELINE - Everything derives from this */
-  --line: calc(var(--text-base) * var(--line-height-ratio));
-
   /* All spacing is multiples of --line */
-  --space-0: 0;
-  --space-025: calc(var(--line) * 0.25);
-  --space-05: calc(var(--line) * 0.5);
-  --space-075: calc(var(--line) * 0.75);
-  --space-1: var(--line);
-  --space-15: calc(var(--line) * 1.5);
-  --space-2: calc(var(--line) * 2);
-  --space-3: calc(var(--line) * 3);
-  --space-4: calc(var(--line) * 4);
-  --space-5: calc(var(--line) * 5);
-  --space-6: calc(var(--line) * 6);
+  --line-0: 0;
+  --line-025: calc(var(--line) * 0.25);
+  --line-05: calc(var(--line) * 0.5);
+  --line-075: calc(var(--line) * 0.75);
+  --line-1: var(--line);
+  --line-15: calc(var(--line) * 1.5);
+  --line-2: calc(var(--line) * 2);
+  --line-3: calc(var(--line) * 3);
+  --line-4: calc(var(--line) * 4);
+  --line-5: calc(var(--line) * 5);
+  --line-6: calc(var(--line) * 6);
 }
 ```
 
-**Why this matters:** Changing `--text-base` or `--line-height-ratio` automatically recalculates all spacing throughout the entire system, maintaining perfect vertical rhythm.
+The base `--line` variable is defined in [typography-base.css](src/css/1_tokens/typography-base.css) based on the base font size and line-height ratio.
+
+**Why this matters:** Changing typography settings automatically recalculates all spacing throughout the entire system, maintaining perfect vertical rhythm.
 
 **When adding new spacing:** Always use multiples of `--line` (e.g., `calc(var(--line) * 0.75)`).
 
@@ -139,9 +147,8 @@ This ensures utilities always win over components, components over layouts, etc.
 All design tokens are CSS custom properties in [src/css/1_tokens/](src/css/1_tokens/):
 
 #### [spacing.css](src/css/1_tokens/spacing.css)
-- Baseline calculation (`--line`)
-- Spacing scale (`--space-0` through `--space-6`) with fractional values (`--space-025`, `--space-05`, `--space-075`, `--space-15`)
-- Layout tokens (`--gutter`, `--margin`, `--max-width`)
+- Spacing scale (`--line-0` through `--line-6`) with fractional values (`--line-025`, `--line-05`, `--line-075`, `--line-15`)
+- Layout tokens (`--gutter`)
 
 #### [typography.css](src/css/1_tokens/typography.css)
 - Type scale (`--text-xs`, `--text-sm`, `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl`, `--text-3xl`) using `clamp()` for fluid scaling
@@ -191,9 +198,10 @@ Live Wires uses compositional layout primitives inspired by [Every Layout](https
 ### Stack ([5_layouts/stack.css](src/css/5_layouts/stack.css))
 Vertical spacing between child elements:
 ```html
-<div class="stack">         <!-- Default spacing: var(--space-3) -->
-<div class="stack-compact"> <!-- Spacing: var(--space-2) -->
-<div class="stack-comfortable"> <!-- Spacing: var(--space-4) -->
+<div class="stack">             <!-- Default spacing: var(--line) -->
+<div class="stack stack-compact">    <!-- Spacing: var(--line-05) -->
+<div class="stack stack-comfortable"> <!-- Spacing: var(--line-2) -->
+<div class="stack stack-spacious">    <!-- Spacing: var(--line-4) -->
 ```
 
 ### Grid ([5_layouts/grid.css](src/css/5_layouts/grid.css))
@@ -218,39 +226,18 @@ Horizontal grouping with wrapping (navigation, tags):
 
 ## Components
 
-Live Wires includes 22 production-ready components in [6_components/](src/css/6_components/):
+Live Wires includes components in [6_components/](src/css/6_components/):
 
-### Navigation Components
-- **[navigation.css](src/css/6_components/navigation.css)** - Horizontal and vertical navigation patterns
+- **[buttons.css](src/css/6_components/buttons.css)** - Button variants
 - **[breadcrumbs.css](src/css/6_components/breadcrumbs.css)** - Breadcrumb navigation
 - **[pagination.css](src/css/6_components/pagination.css)** - Page navigation
-- **[offcanvas.css](src/css/6_components/offcanvas.css)** - Slide-out panels from any direction with push/squish modes
-
-### Form Components
-- **[buttons.css](src/css/6_components/buttons.css)** - Button variants (colors, sizes, states, groups)
-- **[fields.css](src/css/6_components/fields.css)** - Form field layouts with size variants
-- **[inline-forms.css](src/css/6_components/inline-forms.css)** - Inline form patterns
-- **[option-buttons.css](src/css/6_components/option-buttons.css)** - Custom radio/checkbox button groups
-- **[switches.css](src/css/6_components/switches.css)** - Toggle switch controls
-
-### Content Components
-- **[callouts.css](src/css/6_components/callouts.css)** - Content callouts and alerts
 - **[tables.css](src/css/6_components/tables.css)** - Enhanced table styles
-- **[code-highlighting.css](src/css/6_components/code-highlighting.css)** - Code syntax highlighting
-- **[images.css](src/css/6_components/images.css)** - Image components and treatments
-- **[videos.css](src/css/6_components/videos.css)** - Responsive video embeds
-- **[maps.css](src/css/6_components/maps.css)** - Responsive map embeds
-
-### Interactive Components
-- **[tabs.css](src/css/6_components/tabs.css)** - Tab navigation and panels
-- **[drawers.css](src/css/6_components/drawers.css)** - Expandable/collapsible drawers
-
-### Utility Components
-- **[logo.css](src/css/6_components/logo.css)** - Logo styling and positioning
-- **[text-styles.css](src/css/6_components/text-styles.css)** - Common text style patterns
-- **[rows.css](src/css/6_components/rows.css)** - Row-based layouts
-- **[rules.css](src/css/6_components/rules.css)** - Decorative rules and dividers
-- **[addresses.css](src/css/6_components/addresses.css)** - Contact information formatting (vcard)
+- **[switches.css](src/css/6_components/switches.css)** - Toggle switch controls
+- **[dividers.css](src/css/6_components/dividers.css)** - Horizontal dividers
+- **[images.css](src/css/6_components/images.css)** - Image treatments
+- **[embeds.css](src/css/6_components/embeds.css)** - Responsive video embeds
+- **[prose.css](src/css/6_components/prose.css)** - Long-form text styling
+- **[logo.css](src/css/6_components/logo.css)** - Logo sizing
 
 All components follow these principles:
 - Use custom properties for theming
@@ -268,39 +255,14 @@ All components follow these principles:
 <!-- Color variants -->
 <button class="button button--red">Delete</button>
 <button class="button button--blue">Primary</button>
-
-<!-- Size variants -->
-<button class="button button--small">Small</button>
-<button class="button button--large">Large</button>
-
-<!-- Button group -->
-<div class="button-group">
-  <button class="button">Left</button>
-  <button class="button">Center</button>
-  <button class="button">Right</button>
-</div>
 ```
 
-#### Navigation
+#### Breadcrumbs
 ```html
-<!-- Horizontal navigation -->
-<nav class="horizontal-nav">
-  <a href="/">Home</a>
-  <a href="/about/">About</a>
-  <a href="/contact/">Contact</a>
-</nav>
-
-<!-- Vertical navigation -->
-<nav class="vertical-nav">
-  <a href="/">Home</a>
-  <a href="/about/">About</a>
-</nav>
-
-<!-- Breadcrumbs -->
 <nav class="breadcrumbs">
   <a href="/">Home</a>
-  <a href="/news/">News</a>
-  <span>Article Title</span>
+  <a href="/docs/">Docs</a>
+  <span>Current Page</span>
 </nav>
 ```
 
@@ -316,23 +278,8 @@ All components follow these principles:
 <table class="table--lined">...</table>
 ```
 
-#### Form Fields
+#### Toggle Switch
 ```html
-<!-- Field with size variant -->
-<div class="field field--half">
-  <label>Email</label>
-  <input type="email">
-</div>
-
-<!-- Option buttons (custom radio group) -->
-<div class="option-buttons">
-  <input type="radio" name="size" id="small">
-  <label for="small">Small</label>
-  <input type="radio" name="size" id="large">
-  <label for="large">Large</label>
-</div>
-
-<!-- Toggle switch -->
 <div class="switch">
   <input type="checkbox" id="toggle">
   <label for="toggle">Enable feature</label>
@@ -347,15 +294,15 @@ Tailwind-compatible naming where sensible. All utilities are in the `utilities` 
 
 ### Spacing ([7_utilities/spacing.css](src/css/7_utilities/spacing.css))
 ```html
-<div class="mt-4">  <!-- margin-block-start: var(--space-4) -->
-<div class="mb-2">  <!-- margin-block-end: var(--space-2) -->
-<div class="px-3">  <!-- padding-inline: var(--space-3) -->
-<div class="py-2">  <!-- padding-block: var(--space-2) -->
+<div class="mt-4">  <!-- margin-block-start: var(--line-4) -->
+<div class="mb-2">  <!-- margin-block-end: var(--line-2) -->
+<div class="px-3">  <!-- padding-inline: var(--line-3) -->
+<div class="py-2">  <!-- padding-block: var(--line-2) -->
 ```
 
 ### Typography ([7_utilities/typography.css](src/css/7_utilities/typography.css))
 ```html
-<p class="text-4">       <!-- Font size: var(--text-4) -->
+<p class="text-lg">      <!-- Font size: var(--text-lg) -->
 <p class="font-bold">    <!-- Font weight: 700 -->
 <p class="measure">      <!-- Max width: 65ch (optimal reading length) -->
 <p class="text-center">  <!-- Text align: center -->
@@ -375,7 +322,7 @@ Tailwind-compatible naming where sensible. All utilities are in the `utilities` 
 
 Live Wires includes development utilities to help with prototyping and design quality assurance:
 
-### Baseline Grid Overlay ([7_utilities/dev.css](src/css/7_utilities/dev.css))
+### Baseline Grid Overlay ([prototyping.css](src/css/prototyping.css))
 ```html
 <body class="show-baseline">  <!-- Shows baseline grid overlay -->
 ```
@@ -409,7 +356,7 @@ Additional development utilities loaded via the main.js entry point.
 
 1. Determine which utility file it belongs in ([spacing](src/css/7_utilities/spacing.css), [typography](src/css/7_utilities/typography.css), [color](src/css/7_utilities/color.css), [grid](src/css/7_utilities/grid.css))
 2. Add the class within the `@layer utilities { }` block
-3. Use existing design tokens (e.g., `var(--space-3)`, `var(--text-4)`)
+3. Use existing design tokens (e.g., `var(--line-3)`, `var(--text-lg)`)
 4. Use logical properties where possible (`margin-block-start` instead of `margin-top`)
 
 Example:
@@ -444,7 +391,7 @@ Example:
     container-type: inline-size;
     background: var(--callout-bg);
     color: var(--callout-fg);
-    padding: var(--space-3);
+    padding: var(--line-3);
   }
 
   @container (min-width: 40rem) {
@@ -485,7 +432,7 @@ The `<html-include>` custom element is defined in [src/js/html-include.js](src/j
     <meta name="viewport" content="initial-scale=1.0">
 
     <!-- Load Web Component first (required!) -->
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/js/main.js"></script>
 
     <!-- Now includes will work -->
     <html-include src="/_includes/head.html"></html-include>

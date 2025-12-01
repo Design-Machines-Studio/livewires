@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-docs">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Support</h1>
+          <hr />
+          <p class="lead">Getting help with Live Wires.</p>
+        </header>
+
+        <section class="section stack">
+          <h2>Documentation</h2>
+          <p>Before reaching out, check these resources:</p>
+
+          <dl>
+            <dt><a href="/guide/docs/">Getting started</a></dt>
+            <dd>Installation and basic setup</dd>
+
+            <dt><a href="/guide/docs/structure.html">Project structure</a></dt>
+            <dd>Where files live and how they're organized</dd>
+
+            <dt><a href="/guide/docs/code-style.html">Code style guide</a></dt>
+            <dd>Naming conventions and patterns</dd>
+
+            <dt><a href="/guide/docs/typography.html">Typography system</a></dt>
+            <dd>Fluid type scale configuration</dd>
+
+            <dt><a href="/guide/docs/utility-classes.html">Utility classes</a></dt>
+            <dd>Complete utility reference</dd>
+
+            <dt><a href="/guide/docs/compatibility.html">Compatibility</a></dt>
+            <dd>Browser support information</dd>
+          </dl>
+        </section>
+
+        <section class="section stack">
+          <h2>GitHub</h2>
+          <p>Live Wires is open source. Use GitHub for:</p>
+
+          <h3>Bug reports</h3>
+          <p>Found a bug? <a href="https://github.com/design-machines-studio/livewires/issues">Open an issue</a> with:</p>
+          <ul>
+            <li>Clear description of the problem</li>
+            <li>Steps to reproduce</li>
+            <li>Expected vs. actual behavior</li>
+            <li>Browser and OS version</li>
+          </ul>
+
+          <h3>Feature requests</h3>
+          <p>Have an idea? <a href="https://github.com/design-machines-studio/livewires/issues">Open an issue</a> describing:</p>
+          <ul>
+            <li>The use case</li>
+            <li>Proposed solution</li>
+            <li>Any alternatives considered</li>
+          </ul>
+
+          <h3>Contributions</h3>
+          <p>Pull requests are welcome. For major changes, open an issue first to discuss the approach.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Common issues</h2>
+
+          <h3>Styles not loading</h3>
+          <ul>
+            <li>Check that <code>npm run dev</code> is running</li>
+            <li>Verify the <code>&lt;script&gt;</code> tag points to <code>/src/js/main.js</code></li>
+            <li>Clear browser cache and hard refresh</li>
+          </ul>
+
+          <h3>HTML includes not working</h3>
+          <ul>
+            <li>Ensure the script loads before any <code>&lt;html-include&gt;</code> elements</li>
+            <li>Check the browser console for path errors</li>
+            <li>Verify include files exist at the specified paths</li>
+          </ul>
+
+          <h3>Vite errors</h3>
+          <ul>
+            <li>Delete <code>node_modules</code> and run <code>npm install</code></li>
+            <li>Check Node.js version (18+ required)</li>
+            <li>Ensure no syntax errors in CSS files</li>
+          </ul>
+
+          <h3>Spacing looks wrong</h3>
+          <ul>
+            <li>Enable baseline grid overlay (<code>.show-baseline</code>) to debug</li>
+            <li>Check that you're using <code>--line-*</code> tokens</li>
+            <li>Verify no conflicting utility classes</li>
+          </ul>
+        </section>
+
+        <section class="section stack">
+          <h2>Learning resources</h2>
+          <p>Live Wires builds on modern CSS techniques. These resources help understand the foundations:</p>
+
+          <h3>CSS Cascade Layers</h3>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers">MDN: Cascade Layers</a></li>
+            <li><a href="https://css-tricks.com/css-cascade-layers/">CSS-Tricks: CSS Cascade Layers</a></li>
+          </ul>
+
+          <h3>CUBE CSS</h3>
+          <ul>
+            <li><a href="https://cube.fyi/">CUBE CSS Documentation</a></li>
+            <li><a href="https://piccalil.li/blog/cube-css/">Piccalilli: CUBE CSS</a></li>
+          </ul>
+
+          <h3>Layout patterns</h3>
+          <ul>
+            <li><a href="https://every-layout.dev/">Every Layout</a></li>
+            <li><a href="https://web.dev/learn/css/layout/">web.dev: Learn CSS Layout</a></li>
+          </ul>
+
+          <h3>Fluid typography</h3>
+          <ul>
+            <li><a href="https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/">Smashing: Fluid Typography with clamp()</a></li>
+            <li><a href="https://utopia.fyi/">Utopia Fluid Type Calculator</a></li>
+          </ul>
+        </section>
+
+        <section class="section stack">
+          <h2>License</h2>
+          <p>Live Wires is released under the <strong>MIT License</strong>. You are free to:</p>
+          <ul>
+            <li>Use it in personal and commercial projects</li>
+            <li>Modify and adapt for your needs</li>
+            <li>Distribute copies</li>
+          </ul>
+          <p>No attribution required, though it's appreciated.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Credits</h2>
+          <p>Live Wires is created by <a href="https://louder.design">Travis Gertz</a> at <a href="https://designmachines.studio">Design Machines</a>.</p>
+
+          <p>Inspired by:</p>
+          <ul>
+            <li><a href="https://every-layout.dev/">Every Layout</a> by Andy Bell and Heydon Pickering</li>
+            <li><a href="https://cube.fyi/">CUBE CSS</a> by Andy Bell</li>
+            <li><a href="https://utopia.fyi/">Utopia</a> by James Gilyead and Trys Mudford</li>
+          </ul>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
