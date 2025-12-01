@@ -10,10 +10,10 @@ class DevTools {
     this.tools = {
       darkMode: {
         key: 'd',
-        label: 'Dark Mode',
-        class: 'dark-mode',
+        label: 'Toggle Theme',
         target: 'body',
-        active: false
+        active: false,
+        customToggle: 'theme'
       },
       baseline: {
         key: 'b',
@@ -183,7 +183,9 @@ class DevTools {
     tool.active = !tool.active;
 
     // Handle different toggle types
-    if (tool.class && tool.target) {
+    if (tool.customToggle === 'theme') {
+      this.toggleTheme(toolKey);
+    } else if (tool.class && tool.target) {
       this.toggleClass(toolKey);
     } else if (tool.selector && tool.toggle) {
       this.toggleBackground(toolKey);
@@ -253,6 +255,35 @@ class DevTools {
     });
   }
 
+  toggleTheme(toolKey) {
+    const tool = this.tools[toolKey];
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // Remove both classes first
+    document.body.classList.remove('dark-mode', 'light-mode');
+
+    if (tool.active) {
+      // Apply the opposite of system preference
+      if (systemPrefersDark) {
+        document.body.classList.add('light-mode');
+      } else {
+        document.body.classList.add('dark-mode');
+      }
+    }
+    // When inactive, no class = follow system preference
+
+    // Update button label to show current override
+    const button = this.menubar?.querySelector(`[data-tool="${toolKey}"]`);
+    if (button) {
+      const label = button.querySelector('.dev-tool-label');
+      if (tool.active) {
+        label.textContent = systemPrefersDark ? 'Light Mode' : 'Dark Mode';
+      } else {
+        label.textContent = 'Toggle Theme';
+      }
+    }
+  }
+
   addOutlineStyles() {
     const style = document.createElement('style');
     style.id = 'dev-tools-styles';
@@ -265,9 +296,9 @@ class DevTools {
         right: 0;
         background: var(--color-black);
         color: var(--color-white);
-        padding: var(--space-025);
+        padding: var(--line-025);
         display: flex;
-        gap: var(--space-025);
+        gap: var(--line-025);
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
@@ -301,7 +332,7 @@ class DevTools {
         display: inline-block;
         font-size: var(--text-xs);
         font-family: var(--font-mono);
-        padding: var(--space-025);
+        padding: var(--line-025);
         background-color: var(--color-grey-700);
         border-radius: 3px;
         line-height: 1;
@@ -314,7 +345,7 @@ class DevTools {
 
       .dev-tools-help {
         margin-left: auto;
-        padding-left: var(--space-2);
+        padding-left: var(--line-2);
         opacity: 0.7;
         font-size: var(--text-xs);
       }

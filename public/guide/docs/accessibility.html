@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-docs">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main" role="main">
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article class="stack">
+        <header class="section">
+          <h1>Accessibility</h1>
+          <hr />
+          <p class="lead">Live Wires provides accessible defaults. Here's what's built in and how to maintain accessibility in your prototypes.</p>
+        </header>
+
+        <nav class="stack-compact">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#built-in">Built-in features</a></li>
+            <li><a href="#color">Color contrast</a></li>
+            <li><a href="#focus">Focus indicators</a></li>
+            <li><a href="#keyboard">Keyboard navigation</a></li>
+            <li><a href="#motion">Reduced motion</a></li>
+            <li><a href="#semantic">Semantic HTML</a></li>
+            <li><a href="#testing">Testing</a></li>
+          </ul>
+        </nav>
+
+        <section id="built-in" class="section stack">
+          <h2>Built-in accessibility</h2>
+          <p>Live Wires includes accessibility features by default:</p>
+
+          <ul>
+            <li><strong>Color contrast</strong>&mdash;Default color tokens meet WCAG AA standards</li>
+            <li><strong>Focus indicators</strong>&mdash;Visible focus rings on interactive elements</li>
+            <li><strong>Reduced motion</strong>&mdash;Respects <code>prefers-reduced-motion</code></li>
+            <li><strong>Logical properties</strong>&mdash;RTL language support via CSS logical properties</li>
+            <li><strong>Semantic defaults</strong>&mdash;Base styles enhance, not replace, semantic meaning</li>
+            <li><strong>Skip links</strong>&mdash;Ready-to-use skip navigation patterns</li>
+          </ul>
+        </section>
+
+        <section id="color" class="section stack">
+          <h2>Color contrast</h2>
+          <p>Live Wires' color system is designed for accessibility:</p>
+
+          <h3>Default contrast</h3>
+          <p>The default <code>--color-fg</code> and <code>--color-bg</code> tokens provide sufficient contrast for WCAG AA compliance (4.5:1 for normal text, 3:1 for large text).</p>
+
+          <h3>Color schemes</h3>
+          <p>Built-in color schemes (<code>.scheme-warm</code>, <code>.scheme-cool</code>, <code>.scheme-dark</code>) maintain accessible contrast ratios:</p>
+          <pre><code>&lt;section class="scheme-dark"&gt;
+  &lt;!-- Text automatically has sufficient contrast --&gt;
+&lt;/section&gt;</code></pre>
+
+          <h3>Testing contrast</h3>
+          <p>When customizing colors, verify contrast with:</p>
+          <ul>
+            <li><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a></li>
+            <li><a href="https://accessible-colors.com/">Accessible Colors</a></li>
+            <li>Browser DevTools (Chrome, Firefox have built-in contrast checking)</li>
+          </ul>
+
+          <h3>Custom color tokens</h3>
+          <p>When defining custom colors in <code>1_tokens/color.css</code>, ensure:</p>
+          <ul>
+            <li>Body text: 4.5:1 contrast ratio minimum</li>
+            <li>Large text (18px+ or 14px+ bold): 3:1 minimum</li>
+            <li>UI components: 3:1 for boundaries</li>
+          </ul>
+        </section>
+
+        <section id="focus" class="section stack">
+          <h2>Focus indicators</h2>
+          <p>Live Wires provides visible focus states for keyboard navigation:</p>
+
+          <h3>Default focus styles</h3>
+          <p>Interactive elements receive a visible outline on focus. The reset preserves the browser's default focus ring unless you define custom styles.</p>
+
+          <h3>Custom focus styles</h3>
+          <p>When styling focus states, ensure they are:</p>
+          <ul>
+            <li><strong>Visible</strong>&mdash;Clear visual change from unfocused state</li>
+            <li><strong>Sufficient contrast</strong>&mdash;3:1 against adjacent colors</li>
+            <li><strong>Not color-only</strong>&mdash;Use outline, border, or other indicators</li>
+          </ul>
+
+          <pre><code>/* Good: High-visibility focus */
+.button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Avoid: Removing focus without replacement */
+*:focus {
+  outline: none; /* Don't do this! */
+}</code></pre>
+
+          <h3>Focus-visible</h3>
+          <p>Use <code>:focus-visible</code> for keyboard-only focus styles (hides focus ring for mouse clicks):</p>
+          <pre><code>.link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}</code></pre>
+        </section>
+
+        <section id="keyboard" class="section stack">
+          <h2>Keyboard navigation</h2>
+          <p>Ensure all interactive elements are keyboard accessible:</p>
+
+          <h3>Tab order</h3>
+          <ul>
+            <li>Interactive elements should be reachable via Tab key</li>
+            <li>Avoid <code>tabindex</code> values greater than 0</li>
+            <li>Use <code>tabindex="0"</code> to make custom elements focusable</li>
+            <li>Use <code>tabindex="-1"</code> for programmatically focused elements</li>
+          </ul>
+
+          <h3>Skip links</h3>
+          <p>Add a skip link for keyboard users to bypass navigation:</p>
+          <pre><code>&lt;body&gt;
+  &lt;a href="#main" class="sr-only focus:not-sr-only"&gt;
+    Skip to main content
+  &lt;/a&gt;
+  &lt;header&gt;...&lt;/header&gt;
+  &lt;main id="main"&gt;...&lt;/main&gt;
+&lt;/body&gt;</code></pre>
+
+          <h3>Screen reader only content</h3>
+          <p>Use <code>.sr-only</code> to hide content visually while keeping it accessible to screen readers:</p>
+          <pre><code>&lt;button&gt;
+  &lt;svg&gt;...&lt;/svg&gt;
+  &lt;span class="sr-only"&gt;Close menu&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </section>
+
+        <section id="motion" class="section stack">
+          <h2>Reduced motion</h2>
+          <p>Live Wires respects the <code>prefers-reduced-motion</code> media query:</p>
+
+          <pre><code>@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}</code></pre>
+
+          <p>This is included in the reset. Users who have enabled "reduce motion" in their system preferences will not see animations or transitions.</p>
+
+          <h3>When adding animations</h3>
+          <p>Wrap custom animations in a motion-safe query:</p>
+          <pre><code>@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+}</code></pre>
+        </section>
+
+        <section id="semantic" class="section stack">
+          <h2>Semantic HTML</h2>
+          <p>Live Wires enhances semantic HTML. Use the right elements:</p>
+
+          <h3>Document structure</h3>
+          <ul>
+            <li><code>&lt;header&gt;</code> for site/section headers</li>
+            <li><code>&lt;nav&gt;</code> for navigation</li>
+            <li><code>&lt;main&gt;</code> for primary content (one per page)</li>
+            <li><code>&lt;article&gt;</code> for self-contained content</li>
+            <li><code>&lt;section&gt;</code> for thematic groupings</li>
+            <li><code>&lt;aside&gt;</code> for tangentially related content</li>
+            <li><code>&lt;footer&gt;</code> for site/section footers</li>
+          </ul>
+
+          <h3>Headings</h3>
+          <ul>
+            <li>Use one <code>&lt;h1&gt;</code> per page</li>
+            <li>Don't skip heading levels (h1 &rarr; h3)</li>
+            <li>Headings create document outline for screen readers</li>
+          </ul>
+
+          <h3>Links vs buttons</h3>
+          <ul>
+            <li><code>&lt;a&gt;</code> for navigation (goes somewhere)</li>
+            <li><code>&lt;button&gt;</code> for actions (does something)</li>
+          </ul>
+
+          <h3>Forms</h3>
+          <ul>
+            <li>Always use <code>&lt;label&gt;</code> with form inputs</li>
+            <li>Use <code>fieldset</code> and <code>legend</code> for related inputs</li>
+            <li>Provide clear error messages</li>
+          </ul>
+        </section>
+
+        <section id="testing" class="section stack">
+          <h2>Testing accessibility</h2>
+          <p>Test your prototypes for accessibility:</p>
+
+          <h3>Automated testing</h3>
+          <ul>
+            <li><a href="https://wave.webaim.org/">WAVE</a>&mdash;Browser extension for accessibility evaluation</li>
+            <li><a href="https://www.deque.com/axe/">axe DevTools</a>&mdash;Browser extension with detailed reports</li>
+            <li>Lighthouse (built into Chrome DevTools)</li>
+          </ul>
+
+          <h3>Manual testing</h3>
+          <ul>
+            <li><strong>Keyboard only</strong>&mdash;Navigate using only Tab, Enter, Space, Arrow keys</li>
+            <li><strong>Screen reader</strong>&mdash;VoiceOver (Mac), NVDA (Windows), or JAWS</li>
+            <li><strong>Zoom</strong>&mdash;Test at 200% and 400% zoom</li>
+            <li><strong>Color blindness</strong>&mdash;Use browser dev tools to simulate</li>
+          </ul>
+
+          <h3>WCAG checklist</h3>
+          <p>Reference the <a href="https://www.w3.org/WAI/WCAG22/quickref/">WCAG 2.2 Quick Reference</a> for comprehensive criteria.</p>
+
+          <h3>Key checkpoints</h3>
+          <ol>
+            <li>All images have alt text (or empty <code>alt=""</code> for decorative)</li>
+            <li>Color is not the only way to convey information</li>
+            <li>All functionality works with keyboard only</li>
+            <li>Focus order is logical</li>
+            <li>Form inputs have visible labels</li>
+            <li>Error messages identify the problem and suggest fixes</li>
+            <li>Page has a descriptive title</li>
+            <li>Links have descriptive text (not "click here")</li>
+          </ol>
+        </section>
+
+        <section class="section stack">
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="https://www.w3.org/WAI/WCAG22/quickref/">WCAG 2.2 Quick Reference</a></li>
+            <li><a href="https://webaim.org/">WebAIM</a>&mdash;Web accessibility resources</li>
+            <li><a href="https://www.a11yproject.com/">The A11Y Project</a>&mdash;Community-driven accessibility tips</li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility">MDN: Accessibility</a></li>
+            <li><a href="https://inclusive-components.design/">Inclusive Components</a>&mdash;Accessible component patterns</li>
+          </ul>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

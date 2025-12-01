@@ -36,7 +36,7 @@ class SchemePanel extends HTMLElement {
           <p class="more"><a href="#">More link</a></p>
         </div>
 
-        <div class="grid grid-columns-4">
+        <div class="grid">
           <div>
             <h4 class="mb-05">Secondary colours</h4>
             <div class="p-025 bg-accent">Accent</div>

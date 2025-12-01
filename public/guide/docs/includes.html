@@ -143,27 +143,25 @@
 
         <section class="section stack">
           <h2>SEO considerations</h2>
-          <p>Because content is loaded at runtime via JavaScript, search engines may not see included content. This has implications:</p>
+          <p>Content loaded via JavaScript is generally indexed by modern search engines. Google executes JavaScript and can see client-rendered content. However, there are practical considerations:</p>
 
-          <h3>Use includes for</h3>
+          <h3>Best practice: Use includes for</h3>
           <ul>
-            <li>Headers and footers (not unique page content)</li>
-            <li>Navigation (links are still crawlable)</li>
+            <li>Headers and footers (repeated across pages)</li>
+            <li>Navigation (links are crawlable)</li>
             <li>Repeated UI elements</li>
           </ul>
 
           <h3>Keep in main HTML</h3>
           <ul>
             <li>Page titles and meta descriptions</li>
-            <li>Main content (articles, product info, etc.)</li>
-            <li>Unique content you want indexed</li>
+            <li>Primary content unique to each page</li>
           </ul>
 
-          <h3>For SEO-critical sites</h3>
-          <p>If you need all content pre-rendered for search engines, consider a build-time solution like:</p>
+          <h3>For build-time includes</h3>
+          <p>If you prefer pre-rendered HTML (faster initial paint, works without JavaScript), consider:</p>
           <ul>
             <li><code>vite-plugin-handlebars</code> for static site generation</li>
-            <li>A CMS with server-side rendering</li>
             <li>11ty, Astro, or similar static site generators</li>
           </ul>
           <p>Live Wires' HTML and CSS patterns work with any build tool.</p>
