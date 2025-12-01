@@ -25,6 +25,257 @@
           <p class="lead">Compositional building blocks for page structure. These primitives handle common layout patterns—stacking, centering, grids, sidebars—so you can compose complex layouts from simple, predictable parts.</p>
         </header>
 
+        <!-- Cover -->
+        <section class="section">
+          <header>
+            <h2>Cover</h2>
+            <p>Vertically centered full-screen panel. Great for page heroes and dramatic editorial breaks. Add a header and footer tag to anchor content to the top and bottom of the cover.</p>
+          </header>
+          <section class="border cover scheme-subtle">
+            <header class="scheme-default">Interview</header>
+            <section class="scheme-default">
+              <h1>An interview with Ned Ludd</h1>
+              <p>By Jeremiah Brandreth</p>
+            </section>
+            <footer class="scheme-default">January 12, 1814</footer>
+          </section>
+        </section>
+
+        <!-- Sidebar -->
+        <section class="section stack">
+          <header>
+            <h2>Sidebar</h2>
+            <p>Two-column layout with a fixed-width sidebar and flexible main content. Automatically stacks on narrow containers. The sidebar element is always the first child.</p>
+          </header>
+          <div class="stack">
+            <section>
+              <h3>.sidebar (default)</h3>
+              <p>Sidebar on the left, main content on the right with standard 1 line gap.</p>
+              <div class="sidebar scheme-subtle border">
+                <div class="content scheme-default">Sidebar</div>
+                <div class="content scheme-default">Main content</div>
+              </div>
+            </section>
+            <section>
+              <h3>.sidebar-reverse</h3>
+              <p>Flips the visual order—sidebar appears on the right while remaining first in source order.</p>
+              <div class="sidebar sidebar-reverse scheme-subtle border">
+                <div class="content scheme-default">Sidebar</div>
+                <div class="content scheme-default">Main content</div>
+              </div>
+            </section>
+            <section>
+              <h3>.sidebar-tight</h3>
+              <p>Sidebar on the left, main content on the right with no gap.</p>
+              <div class="sidebar sidebar-tight scheme-subtle border">
+                <div class="content scheme-default">Sidebar</div>
+                <div class="content scheme-default">Main content</div>
+              </div>
+            </section>
+            <section>
+              <h3>.sidebar-1px</h3>
+              <p>Sidebar on the left, main content on the right with 1px gap.</p>
+              <div class="sidebar sidebar-1px scheme-subtle border">
+                <div class="content scheme-default">Sidebar</div>
+                <div class="content scheme-default">Main content</div>
+              </div>
+            </section>
+            <section>
+              <h3>.sidebar-snug</h3>
+              <p>Sidebar on the left, main content on the right with half-line gap.</p>
+              <div class="sidebar sidebar-snug scheme-subtle border">
+                <div class="content scheme-default">Sidebar</div>
+                <div class="content scheme-default">Main content</div>
+              </div>
+            </section>
+            <section>
+              <h3>.sidebar-loose</h3>
+              <p>Sidebar on the left, main content on the right with double-line gap.</p>
+              <div class="sidebar sidebar-loose scheme-subtle border">
+                <div class="content scheme-default">Sidebar</div>
+                <div class="content scheme-default">Main content</div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Section -->
+        <section class="section stack">
+          <header>
+            <h2>Section</h2>
+            <p>Full-width container with responsive horizontal and vertical padding. Use to divide pages into distinct regions with edge-to-edge backgrounds. Padding scales with container size via container queries.</p>
+          </header>
+          <div class="stack stack-compact">
+            <section>
+              <h3>.section (default)</h3>
+              <div class="section scheme-subtle border">
+                <div class="content scheme-default">Default section</div>
+              </div>
+            </section>
+            <section>
+              <h3>.section-wide</h3>
+              <p>Reduced horizontal padding for wider content.</p>
+              <div class="section section-wide scheme-subtle border">
+                <div class="content scheme-default">Wide section</div>
+              </div>
+            </section>
+            <section>
+              <h3>.section-full-bleed</h3>
+              <p>No padding—content extends to edges.</p>
+              <div class="section section-full-bleed scheme-subtle border">
+                <div class="content scheme-default">Full-bleed section</div>
+              </div>
+            </section>
+            <section>
+              <h3>.section-v-snug</h3>
+              <p>Single-line vertical padding.</p>
+              <div class="section section-v-snug scheme-subtle border">
+                <div class="content scheme-default">Vertically snug</div>
+              </div>
+            </section>
+            <section>
+              <h3>.section-v-tight</h3>
+              <p>No vertical padding.</p>
+              <div class="section section-v-tight scheme-subtle border">
+                <div class="content scheme-default">Vertically tight</div>
+              </div>
+            </section>
+            <section>
+              <h3>.section-top-tight / .section-bottom-tight</h3>
+              <p>Remove padding from just one edge.</p>
+              <div class="section section-bottom-tight scheme-subtle border">
+                <div class="content scheme-default">Bottom tight</div>
+              </div>
+              <div class="section section-top-tight scheme-subtle border">
+                <div class="content scheme-default">Top tight</div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Center -->
+        <section class="section stack">
+          <header>
+            <h2>Center</h2>
+            <p>Horizontally centers content with a maximum width based on ideal reading measure. The go-to primitive for article text, forms, or any single-column content.</p>
+          </header>
+          <div class="stack">
+            <section>
+              <h3>.center-narrow</h3>
+              <p>Constrained to the narrow measure. Use for focused content like login forms or short-form text.</p>
+              <div class="center center-narrow scheme-subtle border">
+                <div class="content scheme-default">Narrow centered content</div>
+              </div>
+            </section>
+            <section>
+              <h3>.center (default)</h3>
+              <p>Standard measure (~65 characters). Optimal for body text and long-form reading.</p>
+              <div class="center scheme-subtle border">
+                <div class="content scheme-default">Default centered content</div>
+              </div>
+            </section>
+            <section>
+              <h3>.center-wide</h3>
+              <p>Wide measure. Use for content that benefits from more horizontal space, like dashboards or data tables.</p>
+              <div class="center center-wide scheme-subtle border">
+                <div class="content scheme-default">Wide centered content</div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+
+        <!-- Grid -->
+        <section class="section stack">
+          <header>
+            <h2>Grid</h2>
+            <p>Auto-responsive grid that adapts to available space without breakpoints. For more control, use fixed column classes with container query modifiers.</p>
+          </header>
+          <div class="stack">
+            <section>
+              <h3>.grid (default)</h3>
+              <p>Automatically responsive. Items reflow based on a minimum column width (~20rem), no breakpoints needed.</p>
+              <div class="grid scheme-subtle border">
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+              </div>
+            </section>
+            <section>
+              <h3>Fixed columns</h3>
+              <p>Explicit column counts with container query breakpoints: <code>@md</code> (40rem) and <code>@lg</code> (60rem).</p>
+              <div class="grid grid-columns-2 grid-columns-3@md grid-columns-6@lg scheme-subtle border">
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+              </div>
+            </section>
+            <section>
+              <h3>Column and row spans</h3>
+              <p>Span items across multiple columns or rows. Spans also support container query modifiers.</p>
+              <div class="grid grid-columns-2 grid-columns-3@md grid-columns-6@lg scheme-subtle border">
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default grid-column-span-full">.grid-column-span-full</div>
+                <div class="content scheme-default grid-column-span-2">.grid-column-span-2</div>
+                <div class="content scheme-default grid-column-span-2 grid-column-span-3@md grid-column-span-4@lg">.grid-column-span-2 @md:3 @lg:4</div>
+                <div class="content scheme-default grid-row-span-2">.grid-row-span-2</div>
+                <div class="content scheme-default grid-row-span-2 grid-row-span-3@md">.grid-row-span-2 @md:3</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+              </div>
+            </section>
+            <section>
+              <h3>Gap sizes</h3>
+              <p>Control spacing between grid items.</p>
+              <div class="stack stack-compact">
+                <h4>.grid-gap-0</h4>
+                <div class="grid grid-gap-0 scheme-subtle border">
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                </div>
+                <h4>.grid-gap-1px</h4>
+                <div class="grid grid-gap-1px scheme-subtle border">
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                </div>
+                <h4>.grid-gap-05</h4>
+                <div class="grid grid-gap-05 scheme-subtle border">
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                </div>
+                <h4>.grid (default: single-line gap)</h4>
+                <div class="grid scheme-subtle border">
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                </div>
+                <h4>.grid-gap-2</h4>
+                <div class="grid grid-gap-2 scheme-subtle border">
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                  <div class="content scheme-default">Item</div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
         <!-- Stack -->
         <section class="section stack">
           <header>
@@ -124,208 +375,6 @@
               <div class="cluster cluster-between scheme-subtle border">
                 <div class="content scheme-default">Logo</div>
                 <div class="content scheme-default">Navigation</div>
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <!-- Center -->
-        <section class="section stack">
-          <header>
-            <h2>Center</h2>
-            <p>Horizontally centers content with a maximum width based on ideal reading measure. The go-to primitive for article text, forms, or any single-column content.</p>
-          </header>
-          <div class="stack">
-            <section>
-              <h3>.center-narrow</h3>
-              <p>Constrained to the narrow measure. Use for focused content like login forms or short-form text.</p>
-              <div class="center center-narrow scheme-subtle border">
-                <div class="content scheme-default">Narrow centered content</div>
-              </div>
-            </section>
-            <section>
-              <h3>.center (default)</h3>
-              <p>Standard measure (~65 characters). Optimal for body text and long-form reading.</p>
-              <div class="center scheme-subtle border">
-                <div class="content scheme-default">Default centered content</div>
-              </div>
-            </section>
-            <section>
-              <h3>.center-wide</h3>
-              <p>Wide measure. Use for content that benefits from more horizontal space, like dashboards or data tables.</p>
-              <div class="center center-wide scheme-subtle border">
-                <div class="content scheme-default">Wide centered content</div>
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <!-- Grid -->
-        <section class="section stack">
-          <header>
-            <h2>Grid</h2>
-            <p>Auto-responsive grid that adapts to available space without breakpoints. For more control, use fixed column classes with container query modifiers.</p>
-          </header>
-          <div class="stack">
-            <section>
-              <h3>.grid (default)</h3>
-              <p>Automatically responsive. Items reflow based on a minimum column width (~20rem), no breakpoints needed.</p>
-              <div class="grid scheme-subtle border">
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-              </div>
-            </section>
-            <section>
-              <h3>Fixed columns</h3>
-              <p>Explicit column counts with container query breakpoints: <code>@md</code> (40rem) and <code>@lg</code> (60rem).</p>
-              <div class="grid grid-columns-2 grid-columns-3@md grid-columns-6@lg scheme-subtle border">
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-              </div>
-            </section>
-            <section>
-              <h3>Column and row spans</h3>
-              <p>Span items across multiple columns or rows. Spans also support container query modifiers.</p>
-              <div class="grid grid-columns-2 grid-columns-3@md grid-columns-6@lg scheme-subtle border">
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default grid-column-span-full">.grid-column-span-full</div>
-                <div class="content scheme-default grid-column-span-2">.grid-column-span-2</div>
-                <div class="content scheme-default grid-column-span-2 grid-column-span-3@md grid-column-span-4@lg">.grid-column-span-2 @md:3 @lg:4</div>
-                <div class="content scheme-default grid-row-span-2">.grid-row-span-2</div>
-                <div class="content scheme-default grid-row-span-2 grid-row-span-3@md">.grid-row-span-2 @md:3</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-                <div class="content scheme-default">Item</div>
-              </div>
-            </section>
-            <section>
-              <h3>Gap sizes</h3>
-              <p>Control spacing between grid items.</p>
-              <div class="stack stack-compact">
-                <h4>.grid-gap-0</h4>
-                <div class="grid grid-gap-0 scheme-subtle border">
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                </div>
-                <h4>.grid-gap-1px</h4>
-                <div class="grid grid-gap-1px scheme-subtle border">
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                </div>
-                <h4>.grid-gap-05</h4>
-                <div class="grid grid-gap-05 scheme-subtle border">
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                </div>
-                <h4>.grid (default: single-line gap)</h4>
-                <div class="grid scheme-subtle border">
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                </div>
-                <h4>.grid-gap-2</h4>
-                <div class="grid grid-gap-2 scheme-subtle border">
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                  <div class="content scheme-default">Item</div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <!-- Sidebar -->
-        <section class="section stack">
-          <header>
-            <h2>Sidebar</h2>
-            <p>Two-column layout with a fixed-width sidebar and flexible main content. Automatically stacks on narrow containers. The sidebar element is always the first child.</p>
-          </header>
-          <div class="stack">
-            <section>
-              <h3>.sidebar (default)</h3>
-              <p>Sidebar on the left, main content on the right.</p>
-              <div class="sidebar scheme-subtle border">
-                <div class="content scheme-default">Sidebar</div>
-                <div class="content scheme-default">Main content</div>
-              </div>
-            </section>
-            <section>
-              <h3>.sidebar-reverse</h3>
-              <p>Flips the visual order—sidebar appears on the right while remaining first in source order.</p>
-              <div class="sidebar sidebar-reverse scheme-subtle border">
-                <div class="content scheme-default">Sidebar</div>
-                <div class="content scheme-default">Main content</div>
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <!-- Section -->
-        <section class="section stack">
-          <header>
-            <h2>Section</h2>
-            <p>Full-width container with responsive horizontal and vertical padding. Use to divide pages into distinct regions with edge-to-edge backgrounds. Padding scales with container size via container queries.</p>
-          </header>
-          <div class="stack stack-compact">
-            <section>
-              <h3>.section (default)</h3>
-              <div class="section scheme-subtle border">
-                <div class="content scheme-default">Default section</div>
-              </div>
-            </section>
-            <section>
-              <h3>.section-wide</h3>
-              <p>Reduced horizontal padding for wider content.</p>
-              <div class="section section-wide scheme-subtle border">
-                <div class="content scheme-default">Wide section</div>
-              </div>
-            </section>
-            <section>
-              <h3>.section-full-bleed</h3>
-              <p>No padding—content extends to edges.</p>
-              <div class="section section-full-bleed scheme-subtle border">
-                <div class="content scheme-default">Full-bleed section</div>
-              </div>
-            </section>
-            <section>
-              <h3>.section-v-snug</h3>
-              <p>Single-line vertical padding.</p>
-              <div class="section section-v-snug scheme-subtle border">
-                <div class="content scheme-default">Vertically snug</div>
-              </div>
-            </section>
-            <section>
-              <h3>.section-v-tight</h3>
-              <p>No vertical padding.</p>
-              <div class="section section-v-tight scheme-subtle border">
-                <div class="content scheme-default">Vertically tight</div>
-              </div>
-            </section>
-            <section>
-              <h3>.section-top-tight / .section-bottom-tight</h3>
-              <p>Remove padding from just one edge.</p>
-              <div class="section section-top-tight scheme-subtle border">
-                <div class="content scheme-default">Top tight</div>
-              </div>
-              <div class="section section-bottom-tight scheme-subtle border">
-                <div class="content scheme-default">Bottom tight</div>
               </div>
             </section>
           </div>

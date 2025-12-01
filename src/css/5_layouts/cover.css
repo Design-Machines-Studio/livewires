@@ -1,0 +1,29 @@
+/**
+ * Cover Layout
+ *
+ * Horizontal and vertical centering in a full-frame box
+ * Inspired by Every Layout
+ */
+
+ @layer layouts {
+  .cover {
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100vh;
+    padding: var(--space-1);
+  }
+
+  .cover > * {
+    margin-block: auto;
+  }
+
+  .cover > header:first-child {
+    margin-block-start: 0;
+  }
+
+  .cover > footer:last-child {
+    margin-block-end: 0;
+  }
+
+  
+}

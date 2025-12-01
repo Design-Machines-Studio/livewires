@@ -6,10 +6,13 @@
  */
 
 @layer layouts {
+  :root {
+    --sidebar-space: var(--space-1);
+  }
   .sidebar {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sidebar-space, var(--gutter));
+    gap: var(--sidebar-space);
   }
 
   .sidebar > * {
@@ -32,5 +35,18 @@
   /* Reverse layout (sidebar on right) */
   .sidebar-reverse {
     flex-direction: row-reverse;
+  }
+
+  .sidebar-tight {
+    --sidebar-space: 0;
+  }
+  .sidebar-1px {
+    --sidebar-space: var(--space-1px);
+  }
+  .sidebar-snug {
+    --sidebar-space: var(--space-05);
+  }
+  .sidebar-loose {
+    --sidebar-space: var(--space-2);
   }
 }

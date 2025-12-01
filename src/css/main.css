@@ -57,6 +57,7 @@
 @import './5_layouts/grid.css';
 @import './5_layouts/sidebar.css';
 @import './5_layouts/center.css';
+@import './5_layouts/cover.css';
 
 /* Custom components and expanded elements */
 @import './6_components/logo.css';
