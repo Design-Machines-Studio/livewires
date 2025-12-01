@@ -1,3 +1,11 @@
-address {
-  font-style: normal;
+/**
+ * Address Element
+ *
+ * Reset default italic styling on addresses
+ */
+
+@layer base {
+  address {
+    font-style: normal;
+  }
 }

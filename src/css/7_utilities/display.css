@@ -39,6 +39,26 @@
     width: 1px;
   }
 
+  /* Skip link - hidden until focused */
+  .skip-link {
+    position: absolute;
+    inset-block-start: var(--line-1);
+    inset-inline-start: var(--line-1);
+    z-index: 9999;
+    padding: var(--line-05) var(--line-1);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    text-decoration: none;
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-normal);
+    transform: translateY(-200%);
+    transition: transform var(--duration-fast) var(--ease-out);
+
+    &:focus {
+      transform: translateY(0);
+    }
+  }
+
   /*
    * POSITION
    */

@@ -46,13 +46,13 @@
     --measure-narrow: 45ch;
     
     /* ===============================================
-       LEADING Line-height overrides
+       LINE HEIGHT overrides
        =============================================== */
 
-    --leading-none: 1em;
-    --leading-tight: 1.25em;
-    --leading-snug: 1.333em;
-    --leading-normal: 1.5em;
+    --line-height-none: 1;
+    --line-height-tight: 1.25;
+    --line-height-snug: 1.333;
+    --line-height-normal: 1.5;
   
 
     /* ===============================================

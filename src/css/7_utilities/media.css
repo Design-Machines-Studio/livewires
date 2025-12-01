@@ -139,4 +139,20 @@
   .backdrop-blur-md { backdrop-filter: blur(12px); }
   .backdrop-blur-lg { backdrop-filter: blur(16px); }
   .backdrop-blur-xl { backdrop-filter: blur(24px); }
+
+  /*
+   * REDUCED MOTION
+   * Disable filters for users who prefer reduced motion
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .filter-blur,
+    .backdrop-blur-sm,
+    .backdrop-blur,
+    .backdrop-blur-md,
+    .backdrop-blur-lg,
+    .backdrop-blur-xl {
+      filter: none;
+      backdrop-filter: none;
+    }
+  }
 }

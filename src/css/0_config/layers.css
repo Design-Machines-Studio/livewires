@@ -4,6 +4,7 @@
  * Define explicit cascade order for predictable specificity.
  * Layers declared later have higher priority.
  *
+ * - tokens: Design tokens (CSS custom properties)
  * - reset: Browser normalization
  * - base: Semantic HTML element defaults
  * - layouts: Compositional layout primitives
@@ -11,4 +12,4 @@
  * - utilities: Single-purpose classes (always win)
  */
 
-@layer reset, base, layouts, components, utilities;
+@layer tokens, reset, base, layouts, components, utilities;

@@ -59,6 +59,11 @@
       cursor: pointer;
       appearance: none;
 
+      &:focus-visible ~ span:last-child {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+      }
+
       &:first-of-type:checked ~ span:last-child {
         inset-inline-start: 100%;
         margin-inline-start: calc(var(--line-1) * -1.5 + 1px);

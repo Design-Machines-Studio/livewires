@@ -1,4 +1,12 @@
-.logo {
-  max-width: 5rem;
-  max-height: 3rem;
+/**
+ * Logo Component
+ *
+ * Constrained logo sizing using baseline-derived values
+ */
+
+@layer components {
+  .logo {
+    max-inline-size: calc(var(--line) * 3);
+    max-block-size: var(--line-2);
+  }
 }

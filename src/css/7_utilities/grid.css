@@ -6,11 +6,5 @@
  */
 
 @layer utilities {
-  /* Width */
-  .w-full { width: 100%; }
-  .w-auto { width: auto; }
-
-  /* Max width */
-  .max-w-full { max-width: 100%; }
-  .max-w-measure { max-width: var(--measure); }
+  /* Width and max-width utilities are in sizing.css */
 }

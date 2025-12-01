@@ -2,6 +2,7 @@
  * Forms
  *
  * Form elements and controls
+ * Touch targets meet WCAG 2.5.5 (44x44px minimum)
  */
 
 @layer base {
@@ -15,6 +16,7 @@
     --button-v-space: var(--line-05);
     --button-radius: var(--radius-normal);
     --button-font-size: var(--text-base);
+    --touch-target-min: 44px; /* WCAG 2.5.5 minimum */
   }
 
   fieldset {
@@ -52,13 +54,14 @@
   input[type="time"],
   textarea,
   select {
+    min-block-size: var(--touch-target-min);
     padding: var(--line-025) var(--line-025);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-normal);
     background: var(--color-bg);
     color: var(--color-fg);
 
-    &:focus {
+    &:focus-visible {
       outline: 2px solid var(--color-accent);
       outline-offset: 2px;
       border-color: var(--color-accent);
@@ -94,6 +97,7 @@
   input[type="button"],
   .button {
     display: inline-block;
+    min-block-size: var(--touch-target-min);
     padding-block: var(--button-v-space);
     padding-inline: var(--button-h-space);
     background: var(--button-bg);
@@ -104,7 +108,7 @@
     cursor: pointer;
     transition: var(--transition-link);
     text-decoration: none;
-    line-height: var(--leading-none);
+    line-height: var(--line-height-none);
     user-select: none;
     text-align: center;
     font-size: var(--button-font-size);
@@ -119,7 +123,7 @@
       color: var(--button-fg);
     }
 
-    &:focus {
+    &:focus-visible {
       outline: 2px solid var(--color-accent);
       outline-offset: 2px;
     }

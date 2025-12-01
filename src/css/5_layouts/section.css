@@ -27,10 +27,7 @@
   }
   .section-v-snug {
     --vertical-margin: var(--line-1);
-  }
-  .section-v-snug {
-    padding-top: var(--line-1);
-    padding-bottom: var(--line-1);
+    padding-block: var(--line-1);
   }
   .section-v-tight {
     padding-top: 0;

@@ -1,43 +1,51 @@
-:lang(en) > * { quotes: '“' '”' '‘' '’' ; } /* “Generic English ‘style’” */
-:lang(en-GB) > * { quotes: '‘' '’' '“' '”'; } /* ‘British “style”’ */
-:lang(fr) > * { quotes: '«?0202F' '?0202F»' '“' '”'; } /* « French “style” » */
+/**
+ * Quotation Styles
+ *
+ * Smart quotes and blockquote formatting
+ */
 
-q::before { content: open-quote }
-q::after  { content: close-quote }
+@layer base {
+  :lang(en) > * { quotes: '"' '"' ''' '''; } /* "Generic English 'style'" */
+  :lang(en-GB) > * { quotes: ''' ''' '"' '"'; } /* 'British "style"' */
+  :lang(fr) > * { quotes: '«\202F' '\202F»' '"' '"'; } /* « French "style" » */
 
-.quote,
-.quote q {
-  quotes: '“' '”' '‘' '’';
-}
+  q::before { content: open-quote; }
+  q::after  { content: close-quote; }
 
-.quote p:first-of-type::before {
-  content: open-quote;
-}
-.quote p:last-of-type::after  {
-  content: close-quote;
-}
-
-.quote p:first-of-type::before {
-  margin-inline-start: -0.87ch; /* Adjust according to font */
-}
-.quote p {
-  hanging-punctuation: first last;
-}
-@supports(hanging-punctuation: first last) {
-  .quote p:first-of-type::before {
-    margin-inline-start: 0;
+  .quote,
+  .quote q {
+    quotes: '"' '"' ''' ''';
   }
-}
+
+  .quote p:first-of-type::before {
+    content: open-quote;
+  }
+  .quote p:last-of-type::after {
+    content: close-quote;
+  }
+
+  .quote p:first-of-type::before {
+    margin-inline-start: -0.87ch; /* Adjust according to font */
+  }
+  .quote p {
+    hanging-punctuation: first last;
+  }
+  @supports (hanging-punctuation: first last) {
+    .quote p:first-of-type::before {
+      margin-inline-start: 0;
+    }
+  }
 
   /*
    * Blockquotes
    */
-   blockquote {
+  blockquote {
     padding-inline-start: var(--line-1);
-    border-inline-start: 4px solid var(--color-border);
+    border-inline-start: var(--line-025) solid var(--color-border);
     font-style: italic;
 
     & p {
       margin-block-end: var(--line-05);
     }
   }
+}

@@ -86,7 +86,7 @@
   .rounded-t { border-start-start-radius: var(--radius-normal); border-start-end-radius: var(--radius-normal); }
   .rounded-b { border-end-start-radius: var(--radius-normal); border-end-end-radius: var(--radius-normal); }
   .rounded-l { border-start-start-radius: var(--radius-normal); border-end-start-radius: var(--radius-normal); }
-  .rounded-r { border-start-end-radius: var(--radius-normal);; border-end-end-radius: var(--radius-normal); }
+  .rounded-r { border-start-end-radius: var(--radius-normal); border-end-end-radius: var(--radius-normal); }
 
   .rounded-tl { border-start-start-radius: var(--radius-normal); }
   .rounded-tr { border-start-end-radius: var(--radius-normal); }
@@ -105,12 +105,12 @@
 
   /*
    * RING (for focus states)
-   * Modern focus indicator pattern
+   * Modern focus indicator pattern using baseline-derived width
    */
-  .ring { box-shadow: 0 0 0 3px var(--color-accent); }
-  .ring-accent { box-shadow: 0 0 0 3px var(--color-accent); }
-  .ring-white { box-shadow: 0 0 0 3px var(--color-white); }
-  .ring-black { box-shadow: 0 0 0 3px var(--color-black); }
+  .ring { box-shadow: 0 0 0 var(--line-025) var(--color-accent); }
+  .ring-accent { box-shadow: 0 0 0 var(--line-025) var(--color-accent); }
+  .ring-white { box-shadow: 0 0 0 var(--line-025) var(--color-white); }
+  .ring-black { box-shadow: 0 0 0 var(--line-025) var(--color-black); }
   .ring-0 { box-shadow: none; }
 
   /*

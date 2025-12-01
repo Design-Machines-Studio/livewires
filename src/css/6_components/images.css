@@ -2,18 +2,20 @@
  * Images Component
  *
  * Image positioning and figure helpers.
- * Ported from source/scss/5_components/_media--images.scss
  */
 
 @layer components {
-  figure {
-    p:has(+ .source) {
-      float: left;
+  /* Figure with caption and source attribution */
+  figure:has(.source) {
+    & > figcaption {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--line-1);
     }
+
     .source {
       text-align: end;
-      max-inline-size: none;
-      float: right;
+      flex-shrink: 0;
     }
   }
 
