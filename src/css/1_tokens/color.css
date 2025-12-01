@@ -266,6 +266,92 @@
     --vf-grad: -50;
   }
 
+  /*
+  * Greyscale Schemes
+  * Light greys use dark text, dark greys use light text
+  */
+  .scheme-grey-100 {
+    --color-bg: var(--color-grey-100);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-grey-700);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-300);
+    --color-subtle: var(--color-grey-200);
+    --vf-grad: 0;
+  }
+  .scheme-grey-200 {
+    --color-bg: var(--color-grey-200);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-grey-700);
+    --color-muted: var(--color-grey-600);
+    --color-border: var(--color-grey-400);
+    --color-subtle: var(--color-grey-300);
+    --vf-grad: 0;
+  }
+  .scheme-grey-300 {
+    --color-bg: var(--color-grey-300);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-grey-700);
+    --color-muted: var(--color-grey-600);
+    --color-border: var(--color-grey-500);
+    --color-subtle: var(--color-grey-400);
+    --vf-grad: 0;
+  }
+  .scheme-grey-400 {
+    --color-bg: var(--color-grey-400);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-black);
+    --color-muted: var(--color-grey-700);
+    --color-border: var(--color-grey-600);
+    --color-subtle: var(--color-grey-500);
+    --vf-grad: 0;
+  }
+  .scheme-grey-500 {
+    --color-bg: var(--color-grey-500);
+    --color-fg: var(--color-white);
+    --color-accent: var(--color-grey-100);
+    --color-muted: var(--color-grey-300);
+    --color-border: var(--color-grey-700);
+    --color-subtle: var(--color-grey-600);
+    --vf-grad: -25;
+  }
+  .scheme-grey-600 {
+    --color-bg: var(--color-grey-600);
+    --color-fg: var(--color-white);
+    --color-accent: var(--color-grey-200);
+    --color-muted: var(--color-grey-300);
+    --color-border: var(--color-grey-800);
+    --color-subtle: var(--color-grey-700);
+    --vf-grad: -25;
+  }
+  .scheme-grey-700 {
+    --color-bg: var(--color-grey-700);
+    --color-fg: var(--color-white);
+    --color-accent: var(--color-grey-200);
+    --color-muted: var(--color-grey-400);
+    --color-border: var(--color-grey-500);
+    --color-subtle: var(--color-grey-800);
+    --vf-grad: -50;
+  }
+  .scheme-grey-800 {
+    --color-bg: var(--color-grey-800);
+    --color-fg: var(--color-grey-100);
+    --color-accent: var(--color-grey-300);
+    --color-muted: var(--color-grey-400);
+    --color-border: var(--color-grey-600);
+    --color-subtle: var(--color-grey-900);
+    --vf-grad: -50;
+  }
+  .scheme-grey-900 {
+    --color-bg: var(--color-grey-900);
+    --color-fg: var(--color-grey-100);
+    --color-accent: var(--color-grey-300);
+    --color-muted: var(--color-grey-400);
+    --color-border: var(--color-grey-700);
+    --color-subtle: var(--color-black);
+    --vf-grad: -50;
+  }
+
     /*
   * Dark Mode Support
   * Automatically adjusts for system preference
