@@ -9,4 +9,10 @@
   .box {
     padding: var(--space-1);
   }
+  .box--tight {
+    padding: var(--space-05);
+  }
+  .box--loose {
+    padding: var(--space-2);
+  }
 }

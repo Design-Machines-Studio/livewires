@@ -57,25 +57,19 @@
     --color-subtle: var(--color-grey-100);
 
   }
-  /*
-  * Dark Mode Support
-  * Automatically adjusts for system preference
-  */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --color-bg: var(--color-grey-900);
-      --color-fg: var(--color-grey-100);
-      --color-accent: var(--color-brand);
-      --color-border: var(--color-grey-500);
-      --color-subtle: var(--color-black);
-      --vf-grad: -50; /* Adjust per font reduces font grade */
-    }
-  }
 
 
   /*
   * Color schemes for different colored blocks and areas across the project
   */
+  .scheme-default {
+    --color-bg: var(--color-white);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-brand);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-fg);
+    --color-subtle: var(--color-grey-100);  
+  }
   .scheme-light {
     --color-bg: var(--color-white);
     --color-fg: var(--color-grey-900);
@@ -109,4 +103,21 @@
     --color-border: var(--color-white);
     --color-subtle: var(--color-brand-light);
   }
+
+    /*
+  * Dark Mode Support
+  * Automatically adjusts for system preference
+  */
+  @media (prefers-color-scheme: dark) {
+    :root,
+    .scheme-default {
+      --color-bg: var(--color-grey-900);
+      --color-fg: var(--color-grey-100);
+      --color-accent: var(--color-brand);
+      --color-border: var(--color-grey-500);
+      --color-subtle: var(--color-black);
+      --vf-grad: -50; /* Adjust per font reduces font grade */
+    }
+  }
+
 }

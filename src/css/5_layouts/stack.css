@@ -21,10 +21,10 @@
   }
 
   .stack-comfortable {
-    --stack-space: var(--space-4);
+    --stack-space: var(--space-2);
   }
 
   .stack-spacious {
-    --stack-space: var(--space-5);
+    --stack-space: var(--space-4);
   }
 }

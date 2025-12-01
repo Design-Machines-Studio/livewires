@@ -29,8 +29,6 @@
     * Layout Tokens
     */
     --gutter: var(--space-1);
-    --vertical-margin: var(--space-1);
-    --horizontal-margin: var(--space-05);
   }
 
 }
