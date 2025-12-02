@@ -21,6 +21,8 @@
     --line-4: calc(var(--line) * 4);       /* Four lines */
     --line-5: calc(var(--line) * 5);       /* Five lines */
     --line-6: calc(var(--line) * 6);       /* Six lines */
+    --line-7: calc(var(--line) * 7);       /* Seven lines */
+    --line-8: calc(var(--line) * 8);       /* Eight lines */
 
     /* Pixel-precise spacing for borders, fine details */
     --line-1px: 1px;

@@ -5,9 +5,13 @@
  * Inspired by Every Layout
  */
 
+
+
 @layer layouts {
   :root {
-    --sidebar-space: var(--line-1);
+    --sidebar-space: 0;
+    --sidebar-width: var(--line-8);
+    --sidebar-content-min: 66.7%;
   }
   .sidebar {
     display: flex;
@@ -37,9 +41,6 @@
     flex-direction: row-reverse;
   }
 
-  .sidebar-tight {
-    --sidebar-space: 0;
-  }
   .sidebar-1px {
     --sidebar-space: var(--line-1px);
   }
@@ -47,6 +48,6 @@
     --sidebar-space: var(--line-05);
   }
   .sidebar-loose {
-    --sidebar-space: var(--line-2);
+    --sidebar-space: var(--line-1);
   }
 }

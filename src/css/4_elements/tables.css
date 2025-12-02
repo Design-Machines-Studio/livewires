@@ -35,35 +35,89 @@
     background: var(--color-subtle);
   }
 
-  /* Responsive tables - stack on mobile */
-  @container (width < 48em) {
-    table,
-    tbody,
-    tfoot,
-    th,
-    td,
-    tr {
-      display: block !important;
+  /*
+   * Responsive tables - stack on mobile
+   *
+   * For accessible responsive tables, add data-label attributes to <td> elements:
+   * <td data-label="Price">$45.00</td>
+   *
+   * The label will display before the cell content on small screens.
+   */
+  @container (width < 30em) {
+    /* Keep table as block but preserve caption width */
+    table {
+      display: block;
+    }
+
+    caption {
+      display: block;
+      width: 100%;
+      margin-block-end: var(--line-05);
     }
 
     thead {
-      display: none;
+      /* Visually hidden but accessible to screen readers */
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
 
-    thead,
-    tfoot,
     tbody,
-    tr {
-      clear: both;
+    tfoot {
+      display: block;
     }
 
     tr {
-      inline-size: 100%;
+      display: block;
+      padding: var(--line-05) 0;
+      border-block-end: 1px solid var(--color-border);
     }
 
-    .numerical,
-    .delete {
+    tr:first-child {
+      border-block-start: 1px solid var(--color-border);
+    }
+
+    th,
+    td {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--line-05);
+      padding: var(--line-025) 0;
+      text-align: end;
+      border: none;
+      background: transparent;
+    }
+
+    /* Row headers (th in tbody) stay prominent */
+    tbody th {
+      display: block;
       text-align: start;
+      font-size: var(--text-base);
+      padding-block-end: 0;
+    }
+
+    /* Show data-label as pseudo-element before cell content */
+    td[data-label]::before {
+      content: attr(data-label);
+      font-weight: var(--font-medium);
+      text-align: start;
+      color: var(--color-muted);
+    }
+
+    /* Cells without labels stay left-aligned */
+    td:not([data-label]) {
+      text-align: start;
+    }
+
+    /* First cell in row (often the item name) - full width, prominent */
+    td:first-of-type:not([data-label]) {
+      font-weight: var(--font-medium);
     }
   }
 }

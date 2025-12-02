@@ -10,6 +10,37 @@
     --vertical-margin: var(--line-2);
     --horizontal-margin: var(--line-075);
   }
+
+  /*
+   * Media query equivalents for :root
+   * These mirror the container queries below so that fixed-position elements
+   * (like dev tool overlays) can inherit responsive margin values.
+   *
+   * ⚠️  KEEP IN SYNC: When updating container query breakpoints below,
+   *     also update these media queries to match.
+   *     See also: src/css/prototyping.css (margin mode selectors)
+   */
+  @media (min-width: 30rem) {
+    :root {
+      --horizontal-margin: var(--line-2);
+    }
+  }
+  @media (min-width: 60rem) {
+    :root {
+      --horizontal-margin: var(--line-3);
+    }
+  }
+  @media (min-width: 70rem) {
+    :root {
+      --horizontal-margin: calc((100% / 14) + var(--line-1));
+    }
+  }
+  @media (min-width: 90rem) {
+    :root {
+      --horizontal-margin: calc((100% / 9) + var(--line-1));
+    }
+  }
+
   .section {
     container-type: inline-size;
     container-name: section;

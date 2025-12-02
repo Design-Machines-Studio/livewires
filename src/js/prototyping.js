@@ -92,12 +92,9 @@ class DevTools {
       margin: {
         label: 'Margin',
         options: [
-          { value: 'var(--line-075)', label: '3/4' },
-          { value: 'var(--line-1)', label: '1' },
-          { value: 'var(--line-2)', label: '2' },
-          { value: 'var(--line-4)', label: '4' },
-          { value: 'calc((100% / 14) + var(--line-1))', label: '1/14' },
-          { value: 'calc((100% / 9) + var(--line-1))', label: '1/9' }
+          { value: 'section', label: 'Section' },
+          { value: 'full-bleed', label: 'Full-bleed' },
+          { value: 'wide', label: 'Wide' }
         ]
       }
     };
@@ -105,7 +102,7 @@ class DevTools {
     this.columnCount = 3;
     this.subdivisionsValue = '2';
     this.gutterValue = 'var(--line-1)';
-    this.marginValue = 'var(--line-075)';
+    this.marginMode = 'section';
 
     this.menubarVisible = true;
     this.init();
@@ -133,7 +130,28 @@ class DevTools {
     // Add outline styles
     this.addOutlineStyles();
 
+    // Setup resize listener for responsive settings
+    this.setupResizeListener();
+
     console.log('✅ Dev Tools ready! Press ? to toggle menubar');
+  }
+
+  setupResizeListener() {
+    // Debounced resize handler for responsive settings
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => this.onResize(), 100);
+    });
+  }
+
+  onResize() {
+    // Re-apply responsive settings when viewport changes
+    // This ensures overlays stay in sync with CSS media query changes
+    if (this.marginMode === 'section') {
+      // Force CSS to recalculate by toggling the attribute
+      this.updateMarginMode(this.marginMode);
+    }
   }
 
   createOverlays() {
@@ -151,7 +169,7 @@ class DevTools {
     this.updateColumnCount(this.columnCount);
     this.updateSubdivisions(this.subdivisionsValue);
     this.updateGutter(this.gutterValue);
-    this.updateMargin(this.marginValue);
+    this.updateMarginMode(this.marginMode);
   }
 
   updateColumnCount(count) {
@@ -193,14 +211,17 @@ class DevTools {
     this.saveState();
   }
 
-  updateMargin(value) {
-    this.marginValue = value;
-    document.body.style.setProperty('--dev-margin', value);
+  updateMarginMode(mode) {
+    this.marginMode = mode;
+
+    // Set data attribute on overlays for CSS to use
+    this.columnOverlay.dataset.marginMode = mode;
+    this.marginOverlay.dataset.marginMode = mode;
 
     // Update select if it exists
     const select = this.menubar?.querySelector('#dev-margins-select');
-    if (select && select.value !== value) {
-      select.value = value;
+    if (select && select.value !== mode) {
+      select.value = mode;
     }
 
     this.saveState();
@@ -211,6 +232,13 @@ class DevTools {
     if (saved) {
       try {
         const state = JSON.parse(saved);
+
+        // Migration: Convert old marginValue (CSS string) to marginMode (preset name)
+        if (state.marginValue && !state.marginMode) {
+          state.marginMode = 'section'; // Default to section mode
+          delete state.marginValue;
+        }
+
         Object.keys(state).forEach(key => {
           if (key === 'columnCount') {
             this.columnCount = state[key];
@@ -218,8 +246,8 @@ class DevTools {
             this.subdivisionsValue = state[key];
           } else if (key === 'gutterValue') {
             this.gutterValue = state[key];
-          } else if (key === 'marginValue') {
-            this.marginValue = state[key];
+          } else if (key === 'marginMode') {
+            this.marginMode = state[key];
           } else if (this.tools[key]) {
             this.tools[key].active = state[key];
           }
@@ -235,7 +263,7 @@ class DevTools {
       columnCount: this.columnCount,
       subdivisionsValue: this.subdivisionsValue,
       gutterValue: this.gutterValue,
-      marginValue: this.marginValue
+      marginMode: this.marginMode
     };
     Object.keys(this.tools).forEach(key => {
       state[key] = this.tools[key].active;
@@ -390,8 +418,8 @@ class DevTools {
       option.textContent = opt.label;
       marginSelect.appendChild(option);
     });
-    marginSelect.value = this.marginValue;
-    marginSelect.addEventListener('change', (e) => this.updateMargin(e.target.value));
+    marginSelect.value = this.marginMode;
+    marginSelect.addEventListener('change', (e) => this.updateMarginMode(e.target.value));
     marginRow.appendChild(marginSelect);
     popover.appendChild(marginRow);
 

@@ -55,12 +55,12 @@
   }
 
   /* Column Grid - Dynamic column overlay using CSS custom property */
-  /* --dev-columns, --dev-gap, --dev-margin are set by JavaScript */
+  /* --dev-columns, --dev-gap are set by JavaScript */
+  /* --dev-margin is set responsively based on data-margin-mode attribute */
 
   :root {
     --dev-columns: 3;
     --dev-gap: var(--gutter);
-    --dev-margin: var(--line-075);
   }
 
   /* Column overlay - full viewport coverage */
@@ -106,6 +106,30 @@
 
   .show-margins #dev-margin-overlay {
     display: block;
+  }
+
+  /*
+   * Responsive margin modes
+   * These mirror the container queries in section.css using media queries
+   * Since overlays are position:fixed, we use viewport width as a proxy
+   */
+
+  /* Section mode - matches .section responsive margins */
+  #dev-column-overlay[data-margin-mode="section"],
+  #dev-margin-overlay[data-margin-mode="section"] {
+    --dev-margin: var(--horizontal-margin, var(--line-075));
+  }
+
+  /* Full-bleed mode - no margins */
+  #dev-column-overlay[data-margin-mode="full-bleed"],
+  #dev-margin-overlay[data-margin-mode="full-bleed"] {
+    --dev-margin: 0;
+  }
+
+  /* Wide mode - matches .section-wide responsive margins */
+  #dev-column-overlay[data-margin-mode="wide"],
+  #dev-margin-overlay[data-margin-mode="wide"] {
+    --dev-margin: var(--line-1);
   }
 
   /* Highlight .grid layout primitives when dev-outline-grids is active */

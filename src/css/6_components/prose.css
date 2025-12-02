@@ -27,12 +27,24 @@
       -webkit-hyphens: manual;
       hyphens: manual;
     }
-
-    .lead {
-      font-size: var(--text-lg);
-      line-height: var(--line-height-lg);
-      letter-spacing: var(--tracking-lg);
-    }
+  }
+  .lead {
+    font-size: var(--text-lg);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--tracking-lg);
+  }
+  .price:first-letter,
+  .cents {
+    display: inline-block;
+    height: 0;
+    line-height: 1.5;
+    vertical-align: top;
+    position: relative;
+    font-size: 0.66667em;
+    bottom: .5ex;
+  }
+  .cents {
+    bottom: .15ex;
   }
 }
 
