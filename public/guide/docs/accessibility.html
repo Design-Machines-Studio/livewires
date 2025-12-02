@@ -18,14 +18,14 @@
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
       <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
-      <article class="stack">
+      <article class="prose">
         <header class="section">
           <h1>Accessibility</h1>
           <hr />
           <p class="lead">Live Wires provides accessible defaults. Here's what's built in and how to maintain accessibility in your prototypes.</p>
         </header>
 
-        <nav class="stack-compact">
+        <nav class="section section-v-tight">
           <p><strong>On this page:</strong></p>
           <ul class="cluster">
             <li><a href="#built-in">Built-in features</a></li>
@@ -35,10 +35,11 @@
             <li><a href="#motion">Reduced motion</a></li>
             <li><a href="#semantic">Semantic HTML</a></li>
             <li><a href="#testing">Testing</a></li>
+            <li><a href="#resources">Resources</a></li>
           </ul>
         </nav>
 
-        <section id="built-in" class="section stack">
+        <section id="built-in" class="section">
           <h2>Built-in accessibility</h2>
           <p>Live Wires includes accessibility features by default:</p>
 
@@ -50,9 +51,10 @@
             <li><strong>Semantic defaults</strong>&mdash;Base styles enhance, not replace, semantic meaning</li>
             <li><strong>Skip links</strong>&mdash;Ready-to-use skip navigation patterns</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="color" class="section stack">
+        <section id="color" class="section">
           <h2>Color contrast</h2>
           <p>Live Wires' color system is designed for accessibility:</p>
 
@@ -80,9 +82,10 @@
             <li>Large text (18px+ or 14px+ bold): 3:1 minimum</li>
             <li>UI components: 3:1 for boundaries</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="focus" class="section stack">
+        <section id="focus" class="section">
           <h2>Focus indicators</h2>
           <p>Live Wires provides visible focus states for keyboard navigation:</p>
 
@@ -114,9 +117,10 @@
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="keyboard" class="section stack">
+        <section id="keyboard" class="section">
           <h2>Keyboard navigation</h2>
           <p>Ensure all interactive elements are keyboard accessible:</p>
 
@@ -144,9 +148,10 @@
   &lt;svg&gt;...&lt;/svg&gt;
   &lt;span class="sr-only"&gt;Close menu&lt;/span&gt;
 &lt;/button&gt;</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="motion" class="section stack">
+        <section id="motion" class="section">
           <h2>Reduced motion</h2>
           <p>Live Wires respects the <code>prefers-reduced-motion</code> media query:</p>
 
@@ -169,9 +174,10 @@
     animation: fadeIn 0.3s ease-out;
   }
 }</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="semantic" class="section stack">
+        <section id="semantic" class="section">
           <h2>Semantic HTML</h2>
           <p>Live Wires enhances semantic HTML. Use the right elements:</p>
 
@@ -205,9 +211,10 @@
             <li>Use <code>fieldset</code> and <code>legend</code> for related inputs</li>
             <li>Provide clear error messages</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="testing" class="section stack">
+        <section id="testing" class="section">
           <h2>Testing accessibility</h2>
           <p>Test your prototypes for accessibility:</p>
 
@@ -240,9 +247,10 @@
             <li>Page has a descriptive title</li>
             <li>Links have descriptive text (not "click here")</li>
           </ol>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="resources" class="section">
           <h2>Resources</h2>
           <ul>
             <li><a href="https://www.w3.org/WAI/WCAG22/quickref/">WCAG 2.2 Quick Reference</a></li>
@@ -251,6 +259,7 @@
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility">MDN: Accessibility</a></li>
             <li><a href="https://inclusive-components.design/">Inclusive Components</a>&mdash;Accessible component patterns</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
       </article>

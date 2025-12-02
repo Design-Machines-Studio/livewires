@@ -54,94 +54,96 @@
     ) !important;
   }
 
-  /* Column Grid - Shows vertical guides that match .grid-columns-* layouts */
-  /* These create vertical lines at column boundaries with proper gap spacing */
+  /* Column Grid - Dynamic column overlay using CSS custom property */
+  /* --dev-columns, --dev-gap, --dev-margin are set by JavaScript */
 
-  .show-columns-2::before,
-  .show-columns-3::before,
-  .show-columns-4::before,
-  .show-columns-6::before,
-  .show-columns-12::before {
+  :root {
+    --dev-columns: 3;
+    --dev-gap: var(--gutter);
+    --dev-margin: var(--line-075);
+  }
+
+  /* Column overlay - full viewport coverage */
+  #dev-column-overlay {
+    position: fixed;
+    inset: 0;
+    left: var(--dev-margin);
+    right: var(--dev-margin);
+    z-index: 9998;
+    pointer-events: none;
+    --col-width: calc((100% - var(--dev-gap) * (var(--dev-columns) - 1)) / var(--dev-columns));
+    background: repeating-linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-accent, #0066ff) 8%, transparent) 0,
+      color-mix(in srgb, var(--color-accent, #0066ff) 8%, transparent) var(--col-width),
+      transparent var(--col-width),
+      transparent calc(var(--col-width) + var(--dev-gap))
+    );
+    display: none;
+  }
+
+  .show-columns #dev-column-overlay {
+    display: block;
+  }
+
+  /* Margin overlay - shows horizontal margins */
+  #dev-margin-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9997;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, #ff6600 15%, transparent) 0,
+      color-mix(in srgb, #ff6600 15%, transparent) var(--dev-margin),
+      transparent var(--dev-margin),
+      transparent calc(100% - var(--dev-margin)),
+      color-mix(in srgb, #ff6600 15%, transparent) calc(100% - var(--dev-margin)),
+      color-mix(in srgb, #ff6600 15%, transparent) 100%
+    );
+    display: none;
+  }
+
+  .show-margins #dev-margin-overlay {
+    display: block;
+  }
+
+  /* Highlight .grid layout primitives when dev-outline-grids is active */
+  body.dev-outline-grids .grid {
+    position: relative;
+  }
+
+  body.dev-outline-grids .grid::before {
     content: '';
     position: absolute;
     inset: 0;
-    z-index: 9999;
+    z-index: 9997;
     pointer-events: none;
-  }
-
-  /* 2 columns: 1 divider */
-  .show-columns-2::before {
-    background: linear-gradient(
-      to right,
-      transparent calc(50% - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-fg) 30%, transparent) calc(50% - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-fg) 30%, transparent) calc(50% + var(--grid-gap, var(--gutter)) / 2),
-      transparent calc(50% + var(--grid-gap, var(--gutter)) / 2)
-    );
-  }
-
-  /* 3 columns: 2 dividers */
-  .show-columns-3::before {
-    background:
-      linear-gradient(
-        to right,
-        transparent calc(33.333% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(33.333% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(33.333% + var(--grid-gap, var(--gutter)) / 2),
-        transparent calc(33.333% + var(--grid-gap, var(--gutter)) / 2),
-        transparent calc(66.666% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(66.666% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(66.666% + var(--grid-gap, var(--gutter)) / 2),
-        transparent calc(66.666% + var(--grid-gap, var(--gutter)) / 2)
-      );
-  }
-
-  /* 4 columns: 3 dividers */
-  .show-columns-4::before {
-    background:
-      linear-gradient(
-        to right,
-        transparent calc(25% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(25% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(25% + var(--grid-gap, var(--gutter)) / 2),
-        transparent calc(25% + var(--grid-gap, var(--gutter)) / 2),
-        transparent calc(50% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(50% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(50% + var(--grid-gap, var(--gutter)) / 2),
-        transparent calc(50% + var(--grid-gap, var(--gutter)) / 2),
-        transparent calc(75% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(75% - var(--grid-gap, var(--gutter)) / 2),
-        color-mix(in srgb, var(--color-fg) 30%, transparent) calc(75% + var(--grid-gap, var(--gutter)) / 2),
-        transparent calc(75% + var(--grid-gap, var(--gutter)) / 2)
-      );
-  }
-
-  /* 6 columns: 5 dividers */
-  .show-columns-6::before {
+    outline: 2px solid color-mix(in srgb, var(--color-accent, #0066ff) 60%, transparent);
+    outline-offset: -2px;
+    /* Show columns based on the grid's actual column count */
     background: repeating-linear-gradient(
       to right,
-      transparent 0,
-      transparent calc((100% / 6) - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-fg) 30%, transparent) calc((100% / 6) - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-fg) 30%, transparent) calc((100% / 6) + var(--grid-gap, var(--gutter)) / 2),
-      transparent calc((100% / 6) + var(--grid-gap, var(--gutter)) / 2),
-      transparent calc(100% / 6 * 2)
+      color-mix(in srgb, var(--color-accent, #0066ff) 12%, transparent) 0,
+      color-mix(in srgb, var(--color-accent, #0066ff) 12%, transparent) calc((100% - var(--dev-gap) * (var(--grid-columns, 3) - 1)) / var(--grid-columns, 3)),
+      transparent calc((100% - var(--dev-gap) * (var(--grid-columns, 3) - 1)) / var(--grid-columns, 3)),
+      transparent calc((100% - var(--dev-gap) * (var(--grid-columns, 3) - 1)) / var(--grid-columns, 3) + var(--dev-gap))
     );
-    background-size: calc(100% / 6) 100%;
   }
 
-  /* 12 columns: 11 dividers */
-  .show-columns-12::before {
-    background: repeating-linear-gradient(
-      to right,
-      transparent 0,
-      transparent calc((100% / 12) - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-fg) 30%, transparent) calc((100% / 12) - var(--grid-gap, var(--gutter)) / 2),
-      color-mix(in srgb, var(--color-fg) 30%, transparent) calc((100% / 12) + var(--grid-gap, var(--gutter)) / 2),
-      transparent calc((100% / 12) + var(--grid-gap, var(--gutter)) / 2),
-      transparent calc(100% / 12 * 2)
-    );
-    background-size: calc(100% / 12) 100%;
+  /* Show grid info label */
+  body.dev-outline-grids .grid::after {
+    content: 'grid';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--color-accent, #0066ff);
+    color: white;
+    font-size: 10px;
+    font-family: var(--font-mono, monospace);
+    padding: 2px 6px;
+    z-index: 9998;
+    pointer-events: none;
   }
 
   /*

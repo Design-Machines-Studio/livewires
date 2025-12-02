@@ -18,14 +18,30 @@
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
       <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
-      <article class="stack">
+      <article class="prose">
         <header class="section">
           <h1>HTML includes</h1>
           <hr />
           <p class="lead">A zero-dependency Web Component for reusable HTML fragments.</p>
         </header>
 
-        <section class="section stack">
+        <nav class="section section-v-tight">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#basic-usage">Basic usage</a></li>
+            <li><a href="#paths">Path conventions</a></li>
+            <li><a href="#classes">Passing classes</a></li>
+            <li><a href="#javascript">JavaScript in includes</a></li>
+            <li><a href="#errors">Error handling</a></li>
+            <li><a href="#common">Common includes</a></li>
+            <li><a href="#seo">SEO considerations</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+          </ul>
+        </nav>
+
+        <section id="overview" class="section">
           <h2>Overview</h2>
           <p>Live Wires uses a custom <code>&lt;html-include&gt;</code> element to load HTML fragments at runtime. This enables you to share headers, footers, navigation, and other repeated content across pages without build-time processing.</p>
 
@@ -37,9 +53,10 @@
             <li><strong>Error handling</strong>&mdash;Shows debug messages in development mode</li>
             <li><strong>Standard HTML</strong>&mdash;No special syntax or templating language</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="basic-usage" class="section">
           <h2>Basic usage</h2>
 
           <h3>1. Load the Web Component first</h3>
@@ -78,9 +95,10 @@
     &lt;/ul&gt;
   &lt;/nav&gt;
 &lt;/header&gt;</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="paths" class="section">
           <h2>Path conventions</h2>
           <p>The <code>src</code> attribute accepts both absolute and relative paths:</p>
 
@@ -93,16 +111,18 @@
 &lt;html-include src="../_includes/header.html"&gt;&lt;/html-include&gt;</code></pre>
 
           <p>Absolute paths starting with <code>/</code> are resolved from the site root, making them more portable. Use relative paths when the include is specific to a section.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="classes" class="section">
           <h2>Passing classes</h2>
           <p>Classes on the <code>&lt;html-include&gt;</code> element are preserved:</p>
           <pre><code>&lt;html-include class="bg-subtle" src="/_includes/nav.html"&gt;&lt;/html-include&gt;</code></pre>
           <p>This lets you apply styling or layout to the include wrapper without modifying the include file itself.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="javascript" class="section">
           <h2>JavaScript in includes</h2>
           <p>Scripts inside include files are re-executed after loading. This works because the component explicitly creates new <code>&lt;script&gt;</code> elements:</p>
           <pre><code>&lt;!-- /public/_includes/analytics.html --&gt;
@@ -111,18 +131,20 @@
   // Your tracking code here
 &lt;/script&gt;</code></pre>
           <p>Both inline scripts and external scripts (with <code>src</code>) are supported.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="errors" class="section">
           <h2>Error handling</h2>
           <p>If an include fails to load, the component logs an error to the console:</p>
           <pre><code>HtmlInclude: failed to load /_includes/missing.html</code></pre>
           <p>In development mode (Vite dev server), a visible error message is displayed in place of the include:</p>
           <pre><code style="color: red;">Failed to load include: /_includes/missing.html</code></pre>
           <p>This helps catch typos and missing files during development.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="common" class="section">
           <h2>Common includes</h2>
           <p>A typical Live Wires project uses these includes:</p>
 
@@ -139,9 +161,10 @@
             <dt><code>/_includes/nav-*.html</code></dt>
             <dd>Section-specific navigation (e.g., nav-docs.html, nav-guide.html)</dd>
           </dl>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="seo" class="section">
           <h2>SEO considerations</h2>
           <p>Content loaded via JavaScript is generally indexed by modern search engines. Google executes JavaScript and can see client-rendered content. However, there are practical considerations:</p>
 
@@ -165,9 +188,10 @@
             <li>11ty, Astro, or similar static site generators</li>
           </ul>
           <p>Live Wires' HTML and CSS patterns work with any build tool.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="how-it-works" class="section">
           <h2>How it works</h2>
           <p>The component is defined in <a href="/src/js/html-include.js">src/js/html-include.js</a>:</p>
           <ol>
@@ -179,9 +203,10 @@
             <li>Any <code>&lt;script&gt;</code> tags are re-created to execute</li>
           </ol>
           <p>Total code: ~60 lines. No dependencies.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="troubleshooting" class="section">
           <h2>Troubleshooting</h2>
 
           <h3>Include not loading</h3>
@@ -202,6 +227,7 @@
             <li>Scripts execute after the include loads</li>
             <li>If accessing DOM elements, ensure they exist (use <code>DOMContentLoaded</code> or put scripts at end)</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
       </article>

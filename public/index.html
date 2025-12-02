@@ -19,31 +19,43 @@
       <header class="section">
         <div class="">
           <h1>A prototyping-first design system for editorial websites.</h1>
-          <p class="lead">Built with modern CSS, rooted in timeless design principles.</p>  
+          <p class="lead">Built with modern CSS. Rooted in a philosophy where nothing gets thrown away.</p>
         </div>
       </header>
 
       <section class="section">
+        <h2>The Problem</h2>
+
+        <p>Web design has traditionally been wasteful. We spend hours in <a href="https://www.figma.com/">Figma</a> crafting comps that get handed off and translated. We configure <a href="https://tailwindcss.com/">Tailwind</a> only to fight against it later. We build wireframes in tools that don't reflect reality, then throw them away when the next phase begins.</p>
+
+        <p>How much better would our work be if we could turn those hours into real design thinking and execution?</p>
+
+        <h2>The Solution</h2>
+
+        <p>Live Wires takes a different approach: <strong>everything you build takes you closer to the final product.</strong> Start with real content in real HTML. The baseline styles make it look good immediately. Adjust tokens to establish your foundation. Layer utilities for art direction. Extract components as patterns emerge.</p>
+
+        <p>Nothing is throwaway. Each step builds on the last. The prototype becomes the product.</p>
+
+        <blockquote>
+          <p>Instead of creating a series of disposable deliverables, the design process becomes an evolution.</p>
+        </blockquote>
+      </section>
+
+      <section class="section">
         <h2>Good Defaults + Additive Art Direction</h2>
 
-        <p>This page demonstrates that semantic HTML looks good with minimal classes. The baseline typography, spacing, and layout just work.</p>
+        <p>This page demonstrates that semantic HTML looks good with minimal classes. The baseline typography, spacing, and layout just work. You don't fight the system to make things work. You add to it.</p>
 
-        <p>Live Wires is not a component library. It's a design philosophy and workflow tool that helps you:</p>
-
-        <ul>
-          <li>Prototype quickly in HTML & CSS</li>
-          <li>Systematize patterns as you discover them</li>
-          <li>Add art direction through utility classes</li>
-          <li>Maintain perfect vertical rhythm</li>
-        </ul>
+        <p><strong>The three-tier approach:</strong></p>
+        <ol>
+          <li><strong>Semantic HTML</strong>&mdash;Headings, paragraphs, lists look good by default</li>
+          <li><strong>Layout primitives</strong>&mdash;<code>.stack</code>, <code>.grid</code>, <code>.cluster</code> for composition</li>
+          <li><strong>Utilities</strong>&mdash;<code>.mt-4</code>, <code>.text-center</code>, <code>.scheme-warm</code> for art direction</li>
+        </ol>
 
         <h3>The Sacred Baseline</h3>
 
         <p>Everything in Live Wires derives from the <code>--line</code> variable. Change the base font size or line height, and the entire system recalculates. This ensures perfect vertical rhythm across your design.</p>
-
-        <blockquote>
-          <p>Good design is as little design as possible. Start with sensible defaults, then add classes for art direction.</p>
-        </blockquote>
       </section>
 
       <section class="section">

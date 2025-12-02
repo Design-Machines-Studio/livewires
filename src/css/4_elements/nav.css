@@ -1,0 +1,7 @@
+@layer base {
+  nav {
+    li {
+      list-style: none;
+    }
+  }
+}

@@ -13,5 +13,6 @@
     border-top-width: var(--divider-width);
     border-style: var(--divider-style);
     border-color: var(--divider-color);
+    margin-block-end: var(--line-025);
   }
 }

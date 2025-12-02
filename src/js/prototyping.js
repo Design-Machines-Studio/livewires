@@ -7,51 +7,104 @@
 
 class DevTools {
   constructor() {
+    // Main toolbar tools
     this.tools = {
       darkMode: {
         key: 'd',
-        label: 'Toggle Theme',
+        label: 'Theme',
         target: 'body',
         active: false,
         customToggle: 'theme'
       },
       baseline: {
         key: 'b',
-        label: 'Baseline Grid',
+        label: 'Baseline',
         class: 'show-baseline',
         target: 'body',
         active: false
       },
       columns: {
         key: 'c',
-        label: 'Column Grid',
-        class: 'show-columns-3',
+        label: 'Columns',
+        class: 'show-columns',
         target: 'body',
-        active: false,
-        cycle: ['show-columns-2', 'show-columns-3', 'show-columns-4', 'show-columns-6', 'show-columns-12']
+        active: false
       },
-      colors: {
-        key: 'x',
-        label: 'Background Colors',
-        selector: '[class*="bg-"]',
-        toggle: 'background',
-        active: true
+      margins: {
+        key: 'm',
+        label: 'Margins',
+        class: 'show-margins',
+        target: 'body',
+        active: false
+      },
+      grids: {
+        key: 'g',
+        label: 'CSS Grids',
+        class: 'dev-outline-grids',
+        target: 'body',
+        active: false
       },
       outlines: {
         key: 'o',
-        label: 'Layout Outlines',
+        label: 'Outlines',
         class: 'dev-outline',
         target: 'body',
         active: false
       },
+      colors: {
+        key: 'x',
+        label: 'BG Colors',
+        selector: '[class*="bg-"]',
+        toggle: 'background',
+        active: true
+      },
       redact: {
         key: 'r',
-        label: 'Redact Text',
+        label: 'Redact',
         class: 'redact',
         target: 'body',
         active: false
       }
     };
+
+    // Settings (in popover)
+    this.settingsConfig = {
+      subdivisions: {
+        label: 'Baseline subdivisions',
+        options: [
+          { value: '1', label: '1' },
+          { value: '2', label: '2' },
+          { value: '3', label: '3' },
+          { value: '4', label: '4' }
+        ]
+      },
+      gutter: {
+        label: 'Gap',
+        options: [
+          { value: '0', label: '0' },
+          { value: 'var(--line-1px)', label: '1px' },
+          { value: 'var(--line-025)', label: '¼' },
+          { value: 'var(--line-05)', label: '½' },
+          { value: 'var(--line-1)', label: '1' },
+          { value: 'var(--line-2)', label: '2' }
+        ]
+      },
+      margin: {
+        label: 'Margin',
+        options: [
+          { value: 'var(--line-075)', label: '¾' },
+          { value: 'var(--line-1)', label: '1' },
+          { value: 'var(--line-2)', label: '2' },
+          { value: 'var(--line-4)', label: '4' },
+          { value: 'calc((100% / 9) + var(--line-1))', label: '⅑' }
+        ]
+      }
+    };
+
+    this.columnCount = 3;
+    this.subdivisionsValue = '2';
+    this.gutterValue = 'var(--line-1)';
+    this.marginValue = 'var(--line-075)';
 
     this.menubarVisible = true;
     this.init();
@@ -62,6 +115,9 @@ class DevTools {
 
     // Load saved state from localStorage
     this.loadState();
+
+    // Create overlay elements
+    this.createOverlays();
 
     // Create menubar
     this.createMenubar();
@@ -79,13 +135,91 @@ class DevTools {
     console.log('✅ Dev Tools ready! Press ? to toggle menubar');
   }
 
+  createOverlays() {
+    // Column grid overlay
+    this.columnOverlay = document.createElement('div');
+    this.columnOverlay.id = 'dev-column-overlay';
+    document.body.appendChild(this.columnOverlay);
+
+    // Margin overlay
+    this.marginOverlay = document.createElement('div');
+    this.marginOverlay.id = 'dev-margin-overlay';
+    document.body.appendChild(this.marginOverlay);
+
+    // Apply initial values
+    this.updateColumnCount(this.columnCount);
+    this.updateSubdivisions(this.subdivisionsValue);
+    this.updateGutter(this.gutterValue);
+    this.updateMargin(this.marginValue);
+  }
+
+  updateColumnCount(count) {
+    this.columnCount = Math.max(1, Math.min(24, parseInt(count) || 3));
+    document.body.style.setProperty('--dev-columns', this.columnCount);
+
+    // Update input if it exists
+    const input = this.menubar?.querySelector('#dev-columns-input');
+    if (input && input.value !== String(this.columnCount)) {
+      input.value = this.columnCount;
+    }
+
+    this.saveState();
+  }
+
+  updateSubdivisions(value) {
+    this.subdivisionsValue = value;
+    document.body.style.setProperty('--subdivisions', value);
+
+    // Update select if it exists
+    const select = this.menubar?.querySelector('#dev-subdivisions-select');
+    if (select && select.value !== value) {
+      select.value = value;
+    }
+
+    this.saveState();
+  }
+
+  updateGutter(value) {
+    this.gutterValue = value;
+    document.body.style.setProperty('--dev-gap', value);
+
+    // Update select if it exists
+    const select = this.menubar?.querySelector('#dev-gutter-select');
+    if (select && select.value !== value) {
+      select.value = value;
+    }
+
+    this.saveState();
+  }
+
+  updateMargin(value) {
+    this.marginValue = value;
+    document.body.style.setProperty('--dev-margin', value);
+
+    // Update select if it exists
+    const select = this.menubar?.querySelector('#dev-margins-select');
+    if (select && select.value !== value) {
+      select.value = value;
+    }
+
+    this.saveState();
+  }
+
   loadState() {
     const saved = localStorage.getItem('livewires-dev-tools');
     if (saved) {
       try {
         const state = JSON.parse(saved);
         Object.keys(state).forEach(key => {
-          if (this.tools[key]) {
+          if (key === 'columnCount') {
+            this.columnCount = state[key];
+          } else if (key === 'subdivisionsValue') {
+            this.subdivisionsValue = state[key];
+          } else if (key === 'gutterValue') {
+            this.gutterValue = state[key];
+          } else if (key === 'marginValue') {
+            this.marginValue = state[key];
+          } else if (this.tools[key]) {
             this.tools[key].active = state[key];
           }
         });
@@ -96,7 +230,12 @@ class DevTools {
   }
 
   saveState() {
-    const state = {};
+    const state = {
+      columnCount: this.columnCount,
+      subdivisionsValue: this.subdivisionsValue,
+      gutterValue: this.gutterValue,
+      marginValue: this.marginValue
+    };
     Object.keys(this.tools).forEach(key => {
       state[key] = this.tools[key].active;
     });
@@ -104,11 +243,42 @@ class DevTools {
   }
 
   applyStates() {
+    // Apply saved toggle states without re-toggling
     Object.keys(this.tools).forEach(key => {
       if (this.tools[key].active) {
-        this.toggle(key, true);
+        this.applyToolState(key);
       }
     });
+  }
+
+  applyToolState(toolKey) {
+    const tool = this.tools[toolKey];
+    if (!tool || !tool.active) return;
+
+    // Apply the state based on tool type
+    if (tool.customToggle === 'theme') {
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.body.classList.remove('dark-mode', 'light-mode');
+      if (systemPrefersDark) {
+        document.body.classList.add('light-mode');
+      } else {
+        document.body.classList.add('dark-mode');
+      }
+    } else if (tool.class && tool.target) {
+      const target = tool.target === 'body' ? document.body : document.querySelector(tool.target);
+      if (target) {
+        target.classList.add(tool.class);
+      }
+    } else if (tool.selector && tool.toggle) {
+      // Background toggle - active means show backgrounds
+      // (default active: true means backgrounds visible)
+    }
+
+    // Update button state
+    const button = this.menubar?.querySelector(`[data-tool="${toolKey}"]`);
+    if (button) {
+      button.classList.add('active');
+    }
   }
 
   createMenubar() {
@@ -117,34 +287,130 @@ class DevTools {
     menubar.className = 'dev-tools-menubar';
     menubar.style.display = this.menubarVisible ? 'flex' : 'none';
 
-    const buttons = Object.keys(this.tools).map(key => {
+    // Create tool buttons
+    Object.keys(this.tools).forEach(key => {
       const tool = this.tools[key];
       const button = document.createElement('button');
       button.className = 'dev-tool-button';
       button.dataset.tool = key;
-      button.innerHTML = `
-        <span class="dev-tool-label">${tool.label}</span>
-        <kbd class="dev-tool-key">${tool.key.toUpperCase()}</kbd>
-      `;
+      button.innerHTML = `${tool.label} <kbd>${tool.key.toUpperCase()}</kbd>`;
       button.onclick = () => this.toggle(key);
 
       if (tool.active) {
         button.classList.add('active');
       }
 
-      return button;
+      menubar.appendChild(button);
     });
 
-    buttons.forEach(btn => menubar.appendChild(btn));
+    // Create settings button and popover
+    const settingsWrapper = document.createElement('div');
+    settingsWrapper.className = 'dev-settings-wrapper';
 
-    // Add help text
-    const help = document.createElement('div');
+    const settingsBtn = document.createElement('button');
+    settingsBtn.className = 'dev-tool-button dev-settings-btn';
+    settingsBtn.innerHTML = 'Settings';
+    settingsBtn.onclick = () => this.toggleSettings();
+    settingsWrapper.appendChild(settingsBtn);
+
+    // Settings popover
+    const popover = document.createElement('div');
+    popover.className = 'dev-settings-popover';
+    popover.id = 'dev-settings-popover';
+
+    // Columns setting
+    const colRow = document.createElement('div');
+    colRow.className = 'dev-setting-row';
+    colRow.innerHTML = `<label>Columns</label>`;
+    const colInput = document.createElement('input');
+    colInput.type = 'number';
+    colInput.id = 'dev-columns-input';
+    colInput.className = 'dev-tool-input';
+    colInput.value = this.columnCount;
+    colInput.min = 1;
+    colInput.max = 24;
+    colInput.addEventListener('change', (e) => this.updateColumnCount(e.target.value));
+    colInput.addEventListener('keydown', (e) => {
+      e.stopPropagation();
+      if (e.key === 'Enter') {
+        this.updateColumnCount(e.target.value);
+        e.target.blur();
+      }
+    });
+    colRow.appendChild(colInput);
+    popover.appendChild(colRow);
+
+    // Subdivisions setting
+    const subRow = document.createElement('div');
+    subRow.className = 'dev-setting-row';
+    subRow.innerHTML = `<label>Baseline subdivisions</label>`;
+    const subSelect = document.createElement('select');
+    subSelect.id = 'dev-subdivisions-select';
+    subSelect.className = 'dev-tool-select';
+    this.settingsConfig.subdivisions.options.forEach(opt => {
+      const option = document.createElement('option');
+      option.value = opt.value;
+      option.textContent = opt.label;
+      subSelect.appendChild(option);
+    });
+    subSelect.value = this.subdivisionsValue;
+    subSelect.addEventListener('change', (e) => this.updateSubdivisions(e.target.value));
+    subRow.appendChild(subSelect);
+    popover.appendChild(subRow);
+
+    // Gap setting
+    const gapRow = document.createElement('div');
+    gapRow.className = 'dev-setting-row';
+    gapRow.innerHTML = `<label>Gap</label>`;
+    const gapSelect = document.createElement('select');
+    gapSelect.id = 'dev-gutter-select';
+    gapSelect.className = 'dev-tool-select';
+    this.settingsConfig.gutter.options.forEach(opt => {
+      const option = document.createElement('option');
+      option.value = opt.value;
+      option.textContent = opt.label;
+      gapSelect.appendChild(option);
+    });
+    gapSelect.value = this.gutterValue;
+    gapSelect.addEventListener('change', (e) => this.updateGutter(e.target.value));
+    gapRow.appendChild(gapSelect);
+    popover.appendChild(gapRow);
+
+    // Margin setting
+    const marginRow = document.createElement('div');
+    marginRow.className = 'dev-setting-row';
+    marginRow.innerHTML = `<label>Margin</label>`;
+    const marginSelect = document.createElement('select');
+    marginSelect.id = 'dev-margins-select';
+    marginSelect.className = 'dev-tool-select';
+    this.settingsConfig.margin.options.forEach(opt => {
+      const option = document.createElement('option');
+      option.value = opt.value;
+      option.textContent = opt.label;
+      marginSelect.appendChild(option);
+    });
+    marginSelect.value = this.marginValue;
+    marginSelect.addEventListener('change', (e) => this.updateMargin(e.target.value));
+    marginRow.appendChild(marginSelect);
+    popover.appendChild(marginRow);
+
+    settingsWrapper.appendChild(popover);
+    menubar.appendChild(settingsWrapper);
+
+    // Help text (clickable to hide)
+    const help = document.createElement('button');
     help.className = 'dev-tools-help';
-    help.innerHTML = 'Press <kbd>?</kbd> to toggle this menu';
+    help.innerHTML = '<kbd>?</kbd> hide';
+    help.onclick = () => this.toggleMenubar();
     menubar.appendChild(help);
 
     document.body.appendChild(menubar);
     this.menubar = menubar;
+    this.settingsPopover = popover;
+  }
+
+  toggleSettings() {
+    this.settingsPopover.classList.toggle('open');
   }
 
   setupKeyboardShortcuts() {
@@ -209,37 +475,7 @@ class DevTools {
 
     if (!target) return;
 
-    // Handle cycling through multiple classes (for column grids)
-    if (tool.cycle && tool.active) {
-      // Remove all cycle classes first
-      tool.cycle.forEach(cls => target.classList.remove(cls));
-
-      // Find current index
-      let currentIndex = tool.cycle.indexOf(tool.class);
-
-      // Cycle to next
-      if (tool.active && target.classList.contains(tool.class)) {
-        currentIndex = (currentIndex + 1) % tool.cycle.length;
-        tool.class = tool.cycle[currentIndex];
-      }
-    }
-
     target.classList.toggle(tool.class, tool.active);
-
-    // Update button label for cycling
-    if (tool.cycle && tool.active) {
-      const button = this.menubar?.querySelector(`[data-tool="${toolKey}"]`);
-      if (button) {
-        const match = tool.class.match(/\d+/);
-        const cols = match ? match[0] : '3';
-        button.querySelector('.dev-tool-label').textContent = `${tool.label} (${cols})`;
-      }
-    } else if (tool.cycle && !tool.active) {
-      const button = this.menubar?.querySelector(`[data-tool="${toolKey}"]`);
-      if (button) {
-        button.querySelector('.dev-tool-label').textContent = tool.label;
-      }
-    }
   }
 
   toggleBackground(toolKey) {
@@ -277,9 +513,9 @@ class DevTools {
     if (button) {
       const label = button.querySelector('.dev-tool-label');
       if (tool.active) {
-        label.textContent = systemPrefersDark ? 'Light Mode' : 'Dark Mode';
+        label.textContent = systemPrefersDark ? 'Light' : 'Dark';
       } else {
-        label.textContent = 'Toggle Theme';
+        label.textContent = 'Theme';
       }
     }
   }
@@ -294,60 +530,166 @@ class DevTools {
         bottom: 0;
         left: 0;
         right: 0;
-        background: var(--color-black);
-        color: var(--color-white);
-        padding: var(--line-025);
+        background: rgba(0, 0, 0, 0.95);
+        color: #fff;
+        padding: 6px 12px;
         display: flex;
-        gap: var(--line-025);
+        gap: 4px;
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
         z-index: 10000;
-        font-size: var(--text-xs);
-        backdrop-filter: blur(10px);
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 14px;
       }
 
       .dev-tool-button {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 4px;
         padding: 4px 8px;
         background: transparent;
+        border: none;
+        color: rgba(255,255,255,0.8);
         cursor: pointer;
-        transition: all 0.2s ease;
-        font-family: var(--font-sans);
-        font-size: var(--text-xs);
+        font-family: inherit;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: background 0.15s, color 0.15s;
       }
 
       .dev-tool-button:hover {
-        color: red;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
       }
 
       .dev-tool-button.active {
-        color: lightblue;
+        background: rgba(100, 200, 255, 0.2);
+        color: #6be0ff;
       }
 
-      .dev-tool-key,
-      .dev-tools-help kbd {
-        display: inline-block;
-        font-size: var(--text-xs);
-        font-family: var(--font-mono);
-        padding: var(--line-025);
-        background-color: var(--color-grey-700);
+      .dev-tool-button kbd {
+        font-size: 10px;
+        font-family: ui-monospace, monospace;
+        padding: 2px 4px;
+        background: rgba(255,255,255,0.15);
         border-radius: 3px;
-        line-height: 1;
+        margin-left: 2px;
       }
 
-      .dev-tool-button.active .dev-tool-key {
-        background: color-mix(in srgb, white 30%, transparent);
-        border-color: color-mix(in srgb, white 40%, transparent);
+      .dev-tool-button.active kbd {
+        background: rgba(100, 200, 255, 0.3);
+      }
+
+      /* Settings wrapper and popover */
+      .dev-settings-wrapper {
+        position: relative;
+      }
+
+      .dev-settings-btn {
+        border-left: 1px solid rgba(255,255,255,0.2);
+        margin-left: 4px;
+        padding-left: 12px;
+      }
+
+      .dev-settings-popover {
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        background: rgba(30, 30, 30, 0.98);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 6px;
+        padding: 6px 10px;
+        margin-bottom: 8px;
+        min-width: 240px;
+        display: none;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        line-height: 1.2;
+      }
+
+      .dev-settings-popover.open {
+        display: block;
+      }
+
+      .dev-setting-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 4px 0;
+      }
+
+      .dev-setting-row label {
+        font-size: 12px;
+        color: rgba(255,255,255,0.7);
+        white-space: nowrap;
+      }
+
+      .dev-tool-input,
+      .dev-tool-select {
+        width: 70px;
+        padding: 3px 6px;
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 4px;
+        color: #fff;
+        font-family: ui-monospace, monospace;
+        font-size: 11px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .dev-tool-input::-webkit-outer-spin-button,
+      .dev-tool-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      .dev-tool-input[type=number] {
+        -moz-appearance: textfield;
+      }
+
+      .dev-tool-select {
+        cursor: pointer;
+        text-align: left;
+        padding-right: 20px;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='%23999'%3E%3Cpath d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 6px center;
+      }
+
+      .dev-tool-input:focus,
+      .dev-tool-select:focus {
+        outline: none;
+        border-color: #6be0ff;
       }
 
       .dev-tools-help {
         margin-left: auto;
-        padding-left: var(--line-2);
-        opacity: 0.7;
-        font-size: var(--text-xs);
+        padding: 4px 8px;
+        padding-left: 12px;
+        color: rgba(255,255,255,0.5);
+        font-size: 12px;
+        font-family: inherit;
+        border: none;
+        border-left: 1px solid rgba(255,255,255,0.2);
+        background: transparent;
+        cursor: pointer;
+        border-radius: 0 4px 4px 0;
+        transition: color 0.15s, background 0.15s;
+      }
+
+      .dev-tools-help:hover {
+        color: rgba(255,255,255,0.8);
+        background: rgba(255,255,255,0.1);
+      }
+
+      .dev-tools-help kbd {
+        font-size: 10px;
+        font-family: ui-monospace, monospace;
+        padding: 2px 4px;
+        background: rgba(255,255,255,0.15);
+        border-radius: 3px;
       }
 
       /* Layout Outlines */
@@ -356,7 +698,7 @@ class DevTools {
       body.dev-outline .grid,
       body.dev-outline .sidebar,
       body.dev-outline .center {
-        outline: 2px solid color-mix(in srgb, var(--color-accent) 50%, transparent);
+        outline: 2px solid color-mix(in srgb, var(--color-accent, #0066ff) 50%, transparent);
         outline-offset: -2px;
       }
 
@@ -365,7 +707,7 @@ class DevTools {
       body.dev-outline .grid > *,
       body.dev-outline .sidebar > *,
       body.dev-outline .center > * {
-        outline: 1px dashed color-mix(in srgb, var(--color-accent) 30%, transparent);
+        outline: 1px dashed color-mix(in srgb, var(--color-accent, #0066ff) 30%, transparent);
         outline-offset: -1px;
       }
     `;

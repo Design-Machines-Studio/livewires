@@ -18,14 +18,30 @@
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
       <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
-      <article class="stack">
+      <article class="prose">
         <header class="section">
           <h1>Browser compatibility</h1>
           <hr />
           <p class="lead">Live Wires uses modern CSS features with graceful degradation for older browsers.</p>
         </header>
 
-        <section class="section stack">
+        <nav class="section section-v-tight">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#browsers">Target browsers</a></li>
+            <li><a href="#core-features">Core features</a></li>
+            <li><a href="#progressive">Progressive enhancements</a></li>
+            <li><a href="#cascade-layers">Cascade Layers</a></li>
+            <li><a href="#javascript">JavaScript</a></li>
+            <li><a href="#postcss">PostCSS</a></li>
+            <li><a href="#print">Print styles</a></li>
+            <li><a href="#testing">Testing</a></li>
+            <li><a href="#limitations">Limitations</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ul>
+        </nav>
+
+        <section id="browsers" class="section">
           <h2>Target browsers</h2>
           <p>Live Wires targets <strong>modern evergreen browsers</strong>&mdash;the last 2 versions of major browsers:</p>
           <ul>
@@ -34,9 +50,10 @@
             <li>Safari</li>
           </ul>
           <p>All core functionality works in browsers released since 2022.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="core-features" class="section">
           <h2>Core features</h2>
           <p>These features are required and have excellent browser support:</p>
 
@@ -86,9 +103,10 @@
               </tr>
             </tbody>
           </table>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="progressive" class="section">
           <h2>Progressive enhancements</h2>
           <p>These features provide enhanced experiences in newer browsers but degrade gracefully:</p>
 
@@ -142,9 +160,10 @@
             <li><strong>@property</strong>&mdash;Properties work as regular custom properties</li>
             <li><strong>text-wrap</strong>&mdash;Text wraps normally</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="cascade-layers" class="section">
           <h2>CSS Cascade Layers</h2>
           <p>Cascade Layers (<code>@layer</code>) are the foundation of Live Wires' specificity management. This is the most important modern feature required.</p>
 
@@ -160,10 +179,11 @@
           <p>Without cascade layers, utilities wouldn't reliably override components without <code>!important</code>. The layer order defines specificity independent of selector complexity.</p>
 
           <h3>Fallback</h3>
-          <p>Browsers without layer support will see all styles applied with normal cascade rules. This may cause specificity conflicts. For legacy browser support, consider using PostCSS with <code>postcss-cascade-layers</code>.</p>
+          <p>Browsers without layer support will see all styles applied with normal cascade rules. This may cause specificity conflicts. For legacy browser support, consider using <a href="https://postcss.org/">PostCSS</a> with <a href="https://www.npmjs.com/package/@csstools/postcss-cascade-layers">postcss-cascade-layers</a>.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="javascript" class="section">
           <h2>JavaScript requirements</h2>
           <p>Live Wires requires JavaScript only for:</p>
 
@@ -176,9 +196,10 @@
           </dl>
 
           <p>All CSS functionality works without JavaScript. Only the include system requires it.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="postcss" class="section">
           <h2>PostCSS configuration</h2>
           <p>Live Wires uses a minimal PostCSS setup:</p>
           <pre><code>// postcss.config.js
@@ -196,9 +217,10 @@ export default {
           </ul>
 
           <p>No transpilation or polyfilling is performed. Native CSS features are used directly.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="print" class="section">
           <h2>Print styles</h2>
           <p>Live Wires includes print styles in <code>/src/css/print.css</code>. Include it separately in your HTML:</p>
           <pre><code>&lt;link rel="stylesheet" href="/css/print.css" media="print"&gt;</code></pre>
@@ -210,9 +232,10 @@ export default {
             <li>Handle page breaks</li>
             <li>Show URLs after links</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="testing" class="section">
           <h2>Testing recommendations</h2>
           <p>Test your prototype in:</p>
 
@@ -237,9 +260,10 @@ export default {
             <li>Reduced motion preferences</li>
             <li>High contrast mode</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="limitations" class="section">
           <h2>Known limitations</h2>
 
           <h3>Internet Explorer</h3>
@@ -250,9 +274,10 @@ export default {
 
           <h3>Firefox container queries</h3>
           <p>Firefox added container query support in version 110 (February 2023). Earlier versions won't see container-responsive behavior.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="resources" class="section">
           <h2>Resources</h2>
           <ul>
             <li><a href="https://caniuse.com/css-cascade-layers">Can I Use: CSS Cascade Layers</a></li>
@@ -260,6 +285,7 @@ export default {
             <li><a href="https://caniuse.com/css-nesting">Can I Use: CSS Nesting</a></li>
             <li><a href="https://caniuse.com/mdn-css_types_clamp">Can I Use: clamp()</a></li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
       </article>

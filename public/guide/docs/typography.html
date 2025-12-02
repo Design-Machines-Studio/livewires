@@ -18,14 +18,30 @@
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
       <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
-      <article>
+      <article class="prose">
         <header class="section">
           <h1>Typography system</h1>
           <hr />
+          <p class="lead">A sophisticated, fluid type system with performance-optimized calculations.</p>
         </header>
 
-        <div class="section">
-          <section class="section">
+        <nav class="section section-v-tight">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#modes">Configuration modes</a></li>
+            <li><a href="#customization">Customization guide</a></li>
+            <li><a href="#overrides">Override utilities</a></li>
+            <li><a href="#modern-css">Modern CSS features</a></li>
+            <li><a href="#performance">Performance optimizations</a></li>
+            <li><a href="#browser-support">Browser support</a></li>
+            <li><a href="#examples">Code examples</a></li>
+            <li><a href="#related">Related documentation</a></li>
+          </ul>
+        </nav>
+
+          <section id="overview" class="section">
             <h2>Overview</h2>
             <p>Live Wires uses a sophisticated typography system that combines modern CSS features with practical flexibility. The system provides <strong>13 type sizes</strong> (xs through 9xl) with fluid scaling, associated line-heights, and letter-spacing—all controlled through clean, maintainable tokens.</p>
 
@@ -69,9 +85,10 @@
             </dl>
 
             <p>Choose which scale mode to use in <a href="/src/css/main.css">main.css</a>. Auto mode is enabled by default.</p>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
 
-          <section class="section">
+          <section id="how-it-works" class="section">
             <h2>How it works</h2>
 
             <h3>Performance-optimized calculations</h3>
@@ -105,9 +122,10 @@
               <li><strong>Headings:</strong> <code>text-wrap: balance</code> for balanced line lengths</li>
               <li><strong>Paragraphs:</strong> <code>text-wrap: pretty</code> to reduce orphans</li>
             </ul>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
 
-          <section class="section">
+          <section id="modes" class="section">
             <h2>Configuration modes</h2>
 
             <p>Live Wires provides two typography configuration modes in separate files. Choose the one that fits your workflow by importing it in <a href="/src/css/main.css">main.css</a>.</p>
@@ -161,9 +179,10 @@
 /* @import './2_tools/typography-scale-auto.css'; */
 @import './1_tokens/typography-scale-manual.css';
 @import './2_tools/typography-scale-manual.css';</code></pre>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
 
-          <section class="section">
+          <section id="customization" class="section">
             <h2>Customization guide</h2>
 
             <h3>Change the type scale</h3>
@@ -207,9 +226,10 @@
 
 /* Faster scaling */
 --type-scale-rate: 0.8vw;</code></pre>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
 
-          <section class="section">
+          <section id="overrides" class="section">
             <h2>Override utilities</h2>
             <p>Sometimes you need to break the rules. Override utilities use <code>!important</code> to modify complete packages:</p>
 
@@ -224,9 +244,10 @@
 &lt;p class="text-base tracking-tight"&gt;Tighter body text&lt;/p&gt;</code></pre>
 
             <p>Available: <code>.tracking-tighter</code>, <code>.tracking-tight</code>, <code>.tracking-normal</code>, <code>.tracking-wide</code>, <code>.tracking-wider</code>, <code>.tracking-widest</code></p>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
 
-          <section class="section">
+          <section id="modern-css" class="section">
             <h2>Modern CSS features</h2>
 
             <h3>Automatic text wrapping (enabled by default)</h3>
@@ -247,9 +268,10 @@ p, li {
               <li><code>.text-balance</code> - Balances line lengths (great for headings)</li>
               <li><code>.text-pretty</code> - Reduces orphans (great for paragraphs)</li>
             </ul>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
 
-          <section class="section">
+          <section id="performance" class="section">
             <h2>Performance optimizations</h2>
 
             <h3>Pre-calculated ratio powers (auto mode)</h3>
@@ -281,9 +303,10 @@ p, li {
   inherits: true;
 }</code></pre>
             <p>Older browsers gracefully ignore these declarations (no breaking changes).</p>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
 
-          <section class="section">
+          <section id="browser-support" class="section">
             <h2>Browser support</h2>
 
             <h3>Core features (all modern browsers)</h3>
@@ -300,9 +323,10 @@ p, li {
             </ul>
 
             <p><strong>Bottom line:</strong> The system works everywhere. Modern browsers get performance optimizations and better typography automatically.</p>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
 
-          <section class="section">
+          <section id="examples" class="section">
             <h2>Code examples</h2>
 
             <h3>Basic usage</h3>
@@ -327,17 +351,18 @@ p, li {
   &lt;h2&gt;Subheading (2xl)&lt;/h2&gt;
   &lt;p&gt;More content&lt;/p&gt;
 &lt;/article&gt;</code></pre>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
 
-          <section class="section">
+          <section id="related" class="section">
             <h2>Related documentation</h2>
             <ul>
               <li><a href="/guide/docs/structure.html">Project structure</a> - Where typography files live</li>
               <li><a href="/guide/docs/utility-classes.html">Utility classes</a> - Other available utilities</li>
               <li><a href="/guide/identity/">Identity</a> - Typography in the design system</li>
             </ul>
+            <p class="more"><a href="#main">To top</a></p>
           </section>
-        </div>
       </article>
     </main>
     <!-- HTML Include: site footer -->

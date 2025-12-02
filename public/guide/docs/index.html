@@ -18,13 +18,13 @@
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
       <html-include  class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
-      <article class="stack">
+      <article class="prose">
         <header class="section">
           <h1>Getting started</h1>
           <hr />
           <p class="lead">Installation, setup, and project structure.</p>
         </header>
-        <div class="stack">
+        <div>
           <section class="section">
             <h2>Installation</h2>
             <p>Live Wires is a self-contained prototyping system. No package to install from npm&mdash;just clone or download and start building.</p>
@@ -38,7 +38,7 @@
 
             <h3>Quick start</h3>
             <ol>
-              <li><strong>Clone or download</strong> the Live Wires repository</li>
+              <li><strong>Clone or download</strong> the <a href="https://github.com/Design-Machines-Studio/livewires">Live Wires repository</a></li>
               <li><strong>Open a terminal</strong> and navigate to the project folder</li>
               <li><strong>Install dependencies:</strong> <code>npm install</code></li>
               <li><strong>Start the dev server:</strong> <code>npm run dev</code></li>
@@ -86,49 +86,13 @@
               </ul>
             </aside>
           </section>
-          <section>
-            <h2>Project structure</h2>
-            <p>Each Live Wires installation is a single prototype. No templates, no build complexity. Just HTML, CSS, and a simple Web Component for includes.</p>
+          <section class="section">
+            <h2>Related documentation</h2>
+            <ul>
+              <li><a href="structure.html">Project structure</a></li>
+              <li><a href="process.html">Design process</a></li>
+            </ul>
 
-            <p><strong>Directory overview:</strong></p>
-
-            <dl>
-              <dt><code>/src/css/</code></dt>
-              <dd>All CSS source files organized by cascade layers (tokens, elements, layouts, utilities)</dd>
-
-              <dt><code>/src/css/1_tokens/</code></dt>
-              <dd>Design tokens: <a href="/src/css/1_tokens/spacing.css">spacing.css</a>, <a href="/src/css/1_tokens/typography-base.css">typography-base.css</a>, <a href="/src/css/1_tokens/color.css">color.css</a></dd>
-
-              <dt><code>/src/css/4_elements/</code></dt>
-              <dd>Semantic HTML defaults (headings, paragraphs, links, lists, forms, tables)</dd>
-
-              <dt><code>/src/css/5_layouts/</code></dt>
-              <dd>Layout primitives: <a href="/src/css/5_layouts/box.css">box</a>, <a href="/src/css/5_layouts/stack.css">stack</a>, <a href="/src/css/5_layouts/grid.css">grid</a>, <a href="/src/css/5_layouts/cluster.css">cluster</a>, <a href="/src/css/5_layouts/sidebar.css">sidebar</a>, <a href="/src/css/5_layouts/center.css">center</a>, and <a href="/src/css/5_layouts/section.css">section</a></dd>
-
-              <dt><code>/src/css/7_utilities/</code></dt>
-              <dd>Utility classes: <a href="/src/css/7_utilities/spacing.css">spacing</a>, <a href="/src/css/7_utilities/typography.css">typography</a>, <a href="/src/css/7_utilities/color.css">color</a></dd>
-
-              <dt><code>/src/js/main.js</code></dt>
-              <dd>Vite entry point (loads CSS and Web Components)</dd>
-
-              <dt><code>/src/js/html-include.js</code></dt>
-              <dd>Zero-dependency Web Component for HTML includes</dd>
-
-              <dt><code>/public/</code></dt>
-              <dd><strong>Your prototype lives here.</strong> Build HTML pages directly in this folder.</dd>
-
-              <dt><code>/public/_includes/</code></dt>
-              <dd>Reusable HTML fragments (header, footer, etc.) used with <code>&lt;html-include&gt;</code>. Customize and covert easily for your own front-end system.</dd>
-
-              <dt><code>/public/fonts/</code></dt>
-              <dd>Web font files</dd>
-
-              <dt><code>/public/img/</code></dt>
-              <dd>Images and graphics</dd>
-
-              <dt><code>/public/guide/</code></dt>
-              <dd>This style guide (you're reading it). Also functions as a component library.</dd>
-            </dl>
           </section>
         </div>
       </article>

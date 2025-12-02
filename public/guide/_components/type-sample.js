@@ -72,12 +72,12 @@ class TypeSample extends HTMLElement {
 
     // Display sample
     if (this.display) {
-      html += `<p class="text-3xl leading-tight mb-05">AaBbCc1234</p>`;
+      html += `<p class="text-7xl leading-none mb-0">AaBbCc1234</p>`;
     }
 
     // Headline sample
     if (this.headline) {
-      html += `<p class="text-xl leading-tight mb-05">${characterSet}</p>`;
+      html += `<p class="text-3xl leading-tight mb-05">${characterSet}</p>`;
     }
 
     // Text sample

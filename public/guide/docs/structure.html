@@ -18,20 +18,25 @@
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
       <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
-      <article class="stack">
+      <article class="prose">
         <header class="section">
           <h1>Project structure</h1>
           <hr />
           <p class="lead">How Live Wires is organized and where everything lives.</p>
         </header>
 
-        <section class="section stack">
-          <h2>Philosophy</h2>
-          <p>Each Live Wires installation is a single prototype. No templates to manage, no build complexity. Just HTML, CSS, and a simple Web Component for includes.</p>
-          <p>The <code>/public/</code> folder is your site root. Build your prototype directly there.</p>
-        </section>
+        <nav class="section section-v-tight">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#directory">Directory overview</a></li>
+            <li><a href="#css">CSS architecture</a></li>
+            <li><a href="#javascript">JavaScript</a></li>
+            <li><a href="#public">Public folder</a></li>
+            <li><a href="#config">Configuration</a></li>
+          </ul>
+        </nav>
 
-        <section class="section stack">
+        <section id="directory" class="section">
           <h2>Directory overview</h2>
           <pre><code>livewires/
 ├── src/
@@ -50,19 +55,21 @@
 │   └── js/
 │       ├── main.js           # Vite entry point
 │       ├── html-include.js   # Include Web Component
-│       └── dev-tools.js      # Development utilities
+│       └── prototyping.js    # Prototyping utilities
 ├── public/                   # Your prototype (site root)
 │   ├── index.html            # Your pages
 │   ├── _includes/            # HTML fragments
 │   ├── guide/                # This documentation
+│   ├── example/              # An example prototype
 │   ├── fonts/                # Web fonts
 │   └── img/                  # Images
 ├── vite.config.js            # Vite configuration
 ├── postcss.config.js         # PostCSS (autoprefixer only)
 └── package.json              # Dependencies</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="css" class="section">
           <h2>CSS architecture</h2>
           <p>CSS is organized using <strong>ITCSS</strong> (Inverted Triangle CSS) principles with <strong>CSS Cascade Layers</strong> for explicit specificity control.</p>
 
@@ -81,7 +88,8 @@
               <ul>
                 <li><a href="/src/css/1_tokens/spacing.css">spacing.css</a> &mdash; The sacred <code>--line</code> variable and all spacing tokens</li>
                 <li><a href="/src/css/1_tokens/typography-base.css">typography-base.css</a> &mdash; Font stacks, weights, measures</li>
-                <li><a href="/src/css/1_tokens/typography-scale-auto.css">typography-scale-auto.css</a> &mdash; Fluid type scale (ratio-based)</li>
+                <li><a href="/src/css/1_tokens/typography-scale-auto.css">typography-scale-auto.css</a> &mdash; Fluid type scale (ratio-based, <a href="https://utopia.fyi/">Utopia</a>-style)</li>
+                <li><a href="/src/css/1_tokens/typography-scale-manual.css">typography-scale-manual.css</a> &mdash; Fluid type scale with manual minimum and maximum font sizes and baselines</li>
                 <li><a href="/src/css/1_tokens/color.css">color.css</a> &mdash; Color palette and schemes</li>
                 <li><a href="/src/css/1_tokens/borders.css">borders.css</a> &mdash; Border radius tokens</li>
                 <li><a href="/src/css/1_tokens/animation.css">animation.css</a> &mdash; Timing and easing tokens</li>
@@ -92,12 +100,13 @@
             <dd>
               <ul>
                 <li><a href="/src/css/2_tools/properties.css">properties.css</a> &mdash; <code>@property</code> definitions for type-safe custom properties</li>
-                <li><a href="/src/css/2_tools/typography-scale-auto.css">typography-scale-auto.css</a> &mdash; Type scale calculations</li>
+                <li><a href="/src/css/2_tools/typography-scale-auto.css">typography-scale-auto.css</a> &mdash; Type scale calculations for auto mode</li>
+                <li><a href="/src/css/2_tools/typography-scale-manual.css">typography-scale-manual.css</a> &mdash; Type scale calculations for manual mode</li>
               </ul>
             </dd>
 
             <dt><code>3_generic/</code> &mdash; Reset</dt>
-            <dd>Modern CSS reset with sensible defaults. Makes semantic HTML look good immediately.</dd>
+            <dd>Modern CSS reset with sensible defaults to prepare for more predictable and consistent styling.</dd>
 
             <dt><code>4_elements/</code> &mdash; Base element styles</dt>
             <dd>
@@ -113,6 +122,7 @@
                 <li><a href="/src/css/4_elements/details.css">details.css</a> &mdash; Disclosure widgets</li>
                 <li><a href="/src/css/4_elements/hr.css">hr.css</a> &mdash; Horizontal rules</li>
                 <li><a href="/src/css/4_elements/addresses.css">addresses.css</a> &mdash; Address element</li>
+                <li><a href="/src/css/4_elements/nav.css">nav.css</a> &mdash; Nav element</li>
               </ul>
             </dd>
 
@@ -140,7 +150,7 @@
                 <li><a href="/src/css/6_components/switches.css">switches.css</a> &mdash; Toggle switches</li>
                 <li><a href="/src/css/6_components/dividers.css">dividers.css</a> &mdash; Horizontal dividers</li>
                 <li><a href="/src/css/6_components/images.css">images.css</a> &mdash; Image treatments</li>
-                <li><a href="/src/css/6_components/embeds.css">embeds.css</a> &mdash; Responsive video embeds</li>
+                <li><a href="/src/css/6_components/embeds.css">embeds.css</a> &mdash; Responsive media embeds</li>
                 <li><a href="/src/css/6_components/prose.css">prose.css</a> &mdash; Long-form text</li>
                 <li><a href="/src/css/6_components/logo.css">logo.css</a> &mdash; Logo sizing</li>
               </ul>
@@ -162,9 +172,10 @@
               </ul>
             </dd>
           </dl>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="javascript" class="section">
           <h2>JavaScript</h2>
           <p>Minimal JavaScript&mdash;just what's needed for the development environment and HTML includes.</p>
 
@@ -175,12 +186,13 @@
             <dt><code>/src/js/html-include.js</code></dt>
             <dd>Zero-dependency Web Component for including HTML fragments. See <a href="/guide/docs/includes.html">HTML includes documentation</a>.</dd>
 
-            <dt><code>/src/js/dev-tools.js</code></dt>
+            <dt><code>/src/js/prototyping.js</code></dt>
             <dd>Development utilities: keyboard shortcuts for baseline grid, column overlays, and dark mode toggle.</dd>
           </dl>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="public" class="section">
           <h2>Public folder</h2>
           <p>The <code>/public/</code> folder is your site root. Everything in here is your prototype.</p>
 
@@ -199,10 +211,14 @@
 
             <dt><code>/public/guide/</code></dt>
             <dd>This style guide. Also serves as a component library and testing ground.</dd>
+
+            <dt><code>/public/example/</code></dt>
+            <dd>An example protoype to see how it all comes together.</dd>
           </dl>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="config" class="section">
           <h2>Configuration files</h2>
           <dl>
             <dt><code>vite.config.js</code></dt>
@@ -214,6 +230,7 @@
             <dt><code>package.json</code></dt>
             <dd>Project dependencies. Just Vite, Autoprefixer, and the static copy plugin for print styles.</dd>
           </dl>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
       </article>

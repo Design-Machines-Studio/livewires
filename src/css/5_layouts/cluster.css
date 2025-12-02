@@ -12,6 +12,7 @@
     gap: var(--cluster-space, var(--line-1));
     align-items: var(--cluster-align, center);
     justify-content: var(--cluster-justify, flex-start);
+    line-height: var(--line-height-none);
   }
 
   /* Spacing variations */

@@ -18,16 +18,17 @@
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
       <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
-      <article class="stack">
+      <article class="prose">
         <header class="section">
           <h1>Utility classes</h1>
           <hr />
           <p class="lead">Single-purpose classes for precise control over styling.</p>
         </header>
 
-        <nav class="stack-compact">
+        <nav class="section section-v-tight">
           <p><strong>On this page:</strong></p>
           <ul class="cluster">
+            <li><a href="#philosophy">Philosophy</a></li>
             <li><a href="#spacing">Spacing</a></li>
             <li><a href="#typography">Typography</a></li>
             <li><a href="#color">Color</a></li>
@@ -38,10 +39,11 @@
             <li><a href="#borders">Borders</a></li>
             <li><a href="#media">Media</a></li>
             <li><a href="#tables">Tables</a></li>
+            <li><a href="#related">Related documentation</a></li>
           </ul>
         </nav>
 
-        <section class="section stack">
+        <section id="philosophy" class="section">
           <h2>Philosophy</h2>
           <p>Utilities are the final layer in Live Wires' cascade. They always win over components, layouts, and base styles&mdash;no <code>!important</code> needed. This is handled by CSS Cascade Layers.</p>
 
@@ -52,9 +54,10 @@
             <li><strong>Responsive behavior</strong>&mdash;Changing layout at different sizes</li>
             <li><strong>Quick iteration</strong>&mdash;Trying options without writing CSS</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="spacing" class="section stack">
+        <section id="spacing" class="section">
           <h2>Spacing</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/spacing.css">7_utilities/spacing.css</a></p>
           <p>All spacing utilities use <code>--line-*</code> tokens, keeping everything on the baseline grid.</p>
@@ -106,9 +109,10 @@
           <p>Prefix with a dash for negative values:</p>
           <pre><code>.-mt-2  /* margin-block-start: calc(var(--line-2) * -1) */
 .-mb-3  /* margin-block-end: calc(var(--line-3) * -1) */</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="typography" class="section stack">
+        <section id="typography" class="section">
           <h2>Typography</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/typography.css">7_utilities/typography.css</a></p>
 
@@ -164,9 +168,10 @@
           <h3>Text wrapping</h3>
           <pre><code>.text-balance  /* text-wrap: balance */
 .text-pretty   /* text-wrap: pretty */</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="color" class="section stack">
+        <section id="color" class="section">
           <h2>Color</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/color.css">7_utilities/color.css</a></p>
           <p>See also: <a href="/guide/components/schemes.html">Color schemes component page</a></p>
@@ -215,9 +220,10 @@
 .bg-yellow   .bg-yellow-100 ... .bg-yellow-900
 .bg-green    .bg-green-100 ... .bg-green-900
 .bg-grey-100 ... .bg-grey-900</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="sizing" class="section stack">
+        <section id="sizing" class="section">
           <h2>Sizing</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/sizing.css">7_utilities/sizing.css</a></p>
 
@@ -234,9 +240,10 @@
           <pre><code>.max-w-none     .max-w-xs      .max-w-sm
 .max-w-md       .max-w-lg      .max-w-xl
 .max-w-2xl      .max-w-full    .max-w-prose</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="display" class="section stack">
+        <section id="display" class="section">
           <h2>Display</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/display.css">7_utilities/display.css</a></p>
 
@@ -255,9 +262,10 @@
 
           <h3>Position</h3>
           <pre><code>.static    .relative    .absolute    .fixed    .sticky</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="flexbox" class="section stack">
+        <section id="flexbox" class="section">
           <h2>Flexbox</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/flexbox.css">7_utilities/flexbox.css</a></p>
 
@@ -282,9 +290,10 @@
 
           <h3>Gap</h3>
           <pre><code>.gap-0   .gap-1   .gap-2   .gap-3   .gap-4   .gap-5   .gap-6</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="grid" class="section stack">
+        <section id="grid" class="section">
           <h2>Grid</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/grid.css">7_utilities/grid.css</a></p>
 
@@ -300,9 +309,10 @@
 
           <h3>Grid gap</h3>
           <pre><code>.gap-0   .gap-1   .gap-2   .gap-3   .gap-4   .gap-5   .gap-6</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="borders" class="section stack">
+        <section id="borders" class="section">
           <h2>Borders</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/borders.css">7_utilities/borders.css</a></p>
 
@@ -316,9 +326,10 @@
 
           <h3>Border sides</h3>
           <pre><code>.border-t   .border-b   .border-l   .border-r</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="media" class="section stack">
+        <section id="media" class="section">
           <h2>Media</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/media.css">7_utilities/media.css</a></p>
 
@@ -333,9 +344,10 @@
           <h3>Aspect ratio</h3>
           <pre><code>.aspect-auto     .aspect-square   .aspect-video
 .aspect-4-3      .aspect-3-2</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="tables" class="section stack">
+        <section id="tables" class="section">
           <h2>Tables</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/tables.css">7_utilities/tables.css</a></p>
 
@@ -344,15 +356,17 @@
           <pre><code>.col-1     .col-5     .col-10    .col-15    .col-20
 .col-25    .col-30    .col-33    .col-40    .col-50
 .col-60    .col-66    .col-70    .col-75    .col-80</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section class="section stack">
+        <section id="related" class="section">
           <h2>Related documentation</h2>
           <ul>
             <li><a href="/guide/docs/code-style.html">Code style guide</a> &mdash; Naming conventions for utilities</li>
             <li><a href="/guide/docs/typography.html">Typography system</a> &mdash; Deep dive into type utilities</li>
             <li><a href="/guide/docs/structure.html">Project structure</a> &mdash; Where utility files live</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
       </article>

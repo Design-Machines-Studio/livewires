@@ -18,14 +18,14 @@
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main" role="main">
       <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
-      <article class="stack">
+      <article class="prose">
         <header class="section">
           <h1>Code style guide</h1>
           <hr />
           <p class="lead">CSS and HTML naming conventions for Live Wires, based on CUBE CSS methodology.</p>
         </header>
 
-        <nav class="stack-compact">
+        <nav class="section section-v-tight">
           <p><strong>On this page:</strong></p>
           <ul class="cluster">
             <li><a href="#philosophy">Philosophy</a></li>
@@ -35,14 +35,15 @@
             <li><a href="#blocks">Blocks</a></li>
             <li><a href="#exceptions">Exceptions</a></li>
             <li><a href="#html">HTML conventions</a></li>
+            <li><a href="#summary">Quick reference</a></li>
           </ul>
         </nav>
 
-        <section id="philosophy" class="stack">
+        <section id="philosophy" class="section">
           <h2>Philosophy</h2>
           <hr>
 
-          <p>Live Wires uses <strong>CUBE CSS</strong>, a methodology created by Andy Bell that embraces the cascade rather than fighting it. CUBE stands for:</p>
+          <p>Live Wires uses <strong><a href="https://cube.fyi/">CUBE CSS</a></strong>, a methodology created by <a href="https://piccalil.li/">Andy Bell</a> that embraces the cascade rather than fighting it. CUBE stands for:</p>
 
           <ul>
             <li><strong>Composition</strong> &mdash; Layout primitives that control flow and spacing</li>
@@ -52,6 +53,7 @@
           </ul>
 
           <p>The key insight: <strong>most styling is done by global defaults and utilities</strong>. By the time you reach "blocks" (components), there's minimal work left. This aligns perfectly with Live Wires' cascade layers.</p>
+          <p class="more"><a href="#main">To top</a></p>
 
           <h3>How CUBE maps to Live Wires layers</h3>
 
@@ -103,7 +105,7 @@
           </table>
         </section>
 
-        <section id="layers" class="stack">
+        <section id="layers" class="section">
           <h2>The cascade layers</h2>
           <hr>
 
@@ -114,13 +116,14 @@
               <p><strong>Cascade layers handle specificity.</strong> Utilities always beat components, components always beat layouts. No <code>!important</code> needed.</p>
             </div>
           </div>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="utilities" class="stack">
+        <section id="utilities" class="section">
           <h2>Utilities</h2>
           <hr>
 
-          <p>Single-purpose classes that do one thing well. Named using <strong>Tailwind-style conventions</strong>: lowercase, abbreviated, with numeric scales.</p>
+          <p>Single-purpose classes that do one thing well. Named using <strong><a href="https://tailwindcss.com/">Tailwind</a>-style conventions</strong>: lowercase, abbreviated, with numeric scales.</p>
 
           <h3>Naming pattern</h3>
           <pre><code>.{property-abbrev}-{value}</code></pre>
@@ -183,9 +186,10 @@
             <li>Auto: <code>.mt-auto</code>, <code>.mx-auto</code></li>
             <li>Negative values: <code>.-mt-2</code> (note leading dot-dash)</li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="composition" class="stack">
+        <section id="composition" class="section">
           <h2>Composition (Layouts)</h2>
           <hr>
 
@@ -249,9 +253,10 @@
 .grid-columns-4</code></pre>
 
           <p><strong>Why single-dash for layouts?</strong> Layout variants are applied alongside the base class (e.g., <code>class="stack stack-compact"</code>), so they read naturally. Component variants use double-dash to indicate modification of a base component.</p>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="blocks" class="stack">
+        <section id="blocks" class="section">
           <h2>Blocks (Components)</h2>
           <hr>
 
@@ -321,9 +326,10 @@
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="exceptions" class="stack">
+        <section id="exceptions" class="section">
           <h2>Exceptions (State)</h2>
           <hr>
 
@@ -410,9 +416,10 @@ if (element.hasAttribute('data-open')) { }</code></pre>
             <li><strong>Explicit</strong>: Clear separation between structural classes and state</li>
             <li><strong>Queryable</strong>: Easy to select elements by state: <code>[data-state="active"]</code></li>
           </ul>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="html" class="stack">
+        <section id="html" class="section">
           <h2>HTML conventions</h2>
           <hr>
 
@@ -463,9 +470,10 @@ if (element.hasAttribute('data-open')) { }</code></pre>
   &lt;div class="article-content"&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
-        <section id="summary" class="stack">
+        <section id="summary" class="section">
           <h2>Quick reference</h2>
           <hr>
 
@@ -500,6 +508,7 @@ if (element.hasAttribute('data-open')) { }</code></pre>
               </tr>
             </tbody>
           </table>
+          <p class="more"><a href="#main">To top</a></p>
         </section>
 
       </article>
