@@ -13,12 +13,12 @@
     container-type: inline-size;
   }
 
-  /* Fixed column grids */
-  .grid-columns-2 { grid-template-columns: repeat(2, 1fr); }
-  .grid-columns-3 { grid-template-columns: repeat(3, 1fr); }
-  .grid-columns-4 { grid-template-columns: repeat(4, 1fr); }
-  .grid-columns-6 { grid-template-columns: repeat(6, 1fr); }
-  .grid-columns-12 { grid-template-columns: repeat(12, 1fr); }
+  /* Fixed column grids (--grid-columns used by dev tools outline) */
+  .grid-columns-2 { --grid-columns: 2; grid-template-columns: repeat(2, 1fr); }
+  .grid-columns-3 { --grid-columns: 3; grid-template-columns: repeat(3, 1fr); }
+  .grid-columns-4 { --grid-columns: 4; grid-template-columns: repeat(4, 1fr); }
+  .grid-columns-6 { --grid-columns: 6; grid-template-columns: repeat(6, 1fr); }
+  .grid-columns-12 { --grid-columns: 12; grid-template-columns: repeat(12, 1fr); }
 
   /* Column spanning */
   .grid-column-span-2 { grid-column: span 2; }

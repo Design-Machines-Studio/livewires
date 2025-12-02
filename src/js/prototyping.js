@@ -54,7 +54,7 @@ class DevTools {
       colors: {
         key: 'x',
         label: 'BG Colors',
-        selector: '[class*="bg-"]',
+        selector: '[class*="bg-"], [class*="scheme-"]',
         toggle: 'background',
         active: true
       },
@@ -152,6 +152,32 @@ class DevTools {
       // Force CSS to recalculate by toggling the attribute
       this.updateMarginMode(this.marginMode);
     }
+
+    // Update grid column counts for auto-fit grids
+    if (this.tools.grids.active) {
+      this.updateGridColumnCounts();
+    }
+  }
+
+  updateGridColumnCounts() {
+    // Detect actual column count and gap for all grids and set attributes for dev overlay
+    const grids = document.querySelectorAll('.grid');
+    grids.forEach(grid => {
+      const style = getComputedStyle(grid);
+
+      // Detect column count
+      const columns = style.gridTemplateColumns.split(' ').filter(c => c !== 'none' && c.trim()).length;
+      if (columns > 0) {
+        grid.dataset.devCols = columns;
+        grid.style.setProperty('--grid-columns', columns);
+      }
+
+      // Detect gap (use column gap, fallback to row gap)
+      const gap = style.columnGap || style.rowGap || style.gap;
+      if (gap && gap !== 'normal') {
+        grid.style.setProperty('--grid-gap', gap);
+      }
+    });
   }
 
   createOverlays() {
@@ -297,6 +323,10 @@ class DevTools {
       const target = tool.target === 'body' ? document.body : document.querySelector(tool.target);
       if (target) {
         target.classList.add(tool.class);
+      }
+      // Update grid column counts when CSS Grids is restored on page load
+      if (toolKey === 'grids') {
+        this.updateGridColumnCounts();
       }
     } else if (tool.selector && tool.toggle) {
       // Background toggle - active means show backgrounds
@@ -505,6 +535,11 @@ class DevTools {
     if (!target) return;
 
     target.classList.toggle(tool.class, tool.active);
+
+    // Update grid column counts when CSS Grids toggle is activated
+    if (toolKey === 'grids' && tool.active) {
+      this.updateGridColumnCounts();
+    }
   }
 
   toggleBackground(toolKey) {
