@@ -44,7 +44,7 @@
 
   @container (min-width: 30rem) {
     .section {
-      --vertical-margin: var(--line-3);
+      --vertical-margin: var(--line-2);
       --horizontal-margin: var(--line-2);
     }
     .section-wide {
@@ -53,11 +53,16 @@
   }
   @container (min-width: 60rem) {
     .section {
-      --vertical-margin: var(--line-6);
-      --horizontal-margin: var(--line-4);
+      --vertical-margin: var(--line-3);
+      --horizontal-margin: var(--line-3);
     }
   }
   @container (min-width: 70rem) {
+    .section {
+      --horizontal-margin: calc((100% / 14) + var(--line-1));
+    }
+  }
+  @container (min-width: 90rem) {
     .section {
       --horizontal-margin: calc((100% / 9) + var(--line-1));
     }

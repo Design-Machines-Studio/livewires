@@ -83,8 +83,8 @@ class DevTools {
         options: [
           { value: '0', label: '0' },
           { value: 'var(--line-1px)', label: '1px' },
-          { value: 'var(--line-025)', label: '¼' },
-          { value: 'var(--line-05)', label: '½' },
+          { value: 'var(--line-025)', label: '1/4' },
+          { value: 'var(--line-05)', label: '1/2' },
           { value: 'var(--line-1)', label: '1' },
           { value: 'var(--line-2)', label: '2' }
         ]
@@ -92,11 +92,12 @@ class DevTools {
       margin: {
         label: 'Margin',
         options: [
-          { value: 'var(--line-075)', label: '¾' },
+          { value: 'var(--line-075)', label: '3/4' },
           { value: 'var(--line-1)', label: '1' },
           { value: 'var(--line-2)', label: '2' },
           { value: 'var(--line-4)', label: '4' },
-          { value: 'calc((100% / 9) + var(--line-1))', label: '⅑' }
+          { value: 'calc((100% / 14) + var(--line-1))', label: '1/14' },
+          { value: 'calc((100% / 9) + var(--line-1))', label: '1/9' }
         ]
       }
     };

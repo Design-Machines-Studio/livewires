@@ -16,6 +16,10 @@
   html {
     scroll-behavior: smooth;
   }
+  body,
+  main {
+    container-type: inline-size;
+  }
 
   /*
    * Apply color schemes definied in 1_tokens/color.css
