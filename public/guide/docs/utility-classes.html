@@ -169,26 +169,52 @@
         <section id="color" class="section stack">
           <h2>Color</h2>
           <p><strong>File:</strong> <a href="/src/css/7_utilities/color.css">7_utilities/color.css</a></p>
+          <p>See also: <a href="/guide/components/schemes.html">Color schemes component page</a></p>
 
           <h3>Color schemes</h3>
-          <p>Apply a color scheme to a container. All children inherit the colors:</p>
-          <pre><code>.scheme-warm    /* Warm palette */
-.scheme-cool    /* Cool palette */
-.scheme-dark    /* Dark palette */</code></pre>
+          <p>Apply a color scheme to a container. All children inherit the semantic colors (<code>--color-bg</code>, <code>--color-fg</code>, <code>--color-accent</code>, etc.):</p>
 
-          <h3>Theme classes</h3>
-          <p>Set background and foreground together:</p>
-          <pre><code>.theme-white   /* Light theme */
-.theme-black   /* Dark theme */
-.theme-brand   /* Brand color theme */</code></pre>
+          <h4>Adaptive schemes (respond to dark mode)</h4>
+          <pre><code>.scheme-default   /* System default */
+.scheme-subtle    /* Subtle grey background */</code></pre>
 
-          <h3>Background colors</h3>
-          <pre><code>.bg-white      .bg-black      .bg-subtle
-.bg-accent     .bg-muted</code></pre>
+          <h4>Brand color schemes</h4>
+          <pre><code>.scheme-accent        .scheme-orange       .scheme-orange-light
+.scheme-red           .scheme-red-light    .scheme-blue
+.scheme-blue-light    .scheme-yellow       .scheme-yellow-light
+.scheme-green         .scheme-green-light</code></pre>
+
+          <h4>Greyscale schemes</h4>
+          <pre><code>.scheme-black     .scheme-grey-900    .scheme-grey-800
+.scheme-grey-700  .scheme-grey-600    .scheme-grey-500
+.scheme-grey-400  .scheme-grey-300    .scheme-grey-200
+.scheme-grey-100</code></pre>
 
           <h3>Text colors</h3>
-          <pre><code>.fg-white      .fg-black      .fg-subtle
-.fg-accent     .fg-muted</code></pre>
+          <h4>Semantic</h4>
+          <pre><code>.text-fg       .text-accent   .text-muted
+.text-white    .text-black</code></pre>
+
+          <h4>Brand colors (100-900 scale)</h4>
+          <pre><code>.text-orange   .text-orange-100 ... .text-orange-900
+.text-red      .text-red-100 ... .text-red-900
+.text-blue     .text-blue-100 ... .text-blue-900
+.text-yellow   .text-yellow-100 ... .text-yellow-900
+.text-green    .text-green-100 ... .text-green-900
+.text-grey-100 ... .text-grey-900</code></pre>
+
+          <h3>Background colors</h3>
+          <h4>Semantic</h4>
+          <pre><code>.bg-white       .bg-black       .bg-subtle
+.bg-accent      .bg-transparent</code></pre>
+
+          <h4>Brand colors (100-900 scale)</h4>
+          <pre><code>.bg-orange   .bg-orange-100 ... .bg-orange-900
+.bg-red      .bg-red-100 ... .bg-red-900
+.bg-blue     .bg-blue-100 ... .bg-blue-900
+.bg-yellow   .bg-yellow-100 ... .bg-yellow-900
+.bg-green    .bg-green-100 ... .bg-green-900
+.bg-grey-100 ... .bg-grey-900</code></pre>
         </section>
 
         <section id="sizing" class="section stack">
