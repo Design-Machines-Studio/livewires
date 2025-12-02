@@ -18,6 +18,7 @@
     --button-h-space: var(--line-025);
     --button-v-space: var(--line-025);
     --button-font-size: var(--text-xs);
+    --touch-target-min: 0; /* Ignore minimum touch target on small buttons */
   }
 
   .button--large {
