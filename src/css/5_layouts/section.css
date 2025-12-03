@@ -48,56 +48,114 @@
    * Base class
    * Uses CSS custom properties that modifiers can override.
    * Separate variables for each edge allow granular control.
+   *
+   * By default, sections only have bottom padding. This keeps same-colored
+   * sections closer together. Sections with scheme classes get top padding
+   * automatically to create visual separation at color transitions.
    */
   .section {
-    --section-padding-block-start: var(--vertical-margin);
-    --section-padding-block-end: var(--vertical-margin);
-    --section-padding-inline: var(--horizontal-margin);
+    --section-top: 0;
+    --section-bottom: var(--vertical-margin);
+    --section-margins: var(--horizontal-margin);
 
     container-type: inline-size;
     container-name: section;
     width: 100%;
-    padding-block-start: var(--section-padding-block-start);
-    padding-block-end: var(--section-padding-block-end);
-    padding-inline: var(--section-padding-inline);
+    padding-block-start: var(--section-top);
+    padding-block-end: var(--section-bottom);
+    padding-inline: var(--section-margins);
+  }
+
+  /*
+   * Scheme sections get top padding (creates full "boxed" effect)
+   * This ensures visual separation when background colors change.
+   */
+  .section[class*="scheme-"] {
+    --section-top: var(--vertical-margin);
+  }
+
+  /*
+   * Non-scheme section following a scheme section gets top padding
+   * This maintains visual separation at color transitions.
+   */
+  .section[class*="scheme-"] + .section:not([class*="scheme-"]) {
+    --section-top: var(--vertical-margin);
+  }
+
+  /*
+   * Same-scheme adjacents: remove top padding from second section
+   * This brings sections with matching backgrounds closer together.
+   */
+  .section.scheme-default + .section.scheme-default,
+  .section.scheme-white + .section.scheme-white,
+  .section.scheme-subtle + .section.scheme-subtle,
+  .section.scheme-dark + .section.scheme-dark,
+  .section.scheme-black + .section.scheme-black,
+  .section.scheme-accent + .section.scheme-accent,
+  .section.scheme-orange + .section.scheme-orange,
+  .section.scheme-orange-light + .section.scheme-orange-light,
+  .section.scheme-red + .section.scheme-red,
+  .section.scheme-red-light + .section.scheme-red-light,
+  .section.scheme-blue + .section.scheme-blue,
+  .section.scheme-blue-light + .section.scheme-blue-light,
+  .section.scheme-yellow + .section.scheme-yellow,
+  .section.scheme-yellow-light + .section.scheme-yellow-light,
+  .section.scheme-green + .section.scheme-green,
+  .section.scheme-green-light + .section.scheme-green-light,
+  .section.scheme-grey-100 + .section.scheme-grey-100,
+  .section.scheme-grey-200 + .section.scheme-grey-200,
+  .section.scheme-grey-300 + .section.scheme-grey-300,
+  .section.scheme-grey-400 + .section.scheme-grey-400,
+  .section.scheme-grey-500 + .section.scheme-grey-500,
+  .section.scheme-grey-600 + .section.scheme-grey-600,
+  .section.scheme-grey-700 + .section.scheme-grey-700,
+  .section.scheme-grey-800 + .section.scheme-grey-800,
+  .section.scheme-grey-900 + .section.scheme-grey-900 {
+    --section-top: 0;
   }
 
   /*
    * Modifiers - ONLY set variables, never direct properties
    */
 
+  /* Explicit top + bottom padding (overrides default bottom-only) */
+  .section-spaced {
+    --section-top: var(--vertical-margin);
+    --section-bottom: var(--vertical-margin);
+  }
+
   /* Remove all padding */
   .section-full-bleed {
-    --section-padding-block-start: 0;
-    --section-padding-block-end: 0;
-    --section-padding-inline: 0;
+    --section-top: 0;
+    --section-bottom: 0;
+    --section-margins: 0;
   }
 
   /* Narrower horizontal padding (wider content) */
   .section-wide {
-    --section-padding-inline: var(--line-1);
+    --section-margins: var(--line-1);
   }
 
-  /* Snug vertical padding */
-  .section-v-snug {
-    --section-padding-block-start: var(--line-1);
-    --section-padding-block-end: var(--line-1);
+  /* Snug vertical padding (smaller top + bottom) */
+  .section-snug {
+    --section-top: var(--line-1);
+    --section-bottom: var(--line-1);
   }
 
   /* Remove vertical padding */
   .section-tight {
-    --section-padding-block-start: 0;
-    --section-padding-block-end: 0;
+    --section-top: 0;
+    --section-bottom: 0;
   }
 
   /* Remove top padding only */
   .section-top-tight {
-    --section-padding-block-start: 0;
+    --section-top: 0;
   }
 
   /* Remove bottom padding only */
   .section-bottom-tight {
-    --section-padding-block-end: 0;
+    --section-bottom: 0;
   }
 
   /*
@@ -112,7 +170,7 @@
       --horizontal-margin: var(--line-2);
     }
     .section-wide {
-      --section-padding-inline: var(--line-1);
+      --section-margins: var(--line-1);
     }
   }
 
@@ -122,7 +180,7 @@
       --horizontal-margin: var(--line-3);
     }
     .section-wide {
-      --section-padding-inline: var(--line-15);
+      --section-margins: var(--line-15);
     }
   }
 
@@ -131,7 +189,7 @@
       --horizontal-margin: calc((100% / 14) + var(--line-1));
     }
     .section-wide {
-      --section-padding-inline: var(--line-2);
+      --section-margins: var(--line-2);
     }
   }
 
@@ -140,7 +198,7 @@
       --horizontal-margin: calc((100% / 9) + var(--line-1));
     }
     .section-wide {
-      --section-padding-inline: var(--line-3);
+      --section-margins: var(--line-3);
     }
   }
 }

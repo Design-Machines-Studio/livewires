@@ -41,6 +41,7 @@
    */
   blockquote {
     padding-inline-start: var(--line-1);
+    margin-block-end: var(--line-1);
     border-inline-start: var(--line-025) solid var(--color-border);
     font-style: italic;
 
