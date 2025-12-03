@@ -15,23 +15,57 @@
     <!-- HTML Include: site header -->
     <html-include src="_includes/header.html"></html-include>
 
-    <!-- Content block, child page inject content -->
-    <main class="main" id="main" role="main">
-      <article class="prose">
-        <header class="section">
-          <h1>Live Wires Guide</h1>
-          <hr />
-          <p class="lead">A prototyping-first design system for editorial websites. Built with modern CSS, rooted in a philosophy of progressive design.</p>
+    <!-- Content block -->
+    <main class="main" id="main">
+      <article class="content">
+
+        <!-- HERO -->
+        <header class="section scheme-dark prose">
+          <div class="center text-center">
+            <h1 class="text-5xl">Live Wires Guide</h1>
+            <p class="lead">A prototyping-first design system for editorial websites. Built with modern CSS, rooted in a philosophy of progressive design.</p>
+          </div>
         </header>
 
-          <section id="philosophy" class="section">
+        <!-- ON THIS PAGE -->
+        <nav class="section section-tight prose">
+          <div class="center">
+            <p><strong>On this page:</strong></p>
+            <ul class="cluster">
+              <li><a href="#philosophy">Philosophy</a></li>
+              <li><a href="#howto">How to use this guide</a></li>
+              <li><a href="#markup">HTML Includes</a></li>
+              <li><a href="#css">CSS</a></li>
+              <li><a href="#helpers">Utility Classes</a></li>
+              <li><a href="#js">JavaScript</a></li>
+              <li><a href="#compatibility">Compatibility</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- PHILOSOPHY -->
+        <section id="philosophy" class="section scheme-subtle prose">
+          <div class="center">
             <h2>Philosophy</h2>
-            <hr>
-            <p class="lead">Web design has traditionally been a wasteful process. We spend hours in <a href="https://www.figma.com/">Figma</a> crafting comps that get handed off and translated. We configure <a href="https://tailwindcss.com/">Tailwind</a> only to fight against it. We build wireframes that get thrown away.</p>
+            <p class="text-lg"><span class="dropcap">W</span>eb design has traditionally been a wasteful process. We spend hours in <a href="https://www.figma.com/">Figma</a> crafting comps that get handed off and translated. We configure <a href="https://tailwindcss.com/">Tailwind</a> only to fight against it. We build wireframes that get thrown away.</p>
 
-            <p>Live Wires takes a different approach: <strong>everything you build takes you closer to the final product.</strong></p>
+            <p class="text-lg">Live Wires takes a different approach: <strong>everything you build takes you closer to the final product.</strong></p>
+          </div>
+        </section>
 
-            <p>Instead of creating disposable deliverables, the design process becomes an evolution. Start with real content in real HTML. The baseline styles make it look good immediately. Adjust tokens to establish your visual foundation. Layer utilities for art direction. Extract components as patterns emerge. Nothing is throwaway&mdash;each step builds on the last.</p>
+        <!-- PULL QUOTE -->
+        <section class="section scheme-dark text-center prose">
+          <div class="center">
+            <blockquote class="text-2xl">
+              <p>Instead of creating disposable deliverables, the design process becomes an evolution. Nothing is throwaway&mdash;each step builds on the last.</p>
+            </blockquote>
+          </div>
+        </section>
+
+        <!-- THREE-TIER APPROACH -->
+        <section class="section prose">
+          <div class="center">
+            <p>Start with real content in real HTML. The baseline styles make it look good immediately. Adjust tokens to establish your visual foundation. Layer utilities for art direction. Extract components as patterns emerge.</p>
 
             <p>This is designing in the browser, but without the friction. Semantic HTML looks good by default. You don't fight the system to make things work. You add to it.</p>
 
@@ -43,23 +77,26 @@
             </ol>
 
             <p>See the <a href="/guide/docs/process.html">Design process</a> page for the full workflow.</p>
-          </section>
+          </div>
+        </section>
 
-          <section id="howto" class="section">
+        <!-- HOW TO USE -->
+        <section id="howto" class="section scheme-grey-100 prose">
+          <div class="center">
             <h2>How to use this guide</h2>
-            <hr>
             <p>This guide documents Live Wires' CSS architecture, layout primitives, and utility classes. But it's also a design tool&mdash;when you change tokens, browse these pages to see how your changes affect the entire system.</p>
 
             <p><strong>Start here:</strong> Write semantic HTML in <code>public/index.html</code>. It'll look good with zero classes. Add layout primitives for composition. Use utilities for precise art direction.</p>
-          </section>
+          </div>
+        </section>
 
-          <section id="markup" class="section">
+        <!-- HTML INCLUDES -->
+        <section id="markup" class="section prose">
+          <div class="center">
             <h2>HTML Includes</h2>
-            <hr>
             <p>Live Wires uses a zero-dependency Web Component for includes. Load the script first, then use <code>&lt;html-include&gt;</code> tags:</p>
 
-            <div class="code">
-              <pre class="language-markup line-numbers"><code>&lt;!DOCTYPE html&gt;
+            <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;!-- Load Web Component first --&gt;
@@ -78,261 +115,232 @@
     &lt;html-include src="/_includes/footer.html"&gt;&lt;/html-include&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-            </div>
 
             <p><strong>Note:</strong> Includes are fetched at runtime, not pre-rendered. Use for repeated UI (header, footer), keep unique content in main HTML. See the <a href="/guide/docs/includes.html">HTML Includes</a> page for details.</p>
-          </section>
-          
-          <section id="css" class="section">
-            <h2>CSS</h2>
-            <hr>
+          </div>
+        </section>
 
-            <p>Live Wires only <strong>native CSS</strong>. No Sass, no preprocessors. Just modern CSS features supported in all current browsers.</p>
+        <!-- CSS -->
+        <section id="css" class="section scheme-subtle prose">
+          <div class="center">
+            <h2>CSS</h2>
+            <p>Live Wires uses only <strong>native CSS</strong>. No Sass, no preprocessors. Just modern CSS features supported in all current browsers.</p>
 
             <h3>CSS Cascade Layers</h3>
-
             <p>Live Wires uses CSS Cascade Layers for explicit specificity control. This means utilities always win over components, components over layouts, etc. No <code>!important</code> needed.</p>
 
-            <div class="code">
-              <pre class="language-css"><code>@layer reset, base, layouts, components, utilities;</code></pre>
-            </div>
+            <pre><code>@layer reset, base, layouts, components, utilities;</code></pre>
+          </div>
+        </section>
 
-            <p><strong>Layer hierarchy:</strong></p>
+        <!-- LAYER HIERARCHY -->
+        <section class="section prose">
+          <div class="center">
+            <h3>Layer hierarchy</h3>
             <ol>
-              <li><strong>reset</strong> - Browser normalization (<a href="/src/css/3_generic/reset.css">reset.css</a>)</li>
-              <li><strong>base</strong> - Semantic HTML defaults (<a href="/src/css/4_elements/">4_elements/</a>)</li>
-              <li><strong>layouts</strong> - Layout primitives (<a href="/src/css/5_layouts/">5_layouts/</a>)</li>
-              <li><strong>components</strong> - UI components (<a href="/src/css/6_components/">6_components/</a>)</li>
-              <li><strong>utilities</strong> - Single-purpose classes (<a href="/src/css/7_utilities/">7_utilities/</a>)</li>
+              <li><strong>reset</strong> &mdash; Browser normalization (<a href="/src/css/3_generic/reset.css">reset.css</a>)</li>
+              <li><strong>base</strong> &mdash; Semantic HTML defaults (<a href="/src/css/4_elements/">4_elements/</a>)</li>
+              <li><strong>layouts</strong> &mdash; Layout primitives (<a href="/src/css/5_layouts/">5_layouts/</a>)</li>
+              <li><strong>components</strong> &mdash; UI components (<a href="/src/css/6_components/">6_components/</a>)</li>
+              <li><strong>utilities</strong> &mdash; Single-purpose classes (<a href="/src/css/7_utilities/">7_utilities/</a>)</li>
             </ol>
 
             <h3>Typography-first</h3>
+            <p>All spacing and measurement units are derived from the document's baseline: the <code>--line</code> custom property defined in <a href="/src/css/1_tokens/spacing.css">spacing.css</a>:</p>
 
-            <p>All spacing and measurement units are derrived from the document's baseline: the <code>--line</code></strong> custom property defined in <a href="/src/css/1_settings/spacing.css">spacing.css</a>:</p>
-
-            <div class="code">
-              <pre class="language-css"><code>:root {
+            <pre><code>:root {
   --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
   --line-height-ratio: 1.5;
   --line: calc(var(--text-base) * var(--line-height-ratio));
 
   /* All spacing is multiples of --line */
-  --space-0: 0;
-  --space-1: calc(var(--line) * 0.5);
-  --space-2: var(--line);
-  --space-3: calc(var(--line) * 1.5);
-  --space-4: calc(var(--line) * 2);
+  --line-05: calc(var(--line) * 0.5);
+  --line-1: var(--line);
+  --line-15: calc(var(--line) * 1.5);
+  --line-2: calc(var(--line) * 2);
 }</code></pre>
-            </div>
 
             <p>Change <code>--text-base</code> or <code>--line-height-ratio</code> and all spacing throughout the system recalculates automatically.</p>
+          </div>
+        </section>
 
-            <h3>Modern CSS Features</h3>
+        <!-- MODERN CSS FEATURES -->
+        <section class="section scheme-grey-100 prose">
+          <div class="sidebar sidebar-loose">
+            <div>
+              <h3>Modern CSS Features</h3>
+              <ul>
+                <li><strong>Cascade Layers</strong> &mdash; Explicit specificity control</li>
+                <li><strong>Native Nesting</strong> &mdash; No preprocessor needed</li>
+                <li><strong>Container Queries</strong> &mdash; Components respond to their container</li>
+                <li><strong>Logical Properties</strong> &mdash; <code>margin-block-start</code> instead of <code>margin-top</code></li>
+                <li><strong>Fluid Typography</strong> &mdash; <code>clamp()</code> for smooth scaling</li>
+                <li><strong>Custom Properties</strong> &mdash; Variables throughout</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Design Tokens</h3>
+              <p>All design tokens are CSS custom properties in <a href="/src/css/1_tokens/">1_tokens/</a>:</p>
+              <dl>
+                <dt><a href="/src/css/1_tokens/spacing.css">spacing.css</a></dt>
+                <dd>Baseline (<code>--line</code>), spacing scale</dd>
 
-            <ul>
-              <li><strong>Cascade Layers</strong> - Explicit specificity control</li>
-              <li><strong>Native Nesting</strong> - No preprocessor needed</li>
-              <li><strong>Container Queries</strong> - Components respond to their container</li>
-              <li><strong>Logical Properties</strong> - <code>margin-block-start</code> instead of <code>margin-top</code></li>
-              <li><strong>Fluid Typography</strong> - <code>clamp()</code> for smooth scaling</li>
-              <li><strong>Custom Properties</strong> - Variables throughout</li>
-            </ul>
+                <dt><a href="/src/css/1_tokens/typography-base.css">typography-base.css</a></dt>
+                <dd>Type scale, font stacks, weights</dd>
 
-            <h3>Design Tokens</h3>
+                <dt><a href="/src/css/1_tokens/color.css">color.css</a></dt>
+                <dd>Palette, semantic colors, schemes</dd>
+              </dl>
+            </div>
+          </div>
+        </section>
 
-            <p>All design tokens are CSS custom properties in <a href="/src/css/1_tokens/">1_tokens/</a>:</p>
-
-            <dl>
-              <dt><a href="/src/css/1_tokens/tokens.css">spacing.css</a></dt>
-              <dd>Baseline (<code>--line</code>), spacing scale, layout tokens</dd>
-
-              <dt><a href="/src/css/1_tokens/typography.css">typography.css</a></dt>
-              <dd>Type scale, font stacks, weights, reading measures</dd>
-
-              <dt><a href="/src/css/1_tokens/color.css">color.css</a></dt>
-              <dd>Base palette, semantic colors, color schemes, automatic dark mode</dd>
-            </dl>
-
+        <!-- POSTCSS -->
+        <section class="section prose">
+          <div class="center">
             <h3><a href="https://postcss.org/">PostCSS</a> Configuration</h3>
-
             <p>Minimal PostCSS in <code>postcss.config.js</code>. Just <a href="https://github.com/postcss/autoprefixer">Autoprefixer</a>, nothing else:</p>
 
-            <div class="code">
-              <pre class="language-js"><code>export default {
+            <pre><code>export default {
   plugins: {
     autoprefixer: {}
   }
 };</code></pre>
-            </div>
 
             <p><strong>That's it.</strong> No preprocessing, no transformations. Native CSS all the way.</p>
+          </div>
+        </section>
 
-            <p class="more"><a href="#header">To top</a></p>
-          </section>
-            
-          <section id="helpers" class="section">
+        <!-- UTILITY CLASSES -->
+        <section id="helpers" class="section scheme-subtle prose">
+          <div class="center">
             <h2>Utility Classes</h2>
-            <hr>
-
             <p><a href="https://tailwindcss.com/">Tailwind</a>-inspired utilities for precise control. All utilities use the <code>utilities</code> cascade layer, so they always win.</p>
+          </div>
+        </section>
 
-            <h3>Spacing Utilities <small>(<a href="/src/css/7_utilities/spacing.css">spacing.css</a>)</small></h3>
+        <!-- UTILITIES GRID -->
+        <section class="section prose">
+          <div class="grid grid-columns-3@md">
+            <div class="stack stack-compact">
+              <h3 class="text-base">Spacing <small>(<a href="/src/css/7_utilities/spacing.css">spacing.css</a>)</small></h3>
+              <dl class="text-sm">
+                <dt><code>.mt-4</code></dt>
+                <dd>margin-block-start: var(--line-4)</dd>
+                <dt><code>.mb-2</code></dt>
+                <dd>margin-block-end: var(--line-2)</dd>
+                <dt><code>.px-3</code></dt>
+                <dd>padding-inline: var(--line-3)</dd>
+              </dl>
+              <p class="text-sm">Scales: <code>0</code> through <code>6</code></p>
+            </div>
+            <div class="stack stack-compact">
+              <h3 class="text-base">Typography <small>(<a href="/src/css/7_utilities/typography.css">typography.css</a>)</small></h3>
+              <dl class="text-sm">
+                <dt><code>.text-lg</code></dt>
+                <dd>Font size: var(--text-lg)</dd>
+                <dt><code>.font-bold</code></dt>
+                <dd>Font weight: 700</dd>
+                <dt><code>.measure</code></dt>
+                <dd>Max width: 65ch</dd>
+              </dl>
+            </div>
+            <div class="stack stack-compact">
+              <h3 class="text-base">Color <small>(<a href="/src/css/7_utilities/color.css">color.css</a>)</small></h3>
+              <dl class="text-sm">
+                <dt><code>.scheme-warm</code></dt>
+                <dd>Warm color palette</dd>
+                <dt><code>.scheme-cool</code></dt>
+                <dd>Cool color palette</dd>
+                <dt><code>.scheme-dark</code></dt>
+                <dd>Dark color palette</dd>
+              </dl>
+            </div>
+          </div>
+        </section>
 
-            <dl>
-              <dt><code>.mt-4</code></dt>
-              <dd>margin-block-start: var(--space-4)</dd>
-
-              <dt><code>.mb-2</code></dt>
-              <dd>margin-block-end: var(--space-2)</dd>
-
-              <dt><code>.px-3</code></dt>
-              <dd>padding-inline: var(--space-3)</dd>
-
-              <dt><code>.py-2</code></dt>
-              <dd>padding-block: var(--space-2)</dd>
-            </dl>
-
-            <p>Available scales: <code>0</code> through <code>6</code> (based on <code>--line</code> multiples)</p>
-
-            <h3>Typography Utilities <small>(<a href="/src/css/7_utilities/typography.css">typography.css</a>)</small></h3>
-
-            <dl>
-              <dt><code>.text-4</code></dt>
-              <dd>Font size: var(--text-4)</dd>
-
-              <dt><code>.font-bold</code></dt>
-              <dd>Font weight: 700</dd>
-
-              <dt><code>.measure</code></dt>
-              <dd>Max width: 65ch (optimal reading length)</dd>
-
-              <dt><code>.text-center</code></dt>
-              <dd>Text align: center</dd>
-            </dl>
-
-            <h3>Color Schemes <small>(<a href="/src/css/7_utilities/color.css">color.css</a>)</small></h3>
-
-            <dl>
-              <dt><code>.scheme-warm</code></dt>
-              <dd>Applies warm color palette</dd>
-
-              <dt><code>.scheme-cool</code></dt>
-              <dd>Applies cool color palette</dd>
-
-              <dt><code>.scheme-dark</code></dt>
-              <dd>Applies dark color palette</dd>
-            </dl>
-
-            <h3>Layout Utilities <small>(<a href="/src/css/7_utilities/grid.css">grid.css</a>)</small></h3>
-
-            <dl>
-              <dt><code>.flex</code></dt>
-              <dd>display: flex</dd>
-
-              <dt><code>.grid</code></dt>
-              <dd>display: grid</dd>
-
-              <dt><code>.gap-3</code></dt>
-              <dd>gap: var(--space-3)</dd>
-            </dl>
-
-            <p class="more"><a href="#header">To top</a></p>
-          </section>
-            
-          <section id="js" class="section">
-            <h2>Javascript</h2>
-            <hr>
-
+        <!-- JAVASCRIPT -->
+        <section id="js" class="section scheme-grey-100 prose">
+          <div class="center">
+            <h2>JavaScript</h2>
             <p>Live Wires uses minimal, native JavaScript. No jQuery, no frameworks.</p>
 
-            <h3>What's included</h3>
+            <div class="sidebar sidebar-loose">
+              <div>
+                <h3>What's included</h3>
+                <dl>
+                  <dt><code>/src/js/main.js</code></dt>
+                  <dd><a href="https://vitejs.dev/">Vite</a> entry point &mdash; loads CSS and Web Components</dd>
 
-            <dl>
-              <dt><code>/src/main.js</code></dt>
-              <dd><a href="https://vitejs.dev/">Vite</a> entry point - loads CSS and Web Components</dd>
-
-              <dt><code>/src/html-include.js</code></dt>
-              <dd>Zero-dependency Web Component for HTML includes (uses native <code>fetch()</code> API)</dd>
-            </dl>
-
-            <h3>Adding third-party scripts</h3>
-
-            <p>Use npm to install packages, then import in <code>main.js</code>:</p>
-
-            <div class="code">
-              <pre class="language-bash"><code>npm install package-name</code></pre>
+                  <dt><code>/src/js/html-include.js</code></dt>
+                  <dd>Zero-dependency Web Component for HTML includes</dd>
+                </dl>
+              </div>
+              <div>
+                <h3>Adding packages</h3>
+                <p>Use npm to install, then import in <code>main.js</code>:</p>
+                <pre><code>npm install package-name</code></pre>
+                <pre><code>import 'package-name';</code></pre>
+                <p><a href="https://vitejs.dev/">Vite</a> handles the rest.</p>
+              </div>
             </div>
+          </div>
+        </section>
 
-            <div class="code">
-              <pre class="language-js"><code>// In src/main.js
-import 'package-name';</code></pre>
-            </div>
-
-            <p><a href="https://vitejs.dev/">Vite</a> handles the rest automatically.</p>
-
-            <p class="more"><a href="#header">To top</a></p>
-          </section>
-            
-          <section id="compatibility" class="section">
+        <!-- COMPATIBILITY -->
+        <section id="compatibility" class="section prose">
+          <div class="center">
             <h2>Compatibility</h2>
-            <hr>
+            <p>Live Wires supports all modern browsers (last 2 versions): Chrome/Edge, Firefox, Safari.</p>
 
-            <p>Live Wires supports all modern browsers (last 2 versions). This includes:</p>
-
+            <h3>Modern CSS requirements</h3>
             <ul>
-              <li>Chrome/Edge (Chromium)</li>
-              <li>Firefox</li>
-              <li>Safari</li>
-            </ul>
-
-            <h3>Modern CSS features</h3>
-
-            <p>Live Wires uses cutting-edge CSS that requires current browsers:</p>
-
-            <ul>
-              <li><strong>CSS Cascade Layers</strong> - Safari 15.4+, Chrome 99+, Firefox 97+</li>
-              <li><strong>Native CSS Nesting</strong> - Safari 16.5+, Chrome 112+, Firefox 117+</li>
-              <li><strong>Container Queries</strong> - Safari 16+, Chrome 105+, Firefox 110+</li>
-              <li><strong><code>:has()</code> selector</strong> - Safari 15.4+, Chrome 105+, Firefox 103+</li>
+              <li><strong>CSS Cascade Layers</strong> &mdash; Safari 15.4+, Chrome 99+, Firefox 97+</li>
+              <li><strong>Native CSS Nesting</strong> &mdash; Safari 16.5+, Chrome 112+, Firefox 117+</li>
+              <li><strong>Container Queries</strong> &mdash; Safari 16+, Chrome 105+, Firefox 110+</li>
+              <li><strong><code>:has()</code> selector</strong> &mdash; Safari 15.4+, Chrome 105+, Firefox 103+</li>
             </ul>
 
             <h3><a href="https://github.com/postcss/autoprefixer">Autoprefixer</a></h3>
+            <p><a href="https://vitejs.dev/">Vite</a> runs Autoprefixer via <a href="https://postcss.org/">PostCSS</a>. Configure targets in <code>package.json</code>:</p>
 
-            <p><a href="https://vitejs.dev/">Vite</a> automatically runs Autoprefixer via <a href="https://postcss.org/">PostCSS</a>. Configure browser targets in <code>package.json</code>:</p>
-
-            <div class="code">
-              <pre class="language-json"><code>"browserslist": [
+            <pre><code>"browserslist": [
   "last 2 versions",
   "not dead",
   "not ie 11"
 ]</code></pre>
+          </div>
+        </section>
+
+        <!-- KEY PRINCIPLES -->
+        <section class="section scheme-dark prose">
+          <div class="center">
+            <h2 class="text-center mb-15">Key Principles</h2>
+            <div class="grid grid-columns-3@md text-center">
+              <div class="stack stack-compact">
+                <p class="text-3xl font-bold">Good defaults</p>
+                <p class="text-sm">Semantic HTML looks good with zero classes</p>
+              </div>
+              <div class="stack stack-compact">
+                <p class="text-3xl font-bold">Additive</p>
+                <p class="text-sm">Layer utilities for precise art direction</p>
+              </div>
+              <div class="stack stack-compact">
+                <p class="text-3xl font-bold">Baseline-driven</p>
+                <p class="text-sm">Everything is a multiple of <code>--line</code></p>
+              </div>
             </div>
+          </div>
+        </section>
 
-            <p class="more"><a href="#header">To top</a></p>
-
-          </section>
-            
-          <section id="support" class="section">
-            <h2>Support</h2>
-            <hr>
-
-            <h3>Key principles</h3>
-
-            <ul>
-              <li><strong>Good defaults</strong> - Semantic HTML looks good with zero classes</li>
-              <li><strong>Additive art direction</strong> - Layer utilities for precise control</li>
-              <li><strong>Baseline-driven spacing</strong> - Everything is a multiple of <code>--line</code></li>
-              <li><strong>Container queries over media queries</strong> - Components respond to their container</li>
-              <li><strong>Logical properties</strong> - International-ready by default</li>
-              <li><strong>Fluid typography</strong> - Smooth scaling with <code>clamp()</code></li>
-            </ul>
-
-            <h3>Documentation</h3>
-
+        <!-- SUPPORT -->
+        <section class="section prose">
+          <div class="center">
+            <h2>Documentation</h2>
             <p>For complete documentation, see <a href="https://github.com/design-machines/livewires">the GitHub repository</a> or check <code>CLAUDE.md</code> in the project root.</p>
+          </div>
+        </section>
 
-            <p class="more"><a href="#header">To top</a></p>
-          </section>
       </article>
     </main>
     <!-- HTML Include: site footer -->
