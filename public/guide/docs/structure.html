@@ -25,7 +25,7 @@
           <p class="lead">How Live Wires is organized and where everything lives.</p>
         </header>
 
-        <nav class="section section-v-tight">
+        <nav class="section section-tight">
           <p><strong>On this page:</strong></p>
           <ul class="cluster">
             <li><a href="#directory">Directory overview</a></li>
@@ -128,6 +128,9 @@
 
             <dt><code>5_layouts/</code> &mdash; Layout primitives</dt>
             <dd>
+              <p>All layout primitives follow the <strong>base + modifier</strong> pattern. The base class provides core behavior and sets CSS custom properties; modifiers only override specific variables. Always use both:</p>
+              <pre><code>&lt;div class="stack stack-compact"&gt;...&lt;/div&gt;
+&lt;section class="section section-wide"&gt;...&lt;/section&gt;</code></pre>
               <ul>
                 <li><a href="/src/css/5_layouts/stack.css">stack.css</a> &mdash; Vertical spacing</li>
                 <li><a href="/src/css/5_layouts/cluster.css">cluster.css</a> &mdash; Horizontal grouping with wrapping</li>
@@ -135,9 +138,10 @@
                 <li><a href="/src/css/5_layouts/sidebar.css">sidebar.css</a> &mdash; Sidebar + main content</li>
                 <li><a href="/src/css/5_layouts/center.css">center.css</a> &mdash; Centered content with max-width</li>
                 <li><a href="/src/css/5_layouts/box.css">box.css</a> &mdash; Padding container</li>
-                <li><a href="/src/css/5_layouts/section.css">section.css</a> &mdash; Section wrapper</li>
+                <li><a href="/src/css/5_layouts/section.css">section.css</a> &mdash; Section wrapper (with container queries)</li>
                 <li><a href="/src/css/5_layouts/cover.css">cover.css</a> &mdash; Full-height centering</li>
               </ul>
+              <p>See <a href="/guide/components/layout.html">Layout primitives documentation</a> for full usage.</p>
             </dd>
 
             <dt><code>6_components/</code> &mdash; UI components</dt>

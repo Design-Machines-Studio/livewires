@@ -25,6 +25,30 @@
           <p class="lead">Compositional building blocks for page structure. These primitives handle common layout patterns—stacking, centering, grids, sidebars—so you can compose complex layouts from simple, predictable parts.</p>
         </header>
 
+        <!-- Base + Modifier Pattern -->
+        <section class="section scheme-subtle">
+          <h2>The base + modifier pattern</h2>
+          <p>All layout primitives follow a consistent <strong>base + modifier</strong> pattern:</p>
+          <ul>
+            <li><strong>Base class</strong> provides the core behavior and sets CSS custom properties</li>
+            <li><strong>Modifiers</strong> only override specific variables&mdash;never set properties directly</li>
+          </ul>
+          <p>This means you always need both the base class and any modifiers:</p>
+          <pre><code>&lt;!-- Correct: base + modifier --&gt;
+&lt;div class="stack stack-compact"&gt;...&lt;/div&gt;
+&lt;div class="box box--tight"&gt;...&lt;/div&gt;
+&lt;section class="section section-wide"&gt;...&lt;/section&gt;
+
+&lt;!-- Incorrect: modifier alone won't work --&gt;
+&lt;div class="stack-compact"&gt;...&lt;/div&gt;</code></pre>
+          <p>This pattern enables:</p>
+          <ul>
+            <li><strong>Composability</strong>&mdash;stack multiple modifiers on one element</li>
+            <li><strong>Container queries</strong>&mdash;base class sets up containment, modifiers respond to it</li>
+            <li><strong>Predictability</strong>&mdash;modifiers only adjust, never replace, base behavior</li>
+          </ul>
+        </section>
+
         <!-- Cover -->
         <section class="section">
           <header>
@@ -126,9 +150,9 @@
               </div>
             </section>
             <section>
-              <h3>.section-v-tight</h3>
+              <h3>.section-tight</h3>
               <p>No vertical padding.</p>
-              <div class="section section-v-tight scheme-subtle border">
+              <div class="section section-tight scheme-subtle border">
                 <div class="content scheme-default">Vertically tight</div>
               </div>
             </section>
@@ -379,14 +403,14 @@
             <p>Simple padding wrapper. Use inside other primitives to add breathing room around content, especially when applying background colors.</p>
           </header>
           <div class="grid">
-            <div class="box--tight scheme-subtle border">
-              <div class="scheme-default h-full">.box--tight</div>
+            <div class="box box--tight scheme-subtle border">
+              <div class="scheme-default h-full">.box.box--tight</div>
             </div>
             <div class="box scheme-subtle border">
               <div class="scheme-default h-full">.box</div>
             </div>
-            <div class="box--loose scheme-subtle border">
-              <div class="scheme-default h-full">.box--loose</div>
+            <div class="box box--loose scheme-subtle border">
+              <div class="scheme-default h-full">.box.box--loose</div>
             </div>
           </div>
         </section>
