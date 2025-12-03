@@ -67,51 +67,24 @@
   }
 
   /*
-   * Scheme sections get top padding (creates full "boxed" effect)
-   * This ensures visual separation when background colors change.
+   * Scheme-based padding rules
+   *
+   * Sections with scheme classes get top padding automatically to create
+   * visual separation at color transitions. Uses :where() to keep specificity
+   * low, allowing modifiers like .section-top-tight to always override.
+   *
+   * For same-scheme adjacents that should be closer together,
+   * use .section-top-tight on the second section.
    */
-  .section[class*="scheme-"] {
+
+  /* Scheme sections get top padding (creates full "boxed" effect) */
+  .section:where([class*="scheme-"]) {
     --section-top: var(--vertical-margin);
   }
 
-  /*
-   * Non-scheme section following a scheme section gets top padding
-   * This maintains visual separation at color transitions.
-   */
-  .section[class*="scheme-"] + .section:not([class*="scheme-"]) {
+  /* Non-scheme section following a scheme section gets top padding */
+  :where(.section[class*="scheme-"]) + .section:where(:not([class*="scheme-"])) {
     --section-top: var(--vertical-margin);
-  }
-
-  /*
-   * Same-scheme adjacents: remove top padding from second section
-   * This brings sections with matching backgrounds closer together.
-   */
-  .section.scheme-default + .section.scheme-default,
-  .section.scheme-white + .section.scheme-white,
-  .section.scheme-subtle + .section.scheme-subtle,
-  .section.scheme-dark + .section.scheme-dark,
-  .section.scheme-black + .section.scheme-black,
-  .section.scheme-accent + .section.scheme-accent,
-  .section.scheme-orange + .section.scheme-orange,
-  .section.scheme-orange-light + .section.scheme-orange-light,
-  .section.scheme-red + .section.scheme-red,
-  .section.scheme-red-light + .section.scheme-red-light,
-  .section.scheme-blue + .section.scheme-blue,
-  .section.scheme-blue-light + .section.scheme-blue-light,
-  .section.scheme-yellow + .section.scheme-yellow,
-  .section.scheme-yellow-light + .section.scheme-yellow-light,
-  .section.scheme-green + .section.scheme-green,
-  .section.scheme-green-light + .section.scheme-green-light,
-  .section.scheme-grey-100 + .section.scheme-grey-100,
-  .section.scheme-grey-200 + .section.scheme-grey-200,
-  .section.scheme-grey-300 + .section.scheme-grey-300,
-  .section.scheme-grey-400 + .section.scheme-grey-400,
-  .section.scheme-grey-500 + .section.scheme-grey-500,
-  .section.scheme-grey-600 + .section.scheme-grey-600,
-  .section.scheme-grey-700 + .section.scheme-grey-700,
-  .section.scheme-grey-800 + .section.scheme-grey-800,
-  .section.scheme-grey-900 + .section.scheme-grey-900 {
-    --section-top: 0;
   }
 
   /*
