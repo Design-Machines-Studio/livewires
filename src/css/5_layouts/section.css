@@ -3,6 +3,9 @@
  *
  * Section for large page sections
  * Inspired by Every Layout
+ *
+ * Pattern: Base class applies variables, modifiers only SET variables.
+ * This follows the cluster/stack pattern for consistency.
  */
 
 @layer layouts {
@@ -41,61 +44,103 @@
     }
   }
 
+  /*
+   * Base class
+   * Uses CSS custom properties that modifiers can override.
+   * Separate variables for each edge allow granular control.
+   */
   .section {
+    --section-padding-block-start: var(--vertical-margin);
+    --section-padding-block-end: var(--vertical-margin);
+    --section-padding-inline: var(--horizontal-margin);
+
     container-type: inline-size;
     container-name: section;
     width: 100%;
-    padding: var(--vertical-margin) var(--horizontal-margin);
+    padding-block-start: var(--section-padding-block-start);
+    padding-block-end: var(--section-padding-block-end);
+    padding-inline: var(--section-padding-inline);
   }
 
-  /* Horizontal spacing */
+  /*
+   * Modifiers - ONLY set variables, never direct properties
+   */
+
+  /* Remove all padding */
   .section-full-bleed {
-    padding: 0;
+    --section-padding-block-start: 0;
+    --section-padding-block-end: 0;
+    --section-padding-inline: 0;
   }
+
+  /* Narrower horizontal padding (wider content) */
   .section-wide {
-    padding-left: var(--line-1);
-    padding-right: var(--line-1);
+    --section-padding-inline: var(--line-1);
   }
+
+  /* Snug vertical padding */
   .section-v-snug {
-    --vertical-margin: var(--line-1);
-    padding-block: var(--line-1);
+    --section-padding-block-start: var(--line-1);
+    --section-padding-block-end: var(--line-1);
   }
-  .section-v-tight {
-    padding-top: 0;
-    padding-bottom: 0;
+
+  /* Remove vertical padding */
+  .section-tight {
+    --section-padding-block-start: 0;
+    --section-padding-block-end: 0;
   }
+
+  /* Remove top padding only */
   .section-top-tight {
-    padding-top:0;
+    --section-padding-block-start: 0;
   }
+
+  /* Remove bottom padding only */
   .section-bottom-tight {
-    padding-bottom:0;
+    --section-padding-block-end: 0;
   }
 
-  /* Vertical spacing */
-
+  /*
+   * Container query responsive adjustments
+   *
+   * Requires an ancestor with containment (e.g., .main or body).
+   * Use .container on parent elements to enable these queries.
+   */
   @container (min-width: 30rem) {
     .section {
       --vertical-margin: var(--line-2);
       --horizontal-margin: var(--line-2);
     }
     .section-wide {
-      --horizontal-margin: var(--line-1);
+      --section-padding-inline: var(--line-1);
     }
   }
+
   @container (min-width: 60rem) {
     .section {
       --vertical-margin: var(--line-3);
       --horizontal-margin: var(--line-3);
     }
+    .section-wide {
+      --section-padding-inline: var(--line-15);
+    }
   }
+
   @container (min-width: 70rem) {
     .section {
       --horizontal-margin: calc((100% / 14) + var(--line-1));
     }
+    .section-wide {
+      --section-padding-inline: var(--line-2);
+    }
   }
+
   @container (min-width: 90rem) {
     .section {
       --horizontal-margin: calc((100% / 9) + var(--line-1));
+    }
+    .section-wide {
+      --section-padding-inline: var(--line-3);
     }
   }
 }

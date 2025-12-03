@@ -6,6 +6,10 @@
  */
 
 @layer layouts {
+  :root {
+    --cluster-space: var(--line-1);
+    --cluster-justify: flex-start;
+  }
   .cluster {
     display: flex;
     flex-wrap: wrap;

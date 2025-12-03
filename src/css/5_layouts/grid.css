@@ -41,15 +41,19 @@
 
   /* Container query responsive */
   @container (min-width: 40rem) {
+    .grid-columns-1\@lg { grid-template-columns: repeat(1, 1fr); }
+    .grid-columns-2\@md { grid-template-columns: repeat(2, 1fr); }
     .grid-columns-3\@md { grid-template-columns: repeat(3, 1fr); }
     .grid-columns-4\@md { grid-template-columns: repeat(4, 1fr); }
     .grid-columns-6\@md { grid-template-columns: repeat(6, 1fr); }
     .grid-columns-12\@md { grid-template-columns: repeat(12, 1fr); }
 
+    .grid-column-span-1\@md { grid-column: span 1; }
     .grid-column-span-2\@md { grid-column: span 2; }
     .grid-column-span-3\@md { grid-column: span 3; }
     .grid-column-span-4\@md { grid-column: span 4; }
 
+    .grid-row-span-1\@md { grid-row: span 1; }
     .grid-row-span-2\@md { grid-row: span 2; }
     .grid-row-span-3\@md { grid-row: span 3; }
 
@@ -57,15 +61,19 @@
   }
 
   @container (min-width: 60rem) {
+    .grid-columns-1\@lg { grid-template-columns: repeat(1, 1fr); }
+    .grid-columns-2\@lg { grid-template-columns: repeat(2, 1fr); }
     .grid-columns-3\@lg { grid-template-columns: repeat(3, 1fr); }
     .grid-columns-4\@lg { grid-template-columns: repeat(4, 1fr); }
     .grid-columns-6\@lg { grid-template-columns: repeat(6, 1fr); }
     .grid-columns-12\@lg { grid-template-columns: repeat(12, 1fr); }
 
+    .grid-column-span-1\@lg { grid-column: span 1; }
     .grid-column-span-2\@lg { grid-column: span 2; }
     .grid-column-span-3\@lg { grid-column: span 3; }
     .grid-column-span-4\@lg { grid-column: span 4; }
 
+    .grid-row-span-1\@lg { grid-row: span 1; }
     .grid-row-span-2\@lg { grid-row: span 2; }
     .grid-row-span-3\@lg { grid-row: span 3; }
 

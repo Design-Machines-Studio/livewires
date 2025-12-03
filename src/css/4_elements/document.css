@@ -17,7 +17,8 @@
     scroll-behavior: smooth;
   }
   body,
-  main {
+  main,
+  article {
     container-type: inline-size;
   }
 

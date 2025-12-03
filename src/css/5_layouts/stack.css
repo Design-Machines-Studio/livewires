@@ -17,7 +17,7 @@
 
   /* Spacing variations */
   .stack-compact {
-    --stack-space: var(--line-05);
+    --stack-space: var(--line-025);
   }
 
   .stack-comfortable {

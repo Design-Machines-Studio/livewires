@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-example-article-feature">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main" id="main">
+      <article class="content">
+
+        <!-- HERO: Full-bleed cover image with overlay text -->
+        <header class="cover cover-full scheme-dark prose" style="--cover-bg: url('https://placehold.co/1920x1080/1a1a1a/1a1a1a');">
+          <div class="center text-center">
+            <p class="text-sm"><a href="../">The Northern Star</a> &middot; Special Report</p>
+            <h1 class="text-6xl">The Night They Came for Cartwright's Mill</h1>
+            <p class="lead">One hundred and fifty men. Forty hammers. Two deaths. The raid on Rawfolds that changed everything.</p>
+            <p class="text-sm">By <a href="#">Samuel Hartley</a> &middot; <time datetime="1812-04-20">April 20, 1812</time></p>
+          </div>
+        </header>
+
+        <!-- CHAPTER 1: Introduction -->
+        <section class="section scheme-subtle prose">
+          <div class="center">
+            <p class="text-lg"><span class="dropcap">T</span>hey gathered on the moors above Hightown as the church bells struck midnight. One hundred and fifty men, their faces blackened with soot, their hearts hardened by months of desperate poverty. They carried hammers, hatchets, and a few pistols borrowed from sympathetic yeomen. They had come to destroy the shearing frames that were destroying their livelihoods.</p>
+
+            <p class="text-lg">What happened in the next three hours at Rawfolds Mill would leave two of their number dead, dozens wounded, and the Luddite movement forever changed. This is the story of that night, told by those who survived it.</p>
+          </div>
+        </section>
+
+        <!-- FULL-WIDTH IMAGE: The Mill -->
+        <figure class="section section-bottom-tight">
+          <img src="https://placehold.co/1920x800" alt="Rawfolds Mill, a fortified stone building against the Yorkshire sky" />
+          <figcaption class="center">Rawfolds Mill, owned by William Cartwright. The fortifications visible today were added after the attack. Engraving from contemporary sketches.</figcaption>
+        </figure>
+
+        <!-- CHAPTER 2: The Background -->
+        <section class="section prose">
+          <div class="center">
+            <h2>The Man Who Would Not Yield</h2>
+
+            <p>William Cartwright was not like other mill owners. Where others had capitulated to Luddite demands&mdash;removing their shearing frames, restoring piece rates, rehiring displaced croppers&mdash;Cartwright had doubled down. He installed more machines. He fortified his mill. He armed his workers and drilled them like soldiers.</p>
+
+            <p>"Let them come," he reportedly told the Huddersfield magistrates. "I am ready for them."</p>
+
+            <p>The croppers of the West Riding knew Cartwright's reputation. They knew he had turned Rawfolds into a fortress, with armed guards, alarm bells, and a cache of muskets. They knew an attack would be costly. But they also knew that if Cartwright succeeded&mdash;if one mill owner could defy the movement and prosper&mdash;others would follow. The shearing frames would spread. Their trade would die.</p>
+          </div>
+        </section>
+
+        <!-- SIDEBAR LAYOUT: Quote + Context -->
+        <section class="section scheme-grey-100 prose">
+          <div class="sidebar sidebar-loose">
+            <blockquote class="text-lg">
+              <p>"We had tried everything. Petitions. Negotiations. Appeals to Parliament. They laughed at us. What choice remained but the hammer?"</p>
+              <small class="source"><cite>Anonymous cropper</cite>, interviewed April 1812</small>
+            </blockquote>
+            <div>
+              <h3>The Croppers' Grievance</h3>
+              <p>The cropping trade required seven years of apprenticeship to master. Croppers used massive hand-shears, weighing up to forty pounds, to trim the nap from woven cloth&mdash;a skilled operation that determined the quality of the finished fabric.</p>
+              <p>The shearing frame could do the same work in a fraction of the time, operated by unskilled workers or even children. A single machine could displace twenty trained croppers.</p>
+              <p>By April 1812, wages in the West Riding had fallen by two-thirds. Families that had lived comfortably were now destitute. The poorhouse in Huddersfield reported record admissions.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 3: The Night -->
+        <section class="section prose">
+          <div class="center">
+            <h2>Midnight on the Moors</h2>
+
+            <p>The men who gathered that night came from villages across the West Riding: Huddersfield, Halifax, Leeds, Brighouse, Elland. They had been summoned by secret messages passed from hand to hand, written in code, destroyed after reading. The penalty for what they planned was death.</p>
+
+            <p>George Mellor, a cropper from Longroyd Bridge, commanded the main body. At twenty-two, he had already spent half his life in the trade. He had watched his wages fall from thirty shillings a week to ten. He had seen fellow croppers reduced to begging. He had nothing left to lose.</p>
+          </div>
+        </section>
+
+        <!-- IMAGE GRID: 2-up -->
+        <section class="section section-tight">
+          <div class="grid grid-columns-2">
+            <figure>
+              <img src="https://placehold.co/800x600" alt="Hand shears used by croppers, approximately 40 pounds" />
+              <figcaption>Cropper's shears. The skill to wield these heavy tools took years to acquire.</figcaption>
+            </figure>
+            <figure>
+              <img src="https://placehold.co/800x600" alt="A shearing frame, the machine that threatened the croppers' livelihood" />
+              <figcaption>A shearing frame. One machine could do the work of twenty skilled men.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- CHAPTER 4: The Attack -->
+        <section class="section prose">
+          <div class="center">
+            <h2>The Attack Begins</h2>
+
+            <p>At half past midnight, the column set out from the moor. They marched in military formation&mdash;Mellor had drilled them for weeks on the hillsides above Huddersfield, teaching them to move and strike as one. Their password was "Justice." Their war cry was the name of their mythical general: "Ludd!"</p>
+
+            <p>They reached Rawfolds at one o'clock. The mill loomed against the night sky, its windows dark, its great wooden doors barred. For a moment, the only sound was the rush of the River Spen beside the building.</p>
+
+            <p>Then Mellor gave the signal, and hell broke loose.</p>
+          </div>
+        </section>
+
+        <!-- DRAMATIC FULL-WIDTH IMAGE -->
+        <figure class="section">
+          <picture>
+            <source
+              media="(min-width: 60em)"
+              srcset="https://placehold.co/1920x700 1920w,
+                      https://placehold.co/1440x525 1440w"
+              sizes="100vw" />
+            <source
+              media="(min-width: 40em)"
+              srcset="https://placehold.co/1200x600 1200w,
+                      https://placehold.co/900x450 900w"
+              sizes="100vw" />
+            <source
+              srcset="https://placehold.co/800x600 800w,
+                      https://placehold.co/600x450 600w"
+              sizes="100vw" />
+            <img src="https://placehold.co/1200x600" alt="Artistic rendering of the attack on Rawfolds Mill" loading="lazy" />
+          </picture>
+          <figcaption class="center">The assault on Rawfolds. From a contemporary broadside, artist unknown.</figcaption>
+        </figure>
+
+        <!-- CHAPTER 5: The Battle -->
+        <section class="section scheme-grey-200 prose">
+          <div class="center">
+            <h2>Twenty Minutes of Chaos</h2>
+
+            <p>The Luddites attacked the door with hammers and hatchets, expecting it to give way quickly. But Cartwright had reinforced it with iron plates. The blows rang out across the valley, loud enough to wake villagers a mile away, but the door held.</p>
+
+            <p>Inside, Cartwright and his garrison of five soldiers and four workers took up positions at the windows. They had been waiting. At the first alarm, Cartwright himself had rung the mill bell&mdash;a signal to the cavalry stationed two miles away at Huddersfield.</p>
+
+            <p>Then the shooting began.</p>
+          </div>
+        </section>
+
+        <!-- PULL QUOTE: Full-width dark section -->
+        <section class="section scheme-dark text-center prose">
+          <div class="center">
+            <blockquote class="text-3xl">
+              <p>"The musket balls came thick through the door. I heard men screaming. I saw John Booth fall. But we kept swinging our hammers. What else could we do? To retreat was to surrender everything."</p>
+              <small class="source text-base"><cite>Testimony given at York Assizes</cite>, January 1813</small>
+            </blockquote>
+          </div>
+        </section>
+
+        <!-- CHAPTER 6: The Casualties -->
+        <section class="section prose">
+          <div class="center">
+            <h2>The Fallen</h2>
+
+            <p>For twenty minutes, the Luddites hammered at the door while Cartwright's men fired down upon them. Two attackers were mortally wounded: Samuel Hartley, shot through the chest, and John Booth, struck in the leg. A third man took a ball to the shoulder but survived.</p>
+
+            <p>When the cavalry horn sounded in the distance, Mellor finally called the retreat. The men scattered across the moors, carrying their wounded, leaving a trail of blood that would lead investigators to a dozen villages in the weeks that followed.</p>
+
+            <p>Hartley died that night in a barn outside Huddersfield, attended by a surgeon who asked no questions. Booth lingered for days before succumbing to his wounds. Their graves, unmarked, lie somewhere in the West Riding hills.</p>
+          </div>
+        </section>
+
+        <!-- IMAGE GRID: 3-up with different aspect ratios -->
+        <section class="section section-tight scheme-grey-100">
+          <div class="center">
+            <div class="grid grid-columns-3@md">
+              <figure>
+                <img src="https://placehold.co/600x800" alt="Portrait sketch of George Mellor" />
+                <figcaption>George Mellor, leader of the attack. Executed January 1813.</figcaption>
+              </figure>
+              <figure>
+                <img src="https://placehold.co/600x800" alt="Portrait sketch of William Cartwright" />
+                <figcaption>William Cartwright, mill owner. Survived an assassination attempt weeks later.</figcaption>
+              </figure>
+              <figure>
+                <img src="https://placehold.co/600x800" alt="Portrait sketch of Lord Byron" />
+                <figcaption>Lord Byron, who spoke against the Frame-Breaking Act in Parliament.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 7: The Aftermath -->
+        <section class="section prose">
+          <div class="center">
+            <h2>The Reckoning</h2>
+
+            <p>The failed attack on Rawfolds marked a turning point. In the weeks that followed, the government's response intensified. More troops arrived. Informers infiltrated the movement. Arrests mounted.</p>
+
+            <p>By January 1813, sixty-four men stood trial at York Assizes. Seventeen were sentenced to death, including George Mellor, who went to the gallows without betraying his comrades. His last words, witnesses reported, were: "I die for justice."</p>
+
+            <p>Cartwright became a hero to the manufacturing class. He received a &pound;3,000 reward from Parliament and a gold medal from the mill owners' association. He lived another thirty-seven years, dying wealthy and honored in 1849.</p>
+          </div>
+        </section>
+
+        <!-- DATA/STATISTICS SECTION -->
+        <section class="section scheme-subtle">
+          <div class="center">
+            <h2 class="text-center mb-15">The Human Cost</h2>
+            <div class="grid grid-columns-4@md text-center">
+              <div class="stack stack-compact">
+                <p class="text-5xl font-bold">150</p>
+                <p>Men in the attack</p>
+              </div>
+              <div class="stack stack-compact">
+                <p class="text-5xl font-bold">2</p>
+                <p>Killed at Rawfolds</p>
+              </div>
+              <div class="stack stack-compact">
+                <p class="text-5xl font-bold">17</p>
+                <p>Executed at York</p>
+              </div>
+              <div class="stack stack-compact">
+                <p class="text-5xl font-bold">0</p>
+                <p>Mill owners prosecuted</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 8: Legacy -->
+        <section class="section prose">
+          <div class="center">
+            <h2>What Rawfolds Means</h2>
+
+            <p>Two centuries later, the questions raised at Rawfolds remain unanswered. When technology destroys livelihoods, who bears the cost? When legal channels fail, what recourse remains? When the state protects property over people, what is the proper response?</p>
+
+            <p>The Luddites lost their battle. The shearing frames spread. The croppers' trade vanished within a generation. But their struggle echoes through history, invoked whenever workers face displacement, whenever progress enriches the few at the expense of the many, whenever men and women must choose between submission and resistance.</p>
+
+            <p>Rawfolds Mill still stands today, converted to other purposes. The river still runs beside it. And on quiet nights, some say, you can still hear the echo of hammers against iron-bound doors.</p>
+          </div>
+        </section>
+
+        <!-- FINAL IMAGE: Atmospheric -->
+        <figure class="section">
+          <img src="https://placehold.co/1920x600" alt="The Yorkshire moors at dusk, where the Luddites once gathered" />
+          <figcaption class="center">The moors above Rawfolds, where the attackers gathered before their descent.</figcaption>
+        </figure>
+
+        <!-- FOOTER -->
+        <footer class="section scheme-subtle prose">
+          <div>
+            <hr />
+            <div class="sidebar sidebar-loose">
+              <div>
+                <p><strong>Samuel Hartley</strong> (no relation to the fallen Luddite) is a correspondent for The Northern Star covering the manufacturing districts. This report was compiled from interviews, trial transcripts, and contemporary accounts.</p>
+              </div>
+              <aside>
+                <h3 class="text-sm">Further Reading</h3>
+                <ul class="text-sm">
+                  <li><a href="/example/article/">The Frame-Breaking Act: Text and Analysis</a></li>
+                  <li><a href="/example/article/">Lord Byron's Speech to the Lords</a></li>
+                  <li><a href="/example/article/">Letters of General Ludd</a></li>
+                  <li><a href="/example/article/">The York Assizes Transcripts</a></li>
+                </ul>
+              </aside>
+            </div>
+          </div>
+        </footer>
+
+      </article>
+    </main>
+
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+
+  </body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-example-subscribe">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block -->
+    <main class="main content" id="main">
+
+      <!-- HERO SECTION -->
+      <header class="section scheme-dark">
+        <div class="center text-center stack">
+          <h1 class="text-5xl">Subscribe to The Northern Star</h1>
+          <p class="lead measure mx-auto">Join thousands of workers, tradesmen, and free-thinkers who rely on The Northern Star for news the establishment press dare not print.</p>
+        </div>
+      </header>
+
+      <!-- SUBSCRIPTION TIERS -->
+      <section class="section">
+        <div>
+          <h2 class="text-center mb-1">Choose Your Subscription</h2>
+          <div class="grid grid-columns-3@md">
+
+            <!-- TIER 1: Digital -->
+            <div class="stack box border">
+              <div class="stack stack-compact">
+                <p class="text-sm all-caps font-semibold text-muted">Handbill Edition</p>
+                <p class="text-4xl font-bold">6d</p>
+                <p class="text-sm text-muted">per quarter</p>
+              </div>
+              <hr />
+              <ul class="stack stack-compact text-sm">
+                <li>Weekly broadsheet delivered to your local tavern</li>
+                <li>Access to all pamphlets and circulars</li>
+                <li>Letters column participation</li>
+              </ul>
+              <a href="#" class="button mt-auto">Subscribe</a>
+            </div>
+
+            <!-- TIER 2: Print (Featured) -->
+            <div class="stack box border scheme-subtle">
+              <div class="stack stack-compact">
+                <p class="text-sm all-caps font-semibold">Most Popular</p>
+                <p class="text-4xl font-bold">1s</p>
+                <p class="text-sm text-muted">per quarter</p>
+              </div>
+              <hr />
+              <ul class="stack stack-compact text-sm">
+                <li><strong>Everything in Handbill, plus:</strong></li>
+                <li>Home delivery by trusted courier</li>
+                <li>Quarterly special reports</li>
+                <li>Engraved illustrations</li>
+                <li>Early access to breaking news</li>
+              </ul>
+              <a href="#" class="button mt-auto">Subscribe</a>
+            </div>
+
+            <!-- TIER 3: Premium -->
+            <div class="stack box border">
+              <div class="stack stack-compact">
+                <p class="text-sm all-caps font-semibold text-muted">Benefactor</p>
+                <p class="text-4xl font-bold">5s</p>
+                <p class="text-sm text-muted">per quarter</p>
+              </div>
+              <hr />
+              <ul class="stack stack-compact text-sm">
+                <li><strong>Everything in Home Delivery, plus:</strong></li>
+                <li>Your name listed as a Patron</li>
+                <li>Bound annual volume</li>
+                <li>Subsidise subscriptions for the unemployed</li>
+                <li>Private correspondence with editors</li>
+              </ul>
+              <a href="#" class="button mt-auto">Subscribe</a>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- GIFT / INSTITUTIONAL -->
+      <section class="section section-tight scheme-grey-100">
+        <div class="">
+          <div class="grid grid-columns-2@md">
+            <div class="box stack stack-compact ">
+              <h3>Gift a Subscription</h3>
+              <p class="text-sm">Enlighten a friend, family member, or fellow worker with the gift of truth.</p>
+              <p><a href="#" class="button button--small">Send a Gift</a></p>
+            </div>
+            <div class="box stack stack-compact">
+              <h3>Tavern &amp; Coffeehouse Rates</h3>
+              <p class="text-sm">Special rates for public houses, reading rooms, and workers&rsquo; associations.</p>
+              <p><a href="#" class="button button--small">Enquire</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY SUBSCRIBE -->
+      <section class="section">
+        <div>
+          <h2 class="text-center mb-2">Why The Northern Star?</h2>
+          <div class="grid grid-columns-3@md">
+            <div class="stack stack-compact">
+              <h3 class="text-lg">Independent Voice</h3>
+              <p class="text-sm">Beholden to no mill owner, no magistrate, no lord. We print what others fear to speak.</p>
+            </div>
+            <div class="stack stack-compact">
+              <h3 class="text-lg">Workers&rsquo; News</h3>
+              <p class="text-sm">Reports from every manufacturing district. Wages, conditions, and the struggles that matter.</p>
+            </div>
+            <div class="stack stack-compact">
+              <h3 class="text-lg">Community Network</h3>
+              <p class="text-sm">Connect with fellow workers across the counties. Share intelligence. Organise resistance.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="section scheme-subtle">
+        <div class="center">
+          <h2 class="text-center mb-2">What Our Readers Say</h2>
+          <div class="grid grid-columns-2@md">
+            <blockquote class="stack stack-compact">
+              <p>&ldquo;The only paper that tells the truth about what&rsquo;s happening in the mills. Worth every penny.&rdquo;</p>
+              <p class="text-sm text-muted">&mdash; A Framework Knitter, Nottingham</p>
+            </blockquote>
+            <blockquote class="stack stack-compact">
+              <p>&ldquo;I read it aloud to my fellow croppers each week. It gives us hope that we are not alone.&rdquo;</p>
+              <p class="text-sm text-muted">&mdash; J.W., West Riding</p>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section prose">
+        <div class="center center-narrow">
+          <h2 class="text-center mb-2">Common Questions</h2>
+          <div class="stack">
+            <details>
+              <summary class="font-semibold">How is the paper delivered?</summary>
+              <p class="mt-1 text-sm">Handbill subscribers collect from designated locations. Home delivery subscribers receive their copy via trusted courier networks that operate outside the scrutiny of the Post Office.</p>
+            </details>
+            <details>
+              <summary class="font-semibold">Is my subscription confidential?</summary>
+              <p class="mt-1 text-sm">Absolutely. We keep no written records of subscriber names. Payment is accepted in coin, and our couriers know only routes, not identities.</p>
+            </details>
+            <details>
+              <summary class="font-semibold">Can I pay annually?</summary>
+              <p class="mt-1 text-sm">Yes. Annual subscribers to the Home Delivery edition pay 3s 6d (saving 6d). Benefactors pay &pound;1 annually (saving 5d).</p>
+            </details>
+            <details>
+              <summary class="font-semibold">What if I move to a new parish?</summary>
+              <p class="mt-1 text-sm">Send word to your courier or write to our offices in Leeds. We will redirect delivery within a fortnight.</p>
+            </details>
+            <details>
+              <summary class="font-semibold">How can I contribute articles?</summary>
+              <p class="mt-1 text-sm">We welcome reports from workers in all trades. Submit unsigned letters to our Leeds office, or pass them through any of our known agents.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section class="section scheme-dark text-center">
+        <div class="center stack">
+          <h2 class="text-3xl">The Truth Cannot Be Silenced</h2>
+          <p class="lead measure mx-auto">Every subscription strengthens our voice. Every reader joins a movement. Subscribe today and stand with the workers of England.</p>
+          <p><a href="#" class="button button--accent">Subscribe Now</a></p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+
+  </body>
+</html>

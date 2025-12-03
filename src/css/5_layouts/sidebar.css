@@ -48,6 +48,6 @@
     --sidebar-space: var(--line-05);
   }
   .sidebar-loose {
-    --sidebar-space: var(--line-1);
+    --sidebar-space: var(--line-2);
   }
 }

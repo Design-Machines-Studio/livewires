@@ -6,7 +6,13 @@
 
 @layer components {
   .logo {
-    max-inline-size: calc(var(--line) * 3);
     max-block-size: var(--line-2);
+    max-inline-size: var(--line-3);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    
+    a {
+      text-decoration: none;
+    }
   }
 }

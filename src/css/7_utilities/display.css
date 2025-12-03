@@ -7,6 +7,14 @@
 
 @layer utilities {
   /*
+   * CONTAINER QUERIES
+   * Makes element a container for child container queries
+   */
+  .container {
+    container-type: inline-size;
+  }
+
+  /*
    * DISPLAY
    */
   .block { display: block; }

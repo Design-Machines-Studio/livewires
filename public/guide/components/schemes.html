@@ -26,18 +26,22 @@
           <p class="lead">Pre-defined color combinations for backgrounds, text, and accents. Apply to any container to change its color context.</p>
         </header>
 
-        <section class="section stack">
-          <header>
+        <section>
+          <header class="section dsection-bottom-tight">
             <h2>Available schemes</h2>
             <p>Each scheme sets <code>--color-bg</code>, <code>--color-fg</code>, and <code>--color-accent</code> for its descendants.</p>
           </header>
-          <div>
-            <h3 class="mt-2">Dark mode adaptive schemes</h3>
-            <hr />
+          <section>
+            <header class="section section-wide section-v-tight">
+              <h3 class="mt-2">Dark mode adaptive schemes</h3>
+            </header>
             <scheme-panel scheme="scheme-default" title="Default"></scheme-panel>
             <scheme-panel scheme="scheme-subtle" title="Subtle"></scheme-panel>
-
-            <h3 class="mt-2">Greyscale schemes</h3>
+          </section>
+          <section>
+            <header class="section section-wide section-bottom-tight">
+              <h3 class="mt-2">Greyscale schemes</h3>
+            </header>
             <scheme-panel scheme="scheme-black" title="Black"></scheme-panel>
             <scheme-panel scheme="scheme-grey-900" title="Grey 900"></scheme-panel>
             <scheme-panel scheme="scheme-grey-800" title="Grey 800"></scheme-panel>
@@ -48,8 +52,11 @@
             <scheme-panel scheme="scheme-grey-300" title="Grey 300"></scheme-panel>
             <scheme-panel scheme="scheme-grey-200" title="Grey 200"></scheme-panel>
             <scheme-panel scheme="scheme-grey-100" title="Grey 100"></scheme-panel>
-
-            <h3 class="mt-2">Brand color schemes</h3>
+          </section>  
+          <section>
+            <header class="section section-wide section-bottom-tight">
+              <h3 class="mt-2">Brand color schemes</h3>
+            </header>
             <scheme-panel scheme="scheme-accent" title="Accent"></scheme-panel>
             <scheme-panel scheme="scheme-orange" title="Orange"></scheme-panel>
             <scheme-panel scheme="scheme-orange-light" title="Orange Light"></scheme-panel>
@@ -61,9 +68,7 @@
             <scheme-panel scheme="scheme-yellow-light" title="Yellow Light"></scheme-panel>
             <scheme-panel scheme="scheme-green" title="Green"></scheme-panel>
             <scheme-panel scheme="scheme-green-light" title="Green Light"></scheme-panel>
-
-            
-          </div>
+          </section>            
         </section>
       </article>
     </main>

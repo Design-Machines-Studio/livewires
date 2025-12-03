@@ -15,56 +15,91 @@
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
 
-    <!-- Content block, child page inject content -->
-    <main class="main" id="main" role="main">
-        <header class="section">
-          <h1>Contact</h1>
-          <p>Submit you feedback here. We get back to you as soon as possible.</p>
+    <!-- Content block -->
+    <main class="main content" id="main">
+        <header class="section scheme-subtle">
+          <div class="center">
+            <h1>Contact The Northern Star</h1>
+            <p class="lead">Intelligence from the manufacturing districts. Letters to the editor. Reports of injustice. All correspondence handled with the utmost discretion.</p>
+          </div>
         </header>
 
-        <section class="sidebar section">
-          <aside class="box bg-subtle">
-            <div class="callout">
-              <h3>Contact info</h3>
-              <div class="vcard">
-                <p class="adr">
-                  <strong class="org">Company name</strong>
-                  <span class="street-address">123 Chester street</span>
-                  <span class="locality">Vancouver</span>, <span class="region">BC</span> <span class="postal-code">V7B 0B4</span>
-                  <span class="country-name">Canada</span>
+        <section class="sidebar sidebar-loose section">
+          <aside class="stack">
+            <div class="box scheme-grey-100 stack stack-compact">
+              <h3 class="text-lg">Editorial Offices</h3>
+              <address class="stack stack-compact text-sm">
+                <p>
+                  <strong>The Northern Star</strong><br />
+                  Market Street, near the Cloth Hall<br />
+                  Leeds, West Riding of Yorkshire
                 </p>
-                <p class="tel">
-                  <span class="type">Phone</span>
-                  <a href="tel:+18885555555" class="value" title="+18885555555">1 (888) 555-5555</a>
+                <p>
+                  <strong>Hours:</strong> Monday through Saturday<br />
+                  Six o&rsquo;clock in the morning until eight in the evening
                 </p>
-                <p class="email">
-                  <span class="type">Email</span>
-                  <a href="mailto:name@example.com" class="value" title="name@example.com">name@example.com</a>
-                </p>
+              </address>
+            </div>
+
+            <div class="box scheme-grey-100 stack stack-compact">
+              <h3 class="text-lg">Secure Correspondence</h3>
+              <div class="stack stack-compact text-sm">
+                <p>For sensitive matters, do not use the Post Office. Letters may be intercepted and read by government agents.</p>
+                <p><strong>Trusted drop points:</strong></p>
+                <ul>
+                  <li>The Shears Inn, Hightown</li>
+                  <li>St George&rsquo;s Tavern, Huddersfield</li>
+                  <li>The Croppers&rsquo; Arms, Halifax</li>
+                </ul>
+                <p>Ask for &ldquo;letters for General Ludd.&rdquo;</p>
               </div>
             </div>
+
           </aside>
-          <form action="../index.html" class="">
-            <fieldset>
-              <h2>Get in touch</h2>
+
+          <form action="../index.html">
+            <fieldset class="stack">
+              <legend><h2>Submit Intelligence</h2></legend>
+              <p class="text-sm text-muted">Reports from the mills, news of organising, or letters to the editor. All submissions are reviewed by our editorial committee.</p>
+
               <div class="field">
-                <label for="contact-name">Name</label>
-                <input type="text" name="contact-name" value="" placeholder="eg) Joanna Smith" class="text-input" />
+                <label for="contact-name">Name or Pseudonym</label>
+                <input type="text" name="contact-name" id="contact-name" value="" placeholder="eg) A Friend to Justice" />
               </div>
               <div class="field">
-                <label for="contact-email">Email address</label>
-                <input type="email" name="contact-email" value="" placeholder="eg) joanna@example.com" class="text-input" />
+                <label for="contact-trade">Trade</label>
+                <input type="text" name="contact-trade" id="contact-trade" value="" placeholder="eg) Framework Knitter, Cropper, Weaver" />
               </div>
               <div class="field">
-                <label for="contact-message">Message</label>
-                <textarea name="contact-message" class="text-input"></textarea>
+                <label for="contact-parish">Parish or District</label>
+                <input type="text" name="contact-parish" id="contact-parish" value="" placeholder="eg) Nottingham, West Riding, Lancashire" />
               </div>
               <div class="field">
-                <button type="submit">Send</button>
+                <label for="contact-subject">Subject</label>
+                <select name="contact-subject" id="contact-subject">
+                  <option value="">Select a subject&hellip;</option>
+                  <option value="intelligence">Mill Intelligence</option>
+                  <option value="wages">Wages &amp; Conditions Report</option>
+                  <option value="letter">Letter to the Editor</option>
+                  <option value="subscription">Subscription Enquiry</option>
+                  <option value="other">Other Matter</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="contact-message">Your Message</label>
+                <textarea name="contact-message" id="contact-message" rows="6" placeholder="Write your report or letter here. Be specific but cautious. Names of informers and locations of meetings should be coded."></textarea>
+              </div>
+              <div class="field">
+                <button type="submit" class="button">Submit</button>
               </div>
             </fieldset>
+            <div class="box scheme-dark stack stack-compact">
+            <h3 class="text-lg">A Word of Caution</h3>
+            <p class="text-sm">Never sign your true name to any correspondence regarding trade matters. Use a pseudonym or mark. Burn this page after reading.</p>
+          </div>
           </form>
         </section>
+        
     </main>
 
     <!-- HTML Include: site footer -->

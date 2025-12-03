@@ -62,7 +62,7 @@
 
 /* Custom components and expanded elements */
 @import './6_components/logo.css';
-@import './6_components/prose.css';
+@import './6_components/typography.css';
 @import './6_components/dividers.css';
 @import './6_components/tables.css';
 @import './6_components/images.css';
