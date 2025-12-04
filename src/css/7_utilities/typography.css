@@ -91,6 +91,46 @@
   }
 
   /* ===============================================
+     RESPONSIVE TEXT SIZES (Container Queries)
+     Apply larger text at container breakpoints.
+     Requires parent with container-type (e.g., .section)
+     =============================================== */
+
+  /* @md breakpoint (40rem container width) */
+  @container (min-width: 40rem) {
+    .text-xs\@md { font-size: var(--text-xs); line-height: var(--line-height-xs); letter-spacing: var(--tracking-xs); }
+    .text-sm\@md { font-size: var(--text-sm); line-height: var(--line-height-sm); letter-spacing: var(--tracking-sm); }
+    .text-base\@md { font-size: var(--text-base); line-height: var(--line-height-base); letter-spacing: var(--tracking-base); }
+    .text-lg\@md { font-size: var(--text-lg); line-height: var(--line-height-lg); letter-spacing: var(--tracking-lg); }
+    .text-xl\@md { font-size: var(--text-xl); line-height: var(--line-height-xl); letter-spacing: var(--tracking-xl); }
+    .text-2xl\@md { font-size: var(--text-2xl); line-height: var(--line-height-2xl); letter-spacing: var(--tracking-2xl); }
+    .text-3xl\@md { font-size: var(--text-3xl); line-height: var(--line-height-3xl); letter-spacing: var(--tracking-3xl); }
+    .text-4xl\@md { font-size: var(--text-4xl); line-height: var(--line-height-4xl); letter-spacing: var(--tracking-4xl); }
+    .text-5xl\@md { font-size: var(--text-5xl); line-height: var(--line-height-5xl); letter-spacing: var(--tracking-5xl); }
+    .text-6xl\@md { font-size: var(--text-6xl); line-height: var(--line-height-6xl); letter-spacing: var(--tracking-6xl); }
+    .text-7xl\@md { font-size: var(--text-7xl); line-height: var(--line-height-7xl); letter-spacing: var(--tracking-7xl); }
+    .text-8xl\@md { font-size: var(--text-8xl); line-height: var(--line-height-8xl); letter-spacing: var(--tracking-8xl); }
+    .text-9xl\@md { font-size: var(--text-9xl); line-height: var(--line-height-9xl); letter-spacing: var(--tracking-9xl); }
+  }
+
+  /* @lg breakpoint (60rem container width) */
+  @container (min-width: 60rem) {
+    .text-xs\@lg { font-size: var(--text-xs); line-height: var(--line-height-xs); letter-spacing: var(--tracking-xs); }
+    .text-sm\@lg { font-size: var(--text-sm); line-height: var(--line-height-sm); letter-spacing: var(--tracking-sm); }
+    .text-base\@lg { font-size: var(--text-base); line-height: var(--line-height-base); letter-spacing: var(--tracking-base); }
+    .text-lg\@lg { font-size: var(--text-lg); line-height: var(--line-height-lg); letter-spacing: var(--tracking-lg); }
+    .text-xl\@lg { font-size: var(--text-xl); line-height: var(--line-height-xl); letter-spacing: var(--tracking-xl); }
+    .text-2xl\@lg { font-size: var(--text-2xl); line-height: var(--line-height-2xl); letter-spacing: var(--tracking-2xl); }
+    .text-3xl\@lg { font-size: var(--text-3xl); line-height: var(--line-height-3xl); letter-spacing: var(--tracking-3xl); }
+    .text-4xl\@lg { font-size: var(--text-4xl); line-height: var(--line-height-4xl); letter-spacing: var(--tracking-4xl); }
+    .text-5xl\@lg { font-size: var(--text-5xl); line-height: var(--line-height-5xl); letter-spacing: var(--tracking-5xl); }
+    .text-6xl\@lg { font-size: var(--text-6xl); line-height: var(--line-height-6xl); letter-spacing: var(--tracking-6xl); }
+    .text-7xl\@lg { font-size: var(--text-7xl); line-height: var(--line-height-7xl); letter-spacing: var(--tracking-7xl); }
+    .text-8xl\@lg { font-size: var(--text-8xl); line-height: var(--line-height-8xl); letter-spacing: var(--tracking-8xl); }
+    .text-9xl\@lg { font-size: var(--text-9xl); line-height: var(--line-height-9xl); letter-spacing: var(--tracking-9xl); }
+  }
+
+  /* ===============================================
      FONT WEIGHTS
      =============================================== */
 
