@@ -74,7 +74,7 @@
           <div class="stack">
             <section>
               <h3>.sidebar (default)</h3>
-              <p>Sidebar on the left, main content on the right with standard 1 line gap.</p>
+              <p>Sidebar on the left, main content on the right with no gap.</p>
               <div class="sidebar scheme-subtle border">
                 <div class="content scheme-default">Sidebar</div>
                 <div class="content scheme-default">Main content</div>
@@ -98,7 +98,7 @@
             </section>
             <section>
               <h3>.sidebar-snug</h3>
-              <p>Sidebar on the left, main content on the right with half-line gap.</p>
+              <p>Sidebar on the left, main content on the right with single-line gap.</p>
               <div class="sidebar sidebar-snug scheme-subtle border">
                 <div class="content scheme-default">Sidebar</div>
                 <div class="content scheme-default">Main content</div>
@@ -119,7 +119,7 @@
         <section class="section">
           <header>
             <h2>Section</h2>
-            <p>Full-width container with responsive horizontal and vertical padding. Use to divide pages into distinct regions with edge-to-edge backgrounds. Padding scales with container size via container queries.</p>
+            <p>Full-width container with responsive horizontal padding and bottom padding by default. Sections with color schemes automatically add top padding when following non-scheme siblings. Use to divide pages into distinct regions with edge-to-edge backgrounds.</p>
           </header>
           <div class="stack stack-compact">
             <section>
@@ -143,10 +143,17 @@
               </div>
             </section>
             <section>
-              <h3>.section-v-snug</h3>
-              <p>Single-line vertical padding.</p>
-              <div class="section section-v-snug scheme-subtle border">
-                <div class="content scheme-default">Vertically snug</div>
+              <h3>.section-spaced</h3>
+              <p>Generous vertical padding for major page divisions.</p>
+              <div class="section section-spaced scheme-subtle border">
+                <div class="content scheme-default">Spaced section</div>
+              </div>
+            </section>
+            <section>
+              <h3>.section-snug</h3>
+              <p>Single-line vertical padding top and bottom.</p>
+              <div class="section section-snug scheme-subtle border">
+                <div class="content scheme-default">Snug section</div>
               </div>
             </section>
             <section>
@@ -312,6 +319,15 @@
               <h3>.stack (default)</h3>
               <p>Single-line spacing. The baseline rhythm for most content.</p>
               <div class="stack scheme-subtle border">
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+                <div class="content scheme-default">Item</div>
+              </div>
+            </section>
+            <section>
+              <h3>.stack-half</h3>
+              <p>Half-line spacing. Half the baseline rhythm for tighter content.</p>
+              <div class="stack stack-half scheme-subtle border">
                 <div class="content scheme-default">Item</div>
                 <div class="content scheme-default">Item</div>
                 <div class="content scheme-default">Item</div>

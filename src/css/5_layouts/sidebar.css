@@ -45,7 +45,7 @@
     --sidebar-space: var(--line-1px);
   }
   .sidebar-snug {
-    --sidebar-space: var(--line-05);
+    --sidebar-space: var(--line-1);
   }
   .sidebar-loose {
     --sidebar-space: var(--line-2);

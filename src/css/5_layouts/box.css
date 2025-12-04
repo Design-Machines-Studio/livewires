@@ -9,10 +9,10 @@
   .box {
     padding: var(--line-1);
   }
-  .box--tight {
+  .box-tight {
     padding: var(--line-05);
   }
-  .box--loose {
+  .box-loose {
     padding: var(--line-2);
   }
 }

@@ -20,6 +20,10 @@
     --stack-space: var(--line-025);
   }
 
+  .stack-half {
+    --stack-space: var(--line-05);
+  }
+
   .stack-comfortable {
     --stack-space: var(--line-2);
   }

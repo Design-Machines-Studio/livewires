@@ -53,7 +53,7 @@ All tool states are saved to `localStorage`, so your dev tool preferences persis
 
 ## Implementation
 
-The dev tools are implemented in [src/js/dev-tools.js](src/js/dev-tools.js) and automatically loaded via [src/js/main.js](src/js/main.js).
+The dev tools are implemented in [src/js/prototyping.js](src/js/prototyping.js) and automatically loaded via [src/js/main.js](src/js/main.js).
 
 The menubar is injected into the page on load and can be toggled with the `?` key. Keyboard shortcuts are registered globally (except when typing in form fields).
 
@@ -62,14 +62,14 @@ The menubar is injected into the page on load and can be toggled with the `?` ke
 The menubar uses Live Wires design tokens for consistency:
 - Background: Semi-transparent dark overlay with backdrop blur
 - Active state: Uses `--color-accent`
-- Spacing: Uses `--space-*` scale
+- Spacing: Uses `--line-*` scale
 - Typography: Uses `--font-sans` and `--text-sm`
 
 ## Development
 
 To modify the dev tools:
 
-1. Edit [src/js/dev-tools.js](src/js/dev-tools.js)
+1. Edit [src/js/prototyping.js](src/js/prototyping.js)
 2. The file is automatically reloaded by Vite's HMR during development
 3. Add new tools to the `this.tools` object in the constructor
 4. Each tool can toggle classes, cycle through classes, or toggle visibility

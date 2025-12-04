@@ -48,9 +48,9 @@ Everything in Live Wires derives from the `--line` variable:
   --line: calc(var(--text-base) * var(--line-height-ratio));
 
   /* All spacing is multiples of --line */
-  --space-1: calc(var(--line) * 0.5);
-  --space-2: var(--line);
-  --space-3: calc(var(--line) * 1.5);
+  --line-05: calc(var(--line) * 0.5);
+  --line-1: var(--line);
+  --line-15: calc(var(--line) * 1.5);
   /* ... */
 }
 ```
@@ -75,7 +75,7 @@ Live Wires uses cutting-edge CSS features supported in modern browsers:
 ```
 ├── src/css/
 │   ├── 0_config/       # Cascade layer definitions
-│   ├── 1_settings/     # Design tokens (colors, typography, spacing)
+│   ├── 1_tokens/       # Design tokens (colors, typography, spacing)
 │   ├── 3_generic/      # CSS reset
 │   ├── 4_elements/     # Semantic HTML defaults
 │   ├── 5_layouts/      # Layout primitives (stack, grid, cluster)
@@ -130,16 +130,16 @@ Tailwind-compatible naming where sensible:
 ### Spacing
 ```html
 <div class="mt-4 mb-2 px-3">
-  <!-- Margin-top: var(--space-4) -->
-  <!-- Margin-bottom: var(--space-2) -->
-  <!-- Padding-inline: var(--space-3) -->
+  <!-- Margin-top: var(--line-4) -->
+  <!-- Margin-bottom: var(--line-2) -->
+  <!-- Padding-inline: var(--line-3) -->
 </div>
 ```
 
 ### Typography
 ```html
-<p class="text-4 font-bold measure">
-  <!-- Font-size: var(--text-4) -->
+<p class="text-lg font-bold measure">
+  <!-- Font-size: var(--text-lg) -->
   <!-- Font-weight: bold -->
   <!-- Max-width: 65ch (optimal reading length) -->
 </p>
@@ -156,7 +156,7 @@ Tailwind-compatible naming where sensible:
 
 ## Customization
 
-All design tokens are CSS custom properties defined in `src/css/1_settings/`:
+All design tokens are CSS custom properties defined in `src/css/1_tokens/`:
 
 - **tokens.css** - Baseline, spacing scale
 - **typography.css** - Type scale, font stacks, reading measures
@@ -204,8 +204,8 @@ See `docs/cms-integration.md` for detailed integration guides.
 
 ```html
 <article class="stack-comfortable">
-  <h1 class="text-7 font-bold">Article Title</h1>
-  <p class="text-4 measure">Featured paragraph is larger.</p>
+  <h1 class="text-4xl font-bold">Article Title</h1>
+  <p class="text-lg measure">Featured paragraph is larger.</p>
   <p class="measure">Regular paragraph.</p>
 </article>
 ```
@@ -214,8 +214,8 @@ See `docs/cms-integration.md` for detailed integration guides.
 
 ```html
 <article class="stack-comfortable scheme-warm">
-  <h1 class="text-7 font-bold">Article Title</h1>
-  <p class="text-4 measure">Now with a warm color scheme.</p>
+  <h1 class="text-4xl font-bold">Article Title</h1>
+  <p class="text-lg measure">Now with a warm color scheme.</p>
 </article>
 ```
 

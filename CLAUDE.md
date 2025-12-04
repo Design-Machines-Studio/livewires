@@ -38,7 +38,7 @@ Vite provides instant HMR (Hot Module Replacement). Edit CSS or HTML files and s
 │   ├── js/                # JavaScript files
 │   │   ├── main.js        # Vite entry point (loads CSS + Web Components)
 │   │   ├── html-include.js # Web Component for HTML includes
-│   │   └── dev-tools.js   # Development utilities
+│   │   └── prototyping.js # Development utilities
 │
 ├── public/                # Your prototype (site root)
 │   ├── index.html         # Your HTML
@@ -101,7 +101,7 @@ This ensures utilities always win over components, components over layouts, etc.
    - [dividers.css](src/css/6_components/dividers.css) - Horizontal dividers
    - [images.css](src/css/6_components/images.css) - Image treatments
    - [embeds.css](src/css/6_components/embeds.css) - Responsive video embeds
-   - [prose.css](src/css/6_components/prose.css) - Long-form text
+   - [typography.css](src/css/6_components/typography.css) - Long-form text (.prose, .lead)
    - [logo.css](src/css/6_components/logo.css) - Logo sizing
 6. **`utilities`** - Single-purpose classes ([7_utilities/](src/css/7_utilities/))
    - [spacing.css](src/css/7_utilities/spacing.css) - Margin and padding utilities
@@ -133,6 +133,11 @@ This ensures utilities always win over components, components over layouts, etc.
   --line-4: calc(var(--line) * 4);
   --line-5: calc(var(--line) * 5);
   --line-6: calc(var(--line) * 6);
+  --line-7: calc(var(--line) * 7);
+  --line-8: calc(var(--line) * 8);
+
+  /* Pixel-precise spacing for borders, fine details */
+  --line-1px: 1px;
 }
 ```
 
@@ -147,11 +152,12 @@ The base `--line` variable is defined in [typography-base.css](src/css/1_tokens/
 All design tokens are CSS custom properties in [src/css/1_tokens/](src/css/1_tokens/):
 
 #### [spacing.css](src/css/1_tokens/spacing.css)
-- Spacing scale (`--line-0` through `--line-6`) with fractional values (`--line-025`, `--line-05`, `--line-075`, `--line-15`)
+- Spacing scale (`--line-0` through `--line-8`) with fractional values (`--line-025`, `--line-05`, `--line-075`, `--line-15`)
+- Pixel-precise token (`--line-1px`)
 - Layout tokens (`--gutter`)
 
 #### [typography.css](src/css/1_tokens/typography.css)
-- Type scale (`--text-xs`, `--text-sm`, `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl`, `--text-3xl`) using `clamp()` for fluid scaling
+- Type scale (`--text-xs`, `--text-sm`, `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl`, `--text-3xl`, `--text-4xl`, `--text-5xl`, `--text-6xl`, `--text-7xl`, `--text-8xl`, `--text-9xl`) using `clamp()` for fluid scaling
 - Major Third ratio (1.25) for harmonious type scaling
 - Font stacks (`--font-sans`, `--font-serif`, `--font-mono`)
 - Font weights from thin (100) to black (900)
