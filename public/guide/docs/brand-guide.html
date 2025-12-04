@@ -98,13 +98,16 @@
 
           <section class="section">
             <h2>The type-sample component</h2>
-            <p>The <code>&lt;type-sample&gt;</code> Web Component displays typography samples for documenting your type system.</p>
+            <p>The <code>&lt;type-sample&gt;</code> Web Component displays typography samples for documenting your type system. It uses the same token convention as <code>&lt;color-swatch&gt;</code>&mdash;pass CSS variable names without the <code>--</code> prefix.</p>
 
             <h3>Basic usage</h3>
-            <pre><code>&lt;type-sample
+            <p>Provide token names for typeface and weight. The component resolves them from CSS automatically:</p>
+            <pre><code>&lt;!-- Just provide tokens &mdash; values resolved from CSS --&gt;
+&lt;type-sample
   title="Body Text"
-  typeface="var(--font-sans)"
-  weight="400"
+  typeface="font-sans"
+  weight="font-normal"
+  text
 &gt;&lt;/type-sample&gt;</code></pre>
 
             <h3>Available attributes</h3>
@@ -113,30 +116,40 @@
               <dd>Display name for the type style</dd>
 
               <dt><code>typeface</code></dt>
-              <dd>Font family value or CSS variable</dd>
+              <dd>Font family token without <code>--</code> prefix (e.g., <code>font-sans</code>, <code>font-serif</code>). Resolves to <code>var(--font-sans)</code>.</dd>
 
               <dt><code>weight</code></dt>
-              <dd>Font weight (100&ndash;900)</dd>
+              <dd>Font weight token without <code>--</code> prefix (e.g., <code>font-bold</code>, <code>font-normal</code>). Resolves to <code>var(--font-bold)</code>.</dd>
 
               <dt><code>italic</code></dt>
-              <dd>Set to <code>"true"</code> for italic samples</dd>
+              <dd>Boolean attribute&mdash;add to apply italic style</dd>
 
               <dt><code>display</code></dt>
-              <dd>Sample text for display styles</dd>
+              <dd>Boolean attribute&mdash;show large display sample (AaBbCc1234)</dd>
 
               <dt><code>headline</code></dt>
-              <dd>Sample text for headline styles</dd>
+              <dd>Boolean attribute&mdash;show headline-size character set</dd>
 
               <dt><code>text</code></dt>
-              <dd>Sample text for body styles</dd>
+              <dd>Boolean attribute&mdash;show body-size character set</dd>
             </dl>
 
             <h3>Example for a serif headline</h3>
             <pre><code>&lt;type-sample
   title="Headline Serif"
-  typeface="var(--font-serif)"
-  weight="700"
-  headline="The quick brown fox"
+  typeface="font-serif"
+  weight="font-bold"
+  display
+  headline
+&gt;&lt;/type-sample&gt;</code></pre>
+
+            <h3>Example with italic</h3>
+            <pre><code>&lt;type-sample
+  title="Serif Italic"
+  typeface="font-serif"
+  weight="font-normal"
+  italic
+  text
 &gt;&lt;/type-sample&gt;</code></pre>
           </section>
 
@@ -162,8 +175,8 @@
             </ol>
 
             <h3>Connecting to CSS tokens</h3>
-            <p>The brand guide should reference your actual CSS tokens. When you update a token value, the brand guide reflects that change automatically.</p>
-            <pre><code>&lt;!-- Colors page &mdash; just provide the token name --&gt;
+            <p>The brand guide should reference your actual CSS tokens. When you update a token value, the brand guide reflects that change automatically. Both components use the same convention&mdash;pass the token name without the <code>--</code> prefix.</p>
+            <pre><code>&lt;!-- Colors &mdash; just provide the token name --&gt;
 &lt;color-swatch token="color-accent"&gt;&lt;/color-swatch&gt;
 
 &lt;!-- With a custom title --&gt;
@@ -172,10 +185,19 @@
   token="color-accent"
 &gt;&lt;/color-swatch&gt;
 
-&lt;!-- Fonts page uses your typography tokens --&gt;
+&lt;!-- Fonts &mdash; same token convention --&gt;
 &lt;type-sample
-  typeface="var(--font-sans)"
-  weight="var(--font-normal)"
+  typeface="font-sans"
+  weight="font-normal"
+  text
+&gt;&lt;/type-sample&gt;
+
+&lt;!-- Serif bold with display sample --&gt;
+&lt;type-sample
+  title="Display Serif"
+  typeface="font-serif"
+  weight="font-bold"
+  display
 &gt;&lt;/type-sample&gt;</code></pre>
           </section>
 

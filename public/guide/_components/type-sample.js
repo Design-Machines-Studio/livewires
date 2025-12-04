@@ -2,11 +2,13 @@
  * <type-sample> Web Component
  *
  * Displays typography samples with various weights, typefaces, and styles.
+ * Uses the same token convention as <color-swatch> - pass CSS variable names
+ * without the -- prefix.
  *
  * @attr {string} title - Optional title for the sample
- * @attr {string} weight - Font weight class (e.g., "font-bold")
- * @attr {string} typeface - Typeface class (e.g., "font-serif")
- * @attr {boolean} italic - Add italic class to container
+ * @attr {string} weight - Font weight token (e.g., "font-bold") resolves to var(--font-bold)
+ * @attr {string} typeface - Typeface token (e.g., "font-serif") resolves to var(--font-serif)
+ * @attr {boolean} italic - Apply italic style
  * @attr {boolean} display - Show display size sample (AaBbCc1234)
  * @attr {boolean} headline - Show headline size character set
  * @attr {boolean} text - Show text size character set
@@ -39,12 +41,11 @@ class TypeSample extends HTMLElement {
     return this.getAttribute('typeface') || '';
   }
 
-  // Italic returns class name if attribute present
+  // Boolean attributes
   get italic() {
-    return this.hasAttribute('italic') ? 'italic' : '';
+    return this.hasAttribute('italic');
   }
 
-  // Boolean attributes (presence = true)
   get display() {
     return this.hasAttribute('display');
   }
@@ -57,13 +58,37 @@ class TypeSample extends HTMLElement {
     return this.hasAttribute('text');
   }
 
+  /**
+   * Build inline style string from token attributes
+   * Tokens are CSS variable names without -- prefix
+   */
+  buildStyle() {
+    const styles = [];
+
+    if (this.typeface) {
+      styles.push(`font-family: var(--${this.typeface})`);
+    }
+
+    if (this.weight) {
+      styles.push(`font-weight: var(--${this.weight})`);
+    }
+
+    if (this.italic) {
+      styles.push('font-style: italic');
+    }
+
+    return styles.length > 0 ? ` style="${styles.join('; ')}"` : '';
+  }
+
   render() {
     const characterSet = `ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
     abcdefghijklmnopqrstuvwxyz<br>
     1234567890<br>
     #*@$%&amp;_.-,&ndash;;:&mdash;?!&lsquo;&rsquo;&ldquo;&rdquo;()`;
 
-    let html = `<div class="${this.weight} ${this.typeface} ${this.italic}">`;
+    const styleAttr = this.buildStyle();
+
+    let html = `<div${styleAttr}>`;
 
     // Title
     if (this.title) {

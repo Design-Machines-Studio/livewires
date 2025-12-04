@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-docs">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Design toolbar</h1>
+          <hr />
+          <p class="lead">Visual design aids and prototyping utilities for checking layout, alignment, and rhythm.</p>
+        </header>
+
+        <nav class="section section-snug">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="#persistence">Persistence</a></li>
+            <li><a href="#tips">Tips</a></li>
+          </ul>
+        </nav>
+
+        <section id="overview" class="section">
+          <h2>Overview</h2>
+          <p>The Design toolbar is a floating menubar that appears at the bottom of your browser window during development. It provides visual overlays and toggles to help you verify your designs align to the baseline grid, check spacing, and debug layouts.</p>
+
+          <h3>Show/hide the toolbar</h3>
+          <p>Press <kbd>?</kbd> to toggle the toolbar visibility. The toolbar state persists across page loads.</p>
+
+          <aside class="box bg-subtle">
+            <p><strong>Keyboard shortcuts work anywhere</strong>&mdash;even when the toolbar is hidden. Press any tool's shortcut key to toggle it.</p>
+          </aside>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="tools" class="section">
+          <h2>Tools</h2>
+          <p>Each tool can be toggled by clicking its button or pressing its keyboard shortcut.</p>
+
+          <table class="table--lined">
+            <thead>
+              <tr>
+                <th class="col-15">Key</th>
+                <th class="col-20">Tool</th>
+                <th class="col-65">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><kbd>D</kbd></td>
+                <td><strong>Theme</strong></td>
+                <td>Toggle between light and dark mode, overriding system preference. When active, shows "Light" or "Dark" to indicate the current override.</td>
+              </tr>
+              <tr>
+                <td><kbd>B</kbd></td>
+                <td><strong>Baseline</strong></td>
+                <td>Display horizontal lines at every baseline increment. Use this to verify text and spacing align to the vertical rhythm. Subdivision lines (lighter) show fractional increments.</td>
+              </tr>
+              <tr>
+                <td><kbd>C</kbd></td>
+                <td><strong>Columns</strong></td>
+                <td>Show a column grid overlay across the viewport. Useful for checking layout alignment to a column-based grid. Configure column count, gap, and margins in Settings.</td>
+              </tr>
+              <tr>
+                <td><kbd>M</kbd></td>
+                <td><strong>Margins</strong></td>
+                <td>Highlight the horizontal page margins (the space on either side of your content). Shows the margin zones in orange.</td>
+              </tr>
+              <tr>
+                <td><kbd>G</kbd></td>
+                <td><strong>CSS Grids</strong></td>
+                <td>Outline all <code>.grid</code> layout primitives on the page. Shows an outline around each grid and displays the detected column count. The overlay also shows the grid's internal column structure.</td>
+              </tr>
+              <tr>
+                <td><kbd>O</kbd></td>
+                <td><strong>Outlines</strong></td>
+                <td>Add outlines to all layout primitives (<code>.stack</code>, <code>.cluster</code>, <code>.grid</code>, <code>.sidebar</code>, <code>.center</code>) and their children. Helps visualize component boundaries and nesting.</td>
+              </tr>
+              <tr>
+                <td><kbd>X</kbd></td>
+                <td><strong>BG Colors</strong></td>
+                <td>Toggle background colors on/off for elements with <code>bg-*</code> or <code>scheme-*</code> classes. Useful for seeing through colored sections to check underlying layout.</td>
+              </tr>
+              <tr>
+                <td><kbd>R</kbd></td>
+                <td><strong>Redact</strong></td>
+                <td>Apply a "redacted" font to prose content, replacing readable text with abstract shapes. Useful for evaluating layout and visual hierarchy without being distracted by content.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="settings" class="section">
+          <h2>Settings</h2>
+          <p>Click the <strong>Settings</strong> button to open the settings popover. These settings affect the column and baseline overlays.</p>
+
+          <h3>Columns</h3>
+          <p>Set the number of columns for the column grid overlay (1&ndash;24). This doesn't affect your actual CSS grid layouts&mdash;it's purely for visual reference.</p>
+
+          <h3>Baseline subdivisions</h3>
+          <p>Choose how many subdivisions to show between baseline lines:</p>
+          <ul>
+            <li><strong>1</strong>&mdash;No subdivisions, only main baseline lines</li>
+            <li><strong>2</strong>&mdash;Half-line subdivisions (default)</li>
+            <li><strong>3</strong>&mdash;Third-line subdivisions</li>
+            <li><strong>4</strong>&mdash;Quarter-line subdivisions</li>
+          </ul>
+
+          <h3>Gap</h3>
+          <p>Set the gap between columns in the overlay. Options use <code>--line-*</code> tokens:</p>
+          <ul>
+            <li><strong>0</strong>&mdash;No gap</li>
+            <li><strong>1px</strong>&mdash;1 pixel gap</li>
+            <li><strong>1/4</strong>&mdash;<code>var(--line-025)</code></li>
+            <li><strong>1/2</strong>&mdash;<code>var(--line-05)</code></li>
+            <li><strong>1</strong>&mdash;<code>var(--line-1)</code> (default)</li>
+            <li><strong>2</strong>&mdash;<code>var(--line-2)</code></li>
+          </ul>
+
+          <h3>Margin</h3>
+          <p>Choose which margin mode the column overlay uses:</p>
+          <ul>
+            <li><strong>Section</strong>&mdash;Matches the responsive margins of <code>.section</code> (default)</li>
+            <li><strong>Full-bleed</strong>&mdash;No margins, edge to edge</li>
+            <li><strong>Wide</strong>&mdash;Matches the narrower margins of <code>.section-wide</code></li>
+          </ul>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="persistence" class="section">
+          <h2>Persistence</h2>
+          <p>All toolbar settings and toggle states are saved to <code>localStorage</code>. When you reload the page or navigate to a different page, your tools remain active and settings are preserved.</p>
+          <p>To reset to defaults, clear your browser's local storage for this site or use browser dev tools to delete the <code>livewires-dev-tools</code> key.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="tips" class="section">
+          <h2>Tips</h2>
+
+          <h3>Checking baseline alignment</h3>
+          <p>Enable <kbd>B</kbd> Baseline and scroll through your page. Text baselines should sit on the grid lines. If text appears between lines, check your <code>line-height</code> values or spacing utilities.</p>
+
+          <h3>Debugging grid layouts</h3>
+          <p>Use <kbd>G</kbd> CSS Grids to see exactly how many columns each <code>.grid</code> element has at the current viewport size. This is especially useful for auto-fit grids that change column count responsively.</p>
+
+          <h3>Evaluating visual hierarchy</h3>
+          <p>Enable <kbd>R</kbd> Redact to blur text content and focus on the shapes, sizes, and spacing of your layout. This helps you see if your visual hierarchy works without being influenced by the actual words.</p>
+
+          <h3>Checking color scheme boundaries</h3>
+          <p>Toggle <kbd>X</kbd> BG Colors off to make all background colors transparent. This reveals how your layout would look without color and helps identify where sections begin and end.</p>
+
+          <h3>Verifying responsive margins</h3>
+          <p>Enable <kbd>M</kbd> Margins and resize your browser. The margin overlay responds to the same breakpoints as <code>.section</code>, so you can verify your content aligns with the margin system.</p>
+
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section class="section">
+          <h2>Related documentation</h2>
+          <ul>
+            <li><a href="/guide/docs/getting-started.html">Getting started</a>&mdash;Installation and setup</li>
+            <li><a href="/guide/docs/typography.html">Typography system</a>&mdash;Baseline rhythm and type scale</li>
+            <li><a href="/guide/components/layout.html">Layout primitives</a>&mdash;Stack, grid, cluster, and more</li>
+          </ul>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
