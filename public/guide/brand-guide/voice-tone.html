@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-voice-tone">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-brand-guide.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Voice &amp; Tone</h1>
+          <hr />
+          <p class="lead">How we sound when we speak.</p>
+        </header>
+
+        <section class="section">
+          <h2>Our voice</h2>
+          <p>Your voice is the consistent personality that comes through in all communications. It doesn't change based on context—it's who you are as a brand.</p>
+
+          <div class="grid grid-columns-2">
+            <div class="box bg-subtle">
+              <h3>We are</h3>
+              <p class="text-sm text-muted">List 4–6 voice attributes that define your brand personality. Each should have a brief explanation.</p>
+              <ul>
+                <li><strong>[Attribute]</strong> — Brief description of what this means in practice</li>
+                <li><strong>[Attribute]</strong> — Brief description of what this means in practice</li>
+                <li><strong>[Attribute]</strong> — Brief description of what this means in practice</li>
+                <li><strong>[Attribute]</strong> — Brief description of what this means in practice</li>
+              </ul>
+            </div>
+            <div class="box bg-subtle">
+              <h3>We are not</h3>
+              <p class="text-sm text-muted">List the opposites or extremes to avoid. This helps clarify boundaries.</p>
+              <ul>
+                <li><strong>[Anti-attribute]</strong> — What to avoid and why</li>
+                <li><strong>[Anti-attribute]</strong> — What to avoid and why</li>
+                <li><strong>[Anti-attribute]</strong> — What to avoid and why</li>
+                <li><strong>[Anti-attribute]</strong> — What to avoid and why</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Our tone</h2>
+          <p>While your voice stays consistent, your tone adapts to the situation. Define how your voice shifts across different contexts and emotional states.</p>
+
+          <h3>Tone spectrum</h3>
+          <p class="text-sm text-muted">Add tone guidelines for different situations your brand encounters. Include example copy for each.</p>
+          <div class="stack">
+            <div class="box bg-subtle">
+              <h4>[Situation type]</h4>
+              <p class="text-sm text-muted">When does this tone apply? (e.g., success messages, onboarding, celebrations)</p>
+              <p>Describe how to adjust your voice for this situation. What should the reader feel?</p>
+              <blockquote>
+                <p>"[Example copy that demonstrates this tone]"</p>
+              </blockquote>
+            </div>
+            <div class="box bg-subtle">
+              <h4>[Situation type]</h4>
+              <p class="text-sm text-muted">When does this tone apply? (e.g., general content, everyday interactions)</p>
+              <p>Describe how to adjust your voice for this situation. What should the reader feel?</p>
+              <blockquote>
+                <p>"[Example copy that demonstrates this tone]"</p>
+              </blockquote>
+            </div>
+            <div class="box bg-subtle">
+              <h4>[Situation type]</h4>
+              <p class="text-sm text-muted">When does this tone apply? (e.g., errors, apologies, sensitive topics)</p>
+              <p>Describe how to adjust your voice for this situation. What should the reader feel?</p>
+              <blockquote>
+                <p>"[Example copy that demonstrates this tone]"</p>
+              </blockquote>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Writing principles</h2>
+          <p class="text-muted">Define 4–6 core writing principles that guide all content. Include good and bad examples for each.</p>
+          <div class="grid grid-columns-2">
+            <div>
+              <h3>[Principle name]</h3>
+              <p>Explain this principle and why it matters for your brand.</p>
+              <p class="text-sm"><span class="text-success">✓</span> "[Good example]"</p>
+              <p class="text-sm"><span class="text-error">✗</span> "[Bad example]"</p>
+            </div>
+            <div>
+              <h3>[Principle name]</h3>
+              <p>Explain this principle and why it matters for your brand.</p>
+              <p class="text-sm"><span class="text-success">✓</span> "[Good example]"</p>
+              <p class="text-sm"><span class="text-error">✗</span> "[Bad example]"</p>
+            </div>
+            <div>
+              <h3>[Principle name]</h3>
+              <p>Explain this principle and why it matters for your brand.</p>
+              <p class="text-sm"><span class="text-success">✓</span> "[Good example]"</p>
+              <p class="text-sm"><span class="text-error">✗</span> "[Bad example]"</p>
+            </div>
+            <div>
+              <h3>[Principle name]</h3>
+              <p>Explain this principle and why it matters for your brand.</p>
+              <p class="text-sm"><span class="text-success">✓</span> "[Good example]"</p>
+              <p class="text-sm"><span class="text-error">✗</span> "[Bad example]"</p>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

@@ -1,18 +1,24 @@
 /**
  * Logo Component
  *
- * Constrained logo sizing using baseline-derived values
+ * Constrained logo sizing using baseline-derived values.
+ * Height is constrained to --line-2, width is flexible.
  */
 
 @layer components {
   .logo {
-    max-block-size: var(--line-2);
-    max-inline-size: var(--line-3);
     font-size: var(--text-lg);
     font-weight: var(--font-bold);
-    
+
     a {
+      display: block;
       text-decoration: none;
+    }
+
+    img, svg {
+      display: block;
+      max-block-size: var(--line-2);
+      inline-size: auto;
     }
   }
 }

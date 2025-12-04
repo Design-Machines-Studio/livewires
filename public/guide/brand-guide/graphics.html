@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-graphics">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-brand-guide.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Graphics</h1>
+          <hr />
+          <p class="lead">Photography, illustration, and iconography guidelines.</p>
+        </header>
+
+        <section class="section">
+          <h2>Photography</h2>
+          <p>Our photography should feel authentic, human, and purposeful. Every image should support the content—never just fill space.</p>
+
+          <h3>Style principles</h3>
+          <div class="grid grid-columns-2">
+            <div class="box bg-subtle">
+              <h4>Do</h4>
+              <ul>
+                <li>Use natural lighting when possible</li>
+                <li>Show real people in real situations</li>
+                <li>Capture genuine expressions and moments</li>
+                <li>Maintain consistent color grading</li>
+                <li>Leave breathing room for text overlays</li>
+              </ul>
+            </div>
+            <div class="box bg-subtle">
+              <h4>Don't</h4>
+              <ul>
+                <li>Use obviously staged stock photos</li>
+                <li>Over-filter or heavily process images</li>
+                <li>Choose images with busy backgrounds</li>
+                <li>Use low-resolution or pixelated images</li>
+                <li>Stretch or distort aspect ratios</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3>Technical requirements</h3>
+          <div class="grid grid-columns-3">
+            <div>
+              <h4>Resolution</h4>
+              <p class="text-sm">Minimum 72 DPI for web, 300 DPI for print. Always use @2x assets for retina displays.</p>
+            </div>
+            <div>
+              <h4>Formats</h4>
+              <p class="text-sm">Use WebP or optimized JPEG for photos. Use PNG only when transparency is required.</p>
+            </div>
+            <div>
+              <h4>Aspect ratios</h4>
+              <p class="text-sm">16:9 for hero images, 4:3 for cards, 1:1 for avatars and thumbnails.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Illustration</h2>
+          <p>Illustrations add personality and help explain complex concepts. They should complement our photography, not compete with it.</p>
+
+          <h3>When to use illustration</h3>
+          <ul>
+            <li><strong>Abstract concepts</strong> — Ideas that are hard to photograph</li>
+            <li><strong>Empty states</strong> — When there's no content to show yet</li>
+            <li><strong>Onboarding</strong> — Guiding users through new features</li>
+            <li><strong>Error states</strong> — Softening frustrating moments</li>
+            <li><strong>Marketing</strong> — Adding visual interest to campaigns</li>
+          </ul>
+
+          <h3>Style guidelines</h3>
+          <div class="grid grid-columns-2">
+            <div class="box bg-subtle">
+              <h4>Visual characteristics</h4>
+              <ul>
+                <li>Clean, simple line work</li>
+                <li>Limited color palette from brand colors</li>
+                <li>Consistent stroke weights</li>
+                <li>Rounded corners and friendly shapes</li>
+                <li>Minimal detail—communicate the essence</li>
+              </ul>
+            </div>
+            <div class="box bg-subtle">
+              <h4>Avoid</h4>
+              <ul>
+                <li>Overly complex or detailed illustrations</li>
+                <li>Colors outside the brand palette</li>
+                <li>Inconsistent styles within a project</li>
+                <li>Generic clip art or stock illustrations</li>
+                <li>3D effects or heavy gradients</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Iconography</h2>
+          <p>Icons are functional graphics that aid navigation and comprehension. They should be instantly recognizable and consistently styled.</p>
+
+          <h3>Icon principles</h3>
+          <div class="grid grid-columns-2">
+            <div>
+              <h4>Clarity first</h4>
+              <p>Icons must be understood at a glance. When in doubt, pair with a text label.</p>
+            </div>
+            <div>
+              <h4>Consistency</h4>
+              <p>Use a single icon set throughout. Don't mix styles from different sources.</p>
+            </div>
+            <div>
+              <h4>Size and spacing</h4>
+              <p>Design on a 24×24px grid. Use multiples (16, 24, 32, 48) for different contexts.</p>
+            </div>
+            <div>
+              <h4>Accessibility</h4>
+              <p>Never rely on icons alone to convey meaning. Always provide text alternatives.</p>
+            </div>
+          </div>
+
+          <h3>Technical specs</h3>
+          <div class="box bg-subtle">
+            <ul class="cluster">
+              <li><strong>Format:</strong> SVG (preferred) or icon font</li>
+              <li><strong>Stroke:</strong> 2px consistent weight</li>
+              <li><strong>Corners:</strong> 2px radius</li>
+              <li><strong>Padding:</strong> 2px safe area within bounds</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Image treatments</h2>
+          <p>When overlaying text on images or using images as backgrounds, apply these treatments for consistency and legibility.</p>
+
+          <div class="grid grid-columns-2">
+            <div>
+              <h3>Overlays</h3>
+              <p>Use a semi-transparent brand color overlay to ensure text readability and visual consistency.</p>
+              <ul class="text-sm">
+                <li>Dark overlay: rgba(0, 0, 0, 0.5)</li>
+                <li>Brand overlay: rgba(brand, 0.7)</li>
+                <li>Gradient: transparent to dark</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Duotone</h3>
+              <p>Convert images to duotone using brand colors for a distinctive, unified look.</p>
+              <ul class="text-sm">
+                <li>Shadows: Brand dark</li>
+                <li>Highlights: Brand light or white</li>
+                <li>Use sparingly for impact</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

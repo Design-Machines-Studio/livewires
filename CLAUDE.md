@@ -266,6 +266,7 @@ Vertical spacing between child elements:
 Auto-responsive grid (no breakpoints needed):
 ```html
 <div class="grid">              <!-- Auto-fit grid -->
+<div class="grid grid-narrow">  <!-- Narrower min column width -->
 <div class="grid grid-columns-3"> <!-- Fixed 3-column -->
 <div class="grid-span-2">       <!-- Span 2 columns -->
 ```

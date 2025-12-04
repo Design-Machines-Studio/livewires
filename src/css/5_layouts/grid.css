@@ -6,11 +6,18 @@
  */
 
 @layer layouts {
+  :root {
+    --min-column-width: 20rem;
+  }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--min-column-width), 100%), 1fr));
     gap: var(--grid-gap, var(--gutter));
     container-type: inline-size;
+  }
+
+  .grid-narrow {
+    --min-column-width: var(--line-8);
   }
 
   /* Fixed column grids (--grid-columns used by dev tools outline) */

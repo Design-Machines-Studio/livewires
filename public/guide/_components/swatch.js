@@ -2,10 +2,13 @@
  * <color-swatch> Web Component
  *
  * Displays a color swatch with various color format values.
+ * Can automatically resolve color values from CSS custom properties.
  *
  * @attr {string} title - Title for the swatch (defaults to token if not provided)
  * @attr {string} token - CSS variable name without -- prefix (e.g., "color-orange-500")
- * @attr {string} hex - Hex color value (required - used to auto-generate RGB, HSLA, and OKLCH)
+ *                        If hex is not provided, the component will attempt to resolve the color
+ *                        from the CSS custom property --{token}
+ * @attr {string} hex - Hex color value (optional if token can be resolved from CSS)
  * @attr {string} scheme - Scheme class to use (e.g., "scheme-orange"). If not provided, uses bg-{color} fallback.
  * @attr {string} rgb - RGB color value (auto-generated from hex if not provided)
  * @attr {string} hsla - HSLA color value (auto-generated from hex if not provided)
@@ -16,7 +19,10 @@
  * Text color (white or black) is automatically determined based on background luminance.
  *
  * @example
- * <!-- Minimal: just hex and token -->
+ * <!-- Minimal: just token (color resolved from CSS) -->
+ * <color-swatch token="color-orange-500"></color-swatch>
+ *
+ * <!-- With explicit hex (skips CSS resolution) -->
  * <color-swatch
  *   token="color-orange-500"
  *   hex="#FF4F00">
@@ -26,13 +32,67 @@
  * <color-swatch
  *   title="Orange 500"
  *   token="color-orange-500"
- *   hex="#FF4F00"
  *   scheme="scheme-orange">
  * </color-swatch>
  */
 class ColorSwatch extends HTMLElement {
   connectedCallback() {
+    // Resolve color from CSS if hex not provided
+    this._resolvedHex = this.getAttribute('hex') || this.resolveColorFromToken();
     this.render();
+  }
+
+  /**
+   * Resolve color value from CSS custom property
+   * Creates a temporary element, applies the token as background, reads computed value
+   */
+  resolveColorFromToken() {
+    const token = this.getAttribute('token');
+    if (!token) return '';
+
+    // First, try to read the CSS custom property directly
+    const cssValue = getComputedStyle(document.documentElement).getPropertyValue(`--${token}`).trim();
+
+    // If it's already a hex value, return it
+    if (cssValue.startsWith('#')) {
+      return cssValue;
+    }
+
+    // If it's an rgb/rgba value, convert to hex
+    if (cssValue.startsWith('rgb')) {
+      return this.rgbStringToHex(cssValue);
+    }
+
+    // If the token references another variable or is complex, resolve via computed style
+    // Create a temporary element to resolve the actual color
+    const temp = document.createElement('div');
+    temp.style.backgroundColor = `var(--${token})`;
+    temp.style.display = 'none';
+    document.body.appendChild(temp);
+
+    const computedColor = getComputedStyle(temp).backgroundColor;
+    document.body.removeChild(temp);
+
+    // Convert the computed rgb() value to hex
+    if (computedColor && computedColor !== 'rgba(0, 0, 0, 0)') {
+      return this.rgbStringToHex(computedColor);
+    }
+
+    return '';
+  }
+
+  /**
+   * Convert rgb(r, g, b) or rgba(r, g, b, a) string to hex
+   */
+  rgbStringToHex(rgbString) {
+    const match = rgbString.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (!match) return '';
+
+    const r = parseInt(match[1], 10);
+    const g = parseInt(match[2], 10);
+    const b = parseInt(match[3], 10);
+
+    return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase();
   }
 
   // Convert hex to RGB
@@ -145,7 +205,8 @@ class ColorSwatch extends HTMLElement {
   }
 
   get hex() {
-    return this.getAttribute('hex') || '';
+    // Use resolved hex (from CSS or attribute)
+    return this._resolvedHex || '';
   }
 
   get scheme() {
@@ -205,35 +266,35 @@ class ColorSwatch extends HTMLElement {
 
     // Token name
     if (this.token) {
-      html += `<p class="text-xs font-mono" style="color: ${textColor}; opacity: 0.8;">--${this.token}</p>`;
+      html += `<p class="text-xs font-mono" style="color: ${textColor};">--${this.token}</p>`;
     }
 
-    html += `<hr style="border-color: ${textColor}; opacity: 0.3;">`;
+    html += `<hr style="border-color: ${textColor}; opacity: 0.5;"><div class="grid grid-narrow grid-gap-0">`;
 
     // Color values
     const valueStyle = `style="color: ${textColor};"`;
-    const labelStyle = `style="color: ${textColor}; opacity: 0.7;"`;
+    const labelStyle = `style="color: ${textColor};"`;
 
     if (this.hex) {
-      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block" ${labelStyle}>Hex</span>${this.hex}</p>`;
+      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block font-bold" ${labelStyle}>Hex</span>${this.hex}</p>`;
     }
     if (this.rgb) {
-      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block" ${labelStyle}>RGB</span>${this.rgb}</p>`;
+      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block font-bold" ${labelStyle}>RGB</span>${this.rgb}</p>`;
     }
     if (this.hsla) {
-      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block" ${labelStyle}>HSLA</span>${this.hsla}</p>`;
+      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block font-bold" ${labelStyle}>HSLA</span>${this.hsla}</p>`;
     }
     if (this.oklch) {
-      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block" ${labelStyle}>OKLCH</span>${this.oklch}</p>`;
+      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block font-bold" ${labelStyle}>OKLCH</span>${this.oklch}</p>`;
     }
     if (this.cmyk) {
-      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block" ${labelStyle}>CMYK</span>${this.cmyk}</p>`;
+      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block font-bold" ${labelStyle}>CMYK</span>${this.cmyk}</p>`;
     }
     if (this.pms) {
-      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block" ${labelStyle}>PMS</span>${this.pms}</p>`;
+      html += `<p class="text-sm" ${valueStyle}><span class="text-xs block font-bold" ${labelStyle}>PMS</span>${this.pms}</p>`;
     }
 
-    html += `</div>`;
+    html += `</div></div>`;
 
     this.innerHTML = html;
   }
