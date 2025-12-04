@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Live Wires 2026 is a prototyping-first design system for editorial websites. Built with modern CSS, it uses Vite for development and native CSS features (cascade layers, nesting, container queries) instead of preprocessors.
+Live Wires is a prototyping-first design system for editorial websites. Built with modern CSS, it uses Vite for development and native CSS features (cascade layers, nesting, container queries) instead of preprocessors.
 
 **Philosophy:** Good defaults + additive art direction. Semantic HTML looks good with zero classes, utility classes provide precise control for art direction.
 

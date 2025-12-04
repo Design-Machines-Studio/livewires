@@ -1,4 +1,4 @@
-# Live Wires 2026
+# Live Wires
 
 A prototyping-first design system for editorial websites. Built with modern CSS, rooted in timeless design principles.
 
