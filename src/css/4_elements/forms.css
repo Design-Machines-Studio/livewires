@@ -10,8 +10,6 @@
    * Form variables
    */
   :root {
-    --button-bg: var(--color-fg);
-    --button-fg: var(--color-bg);
     --button-h-space: var(--line-075);
     --button-v-space: var(--line-05);
     --button-radius: var(--radius-normal);
@@ -91,6 +89,8 @@
   }
   /*
    * Buttons
+   * Use semantic colors by default so buttons adapt to color schemes.
+   * Override with --button-bg and --button-fg for custom colors.
    */
   button,
   input[type="submit"],
@@ -100,8 +100,8 @@
     min-block-size: var(--touch-target-min);
     padding-block: var(--button-v-space);
     padding-inline: var(--button-h-space);
-    background: var(--button-bg);
-    color: var(--button-fg);
+    background: var(--button-bg, var(--color-fg));
+    color: var(--button-fg, var(--color-bg));
     border: none;
     border-radius: var(--button-radius);
     font-weight: var(--font-medium);
@@ -115,12 +115,12 @@
 
     &:hover {
       opacity: 0.9;
-      color: var(--button-fg);
+      color: var(--button-fg, var(--color-bg));
     }
 
     &:active {
       opacity: 0.9;
-      color: var(--button-fg);
+      color: var(--button-fg, var(--color-bg));
     }
 
     &:focus-visible {

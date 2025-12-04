@@ -8,9 +8,10 @@
 @layer components {
 
   /* Button colours */
+  .button-accent,
   .button--accent {
     --button-bg: var(--color-accent);
-    --button-fg: var(--color-white);
+    --button-fg: var(--color-bg);
   }
 
   /* Size variants */
