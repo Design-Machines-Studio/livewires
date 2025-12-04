@@ -410,9 +410,9 @@
   .light-mode .scheme-default {
     --color-bg: var(--color-white);
     --color-fg: var(--color-grey-900);
-    --color-accent: var(--color-blue-600);
+    --color-accent: var(--color-blue-500);
     --color-muted: var(--color-grey-600);
-    --color-border: var(--color-grey-300);
+    --color-border: var(--color-grey-900);
     --color-subtle: var(--color-grey-100);
     --vf-grad: 0;
     background-color: var(--color-bg);

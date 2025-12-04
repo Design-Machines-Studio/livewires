@@ -13,11 +13,11 @@
   <body class="pg-docs">
 
     <!-- HTML Include: site header -->
-    <html-include src="../_includes/header.html"></html-include>
+    <html-include src="/_includes/header.html"></html-include>
 
     <!-- Content block, child page inject content -->
     <main class="main sidebar" id="main">
-      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <html-include class="bg-subtle" src="/_includes/nav-docs.html"></html-include>
       <article class="prose">
         <header class="section scheme-dark">
           <h1>HTML includes</h1>
@@ -107,8 +107,8 @@
 &lt;html-include src="/_includes/header.html"&gt;&lt;/html-include&gt;</code></pre>
 
           <h3>Relative paths</h3>
-          <pre><code>&lt;!-- From /guide/docs/index.html --&gt;
-&lt;html-include src="../_includes/header.html"&gt;&lt;/html-include&gt;</code></pre>
+          <pre><code>&lt;!-- From /docs/index.html --&gt;
+&lt;html-include src="/_includes/header.html"&gt;&lt;/html-include&gt;</code></pre>
 
           <p>Absolute paths starting with <code>/</code> are resolved from the site root, making them more portable. Use relative paths when the include is specific to a section.</p>
           <p class="more"><a href="#main">To top</a></p>

@@ -93,9 +93,12 @@ Vite provides instant HMR (Hot Module Replacement). Edit CSS or HTML files and s
 │   │   └── prototyping.js # Development utilities
 │
 ├── public/                # Your prototype (site root)
-│   ├── index.html         # Your HTML
-│   ├── _includes/         # HTML includes (header, footer, etc.)
-│   ├── guide/             # Comprehensive documentation site
+│   ├── index.html         # Your HTML (replaceable prototype workspace)
+│   ├── _includes/         # HTML includes (header, footer, nav-docs)
+│   ├── guide/             # Design System Guide
+│   │   ├── brand/         # Brand guide (logos, colors, fonts, voice)
+│   │   └── components/    # Component library (layout, forms, schemes)
+│   ├── docs/              # Framework documentation (how to use Live Wires)
 │   ├── example/           # Example site implementation
 │   ├── fonts/             # Web fonts
 │   └── img/               # Images
@@ -581,16 +584,25 @@ But Live Wires is **zero-dependency**. No Tailwind required.
 
 ## Documentation & Guide
 
-Live Wires includes a comprehensive documentation site at [public/guide/](public/guide/):
+Live Wires separates documentation into two main areas:
 
-### Guide Pages
-- **[index.html](public/guide/index.html)** - Getting started, usage, and core concepts
-- **[brand-guide/index.html](public/guide/brand-guide/index.html)** - Brand guide (logos, colors, typography)
-- **[layout/index.html](public/guide/layout/index.html)** - Grid and layout documentation
-- **[elements/index.html](public/guide/elements/index.html)** - HTML element documentation
-- **[components/index.html](public/guide/components/index.html)** - Component documentation
-- **[templates/index.html](public/guide/templates/index.html)** - Template patterns
-- **[modules/index.html](public/guide/modules/index.html)** - Module patterns
+### Design System Guide ([public/guide/](public/guide/))
+The living reference for brand identity and UI components. Use during design and as ongoing team documentation.
+
+- **[guide/index.html](public/guide/index.html)** - Design system hub
+- **[guide/brand/](public/guide/brand/)** - Brand guide (logos, colors, fonts, voice & tone)
+- **[guide/components/](public/guide/components/)** - Component library (layout, forms, schemes, typography)
+
+### Framework Documentation ([public/docs/](public/docs/))
+How to use Live Wires - installation, architecture, and reference.
+
+- **[docs/index.html](public/docs/index.html)** - Documentation overview
+- **[docs/getting-started.html](public/docs/getting-started.html)** - Installation and setup
+- **[docs/structure.html](public/docs/structure.html)** - Project structure
+- **[docs/process.html](public/docs/process.html)** - Design process workflow
+- **[docs/typography.html](public/docs/typography.html)** - Typography system
+- **[docs/utility-classes.html](public/docs/utility-classes.html)** - Utility class reference
+- **[docs/design-toolbar.html](public/docs/design-toolbar.html)** - Development tools
 
 ### Custom Guide Components
 
