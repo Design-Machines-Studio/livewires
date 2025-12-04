@@ -20,8 +20,8 @@ After modifying code, check if updates are needed in these files:
 |------------------|-------------------|
 | CSS class names (layouts, components, utilities) | CLAUDE.md, SKILL.md, README.md, relevant guide pages |
 | CSS custom properties/tokens (`--line-*`, `--text-*`, etc.) | CLAUDE.md, SKILL.md, README.md |
-| Layout primitive variants (stack-*, grid-*, etc.) | CLAUDE.md, SKILL.md, guide/components/layout.html |
-| Component styles | CLAUDE.md, relevant guide/components/*.html page |
+| Layout primitive variants (stack-*, grid-*, etc.) | CLAUDE.md, SKILL.md, manual/components/layout.html |
+| Component styles | CLAUDE.md, relevant manual/components/*.html page |
 | JavaScript files (add/remove/rename) | CLAUDE.md directory structure |
 | File/directory structure | CLAUDE.md, README.md |
 | Build commands or configuration | CLAUDE.md, README.md |
@@ -31,7 +31,7 @@ After modifying code, check if updates are needed in these files:
 1. **[CLAUDE.md](CLAUDE.md)** - Primary technical reference for Claude Code
 2. **[.claude/skills/livewires/SKILL.md](.claude/skills/livewires/SKILL.md)** - Quick reference for layout primitives and utilities
 3. **[README.md](README.md)** - User-facing project overview
-4. **[public/guide/](public/guide/)** - Visual documentation site
+4. **[public/manual/](public/manual/)** - Visual documentation site
 
 ### Documentation Update Process
 
@@ -95,7 +95,7 @@ Vite provides instant HMR (Hot Module Replacement). Edit CSS or HTML files and s
 ├── public/                # Your prototype (site root)
 │   ├── index.html         # Your HTML (replaceable prototype workspace)
 │   ├── _includes/         # HTML includes (header, footer, nav-docs)
-│   ├── guide/             # Design System Guide
+│   ├── manual/            # Manual (brand identity & UI components)
 │   │   ├── brand/         # Brand guide (logos, colors, fonts, voice)
 │   │   └── components/    # Component library (layout, forms, schemes)
 │   ├── docs/              # Framework documentation (how to use Live Wires)
@@ -348,7 +348,7 @@ All components follow these principles:
 </div>
 ```
 
-See [public/guide/components/](public/guide/components/) for complete component documentation.
+See [public/manual/components/](public/manual/components/) for complete component documentation.
 
 ## Utility Classes
 
@@ -532,7 +532,7 @@ Create reusable HTML fragments in [public/_includes/](public/_includes/):
     <nav>
       <ul class="cluster">
         <li><a href="/">Home</a></li>
-        <li><a href="/guide/">Guide</a></li>
+        <li><a href="/manual/">Guide</a></li>
       </ul>
     </nav>
   </div>
@@ -582,16 +582,16 @@ This provides:
 
 But Live Wires is **zero-dependency**. No Tailwind required.
 
-## Documentation & Guide
+## Documentation & Manual
 
 Live Wires separates documentation into two main areas:
 
-### Design System Guide ([public/guide/](public/guide/))
+### Manual ([public/manual/](public/manual/))
 The living reference for brand identity and UI components. Use during design and as ongoing team documentation.
 
-- **[guide/index.html](public/guide/index.html)** - Design system hub
-- **[guide/brand/](public/guide/brand/)** - Brand guide (logos, colors, fonts, voice & tone)
-- **[guide/components/](public/guide/components/)** - Component library (layout, forms, schemes, typography)
+- **[manual/index.html](public/manual/index.html)** - Manual hub
+- **[manual/brand/](public/manual/brand/)** - Brand guide (logos, colors, fonts, voice & tone)
+- **[manual/components/](public/manual/components/)** - Component library (layout, forms, schemes, typography)
 
 ### Framework Documentation ([public/docs/](public/docs/))
 How to use Live Wires - installation, architecture, and reference.
@@ -604,17 +604,17 @@ How to use Live Wires - installation, architecture, and reference.
 - **[docs/utility-classes.html](public/docs/utility-classes.html)** - Utility class reference
 - **[docs/design-toolbar.html](public/docs/design-toolbar.html)** - Development tools
 
-### Custom Guide Components
+### Custom Manual Components
 
-The guide includes specialized Web Components for documentation:
+The manual includes specialized Web Components for documentation:
 
-#### Color Swatch Component ([public/guide/_components/swatch.js](public/guide/_components/swatch.js))
+#### Color Swatch Component ([public/manual/_components/swatch.js](public/manual/_components/swatch.js))
 ```html
 <color-swatch value="#FF5733"></color-swatch>
 ```
 Displays color information with automatic conversion to RGB, HSLA, and OKLCH formats. Automatically selects light/dark theme based on color luminance.
 
-#### Type Sample Component ([public/guide/_components/type-sample.js](public/guide/_components/type-sample.js))
+#### Type Sample Component ([public/manual/_components/type-sample.js](public/manual/_components/type-sample.js))
 ```html
 <type-sample></type-sample>
 ```
