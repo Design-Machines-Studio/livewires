@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load Web Component first (before any html-include tags) -->
+    <script type="module" src="/src/js/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-docs">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-docs.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Getting started</h1>
+          <hr />
+          <p class="lead">Installation, setup, and project structure.</p>
+        </header>
+        <div>
+          <section class="section">
+            <h2>Installation</h2>
+            <p>Live Wires is a self-contained prototyping system. No package to install from npm&mdash;just clone or download and start building.</p>
+
+            <h3>Prerequisites</h3>
+            <ul>
+              <li><a href="https://nodejs.org/">Node.js</a> version 18 or higher</li>
+              <li>A code editor (VS Code recommended)</li>
+              <li>Basic familiarity with HTML and CSS</li>
+            </ul>
+
+            <h3>Quick start</h3>
+            <ol>
+              <li><strong>Clone or download</strong> the <a href="https://github.com/Design-Machines-Studio/livewires">Live Wires repository</a></li>
+              <li><strong>Open a terminal</strong> and navigate to the project folder</li>
+              <li><strong>Install dependencies:</strong> <code>npm install</code></li>
+              <li><strong>Start the dev server:</strong> <code>npm run dev</code></li>
+              <li><strong>Open your browser</strong> to <a href="http://localhost:3000">http://localhost:3000</a></li>
+            </ol>
+
+            <p>That's it. Edit any HTML or CSS file and see changes instantly in your browser.</p>
+          </section>
+          <section class="section">
+            <h2>Running</h2>
+            <p>Live Wires uses <a href="https://vitejs.dev/">Vite</a> for development with instant HMR (Hot Module Replacement). No build step during development, just instant updates.</p>
+
+            <p><strong>What Vite does:</strong></p>
+            <ul>
+              <li>Instant CSS updates (no refresh needed)</li>
+              <li><a href="https://github.com/ai/autoprefixer">Autoprefixer</a> for vendor prefixes</li>
+              <li>Dev server with automatic browser sync</li>
+              <li>Optimized production builds</li>
+            </ul>
+
+            <p><strong>Getting started:</strong></p>
+            <dl>
+              <dt>Step 1</dt>
+              <dd>Install <a href="https://nodejs.org/">Node.js</a> (18+ required)</dd>
+
+              <dt>Step 2</dt>
+              <dd>Clone this repository and navigate to the project folder</dd>
+
+              <dt>Step 3</dt>
+              <dd>Run <code>npm install</code> to install dependencies</dd>
+
+              <dt>Step 4</dt>
+              <dd>Run <code>npm run dev</code> to start the development server</dd>
+
+              <dt>Step 5</dt>
+              <dd>Open <a href="http://localhost:3000">http://localhost:3000</a> in your browser</dd>
+            </dl>
+
+            <aside class="box bg-subtle">
+              <p><strong>Core commands:</strong></p>
+              <ul>
+                <li><code>npm run dev</code> - Start dev server (run this when working)</li>
+                <li><code>npm run build</code> - Build optimized CSS to <code>dist/</code></li>
+                <li><code>npm run preview</code> - Preview production build</li>
+              </ul>
+            </aside>
+          </section>
+          <section class="section">
+            <h2>Related documentation</h2>
+            <ul>
+              <li><a href="structure.html">Project structure</a></li>
+              <li><a href="process.html">Design process</a></li>
+            </ul>
+
+          </section>
+        </div>
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
