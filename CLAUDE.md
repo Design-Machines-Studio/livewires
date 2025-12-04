@@ -8,6 +8,58 @@ Live Wires 2026 is a prototyping-first design system for editorial websites. Bui
 
 **Philosophy:** Good defaults + additive art direction. Semantic HTML looks good with zero classes, utility classes provide precise control for art direction.
 
+## ⚠️ CRITICAL: Documentation Sync Requirements
+
+**IMPORTANT:** When making ANY changes to this project, you MUST keep documentation in sync. This project is designed as an open-source starter kit, so accurate documentation is essential.
+
+### Documentation Sync Checklist
+
+After modifying code, check if updates are needed in these files:
+
+| If you change... | Update these files |
+|------------------|-------------------|
+| CSS class names (layouts, components, utilities) | CLAUDE.md, SKILL.md, README.md, relevant guide pages |
+| CSS custom properties/tokens (`--line-*`, `--text-*`, etc.) | CLAUDE.md, SKILL.md, README.md |
+| Layout primitive variants (stack-*, grid-*, etc.) | CLAUDE.md, SKILL.md, guide/components/layout.html |
+| Component styles | CLAUDE.md, relevant guide/components/*.html page |
+| JavaScript files (add/remove/rename) | CLAUDE.md directory structure |
+| File/directory structure | CLAUDE.md, README.md |
+| Build commands or configuration | CLAUDE.md, README.md |
+
+### Files That Must Stay In Sync
+
+1. **[CLAUDE.md](CLAUDE.md)** - Primary technical reference for Claude Code
+2. **[.claude/skills/livewires/SKILL.md](.claude/skills/livewires/SKILL.md)** - Quick reference for layout primitives and utilities
+3. **[README.md](README.md)** - User-facing project overview
+4. **[public/guide/](public/guide/)** - Visual documentation site
+
+### Documentation Update Process
+
+When making code changes:
+
+1. **Before committing**, verify documentation accuracy:
+   ```
+   □ Class names in docs match actual CSS
+   □ Token names in docs match actual CSS
+   □ File paths in docs are correct
+   □ Code examples use correct class names
+   □ All variants are documented
+   ```
+
+2. **Naming conventions** to maintain:
+   - **Layout modifiers:** single-dash (e.g., `stack-compact`, `box-tight`, `sidebar-reverse`)
+   - **Component modifiers:** double-dash (e.g., `button--accent`, `table--bordered`, `divider--hairline`)
+   - **Spacing tokens:** `--line-*` pattern
+   - **Typography tokens:** `--text-*` pattern (Tailwind-style: xs, sm, base, lg, xl, 2xl...)
+
+   *Why the difference?* Layouts are compositional primitives meant to be combined freely. Components are more opinionated UI patterns with specific variants.
+
+3. **When adding new features**:
+   - Add to CLAUDE.md architecture section
+   - Add to SKILL.md if it's a layout/utility
+   - Add example to relevant guide page
+   - Update README.md if it's a major feature
+
 ## Build System
 
 ### Core Commands
@@ -532,7 +584,7 @@ Live Wires includes a comprehensive documentation site at [public/guide/](public
 
 ### Guide Pages
 - **[index.html](public/guide/index.html)** - Getting started, usage, and core concepts
-- **[identity/index.html](public/guide/identity/index.html)** - Brand identity (logos, colors, typography)
+- **[brand-guide/index.html](public/guide/brand-guide/index.html)** - Brand guide (logos, colors, typography)
 - **[layout/index.html](public/guide/layout/index.html)** - Grid and layout documentation
 - **[elements/index.html](public/guide/elements/index.html)** - HTML element documentation
 - **[components/index.html](public/guide/components/index.html)** - Component documentation

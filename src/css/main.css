@@ -17,6 +17,7 @@
 @import './1_tokens/borders.css';
 @import './1_tokens/spacing.css';
 @import './1_tokens/typography-base.css';
+@import './1_tokens/animation.css';
 
 
 /* Typography scale mode (choose one) */

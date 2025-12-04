@@ -47,48 +47,48 @@
       - https://css-tricks.com/solved-with-has-vertical-spacing-in-long-form-text/
     */
     *:has(+ h2) {
-      margin-bottom: var(--line-2);
+      margin-block-end: var(--line-2);
     }
     *:has(+ h3) {
-      margin-bottom: var(--line-2);
+      margin-block-end: var(--line-2);
     }
     *:has(+ h4) {
-      margin-bottom: var(--line-15);
+      margin-block-end: var(--line-15);
     }
     *:has(+ h5) {
-      margin-bottom: var(--line-1);
+      margin-block-end: var(--line-1);
     }
     *:has(+ h6) {
-      margin-bottom: var(--line-1);
+      margin-block-end: var(--line-1);
     }
 
     /* Headings followed immediately by a heading of a level down
       should have only a small gap below.
-      Using :where() for consistent specificity. 
+      Using :where() for consistent specificity.
     */
     :where(h1):has(+ h2) {
-      margin-bottom: var(--line-025);
+      margin-block-end: var(--line-025);
     }
     :where(h2):has(+ h3) {
-      margin-bottom: var(--line-025);
+      margin-block-end: var(--line-025);
     }
     :where(h3):has(+ h4) {
-      margin-bottom: var(--line-025);
+      margin-block-end: var(--line-025);
     }
     :where(h4):has(+ h5) {
-      margin-bottom: var(--line-025);
+      margin-block-end: var(--line-025);
     }
     :where(h5):has(+ h6) {
-      margin-bottom: var(--line-025);
+      margin-block-end: var(--line-025);
     }
 
     /* List item spacing. */
     :where(li):has(+ li) {
-      margin-bottom: 0;
+      margin-block-end: 0;
     }
     /* Nested list spacing. */
     :where(li) :is(ul, ol) {
-      margin-top: var(--line-025);
+      margin-block-start: var(--line-025);
     }
   }
   .lead {
@@ -111,7 +111,7 @@
   }
   .prose > * + *,
   .flow > * + * {
-    margin-block-start: var(--line-05, 0.75rem);
+    margin-block-start: var(--line-05);
   }
 }
 

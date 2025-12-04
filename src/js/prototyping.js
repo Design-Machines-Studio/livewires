@@ -294,7 +294,11 @@ class DevTools {
     Object.keys(this.tools).forEach(key => {
       state[key] = this.tools[key].active;
     });
-    localStorage.setItem('livewires-dev-tools', JSON.stringify(state));
+    try {
+      localStorage.setItem('livewires-dev-tools', JSON.stringify(state));
+    } catch (e) {
+      console.warn('Could not save dev tools state:', e.message);
+    }
   }
 
   applyStates() {
@@ -352,7 +356,7 @@ class DevTools {
       const button = document.createElement('button');
       button.className = 'dev-tool-button';
       button.dataset.tool = key;
-      button.innerHTML = `${tool.label} <kbd>${tool.key.toUpperCase()}</kbd>`;
+      button.innerHTML = `<span class="dev-tool-label">${tool.label}</span> <kbd>${tool.key.toUpperCase()}</kbd>`;
       button.onclick = () => this.toggle(key);
 
       if (tool.active) {

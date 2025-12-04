@@ -48,9 +48,9 @@
     --color-orange-900: #1A0800;
     --color-orange: var(--color-orange-500); 
 
-    --color-brand: var(--orange-500);
-    --color-brand-light: var(--orange-300);
-    --color-brand-dark: var(--orange-700);
+    --color-brand: var(--color-blue-500);
+    --color-brand-light: var(--color-blue-300);
+    --color-brand-dark: var(--color-blue-700);
 
     --color-red-100: #FFE6E6;
     --color-red-200: #FFCECC;
@@ -139,7 +139,7 @@
   .light-mode .scheme-subtle {
     --color-bg: var(--color-grey-100);
     --color-fg: var(--color-grey-900);
-    --color-accent: var(--color-brand);
+    --color-accent: var(--color-blue-500);
     --color-muted: var(--color-grey-600);
     --color-border: var(--color-grey-400);
     --color-subtle: var(--color-grey-200);

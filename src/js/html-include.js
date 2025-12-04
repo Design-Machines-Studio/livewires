@@ -50,14 +50,21 @@ class HtmlInclude extends HTMLElement {
     } catch (error) {
       console.error(`HtmlInclude: failed to load ${src}`, error);
       // Optionally display error in development
-      if (import.meta.env.DEV) {
+      if (typeof import.meta !== 'undefined' && import.meta.env?.DEV) {
         this.innerHTML = `<div style="color: red; border: 2px solid red; padding: 1rem;">
           Failed to load include: ${src}
         </div>`;
       }
     }
   }
+
+  disconnectedCallback() {
+    // Cleanup when element is removed from DOM
+    this.innerHTML = '';
+  }
 }
 
 // Register the custom element
-customElements.define('html-include', HtmlInclude);
+if (!customElements.get('html-include')) {
+  customElements.define('html-include', HtmlInclude);
+}
