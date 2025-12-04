@@ -18,28 +18,28 @@
     <article class="content">
 
       <!-- HERO -->
-      <header class="section scheme-dark prose">
-        <div class="center text-center">
-          <h1 class="text-5xl">A prototyping-first design system for editorial websites.</h1>
-          <p class="lead">Built with modern CSS. Rooted in a philosophy where nothing gets thrown away.</p>
+      <header class="section section-spaced scheme-dark prose">
+        <div class="center center-narrow text-center stack">
+          <p class="text-sm font-medium" style="letter-spacing: 0.1em;">LIVE WIRES 2026</p>
+          <h1 class="text-6xl">Prototyping-first design for editorial websites</h1>
+          <p class="lead measure mx-auto">Built with modern CSS. Rooted in a philosophy where nothing gets thrown away&mdash;the prototype becomes the product.</p>
         </div>
       </header>
 
       <!-- THE PROBLEM -->
-      <section class="section scheme-subtle prose">
+      <section class="section prose">
         <div class="center">
-          <h2>The Problem</h2>
+          <h2>The problem with design handoffs</h2>
           <p class="text-lg"><span class="dropcap">W</span>eb design has traditionally been wasteful. We spend hours in <a href="https://www.figma.com/">Figma</a> crafting comps that get handed off and translated. We configure <a href="https://tailwindcss.com/">Tailwind</a> only to fight against it later. We build wireframes in tools that don't reflect reality, then throw them away when the next phase begins.</p>
-
           <p class="text-lg">How much better would our work be if we could turn those hours into real design thinking and execution?</p>
         </div>
       </section>
 
       <!-- PULL QUOTE -->
-      <section class="section scheme-dark text-center prose">
-        <div class="center">
-          <blockquote class="text-2xl">
-            <p>Instead of creating a series of disposable deliverables, the design process becomes an evolution.</p>
+      <section class="section section-spaced scheme-subtle text-center prose">
+        <div class="center center-narrow">
+          <blockquote class="text-3xl">
+            <p>&ldquo;Instead of creating a series of disposable deliverables, the design process becomes an evolution.&rdquo;</p>
           </blockquote>
         </div>
       </section>
@@ -47,126 +47,132 @@
       <!-- THE SOLUTION -->
       <section class="section prose">
         <div class="center">
-          <h2>The Solution</h2>
+          <h2>The solution: prototype-first</h2>
           <p>Live Wires takes a different approach: <strong>everything you build takes you closer to the final product.</strong> Start with real content in real HTML. The baseline styles make it look good immediately. Adjust tokens to establish your foundation. Layer utilities for art direction. Extract components as patterns emerge.</p>
-
-          <p>Nothing is throwaway. Each step builds on the last. The prototype becomes the product.</p>
+          <p>Nothing is throwaway. Each step builds on the last.</p>
         </div>
       </section>
 
       <!-- THREE-TIER APPROACH -->
-      <section class="section scheme-grey-100 prose">
+      <section class="section scheme-dark prose">
         <div class="center">
-          <h2>Good Defaults + Additive Art Direction</h2>
-          <p>This page demonstrates that semantic HTML looks good with minimal classes. The baseline typography, spacing, and layout just work. You don't fight the system to make things work. You add to it.</p>
+          <h2>Good defaults + additive art direction</h2>
+          <p>Semantic HTML looks good with zero classes. The baseline typography, spacing, and layout just work. You don't fight the system&mdash;you add to it.</p>
+          <div class="grid grid-columns-3@md">
+            <div class="stack stack-compact">
+              <p class="text-4xl font-bold">1</p>
+              <h3>Semantic HTML</h3>
+              <p class="text-sm">Headings, paragraphs, and lists look good by default. No classes required.</p>
+            </div>
+            <div class="stack stack-compact">
+              <p class="text-4xl font-bold">2</p>
+              <h3>Layout primitives</h3>
+              <p class="text-sm"><code>.stack</code>, <code>.grid</code>, <code>.cluster</code>, <code>.sidebar</code> for composition.</p>
+            </div>
+            <div class="stack stack-compact">
+              <p class="text-4xl font-bold">3</p>
+              <h3>Utilities</h3>
+              <p class="text-sm"><code>.mt-4</code>, <code>.text-center</code>, <code>.scheme-dark</code> for art direction.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <h3>The three-tier approach</h3>
-          <ol>
-            <li><strong>Semantic HTML</strong>&mdash;Headings, paragraphs, lists look good by default</li>
-            <li><strong>Layout primitives</strong>&mdash;<code>.stack</code>, <code>.grid</code>, <code>.cluster</code> for composition</li>
-            <li><strong>Utilities</strong>&mdash;<code>.mt-4</code>, <code>.text-center</code>, <code>.scheme-warm</code> for art direction</li>
-          </ol>
-
-          <h3>The Sacred Baseline</h3>
-          <p>Everything in Live Wires derives from the <code>--line</code> variable. Change the base font size or line height, and the entire system recalculates. This ensures perfect vertical rhythm across your design.</p>
+      <!-- SACRED BASELINE -->
+      <section class="section prose">
+        <div class="center">
+          <h2>The sacred baseline</h2>
+          <p>Everything in Live Wires derives from a single variable: <code>--line</code>. Change the base font size or line height, and the entire system recalculates&mdash;spacing, typography, layout. This ensures perfect vertical rhythm across your design.</p>
         </div>
       </section>
 
       <!-- LAYOUT PRIMITIVES -->
-      <section class="section prose">
+      <section class="section scheme-subtle prose">
         <div class="center">
-          <h2>Layout Primitives</h2>
-          <p>Instead of traditional grid systems, Live Wires uses compositional layout primitives inspired by <a href="https://every-layout.dev">Every Layout</a>.</p>
-        </div>
-      </section>
-
-      <section class="section section-tight">
-        <div class="grid grid-columns-3@md">
-          <div class="scheme-subtle box stack stack-compact">
-            <h4>Stack</h4>
-            <p class="text-sm">Vertical spacing between elements. The fundamental building block.</p>
-          </div>
-          <div class="scheme-subtle box stack stack-compact">
-            <h4>Grid</h4>
-            <p class="text-sm">Auto-responsive grid layouts. No breakpoints needed.</p>
-          </div>
-          <div class="scheme-subtle box stack stack-compact">
-            <h4>Cluster</h4>
-            <p class="text-sm">Horizontal groups with wrapping. Perfect for tags and nav.</p>
-          </div>
-          <div class="scheme-subtle box stack stack-compact">
-            <h4>Center</h4>
-            <p class="text-sm">Horizontally centered content with max-width constraints.</p>
-          </div>
-          <div class="scheme-subtle box stack stack-compact">
-            <h4>Sidebar</h4>
-            <p class="text-sm">Main content with sidebar. Collapses on narrow screens.</p>
-          </div>
-          <div class="scheme-subtle box stack stack-compact">
-            <h4>Section</h4>
-            <p class="text-sm">Full-width with responsive margins. Container query ready.</p>
+          <h2>Layout primitives</h2>
+          <p>Instead of traditional grid systems, Live Wires uses compositional layout primitives inspired by <a href="https://every-layout.dev">Every Layout</a>. Combine them to create complex layouts without writing custom CSS.</p>
+          <div class="grid grid-columns-3@md">
+            <div class="box scheme-default stack stack-compact">
+              <h3>Stack</h3>
+              <p class="text-sm">Vertical spacing between elements. The fundamental building block.</p>
+            </div>
+            <div class="box scheme-default stack stack-compact">
+              <h3>Grid</h3>
+              <p class="text-sm">Auto-responsive grid layouts. No breakpoints needed.</p>
+            </div>
+            <div class="box scheme-default stack stack-compact">
+              <h3>Cluster</h3>
+              <p class="text-sm">Horizontal groups with wrapping. Perfect for tags and nav.</p>
+            </div>
+            <div class="box scheme-default stack stack-compact">
+              <h3>Center</h3>
+              <p class="text-sm">Horizontally centered content with max-width constraints.</p>
+            </div>
+            <div class="box scheme-default stack stack-compact">
+              <h3>Sidebar</h3>
+              <p class="text-sm">Main content with sidebar. Collapses on narrow screens.</p>
+            </div>
+            <div class="box scheme-default stack stack-compact">
+              <h3>Section</h3>
+              <p class="text-sm">Full-width with responsive padding. Container query ready.</p>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- COLOR SCHEMES -->
-      <section class="section scheme-subtle prose">
+      <section class="section prose">
         <div class="center">
-          <h2>Color Schemes</h2>
+          <h2>Color schemes</h2>
           <p>Apply color schemes for visual hierarchy and rhythm. Each scheme sets background and foreground colors that cascade to child elements.</p>
-        </div>
-      </section>
-
-      <section class="section section-tight">
-        <div class="grid grid-columns-4@md">
-          <div class="scheme-default box stack stack-compact text-center">
-            <p class="font-bold">Default</p>
-            <p class="text-sm">.scheme-default</p>
-          </div>
-          <div class="scheme-subtle box stack stack-compact text-center">
-            <p class="font-bold">Subtle</p>
-            <p class="text-sm">.scheme-subtle</p>
-          </div>
-          <div class="scheme-grey-100 box stack stack-compact text-center">
-            <p class="font-bold">Grey 100</p>
-            <p class="text-sm">.scheme-grey-100</p>
-          </div>
-          <div class="scheme-dark box stack stack-compact text-center">
-            <p class="font-bold">Dark</p>
-            <p class="text-sm">.scheme-dark</p>
+          <div class="grid grid-columns-4@md">
+            <div class="scheme-default box stack stack-compact text-center">
+              <p class="font-bold">Default</p>
+              <p class="text-sm text-muted">.scheme-default</p>
+            </div>
+            <div class="scheme-subtle box stack stack-compact text-center">
+              <p class="font-bold">Subtle</p>
+              <p class="text-sm text-muted">.scheme-subtle</p>
+            </div>
+            <div class="scheme-grey-200 box stack stack-compact text-center">
+              <p class="font-bold">Grey</p>
+              <p class="text-sm text-muted">.scheme-grey-200</p>
+            </div>
+            <div class="scheme-dark box stack stack-compact text-center">
+              <p class="font-bold">Dark</p>
+              <p class="text-sm">.scheme-dark</p>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- UTILITY CLASSES -->
-      <section class="section prose">
+      <section class="section scheme-grey-100 prose">
         <div class="center">
-          <h2>Utility Classes</h2>
+          <h2>Utility classes</h2>
           <p>Tailwind-compatible utilities for precise control. All utilities use the <code>utilities</code> cascade layer, so they always win over component and layout styles.</p>
-        </div>
-      </section>
-
-      <section class="section section-tight scheme-grey-100">
-        <div class="center">
-          <div class="cluster">
-            <code class="box box--tight scheme-default">.mt-4</code>
-            <code class="box box--tight scheme-default">.text-center</code>
-            <code class="box box--tight scheme-default">.font-bold</code>
-            <code class="box box--tight scheme-default">.measure</code>
-            <code class="box box--tight scheme-default">.grid-span-2</code>
-            <code class="box box--tight scheme-default">.scheme-dark</code>
-            <code class="box box--tight scheme-default">.text-lg</code>
-            <code class="box box--tight scheme-default">.stack</code>
+          <div class="cluster cluster-center">
+            <code class="box box-tight scheme-default">.mt-4</code>
+            <code class="box box-tight scheme-default">.px-2</code>
+            <code class="box box-tight scheme-default">.text-center</code>
+            <code class="box box-tight scheme-default">.font-bold</code>
+            <code class="box box-tight scheme-default">.measure</code>
+            <code class="box box-tight scheme-default">.text-lg</code>
+            <code class="box box-tight scheme-default">.scheme-dark</code>
+            <code class="box box-tight scheme-default">.lead</code>
           </div>
         </div>
       </section>
 
       <!-- CTA -->
-      <section class="section scheme-dark text-center prose">
-        <div class="center stack">
-          <h2 class="text-3xl">Get Started</h2>
-          <p class="lead measure mx-auto">Explore the guide to learn more about Live Wires' CSS architecture, layout primitives, and utility classes.</p>
-          <p><a href="/guide/" class="button button--accent">View the Guide</a></p>
+      <section class="section section-spaced scheme-dark text-center prose">
+        <div class="center center-narrow stack">
+          <h2 class="text-4xl">Start building</h2>
+          <p class="lead">Explore the documentation to learn about Live Wires' CSS architecture, layout primitives, and utility classes.</p>
+          <div class="cluster cluster-center">
+            <a href="/guide/docs/getting-started.html" class="button button-accent">Get started</a>
+            <a href="/guide/components/" class="button">Component library</a>
+          </div>
         </div>
       </section>
 
