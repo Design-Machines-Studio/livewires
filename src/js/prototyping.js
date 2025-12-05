@@ -2,7 +2,7 @@
  * Live Wires Dev Tools
  *
  * Prototyping utilities with keyboard shortcuts and visual menubar
- * Press '?' to show/hide the dev tools menubar
+ * Press T to show/hide the dev tools menubar
  */
 
 class DevTools {
@@ -133,7 +133,7 @@ class DevTools {
     // Setup resize listener for responsive settings
     this.setupResizeListener();
 
-    console.log('✅ Dev Tools ready! Press ? to toggle menubar');
+    console.log('✅ Dev Tools ready! Press T to toggle menubar');
   }
 
   setupResizeListener() {
@@ -275,6 +275,8 @@ class DevTools {
             this.gutterValue = state[key];
           } else if (key === 'marginMode') {
             this.marginMode = state[key];
+          } else if (key === 'menubarVisible') {
+            this.menubarVisible = state[key];
           } else if (this.tools[key]) {
             this.tools[key].active = state[key];
           }
@@ -290,7 +292,8 @@ class DevTools {
       columnCount: this.columnCount,
       subdivisionsValue: this.subdivisionsValue,
       gutterValue: this.gutterValue,
-      marginMode: this.marginMode
+      marginMode: this.marginMode,
+      menubarVisible: this.menubarVisible
     };
     Object.keys(this.tools).forEach(key => {
       state[key] = this.tools[key].active;
@@ -464,9 +467,20 @@ class DevTools {
     // Help text (clickable to hide)
     const help = document.createElement('button');
     help.className = 'dev-tools-help';
-    help.innerHTML = '<kbd>?</kbd> hide';
+    help.innerHTML = '<kbd>T</kbd> hide';
     help.onclick = () => this.toggleMenubar();
     menubar.appendChild(help);
+
+    // Create show button (visible when menubar is hidden)
+    const showButton = document.createElement('button');
+    showButton.id = 'dev-tools-show';
+    showButton.className = 'dev-tools-show';
+    showButton.innerHTML = '<svg width="16" height="16" viewBox="0 0 38 38" fill="currentColor"><path d="M0 0L0 38L38 38L38 30L8 30L8 0L0 0Z"/><rect x="10" width="8" height="28"/><rect x="30" width="8" height="28"/><rect x="20" width="8" height="28"/></svg>';
+    showButton.title = 'Show dev tools (T)';
+    showButton.onclick = () => this.toggleMenubar();
+    showButton.style.display = this.menubarVisible ? 'none' : 'block';
+    document.body.appendChild(showButton);
+    this.showButton = showButton;
 
     document.body.appendChild(menubar);
     this.menubar = menubar;
@@ -484,8 +498,8 @@ class DevTools {
         return;
       }
 
-      // Toggle menubar with '?'
-      if (e.key === '?') {
+      // Toggle menubar with T
+      if (e.key === 't' || e.key === 'T') {
         e.preventDefault();
         this.toggleMenubar();
         return;
@@ -504,6 +518,8 @@ class DevTools {
   toggleMenubar() {
     this.menubarVisible = !this.menubarVisible;
     this.menubar.style.display = this.menubarVisible ? 'flex' : 'none';
+    this.showButton.style.display = this.menubarVisible ? 'none' : 'block';
+    this.saveState();
   }
 
   toggle(toolKey, skipSave = false) {
@@ -759,6 +775,32 @@ class DevTools {
         padding: 2px 4px;
         background: rgba(255,255,255,0.15);
         border-radius: 3px;
+      }
+
+      /* Show button (visible when menubar is hidden) */
+      .dev-tools-show {
+        position: fixed;
+        bottom: 8px;
+        right: 8px;
+        background: rgba(0, 0, 0, 0.8);
+        color: rgba(255, 255, 255, 0.7);
+        border: none;
+        padding: 6px;
+        line-height: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10000;
+        opacity: 0.4;
+        transition: opacity 0.15s;
+      }
+
+      .dev-tools-show:hover {
+        opacity: 1;
+        color: #fff;
+      }
+
+      .dev-tools-show svg {
+        display: block;
       }
 
       /* Layout Outlines - All layout primitives */

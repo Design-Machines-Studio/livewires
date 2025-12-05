@@ -438,8 +438,8 @@ Useful for showing type hierarchy without readable content.
 <body class="dark-mode">  <!-- Forces dark mode regardless of system preference -->
 ```
 
-### Dev Tools JavaScript ([src/js/dev-tools.js](src/js/dev-tools.js))
-Additional development utilities loaded via the main.js entry point.
+### Dev Tools JavaScript ([src/js/prototyping.js](src/js/prototyping.js))
+The design toolbar and prototyping utilities. Press T to show/hide the toolbar. All settings persist in localStorage across page loads and navigation.
 
 ## Adding New Features
 
