@@ -1,0 +1,47 @@
+<!--
+  Article Teaser - Feature
+
+  Large feature article with image beside content.
+  Uses grid internally for side-by-side layout at medium+ breakpoints.
+
+  Usage (within a grid parent):
+  <html-include class="grid-column-span-4@md" src="_components/article-teaser-feature.html"></html-include>
+
+  The component handles its own internal 2-column grid layout.
+-->
+<article class="grid grid-columns-2@md">
+<figure>
+  <a href="article/feature.html">
+    <picture>
+      <!-- 60em+: 4:3 -->
+      <source
+        media="(min-width: 60em)"
+        srcset="https://placehold.co/1600x1200 1600w,
+                https://placehold.co/1200x900 1200w,
+                https://placehold.co/800x600 800w"
+        sizes="75vw" />
+      <!-- 40em-60em: 3:2 -->
+      <source
+        media="(min-width: 40em)"
+        srcset="https://placehold.co/1200x800 1200w,
+                https://placehold.co/900x600 900w,
+                https://placehold.co/600x400 600w"
+        sizes="50vw" />
+      <!-- Under 40em: 16:9 -->
+      <source
+        srcset="https://placehold.co/1600x900 1600w,
+                https://placehold.co/1200x675 1200w,
+                https://placehold.co/800x450 800w"
+        sizes="100vw" />
+      <img src="https://placehold.co/800x600" alt="" loading="lazy" />
+    </picture>
+  </a>
+</figure>
+
+<div class="content order-first@md">
+  <p><time datetime="1812-03-11">March 11, 1812</time></p>
+  <h1><a href="article/feature.html">Framework Knitters Rise Against the Wide Frames</a></h1>
+  <p>Hundreds gather in Nottingham as skilled craftsmen demand fair wages and an end to the degradation of their ancient trade by unregulated machinery.</p>
+  <p>By Our Correspondent</p>
+</div>
+</article>

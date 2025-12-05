@@ -15,281 +15,92 @@
     <!-- HTML Include: site header -->
     <html-include src="_includes/header.html"></html-include>
 
-    <!-- Content block, child page inject content -->
+    <!-- Content block -->
     <main class="main" id="main">
       <aside class="box box-tight scheme-grey-200 text-xs text-center">
         <p>Subscribe to <strong>The Northern Star</strong> — One shilling per quarter, delivered to your door.</p>
       </aside>
 
-    
+      <!-- Section 1: Lead story + cards + headlines -->
       <section class="section section-spaced">
         <div class="grid grid-columns-4@md">
-          <article class="grid grid-column-span-4@md grid-columns-2@md">
-            <figure>
-              <a href="article/feature.html">
-                <picture>
-                  <!-- 60em+: 4:3 -->
-                  <source
-                    media="(min-width: 60em)"
-                    srcset="https://placehold.co/1600x1200 1600w,
-                            https://placehold.co/1200x900 1200w,
-                            https://placehold.co/800x600 800w"
-                    sizes="75vw" />
-                  <!-- 40em-60em: 3:2 -->
-                  <source
-                    media="(min-width: 40em)"
-                    srcset="https://placehold.co/1200x800 1200w,
-                            https://placehold.co/900x600 900w,
-                            https://placehold.co/600x400 600w"
-                    sizes="50vw" />
-                  <!-- Under 40em: 16:9 -->
-                  <source
-                    srcset="https://placehold.co/1600x900 1600w,
-                            https://placehold.co/1200x675 1200w,
-                            https://placehold.co/800x450 800w"
-                    sizes="100vw" />
-                  <img src="https://placehold.co/800x600" alt="" loading="lazy" />
-                </picture>
-              </a>
-            </figure>
 
-            <div class="content order-first@md">
-              <p><time datetime="1812-03-11">March 11, 1812</time></p>
-              <h1><a href="article/feature.html">Fourteen Thousand Troops Deployed Against English Workers</a></h1>
-              <p>Parliament mobilises a force larger than Wellington commands against Napoleon—not to defend the nation, but to crush textile workers demanding fair wages.</p>
-              <p>By George Mellor</p>
-            </div>
-          </article>
-            <article>
-              <figure>
-                <a href="article/"><img src="https://placehold.co/800x600" alt="" /></a>
-              </figure>
+          <!-- Feature article -->
+          <html-include class="grid-column-span-4@md" src="_components/article-teaser-feature.html"></html-include>
 
-              <div class="content">
-                <p><time datetime="1812-02-27">February 27, 1812</time></p>
-                <h2 class="text-lg"><a href="article/">Frame-Breaking Made Capital Offence</a></h2>
-                <p>New legislation condemns machine-breakers to death by hanging.</p>
-                <p>By William Horsfall</p>
-              </div>
-            </article>
-            <article>
-              <figure>
-                <a href="article/"><img src="https://placehold.co/800x600" alt="" /></a>
-              </figure>
-              <div class="content">
-                <p><time datetime="1812-01-19">January 19, 1812</time></p>
-                <h2 class="text-lg"><a href="article/">Women Comprise Four in Ten of Our Movement</a></h2>
-                <p>The sisterhood of labour stands shoulder to shoulder with their brothers.</p>
-                <p>By Mary Godwin</p>
-              </div>
-            </article>
-            <article>
-              <figure>
-                <a href="article/"><img src="https://placehold.co/800x600" alt="" /></a>
-              </figure>
-              <div class="content">
-                <p><time datetime="1811-12-03">December 3, 1811</time></p>
-                <h2 class="text-lg"><a href="article/">Factory Owners Reject Minimum Wage Proposal</a></h2>
-                <p>Masters dismiss workers' petition for fair compensation as "dangerous radicalism."</p>
-                <p>By Thomas Bacon</p>
-              </div>
-            </article>
-            <article>
-              <figure>
-                <a href="article/"><img src="https://placehold.co/800x600" alt="" /></a>
-              </figure>
-              <div class="content">
-                <p><time datetime="1811-11-15">November 15, 1811</time></p>
-                <h2 class="text-lg"><a href="article/">The Machinery Question: Progress for Whom?</a></h2>
-                <p>We do not oppose invention—we oppose exploitation dressed as innovation.</p>
-                <p>By Gravener Henson</p>
-              </div>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-03-08">March 8, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Lord Byron Speaks in Defence of Frame-Breakers</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-03-01">March 1, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Nottingham Hosiers Form Secret Committee</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-02-14">February 14, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Letter from General Ludd to the Masters</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-01-28">January 28, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Yorkshire Croppers Join the Cause</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-01-07">January 7, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Rawfolds Mill: A Report from the Front</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1811-12-21">December 21, 1811</time></p>
-              <h2 class="text-base"><a href="article/">Child Labour in the Cotton Mills</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1811-11-29">November 29, 1811</time></p>
-              <h2 class="text-base"><a href="article/">Stockingers Petition for Fair Piece Rates</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1811-11-12">November 12, 1811</time></p>
-              <h2 class="text-base"><a href="article/">The Wide Frame: Engine of Exploitation</a></h2>
-            </article>
+          <!-- Card teasers -->
+          <html-include src="_components/article-teaser.html"></html-include>
+          <html-include src="_components/article-teaser.html"></html-include>
+          <html-include src="_components/article-teaser.html"></html-include>
+          <html-include src="_components/article-teaser.html"></html-include>
+
+          <!-- Headline teasers -->
+          <html-include src="_components/article-teaser-headline.html"></html-include>
+          <html-include src="_components/article-teaser-headline.html"></html-include>
+          <html-include src="_components/article-teaser-headline.html"></html-include>
+          <html-include src="_components/article-teaser-headline.html"></html-include>
+          <html-include src="_components/article-teaser-headline.html"></html-include>
+          <html-include src="_components/article-teaser-headline.html"></html-include>
+          <html-include src="_components/article-teaser-headline.html"></html-include>
+          <html-include src="_components/article-teaser-headline.html"></html-include>
+
         </div>
       </section>
 
+      <!-- Section 2: Secondary feature with sidebar headlines -->
       <section class="section">
         <div class="grid grid-columns-4@md">
 
-          <div class="grid grid-column-span-4@md grid-column-span-3@lg order-1@lg">
-            <article class="grid grid-column-span-2@md grid-columns-2@md">
-              <figure>
-                <a href="article/feature.html">
-                  <picture>
-                    <!-- 60em+: 4:3 -->
-                    <source
-                      media="(min-width: 60em)"
-                      srcset="https://placehold.co/1600x1200 1600w,
-                              https://placehold.co/1200x900 1200w,
-                              https://placehold.co/800x600 800w"
-                      sizes="75vw" />
-                    <!-- 40em-60em: 3:2 -->
-                    <source
-                      media="(min-width: 40em)"
-                      srcset="https://placehold.co/1200x800 1200w,
-                              https://placehold.co/900x600 900w,
-                              https://placehold.co/600x400 600w"
-                      sizes="50vw" />
-                    <!-- Under 40em: 16:9 -->
-                    <source
-                      srcset="https://placehold.co/1600x900 1600w,
-                              https://placehold.co/1200x675 1200w,
-                              https://placehold.co/800x450 800w"
-                      sizes="100vw" />
-                    <img src="https://placehold.co/800x600" alt="" loading="lazy" />
-                  </picture>
-                </a>
-              </figure>
+          <!-- Secondary feature -->
+          <html-include class="grid-column-span-4@md grid-column-span-3@lg order-1@lg" src="_components/article-teaser-feature.html"></html-include>
 
-              <div class="content">
-                <p><time datetime="1812-04-20">April 20, 1812</time></p>
-                <h2><a href="article/feature.html">The Attack on Cartwright's Mill: A Full Account</a></h2>
-                <p>One hundred and fifty men descended upon Rawfolds in the dead of night. What followed would change the course of our struggle forever.</p>
-                <p>By Samuel Hartley</p>
-              </div>
-            </article>
-          </div>
-
+          <!-- Card row -->
           <div class="grid grid-column-span-4@md grid-columns-4@md grid-column-span-3@lg order-2@lg">
-            <article>
-              <figure>
-                <a href="article/"><img src="https://placehold.co/800x600" alt="" /></a>
-              </figure>
-
-              <div class="content">
-                <p><time datetime="1812-04-12">April 12, 1812</time></p>
-                <h2 class="text-lg"><a href="article/">Spencer Perceval Refuses to Meet Worker Delegates</a></h2>
-                <p>The Prime Minister dismisses petition bearing ten thousand signatures.</p>
-                <p>By John Booth</p>
-              </div>
-            </article>
-            <article>
-              <figure>
-                <a href="article/"><img src="https://placehold.co/800x600" alt="" /></a>
-              </figure>
-              <div class="content">
-                <p><time datetime="1812-04-05">April 5, 1812</time></p>
-                <h2 class="text-lg"><a href="article/">The Cropper's Trade: Skill Against Steam</a></h2>
-                <p>Seven years to master the shears, seven seconds for a machine to render it worthless.</p>
-                <p>By James Towle</p>
-              </div>
-            </article>
-            <article>
-              <figure>
-                <a href="article/"><img src="https://placehold.co/800x600" alt="" /></a>
-              </figure>
-              <div class="content">
-                <p><time datetime="1812-03-28">March 28, 1812</time></p>
-                <h2 class="text-lg"><a href="article/">Night Drilling on the Moors: Training the Army of Redressers</a></h2>
-                <p>Under cover of darkness, craftsmen become soldiers in the war for fair wages.</p>
-                <p>By John Walker</p>
-              </div>
-            </article>
-            <article>
-              <figure>
-                <a href="article/"><img src="https://placehold.co/800x600" alt="" /></a>
-              </figure>
-              <div class="content">
-                <p><time datetime="1812-03-21">March 21, 1812</time></p>
-                <h2 class="text-lg"><a href="article/">Oaths of Secrecy: The Bonds That Bind Us</a></h2>
-                <p>How working men protect one another when the law protects only capital.</p>
-                <p>By Benjamin Walker</p>
-              </div>
-            </article>
+            <html-include src="_components/article-teaser.html"></html-include>
+            <html-include src="_components/article-teaser.html"></html-include>
+            <html-include src="_components/article-teaser.html"></html-include>
+            <html-include src="_components/article-teaser.html"></html-include>
           </div>
 
+          <!-- Sidebar headlines -->
           <div class="grid grid-columns-4@md grid-column-span-4@md grid-columns-1@lg grid-column-span-1@lg order-first@lg grid-row-span-2@lg">
-            <article class="border-t">
-              <p><time datetime="1812-04-18">April 18, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Spies Among Us: The Informer's Trade</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-04-15">April 15, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Manchester Weavers Send Word of Solidarity</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-04-08">April 8, 1812</time></p>
-              <h2 class="text-base"><a href="article/">The Price of Bread: Wages Fall as Costs Rise</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-04-01">April 1, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Huddersfield Cloth Hall: Where Masters Set the Price</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-03-25">March 25, 1812</time></p>
-              <h2 class="text-base"><a href="article/">The Gig Mill: How One Machine Displaces Twenty Men</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-03-18">March 18, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Letters Intercepted: The Post Office Watches</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-03-14">March 14, 1812</time></p>
-              <h2 class="text-base"><a href="article/">Stockport Workers Form Benefit Society</a></h2>
-            </article>
-            <article class="border-t">
-              <p><time datetime="1812-03-07">March 7, 1812</time></p>
-              <h2 class="text-base"><a href="article/">The Combination Acts: Why Assembly Is Treason</a></h2>
-            </article>
+            <html-include src="_components/article-teaser-headline.html"></html-include>
+            <html-include src="_components/article-teaser-headline.html"></html-include>
+            <html-include src="_components/article-teaser-headline.html"></html-include>
+            <html-include src="_components/article-teaser-headline.html"></html-include>
+            <html-include src="_components/article-teaser-headline.html"></html-include>
+            <html-include src="_components/article-teaser-headline.html"></html-include>
+            <html-include src="_components/article-teaser-headline.html"></html-include>
+            <html-include src="_components/article-teaser-headline.html"></html-include>
           </div>
+
         </div>
       </section>
 
-    <aside class="grid grid-columns-2 bg-black text-white content">
-      <div class="grid grid-columns-2 box">
-        <h2>The Struggle Continues</h2>
-        <ul>
-          <li>Nottinghamshire framework knitters</li>
-          <li>Yorkshire woollen croppers</li>
-          <li>Lancashire cotton weavers</li>
-          <li>Leicestershire hosiers</li>
-          <li>Derbyshire lace makers</li>
-        </ul>
-      </div>
+      <!-- Footer aside -->
+      <aside class="grid grid-columns-2 bg-black text-white content">
+        <div class="grid grid-columns-2 box">
+          <h2>The Struggle Continues</h2>
+          <ul>
+            <li>Nottinghamshire framework knitters</li>
+            <li>Yorkshire woollen croppers</li>
+            <li>Lancashire cotton weavers</li>
+            <li>Leicestershire hosiers</li>
+            <li>Derbyshire lace makers</li>
+          </ul>
+        </div>
 
-      <div class="grid grid-columns-2 box">
-        <h2>What We Demand</h2>
-        <ul>
-          <li>A living wage for all workers</li>
-          <li>Regulation of the new machinery</li>
-          <li>Apprenticeship standards maintained</li>
-          <li>An end to truck payment</li>
-          <li>The right of combination</li>
-        </ul>
-      </div>
-    </aside>
+        <div class="grid grid-columns-2 box">
+          <h2>What We Demand</h2>
+          <ul>
+            <li>A living wage for all workers</li>
+            <li>Regulation of the new machinery</li>
+            <li>Apprenticeship standards maintained</li>
+            <li>An end to truck payment</li>
+            <li>The right of combination</li>
+          </ul>
+        </div>
+      </aside>
     </main>
 
     <!-- HTML Include: site footer -->
