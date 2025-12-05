@@ -23,9 +23,15 @@
   inherits: true;
 }
 
-@property --type-scale-rate {
-  syntax: "<length>";
-  initial-value: 0.5vw;
+@property --viewport-min {
+  syntax: "<number>";
+  initial-value: 320;
+  inherits: true;
+}
+
+@property --viewport-max {
+  syntax: "<number>";
+  initial-value: 1200;
   inherits: true;
 }
 

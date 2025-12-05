@@ -6,8 +6,11 @@
 
 @layer base {
   :root {
+    /*
+     * Root stays at browser default (16px) so all rem calculations work correctly.
+     * This preserves user font-size preferences and accessibility.
+     */
     font-family: var(--font-body);
-    font-size: var(--text-base);
     line-height: var(--line);
     background: var(--color-bg);
     color: var(--color-fg);
@@ -15,6 +18,14 @@
   }
   html {
     scroll-behavior: smooth;
+  }
+  body {
+    /*
+     * Body gets the base text size. All content inherits from here.
+     * Using --text-base (rem-based fluid) ensures proper scaling.
+     */
+    font-size: var(--text-base);
+    line-height: var(--leading-base);
   }
   body,
   main,

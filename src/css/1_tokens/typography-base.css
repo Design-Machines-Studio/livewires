@@ -56,20 +56,27 @@
   
 
     /* ===============================================
+       FLUID TYPOGRAPHY VIEWPORT RANGE
+       Defines the viewport range for fluid scaling.
+       At --viewport-min, values are at their minimum.
+       At --viewport-max, values are at their maximum.
+       =============================================== */
+
+    --viewport-min: 320;   /* Mobile viewport (px) */
+    --viewport-max: 1200;  /* Desktop viewport (px) */
+
+    /* ===============================================
        THE BASELINE
        --line scales from 24px (mobile) to 32px (desktop)
        All spacing derives from this
        =============================================== */
 
-    /* Viewport scaling rate for fluid typography */
-    --type-scale-rate: 0.5vw;
-
     --line-height-min: 24;  /* Mobile baseline */
-    --line-height-max: 33;  /* Desktop baseline */
+    --line-height-max: 32;  /* Desktop baseline */
 
     --line: clamp(
       calc(var(--line-height-min) / 16 * 1rem),
-      calc(var(--line-height-min) / 16 * 1rem + (var(--line-height-max) - var(--line-height-min)) * var(--type-scale-rate) / 16),
+      calc(var(--line-height-min) / 16 * 1rem + (var(--line-height-max) - var(--line-height-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
       calc(var(--line-height-max) / 16 * 1rem)
     );
 

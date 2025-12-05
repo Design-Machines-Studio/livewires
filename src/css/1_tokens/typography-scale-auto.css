@@ -22,7 +22,7 @@
 
     /* Base font size (px) */
     --text-base-min: 16;
-    --text-base-max: 21;
+    --text-base-max: 22;
 
     /* Type scale ratio - Common scales:
        - Minor Third: 1.2
@@ -32,7 +32,7 @@
        - Perfect Fifth: 1.5
        - Golden Ratio: 1.618
     */
-    --type-scale-ratio: 1.2;
+    --type-scale-ratio: 1.25;
 
     /* Line-height ratios (different ratios for different sizes)
        Smaller ratios = tighter line-height for display text */

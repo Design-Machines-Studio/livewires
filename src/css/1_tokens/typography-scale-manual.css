@@ -17,92 +17,88 @@
   :root {
     /* ===============================================
        CONFIGURATION
-       =============================================== */
-
-    /* Letter-spacing per size (visual refinement) */
-    --tracking-xs: 0.01em;
-    --tracking-sm: 0em;
-    --tracking-base: 0em;
-    --tracking-lg: -0.01em;
-    --tracking-xl: -0.015em;
-    --tracking-2xl: -0.02em;
-    --tracking-3xl: -0.025em;
-    --tracking-4xl: -0.03em;
-    --tracking-5xl: -0.035em;
-    --tracking-6xl: -0.04em;
-    --tracking-7xl: -0.045em;
-    --tracking-8xl: -0.05em;
-    --tracking-9xl: -0.055em;
-
-    /* ===============================================
+       =============================================== 
        TYPE SCALE DEFINITIONS
        Define min/max for size AND line-height
        =============================================== */
 
-    --size-xs-min: 12;
-    --line-xs-min: 18;
-    --size-xs-max: 14;
-    --line-xs-max: 24;
+    --size-xs-min: 14;
+    --line-xs-min: 16;
+    --size-xs-max: 15;
+    --line-xs-max: 20;
+    --tracking-xs: 0.01em;
 
-    --size-sm-min: 14;
-    --line-sm-min: 21;
-    --size-sm-max: 16;
-    --line-sm-max: 28;
+    --size-sm-min: 15;
+    --line-sm-min: 20;
+    --size-sm-max: 18;
+    --line-sm-max: 24;
+    --tracking-sm: 0em;
 
-    --size-base-min: 16;
+    --size-base-min: 17;
     --line-base-min: 24;
-    --size-base-max: 18;
-    --line-base-max: 27;
+    --size-base-max: 22;
+    --line-base-max: 32;
+    --tracking-base: 0em;
 
     --size-lg-min: 20;
     --line-lg-min: 24;
-    --size-lg-max: 25;
+    --size-lg-max: 27;
     --line-lg-max: 32;
+    --tracking-lg: -0.01em;
 
-    --size-xl-min: 25;
-    --line-xl-min: 30;
-    --size-xl-max: 31;
-    --line-xl-max: 40;
+    --size-xl-min: 23;
+    --line-xl-min: 28;
+    --size-xl-max: 32;
+    --line-xl-max: 36;
+    --tracking-xl: -0.015em;
 
-    --size-2xl-min: 31;
-    --line-2xl-min: 36;
-    --size-2xl-max: 39;
-    --line-2xl-max: 48;
+    --size-2xl-min: 28;
+    --line-2xl-min: 32;
+    --size-2xl-max: 38;
+    --line-2xl-max: 40;
+    --tracking-2xl: -0.02em;
 
-    --size-3xl-min: 39;
-    --line-3xl-min: 48;
-    --size-3xl-max: 49;
+    --size-3xl-min: 32;
+    --line-3xl-min: 32;
+    --size-3xl-max: 48;
     --line-3xl-max: 48;
+    --tracking-3xl: -0.025em;
 
-    --size-4xl-min: 49;
-    --line-4xl-min: 48;
-    --size-4xl-max: 61;
+    --size-4xl-min: 36;
+    --line-4xl-min: 36;
+    --size-4xl-max: 64;
     --line-4xl-max: 64;
+    --tracking-4xl: -0.03em;
 
-    --size-5xl-min: 61;
-    --line-5xl-min: 60;
-    --size-5xl-max: 76;
-    --line-5xl-max: 72;
+    --size-5xl-min: 40;
+    --line-5xl-min: 40;
+    --size-5xl-max: 80;
+    --line-5xl-max: 80;
+    --tracking-5xl: -0.035em;
 
-    --size-6xl-min: 76;
-    --line-6xl-min: 72;
-    --size-6xl-max: 95;
+    --size-6xl-min: 48;
+    --line-6xl-min: 48;
+    --size-6xl-max: 96;
     --line-6xl-max: 96;
+    --tracking-6xl: -0.04em;
 
-    --size-7xl-min: 95;
-    --line-7xl-min: 96;
-    --size-7xl-max: 119;
-    --line-7xl-max: 120;
+    --size-7xl-min: 60;
+    --line-7xl-min: 60;
+    --size-7xl-max: 128;
+    --line-7xl-max: 128;
+    --tracking-7xl: -0.045em;
 
-    --size-8xl-min: 119;
-    --line-8xl-min: 120;
-    --size-8xl-max: 149;
+    --size-8xl-min: 72;
+    --line-8xl-min: 72;
+    --size-8xl-max: 160;
     --line-8xl-max: 160;
+    --tracking-8xl: -0.05em;
 
-    --size-9xl-min: 149;
-    --line-9xl-min: 144;
-    --size-9xl-max: 186;
+    --size-9xl-min: 96;
+    --line-9xl-min: 96;
+    --size-9xl-max: 192;
     --line-9xl-max: 192;
+    --tracking-9xl: -0.055em;
 
     /* ===============================================
        COMPUTED VALUES

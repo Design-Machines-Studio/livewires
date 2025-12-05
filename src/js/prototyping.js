@@ -213,7 +213,8 @@ class DevTools {
 
   updateSubdivisions(value) {
     this.subdivisionsValue = value;
-    document.body.style.setProperty('--subdivisions', value);
+    // Set data attribute for CSS selector-based subdivision grids
+    document.body.dataset.subdivisions = value;
 
     // Update select if it exists
     const select = this.menubar?.querySelector('#dev-subdivisions-select');
@@ -760,12 +761,15 @@ class DevTools {
         border-radius: 3px;
       }
 
-      /* Layout Outlines */
+      /* Layout Outlines - All layout primitives */
       body.dev-outline .stack,
       body.dev-outline .cluster,
       body.dev-outline .grid,
       body.dev-outline .sidebar,
-      body.dev-outline .center {
+      body.dev-outline .center,
+      body.dev-outline .box,
+      body.dev-outline .cover,
+      body.dev-outline .section {
         outline: 2px solid color-mix(in srgb, var(--color-accent, #0066ff) 50%, transparent);
         outline-offset: -2px;
       }
@@ -774,7 +778,10 @@ class DevTools {
       body.dev-outline .cluster > *,
       body.dev-outline .grid > *,
       body.dev-outline .sidebar > *,
-      body.dev-outline .center > * {
+      body.dev-outline .center > *,
+      body.dev-outline .box > *,
+      body.dev-outline .cover > *,
+      body.dev-outline .section > * {
         outline: 1px dashed color-mix(in srgb, var(--color-accent, #0066ff) 30%, transparent);
         outline-offset: -1px;
       }
