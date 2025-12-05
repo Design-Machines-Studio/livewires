@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load JS (CSS is in _includes/head.html) -->
+    <script type="module" src="/dist/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-deployment">
+
+    <!-- HTML Include: site header -->
+    <html-include src="/_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="/_includes/nav-docs.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Deployment</h1>
+          <p class="lead">Build and deploy your Live Wires prototype.</p>
+        </header>
+
+        <section class="section">
+          <h2>Build for production</h2>
+          <p>Live Wires compiles your CSS and JavaScript into optimized production files.</p>
+
+          <h3>Build command</h3>
+          <pre><code>npm run build</code></pre>
+
+          <p>This creates the following files in <code>public/dist/</code>:</p>
+          <ul>
+            <li><code>main.css</code> &mdash; Minified CSS (~18KB gzipped)</li>
+            <li><code>main.js</code> &mdash; Bundled JavaScript (~4KB gzipped)</li>
+            <li><code>css/print.css</code> &mdash; Print stylesheet</li>
+          </ul>
+
+          <aside class="box bg-subtle">
+            <p><strong>Performance note:</strong> 18KB gzipped for a complete design system (tokens, reset, layouts, components, utilities, and dev tools) is excellent. For comparison, Bootstrap is ~25KB gzipped.</p>
+          </aside>
+        </section>
+
+        <section class="section">
+          <h2>Deployment options</h2>
+          <p>Live Wires is designed for simple static hosting. The <code>public/</code> folder is your deployable site.</p>
+
+          <h3>Option 1: Build on deploy (recommended)</h3>
+          <p>Most modern hosts can run your build command during deployment:</p>
+          <ol>
+            <li>Connect your repository to your host (Netlify, Vercel, Cloudflare Pages, etc.)</li>
+            <li>Set the build command: <code>npm run build</code></li>
+            <li>Set the publish directory: <code>public</code></li>
+            <li>Deploy</li>
+          </ol>
+
+          <p><strong>Example configurations:</strong></p>
+
+          <h4>Netlify</h4>
+          <pre><code># netlify.toml
+[build]
+  command = "npm run build"
+  publish = "public"</code></pre>
+
+          <h4>Vercel</h4>
+          <pre><code># vercel.json
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "public"
+}</code></pre>
+
+          <h4>Cloudflare Pages</h4>
+          <ul>
+            <li>Build command: <code>npm run build</code></li>
+            <li>Build output directory: <code>public</code></li>
+          </ul>
+
+          <h3>Option 2: Commit built files</h3>
+          <p>For simpler setups or traditional FTP hosting:</p>
+          <ol>
+            <li>Run <code>npm run build</code> locally</li>
+            <li>Commit the <code>public/dist/</code> folder</li>
+            <li>Push to your repository</li>
+            <li>Deploy the <code>public/</code> folder</li>
+          </ol>
+
+          <aside class="box bg-subtle">
+            <p><strong>Note:</strong> By default, <code>public/dist/</code> is not gitignored, so built files will be committed. This allows direct deployment without a build step.</p>
+          </aside>
+        </section>
+
+        <section class="section">
+          <h2>Preview before deploying</h2>
+          <p>Test your production build locally before deploying:</p>
+          <pre><code>npm run build
+npm run preview</code></pre>
+          <p>This serves the built files at <a href="http://localhost:4173">http://localhost:4173</a>.</p>
+        </section>
+
+        <section class="section">
+          <h2>Cache considerations</h2>
+          <p>Live Wires uses fixed filenames (<code>main.css</code>, <code>main.js</code>) for simplicity. This means you may need to bust browser cache when you update.</p>
+
+          <h3>Cache busting strategies</h3>
+          <ul>
+            <li><strong>Query strings:</strong> Add a version parameter to your asset URLs
+              <pre><code>&lt;link rel="stylesheet" href="/dist/main.css?v=1.0.1"&gt;</code></pre>
+            </li>
+            <li><strong>Host headers:</strong> Configure your host to set appropriate cache headers</li>
+            <li><strong>Service worker:</strong> For PWAs, update your service worker version</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>Production checklist</h2>
+          <ul>
+            <li>Run <code>npm run build</code> to generate optimized assets</li>
+            <li>Test with <code>npm run preview</code></li>
+            <li>Verify all pages load correctly</li>
+            <li>Check that fonts and images are loading</li>
+            <li>Ensure your host serves gzip/brotli compression</li>
+            <li>Consider cache busting if updating an existing site</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>Related documentation</h2>
+          <ul>
+            <li><a href="getting-started.html">Getting started</a></li>
+            <li><a href="structure.html">Project structure</a></li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

@@ -35,7 +35,27 @@ Opens [http://localhost:3000](http://localhost:3000) with live reload.
 npm run build
 ```
 
-Outputs optimized CSS to `dist/`.
+Creates optimized CSS and JS in `public/dist/`.
+
+### Deploy
+
+The `public/` folder is your deployable site. Two options:
+
+**Option 1: Build on deploy (recommended)**
+```
+Build command: npm run build
+Publish directory: public
+```
+Works with Netlify, Vercel, Cloudflare Pages, etc.
+
+**Option 2: Commit built files**
+```bash
+npm run build
+git add public/dist
+git commit -m "Build for production"
+git push
+```
+Then deploy the `public/` folder directly.
 
 ## The Sacred Baseline
 

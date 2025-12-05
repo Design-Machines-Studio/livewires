@@ -65,12 +65,41 @@ When making code changes:
 ### Core Commands
 
 - `npm run dev` - Start development server with Vite (http://localhost:3000)
-- `npm run build` - Build optimized CSS to `dist/`
+- `npm run build` - Build optimized CSS and JS to `public/dist/`
 - `npm run preview` - Preview production build
 
 ### Development Workflow
 
 Vite provides instant HMR (Hot Module Replacement). Edit CSS or HTML files and see changes instantly in the browser. No build step during development.
+
+### Deployment
+
+The `public/` folder is the deployable site root. Build outputs go to `public/dist/`:
+
+```
+public/dist/
+├── main.css      # Minified CSS (~18KB gzipped)
+├── main.js       # Bundled JS (~4KB gzipped)
+└── css/
+    └── print.css # Print stylesheet
+```
+
+**Option 1: Build on deploy (recommended)**
+Configure your host to run the build:
+- Build command: `npm run build`
+- Publish directory: `public`
+
+Works with Netlify, Vercel, Cloudflare Pages, and similar platforms.
+
+**Option 2: Commit built files**
+```bash
+npm run build
+git add public/dist
+git commit -m "Build for production"
+git push
+```
+
+HTML files reference `/dist/main.js` and `/dist/main.css`. In development, Vite aliases these to source files. In production, the built files are served directly.
 
 ## Architecture
 
@@ -493,8 +522,8 @@ The `<html-include>` custom element is defined in [src/js/html-include.js](src/j
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0">
 
-    <!-- Load Web Component first (required!) -->
-    <script type="module" src="/src/js/main.js"></script>
+    <!-- Load JS first (CSS is loaded via _includes/head.html) -->
+    <script type="module" src="/dist/main.js"></script>
 
     <!-- Now includes will work -->
     <html-include src="/_includes/head.html"></html-include>
