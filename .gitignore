@@ -1,7 +1,10 @@
-# .gitignore for Yeoman-Jekyll projects
+# .gitignore for Live Wires
+
+# Internal development docs #
+_dev/
 
 # Ignore hidden folders #
-# This takes care of .tmp, .sass-cache, and many others #
+# This takes care of .tmp, .sass-cache, .claude, and many others #
 .*/
 
 # Ignore OS generated files #
@@ -31,6 +34,9 @@ Thumbs.db
 *.rar
 *.tar
 *.zip
+
+# Exception: include optional extras #
+!extras/*.zip
 
 # Ignore for Yeoman-Jekyll projects #
 bower_components

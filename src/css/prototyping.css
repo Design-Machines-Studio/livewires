@@ -187,6 +187,45 @@
   }
 
   /*
+   * CURRENT PAGE NAVIGATION
+   * Style for active/current page in navigation
+   * Uses pg-* body classes with nav link href matching
+   */
+
+  /* Header nav - primary navigation */
+  header nav a[aria-current="page"],
+  body.pg-home header nav a[href="/"],
+  body.pg-manual header nav a[href="/manual/"],
+  body.pg-docs header nav a[href="/docs/"],
+  body.pg-brand-guide header nav a[href="/manual/brand/"],
+  body.pg-components header nav a[href="/manual/components/"],
+
+  /* Sidebar nav - Components section */
+  body.pg-components main nav a[href$="/components/"],
+  body.pg-typography main nav a[href$="typography.html"],
+  body.pg-components-layout main nav a[href$="layout.html"],
+  body.pg-schemes main nav a[href$="schemes.html"],
+  body.pg-tables main nav a[href$="tables.html"],
+  body.pg-media main nav a[href$="media.html"],
+  body.pg-dividers main nav a[href$="dividers.html"],
+  body.pg-forms main nav a[href$="forms.html"],
+  body.pg-disclosure main nav a[href$="disclosure.html"],
+  body.pg-navigation main nav a[href$="navigation.html"],
+
+  /* Sidebar nav - Brand section */
+  body.pg-brand-guide main nav a[href$="/brand/"],
+  body.pg-logos main nav a[href$="logos.html"],
+  body.pg-colors main nav a[href$="colors.html"],
+  body.pg-fonts main nav a[href$="fonts.html"],
+  body.pg-graphics main nav a[href$="graphics.html"],
+  body.pg-voice-tone main nav a[href$="voice-tone.html"],
+  body.pg-formatting main nav a[href$="formatting.html"],
+  body.pg-audience main nav a[href$="audience.html"] {
+    color: var(--color-fg);
+    text-decoration: none;
+  }
+
+  /*
    * DARK MODE
    * Manual dark mode toggle for prototyping
    */
