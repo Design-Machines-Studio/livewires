@@ -11,7 +11,7 @@
 @layer layouts {
   :root {
     --vertical-margin: var(--line-2);
-    --horizontal-margin: var(--line-075);
+    --horizontal-margin: var(--line-05);
   }
 
   /*
