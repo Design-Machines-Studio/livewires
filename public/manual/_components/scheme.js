@@ -27,7 +27,7 @@ class SchemePanel extends HTMLElement {
 
   render() {
     const html = `
-      <div class="box box-loose ${this.scheme}">
+      <div class="box ${this.scheme}">
         <h3>${this.title}</h3>
 
         <div class="prose mb-1">

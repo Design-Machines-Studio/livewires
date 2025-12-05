@@ -97,7 +97,7 @@ class TypeSample extends HTMLElement {
 
     // Display sample
     if (this.display) {
-      html += `<p class="text-7xl leading-none mb-0">AaBbCc1234</p>`;
+      html += `<p class="text-6xl text-8xl@md leading-none mb-0">AaBbCc1234</p>`;
     }
 
     // Headline sample
