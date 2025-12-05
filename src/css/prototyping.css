@@ -260,7 +260,21 @@
   body.pg-graphics main nav a[href$="graphics.html"],
   body.pg-voice-tone main nav a[href$="voice-tone.html"],
   body.pg-formatting main nav a[href$="formatting.html"],
-  body.pg-audience main nav a[href$="audience.html"] {
+  body.pg-audience main nav a[href$="audience.html"],
+
+  /* Sidebar nav - Docs section */
+  body.pg-docs main nav a[href$="/docs/"],
+  body.pg-getting-started main nav a[href$="getting-started.html"],
+  body.pg-structure main nav a[href$="structure.html"],
+  body.pg-docs-typography main nav a[href$="typography.html"],
+  body.pg-utility-classes main nav a[href$="utility-classes.html"],
+  body.pg-includes main nav a[href$="includes.html"],
+  body.pg-design-toolbar main nav a[href$="design-toolbar.html"],
+  body.pg-process main nav a[href$="process.html"],
+  body.pg-code-style main nav a[href$="code-style.html"],
+  body.pg-accessibility main nav a[href$="accessibility.html"],
+  body.pg-compatibility main nav a[href$="compatibility.html"],
+  body.pg-support main nav a[href$="support.html"] {
     color: var(--color-fg);
     text-decoration: none;
   }

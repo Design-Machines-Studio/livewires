@@ -1,0 +1,132 @@
+/**
+ * Print Styles
+ *
+ * Optimized styles for printing editorial content
+ * Load in HTML head with: <link rel="stylesheet" href="/src/css/7_utilities/print.css" media="print">
+ */
+
+/*
+ * PAGE SETUP
+ */
+@page {
+  margin: 2cm;
+}
+
+/*
+ * RESET FOR PRINT
+ * Remove backgrounds and shadows for ink saving
+ */
+*,
+*::before,
+*::after {
+  background: transparent !important;
+  color: black !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/*
+ * TYPOGRAPHY
+ * Optimize for print readability
+ */
+body {
+  font-size: 12pt;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+p, blockquote, ul, ol, dl, table, figure {
+  orphans: 3;
+  widows: 3;
+}
+
+/*
+ * LINKS
+ * Show URLs for external links
+ */
+a[href^="http"]::after {
+  content: " (" attr(href) ")";
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
+a[href^="#"]::after,
+a[href^="javascript:"]::after {
+  content: "";
+}
+
+/*
+ * IMAGES & MEDIA
+ */
+img {
+  max-width: 100% !important;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+figure {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/*
+ * TABLES
+ */
+table {
+  border-collapse: collapse;
+}
+
+thead {
+  display: table-header-group;
+}
+
+tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/*
+ * HIDE NON-PRINT ELEMENTS
+ */
+nav,
+aside,
+.no-print,
+[role="navigation"],
+[role="complementary"],
+button,
+input[type="submit"],
+.button {
+  display: none !important;
+}
+
+/*
+ * BLOCKQUOTES & CODE
+ */
+blockquote {
+  border-left: 2pt solid black;
+  padding-left: 1em;
+  margin-left: 0;
+}
+
+pre, code {
+  border: 1pt solid #999;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/*
+ * ABBREVIATIONS
+ * Expand abbreviations in print
+ */
+abbr[title]::after {
+  content: " (" attr(title) ")";
+}

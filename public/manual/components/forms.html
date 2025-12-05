@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0">
 
-    <!-- Load Web Component first (before any html-include tags) -->
-    <script type="module" src="/src/js/main.js"></script>
+    <!-- Load JS (CSS is in _includes/head.html) -->
+    <script type="module" src="/dist/main.js"></script>
 
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
@@ -85,7 +85,7 @@
               <h2>Control inputs</h2>
               <hr />
             </header>
-            <div class="grid grid-columns-2">
+            <div class="grid">
               <div class="stack">
 
                 <div class="field">
@@ -195,7 +195,7 @@
               <hr />
               <p>Uncomment @imports in main.css to style.</p>
             </header>
-            <div class="grid grid-columns-2">
+            <div class="grid">
               <section class="stack">
                 <h3>Button components <small>6_components/buttons.css</small></h3>
 

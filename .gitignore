@@ -47,4 +47,6 @@ node_modules
 .ruby-version
 .ruby-gemset
 .rvmrc
-dist/
+
+# Build output at root (but NOT public/dist which we want to commit)
+/dist/

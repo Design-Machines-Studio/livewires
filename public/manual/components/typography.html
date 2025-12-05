@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0">
 
-    <!-- Load Web Component first (before any html-include tags) -->
-    <script type="module" src="/src/js/main.js"></script>
+    <!-- Load JS (CSS is in _includes/head.html) -->
+    <script type="module" src="/dist/main.js"></script>
 
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
@@ -29,7 +29,7 @@
               <h2>Headlines</h2>
               <hr />
             </header>
-            <div class="grid grid-columns-2">
+            <div class="grid mb-2">
               <section>
                 <h3>Default</h3>
                 <hr>
@@ -99,12 +99,10 @@
               </section>
               <section>
                 <h3>Prices</h3>
-                <hr>
                 <p class="price">$100.00</p>
               </section>
               <section>
                 <h3>Addresses</h3>
-                <hr>
                 <address class="vcard">
                   <p class="adr"><strong class="org">Company name</strong><br />
                     <span class="street-address">123 West Chester
@@ -120,7 +118,6 @@
               </section>
               <section>
                 <h3>Links</h3>
-                <hr>
                 <p><a href="#">Standard text link</a></p>
                 <p class="more"><a href="#">More link</a></p>
               </section>
