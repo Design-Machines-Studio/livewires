@@ -57,11 +57,14 @@
 │       └── prototyping.js    # Prototyping utilities
 ├── public/                   # Your prototype (site root)
 │   ├── index.html            # Your pages
-│   ├── _includes/            # HTML fragments
-│   ├── guide/                # This documentation
-│   ├── example/              # An example prototype
+│   ├── _includes/            # HTML fragments (header, footer, nav)
+│   ├── docs/                 # Technical documentation
+│   ├── manual/               # Style guide & component library
+│   ├── example/              # Example editorial site
+│   │   └── _components/      # Reusable HTML patterns
 │   ├── fonts/                # Web fonts
 │   └── img/                  # Images
+├── extras/                   # Optional extras (skills, etc.)
 ├── vite.config.js            # Vite configuration
 ├── postcss.config.js         # PostCSS (autoprefixer only)
 └── package.json              # Dependencies</code></pre>
@@ -212,11 +215,20 @@
             <dt><code>/public/img/</code></dt>
             <dd>Images and graphics for your prototype.</dd>
 
+            <dt><code>/public/docs/</code></dt>
+            <dd>Technical documentation for Live Wires itself.</dd>
+
             <dt><code>/public/manual/</code></dt>
-            <dd>This style guide. Also serves as a component library and testing ground.</dd>
+            <dd>Style guide and component library. Contains brand identity, component documentation, and usage examples.</dd>
 
             <dt><code>/public/example/</code></dt>
-            <dd>An example protoype to see how it all comes together.</dd>
+            <dd>A complete example editorial site demonstrating Live Wires in action.
+              <ul>
+                <li><code>_components/</code> &mdash; Reusable HTML patterns (article teasers, etc.) loaded via <code>&lt;html-include&gt;</code></li>
+                <li><code>_includes/</code> &mdash; Site-specific includes (header, navigation)</li>
+                <li><code>article/</code> &mdash; Example article pages</li>
+              </ul>
+            </dd>
           </dl>
           <p class="more"><a href="#main">To top</a></p>
         </section>
