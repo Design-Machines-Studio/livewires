@@ -23,7 +23,7 @@
    *     also update these media queries to match.
    *     See also: src/css/prototyping.css (margin mode selectors)
    */
-  @media (min-width: 30rem) {
+  @media (min-width: 40rem) {
     :root {
       --horizontal-margin: var(--line-2);
     }
@@ -137,7 +137,7 @@
    * Requires an ancestor with containment (e.g., .main or body).
    * Use .container on parent elements to enable these queries.
    */
-  @container (min-width: 30rem) {
+  @container (min-width: 40rem) {
     .section {
       --vertical-margin: var(--line-2);
       --horizontal-margin: var(--line-2);
