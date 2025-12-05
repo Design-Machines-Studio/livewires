@@ -23,10 +23,10 @@
     flex-grow: 1;
   }
 
-  /* Sidebar element (narrower) */
+  /* Sidebar element (narrower, but full-width when stacked) */
   .sidebar > :first-child {
     flex-basis: var(--sidebar-width, 20rem);
-    flex-grow: 0;
+    flex-grow: 1;
   }
 
   /* Main content (wider) */

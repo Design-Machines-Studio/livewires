@@ -3,22 +3,35 @@
  *
  * Horizontally center content with max-width
  * Inspired by Every Layout
+ *
+ * Uses border-box by default to prevent mobile overflow.
+ * Switches to content-box at wider containers so max-inline-size
+ * applies to the content area (not content + padding).
+ *
+ * Note: Container query requires an ancestor with container-type
+ * (e.g., .section, .main, or body).
  */
 
 @layer layouts {
   .center {
-    box-sizing: content-box;
     max-inline-size: var(--measure);
     margin-inline: auto;
     padding-inline: var(--line-1);
   }
 
+  /* At wider containers, use content-box so max-width = content width */
+  @container (min-width: 40rem) {
+    .center {
+      box-sizing: content-box;
+    }
+  }
+
   /* Width variations */
   .center-wide {
-    max-inline-size:  var(--measure-wide);
+    max-inline-size: var(--measure-wide);
   }
 
   .center-narrow {
-    max-inline-size:  var(--measure-narrow);
+    max-inline-size: var(--measure-narrow);
   }
 }
