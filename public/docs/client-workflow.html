@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load JS (CSS is in _includes/head.html) -->
+    <script type="module" src="/dist/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-client-workflow">
+
+    <!-- HTML Include: site header -->
+    <html-include src="/_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="/_includes/nav-docs.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Working with clients</h1>
+          <p class="lead">How to present progressive work to stakeholders.</p>
+        </header>
+
+        <nav class="section section-snug">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#challenge">The challenge</a></li>
+            <li><a href="#tech-savvy">Tech-savvy clients</a></li>
+            <li><a href="#traditional">Traditional clients</a></li>
+            <li><a href="#redacted">Redacted wireframes</a></li>
+            <li><a href="#education">Client education</a></li>
+            <li><a href="#progressive">Progressive reveal</a></li>
+          </ul>
+        </nav>
+
+        <section id="challenge" class="section">
+          <h2>The challenge</h2>
+          <p>When you design in the browser from day one, you're working with something that <em>looks</em> real. This is both a strength and a potential problem.</p>
+
+          <p>Clients seeing an early prototype might focus on the wrong things. They'll notice the placeholder logo, the dummy text, the basic colors&mdash;instead of the layout, flow, and structure you're actually presenting.</p>
+
+          <blockquote>
+            <p>&ldquo;Different clients need different things. We have clients who are very savvy and smart on the tech side who are very comfortable going through a browser. And then we have clients who want to see a screenshot, they want to see a PNG.&rdquo;</p>
+          </blockquote>
+
+          <p>The solution isn't to abandon in-browser design. It's to adapt your presentation strategy to match each client's comfort level.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="tech-savvy" class="section">
+          <h2>Tech-savvy clients</h2>
+          <p>Some clients are comfortable with technology. They understand that a prototype is unfinished. They can mentally separate structure from surface.</p>
+
+          <h3>For these clients:</h3>
+          <ul>
+            <li><strong>Present in the browser.</strong> Share a URL. Let them click through, resize, test on their devices.</li>
+            <li><strong>Walk through flows.</strong> Demonstrate the actual user experience, not static representations of it.</li>
+            <li><strong>Show responsive behavior.</strong> Resize the window. Prove that layouts work across screen sizes.</li>
+            <li><strong>Iterate in meetings.</strong> Make changes live while they watch. Show how fast refinement can happen.</li>
+          </ul>
+
+          <p>The browser becomes a shared canvas. Changes are immediate. Feedback is concrete. There's no translation layer between what they see and what will ship.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="traditional" class="section">
+          <h2>Traditional clients</h2>
+          <p>Other clients need a more curated experience. They're used to receiving polished deliverables. A raw prototype might confuse or concern them.</p>
+
+          <h3>For these clients:</h3>
+          <ul>
+            <li><strong>Take screenshots.</strong> Capture specific states at specific sizes.</li>
+            <li><strong>Create presentation decks.</strong> Frame screens with context and annotations.</li>
+            <li><strong>Add callouts.</strong> Draw attention to what you want them to notice.</li>
+            <li><strong>Control the narrative.</strong> Curate what they see and when they see it.</li>
+          </ul>
+
+          <p>This isn't a step backward. You're still designing in the browser. You're just translating the output into a format they understand.</p>
+
+          <h3>The hybrid approach</h3>
+          <p>Many clients start traditional and become more tech-savvy over time. Begin with screenshots. As trust builds, invite them into the browser. Let them experience the prototype directly. They often prefer it once they understand the benefits.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="redacted" class="section">
+          <h2>Redacted wireframes</h2>
+          <p>One of the most powerful techniques for early presentations is redacting the content. Live Wires includes a redaction mode that replaces text with abstract shapes.</p>
+
+          <blockquote>
+            <p>&ldquo;We had our content strategist, Rachel, go into the HTML and update the copy herself. It was great to be able to work together that closely in the same material.&rdquo;</p>
+          </blockquote>
+
+          <h3>Why redact?</h3>
+          <ul>
+            <li><strong>Focus on structure.</strong> Clients can't get distracted by placeholder copy.</li>
+            <li><strong>Show hierarchy.</strong> Typography and spacing relationships are visible without the words.</li>
+            <li><strong>Avoid premature feedback.</strong> No one can wordsmith Lorem Ipsum.</li>
+            <li><strong>Signal incompleteness.</strong> A redacted page clearly says "this is a wireframe."</li>
+          </ul>
+
+          <h3>How to use it</h3>
+          <p>Press <kbd>R</kbd> to toggle redaction mode, or click the <strong>Redact</strong> button in the design toolbar. This applies the <code>Flow Block</code> font to content areas, rendering text as abstract blocks while preserving size and rhythm.</p>
+
+          <p>Combine with other overlay tools:</p>
+          <ul>
+            <li><kbd>B</kbd> for baseline grid&mdash;show that everything aligns</li>
+            <li><kbd>C</kbd> for columns&mdash;demonstrate the underlying structure</li>
+            <li><kbd>O</kbd> for outlines&mdash;reveal layout primitive boundaries</li>
+          </ul>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="education" class="section">
+          <h2>Client education</h2>
+          <p>Part of working with clients is helping them understand your process. When you design in HTML from the start, you need to explain why.</p>
+
+          <h3>Key messages</h3>
+          <dl>
+            <dt>&ldquo;This is the real thing.&rdquo;</dt>
+            <dd>Unlike a Figma mockup, this prototype works in real browsers. When you click, things happen. When you resize, it responds. This <em>is</em> the website, just at an early stage.</dd>
+
+            <dt>&ldquo;Changes are instant.&rdquo;</dt>
+            <dd>We can adjust spacing, swap colors, try different type treatments in seconds. There's no handoff delay between "design" and "development."</dd>
+
+            <dt>&ldquo;Nothing gets thrown away.&rdquo;</dt>
+            <dd>The code you're looking at evolves into production. We're not rebuilding from scratch after approval&mdash;we're refining what already exists.</dd>
+
+            <dt>&ldquo;Test on your device now.&rdquo;</dt>
+            <dd>Share the URL. They can see exactly how it works on their phone, their tablet, their desktop. No simulation required.</dd>
+          </dl>
+
+          <h3>Framing stages</h3>
+          <p>Use clear language for each stage of refinement:</p>
+          <ol>
+            <li><strong>Structure</strong>&mdash;"We're defining how content is organized."</li>
+            <li><strong>Skeleton</strong>&mdash;"We're establishing proportions and rhythm."</li>
+            <li><strong>Surface</strong>&mdash;"We're applying color, typography, and polish."</li>
+          </ol>
+
+          <p>These terms help clients understand where they are in the process and what kind of feedback is appropriate.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="progressive" class="section">
+          <h2>Progressive reveal</h2>
+          <p>Consider revealing complexity gradually. Don't overwhelm clients with everything at once.</p>
+
+          <h3>First meeting: Structure</h3>
+          <ul>
+            <li>Present with redaction mode enabled</li>
+            <li>Focus on layout and flow</li>
+            <li>Discuss content hierarchy</li>
+            <li>Gather feedback on organization</li>
+          </ul>
+
+          <h3>Second meeting: Skeleton</h3>
+          <ul>
+            <li>Reveal actual content</li>
+            <li>Show baseline grid alignment</li>
+            <li>Discuss typography scale</li>
+            <li>Review responsive behavior</li>
+          </ul>
+
+          <h3>Third meeting: Surface</h3>
+          <ul>
+            <li>Apply color schemes</li>
+            <li>Refine component details</li>
+            <li>Polish interactions</li>
+            <li>Final adjustments</li>
+          </ul>
+
+          <p>This mirrors the sculpture metaphor from the <a href="philosophy.html">philosophy</a> page&mdash;you're revealing the form as you carve it, not presenting everything at once.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section class="section">
+          <h2>Related</h2>
+          <ul>
+            <li><a href="philosophy.html">Philosophy</a> &mdash; The ideas behind Live Wires</li>
+            <li><a href="process.html">Design process</a> &mdash; The progressive workflow</li>
+            <li><a href="content-workflow.html">Content-first workflow</a> &mdash; Working with content strategists</li>
+            <li><a href="design-toolbar.html">Design toolbar</a> &mdash; Using development overlays</li>
+          </ul>
+        </section>
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

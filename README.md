@@ -13,6 +13,27 @@ Live Wires is not a component library like Bootstrap or Tailwind. It's a **desig
 
 **Core principle:** Good defaults + additive art direction.
 
+### The Anti-Framework
+
+Live Wires was born from frustration with traditional CSS frameworks. Bootstrap and Foundation solve real problems—but they solve them by making decisions for you. Every Bootstrap site has a Bootstrap signature.
+
+Live Wires takes a different approach. Instead of giving you a complete design system to implement, it gives you:
+- **Good defaults** that make semantic HTML look presentable
+- **Compositional primitives** for common layout patterns
+- **Design tokens** you're expected to customize
+- **A philosophy** for building your own system
+
+### Make It Your Own
+
+This is the most important thing to understand: **don't try to stay in sync with upstream.**
+
+Live Wires isn't a dependency you install and update. It's a starting point you fork and evolve. Every team that uses it should end up with something different—something that reflects their process, their preferences, their clients.
+
+- **Delete what you don't need.** If you never use the sidebar primitive, remove it.
+- **Add your own patterns.** Extract the patterns that emerge into your version.
+- **Don't override, modify.** Instead of writing CSS that fights the defaults, change the defaults.
+- **Let it evolve.** Your internal framework should grow with each project.
+
 ## Quick Start
 
 ### Installation
