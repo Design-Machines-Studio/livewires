@@ -38,15 +38,11 @@ Thumbs.db
 # Exception: include optional extras #
 !extras/*.zip
 
-# Ignore for Yeoman-Jekyll projects #
-bower_components
 node_modules
 .tmp
 
-# Ignore for RVM users #
-.ruby-version
-.ruby-gemset
-.rvmrc
-
 # Build output at root (but NOT public/dist which we want to commit)
 /dist/
+
+# Marketing export folder (for extracting content to use on marketing site)
+/_marketing-export/

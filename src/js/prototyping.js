@@ -626,6 +626,7 @@ class DevTools {
         z-index: 10000;
         font-family: system-ui, -apple-system, sans-serif;
         font-size: 14px;
+        --touch-target-min: 33px;
       }
 
       .dev-tool-button {
@@ -785,13 +786,14 @@ class DevTools {
         background: rgba(0, 0, 0, 0.8);
         color: rgba(255, 255, 255, 0.7);
         border: none;
-        padding: 6px;
+        padding: 10px;
         line-height: 0;
         border-radius: 4px;
         cursor: pointer;
         z-index: 10000;
         opacity: 0.4;
         transition: opacity 0.15s;
+        --touch-target-min: 0px;
       }
 
       .dev-tools-show:hover {

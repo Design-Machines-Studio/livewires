@@ -15,9 +15,11 @@ Live Wires is not a component library like Bootstrap or Tailwind. It's a **desig
 
 ### The Anti-Framework
 
-Live Wires was born from frustration with traditional CSS frameworks. Bootstrap and Foundation solve real problems—but they solve them by making decisions for you. Every Bootstrap site has a Bootstrap signature.
+I originally built Live Wires in 2013 as a reaction to Bootstrap—it solved real problems, but every site ended up with a Bootstrap signature.
 
-Live Wires takes a different approach. Instead of giving you a complete design system to implement, it gives you:
+These days, utility-first frameworks like Tailwind dominate. Live Wires is compatible with Tailwind, and I encourage people to graduate to it when they need more. But the issue with going utility-only is losing the benefits of semantic structure and good defaults.
+
+Live Wires takes a different approach:
 - **Good defaults** that make semantic HTML look presentable
 - **Compositional primitives** for common layout patterns
 - **Design tokens** you're expected to customize
@@ -78,9 +80,9 @@ git push
 ```
 Then deploy the `public/` folder directly.
 
-## The Sacred Baseline
+## The Foundational Unit
 
-Everything in Live Wires derives from the `--line` variable:
+Everything in Live Wires derives from a single variable: `--line`. It's a typography-first approach where the entire system is rational, self-connecting, and scales as a unit:
 
 ```css
 :root {

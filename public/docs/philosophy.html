@@ -37,35 +37,31 @@
 
         <section id="anti-framework" class="section">
           <h2>The anti-framework</h2>
-          <p>Live Wires was born from frustration with existing CSS frameworks. Bootstrap, Foundation, and their descendants solve real problems&mdash;but they solve them by making decisions for you. They dictate not just design choices, but markup patterns, class naming conventions, and architectural assumptions.</p>
+          <p>I originally built Live Wires in 2013 as a reaction to Bootstrap. It solved real problems&mdash;but it solved them by making decisions for you. It dictated not just design choices, but markup patterns, class naming conventions, and architectural assumptions.</p>
 
-          <p>The result? Every Bootstrap site has a Bootstrap signature. You can spot a Foundation project from across the room. The frameworks that promise to speed up your work end up homogenizing it.</p>
+          <p>The result? Every Bootstrap site had a Bootstrap signature. The frameworks that promised to speed up your work ended up homogenizing it.</p>
 
-          <blockquote>
-            <p>&ldquo;We just found that they dictated so many, not only design decisions, but markup decisions and everything else. We don't want to do that at all. We just want to put in the philosophy, the approach behind it.&rdquo;</p>
-          </blockquote>
+          <p><strong>These days, utility-first frameworks like Tailwind dominate.</strong> I actually like Tailwind&mdash;Live Wires is compatible with it, and I encourage people to graduate to it when they need more. But the issue I see is going utility-only and losing the benefits of semantic structure and good defaults.</p>
 
           <p>Live Wires takes a different approach. Instead of giving you a complete design system to implement, it gives you:</p>
           <ul>
             <li><strong>Good defaults</strong> that make semantic HTML look presentable</li>
             <li><strong>Compositional primitives</strong> for common layout patterns</li>
-            <li><strong>Design tokens</strong> you're expected to customize</li>
+            <li><strong>Design tokens</strong> you&rsquo;re expected to customize</li>
             <li><strong>A philosophy</strong> for building your own system</li>
           </ul>
 
-          <p>The goal isn't to use Live Wires. The goal is to <strong>build your own Bootstrap</strong> using Live Wires as a starting point.</p>
+          <p>The goal isn&rsquo;t to use Live Wires forever. The goal is to <strong>build your own framework</strong>&mdash;one that reflects your process and preferences&mdash;using Live Wires as a starting point.</p>
           <p class="more"><a href="#main">To top</a></p>
         </section>
 
         <section id="magazine-heritage" class="section">
           <h2>Magazine heritage</h2>
-          <p>Live Wires was created by someone who learned design through magazine layout, not web development. That editorial background shaped everything about how it works.</p>
+          <p>I learned design through magazine layout and web development at the same time. That editorial background shaped everything about how Live Wires works.</p>
 
-          <p>Magazine design has always used systems. Every publication has a grid, a type hierarchy, a color palette. There are running heads, folios, department styles, and recurring templates. But within those systems, there's <em>variation</em>. Every spread is designed. Every feature has personality. The system enables expression rather than constraining it.</p>
+          <p>Magazine design has always used systems. Every publication has a grid, a type hierarchy, a color palette. There are running heads, folios, department styles, and recurring templates. But within those systems, there&rsquo;s <em>variation</em>. Every spread is designed. Every feature has personality. <strong>The system enables expression rather than constraining it.</strong></p>
 
-          <blockquote>
-            <p>&ldquo;Coming from magazine design... that's exactly how you would lay out magazine sections. You understand that there's going to be variation in those pieces, and you kind of want to abstract the content out at that stage.&rdquo;</p>
-          </blockquote>
+          <p>That&rsquo;s exactly how you&rsquo;d lay out magazine sections&mdash;you understand there&rsquo;s going to be variation in those pieces, and you want to abstract the content out at that stage.</p>
 
           <p>Web design frameworks typically work the opposite way. They start with components and expect you to fill them with content. Live Wires starts with content and helps you build the components you actually need.</p>
 
@@ -80,7 +76,7 @@
             <dd>Give content editors meaningful choices (color schemes, layout options) without letting them break the system. Like how a magazine designer might offer department heads a choice of three header treatments.</dd>
 
             <dt>Vertical rhythm</dt>
-            <dd>The sacred baseline comes from print typography, where everything aligns to a leading grid. Web developers often ignore this&mdash;magazine designers know it's foundational.</dd>
+            <dd>The foundational unit (<code>--line</code>) comes from print typography, where everything aligns to a leading grid. Web developers often ignore this&mdash;magazine designers know it creates natural-feeling rhythm and makes design decisions easier.</dd>
 
             <dt>Spreads, not screens</dt>
             <dd>Think about how content flows across pages and sections, not just individual components. The <code>.section</code> primitive exists to create rhythm across a page.</dd>
@@ -90,45 +86,37 @@
 
         <section id="make-it-your-own" class="section">
           <h2>Make it your own</h2>
-          <p>This is the most important thing to understand about Live Wires: <strong>don't try to stay in sync with upstream.</strong></p>
+          <p>This is the most important thing to understand about Live Wires: <strong>don&rsquo;t try to stay in sync with upstream.</strong></p>
 
-          <blockquote>
-            <p>&ldquo;The thing I try to get people to do when they use it is don't override anything. Just go in there and gut it and make it your own.&rdquo;</p>
-          </blockquote>
+          <p>The thing I try to get people to do when they use it is don&rsquo;t override anything. Just go in there, gut it, and make it your own.</p>
 
-          <p>Live Wires isn't a dependency you install and update. It's a starting point you fork and evolve. Every team that uses it should end up with something different&mdash;something that reflects their process, their preferences, their clients.</p>
+          <p>Live Wires isn&rsquo;t a dependency you install and update. It&rsquo;s a starting point you fork and evolve. Every team that uses it should end up with something different&mdash;something that reflects their process, their preferences, their stakeholders.</p>
 
           <h3>What this means in practice</h3>
           <ul>
-            <li><strong>Delete what you don't need.</strong> If you never use the sidebar primitive, remove it. If you hate the button styles, gut them.</li>
+            <li><strong>Delete what you don&rsquo;t need.</strong> If you never use the sidebar primitive, remove it. If you hate the button styles, gut them.</li>
             <li><strong>Add your own patterns.</strong> As you build projects, extract the patterns that emerge into your version of the framework.</li>
-            <li><strong>Don't override, modify.</strong> Instead of writing CSS that fights the defaults, change the defaults.</li>
-            <li><strong>Let it evolve.</strong> Your internal framework should grow with each project. What you learn on one client should benefit the next.</li>
+            <li><strong>Don&rsquo;t override, modify.</strong> Instead of writing CSS that fights the defaults, change the defaults.</li>
+            <li><strong>Let it evolve.</strong> Your internal framework should grow with each project. What you learn on one project should benefit the next.</li>
           </ul>
 
           <h3>Your signature in the code</h3>
-          <p>The details of how you write CSS, how you name things, how you structure templates&mdash;these are your signature. With frameworks like Bootstrap, you're implementing someone else's signature. With Live Wires, you're developing your own.</p>
+          <p>The details of how you write CSS, how you name things, how you structure templates&mdash;these are your signature. With frameworks like Bootstrap, you&rsquo;re implementing someone else&rsquo;s signature. With Live Wires, you&rsquo;re developing your own.</p>
 
-          <blockquote>
-            <p>&ldquo;I think a lot of the details in that really help dictate the final product. It's kind of like your signature when you're building that.&rdquo;</p>
-          </blockquote>
-
-          <p>Over time, you'll have a proven set of assets that reflect how your team works. New projects start from a foundation you understand deeply because you built it.</p>
+          <p><strong>A lot of those details really help dictate the final product.</strong> It&rsquo;s like your signature when you&rsquo;re building. Over time, you&rsquo;ll have a proven set of assets that reflect how your team works. New projects start from a foundation you understand deeply because you built it.</p>
           <p class="more"><a href="#main">To top</a></p>
         </section>
 
         <section id="progressive-refinement" class="section">
           <h2>Progressive refinement</h2>
-          <p>Traditional web design workflows are wasteful. You sketch, then throw away the sketch. You wireframe in Balsamiq, then throw away the wireframe. You mock up in Figma, then hand off to a developer who rebuilds everything from scratch. Each phase produces artifacts that get discarded.</p>
+          <p>Traditional web design workflows are wasteful. You sketch, then throw away the sketch. You wireframe, then throw away the wireframe. You mock up in Figma, then hand off to a developer who rebuilds everything from scratch. Each phase produces artifacts that get discarded.</p>
 
           <p>Live Wires inverts this. Every step builds on the last.</p>
 
-          <blockquote>
-            <p>&ldquo;We think of it as like it's a statue, and we're working with the big piece of granite. We start off with this really rough, really loose wireframe that we can click through, but we don't want to throw that away.&rdquo;</p>
-          </blockquote>
+          <p><strong>Think of it like sculpting a statue.</strong> You&rsquo;re working with a big piece of granite. You start off with a really rough, really loose wireframe that you can click through&mdash;but you don&rsquo;t want to throw that away.</p>
 
           <h3>The sculpture metaphor</h3>
-          <p>Sculpting a statue doesn't mean making a clay model, photographing it, then carving marble from the photo. You work the same material from rough to refined:</p>
+          <p>Sculpting a statue doesn&rsquo;t mean making a clay model, photographing it, then carving marble from the photo. You work the same material from rough to refined:</p>
 
           <ol>
             <li><strong>Rough out the form</strong> &mdash; Block in major shapes (semantic HTML with layout primitives)</li>
@@ -137,28 +125,26 @@
             <li><strong>Polish</strong> &mdash; Final refinement (component extraction, production optimization)</li>
           </ol>
 
-          <p>At each stage, you're working with the actual material that will ship. The rough wireframe contains real content, real HTML structure, real CSS. Refinement means <em>evolving</em> that code, not replacing it.</p>
+          <p>At each stage, you&rsquo;re working with the actual material that will ship. The rough wireframe contains real content, real HTML structure, real CSS. Refinement means <em>evolving</em> that code, not replacing it.</p>
 
           <h3>Why this matters</h3>
           <ul>
-            <li><strong>No translation loss.</strong> Ideas don't degrade as they move between tools and people.</li>
+            <li><strong>No translation loss.</strong> Ideas don&rsquo;t degrade as they move between tools and people.</li>
             <li><strong>Earlier feedback.</strong> Stakeholders interact with the real thing sooner.</li>
             <li><strong>Faster iteration.</strong> Changes propagate automatically through connected styles.</li>
-            <li><strong>Better estimation.</strong> You're building as you design, so scope becomes clearer.</li>
+            <li><strong>Better estimation.</strong> You&rsquo;re building as you design, so scope becomes clearer.</li>
           </ul>
           <p class="more"><a href="#main">To top</a></p>
         </section>
 
         <section id="design-machines" class="section">
           <h2>Design machines</h2>
-          <p>Live Wires emerged alongside a critique of modern web design: that our tools and processes have led to homogenization. Everything looks the same because we're all using the same frameworks, the same patterns, the same templates.</p>
+          <p>Live Wires emerged alongside a critique of modern web design: <a href="https://louderthanten.com/coax/design-machines">that our tools and processes have led to homogenization</a>. Everything looks the same because we&rsquo;re all using the same frameworks, the same patterns, the same templates.</p>
 
-          <blockquote>
-            <p>&ldquo;I think on the web, because of our approaches to frameworks and CMSs... you kind of have to build a templated system and there's not really much room for variation beyond. And so because of this approach, we've sort of hit a lot of sameness on the web.&rdquo;</p>
-          </blockquote>
+          <p><strong>On the web, because of our approaches to frameworks and CMSs, you kind of have to build a templated system.</strong> There&rsquo;s not really much room for variation beyond. And because of this approach, we&rsquo;ve hit a lot of sameness on the web.</p>
 
           <h3>Systems that enable variation</h3>
-          <p>The solution isn't to abandon systems&mdash;print design proves that systems and expression can coexist. The solution is to build systems that <em>enable</em> variation rather than suppress it.</p>
+          <p>The solution isn&rsquo;t to abandon systems&mdash;print design proves that systems and expression can coexist. The solution is to build systems that <em>enable</em> variation rather than suppress it.</p>
 
           <p>This means:</p>
           <ul>
@@ -177,7 +163,7 @@
           <h2>Related</h2>
           <ul>
             <li><a href="process.html">Design process</a> &mdash; How to put these ideas into practice</li>
-            <li><a href="client-workflow.html">Working with clients</a> &mdash; Presenting progressive work to stakeholders</li>
+            <li><a href="stakeholder-workflow.html">Working with stakeholders</a> &mdash; Presenting progressive work effectively</li>
             <li><a href="content-workflow.html">Content-first workflow</a> &mdash; Integrating content strategy</li>
           </ul>
         </section>

@@ -199,7 +199,7 @@ This ensures utilities always win over components, components over layouts, etc.
    - [sizing.css](src/css/7_utilities/sizing.css) - Width/height utilities
    - [tables.css](src/css/7_utilities/tables.css) - Table utilities
 
-### The Sacred Baseline System
+### The Foundational Unit
 
 **CRITICAL:** Everything in Live Wires derives from the `--line` variable defined in [src/css/1_tokens/spacing.css](src/css/1_tokens/spacing.css).
 

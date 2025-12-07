@@ -17,247 +17,70 @@
   <main id="main">
     <article class="content">
 
-      <!-- HERO -->
+      <!-- Hero: What this is -->
       <header class="section section-spaced scheme-dark prose">
-        <p class="text-sm font-medium">Live Wires</p>
-        <h1 class="text-7xl@md">Prototyping-first design for editorial websites</h1>
-        <p class="lead">The progressive design system that takes you from prototype to launch. Built with modern CSS. No pre-processors. No frameworks. No fuss. Nothing gets thrown away&mdash;the prototype becomes the product.</p>
+        <h1 class="text-6xl@md">Your prototype starts here</h1>
+        <p class="lead">This is Live Wires&mdash;a prototyping-first design system. Replace this page with your project. Everything you build evolves into production.</p>
+        <p class="cluster">
+          <a href="/docs/philosophy.html" class="button">Why Live Wires</a>
+          <a href="/docs/getting-started.html" class="button button-accent">Get started</a>
+          <a href="/example/" class="button">See example</a>
+        </p>
       </header>
 
-      <!-- THE PROBLEM -->
-      <section class="section prose">
-        <div class="center">
-          <h2>The problem with design handoffs</h2>
-          <p class="text-lg"><span class="dropcap">W</span>eb design has traditionally been wasteful. We spend hours in Figma crafting comps that get handed off, translated to code, then discarded like yesterday's trash. We go hard on utility classes or over-designed frameworks only to fight against it later. We build wireframes in tools that don't reflect reality, then throw them away when the next phase begins.</p>
-          <p class="text-lg">How much better would our work be if we could turn those hours into real design thinking and execution?</p>
-        </div>
-      </section>
-
-      <!-- PULL QUOTE -->
-      <section class="section section-spaced scheme-subtle text-center prose">
-        <div class="center center-narrow">
-          <blockquote class="text-3xl">
-            <p>&ldquo;Instead of creating a series of disposable deliverables, the design process becomes an evolution.&rdquo;</p>
-          </blockquote>
-        </div>
-      </section>
-
-      <!-- ANTI-FRAMEWORK -->
-      <section class="section prose">
-        <div class="center">
-          <h2>The anti-framework</h2>
-          <p class="text-lg">Live Wires isn't Bootstrap. It isn't Tailwind. It's not trying to solve your design problems&mdash;it's trying to help you solve them yourself.</p>
-          <p>Frameworks like Bootstrap give you components to implement. Live Wires gives you <strong>primitives to compose</strong>. The difference matters: components dictate design decisions; primitives enable them.</p>
-          <p>More importantly, Live Wires is meant to be forked and gutted. Don't try to stay in sync with upstream. <strong>Make it your own.</strong> Delete what you don't need. Add what you do. Over time, you'll have a proven set of assets that reflect how <em>your</em> team works.</p>
-          <p><a href="/docs/philosophy.html">Read the full philosophy &rarr;</a></p>
-        </div>
-      </section>
-
-      <!-- THE PROCESS -->
-      <section class="section scheme-dark content">
-        <h2>The process: carving a sculpture</h2>
-        <p class="lead">Every step builds on the last. Start with raw material. Shape the form. Refine the details. Add expression.</p>
-        <div class="grid grid-columns-2@md mt-2">
+      <!-- Quick orientation -->
+      <section class="section">
+        <div class="grid grid-columns-3@md">
           <div class="stack stack-compact">
-            <p class="text-5xl font-bold">1</p>
-            <h3>Prototype in HTML</h3>
-            <p>Build page templates using semantic HTML and layout primitives. Your prototype is instantly viewable in real browsers across devices. Share with clients. Test UX flows. <a href="/docs/design-toolbar.html">Redact the text</a> to focus on interaction without the distraction of words.</p>
-            <p class="text-sm text-muted">Nothing replicates the browsing experience like actual web pages.</p>
+            <h2>Edit this file</h2>
+            <p><code>/public/index.html</code></p>
+            <p class="text-sm text-muted">Your prototype lives here. Replace this content with your project.</p>
           </div>
           <div class="stack stack-compact">
-            <p class="text-5xl font-bold">2</p>
-            <h3>Set your tokens</h3>
-            <p>Adjust the design tokens&mdash;colors, typography, spacing&mdash;and watch the <a href="/manual/">Manual</a> transform in real time. Every token you set is designing the foundation of your project.</p>
-            <p class="text-sm text-muted">The system adapts. You see the results immediately.</p>
+            <h2>Shared includes</h2>
+            <p><code>/_includes/</code></p>
+            <p class="text-sm text-muted">Header, footer, nav&mdash;reuse across pages.</p>
           </div>
           <div class="stack stack-compact">
-            <p class="text-5xl font-bold">3</p>
-            <h3>Refine and express</h3>
-            <p>Expand your CSS. Add utility classes for art direction. Refine components. Each iteration takes you from coarse to detailed&mdash;like carving marble.</p>
-            <p class="text-sm text-muted">A stable foundation with room for expression.</p>
-          </div>
-          <div class="stack stack-compact">
-            <p class="text-5xl font-bold">4</p>
-            <h3>Apply to production</h3>
-            <p>Connect your templates to your CMS or framework of choice. Your prototype becomes the product. Nothing gets thrown away.</p>
-            <p class="text-sm text-muted">The same code, evolved&mdash;not translated.</p>
+            <h2>Design tokens</h2>
+            <p><code>/src/css/1_tokens/</code></p>
+            <p class="text-sm text-muted">Colors, typography, spacing. Make it yours.</p>
           </div>
         </div>
       </section>
 
-      <!-- ALTERNATIVE APPROACH -->
-      <section class="section prose">
-        <div class="center">
-          <h3>Alternative: CMS-first</h3>
-          <p>For an even more agile approach, install Live Wires directly on your CMS and start content modeling immediately with a prototype front-end. Then continue with step 2. <em>CMS starters coming soon.</em></p>
-        </div>
-      </section>
-
-      <!-- BENEFITS -->
+      <!-- Workflow hint -->
       <section class="section scheme-subtle prose">
-        <h2>Why this works</h2>
+        <h2>The workflow</h2>
+        <ol>
+          <li><strong>Write semantic HTML</strong>&mdash;it looks good by default</li>
+          <li><strong>Add layout primitives</strong>&mdash;<code>.stack</code>, <code>.grid</code>, <code>.cluster</code>, <code>.sidebar</code></li>
+          <li><strong>Customize tokens</strong>&mdash;adjust colors, typography, spacing to match your brand</li>
+          <li><strong>Layer utilities</strong>&mdash;add art direction with utility classes</li>
+        </ol>
+        <p>Press <kbd>T</kbd> for design tools. See the <a href="/manual/">Manual</a> for components.</p>
+      </section>
+
+      <!-- Resources -->
+      <section class="section prose">
+        <h2>Resources</h2>
         <div class="grid grid-columns-2@md">
           <div class="stack stack-compact">
-            <h3>Agile by design</h3>
-            <p>Designers, developers, and content people work in tandem. Everyone contributes to the same living artifact&mdash;no handoffs, no translation, no waiting.</p>
+            <h3><a href="/docs/">Documentation</a></h3>
+            <p class="text-sm text-muted">Architecture, layout primitives, utilities, and the design toolbar.</p>
           </div>
           <div class="stack stack-compact">
-            <h3>Test in reality</h3>
-            <p>Review in actual browsers on real devices. Click through flows. Resize windows. Your prototype <em>is</em> the experience&mdash;not a simulation of it.</p>
+            <h3><a href="/manual/">Manual</a></h3>
+            <p class="text-sm text-muted">Brand guide and component library. Use it to review token changes.</p>
           </div>
           <div class="stack stack-compact">
-            <h3>Nothing thrown away</h3>
-            <p>Every line of code evolves into production. The wireframe becomes the prototype becomes the product. No more disposable deliverables.</p>
+            <h3><a href="/example/">Example site</a></h3>
+            <p class="text-sm text-muted">A complete editorial site showing Live Wires in action.</p>
           </div>
           <div class="stack stack-compact">
-            <h3>Native materials</h3>
-            <p>Design in HTML and CSS from day one. Work with the web&rsquo;s actual constraints and possibilities&mdash;not an approximation in a design tool.</p>
+            <h3><a href="/docs/philosophy.html">Philosophy</a></h3>
+            <p class="text-sm text-muted">The ideas behind Live Wires and why it exists.</p>
           </div>
-        </div>
-      </section>
-
-      <!-- THREE-TIER APPROACH -->
-      <section class="section content">
-        <div class="center">
-          <h2>Good defaults + additive art direction</h2>
-          <p>Semantic HTML looks good with zero classes. The baseline typography, spacing, and layout just work. You don&rsquo;t fight the system&mdash;you add to it.</p>
-          <div class="grid grid-columns-3@md mt-2">
-            <div class="stack stack-compact">
-              <h3>Semantic HTML</h3>
-              <p class="text-sm">Headings, paragraphs, and lists look good by default. No classes required.</p>
-            </div>
-            <div class="stack stack-compact">
-              <h3>Layout primitives</h3>
-              <p class="text-sm"><code>.stack</code>, <code>.grid</code>, <code>.cluster</code>, <code>.sidebar</code> for composition.</p>
-            </div>
-            <div class="stack stack-compact">
-              <h3>Utilities</h3>
-              <p class="text-sm"><code>.mt-4</code>, <code>.text-center</code>, <code>.scheme-dark</code> for art direction.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SACRED BASELINE -->
-      <section class="section prose">
-        <div class="center">
-          <h2>The sacred baseline</h2>
-          <p>Everything in Live Wires derives from a single variable: <code>--line</code>. Change the base font size or line height, and the entire system recalculates&mdash;spacing, typography, layout. This ensures perfect vertical rhythm across your design.</p>
-        </div>
-      </section>
-
-      <!-- LAYOUT PRIMITIVES -->
-      <section class="section scheme-subtle prose">
-        <div class="center">
-          <h2>Layout primitives</h2>
-          <p>Instead of traditional grid systems, Live Wires uses compositional layout primitives inspired by <a href="https://every-layout.dev">Every Layout</a>. Combine them to create complex layouts without writing custom CSS.</p>
-          <div class="grid grid-columns-3@md">
-            <div class="box scheme-default stack stack-compact">
-              <h3>Stack</h3>
-              <p class="text-sm">Vertical spacing between elements. The fundamental building block.</p>
-            </div>
-            <div class="box scheme-default stack stack-compact">
-              <h3>Grid</h3>
-              <p class="text-sm">Auto-responsive grid layouts. No breakpoints needed.</p>
-            </div>
-            <div class="box scheme-default stack stack-compact">
-              <h3>Cluster</h3>
-              <p class="text-sm">Horizontal groups with wrapping. Perfect for tags and nav.</p>
-            </div>
-            <div class="box scheme-default stack stack-compact">
-              <h3>Center</h3>
-              <p class="text-sm">Horizontally centered content with max-width constraints.</p>
-            </div>
-            <div class="box scheme-default stack stack-compact">
-              <h3>Sidebar</h3>
-              <p class="text-sm">Main content with sidebar. Collapses on narrow screens.</p>
-            </div>
-            <div class="box scheme-default stack stack-compact">
-              <h3>Section</h3>
-              <p class="text-sm">Full-width with responsive padding. Container query ready.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- COLOR SCHEMES -->
-      <section class="section prose">
-        <div class="center">
-          <h2>Color schemes</h2>
-          <p>Apply color schemes for visual hierarchy and rhythm. Each scheme sets background and foreground colors that cascade to child elements.</p>
-          <div class="grid grid-columns-4@md">
-            <div class="scheme-default box stack stack-compact text-center">
-              <p class="font-bold">Default</p>
-              <p class="text-sm text-muted">.scheme-default</p>
-            </div>
-            <div class="scheme-subtle box stack stack-compact text-center">
-              <p class="font-bold">Subtle</p>
-              <p class="text-sm text-muted">.scheme-subtle</p>
-            </div>
-            <div class="scheme-grey-200 box stack stack-compact text-center">
-              <p class="font-bold">Grey</p>
-              <p class="text-sm text-muted">.scheme-grey-200</p>
-            </div>
-            <div class="scheme-dark box stack stack-compact text-center">
-              <p class="font-bold">Dark</p>
-              <p class="text-sm">.scheme-dark</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- UTILITY CLASSES -->
-      <section class="section scheme-grey-100 prose">
-        <div class="center">
-          <h2>Utility classes</h2>
-          <p>Tailwind-compatible utilities for precise control. All utilities use the <code>utilities</code> cascade layer, so they always win over component and layout styles.</p>
-          <div class="cluster cluster-center">
-            <code class="box box-tight scheme-default">.mt-4</code>
-            <code class="box box-tight scheme-default">.px-2</code>
-            <code class="box box-tight scheme-default">.text-center</code>
-            <code class="box box-tight scheme-default">.font-bold</code>
-            <code class="box box-tight scheme-default">.measure</code>
-            <code class="box box-tight scheme-default">.text-lg</code>
-            <code class="box box-tight scheme-default">.scheme-dark</code>
-            <code class="box box-tight scheme-default">.lead</code>
-          </div>
-        </div>
-      </section>
-
-      <!-- DESIGN TOOLBAR -->
-      <section class="section prose">
-        <div class="center">
-          <h2>Design toolbar</h2>
-          <p>Live Wires includes a built-in design toolbar for checking your work. Press <kbd>?</kbd> to toggle it, then use keyboard shortcuts to enable visual overlays.</p>
-          <div class="grid grid-columns-4@md">
-            <div class="stack stack-compact">
-              <p><kbd>B</kbd> <strong>Baseline</strong></p>
-              <p class="text-sm text-muted">Show baseline grid for checking vertical rhythm</p>
-            </div>
-            <div class="stack stack-compact">
-              <p><kbd>C</kbd> <strong>Columns</strong></p>
-              <p class="text-sm text-muted">Column grid overlay with configurable settings</p>
-            </div>
-            <div class="stack stack-compact">
-              <p><kbd>G</kbd> <strong>CSS Grids</strong></p>
-              <p class="text-sm text-muted">Outline all .grid primitives and show column counts</p>
-            </div>
-            <div class="stack stack-compact">
-              <p><kbd>R</kbd> <strong>Redact</strong></p>
-              <p class="text-sm text-muted">Replace text with abstract shapes to focus on layout</p>
-            </div>
-          </div>
-          <p><a href="/docs/design-toolbar.html">Learn more about the design toolbar &rarr;</a></p>
-        </div>
-      </section>
-
-      <!-- CTA -->
-      <section class="section section-spaced scheme-dark text-center prose">
-        <h2 class="text-4xl">Start building</h2>
-        <p class="lead measure mx-auto">Explore the documentation to learn about Live Wires' CSS architecture, layout primitives, and utility classes.</p>
-        <div class="cluster cluster-center">
-          <a href="/docs/getting-started.html" class="button button-accent">Get started</a>
-          <a href="/manual/components/" class="button">Component library</a>
         </div>
       </section>
 
