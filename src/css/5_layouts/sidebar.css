@@ -41,13 +41,22 @@
     flex-direction: row-reverse;
   }
 
-  .sidebar-1px {
+  .sidebar-gap-0 {
+    --sidebar-space: 0;
+  }
+  .sidebar-gap-1px {
     --sidebar-space: var(--line-1px);
   }
-  .sidebar-snug {
+  .sidebar-gap-025 {
+    --sidebar-space: var(--line-025);
+  }
+  .sidebar-gap-05 {
+    --sidebar-space: var(--line-05);
+  }
+  .sidebar-gap-1 {
     --sidebar-space: var(--line-1);
   }
-  .sidebar-loose {
+  .sidebar-gap-2 {
     --sidebar-space: var(--line-2);
   }
 }

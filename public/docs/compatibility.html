@@ -42,7 +42,7 @@
 
         <section id="browsers" class="section">
           <h2>Target browsers</h2>
-          <p>Live Wires targets <strong>modern evergreen browsers</strong>&mdash;the last 2 versions of major browsers:</p>
+          <p>Live Wires targets <strong>modern evergreen browsers</strong>. The last 2 versions of major browsers:</p>
           <ul>
             <li>Chrome / Edge (Chromium)</li>
             <li>Firefox</li>
@@ -152,12 +152,12 @@
           </table>
 
           <h3>Graceful degradation</h3>
-          <p>When progressive features aren&rsquo;t supported:</p>
+          <p>When progressive features aren't supported:</p>
           <ul>
-            <li><strong>CSS Nesting</strong>&mdash;Only affects authoring; compiled CSS works everywhere</li>
-            <li><strong>Container Queries</strong>&mdash;Components use fallback sizes</li>
-            <li><strong>@property</strong>&mdash;Properties work as regular custom properties</li>
-            <li><strong>text-wrap</strong>&mdash;Text wraps normally</li>
+            <li><strong>CSS Nesting:</strong> Only affects authoring; compiled CSS works everywhere</li>
+            <li><strong>Container Queries:</strong> Components use fallback sizes</li>
+            <li><strong>@property:</strong> Properties work as regular custom properties</li>
+            <li><strong>text-wrap:</strong> Text wraps normally</li>
           </ul>
           <p class="more"><a href="#main">To top</a></p>
         </section>
@@ -175,7 +175,7 @@
           </ul>
 
           <h3>Why it matters</h3>
-          <p>Without cascade layers, utilities wouldn&rsquo;t reliably override components without <code>!important</code>. The layer order defines specificity independent of selector complexity.</p>
+          <p>Without cascade layers, utilities wouldn't reliably override components without <code>!important</code>. The layer order defines specificity independent of selector complexity.</p>
 
           <h3>Fallback</h3>
           <p>Browsers without layer support will see all styles applied with normal cascade rules. This may cause specificity conflicts. For legacy browser support, consider using <a href="https://postcss.org/">PostCSS</a> with <a href="https://www.npmjs.com/package/@csstools/postcss-cascade-layers">postcss-cascade-layers</a>.</p>
@@ -188,7 +188,7 @@
 
           <dl>
             <dt>HTML Includes</dt>
-            <dd>The <code>&lt;html-include&gt;</code> Web Component requires JavaScript. Without it, includes won&rsquo;t load.</dd>
+            <dd>The <code>&lt;html-include&gt;</code> Web Component requires JavaScript. Without it, includes won't load.</dd>
 
             <dt>Development tools</dt>
             <dd>Keyboard shortcuts for baseline grid, column overlays, and dark mode toggle.</dd>
@@ -241,7 +241,7 @@ export default {
           <h3>Primary targets</h3>
           <ul>
             <li>Chrome (latest)</li>
-            <li>Safari (latest) &mdash; especially for iOS</li>
+            <li>Safari (latest), especially for iOS</li>
             <li>Firefox (latest)</li>
           </ul>
 
@@ -272,7 +272,7 @@ export default {
           <p>Safari 14 and earlier may have issues with cascade layers and container queries. Safari 15.4+ is recommended.</p>
 
           <h3>Firefox container queries</h3>
-          <p>Firefox added container query support in version 110 (February 2023). Earlier versions won&rsquo;t see container-responsive behavior.</p>
+          <p>Firefox added container query support in version 110 (February 2023). Earlier versions won't see container-responsive behavior.</p>
           <p class="more"><a href="#main">To top</a></p>
         </section>
 

@@ -45,13 +45,13 @@
           <p>Live Wires uses <strong><a href="https://cube.fyi/">CUBE CSS</a></strong>, a methodology created by <a href="https://piccalil.li/">Andy Bell</a> that embraces the cascade rather than fighting it. CUBE stands for:</p>
 
           <ul>
-            <li><strong>Composition</strong> &mdash; Layout primitives that control flow and spacing</li>
-            <li><strong>Utility</strong> &mdash; Single-purpose classes for design tokens</li>
-            <li><strong>Block</strong> &mdash; Component-specific styles</li>
-            <li><strong>Exception</strong> &mdash; State variations and deviations</li>
+            <li><strong>Composition:</strong> Layout primitives that control flow and spacing</li>
+            <li><strong>Utility:</strong> Single-purpose classes for design tokens</li>
+            <li><strong>Block:</strong> Component-specific styles</li>
+            <li><strong>Exception:</strong> State variations and deviations</li>
           </ul>
 
-          <p>The key insight: <strong>most styling is done by global defaults and utilities</strong>. By the time you reach &ldquo;blocks&rdquo; (components), there&rsquo;s minimal work left. This aligns perfectly with Live Wires&rsquo; cascade layers.</p>
+          <p>The key insight: <strong>most styling is done by global defaults and utilities</strong>. By the time you reach "blocks" (components), there's minimal work left. This aligns perfectly with the Live Wires cascade layers.</p>
           <p class="more"><a href="#main">To top</a></p>
 
           <h3>How CUBE maps to Live Wires layers</h3>
@@ -66,17 +66,17 @@
             </thead>
             <tbody>
               <tr>
-                <td>&mdash;</td>
+                <td>-</td>
                 <td><code>tokens</code></td>
                 <td><a href="/src/css/1_tokens/">1_tokens/</a></td>
               </tr>
               <tr>
-                <td>&mdash;</td>
+                <td>-</td>
                 <td><code>reset</code></td>
                 <td><a href="/src/css/3_generic/">3_generic/</a></td>
               </tr>
               <tr>
-                <td>&mdash;</td>
+                <td>-</td>
                 <td><code>base</code></td>
                 <td><a href="/src/css/4_elements/">4_elements/</a></td>
               </tr>
@@ -98,7 +98,7 @@
               <tr>
                 <td>Exception</td>
                 <td><em>(inline via <code>data-*</code>)</em></td>
-                <td>&mdash;</td>
+                <td>-</td>
               </tr>
             </tbody>
           </table>
@@ -192,7 +192,7 @@
           <h2>Composition (Layouts)</h2>
           <hr>
 
-          <p>Layout primitives that control flow, spacing, and structure. They are <strong>context-agnostic</strong>&mdash;they don&rsquo;t know or care what&rsquo;s inside them.</p>
+          <p>Layout primitives that control flow, spacing, and structure. They are <strong>context-agnostic</strong>. They don't know or care what's inside them.</p>
 
           <h3>Naming pattern</h3>
           <pre><code>.{layout-name}
@@ -259,7 +259,7 @@
           <h2>Blocks (Components)</h2>
           <hr>
 
-          <p>Component-specific styles. Because global defaults and utilities handle most styling, blocks should be <strong>minimal</strong>&mdash;only what&rsquo;s truly unique to that component.</p>
+          <p>Component-specific styles. Because global defaults and utilities handle most styling, blocks should be <strong>minimal</strong>. Only what's truly unique to that component.</p>
 
           <h3>Naming pattern</h3>
           <pre><code>.{component-name}

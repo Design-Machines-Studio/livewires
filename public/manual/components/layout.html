@@ -30,7 +30,7 @@
           <p>All layout primitives follow a consistent <strong>base + modifier</strong> pattern:</p>
           <ul>
             <li><strong>Base class</strong> provides the core behavior and sets CSS custom properties</li>
-            <li><strong>Modifiers</strong> only override specific variables&mdash;never set properties directly</li>
+            <li><strong>Modifiers</strong> only override specific variables:never set properties directly</li>
           </ul>
           <p>This means you always need both the base class and any modifiers:</p>
           <pre><code>&lt;!-- Correct: base + modifier --&gt;
@@ -42,9 +42,9 @@
 &lt;div class="stack-compact"&gt;...&lt;/div&gt;</code></pre>
           <p>This pattern enables:</p>
           <ul>
-            <li><strong>Composability</strong>&mdash;stack multiple modifiers on one element</li>
-            <li><strong>Container queries</strong>&mdash;base class sets up containment, modifiers respond to it</li>
-            <li><strong>Predictability</strong>&mdash;modifiers only adjust, never replace, base behavior</li>
+            <li><strong>Composability</strong>:stack multiple modifiers on one element</li>
+            <li><strong>Container queries</strong>:base class sets up containment, modifiers respond to it</li>
+            <li><strong>Predictability</strong>:modifiers only adjust, never replace, base behavior</li>
           </ul>
         </section>
 

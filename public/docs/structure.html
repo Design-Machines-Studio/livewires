@@ -78,103 +78,103 @@
           <h3>The cascade layers</h3>
           <p>Defined in <code>0_config/layers.css</code>:</p>
           <pre><code>@layer tokens, reset, base, layouts, components, utilities;</code></pre>
-          <p>This ensures utilities always win over components, components over layouts, and so on&mdash;no <code>!important</code> needed.</p>
+          <p>This ensures utilities always win over components, components over layouts, and so on. No <code>!important</code> needed.</p>
 
           <h3>Layer breakdown</h3>
           <dl>
-            <dt><code>0_config/</code> &mdash; Configuration</dt>
+            <dt><code>0_config/</code>:Configuration</dt>
             <dd>Cascade layer definitions. The foundation that makes everything else work.</dd>
 
-            <dt><code>1_tokens/</code> &mdash; Design tokens</dt>
+            <dt><code>1_tokens/</code>:Design tokens</dt>
             <dd>
               <ul>
-                <li><a href="/src/css/1_tokens/spacing.css">spacing.css</a> &mdash; The foundational <code>--line</code> variable and all spacing tokens</li>
-                <li><a href="/src/css/1_tokens/typography-base.css">typography-base.css</a> &mdash; Font stacks, weights, measures</li>
-                <li><a href="/src/css/1_tokens/typography-scale-auto.css">typography-scale-auto.css</a> &mdash; Fluid type scale (ratio-based, <a href="https://utopia.fyi/">Utopia</a>-style)</li>
-                <li><a href="/src/css/1_tokens/typography-scale-manual.css">typography-scale-manual.css</a> &mdash; Fluid type scale with manual minimum and maximum font sizes and baselines</li>
-                <li><a href="/src/css/1_tokens/color.css">color.css</a> &mdash; Color palette and schemes</li>
-                <li><a href="/src/css/1_tokens/borders.css">borders.css</a> &mdash; Border radius tokens</li>
-                <li><a href="/src/css/1_tokens/animation.css">animation.css</a> &mdash; Timing and easing tokens</li>
+                <li><a href="/src/css/1_tokens/spacing.css">spacing.css</a>:The foundational <code>--line</code> variable and all spacing tokens</li>
+                <li><a href="/src/css/1_tokens/typography-base.css">typography-base.css</a>:Font stacks, weights, measures</li>
+                <li><a href="/src/css/1_tokens/typography-scale-auto.css">typography-scale-auto.css</a>:Fluid type scale (ratio-based, <a href="https://utopia.fyi/">Utopia</a>-style)</li>
+                <li><a href="/src/css/1_tokens/typography-scale-manual.css">typography-scale-manual.css</a>:Fluid type scale with manual minimum and maximum font sizes and baselines</li>
+                <li><a href="/src/css/1_tokens/color.css">color.css</a>:Color palette and schemes</li>
+                <li><a href="/src/css/1_tokens/borders.css">borders.css</a>:Border radius tokens</li>
+                <li><a href="/src/css/1_tokens/animation.css">animation.css</a>:Timing and easing tokens</li>
               </ul>
             </dd>
 
-            <dt><code>2_tools/</code> &mdash; CSS tools</dt>
+            <dt><code>2_tools/</code>:CSS tools</dt>
             <dd>
               <ul>
-                <li><a href="/src/css/2_tools/properties.css">properties.css</a> &mdash; <code>@property</code> definitions for type-safe custom properties</li>
-                <li><a href="/src/css/2_tools/typography-scale-auto.css">typography-scale-auto.css</a> &mdash; Type scale calculations for auto mode</li>
-                <li><a href="/src/css/2_tools/typography-scale-manual.css">typography-scale-manual.css</a> &mdash; Type scale calculations for manual mode</li>
+                <li><a href="/src/css/2_tools/properties.css">properties.css</a>:<code>@property</code> definitions for type-safe custom properties</li>
+                <li><a href="/src/css/2_tools/typography-scale-auto.css">typography-scale-auto.css</a>:Type scale calculations for auto mode</li>
+                <li><a href="/src/css/2_tools/typography-scale-manual.css">typography-scale-manual.css</a>:Type scale calculations for manual mode</li>
               </ul>
             </dd>
 
-            <dt><code>3_generic/</code> &mdash; Reset</dt>
+            <dt><code>3_generic/</code>:Reset</dt>
             <dd>Modern CSS reset with sensible defaults to prepare for more predictable and consistent styling.</dd>
 
-            <dt><code>4_elements/</code> &mdash; Base element styles</dt>
+            <dt><code>4_elements/</code>:Base element styles</dt>
             <dd>
               <ul>
-                <li><a href="/src/css/4_elements/document.css">document.css</a> &mdash; Root and body setup</li>
-                <li><a href="/src/css/4_elements/typography.css">typography.css</a> &mdash; Headings, paragraphs, code</li>
-                <li><a href="/src/css/4_elements/links.css">links.css</a> &mdash; Link styles</li>
-                <li><a href="/src/css/4_elements/lists.css">lists.css</a> &mdash; List styles</li>
-                <li><a href="/src/css/4_elements/tables.css">tables.css</a> &mdash; Table defaults</li>
-                <li><a href="/src/css/4_elements/forms.css">forms.css</a> &mdash; Form elements</li>
-                <li><a href="/src/css/4_elements/media.css">media.css</a> &mdash; Images and figures</li>
-                <li><a href="/src/css/4_elements/quotes.css">quotes.css</a> &mdash; Blockquotes and smart quotes</li>
-                <li><a href="/src/css/4_elements/details.css">details.css</a> &mdash; Disclosure widgets</li>
-                <li><a href="/src/css/4_elements/hr.css">hr.css</a> &mdash; Horizontal rules</li>
-                <li><a href="/src/css/4_elements/addresses.css">addresses.css</a> &mdash; Address element</li>
-                <li><a href="/src/css/4_elements/nav.css">nav.css</a> &mdash; Nav element</li>
+                <li><a href="/src/css/4_elements/document.css">document.css</a>:Root and body setup</li>
+                <li><a href="/src/css/4_elements/typography.css">typography.css</a>:Headings, paragraphs, code</li>
+                <li><a href="/src/css/4_elements/links.css">links.css</a>:Link styles</li>
+                <li><a href="/src/css/4_elements/lists.css">lists.css</a>:List styles</li>
+                <li><a href="/src/css/4_elements/tables.css">tables.css</a>:Table defaults</li>
+                <li><a href="/src/css/4_elements/forms.css">forms.css</a>:Form elements</li>
+                <li><a href="/src/css/4_elements/media.css">media.css</a>:Images and figures</li>
+                <li><a href="/src/css/4_elements/quotes.css">quotes.css</a>:Blockquotes and smart quotes</li>
+                <li><a href="/src/css/4_elements/details.css">details.css</a>:Disclosure widgets</li>
+                <li><a href="/src/css/4_elements/hr.css">hr.css</a>:Horizontal rules</li>
+                <li><a href="/src/css/4_elements/addresses.css">addresses.css</a>:Address element</li>
+                <li><a href="/src/css/4_elements/nav.css">nav.css</a>:Nav element</li>
               </ul>
             </dd>
 
-            <dt><code>5_layouts/</code> &mdash; Layout primitives</dt>
+            <dt><code>5_layouts/</code>:Layout primitives</dt>
             <dd>
               <p>All layout primitives follow the <strong>base + modifier</strong> pattern. The base class provides core behavior and sets CSS custom properties; modifiers only override specific variables. Always use both:</p>
               <pre><code>&lt;div class="stack stack-compact"&gt;...&lt;/div&gt;
 &lt;section class="section section-wide"&gt;...&lt;/section&gt;</code></pre>
               <ul>
-                <li><a href="/src/css/5_layouts/stack.css">stack.css</a> &mdash; Vertical spacing</li>
-                <li><a href="/src/css/5_layouts/cluster.css">cluster.css</a> &mdash; Horizontal grouping with wrapping</li>
-                <li><a href="/src/css/5_layouts/grid.css">grid.css</a> &mdash; Auto-responsive grid</li>
-                <li><a href="/src/css/5_layouts/sidebar.css">sidebar.css</a> &mdash; Sidebar + main content</li>
-                <li><a href="/src/css/5_layouts/center.css">center.css</a> &mdash; Centered content with max-width</li>
-                <li><a href="/src/css/5_layouts/box.css">box.css</a> &mdash; Padding container</li>
-                <li><a href="/src/css/5_layouts/section.css">section.css</a> &mdash; Section wrapper (with container queries)</li>
-                <li><a href="/src/css/5_layouts/cover.css">cover.css</a> &mdash; Full-height centering</li>
+                <li><a href="/src/css/5_layouts/stack.css">stack.css</a>:Vertical spacing</li>
+                <li><a href="/src/css/5_layouts/cluster.css">cluster.css</a>:Horizontal grouping with wrapping</li>
+                <li><a href="/src/css/5_layouts/grid.css">grid.css</a>:Auto-responsive grid</li>
+                <li><a href="/src/css/5_layouts/sidebar.css">sidebar.css</a>:Sidebar + main content</li>
+                <li><a href="/src/css/5_layouts/center.css">center.css</a>:Centered content with max-width</li>
+                <li><a href="/src/css/5_layouts/box.css">box.css</a>:Padding container</li>
+                <li><a href="/src/css/5_layouts/section.css">section.css</a>:Section wrapper (with container queries)</li>
+                <li><a href="/src/css/5_layouts/cover.css">cover.css</a>:Full-height centering</li>
               </ul>
               <p>See <a href="/manual/components/layout.html">Layout primitives documentation</a> for full usage.</p>
             </dd>
 
-            <dt><code>6_components/</code> &mdash; UI components</dt>
+            <dt><code>6_components/</code>:UI components</dt>
             <dd>
               <ul>
-                <li><a href="/src/css/6_components/buttons.css">buttons.css</a> &mdash; Button variants</li>
-                <li><a href="/src/css/6_components/breadcrumbs.css">breadcrumbs.css</a> &mdash; Breadcrumb navigation</li>
-                <li><a href="/src/css/6_components/pagination.css">pagination.css</a> &mdash; Page navigation</li>
-                <li><a href="/src/css/6_components/tables.css">tables.css</a> &mdash; Enhanced table styles</li>
-                <li><a href="/src/css/6_components/switches.css">switches.css</a> &mdash; Toggle switches</li>
-                <li><a href="/src/css/6_components/dividers.css">dividers.css</a> &mdash; Horizontal dividers</li>
-                <li><a href="/src/css/6_components/images.css">images.css</a> &mdash; Image treatments</li>
-                <li><a href="/src/css/6_components/embeds.css">embeds.css</a> &mdash; Responsive media embeds</li>
-                <li><a href="/src/css/6_components/typography.css">typography.css</a> &mdash; Enhanced typography rules</li>
-                <li><a href="/src/css/6_components/logo.css">logo.css</a> &mdash; Logo sizing</li>
+                <li><a href="/src/css/6_components/buttons.css">buttons.css</a>:Button variants</li>
+                <li><a href="/src/css/6_components/breadcrumbs.css">breadcrumbs.css</a>:Breadcrumb navigation</li>
+                <li><a href="/src/css/6_components/pagination.css">pagination.css</a>:Page navigation</li>
+                <li><a href="/src/css/6_components/tables.css">tables.css</a>:Enhanced table styles</li>
+                <li><a href="/src/css/6_components/switches.css">switches.css</a>:Toggle switches</li>
+                <li><a href="/src/css/6_components/dividers.css">dividers.css</a>:Horizontal dividers</li>
+                <li><a href="/src/css/6_components/images.css">images.css</a>:Image treatments</li>
+                <li><a href="/src/css/6_components/embeds.css">embeds.css</a>:Responsive media embeds</li>
+                <li><a href="/src/css/6_components/typography.css">typography.css</a>:Enhanced typography rules</li>
+                <li><a href="/src/css/6_components/logo.css">logo.css</a>:Logo sizing</li>
               </ul>
             </dd>
 
-            <dt><code>7_utilities/</code> &mdash; Utility classes</dt>
+            <dt><code>7_utilities/</code>:Utility classes</dt>
             <dd>
               <ul>
-                <li><a href="/src/css/7_utilities/spacing.css">spacing.css</a> &mdash; Margin and padding</li>
-                <li><a href="/src/css/7_utilities/typography.css">typography.css</a> &mdash; Text styling</li>
-                <li><a href="/src/css/7_utilities/color.css">color.css</a> &mdash; Colors and schemes</li>
-                <li><a href="/src/css/7_utilities/display.css">display.css</a> &mdash; Display and visibility</li>
-                <li><a href="/src/css/7_utilities/flexbox.css">flexbox.css</a> &mdash; Flexbox utilities</li>
-                <li><a href="/src/css/7_utilities/grid.css">grid.css</a> &mdash; Grid utilities</li>
-                <li><a href="/src/css/7_utilities/sizing.css">sizing.css</a> &mdash; Width and height</li>
-                <li><a href="/src/css/7_utilities/borders.css">borders.css</a> &mdash; Border utilities</li>
-                <li><a href="/src/css/7_utilities/media.css">media.css</a> &mdash; Object-fit, filters, blend modes</li>
-                <li><a href="/src/css/7_utilities/tables.css">tables.css</a> &mdash; Table column widths</li>
+                <li><a href="/src/css/7_utilities/spacing.css">spacing.css</a>:Margin and padding</li>
+                <li><a href="/src/css/7_utilities/typography.css">typography.css</a>:Text styling</li>
+                <li><a href="/src/css/7_utilities/color.css">color.css</a>:Colors and schemes</li>
+                <li><a href="/src/css/7_utilities/display.css">display.css</a>:Display and visibility</li>
+                <li><a href="/src/css/7_utilities/flexbox.css">flexbox.css</a>:Flexbox utilities</li>
+                <li><a href="/src/css/7_utilities/grid.css">grid.css</a>:Grid utilities</li>
+                <li><a href="/src/css/7_utilities/sizing.css">sizing.css</a>:Width and height</li>
+                <li><a href="/src/css/7_utilities/borders.css">borders.css</a>:Border utilities</li>
+                <li><a href="/src/css/7_utilities/media.css">media.css</a>:Object-fit, filters, blend modes</li>
+                <li><a href="/src/css/7_utilities/tables.css">tables.css</a>:Table column widths</li>
               </ul>
             </dd>
           </dl>
@@ -183,7 +183,7 @@
 
         <section id="javascript" class="section">
           <h2>JavaScript</h2>
-          <p>Minimal JavaScript&mdash;just what&rsquo;s needed for the development environment and HTML includes.</p>
+          <p>Minimal JavaScript. Just what's needed for the development environment and HTML includes.</p>
 
           <dl>
             <dt><code>/src/js/main.js</code></dt>
@@ -224,9 +224,9 @@
             <dt><code>/public/example/</code></dt>
             <dd>A complete example editorial site demonstrating Live Wires in action.
               <ul>
-                <li><code>_components/</code> &mdash; Reusable HTML patterns (article teasers, etc.) loaded via <code>&lt;html-include&gt;</code></li>
-                <li><code>_includes/</code> &mdash; Site-specific includes (header, navigation)</li>
-                <li><code>article/</code> &mdash; Example article pages</li>
+                <li><code>_components/</code>:Reusable HTML patterns (article teasers, etc.) loaded via <code>&lt;html-include&gt;</code></li>
+                <li><code>_includes/</code>:Site-specific includes (header, navigation)</li>
+                <li><code>article/</code>:Example article pages</li>
               </ul>
             </dd>
           </dl>
@@ -240,7 +240,7 @@
             <dd>Vite configuration. Sets <code>/public/</code> as root, configures dev server on port 3000.</dd>
 
             <dt><code>postcss.config.js</code></dt>
-            <dd>PostCSS configuration. Only uses Autoprefixer&mdash;no other processing.</dd>
+            <dd>PostCSS configuration. Only uses Autoprefixer. No other processing.</dd>
 
             <dt><code>package.json</code></dt>
             <dd>Project dependencies. Just Vite, Autoprefixer, and the static copy plugin for print styles.</dd>

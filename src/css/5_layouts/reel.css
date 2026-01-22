@@ -6,11 +6,15 @@
  */
 
 @layer layouts {
+  :root {
+    --reel-item-width: calc(var(--line) * 10);
+    --reel-space: var(--gutter);
+  }
   .reel {
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
-    gap: var(--reel-space, var(--gutter));
+    gap: var(--reel-space);
 
     /* Smooth scrolling */
     scroll-behavior: smooth;
@@ -36,7 +40,7 @@
 
   /* Direct children get fixed width */
   .reel > * {
-    flex: 0 0 var(--reel-item-width, auto);
+    flex: 0 0 var(--reel-item-width);
   }
 
   /* Images maintain aspect ratio */

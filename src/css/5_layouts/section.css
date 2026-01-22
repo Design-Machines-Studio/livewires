@@ -99,8 +99,6 @@
 
   /* Remove all padding */
   .section-full-bleed {
-    --section-top: 0;
-    --section-bottom: 0;
     --section-margins: 0;
   }
 
