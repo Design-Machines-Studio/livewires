@@ -87,6 +87,11 @@
     --section-top: var(--vertical-margin);
   }
 
+  /* Non-scheme section following a scheme section gets top padding */
+  :where(.section[class*="scheme-"]) + .section:where(:not([class*="scheme-"])) {
+    --section-top: var(--vertical-margin);
+  }
+
   /*
    * Modifiers - ONLY set variables, never direct properties
    */
