@@ -176,6 +176,7 @@ This ensures utilities always win over components, components over layouts, etc.
    - [box.css](src/css/5_layouts/box.css) - Simple padding wrapper
    - [section.css](src/css/5_layouts/section.css) - Section wrapper
    - [cover.css](src/css/5_layouts/cover.css) - Full-height centering
+   - [reel.css](src/css/5_layouts/reel.css) - Horizontal scrolling container
 5. **`components`** - Named UI patterns ([6_components/](src/css/6_components/))
    - [buttons.css](src/css/6_components/buttons.css) - Button variants
    - [breadcrumbs.css](src/css/6_components/breadcrumbs.css) - Breadcrumb navigation
@@ -313,6 +314,19 @@ Horizontal grouping with wrapping (navigation, tags):
 ```html
 <nav class="cluster">         <!-- Default alignment: flex-start -->
 <div class="cluster-center">  <!-- Center alignment -->
+```
+
+### Reel ([5_layouts/reel.css](src/css/5_layouts/reel.css))
+Horizontal scrolling container for collections of items:
+```html
+<div class="reel">                   <!-- Default horizontal scroll -->
+<div class="reel reel-narrow">       <!-- 8 lines item width -->
+<div class="reel reel-medium">       <!-- 12 lines item width -->
+<div class="reel reel-wide">         <!-- 16 lines item width -->
+<div class="reel reel-compact">      <!-- var(--line-05) gap -->
+<div class="reel reel-spacious">     <!-- var(--line-2) gap -->
+<div class="reel reel-no-scrollbar"> <!-- Hidden scrollbar -->
+<div class="reel reel-padded">       <!-- Bottom padding for overflow -->
 ```
 
 ## Components

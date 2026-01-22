@@ -60,6 +60,7 @@
 @import './5_layouts/sidebar.css';
 @import './5_layouts/center.css';
 @import './5_layouts/cover.css';
+@import './5_layouts/reel.css';
 
 /* Custom components and expanded elements */
 @import './6_components/logo.css';

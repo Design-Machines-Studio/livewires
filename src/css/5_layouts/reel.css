@@ -1,0 +1,98 @@
+/**
+ * Reel Layout
+ *
+ * Horizontal scrolling container for collections of items
+ * Inspired by Every Layout
+ */
+
+@layer layouts {
+  .reel {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: var(--reel-space, var(--gutter));
+
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+
+    /* Scrollbar styling (standard) */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-subtle, var(--grey-300)) transparent;
+  }
+
+  /* Webkit scrollbar styling (no standard equivalent) */
+  .reel::-webkit-scrollbar {
+    height: var(--line-05);
+  }
+
+  .reel::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .reel::-webkit-scrollbar-thumb {
+    background: var(--color-subtle, var(--grey-300));
+    border-radius: var(--line-025);
+  }
+
+  /* Direct children get fixed width */
+  .reel > * {
+    flex: 0 0 var(--reel-item-width, auto);
+  }
+
+  /* Images maintain aspect ratio */
+  .reel > img {
+    height: 100%;
+    flex-basis: auto;
+    width: auto;
+  }
+
+  /* -------------------------
+   * Item width variations
+   * Based on multiples of --line
+   * ------------------------- */
+
+  .reel-narrow {
+    --reel-item-width: var(--line-8);  /* 8 lines */
+  }
+
+  .reel-medium {
+    --reel-item-width: calc(var(--line) * 12);  /* 12 lines */
+  }
+
+  .reel-wide {
+    --reel-item-width: calc(var(--line) * 16);  /* 16 lines */
+  }
+
+  /* -------------------------
+   * Gap variations
+   * ------------------------- */
+
+  .reel-compact {
+    --reel-space: var(--line-05);
+  }
+
+  .reel-spacious {
+    --reel-space: var(--line-2);
+  }
+
+  /* -------------------------
+   * Scrollbar visibility
+   * ------------------------- */
+
+  .reel-no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .reel-no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* -------------------------
+   * Padding for overflow
+   * Adds breathing room when content overflows
+   * ------------------------- */
+
+  .reel-padded {
+    padding-block-end: var(--line-05);
+  }
+}
