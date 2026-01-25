@@ -31,6 +31,31 @@
               <header>
                 <h2>Status indicators</h2>
                 <p>Colored dots that communicate state. Use before text labels to show health, availability, or activity.</p>
+                <popup-dialog title="Status Indicators HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;!-- Semantic variants --&gt;
+&lt;span class="status-indicator"&gt;Default&lt;/span&gt;
+&lt;span class="status-indicator status-indicator--success"&gt;Success&lt;/span&gt;
+&lt;span class="status-indicator status-indicator--warning"&gt;Warning&lt;/span&gt;
+&lt;span class="status-indicator status-indicator--error"&gt;Error&lt;/span&gt;
+
+&lt;!-- Color variants --&gt;
+&lt;span class="status-indicator status-indicator--green"&gt;Green&lt;/span&gt;
+&lt;span class="status-indicator status-indicator--yellow"&gt;Yellow&lt;/span&gt;
+&lt;span class="status-indicator status-indicator--orange"&gt;Orange&lt;/span&gt;
+&lt;span class="status-indicator status-indicator--red"&gt;Red&lt;/span&gt;
+&lt;span class="status-indicator status-indicator--blue"&gt;Blue&lt;/span&gt;
+
+&lt;!-- Size variants --&gt;
+&lt;span class="status-indicator status-indicator--small"&gt;Small&lt;/span&gt;
+&lt;span class="status-indicator status-indicator--large"&gt;Large&lt;/span&gt;
+
+&lt;!-- Without text (use aria-label) --&gt;
+&lt;span class="status-indicator status-indicator--success"
+  aria-label="Online"&gt;&lt;/span&gt;</code></pre>
+                  </div>
+                </popup-dialog>
               </header>
               <section>
                 <h3>Semantic variants</h3>
@@ -75,6 +100,34 @@
               <header>
                 <h2>Badges</h2>
                 <p>Inline labels for categorization, status, and metadata.</p>
+                <popup-dialog title="Badges HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;!-- Color variants --&gt;
+&lt;span class="badge badge--blue"&gt;Blue&lt;/span&gt;
+&lt;span class="badge badge--green"&gt;Green&lt;/span&gt;
+&lt;span class="badge badge--orange"&gt;Orange&lt;/span&gt;
+&lt;span class="badge badge--yellow"&gt;Yellow&lt;/span&gt;
+&lt;span class="badge badge--red"&gt;Red&lt;/span&gt;
+&lt;span class="badge badge--grey"&gt;Grey&lt;/span&gt;
+
+&lt;!-- Status variants --&gt;
+&lt;span class="badge badge--draft"&gt;Draft&lt;/span&gt;
+&lt;span class="badge badge--pending"&gt;Pending&lt;/span&gt;
+&lt;span class="badge badge--active"&gt;Active&lt;/span&gt;
+&lt;span class="badge badge--archived"&gt;Archived&lt;/span&gt;
+
+&lt;!-- Feedback variants --&gt;
+&lt;span class="badge badge--success"&gt;Success&lt;/span&gt;
+&lt;span class="badge badge--warning"&gt;Warning&lt;/span&gt;
+&lt;span class="badge badge--error"&gt;Error&lt;/span&gt;
+&lt;span class="badge badge--info"&gt;Info&lt;/span&gt;
+
+&lt;!-- Size variants --&gt;
+&lt;span class="badge badge--small"&gt;Small&lt;/span&gt;
+&lt;span class="badge badge--large"&gt;Large&lt;/span&gt;</code></pre>
+                  </div>
+                </popup-dialog>
               </header>
               <section>
                 <h3>Color variants</h3>

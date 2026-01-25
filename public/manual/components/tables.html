@@ -29,6 +29,31 @@
           <header>
             <h2>Default table</h2>
             <p>Clean table styling with minimal borders. Use <code>.numeric</code> for right-aligned number columns.</p>
+            <popup-dialog title="Table HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;table&gt;
+  &lt;caption&gt;Table caption&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th class="numeric"&gt;Value&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td data-th="Name"&gt;Item&lt;/td&gt;
+      &lt;td data-th="Value" class="numeric"&gt;100&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;!-- Variants --&gt;
+&lt;table class="table--bordered"&gt;...&lt;/table&gt;
+&lt;table class="table--striped"&gt;...&lt;/table&gt;
+&lt;table class="table--lined"&gt;...&lt;/table&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <table>
             <caption>Traditional crafts and their modern replacements</caption>

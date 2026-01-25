@@ -29,6 +29,35 @@
           <header>
             <h2>Images</h2>
             <p>Use <code>&lt;figure&gt;</code> for images with optional captions via <code>&lt;figcaption&gt;</code>.</p>
+            <popup-dialog title="Figures HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;!-- Basic figure --&gt;
+&lt;figure&gt;
+  &lt;img src="image.jpg" alt="Description"&gt;
+&lt;/figure&gt;
+
+&lt;!-- Linked image --&gt;
+&lt;figure&gt;
+  &lt;a href="#"&gt;&lt;img src="image.jpg" alt=""&gt;&lt;/a&gt;
+&lt;/figure&gt;
+
+&lt;!-- With caption --&gt;
+&lt;figure&gt;
+  &lt;img src="image.jpg" alt=""&gt;
+  &lt;figcaption&gt;&lt;p&gt;Caption text&lt;/p&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!-- With source credit --&gt;
+&lt;figure&gt;
+  &lt;img src="image.jpg" alt=""&gt;
+  &lt;figcaption&gt;
+    &lt;p&gt;Caption text&lt;/p&gt;
+    &lt;p class="source"&gt;Credit: &lt;a href="#"&gt;Source&lt;/a&gt;&lt;/p&gt;
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack">
             <section>
@@ -70,6 +99,24 @@
           <header>
             <h2>Embeddable media</h2>
             <p>Responsive embeds with <code>.embed</code>. Default 16:9 aspect ratio—use <code>.aspect-*</code> utilities to change.</p>
+            <popup-dialog title="Embeds HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;!-- Responsive video embed (16:9) --&gt;
+&lt;div class="embed"&gt;
+  &lt;iframe src="https://youtube.com/embed/..."&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;!-- Responsive map embed --&gt;
+&lt;div class="embed"&gt;
+  &lt;iframe src="https://google.com/maps/embed?..."&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;!-- Custom aspect ratio --&gt;
+&lt;div class="embed aspect-4-3"&gt;...&lt;/div&gt;
+&lt;div class="embed aspect-1-1"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack">
             <section>

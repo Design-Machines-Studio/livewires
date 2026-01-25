@@ -27,6 +27,24 @@
           <section>
             <header>
               <h2>Details</h2>
+              <popup-dialog title="Details HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;!-- Disclosure widget --&gt;
+&lt;details&gt;
+  &lt;summary&gt;Click to expand&lt;/summary&gt;
+  &lt;div class="content"&gt;
+    &lt;p&gt;Hidden content here...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/details&gt;
+
+&lt;!-- Open by default --&gt;
+&lt;details open&gt;
+  &lt;summary&gt;Already expanded&lt;/summary&gt;
+  &lt;div class="content"&gt;...&lt;/div&gt;
+&lt;/details&gt;</code></pre>
+                </div>
+              </popup-dialog>
               <hr />
             </header>
             <section>

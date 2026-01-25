@@ -29,6 +29,13 @@
     color: var(--color-fg);
     box-shadow: 0 8px 32px var(--overlay-shadow);
 
+    /* Reset inherited typography from parent contexts (e.g., .prose) */
+    font-size: var(--text-base);
+    font-weight: var(--font-normal);
+    line-height: var(--line-height-base);
+    letter-spacing: var(--letter-spacing-base);
+    text-align: start;
+
     &::backdrop {
       background: var(--overlay-backdrop);
     }

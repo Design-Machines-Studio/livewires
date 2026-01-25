@@ -29,6 +29,29 @@
           <header class="section section-bottom-tight">
             <h2>Available schemes</h2>
             <p>Each scheme sets <code>--color-bg</code>, <code>--color-fg</code>, and <code>--color-accent</code> for its descendants.</p>
+            <popup-dialog title="Color Schemes HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;!-- Apply to any container --&gt;
+&lt;section class="scheme-dark"&gt;...&lt;/section&gt;
+&lt;div class="scheme-subtle"&gt;...&lt;/div&gt;
+&lt;header class="scheme-accent"&gt;...&lt;/header&gt;
+
+&lt;!-- Greyscale --&gt;
+&lt;div class="scheme-black"&gt;...&lt;/div&gt;
+&lt;div class="scheme-grey-900"&gt;...&lt;/div&gt;
+&lt;div class="scheme-grey-100"&gt;...&lt;/div&gt;
+
+&lt;!-- Brand colors --&gt;
+&lt;div class="scheme-orange"&gt;...&lt;/div&gt;
+&lt;div class="scheme-blue"&gt;...&lt;/div&gt;
+&lt;div class="scheme-green"&gt;...&lt;/div&gt;
+
+&lt;!-- Light variants --&gt;
+&lt;div class="scheme-orange-light"&gt;...&lt;/div&gt;
+&lt;div class="scheme-blue-light"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <section>
             <header class="section section-wide section-tight border-b">

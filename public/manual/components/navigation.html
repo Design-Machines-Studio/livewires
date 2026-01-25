@@ -31,6 +31,18 @@
               <header>
                 <h2>Breadcrumbs</h2>
                 <p>Show the user's location in the site hierarchy.</p>
+                <popup-dialog title="Breadcrumbs HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;nav class="breadcrumbs"&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/section/"&gt;Section&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;Current Page&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+                  </div>
+                </popup-dialog>
               </header>
               <nav class="breadcrumbs">
                 <ol>
@@ -47,6 +59,29 @@
               <header>
                 <h2>Pagination</h2>
                 <p>Navigate through multi-page content.</p>
+                <popup-dialog title="Pagination HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;!-- Numbered pagination --&gt;
+&lt;nav class="pagination" aria-label="pagination"&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href="#"&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="current"&gt;&lt;a href="#"&gt;1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+
+&lt;!-- Previous/Next --&gt;
+&lt;nav class="pagination" aria-label="pagination"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;&amp;laquo; Previous&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Next &amp;raquo;&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+                  </div>
+                </popup-dialog>
               </header>
               <section>
                 <h3>Numbered</h3>

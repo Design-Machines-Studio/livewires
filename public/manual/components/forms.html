@@ -27,6 +27,32 @@
           <section>
             <header>
               <h2>Text inputs</h2>
+              <popup-dialog title="Text Inputs HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;!-- Standard text input --&gt;
+&lt;div class="field"&gt;
+  &lt;label for="name"&gt;Name&lt;/label&gt;
+  &lt;input type="text" name="name" id="name"
+    placeholder="Text" class="text-input" /&gt;
+&lt;/div&gt;
+
+&lt;!-- Email input --&gt;
+&lt;input type="email" class="text-input"
+  placeholder="name@example.com" /&gt;
+
+&lt;!-- Search input --&gt;
+&lt;input type="search" class="search-input"
+  placeholder="Search" /&gt;
+
+&lt;!-- Textarea --&gt;
+&lt;textarea name="message" id="message"&gt;&lt;/textarea&gt;
+
+&lt;!-- Invalid state --&gt;
+&lt;input type="text" class="error text-input" /&gt;
+&lt;label class="error"&gt;Error message&lt;/label&gt;</code></pre>
+                </div>
+              </popup-dialog>
               <hr />
             </header>
 
@@ -83,6 +109,36 @@
           <section class="stack">
             <header>
               <h2>Control inputs</h2>
+              <popup-dialog title="Control Inputs HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;!-- Select dropdown --&gt;
+&lt;select name="select"&gt;
+  &lt;option&gt;Choose one&lt;/option&gt;
+  &lt;option value="1"&gt;Option 1&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Checkboxes --&gt;
+&lt;ul class="check-list"&gt;
+  &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" /&gt; Option&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Radio buttons --&gt;
+&lt;ul class="check-list"&gt;
+  &lt;li&gt;&lt;label&gt;&lt;input type="radio" name="r" /&gt; Option&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Date/time inputs --&gt;
+&lt;input type="date" /&gt;
+&lt;input type="time" /&gt;
+&lt;input type="datetime-local" /&gt;
+
+&lt;!-- Other controls --&gt;
+&lt;input type="range" /&gt;
+&lt;input type="color" /&gt;
+&lt;input type="file" /&gt;</code></pre>
+                </div>
+              </popup-dialog>
               <hr />
             </header>
             <div class="grid">
@@ -195,6 +251,41 @@
           <section class="stack">
             <header>
               <h2>Custom input components</h2>
+              <popup-dialog title="Custom Components HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;!-- Button variants --&gt;
+&lt;button class="button"&gt;Default&lt;/button&gt;
+&lt;a href="#" class="button button--accent"&gt;Accent&lt;/a&gt;
+&lt;a href="#" class="button button--small"&gt;Small&lt;/a&gt;
+&lt;a href="#" class="button button--large"&gt;Large&lt;/a&gt;
+
+&lt;!-- Button with icon --&gt;
+&lt;a href="#" class="button with-icon"&gt;
+  &lt;img src="icon.svg" class="icon" /&gt; Label
+&lt;/a&gt;
+
+&lt;!-- Button group --&gt;
+&lt;div class="button-group"&gt;
+  &lt;a href="#" class="button"&gt;One&lt;/a&gt;
+  &lt;a href="#" class="button"&gt;Two&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!-- Toggle switch --&gt;
+&lt;div class="switch"&gt;
+  &lt;input id="off" name="toggle" type="radio" checked&gt;
+  &lt;label for="off"&gt;Off&lt;/label&gt;
+  &lt;input id="on" name="toggle" type="radio"&gt;
+  &lt;label for="on"&gt;On&lt;/label&gt;
+  &lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Progress bar --&gt;
+&lt;div class="progress-bar"&gt;
+  &lt;div class="fill" style="width: 65%"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
               <hr />
               <p>Uncomment @imports in main.css to style.</p>
             </header>
