@@ -117,6 +117,13 @@
     --color-border: var(--color-fg);
     --color-subtle: var(--color-grey-100);
 
+    /*
+    * Overlay Colors
+    * For dialogs, modals, and backdrop effects
+    */
+    --overlay-backdrop: color-mix(in srgb, var(--color-fg) 50%, transparent);
+    --overlay-shadow: color-mix(in srgb, var(--color-fg) 20%, transparent);
+
   }
 
 

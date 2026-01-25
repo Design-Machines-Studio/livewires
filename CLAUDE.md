@@ -119,7 +119,6 @@ HTML files reference `/dist/main.js` and `/dist/main.css`. In development, Vite 
 │   ├── js/                # JavaScript files
 │   │   ├── main.js        # Vite entry point (loads CSS + Web Components)
 │   │   ├── html-include.js # Web Component for HTML includes
-│   │   ├── foot-note.js   # Web Component for footnotes
 │   │   ├── popup-dialog.js # Web Component for popup dialogs
 │   │   └── prototyping.js # Development utilities
 │
@@ -343,9 +342,10 @@ Positions an element over the rest of content (modals, tooltips, overlays):
 ```html
 <div class="imposter">              <!-- Centered over positioned parent -->
 <div class="imposter-fixed">        <!-- Fixed to viewport -->
-<dialog class="imposter-dialog">    <!-- For native <dialog> elements -->
-<dialog class="imposter-contain">   <!-- Prevents edge overflow -->
+<dialog class="imposter-contain">   <!-- Constrains size to viewport -->
 ```
+
+For native `<dialog>` elements, the browser handles centering via `showModal()`. Use `.dialog` class for styling and `.imposter-contain` to prevent edge overflow.
 
 ## Components
 
@@ -417,14 +417,14 @@ All components follow these principles:
 #### Dialog
 
 ```html
-<dialog class="dialog imposter-dialog imposter-contain">
-  <div class="dialog-content box stack">
-    <header class="dialog-header cluster cluster-between cluster-nowrap">
-      <h2 class="dialog-title">Dialog Title</h2>
-      <button class="dialog-close" aria-label="Close">&times;</button>
+<dialog class="dialog imposter-contain">
+  <div class="box stack">
+    <header class="cluster cluster-between cluster-nowrap">
+      <h2>Dialog Title</h2>
+      <button type="button" aria-label="Close">&times;</button>
     </header>
     <p>Dialog content here.</p>
-    <footer class="dialog-actions cluster cluster-end">
+    <footer class="cluster cluster-end pt-1 mt-05 border-t">
       <button class="button">Cancel</button>
       <button class="button button--accent">Confirm</button>
     </footer>
@@ -472,24 +472,26 @@ All components follow these principles:
 </div>
 ```
 
-#### Footnotes (Web Component)
-
-```html
-<!-- Superscript number -->
-<foot-note def="Source citation"><sup>1</sup></foot-note>
-
-<!-- Symbol -->
-<foot-note def="Terms apply">*</foot-note>
-
-<!-- Inline term -->
-<foot-note def="Definition text" title="Term">term to define</foot-note>
-```
-
 #### Popup Dialog (Web Component)
 
+Additive by design: no footer unless you add buttons via attributes or slots.
+
 ```html
-<popup-dialog title="Confirm?" body="Are you sure?" confirm-label="Yes">
+<!-- Confirmation dialog (with buttons) -->
+<popup-dialog title="Confirm?" body="Are you sure?" confirm-label="Yes" cancel-label="No">
   <button class="button">Click me</button>
+</popup-dialog>
+
+<!-- Info panel (no footer - just title, body, close button) -->
+<popup-dialog title="Note" body="Source citation">
+  <sup style="text-decoration: underline dotted; cursor: pointer;">1</sup>
+</popup-dialog>
+
+<!-- Custom actions via slot -->
+<popup-dialog title="About">
+  <button class="button">Learn more</button>
+  <div slot="body"><p>Custom HTML content.</p></div>
+  <div slot="actions"><button data-action="close" class="button">Got it</button></div>
 </popup-dialog>
 ```
 

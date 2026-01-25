@@ -1,280 +1,63 @@
 /**
- * Dialog Components
+ * Dialog Component
  *
- * Modal and popup dialog styles using native <dialog> element.
- * Uses imposter layout for positioning.
+ * Visual styling for native <dialog> elements.
+ * Uses .imposter-contain from layouts for size constraints.
+ * Browser handles centering when showModal() is called.
  *
- * Composes: imposter-dialog, imposter-contain, box, stack, cluster
- *
- * @example Basic modal dialog
- * <dialog class="dialog imposter-dialog imposter-contain">
- *   <div class="dialog-content box stack">
- *     <header class="dialog-header cluster cluster-between">
- *       <h2 class="dialog-title">Dialog Title</h2>
- *       <button class="dialog-close" type="button" aria-label="Close">&times;</button>
+ * @example
+ * <dialog class="dialog imposter-contain">
+ *   <div class="box stack">
+ *     <header class="cluster cluster-between">
+ *       <h2>Title</h2>
+ *       <button class="dialog-close" aria-label="Close">&times;</button>
  *     </header>
- *     <p>Dialog content goes here.</p>
+ *     <p>Content goes here.</p>
  *   </div>
  * </dialog>
  */
 
 @layer components {
 
-  /* ==========================================================================
-   * Base Dialog Styles
-   * ========================================================================== */
-
+  /* Visual styling for native <dialog> */
   .dialog {
-    width: min(24rem, 90vw);
+    margin: auto;
     padding: 0;
     border: none;
     border-radius: var(--radius-normal);
     background: var(--color-bg);
     color: var(--color-fg);
-    box-shadow: 0 8px 32px color-mix(in srgb, var(--color-fg) 20%, transparent);
+    box-shadow: 0 8px 32px var(--overlay-shadow);
 
     &::backdrop {
-      background: color-mix(in srgb, var(--color-fg) 50%, transparent);
-      animation: dialog-backdrop-fade-in var(--duration-fast) ease;
-    }
-
-    &[open] {
-      animation: dialog-slide-in var(--duration-fast) ease;
+      background: var(--overlay-backdrop);
     }
   }
 
-  /* Dialog title */
-  .dialog-title {
-    margin: 0;
-    font-size: var(--text-lg);
-    font-weight: var(--font-semibold);
-    line-height: var(--line-height-tight);
+  /* Dialog header: title + close button side by side */
+  .dialog header {
+    & h2 {
+      margin: 0;
+      flex: 1;
+      min-width: 0;
+    }
   }
 
-  /* Close button */
+  /* Close button for dialogs */
   .dialog-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: var(--line-15);
-    height: var(--line-15);
-    margin: calc(var(--line-025) * -1);
-    padding: 0;
+    background: none;
     border: none;
-    border-radius: var(--radius-tight);
-    background: transparent;
-    color: var(--color-muted);
-    font-size: var(--text-xl);
-    line-height: 1;
+    font-size: 1.5em;
     cursor: pointer;
-    transition: background-color var(--duration-fast) ease,
-                color var(--duration-fast) ease;
-
-    &:hover {
-      background: var(--color-subtle);
-      color: var(--color-fg);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 2px;
-    }
-  }
-
-  /* Dialog actions footer */
-  .dialog-actions {
-    margin-block-start: var(--line-05);
-    padding-block-start: var(--line);
-    border-block-start: 1px solid var(--color-border);
-  }
-
-  /* Dialog body - reset paragraph margins */
-  .dialog-body {
-    margin: 0;
-
-    & p:first-child {
-      margin-block-start: 0;
-    }
-
-    & p:last-child {
-      margin-block-end: 0;
-    }
-  }
-
-  /* ==========================================================================
-   * Dialog Size Variants
-   * ========================================================================== */
-
-  .dialog--narrow {
-    width: min(20rem, 90vw);
-  }
-
-  .dialog--wide {
-    width: min(32rem, 90vw);
-  }
-
-  /* ==========================================================================
-   * Footnote Component (<foot-note>)
-   * Flexible inline footnotes with modal definitions
-   * Trigger content is slotted - supports numbers, symbols, icons, or text
-   * ========================================================================== */
-
-  foot-note {
-    display: inline;
-
-    /* Trigger button - inherits styling from content */
-    & .footnote-trigger {
-      display: inline;
-      margin: 0;
-      padding: 0;
-      border: none;
-      background: transparent;
-      color: inherit;
-      font: inherit;
-      cursor: pointer;
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      text-underline-offset: 0.15em;
-      transition: color var(--duration-fast) ease;
-
-      &:hover {
-        color: var(--color-accent);
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--color-accent);
-        outline-offset: 2px;
-        border-radius: 2px;
-      }
-
-      /* Superscript styling when content is <sup> */
-      & sup {
-        text-decoration: none;
-      }
-    }
-
-    /* Modal body */
-    & .footnote-modal-body {
-      margin: 0;
-    }
-  }
-
-  /* ==========================================================================
-   * Popup Dialog Component (<popup-dialog>)
-   * Versatile popup/modal that wraps a trigger element
-   * ========================================================================== */
-
-  popup-dialog {
-    display: block;
-
-    /* Trigger wrapper - maintains original element behavior */
-    & .popup-trigger {
-      display: contents;
-    }
-
-    /* Popup body */
-    & .popup-body {
-      margin: 0;
-
-      /* Reset paragraph margins in body */
-      & p:first-child {
-        margin-block-start: 0;
-      }
-
-      & p:last-child {
-        margin-block-end: 0;
-      }
-    }
-
-    /* Actions footer */
-    & .popup-actions {
-      margin-block-start: var(--line-05);
-      padding-block-start: var(--line);
-      border-block-start: 1px solid var(--color-border);
-    }
-  }
-
-  /* Shared modal class for web components */
-  .footnote-modal,
-  .popup-modal {
-    width: min(24rem, 90vw);
     padding: 0;
-    border: none;
-    border-radius: var(--radius-normal);
-    background: var(--color-bg);
-    color: var(--color-fg);
-    box-shadow: 0 8px 32px color-mix(in srgb, var(--color-fg) 20%, transparent);
-
-    &::backdrop {
-      background: color-mix(in srgb, var(--color-fg) 50%, transparent);
-      animation: dialog-backdrop-fade-in var(--duration-fast) ease;
-    }
-
-    &[open] {
-      animation: dialog-slide-in var(--duration-fast) ease;
-    }
-  }
-
-  /* Shared title class for web components */
-  .footnote-modal-title,
-  .popup-title {
-    margin: 0;
-    font-size: var(--text-lg);
-    font-weight: var(--font-semibold);
-    line-height: var(--line-height-tight);
-  }
-
-  /* Shared close button for web components */
-  .footnote-modal-close,
-  .popup-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: var(--line-15);
-    height: var(--line-15);
-    margin: calc(var(--line-025) * -1);
-    padding: 0;
-    border: none;
-    border-radius: var(--radius-tight);
-    background: transparent;
-    color: var(--color-muted);
-    font-size: var(--text-xl);
     line-height: 1;
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  /* Trigger wrapper for popup-dialog component */
+  .dialog-trigger {
     cursor: pointer;
-    transition: background-color var(--duration-fast) ease,
-                color var(--duration-fast) ease;
-
-    &:hover {
-      background: var(--color-subtle);
-      color: var(--color-fg);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 2px;
-    }
-  }
-
-  /* ==========================================================================
-   * Animations
-   * ========================================================================== */
-
-  @keyframes dialog-slide-in {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes dialog-backdrop-fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
   }
 
 }

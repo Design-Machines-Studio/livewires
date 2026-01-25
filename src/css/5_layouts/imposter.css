@@ -2,47 +2,46 @@
  * Imposter Layout
  *
  * Positions an element over the rest of the content, "imposing" on it.
- * Centers content within a fixed or absolute positioned container.
- *
  * Based on Every Layout's Imposter pattern.
  * https://every-layout.dev/layouts/imposter/
  *
- * @example
- * <div class="imposter">Centered overlay content</div>
- * <div class="imposter imposter-fixed">Fixed to viewport</div>
- * <dialog class="imposter-dialog imposter-contain">Modal content</dialog>
+ * For native <dialog> elements: just use .imposter-contain for size constraints.
+ * The browser handles centering when you call showModal().
+ *
+ * @example Non-dialog overlay
+ * <div style="position: relative;">
+ *   <div class="imposter">Centered overlay</div>
+ * </div>
+ *
+ * @example Native dialog (browser handles centering)
+ * <dialog class="imposter-contain">
+ *   <div class="box stack">Content</div>
+ * </dialog>
  */
 
 @layer layouts {
 
+  /* For non-dialog overlays - centers within positioned parent */
   .imposter {
-    --imposter-margin: var(--line-2);
-
     position: absolute;
     inset-block-start: 50%;
     inset-inline-start: 50%;
     transform: translate(-50%, -50%);
   }
 
-  /* Dialog variant - uses margin:auto centering for native <dialog> */
-  .imposter-dialog {
-    --imposter-margin: var(--line-2);
-
+  .imposter-fixed {
     position: fixed;
-    inset: 0;
-    margin: auto;
   }
 
-  /* Constrained variant - prevents edge overflow */
+  /* Constrains size to viewport with margin - works on any element */
   .imposter-contain {
+    --imposter-margin: var(--line-2);
+
+    /* Grow to fit content, constrained by max */
+    width: fit-content;
     max-inline-size: calc(100% - (var(--imposter-margin) * 2));
     max-block-size: calc(100% - (var(--imposter-margin) * 2));
     overflow: auto;
-  }
-
-  /* Fixed variant - positioned relative to viewport */
-  .imposter-fixed {
-    position: fixed;
   }
 
 }

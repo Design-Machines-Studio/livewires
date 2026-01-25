@@ -79,10 +79,8 @@
 
   pre {
     background: var(--color-subtle);
-    padding: var(--line-2);
+    padding: var(--line-1);
     overflow-x: auto;
-    border-radius: 0.5em;
-    margin-block-end: var(--line-2);
 
     & code {
       background: none;

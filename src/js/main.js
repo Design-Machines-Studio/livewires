@@ -6,8 +6,7 @@ import '../css/prototyping.css';
 // HTML Includes via Web Components
 import './html-include.js';
 
-// Dialog Web Components
-import './foot-note.js';
+// Dialog Web Component
 import './popup-dialog.js';
 
 // Development Tools (prototyping utilities)

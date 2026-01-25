@@ -25,7 +25,7 @@
         </header>
 
         <!-- Base + Modifier Pattern -->
-        <section class="section scheme-subtle">
+        <section class="section">
           <h2>The base + modifier pattern</h2>
           <p>All layout primitives follow a consistent <strong>base + modifier</strong> pattern:</p>
           <ul>
@@ -53,6 +53,19 @@
           <header>
             <h2>Cover</h2>
             <p>Vertically centered full-screen panel. Great for page heroes and dramatic editorial breaks. Add a header and footer tag to anchor content to the top and bottom of the cover.</p>
+            <popup-dialog title="Cover HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;header class="cover"&gt;
+  &lt;header&gt;Top content&lt;/header&gt;
+  &lt;section&gt;
+    &lt;h1&gt;Centered title&lt;/h1&gt;
+    &lt;p&gt;Centered content&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;Bottom content&lt;/footer&gt;
+&lt;/header&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <section class="border cover scheme-subtle">
             <header class="scheme-default">Interview</header>
@@ -69,6 +82,22 @@
           <header>
             <h2>Sidebar</h2>
             <p>Two-column layout with a fixed-width sidebar and flexible main content. Automatically stacks on narrow containers. The sidebar element is always the first child.</p>
+            <popup-dialog title="Sidebar HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;!-- Default --&gt;
+&lt;div class="sidebar"&gt;
+  &lt;aside&gt;Sidebar&lt;/aside&gt;
+  &lt;main&gt;Main content&lt;/main&gt;
+&lt;/div&gt;
+
+&lt;!-- Variants --&gt;
+&lt;div class="sidebar sidebar-reverse"&gt;...&lt;/div&gt;
+&lt;div class="sidebar sidebar-1px"&gt;...&lt;/div&gt;
+&lt;div class="sidebar sidebar-snug"&gt;...&lt;/div&gt;
+&lt;div class="sidebar sidebar-loose"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack">
             <section>
@@ -119,6 +148,21 @@
           <header>
             <h2>Section</h2>
             <p>Full-width container with responsive horizontal padding and bottom padding by default. Sections with color schemes automatically add top padding when following non-scheme siblings. Use to divide pages into distinct regions with edge-to-edge backgrounds.</p>
+            <popup-dialog title="Section HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;section class="section"&gt;...&lt;/section&gt;
+
+&lt;!-- Variants --&gt;
+&lt;section class="section section-wide"&gt;...&lt;/section&gt;
+&lt;section class="section section-full-bleed"&gt;...&lt;/section&gt;
+&lt;section class="section section-spaced"&gt;...&lt;/section&gt;
+&lt;section class="section section-snug"&gt;...&lt;/section&gt;
+&lt;section class="section section-tight"&gt;...&lt;/section&gt;
+&lt;section class="section section-top-tight"&gt;...&lt;/section&gt;
+&lt;section class="section section-bottom-tight"&gt;...&lt;/section&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack stack-compact">
             <section>
@@ -180,6 +224,18 @@
           <header>
             <h2>Center</h2>
             <p>Horizontally centers content with a maximum width based on ideal reading measure. The go-to primitive for article text, forms, or any single-column content.</p>
+            <popup-dialog title="Center HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;div class="center"&gt;
+  &lt;p&gt;Centered content&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Variants --&gt;
+&lt;div class="center center-narrow"&gt;...&lt;/div&gt;
+&lt;div class="center center-wide"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack">
             <section>
@@ -212,6 +268,32 @@
           <header>
             <h2>Grid</h2>
             <p>Auto-responsive grid that adapts to available space without breakpoints. For more control, use fixed column classes with container query modifiers.</p>
+            <popup-dialog title="Grid HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;!-- Auto-fit grid --&gt;
+&lt;div class="grid"&gt;
+  &lt;div&gt;Item&lt;/div&gt;
+  &lt;div&gt;Item&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Fixed columns with breakpoints --&gt;
+&lt;div class="grid grid-columns-2 grid-columns-4@md"&gt;
+  ...
+&lt;/div&gt;
+
+&lt;!-- Spans --&gt;
+&lt;div class="grid-column-span-2"&gt;...&lt;/div&gt;
+&lt;div class="grid-column-span-full"&gt;...&lt;/div&gt;
+&lt;div class="grid-row-span-2"&gt;...&lt;/div&gt;
+
+&lt;!-- Gap variants --&gt;
+&lt;div class="grid grid-gap-0"&gt;...&lt;/div&gt;
+&lt;div class="grid grid-gap-1px"&gt;...&lt;/div&gt;
+&lt;div class="grid grid-gap-05"&gt;...&lt;/div&gt;
+&lt;div class="grid grid-gap-2"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack">
             <section>
@@ -318,6 +400,22 @@
           <header>
             <h2>Stack</h2>
             <p>Injects consistent vertical space between child elements. The fundamental primitive for controlling vertical rhythm—use it everywhere you need evenly-spaced content flowing downward.</p>
+            <popup-dialog title="Stack HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;div class="stack"&gt;
+  &lt;p&gt;First item&lt;/p&gt;
+  &lt;p&gt;Second item&lt;/p&gt;
+  &lt;p&gt;Third item&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Variants --&gt;
+&lt;div class="stack stack-compact"&gt;...&lt;/div&gt;
+&lt;div class="stack stack-half"&gt;...&lt;/div&gt;
+&lt;div class="stack stack-comfortable"&gt;...&lt;/div&gt;
+&lt;div class="stack stack-spacious"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack">
             <section>
@@ -373,6 +471,23 @@
           <header>
             <h2>Cluster</h2>
             <p>Groups items horizontally with wrapping. Perfect for navigation, tag lists, button groups, or any set of inline elements that should flow and wrap naturally.</p>
+            <popup-dialog title="Cluster HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;nav class="cluster"&gt;
+  &lt;a href="/"&gt;Home&lt;/a&gt;
+  &lt;a href="/about"&gt;About&lt;/a&gt;
+  &lt;a href="/contact"&gt;Contact&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;!-- Variants --&gt;
+&lt;div class="cluster cluster-compact"&gt;...&lt;/div&gt;
+&lt;div class="cluster cluster-center"&gt;...&lt;/div&gt;
+&lt;div class="cluster cluster-end"&gt;...&lt;/div&gt;
+&lt;div class="cluster cluster-between"&gt;...&lt;/div&gt;
+&lt;div class="cluster cluster-nowrap"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack">
             <section>
@@ -431,6 +546,18 @@
           <header>
             <h2>Box</h2>
             <p>Simple padding wrapper. Use inside other primitives to add breathing room around content, especially when applying background colors.</p>
+            <popup-dialog title="Box HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;div class="box"&gt;
+  &lt;p&gt;Padded content&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Variants --&gt;
+&lt;div class="box box-tight"&gt;...&lt;/div&gt;
+&lt;div class="box box-loose"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="grid">
             <div class="box box-tight scheme-subtle border">
@@ -450,6 +577,29 @@
           <header>
             <h2>Reel</h2>
             <p>Horizontal scrolling container for collections of items. Perfect for image galleries, card carousels, or any content that should scroll horizontally rather than wrap.</p>
+            <popup-dialog title="Reel HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;div class="reel"&gt;
+  &lt;div&gt;Item&lt;/div&gt;
+  &lt;div&gt;Item&lt;/div&gt;
+  &lt;div&gt;Item&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Width variants --&gt;
+&lt;div class="reel reel-narrow"&gt;...&lt;/div&gt;
+&lt;div class="reel reel-medium"&gt;...&lt;/div&gt;
+&lt;div class="reel reel-wide"&gt;...&lt;/div&gt;
+
+&lt;!-- Gap variants --&gt;
+&lt;div class="reel reel-compact"&gt;...&lt;/div&gt;
+&lt;div class="reel reel-spacious"&gt;...&lt;/div&gt;
+
+&lt;!-- Other --&gt;
+&lt;div class="reel reel-no-scrollbar"&gt;...&lt;/div&gt;
+&lt;div class="reel reel-padded"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack">
             <section>
@@ -540,6 +690,23 @@
           <header>
             <h2>Imposter</h2>
             <p>Positions an element over the rest of the content, "imposing" on it. The foundation for modals, tooltips, and overlays. Based on <a href="https://every-layout.dev/layouts/imposter/">Every Layout's Imposter pattern</a>.</p>
+            <popup-dialog title="Imposter HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;!-- Absolute positioning --&gt;
+&lt;div style="position: relative;"&gt;
+  &lt;div class="imposter"&gt;Centered&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Fixed to viewport --&gt;
+&lt;div class="imposter-fixed"&gt;...&lt;/div&gt;
+
+&lt;!-- For dialogs: browser centers via showModal() --&gt;
+&lt;dialog class="dialog imposter-contain"&gt;
+  &lt;div class="box stack"&gt;...&lt;/div&gt;
+&lt;/dialog&gt;</code></pre>
+              </div>
+            </popup-dialog>
           </header>
           <div class="stack">
             <section>
@@ -554,12 +721,8 @@
               <p>Fixed positioning relative to the viewport. Use for persistent overlays.</p>
             </section>
             <section>
-              <h3>.imposter-dialog</h3>
-              <p>Optimized for native <code>&lt;dialog&gt;</code> elements. Uses <code>inset: 0; margin: auto;</code> for centering.</p>
-            </section>
-            <section>
               <h3>.imposter-contain</h3>
-              <p>Prevents overflow beyond viewport edges. Adds max-width/height constraints.</p>
+              <p>Constrains size to viewport with margin. Use on dialogs and overlays to prevent content from touching edges.</p>
             </section>
           </div>
           <p>See <a href="/manual/components/dialogs.html">Dialogs</a> for complete modal and popup documentation.</p>
