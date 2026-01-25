@@ -534,6 +534,36 @@
             </section>
           </div>
         </section>
+
+        <!-- Imposter -->
+        <section class="section">
+          <header>
+            <h2>Imposter</h2>
+            <p>Positions an element over the rest of the content, "imposing" on it. The foundation for modals, tooltips, and overlays. Based on <a href="https://every-layout.dev/layouts/imposter/">Every Layout's Imposter pattern</a>.</p>
+          </header>
+          <div class="stack">
+            <section>
+              <h3>.imposter</h3>
+              <p>Absolutely positioned and centered within its positioned parent.</p>
+              <div style="position: relative; height: 8rem;" class="scheme-subtle border">
+                <div class="imposter box scheme-default border">Centered content</div>
+              </div>
+            </section>
+            <section>
+              <h3>.imposter-fixed</h3>
+              <p>Fixed positioning relative to the viewport. Use for persistent overlays.</p>
+            </section>
+            <section>
+              <h3>.imposter-dialog</h3>
+              <p>Optimized for native <code>&lt;dialog&gt;</code> elements. Uses <code>inset: 0; margin: auto;</code> for centering.</p>
+            </section>
+            <section>
+              <h3>.imposter-contain</h3>
+              <p>Prevents overflow beyond viewport edges. Adds max-width/height constraints.</p>
+            </section>
+          </div>
+          <p>See <a href="/manual/components/dialogs.html">Dialogs</a> for complete modal and popup documentation.</p>
+        </section>
       </article>
     </main>
     <!-- HTML Include: site footer -->

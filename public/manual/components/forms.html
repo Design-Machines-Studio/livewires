@@ -87,7 +87,10 @@
             </header>
             <div class="grid">
               <div class="stack">
-
+                <div class="field">
+                  <label for="date">Date input</label>
+                  <input type="date" name="date" id="date" value="" />
+                </div>    
                 <div class="field">
                   <label for="datetime">Datetime input</label>
                   <input type="datetime" name="datetime" id="datetime" value="" />
@@ -229,7 +232,6 @@
               <section class="stack">
                 <h3>Custom controls</h3>
                 <div>
-
                   <label for="switch">Switch</label>
                   <div class="field switch">
                     <input id="x" name="switch" type="radio" checked>
@@ -239,11 +241,36 @@
                     <span></span>
                   </div>
                   <p>6_components/switches.css</p>
-              </div>
+                </div>
+
+                <div>
+                  <label>Progress bar</label>
+                  <div class="field stack stack-compact">
+                    <div class="progress-bar">
+                      <div class="fill" style="width: 65%"></div>
+                    </div>
+                    <div class="progress-bar progress-bar--thick">
+                      <div class="fill" style="width: 45%"></div>
+                    </div>
+                  </div>
+                  <p>6_components/progress.css</p>
+                </div>
+
+                <div>
+                  <label>Stacked bar</label>
+                  <div class="field">
+                    <div class="stacked-bar">
+                      <div class="segment segment--primary" style="width: 40%"></div>
+                      <div class="segment segment--secondary" style="width: 35%"></div>
+                      <div class="segment segment--muted" style="width: 25%"></div>
+                    </div>
+                  </div>
+                  <p>6_components/progress.css</p>
+                </div>
 
             </section>
           </div>
-        </div>
+        </section>
       </article>
     </main>
     <!-- HTML Include: site footer -->

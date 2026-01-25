@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load JS (CSS is in _includes/head.html) -->
+    <script type="module" src="/dist/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-indicators">
+
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Indicators and badges</h1>
+          <p class="lead">Visual status indicators and categorization labels for showing state, type, or metadata at a glance.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <!-- Status Indicators -->
+            <section class="stack">
+              <header>
+                <h2>Status indicators</h2>
+                <p>Colored dots that communicate state. Use before text labels to show health, availability, or activity.</p>
+              </header>
+              <section>
+                <h3>Semantic variants</h3>
+                <ul class="stack stack-compact" style="list-style: none; padding: 0;">
+                  <li><span class="status-indicator">Default status</span></li>
+                  <li><span class="status-indicator status-indicator--success">Success / Healthy</span></li>
+                  <li><span class="status-indicator status-indicator--warning">Warning / Needs attention</span></li>
+                  <li><span class="status-indicator status-indicator--error">Error / Critical</span></li>
+                </ul>
+              </section>
+              <section>
+                <h3>Color variants</h3>
+                <ul class="stack stack-compact" style="list-style: none; padding: 0;">
+                  <li><span class="status-indicator status-indicator--green">Green</span></li>
+                  <li><span class="status-indicator status-indicator--yellow">Yellow</span></li>
+                  <li><span class="status-indicator status-indicator--orange">Orange</span></li>
+                  <li><span class="status-indicator status-indicator--red">Red</span></li>
+                  <li><span class="status-indicator status-indicator--blue">Blue</span></li>
+                </ul>
+              </section>
+              <section>
+                <h3>Size variants</h3>
+                <ul class="stack stack-compact" style="list-style: none; padding: 0;">
+                  <li><span class="status-indicator status-indicator--small status-indicator--success">Small</span></li>
+                  <li><span class="status-indicator status-indicator--success">Default</span></li>
+                  <li><span class="status-indicator status-indicator--large status-indicator--success">Large</span></li>
+                </ul>
+              </section>
+              <section>
+                <h3>Without text</h3>
+                <p>Add <code>aria-label</code> for accessibility.</p>
+                <div class="cluster">
+                  <span class="status-indicator status-indicator--success" aria-label="Online"></span>
+                  <span class="status-indicator status-indicator--warning" aria-label="Away"></span>
+                  <span class="status-indicator status-indicator--error" aria-label="Offline"></span>
+                </div>
+              </section>
+            </section>
+
+            <!-- Badges -->
+            <section class="stack">
+              <header>
+                <h2>Badges</h2>
+                <p>Inline labels for categorization, status, and metadata.</p>
+              </header>
+              <section>
+                <h3>Color variants</h3>
+                <div class="cluster">
+                  <span class="badge badge--blue">Blue</span>
+                  <span class="badge badge--green">Green</span>
+                  <span class="badge badge--orange">Orange</span>
+                  <span class="badge badge--yellow">Yellow</span>
+                  <span class="badge badge--red">Red</span>
+                  <span class="badge badge--grey">Grey</span>
+                </div>
+              </section>
+              <section>
+                <h3>Status variants</h3>
+                <div class="cluster">
+                  <span class="badge badge--draft">Draft</span>
+                  <span class="badge badge--pending">Pending</span>
+                  <span class="badge badge--active">Active</span>
+                  <span class="badge badge--archived">Archived</span>
+                </div>
+              </section>
+              <section>
+                <h3>Feedback variants</h3>
+                <div class="cluster">
+                  <span class="badge badge--success">Success</span>
+                  <span class="badge badge--warning">Warning</span>
+                  <span class="badge badge--error">Error</span>
+                  <span class="badge badge--info">Info</span>
+                </div>
+              </section>
+              <section>
+                <h3>Size variants</h3>
+                <div class="cluster">
+                  <span class="badge badge--blue badge--small">Small</span>
+                  <span class="badge badge--blue">Default</span>
+                  <span class="badge badge--blue badge--large">Large</span>
+                </div>
+              </section>
+              <section>
+                <h3>In context</h3>
+                <ul class="stack stack-compact" style="list-style: none; padding: 0;">
+                  <li class="cluster cluster-between">
+                    <span>Homepage redesign</span>
+                    <span class="badge badge--active">Active</span>
+                  </li>
+                  <li class="cluster cluster-between">
+                    <span>New feature proposal</span>
+                    <span class="badge badge--draft">Draft</span>
+                  </li>
+                  <li class="cluster cluster-between">
+                    <span>Bug fix for login</span>
+                    <span class="badge badge--pending">Pending review</span>
+                  </li>
+                </ul>
+              </section>
+            </section>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+/**
+ * Progress Components
+ * Progress bars and stacked bars for showing completion/distribution
+ */
+
+@layer components {
+  /* Progress bar for showing completion/targets */
+  .progress-bar {
+    --progress-height: var(--line-05);
+    --progress-bg: var(--color-subtle);
+    --progress-fill: var(--color-accent);
+
+    background: var(--progress-bg);
+    border-radius: var(--line-025);
+    height: var(--progress-height);
+    overflow: hidden;
+
+    & .fill {
+      height: 100%;
+      background: var(--progress-fill);
+      border-radius: var(--line-025);
+      transition: width var(--duration-normal) ease;
+    }
+  }
+
+  .progress-bar--thick {
+    --progress-height: var(--line-1);
+  }
+
+  /* Stacked bar for showing distribution breakdown */
+  .stacked-bar {
+    display: flex;
+    height: var(--line-1);
+    border-radius: var(--line-025);
+    overflow: hidden;
+
+    & .segment {
+      height: 100%;
+      transition: width var(--duration-normal) ease;
+
+      &:first-child {
+        border-radius: var(--line-025) 0 0 var(--line-025);
+      }
+
+      &:last-child {
+        border-radius: 0 var(--line-025) var(--line-025) 0;
+      }
+    }
+
+    & .segment--primary {
+      background: var(--color-accent);
+    }
+
+    & .segment--secondary {
+      background: var(--color-subtle);
+    }
+
+    & .segment--muted {
+      background: var(--color-border);
+    }
+  }
+}

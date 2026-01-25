@@ -1,0 +1,48 @@
+/**
+ * Imposter Layout
+ *
+ * Positions an element over the rest of the content, "imposing" on it.
+ * Centers content within a fixed or absolute positioned container.
+ *
+ * Based on Every Layout's Imposter pattern.
+ * https://every-layout.dev/layouts/imposter/
+ *
+ * @example
+ * <div class="imposter">Centered overlay content</div>
+ * <div class="imposter imposter-fixed">Fixed to viewport</div>
+ * <dialog class="imposter-dialog imposter-contain">Modal content</dialog>
+ */
+
+@layer layouts {
+
+  .imposter {
+    --imposter-margin: var(--line-2);
+
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Dialog variant - uses margin:auto centering for native <dialog> */
+  .imposter-dialog {
+    --imposter-margin: var(--line-2);
+
+    position: fixed;
+    inset: 0;
+    margin: auto;
+  }
+
+  /* Constrained variant - prevents edge overflow */
+  .imposter-contain {
+    max-inline-size: calc(100% - (var(--imposter-margin) * 2));
+    max-block-size: calc(100% - (var(--imposter-margin) * 2));
+    overflow: auto;
+  }
+
+  /* Fixed variant - positioned relative to viewport */
+  .imposter-fixed {
+    position: fixed;
+  }
+
+}

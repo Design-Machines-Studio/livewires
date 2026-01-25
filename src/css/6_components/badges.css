@@ -1,0 +1,138 @@
+/**
+ * Badges
+ *
+ * Small inline labels for categorization, status, and metadata.
+ * Uses color palette for visual distinction.
+ *
+ * @example
+ * <span class="badge badge--blue">New</span>
+ * <span class="badge badge--green">Active</span>
+ * <span class="badge badge--red">Urgent</span>
+ * <span class="badge badge--grey">Draft</span>
+ */
+
+@layer components {
+
+  /* Base badge */
+  .badge {
+    /* Badge color palette */
+    --badge-blue-bg: var(--color-blue-100);
+    --badge-blue-fg: var(--color-blue-700);
+    --badge-green-bg: var(--color-green-100);
+    --badge-green-fg: var(--color-green-700);
+    --badge-orange-bg: var(--color-orange-100);
+    --badge-orange-fg: var(--color-orange-700);
+    --badge-yellow-bg: var(--color-yellow-100);
+    --badge-yellow-fg: var(--color-yellow-700);
+    --badge-red-bg: var(--color-red-100);
+    --badge-red-fg: var(--color-red-700);
+    --badge-grey-bg: var(--color-grey-200);
+    --badge-grey-fg: var(--color-grey-700);
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--line-025);
+    padding: var(--line-025);
+    font-size: var(--text-xs);
+    line-height: 1;
+    font-weight: var(--font-bold);
+    border-radius: var(--line-025);
+    white-space: nowrap;
+  }
+
+  /* ==========================================================================
+   * Color Variants
+   * ========================================================================== */
+
+  .badge--blue {
+    background: var(--badge-blue-bg);
+    color: var(--badge-blue-fg);
+  }
+
+  .badge--green {
+    background: var(--badge-green-bg);
+    color: var(--badge-green-fg);
+  }
+
+  .badge--orange {
+    background: var(--badge-orange-bg);
+    color: var(--badge-orange-fg);
+  }
+
+  .badge--yellow {
+    background: var(--badge-yellow-bg);
+    color: var(--badge-yellow-fg);
+  }
+
+  .badge--red {
+    background: var(--badge-red-bg);
+    color: var(--badge-red-fg);
+  }
+
+  .badge--grey {
+    background: var(--badge-grey-bg);
+    color: var(--badge-grey-fg);
+  }
+
+  /* ==========================================================================
+   * Semantic Status Variants
+   * Common status patterns across applications
+   * ========================================================================== */
+
+  /* Document/workflow states */
+  .badge--draft {
+    background: var(--badge-grey-bg);
+    color: var(--badge-grey-fg);
+  }
+
+  .badge--pending {
+    background: var(--badge-yellow-bg);
+    color: var(--badge-yellow-fg);
+  }
+
+  .badge--active {
+    background: var(--badge-green-bg);
+    color: var(--badge-green-fg);
+  }
+
+  .badge--archived {
+    background: var(--badge-grey-bg);
+    color: var(--badge-grey-fg);
+  }
+
+  /* Health/status indicators */
+  .badge--success {
+    background: var(--badge-green-bg);
+    color: var(--badge-green-fg);
+  }
+
+  .badge--warning {
+    background: var(--badge-yellow-bg);
+    color: var(--badge-yellow-fg);
+  }
+
+  .badge--error {
+    background: var(--badge-red-bg);
+    color: var(--badge-red-fg);
+  }
+
+  .badge--info {
+    background: var(--badge-blue-bg);
+    color: var(--badge-blue-fg);
+  }
+
+  /* ==========================================================================
+   * Size Variants
+   * ========================================================================== */
+
+  .badge--small {
+    padding: var(--line-025) calc(var(--line-025) * 0.5);
+    font-size: calc(var(--text-xs) * 0.85);
+  }
+
+  .badge--large {
+    padding: var(--line-05) var(--line-025);
+    font-size: var(--text-sm);
+  }
+
+}

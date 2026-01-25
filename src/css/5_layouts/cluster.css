@@ -36,4 +36,8 @@
   .cluster-between {
     --cluster-justify: space-between;
   }
+
+  .cluster-nowrap {
+    flex-wrap: nowrap;
+  }
 }

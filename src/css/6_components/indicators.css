@@ -1,0 +1,77 @@
+/**
+ * Status Indicators
+ *
+ * Colored dot indicators for showing status states.
+ * Uses semantic color tokens for consistent meaning.
+ *
+ * @example
+ * <span class="status-indicator">Default status</span>
+ * <span class="status-indicator status-indicator--success">Healthy</span>
+ * <span class="status-indicator status-indicator--warning">Needs attention</span>
+ * <span class="status-indicator status-indicator--error">Critical</span>
+ */
+
+@layer components {
+
+  /* Base status indicator with colored dot */
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--line-025);
+
+    &::before {
+      content: '';
+      width: var(--line-05);
+      height: var(--line-05);
+      border-radius: 50%;
+      background: var(--color-muted);
+      flex-shrink: 0;
+    }
+  }
+
+  /* Semantic status variants */
+  .status-indicator--success::before {
+    background: var(--color-success);
+  }
+
+  .status-indicator--warning::before {
+    background: var(--color-warning);
+  }
+
+  .status-indicator--error::before {
+    background: var(--color-error);
+  }
+
+  /* Color-specific variants for more control */
+  .status-indicator--green::before {
+    background: var(--color-green-500);
+  }
+
+  .status-indicator--yellow::before {
+    background: var(--color-yellow-500);
+  }
+
+  .status-indicator--red::before {
+    background: var(--color-red-500);
+  }
+
+  .status-indicator--blue::before {
+    background: var(--color-blue-500);
+  }
+
+  .status-indicator--orange::before {
+    background: var(--color-orange-500);
+  }
+
+  /* Size variants */
+  .status-indicator--small::before {
+    width: var(--line-025);
+    height: var(--line-025);
+  }
+
+  .status-indicator--large::before {
+    width: var(--line-075);
+    height: var(--line-075);
+  }
+
+}

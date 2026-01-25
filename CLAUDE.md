@@ -119,6 +119,8 @@ HTML files reference `/dist/main.js` and `/dist/main.css`. In development, Vite 
 │   ├── js/                # JavaScript files
 │   │   ├── main.js        # Vite entry point (loads CSS + Web Components)
 │   │   ├── html-include.js # Web Component for HTML includes
+│   │   ├── foot-note.js   # Web Component for footnotes
+│   │   ├── popup-dialog.js # Web Component for popup dialogs
 │   │   └── prototyping.js # Development utilities
 │
 ├── public/                # Your prototype (site root)
@@ -177,6 +179,7 @@ This ensures utilities always win over components, components over layouts, etc.
    - [section.css](src/css/5_layouts/section.css) - Section wrapper
    - [cover.css](src/css/5_layouts/cover.css) - Full-height centering
    - [reel.css](src/css/5_layouts/reel.css) - Horizontal scrolling container
+   - [imposter.css](src/css/5_layouts/imposter.css) - Overlay positioning for modals/tooltips
 5. **`components`** - Named UI patterns ([6_components/](src/css/6_components/))
    - [buttons.css](src/css/6_components/buttons.css) - Button variants
    - [breadcrumbs.css](src/css/6_components/breadcrumbs.css) - Breadcrumb navigation
@@ -188,6 +191,10 @@ This ensures utilities always win over components, components over layouts, etc.
    - [embeds.css](src/css/6_components/embeds.css) - Responsive video embeds
    - [typography.css](src/css/6_components/typography.css) - Long-form text (.prose, .lead)
    - [logo.css](src/css/6_components/logo.css) - Logo sizing
+   - [dialogs.css](src/css/6_components/dialogs.css) - Modal dialogs and popups
+   - [indicators.css](src/css/6_components/indicators.css) - Status indicators
+   - [badges.css](src/css/6_components/badges.css) - Inline label badges
+   - [progress.css](src/css/6_components/progress.css) - Progress bars and stacked bars
 6. **`utilities`** - Single-purpose classes ([7_utilities/](src/css/7_utilities/))
    - [spacing.css](src/css/7_utilities/spacing.css) - Margin and padding utilities
    - [typography.css](src/css/7_utilities/typography.css) - Font size, weight, alignment
@@ -329,6 +336,17 @@ Horizontal scrolling container for collections of items:
 <div class="reel reel-padded">       <!-- Bottom padding for overflow -->
 ```
 
+### Imposter ([5_layouts/imposter.css](src/css/5_layouts/imposter.css))
+
+Positions an element over the rest of content (modals, tooltips, overlays):
+
+```html
+<div class="imposter">              <!-- Centered over positioned parent -->
+<div class="imposter-fixed">        <!-- Fixed to viewport -->
+<dialog class="imposter-dialog">    <!-- For native <dialog> elements -->
+<dialog class="imposter-contain">   <!-- Prevents edge overflow -->
+```
+
 ## Components
 
 Live Wires includes components in [6_components/](src/css/6_components/):
@@ -343,6 +361,10 @@ Live Wires includes components in [6_components/](src/css/6_components/):
 - **[embeds.css](src/css/6_components/embeds.css)** - Responsive video embeds
 - **[prose.css](src/css/6_components/prose.css)** - Long-form text styling
 - **[logo.css](src/css/6_components/logo.css)** - Logo sizing
+- **[dialogs.css](src/css/6_components/dialogs.css)** - Modal dialogs and popups
+- **[indicators.css](src/css/6_components/indicators.css)** - Status indicators
+- **[badges.css](src/css/6_components/badges.css)** - Inline label badges
+- **[progress.css](src/css/6_components/progress.css)** - Progress bars and stacked bars
 
 All components follow these principles:
 - Use custom properties for theming
@@ -384,11 +406,91 @@ All components follow these principles:
 ```
 
 #### Toggle Switch
+
 ```html
 <div class="switch">
   <input type="checkbox" id="toggle">
   <label for="toggle">Enable feature</label>
 </div>
+```
+
+#### Dialog
+
+```html
+<dialog class="dialog imposter-dialog imposter-contain">
+  <div class="dialog-content box stack">
+    <header class="dialog-header cluster cluster-between cluster-nowrap">
+      <h2 class="dialog-title">Dialog Title</h2>
+      <button class="dialog-close" aria-label="Close">&times;</button>
+    </header>
+    <p>Dialog content here.</p>
+    <footer class="dialog-actions cluster cluster-end">
+      <button class="button">Cancel</button>
+      <button class="button button--accent">Confirm</button>
+    </footer>
+  </div>
+</dialog>
+```
+
+#### Status Indicators
+
+```html
+<span class="status-indicator">Default</span>
+<span class="status-indicator status-indicator--success">Healthy</span>
+<span class="status-indicator status-indicator--warning">Warning</span>
+<span class="status-indicator status-indicator--error">Error</span>
+```
+
+#### Badges
+
+```html
+<span class="badge badge--blue">Info</span>
+<span class="badge badge--green">Active</span>
+<span class="badge badge--yellow">Pending</span>
+<span class="badge badge--red">Error</span>
+<span class="badge badge--grey">Draft</span>
+```
+
+#### Progress Bars
+
+```html
+<!-- Basic progress bar -->
+<div class="progress-bar">
+  <div class="fill" style="width: 65%"></div>
+</div>
+
+<!-- Thick variant -->
+<div class="progress-bar progress-bar--thick">
+  <div class="fill" style="width: 45%"></div>
+</div>
+
+<!-- Stacked bar (distribution breakdown) -->
+<div class="stacked-bar">
+  <div class="segment segment--primary" style="width: 40%"></div>
+  <div class="segment segment--secondary" style="width: 35%"></div>
+  <div class="segment segment--muted" style="width: 25%"></div>
+</div>
+```
+
+#### Footnotes (Web Component)
+
+```html
+<!-- Superscript number -->
+<foot-note def="Source citation"><sup>1</sup></foot-note>
+
+<!-- Symbol -->
+<foot-note def="Terms apply">*</foot-note>
+
+<!-- Inline term -->
+<foot-note def="Definition text" title="Term">term to define</foot-note>
+```
+
+#### Popup Dialog (Web Component)
+
+```html
+<popup-dialog title="Confirm?" body="Are you sure?" confirm-label="Yes">
+  <button class="button">Click me</button>
+</popup-dialog>
 ```
 
 See [public/manual/components/](public/manual/components/) for complete component documentation.

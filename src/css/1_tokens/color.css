@@ -83,7 +83,7 @@
     --color-yellow-700: #4D3000;
     --color-yellow-800: #332000;
     --color-yellow-900: #1A1000;
-    --color-yellow: var(--coloryellow-500);
+    --color-yellow: var(--color-yellow-500);
 
     --color-green-100: #E6FFE8;
     --color-green-200: #CCFFD1;

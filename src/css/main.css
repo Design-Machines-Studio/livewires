@@ -61,6 +61,7 @@
 @import './5_layouts/center.css';
 @import './5_layouts/cover.css';
 @import './5_layouts/reel.css';
+@import './5_layouts/imposter.css';
 
 /* Custom components and expanded elements */
 @import './6_components/logo.css';
@@ -73,6 +74,10 @@
 @import './6_components/pagination.css';
 @import './6_components/buttons.css';
 @import './6_components/switches.css';
+@import './6_components/dialogs.css';
+@import './6_components/indicators.css';
+@import './6_components/badges.css';
+@import './6_components/progress.css';
 
 /* Utilities */
 @import './7_utilities/spacing.css';
