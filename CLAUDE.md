@@ -834,6 +834,11 @@ Then add the utility in [src/css/7_utilities/color.css](src/css/7_utilities/colo
 2. Define `@font-face` in [src/css/1_tokens/typography.css](src/css/1_tokens/typography.css)
 3. Update font stack variables (e.g., `--font-sans`, `--font-serif`)
 
+### Theme to match a brand
+For complete theming workflow (matching an existing website, PDF, or design artifact), see the Live Wires skill theming guide at [.claude/skills/livewires/theming.md](.claude/skills/livewires/theming.md).
+
+Key principle: **Only edit the tokens folder for theming.** Update existing color scales (greens, blues, etc.) rather than inventing new color names. The cascade handles everything else.
+
 ## Testing
 
 View your prototype at http://localhost:3000 during development (`npm run dev`).

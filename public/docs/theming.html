@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <!-- Load JS (CSS is in _includes/head.html) -->
+    <script type="module" src="/dist/main.js"></script>
+
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-docs">
+
+    <!-- HTML Include: site header -->
+    <html-include src="/_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="/_includes/nav-docs.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Theming</h1>
+          <p class="lead">Transform Live Wires to match your brand by editing design tokens.</p>
+        </header>
+
+        <nav class="section section-snug">
+          <p><strong>On this page:</strong></p>
+          <ul class="cluster">
+            <li><a href="#principle">The principle</a></li>
+            <li><a href="#analyze">Analyze the source</a></li>
+            <li><a href="#colors">Build your palette</a></li>
+            <li><a href="#tokens">Update tokens</a></li>
+            <li><a href="#schemes">Create schemes</a></li>
+            <li><a href="#headings">Heading hierarchy</a></li>
+            <li><a href="#elements">Foundational elements</a></li>
+            <li><a href="#accessibility">Accessibility</a></li>
+            <li><a href="#cleanup">Clean up</a></li>
+          </ul>
+        </nav>
+
+        <section id="principle" class="section">
+          <h2>The principle</h2>
+          <p><strong>Edit tokens first, then elements.</strong> The cascade handles everything else.</p>
+          <p>Most theming happens in <code>src/css/1_tokens/</code>. For deeper typographic customization, you may also edit <code>src/css/4_elements/</code>. Never edit component CSS for theming.</p>
+
+          <h3>Token files</h3>
+          <dl>
+            <dt><a href="/src/css/1_tokens/color.css">color.css</a></dt>
+            <dd>Color palette, semantic colors, schemes</dd>
+
+            <dt><a href="/src/css/1_tokens/typography-base.css">typography-base.css</a></dt>
+            <dd>Font stacks, weights</dd>
+
+            <dt><a href="/src/css/1_tokens/typography-scale-auto.css">typography-scale-auto.css</a></dt>
+            <dd>Base size, scale ratio</dd>
+
+            <dt><a href="/src/css/1_tokens/borders.css">borders.css</a></dt>
+            <dd>Border radius values</dd>
+          </dl>
+
+          <h3>Element files</h3>
+          <dl>
+            <dt><a href="/src/css/4_elements/typography.css">typography.css</a></dt>
+            <dd>Headings, code blocks</dd>
+
+            <dt><a href="/src/css/4_elements/quotes.css">quotes.css</a></dt>
+            <dd>Blockquotes</dd>
+
+            <dt><a href="/src/css/4_elements/forms.css">forms.css</a></dt>
+            <dd>Form fields, buttons</dd>
+          </dl>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="analyze" class="section">
+          <h2>Analyze the source</h2>
+          <p>Before writing CSS, extract the visual DNA from your source design. Whether it's a website, PDF, or screenshot, look for:</p>
+
+          <h3>Colors</h3>
+          <ul>
+            <li><strong>Primary brand color.</strong> The dominant color for key UI elements.</li>
+            <li><strong>Secondary colors.</strong> Supporting colors for accents, CTAs, backgrounds.</li>
+            <li><strong>Background/foreground pairs.</strong> Light and dark combinations.</li>
+            <li><strong>Specific hex values.</strong> Use browser dev tools, a color picker, or PDF inspector.</li>
+          </ul>
+
+          <h3>Typography</h3>
+          <ul>
+            <li><strong>Font family.</strong> Check Google Fonts, Adobe Fonts, or inspect the source.</li>
+            <li><strong>Weights in use.</strong> Light, regular, bold, etc.</li>
+            <li><strong>Heading sizes.</strong> Visual hierarchy from h1 to body text.</li>
+            <li><strong>Body text size.</strong> The base reading size.</li>
+          </ul>
+
+          <h3>Typographic conventions</h3>
+          <p>Study how the source handles common elements:</p>
+          <ul>
+            <li><strong>Headings.</strong> Weight, case (normal/uppercase/small caps), tracking, decoration.</li>
+            <li><strong>Blockquotes.</strong> Left border, background, quotation marks, font style.</li>
+            <li><strong>Form fields.</strong> Border style, radius, padding, focus state.</li>
+            <li><strong>Buttons.</strong> Shape (sharp/rounded/pill), text weight, padding, style (solid/outline).</li>
+          </ul>
+
+          <h3>Other details</h3>
+          <ul>
+            <li><strong>Border radius.</strong> Sharp, subtle rounding, or pill shapes.</li>
+            <li><strong>Spacing.</strong> Tight, comfortable, or generous whitespace.</li>
+          </ul>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="colors" class="section">
+          <h2>Build your palette</h2>
+          <p>Live Wires uses color scales from 100 (lightest) to 900 (darkest). Update the existing scales. Don't invent new color names.</p>
+
+          <h3>Use existing variables</h3>
+          <p>Update <code>--color-green-*</code>, <code>--color-blue-*</code>, etc. in <a href="/src/css/1_tokens/color.css">color.css</a>. If your brand is forest green, update the green scale. Don't create <code>--color-forest-*</code>.</p>
+
+          <h3>The 500 anchor</h3>
+          <p>Position your primary brand color at the <strong>500</strong> level. This gives you:</p>
+          <ul>
+            <li><strong>100-400:</strong> Lighter shades for backgrounds, hover states, subtle accents</li>
+            <li><strong>600-900:</strong> Darker shades for text, borders, dark mode, depth</li>
+          </ul>
+
+          <h3>Brand positioning</h3>
+          <p>Some brands naturally sit elsewhere in the scale:</p>
+          <ul>
+            <li><strong>Light brands</strong> (pastels, bright colors): Anchor at 300-400</li>
+            <li><strong>Dark brands</strong> (forest greens, navy blues): Anchor at 600-700</li>
+          </ul>
+          <p>This is fine. Just make sure you have headroom above and below.</p>
+
+          <h3>Smooth interpolation</h3>
+          <p>Avoid jarring jumps between adjacent values:</p>
+          <pre><code>/* Bad: Jumps from light to dark */
+--color-green-300: #88CEBA;  /* Light mint */
+--color-green-400: #2A7A5E;  /* Suddenly dark */
+
+/* Good: Smooth progression */
+--color-green-300: #88CEBA;
+--color-green-400: #5FB89E;
+--color-green-500: #3D9A7E;
+--color-green-600: #2A7A5E;</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="tokens" class="section">
+          <h2>Update tokens</h2>
+
+          <h3>Semantic colors</h3>
+          <p>Map your scale to semantic tokens in <code>:root</code>:</p>
+          <pre><code>:root {
+  --color-bg: var(--color-white);
+  --color-fg: var(--color-green-700);
+  --color-accent: var(--color-green-600);
+  --color-muted: var(--color-green-500);
+  --color-border: var(--color-green-700);
+  --color-subtle: var(--color-green-100);
+}</code></pre>
+
+          <h3>Typography</h3>
+          <p>In <a href="/src/css/1_tokens/typography-base.css">typography-base.css</a>, update font stacks:</p>
+          <pre><code>--font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+--font-serif: 'Merriweather', Georgia, serif;
+
+--font-body: var(--font-sans);
+--font-heading: var(--font-sans);</code></pre>
+
+          <h3>Font weight mapping</h3>
+          <p>If your font has limited weights, map the weight variables accordingly:</p>
+          <pre><code>/* Font only has 400 and 700 */
+--font-light: 400;
+--font-normal: 400;
+--font-medium: 400;
+--font-semibold: 700;
+--font-bold: 700;</code></pre>
+
+          <h3>Loading web fonts</h3>
+          <p><strong>Google Fonts or Adobe Fonts:</strong> Add to <code>public/_includes/head.html</code>:</p>
+          <pre><code>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"&gt;</code></pre>
+
+          <p><strong>Self-hosted fonts:</strong> Add <code>@import</code> to <a href="/src/css/1_tokens/typography-base.css">typography-base.css</a>:</p>
+          <pre><code>@import url('/fonts/your-font.css');</code></pre>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="schemes" class="section">
+          <h2>Create schemes</h2>
+          <p>Schemes override semantic colors for specific sections. Define them in <a href="/src/css/1_tokens/color.css">color.css</a>.</p>
+
+          <h3>Naming convention</h3>
+          <ul>
+            <li><code>.scheme-{color}</code> for primary variant</li>
+            <li><code>.scheme-{color}-light</code> for light background</li>
+            <li><code>.scheme-{color}-dark</code> for dark background</li>
+          </ul>
+
+          <h3>Light-on-dark schemes</h3>
+          <pre><code>.scheme-forest {
+  --color-bg: var(--color-green-700);
+  --color-fg: var(--color-white);
+  --color-accent: var(--color-green-300);
+  --color-muted: var(--color-green-200);
+  --color-border: var(--color-green-300);
+  --color-subtle: var(--color-green-800);
+  --vf-grad: -50;
+}</code></pre>
+
+          <h3>Dark-on-light schemes</h3>
+          <pre><code>.scheme-mint {
+  --color-bg: var(--color-green-100);
+  --color-fg: var(--color-green-700);
+  --color-accent: var(--color-green-600);
+  --color-muted: var(--color-green-500);
+  --color-border: var(--color-green-500);
+  --color-subtle: var(--color-green-200);
+  --vf-grad: 0;
+}</code></pre>
+
+          <h3>The vf-grad variable</h3>
+          <p>Controls variable font grade for optical adjustment:</p>
+          <ul>
+            <li><code>0</code> for light backgrounds</li>
+            <li><code>-25</code> to <code>-50</code> for dark backgrounds (reduces perceived heaviness)</li>
+          </ul>
+
+          <h3>Dark mode</h3>
+          <p>When you properly update the schemes and <code>:root</code> semantic colors, dark mode works automatically via the <code>prefers-color-scheme</code> media query and <code>.dark-mode</code> class. No separate rules needed.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="headings" class="section">
+          <h2>Heading hierarchy</h2>
+          <p>Match the source heading sizes using existing <code>text-*</code> variables. Edit <a href="/src/css/4_elements/typography.css">src/css/4_elements/typography.css</a>.</p>
+
+          <pre><code>h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
+h5 { font-size: var(--text-base); }
+h6 { font-size: var(--text-sm); }</code></pre>
+
+          <h3>Available sizes</h3>
+          <p><code>text-xs</code>, <code>text-sm</code>, <code>text-base</code>, <code>text-lg</code>, <code>text-xl</code>, <code>text-2xl</code>, <code>text-3xl</code>, <code>text-4xl</code>, <code>text-5xl</code>, <code>text-6xl</code>, <code>text-7xl</code>, <code>text-8xl</code>, <code>text-9xl</code></p>
+          <p>Only use these. Don't create new size variables.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="elements" class="section">
+          <h2>Foundational elements</h2>
+          <p>Match the source's typographic conventions by editing element styles. Use existing variables for sizing and spacing.</p>
+
+          <h3>Headings beyond size</h3>
+          <p>Headings carry typographic character beyond just size. In <a href="/src/css/4_elements/typography.css">typography.css</a>:</p>
+          <pre><code>h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-semibold);
+  text-transform: none;  /* Or uppercase */
+  letter-spacing: var(--tracking-lg);
+}
+
+/* Add decoration if source uses it */
+h2 {
+  border-block-end: var(--line-1px) solid var(--color-border);
+  padding-block-end: var(--line-05);
+}</code></pre>
+
+          <h3>Blockquotes</h3>
+          <p>Match the source's quotation treatment in <a href="/src/css/4_elements/quotes.css">quotes.css</a>:</p>
+          <pre><code>blockquote {
+  /* Border style */
+  border-inline-start: var(--line-025) solid var(--color-accent);
+
+  /* Or use background instead */
+  background: var(--color-subtle);
+  padding: var(--line-1);
+
+  /* Typography */
+  font-style: italic;  /* Or normal */
+}</code></pre>
+
+          <h3>Form fields</h3>
+          <p>Match input styling in <a href="/src/css/4_elements/forms.css">forms.css</a>:</p>
+          <pre><code>input[type="text"],
+textarea,
+select {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-normal);
+  padding: var(--line-05);
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}</code></pre>
+
+          <h3>Buttons</h3>
+          <p>Match button shape and proportions in <a href="/src/css/4_elements/forms.css">forms.css</a>:</p>
+          <pre><code>:root {
+  --button-h-space: var(--line-1);
+  --button-v-space: var(--line-05);
+  --button-radius: var(--radius-loose);
+  --button-font-size: var(--text-sm);
+}
+
+button, .button {
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;  /* If source uses it */
+  letter-spacing: 0.05em;
+}</code></pre>
+
+          <h3>Available variables</h3>
+          <dl>
+            <dt>Spacing</dt>
+            <dd><code>--line-025</code>, <code>--line-05</code>, <code>--line-075</code>, <code>--line-1</code>, <code>--line-15</code>, <code>--line-2</code></dd>
+
+            <dt>Radius</dt>
+            <dd><code>--radius-none</code>, <code>--radius-tight</code>, <code>--radius-normal</code>, <code>--radius-loose</code>, <code>--radius-full</code></dd>
+
+            <dt>Weights</dt>
+            <dd><code>--font-light</code>, <code>--font-normal</code>, <code>--font-medium</code>, <code>--font-semibold</code>, <code>--font-bold</code></dd>
+          </dl>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="accessibility" class="section">
+          <h2>Accessibility</h2>
+          <p>Verify your color combinations meet WCAG contrast requirements.</p>
+
+          <h3>Minimum ratios</h3>
+          <dl>
+            <dt>Body text</dt>
+            <dd>4.5:1</dd>
+
+            <dt>Large text (18px+ or 14px+ bold)</dt>
+            <dd>3:1</dd>
+
+            <dt>UI components</dt>
+            <dd>3:1</dd>
+          </dl>
+
+          <h3>Quick reference</h3>
+          <table class="table--lined">
+            <thead>
+              <tr>
+                <th>Background</th>
+                <th>Minimum foreground</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>100-200 (very light)</td><td>700+ or black</td></tr>
+              <tr><td>300-400 (medium-light)</td><td>800+ or black</td></tr>
+              <tr><td>500 (medium)</td><td>white or 100</td></tr>
+              <tr><td>600-700 (medium-dark)</td><td>white or 100-200</td></tr>
+              <tr><td>800-900 (dark)</td><td>white or 100-300</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Testing</h3>
+          <ul>
+            <li>Browser DevTools (Chrome and Firefox have built-in contrast checking)</li>
+            <li><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a></li>
+            <li><a href="https://accessible-colors.com/">Accessible Colors</a></li>
+          </ul>
+
+          <h3>Common mistake</h3>
+          <p>Muted text often fails contrast. Check <code>--color-muted</code> carefully on medium-toned backgrounds.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="cleanup" class="section">
+          <h2>Clean up</h2>
+          <p>After updating tokens, review and clean up the Manual documentation.</p>
+
+          <h3>Pages to check</h3>
+          <ul>
+            <li><a href="/manual/brand/colors.html">/manual/brand/colors.html</a> to update color swatches</li>
+            <li><a href="/manual/components/schemes.html">/manual/components/schemes.html</a> to remove unused schemes and add new ones</li>
+            <li><a href="/manual/brand/fonts.html">/manual/brand/fonts.html</a> to update font samples</li>
+          </ul>
+
+          <h3>Delete legacy schemes</h3>
+          <p>If your theme uses greens, remove the orange, blue, and other unused schemes from:</p>
+          <ol>
+            <li><code>src/css/1_tokens/color.css</code></li>
+            <li>The Manual scheme documentation</li>
+          </ol>
+          <p>Keep the codebase clean. Don't ship unused CSS.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section class="section">
+          <h2>Related</h2>
+          <ul>
+            <li><a href="structure.html">Project structure</a>: Where token files live</li>
+            <li><a href="process.html">Design process</a>: How theming fits into the workflow</li>
+            <li><a href="accessibility.html">Accessibility</a>: Full accessibility documentation</li>
+          </ul>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
