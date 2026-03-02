@@ -8,7 +8,7 @@
  * - grey-100 on grey-900: 10.4:1 ✓
  * - brand (#0066CC) on white: 5.7:1 ✓
  * - white on brand: 5.7:1 ✓
- * - grey-500 on white: 4.6:1 ✓ (muted text meets AA)
+ * - grey-600 on white: 5.7:1 ✓ (muted text meets AA)
  */
 
 @layer tokens {
@@ -113,7 +113,7 @@
     --color-bg: var(--color-white);
     --color-fg: var(--color-grey-900);
     --color-accent: var(--color-blue);
-    --color-muted: var(--color-grey-500);
+    --color-muted: var(--color-grey-600);
     --color-border: var(--color-fg);
     --color-subtle: var(--color-grey-100);
 

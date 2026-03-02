@@ -44,7 +44,8 @@
         color: var(--color-fg);
       }
 
-      &[aria-selected="true"] {
+      &[aria-selected="true"],
+      &[aria-current="page"] {
         background: var(--color-bg);
         border-color: var(--color-border);
         color: var(--color-fg);
@@ -92,7 +93,8 @@
       border-radius: var(--radius-normal);
       margin-block-end: 0;
 
-      &[aria-selected="true"] {
+      &[aria-selected="true"],
+      &[aria-current="page"] {
         background: var(--color-subtle);
         color: var(--color-fg);
 
