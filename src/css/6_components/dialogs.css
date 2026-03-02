@@ -33,7 +33,7 @@
     font-size: var(--text-base);
     font-weight: var(--font-normal);
     line-height: var(--line-height-base);
-    letter-spacing: var(--letter-spacing-base);
+    letter-spacing: var(--tracking-base);
     text-align: start;
 
     &::backdrop {
