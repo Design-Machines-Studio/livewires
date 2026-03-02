@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-dropdown">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Dropdown</h1>
+          <p class="lead">Toggleable overlay menus for actions and navigation.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Basic dropdown</h2>
+                <p>Toggle via <code>.is-open</code> class or <code>[open]</code> attribute on the container.</p>
+                <popup-dialog title="Dropdown HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="dropdown is-open"&gt;
+  &lt;button class="button dropdown__trigger"&gt;Menu&lt;/button&gt;
+  &lt;ul class="dropdown__menu"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Action 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Action 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;hr&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button&gt;Delete&lt;/button&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="dropdown is-open" style="position: relative; z-index: 3;">
+                <button class="button dropdown__trigger">Menu</button>
+                <ul class="dropdown__menu">
+                  <li><a href="#">Edit</a></li>
+                  <li><a href="#">Duplicate</a></li>
+                  <li><hr></li>
+                  <li><button>Delete</button></li>
+                </ul>
+              </div>
+              <div style="min-height: var(--line-6);"></div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Menu dividers</h2>
+                <p>Use <code>&lt;hr&gt;</code> inside list items to separate groups of actions.</p>
+                <popup-dialog title="Dividers HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;ul class="dropdown__menu"&gt;
+  &lt;li&gt;&lt;a href="#"&gt;View&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#"&gt;Edit&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;hr&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#" disabled&gt;Unavailable&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="dropdown is-open" style="position: relative; z-index: 2;">
+                <button class="button dropdown__trigger">More</button>
+                <ul class="dropdown__menu">
+                  <li><a href="#">View</a></li>
+                  <li><a href="#">Edit</a></li>
+                  <li><hr></li>
+                  <li><a href="#" disabled>Unavailable</a></li>
+                </ul>
+              </div>
+              <div style="min-height: var(--line-6);"></div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Alignment</h2>
+                <p>End-align the menu with <code>.dropdown--end</code>. Open upward with <code>.dropdown--up</code>.</p>
+                <popup-dialog title="Alignment Variants HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="dropdown dropdown--end"&gt;...&lt;/div&gt;
+&lt;div class="dropdown dropdown--up"&gt;...&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="cluster" style="gap: var(--line-2);">
+                <div class="dropdown dropdown--end is-open" style="position: relative; z-index: 1;">
+                  <button class="button dropdown__trigger">End-aligned</button>
+                  <ul class="dropdown__menu">
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Settings</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div style="min-height: var(--line-5);"></div>
+            </section>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

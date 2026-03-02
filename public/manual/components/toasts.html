@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-toasts">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Toasts</h1>
+          <p class="lead">Dismissible notification messages for user feedback.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Default toast</h2>
+                <p>A neutral notification with a close button.</p>
+                <popup-dialog title="Toast HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="toast"&gt;
+  &lt;p class="toast__content"&gt;Something happened.&lt;/p&gt;
+  &lt;button class="toast__close" aria-label="Dismiss"&gt;&amp;times;&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="toast" style="position: relative;">
+                <p class="toast__content">Something happened.</p>
+                <button class="toast__close" aria-label="Dismiss">&times;</button>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Semantic variants</h2>
+                <p>Colored left border and background for success, error, warning, and info states.</p>
+                <popup-dialog title="Variants HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="toast toast--success"&gt;...&lt;/div&gt;
+&lt;div class="toast toast--error"&gt;...&lt;/div&gt;
+&lt;div class="toast toast--warning"&gt;...&lt;/div&gt;
+&lt;div class="toast toast--info"&gt;...&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="stack stack-compact">
+                <div class="toast toast--success" style="position: relative;">
+                  <p class="toast__content">Changes saved successfully.</p>
+                  <button class="toast__close" aria-label="Dismiss">&times;</button>
+                </div>
+                <div class="toast toast--error" style="position: relative;">
+                  <p class="toast__content">Something went wrong.</p>
+                  <button class="toast__close" aria-label="Dismiss">&times;</button>
+                </div>
+                <div class="toast toast--warning" style="position: relative;">
+                  <p class="toast__content">Please review before continuing.</p>
+                  <button class="toast__close" aria-label="Dismiss">&times;</button>
+                </div>
+                <div class="toast toast--info" style="position: relative;">
+                  <p class="toast__content">New version available.</p>
+                  <button class="toast__close" aria-label="Dismiss">&times;</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Toast container</h2>
+                <p>Stack toasts in a fixed-position container at the top right of the viewport.</p>
+                <popup-dialog title="Toast Container HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="toast-container"&gt;
+  &lt;div class="toast toast--success"&gt;
+    &lt;p class="toast__content"&gt;Toast 1&lt;/p&gt;
+    &lt;button class="toast__close" aria-label="Dismiss"&gt;&amp;times;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="toast toast--info"&gt;
+    &lt;p class="toast__content"&gt;Toast 2&lt;/p&gt;
+    &lt;button class="toast__close" aria-label="Dismiss"&gt;&amp;times;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <p class="text-sm text-muted">The container uses <code>position: fixed</code> to anchor toasts to the top-right corner.</p>
+            </section>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

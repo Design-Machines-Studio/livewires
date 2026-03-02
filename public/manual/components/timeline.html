@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-timeline">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Timeline</h1>
+          <p class="lead">Vertical timeline for displaying chronological events.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Basic timeline</h2>
+                <p>An ordered list with a vertical line and marker dots.</p>
+                <popup-dialog title="Timeline HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;ol class="timeline"&gt;
+  &lt;li class="timeline__item"&gt;
+    &lt;time class="timeline__date"&gt;March 2024&lt;/time&gt;
+    &lt;div class="timeline__content"&gt;
+      &lt;h3&gt;Event title&lt;/h3&gt;
+      &lt;p&gt;Event description.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <ol class="timeline">
+                <li class="timeline__item">
+                  <time class="timeline__date">March 2024</time>
+                  <div class="timeline__content">
+                    <h3>Project launched</h3>
+                    <p>Initial release to the public.</p>
+                  </div>
+                </li>
+                <li class="timeline__item">
+                  <time class="timeline__date">January 2024</time>
+                  <div class="timeline__content">
+                    <h3>Development started</h3>
+                    <p>Repository created and initial architecture defined.</p>
+                  </div>
+                </li>
+                <li class="timeline__item">
+                  <time class="timeline__date">November 2023</time>
+                  <div class="timeline__content">
+                    <h3>Planning phase</h3>
+                    <p>Requirements gathered and design system scoped.</p>
+                  </div>
+                </li>
+              </ol>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Semantic markers</h2>
+                <p>Color the dot markers to indicate status: success, warning, or error.</p>
+                <popup-dialog title="Marker Variants HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;li class="timeline__item timeline__item--success"&gt;...&lt;/li&gt;
+&lt;li class="timeline__item timeline__item--warning"&gt;...&lt;/li&gt;
+&lt;li class="timeline__item timeline__item--error"&gt;...&lt;/li&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <ol class="timeline">
+                <li class="timeline__item timeline__item--success">
+                  <time class="timeline__date">Completed</time>
+                  <div class="timeline__content">
+                    <h3>Deploy to production</h3>
+                    <p>Successfully deployed v1.0.</p>
+                  </div>
+                </li>
+                <li class="timeline__item timeline__item--warning">
+                  <time class="timeline__date">In progress</time>
+                  <div class="timeline__content">
+                    <h3>Code review</h3>
+                    <p>Awaiting reviewer feedback.</p>
+                  </div>
+                </li>
+                <li class="timeline__item timeline__item--error">
+                  <time class="timeline__date">Blocked</time>
+                  <div class="timeline__content">
+                    <h3>API integration</h3>
+                    <p>Waiting on third-party credentials.</p>
+                  </div>
+                </li>
+              </ol>
+            </section>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
