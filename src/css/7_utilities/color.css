@@ -162,4 +162,53 @@
   .bg-grey-800 { --bg-color: var(--color-grey-800); background-color: var(--bg-color); }
   .bg-grey-900 { --bg-color: var(--color-grey-900); background-color: var(--bg-color); }
 
+  /* Semantic status schemes */
+  .scheme-danger {
+    --color-bg: var(--color-red-100);
+    --color-fg: var(--color-red-900);
+    --color-accent: var(--color-red-500);
+    --color-muted: var(--color-red-700);
+    --color-border: var(--color-red-500);
+    --color-subtle: var(--color-red-200);
+    --vf-grad: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  .scheme-warning {
+    --color-bg: var(--color-yellow-100);
+    --color-fg: var(--color-yellow-900);
+    --color-accent: var(--color-yellow-500);
+    --color-muted: var(--color-yellow-800);
+    --color-border: var(--color-yellow-500);
+    --color-subtle: var(--color-yellow-200);
+    --vf-grad: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  .scheme-success {
+    --color-bg: var(--color-green-100);
+    --color-fg: var(--color-green-900);
+    --color-accent: var(--color-green-500);
+    --color-muted: var(--color-green-700);
+    --color-border: var(--color-green-500);
+    --color-subtle: var(--color-green-200);
+    --vf-grad: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  .scheme-info {
+    --color-bg: var(--color-blue-100);
+    --color-fg: var(--color-blue-900);
+    --color-accent: var(--color-blue-500);
+    --color-muted: var(--color-blue-700);
+    --color-border: var(--color-blue-500);
+    --color-subtle: var(--color-blue-200);
+    --vf-grad: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
 }

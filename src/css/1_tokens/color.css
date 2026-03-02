@@ -105,14 +105,6 @@
     --color-error: var(--color-red);
     --color-warning: var(--color-yellow);
     --color-success: var(--color-green);
-    --color-negative: var(--color-red);
-    --color-positive: var(--color-green);
-
-    /*
-    * Overlay Colors
-    * Unified token + legacy aliases
-    */
-    --color-overlay: color-mix(in srgb, var(--color-fg) 50%, transparent);
 
     /*
     * Semantic Colors
@@ -268,51 +260,6 @@
     --color-muted: var(--color-green-700);
     --color-border: var(--color-green-500);
     --color-subtle: var(--color-green-200);
-    --vf-grad: 0;
-  }
-
-  /*
-  * Semantic Status Schemes
-  * Named for intent rather than color — aliases for the light color schemes
-  */
-  .scheme-critical,
-  .scheme-danger {
-    --color-bg: var(--color-red-100);
-    --color-fg: var(--color-red-900);
-    --color-accent: var(--color-red-500);
-    --color-muted: var(--color-red-700);
-    --color-border: var(--color-red-500);
-    --color-subtle: var(--color-red-200);
-    --vf-grad: 0;
-  }
-
-  .scheme-warning {
-    --color-bg: var(--color-yellow-100);
-    --color-fg: var(--color-yellow-900);
-    --color-accent: var(--color-yellow-500);
-    --color-muted: var(--color-yellow-800);
-    --color-border: var(--color-yellow-500);
-    --color-subtle: var(--color-yellow-200);
-    --vf-grad: 0;
-  }
-
-  .scheme-success {
-    --color-bg: var(--color-green-100);
-    --color-fg: var(--color-green-900);
-    --color-accent: var(--color-green-500);
-    --color-muted: var(--color-green-700);
-    --color-border: var(--color-green-500);
-    --color-subtle: var(--color-green-200);
-    --vf-grad: 0;
-  }
-
-  .scheme-info {
-    --color-bg: var(--color-blue-100);
-    --color-fg: var(--color-blue-900);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-blue-700);
-    --color-border: var(--color-blue-500);
-    --color-subtle: var(--color-blue-200);
     --vf-grad: 0;
   }
 
