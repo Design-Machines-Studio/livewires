@@ -2,6 +2,7 @@
 
 # Internal development docs #
 _dev/
+CLAUDE.md
 
 # Ignore hidden folders #
 # This takes care of .tmp, .sass-cache, .claude, and many others #
