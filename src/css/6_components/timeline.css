@@ -6,9 +6,9 @@
  *
  * @example
  * <ol class="timeline">
- *   <li class="timeline__item">
- *     <time class="timeline__date">Jan 2024</time>
- *     <div class="timeline__content">
+ *   <li class="timeline-item">
+ *     <time class="timeline-date">Jan 2024</time>
+ *     <div class="timeline-content">
  *       <h3>Event title</h3>
  *       <p>Event description.</p>
  *     </div>
@@ -40,7 +40,7 @@
   }
 
   /* Timeline item */
-  .timeline__item {
+  .timeline-item {
     position: relative;
     padding-block-end: var(--line-1);
 
@@ -63,7 +63,7 @@
   }
 
   /* Date label */
-  .timeline__date {
+  .timeline-date {
     display: block;
     font-size: var(--text-xs);
     font-weight: var(--font-semibold);
@@ -74,7 +74,7 @@
   }
 
   /* Content area */
-  .timeline__content {
+  .timeline-content {
     font-size: var(--text-sm);
 
     & h3 {
@@ -88,15 +88,15 @@
   }
 
   /* Marker color variants */
-  .timeline__item--success::before {
+  .timeline-item--success::before {
     background: var(--color-success);
   }
 
-  .timeline__item--warning::before {
+  .timeline-item--warning::before {
     background: var(--color-warning);
   }
 
-  .timeline__item--error::before {
+  .timeline-item--error::before {
     background: var(--color-error);
   }
 }

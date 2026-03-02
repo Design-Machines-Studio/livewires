@@ -6,8 +6,8 @@
  *
  * @example
  * <div class="card box stack">
- *   <h3 class="card__title">Revenue</h3>
- *   <p class="card__value">$12,450</p>
+ *   <h3 class="card-title">Revenue</h3>
+ *   <p class="card-value">$12,450</p>
  * </div>
  */
 
@@ -22,28 +22,28 @@
   }
 
   /* Card sub-elements */
-  .card__title {
+  .card-title {
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
     color: var(--color-muted);
     margin: 0;
   }
 
-  .card__value {
+  .card-value {
     font-size: var(--text-2xl);
     font-weight: var(--font-bold);
     line-height: var(--leading-tight);
     margin: 0;
   }
 
-  .card__description {
+  .card-description {
     font-size: var(--text-sm);
     color: var(--color-muted);
     margin: 0;
   }
 
   /* Header with bottom border */
-  .card__header {
+  .card-header {
     border-block-end: var(--line-1px) solid var(--card-border);
   }
 

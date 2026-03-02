@@ -258,6 +258,7 @@
   body.pg-components-tabs main nav a[href$="tabs.html"],
   body.pg-components-timeline main nav a[href$="timeline.html"],
   body.pg-components-toasts main nav a[href$="toasts.html"],
+  body.pg-components-loading main nav a[href$="loading.html"],
   body.pg-disclosure main nav a[href$="disclosure.html"],
   body.pg-navigation main nav a[href$="navigation.html"],
 

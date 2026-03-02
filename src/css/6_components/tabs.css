@@ -6,12 +6,12 @@
  *
  * @example
  * <div class="tabs">
- *   <div class="tabs__list" role="tablist">
- *     <button class="tabs__tab" role="tab" aria-selected="true">Tab 1</button>
- *     <button class="tabs__tab" role="tab">Tab 2</button>
+ *   <div class="tabs-list" role="tablist">
+ *     <button class="tabs-tab" role="tab" aria-selected="true">Tab 1</button>
+ *     <button class="tabs-tab" role="tab">Tab 2</button>
  *   </div>
- *   <div class="tabs__panel" role="tabpanel">Content 1</div>
- *   <div class="tabs__panel" role="tabpanel" hidden>Content 2</div>
+ *   <div class="tabs-panel" role="tabpanel">Content 1</div>
+ *   <div class="tabs-panel" role="tabpanel" hidden>Content 2</div>
  * </div>
  */
 
@@ -21,13 +21,13 @@
     --tabs-active-border: var(--color-accent);
   }
 
-  .tabs__list {
+  .tabs-list {
     display: flex;
     gap: var(--line-025);
     border-block-end: var(--line-1px) solid var(--tabs-border);
   }
 
-  .tabs__tab {
+  .tabs-tab {
     position: relative;
     padding: var(--line-025) var(--line-075);
     margin-block-end: calc(var(--line-1px) * -1);
@@ -71,7 +71,7 @@
     }
   }
 
-  .tabs__panel {
+  .tabs-panel {
     padding-block-start: var(--line-1);
     animation: tab-fade-in var(--duration-fast) var(--ease-out);
 
@@ -86,12 +86,12 @@
   }
 
   /* Variant: Pills */
-  .tabs--pills .tabs__list {
+  .tabs--pills .tabs-list {
     border-block-end: none;
     gap: var(--line-025);
   }
 
-  .tabs--pills .tabs__tab {
+  .tabs--pills .tabs-tab {
     border: none;
     border-radius: var(--radius-normal);
     margin-block-end: 0;

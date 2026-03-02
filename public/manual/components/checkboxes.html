@@ -148,6 +148,32 @@
 
             <section class="stack">
               <header>
+                <h2>Icon-only checkbox</h2>
+                <p>A compact checkbox that hides label text. Use in tables or matrices.</p>
+                <popup-dialog title="Icon Checkbox HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="checkbox checkbox--icon"&gt;
+  &lt;input type="checkbox" name="select" value="1"&gt;
+  Select row
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="cluster">
+                <label class="checkbox checkbox--icon">
+                  <input type="checkbox" name="icon-a" value="1">
+                  Select
+                </label>
+                <label class="checkbox checkbox--icon">
+                  <input type="checkbox" name="icon-b" value="1" checked>
+                  Select
+                </label>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
                 <h2>Check lists</h2>
                 <p>Vertical and inline layouts for groups of checkboxes or radios.</p>
                 <popup-dialog title="Check List HTML">

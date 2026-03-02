@@ -6,8 +6,8 @@
  *
  * @example
  * <div class="toast toast--success">
- *   <p class="toast__content">Changes saved.</p>
- *   <button class="toast__close" aria-label="Dismiss">&times;</button>
+ *   <p class="toast-content">Changes saved.</p>
+ *   <button class="toast-close" aria-label="Dismiss">&times;</button>
  * </div>
  */
 
@@ -27,7 +27,7 @@
     background: var(--toast-bg);
     color: var(--toast-fg);
     border: var(--line-1px) solid var(--toast-border);
-    border-inline-start: 3px solid var(--toast-accent);
+    border-inline-start: calc(var(--line-1px) * 3) solid var(--toast-accent);
     border-radius: var(--radius-normal);
     box-shadow: 0 4px 12px var(--overlay-shadow);
     font-size: var(--text-sm);
@@ -35,12 +35,12 @@
     animation: toast-in var(--duration-fast) var(--ease-out);
   }
 
-  .toast__content {
+  .toast-content {
     flex: 1;
     margin: 0;
   }
 
-  .toast__close {
+  .toast-close {
     flex-shrink: 0;
     padding: 0;
     background: none;

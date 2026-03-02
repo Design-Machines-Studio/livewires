@@ -27,8 +27,8 @@
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;div class="dropdown is-open"&gt;
-  &lt;button class="button dropdown__trigger"&gt;Menu&lt;/button&gt;
-  &lt;ul class="dropdown__menu"&gt;
+  &lt;button class="button dropdown-trigger"&gt;Menu&lt;/button&gt;
+  &lt;ul class="dropdown-menu"&gt;
     &lt;li&gt;&lt;a href="#"&gt;Action 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="#"&gt;Action 2&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;hr&gt;&lt;/li&gt;
@@ -39,8 +39,8 @@
                 </popup-dialog>
               </header>
               <div class="dropdown is-open" style="position: relative; z-index: 3;">
-                <button class="button dropdown__trigger">Menu</button>
-                <ul class="dropdown__menu">
+                <button class="button dropdown-trigger">Menu</button>
+                <ul class="dropdown-menu">
                   <li><a href="#">Edit</a></li>
                   <li><a href="#">Duplicate</a></li>
                   <li><hr></li>
@@ -57,7 +57,7 @@
                 <popup-dialog title="Dividers HTML">
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
-                    <pre><code>&lt;ul class="dropdown__menu"&gt;
+                    <pre><code>&lt;ul class="dropdown-menu"&gt;
   &lt;li&gt;&lt;a href="#"&gt;View&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="#"&gt;Edit&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;hr&gt;&lt;/li&gt;
@@ -67,8 +67,8 @@
                 </popup-dialog>
               </header>
               <div class="dropdown is-open" style="position: relative; z-index: 2;">
-                <button class="button dropdown__trigger">More</button>
-                <ul class="dropdown__menu">
+                <button class="button dropdown-trigger">More</button>
+                <ul class="dropdown-menu">
                   <li><a href="#">View</a></li>
                   <li><a href="#">Edit</a></li>
                   <li><hr></li>
@@ -91,15 +91,23 @@
                 </popup-dialog>
               </header>
               <div class="cluster" style="gap: var(--line-2);">
-                <div class="dropdown dropdown--end is-open" style="position: relative; z-index: 1;">
-                  <button class="button dropdown__trigger">End-aligned</button>
-                  <ul class="dropdown__menu">
+                <div class="dropdown dropdown--end is-open" style="position: relative; z-index: 2;">
+                  <button class="button dropdown-trigger">End-aligned</button>
+                  <ul class="dropdown-menu">
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Settings</a></li>
                   </ul>
                 </div>
               </div>
               <div style="min-height: var(--line-5);"></div>
+              <div style="min-height: var(--line-6);"></div>
+              <div class="dropdown dropdown--up is-open" style="position: relative; z-index: 1;">
+                <button class="button dropdown-trigger">Upward</button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">View</a></li>
+                  <li><a href="#">Export</a></li>
+                </ul>
+              </div>
             </section>
           </div>
         </section>

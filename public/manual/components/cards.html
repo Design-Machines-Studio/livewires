@@ -27,28 +27,28 @@
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;div class="card box stack"&gt;
-  &lt;p class="card__title"&gt;Revenue&lt;/p&gt;
-  &lt;p class="card__value"&gt;$12,450&lt;/p&gt;
-  &lt;p class="card__description"&gt;+12% from last month&lt;/p&gt;
+  &lt;p class="card-title"&gt;Revenue&lt;/p&gt;
+  &lt;p class="card-value"&gt;$12,450&lt;/p&gt;
+  &lt;p class="card-description"&gt;+12% from last month&lt;/p&gt;
 &lt;/div&gt;</code></pre>
                   </div>
                 </popup-dialog>
               </header>
               <div class="grid grid-narrow">
                 <div class="card box stack">
-                  <p class="card__title">Revenue</p>
-                  <p class="card__value">$12,450</p>
-                  <p class="card__description">+12% from last month</p>
+                  <p class="card-title">Revenue</p>
+                  <p class="card-value">$12,450</p>
+                  <p class="card-description">+12% from last month</p>
                 </div>
                 <div class="card box stack">
-                  <p class="card__title">Users</p>
-                  <p class="card__value">1,234</p>
-                  <p class="card__description">+5% this week</p>
+                  <p class="card-title">Users</p>
+                  <p class="card-value">1,234</p>
+                  <p class="card-description">+5% this week</p>
                 </div>
                 <div class="card box stack">
-                  <p class="card__title">Tasks</p>
-                  <p class="card__value">89</p>
-                  <p class="card__description">12 completed today</p>
+                  <p class="card-title">Tasks</p>
+                  <p class="card-value">89</p>
+                  <p class="card-description">12 completed today</p>
                 </div>
               </div>
             </section>
@@ -67,14 +67,62 @@
               </header>
               <div class="grid grid-narrow">
                 <div class="card card--subtle box stack">
-                  <p class="card__title">Subtle</p>
-                  <p class="card__value">No border</p>
+                  <p class="card-title">Subtle</p>
+                  <p class="card-value">No border</p>
                 </div>
                 <div class="card card--borderless box stack">
-                  <p class="card__title">Borderless</p>
-                  <p class="card__value">Transparent</p>
+                  <p class="card-title">Borderless</p>
+                  <p class="card-value">Transparent</p>
                 </div>
               </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Card with header</h2>
+                <p>Add a bordered header with <code>.card-header</code> for panel-style cards.</p>
+                <popup-dialog title="Card Header HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card-header box"&gt;
+    &lt;h3&gt;Panel Title&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="box stack"&gt;
+    &lt;p&gt;Card body content.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="card">
+                <div class="card-header box">
+                  <h3>Panel Title</h3>
+                </div>
+                <div class="box stack">
+                  <p>Card body content goes here. The header has a bottom border separating it from the body.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Clickable card</h2>
+                <p>Wrap a card in an anchor tag for a clickable container with hover shadow.</p>
+                <popup-dialog title="Clickable Card HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;a href="#" class="card box stack"&gt;
+  &lt;p class="card-title"&gt;Click me&lt;/p&gt;
+  &lt;p class="card-description"&gt;This card is a link.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <a href="#" class="card box stack">
+                <p class="card-title">Click me</p>
+                <p class="card-description">This card is a link. Hover to see the shadow effect.</p>
+              </a>
             </section>
 
             <section class="stack">

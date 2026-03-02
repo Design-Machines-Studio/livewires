@@ -530,9 +530,9 @@ Additive by design: no footer unless you add buttons via attributes or slots.
 
 ```html
 <div class="card box stack">
-  <p class="card__title">Revenue</p>
-  <p class="card__value">$12,450</p>
-  <p class="card__description">+12% from last month</p>
+  <p class="card-title">Revenue</p>
+  <p class="card-value">$12,450</p>
+  <p class="card-description">+12% from last month</p>
 </div>
 
 <!-- Variants -->
@@ -563,8 +563,8 @@ Additive by design: no footer unless you add buttons via attributes or slots.
 
 ```html
 <div class="dropdown">
-  <button class="button dropdown__trigger">Menu</button>
-  <ul class="dropdown__menu">
+  <button class="button dropdown-trigger">Menu</button>
+  <ul class="dropdown-menu">
     <li><a href="#">Action 1</a></li>
     <li><hr></li>
     <li><button>Delete</button></li>
@@ -576,11 +576,11 @@ Additive by design: no footer unless you add buttons via attributes or slots.
 
 ```html
 <div class="tabs">
-  <div class="tabs__list" role="tablist">
-    <button class="tabs__tab" role="tab" aria-selected="true">Tab 1</button>
-    <button class="tabs__tab" role="tab">Tab 2</button>
+  <div class="tabs-list" role="tablist">
+    <button class="tabs-tab" role="tab" aria-selected="true">Tab 1</button>
+    <button class="tabs-tab" role="tab">Tab 2</button>
   </div>
-  <div class="tabs__panel" role="tabpanel">Content here.</div>
+  <div class="tabs-panel" role="tabpanel">Content here.</div>
 </div>
 
 <!-- Pills variant -->
@@ -591,9 +591,9 @@ Additive by design: no footer unless you add buttons via attributes or slots.
 
 ```html
 <ol class="timeline">
-  <li class="timeline__item">
-    <time class="timeline__date">March 2024</time>
-    <div class="timeline__content">
+  <li class="timeline-item">
+    <time class="timeline-date">March 2024</time>
+    <div class="timeline-content">
       <h3>Event title</h3>
       <p>Event description.</p>
     </div>
@@ -605,8 +605,8 @@ Additive by design: no footer unless you add buttons via attributes or slots.
 
 ```html
 <div class="toast toast--success">
-  <p class="toast__content">Changes saved.</p>
-  <button class="toast__close" aria-label="Dismiss">&times;</button>
+  <p class="toast-content">Changes saved.</p>
+  <button class="toast-close" aria-label="Dismiss">&times;</button>
 </div>
 
 <!-- Variants: toast--success, toast--error, toast--warning, toast--info -->
