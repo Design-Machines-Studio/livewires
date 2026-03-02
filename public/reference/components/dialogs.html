@@ -1,0 +1,31 @@
+<!-- Native dialog -->
+<dialog class="dialog imposter-contain">
+  <div class="box stack">
+    <header class="cluster cluster-between cluster-nowrap">
+      <h2>Dialog Title</h2>
+      <button class="dialog-close" type="button" aria-label="Close">&times;</button>
+    </header>
+    <p>Dialog content goes here.</p>
+    <footer class="cluster cluster-end pt-1 mt-05 border-t">
+      <button class="button">Cancel</button>
+      <button class="button button--accent">Confirm</button>
+    </footer>
+  </div>
+</dialog>
+
+<!-- Popup dialog (Web Component) — confirmation -->
+<popup-dialog title="Confirm?" body="Are you sure?" confirm-label="Yes" cancel-label="No">
+  <button class="button">Click me</button>
+</popup-dialog>
+
+<!-- Popup dialog — info panel (no footer) -->
+<popup-dialog title="Note" body="Source citation.">
+  <sup style="text-decoration: underline dotted; cursor: pointer;">1</sup>
+</popup-dialog>
+
+<!-- Popup dialog — custom actions -->
+<popup-dialog title="About">
+  <button class="button">Learn more</button>
+  <div slot="body"><p>Custom HTML content.</p></div>
+  <div slot="actions"><button data-action="close" class="button">Got it</button></div>
+</popup-dialog>

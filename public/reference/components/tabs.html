@@ -1,0 +1,35 @@
+<!-- Standard tabs -->
+<div class="tabs">
+  <div class="tabs__list" role="tablist" aria-label="Content tabs">
+    <button class="tabs__tab" role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1">Tab 1</button>
+    <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2">Tab 2</button>
+    <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3">Tab 3</button>
+  </div>
+  <div class="tabs__panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+    <p>Content for tab 1.</p>
+  </div>
+  <div class="tabs__panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>
+    <p>Content for tab 2.</p>
+  </div>
+  <div class="tabs__panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" hidden>
+    <p>Content for tab 3.</p>
+  </div>
+</div>
+
+<!-- Pills variant -->
+<div class="tabs tabs--pills">
+  <div class="tabs__list" role="tablist" aria-label="Filter tabs">
+    <button class="tabs__tab" role="tab" aria-selected="true">All</button>
+    <button class="tabs__tab" role="tab" aria-selected="false">Active</button>
+    <button class="tabs__tab" role="tab" aria-selected="false">Archived</button>
+  </div>
+</div>
+
+<!-- Simple active-class based (no ARIA) -->
+<div class="tabs">
+  <nav class="tabs__list">
+    <a class="tabs__tab is-active" href="#section-1">Overview</a>
+    <a class="tabs__tab" href="#section-2">Details</a>
+    <a class="tabs__tab" href="#section-3">History</a>
+  </nav>
+</div>
