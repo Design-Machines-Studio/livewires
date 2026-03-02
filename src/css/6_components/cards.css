@@ -6,55 +6,50 @@
  *
  * @example
  * <div class="card box stack">
- *   <h3 class="card-title">Revenue</h3>
- *   <p class="card-value">$12,450</p>
+ *   <h3 class="title">Revenue</h3>
+ *   <p class="value">$12,450</p>
  * </div>
  */
 
 @layer components {
   .card {
-    --card-bg: var(--color-bg);
-    --card-border: var(--color-border);
-
-    background: var(--card-bg);
-    border: var(--line-1px) solid var(--card-border);
+    background: var(--color-bg);
+    border: var(--line-1px) solid var(--color-border);
     border-radius: var(--radius-normal);
-  }
 
-  /* Card sub-elements */
-  .card-title {
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    color: var(--color-muted);
-    margin: 0;
-  }
+    & .title {
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      color: var(--color-muted);
+      margin: 0;
+    }
 
-  .card-value {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-bold);
-    line-height: var(--leading-tight);
-    margin: 0;
-  }
+    & .value {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      line-height: var(--leading-tight);
+      margin: 0;
+    }
 
-  .card-description {
-    font-size: var(--text-sm);
-    color: var(--color-muted);
-    margin: 0;
-  }
+    & .description {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      margin: 0;
+    }
 
-  /* Header with bottom border */
-  .card-header {
-    border-block-end: var(--line-1px) solid var(--card-border);
+    & .header {
+      border-block-end: var(--line-1px) solid var(--color-border);
+    }
   }
 
   /* Variants */
   .card--subtle {
-    --card-bg: var(--color-subtle);
-    --card-border: transparent;
+    background: var(--color-subtle);
+    border-color: transparent;
   }
 
   .card--borderless {
-    --card-border: transparent;
+    border-color: transparent;
   }
 
   /* Clickable card */
@@ -62,10 +57,10 @@
     display: block;
     text-decoration: none;
     color: inherit;
-    transition: var(--transition-all);
+    transition: box-shadow var(--duration-fast) var(--ease-out);
 
     &:hover {
-      box-shadow: 0 2px 8px var(--overlay-shadow);
+      box-shadow: 0 4px 12px var(--overlay-shadow);
     }
   }
 
