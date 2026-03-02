@@ -1,0 +1,63 @@
+/**
+ * Avatars
+ *
+ * Image-based avatar with round and square variants.
+ * Wraps an <img> with consistent sizing and object-fit.
+ *
+ * @example
+ * <span class="avatar"><img src="photo.jpg" alt="Jane Doe"></span>
+ * <span class="avatar avatar--square"><img src="photo.jpg" alt="Jane Doe"></span>
+ */
+
+@layer components {
+  .avatar {
+    --avatar-size: var(--line-2);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--avatar-size);
+    block-size: var(--avatar-size);
+    border-radius: 50%;
+    background: var(--color-subtle);
+    flex-shrink: 0;
+    overflow: hidden;
+
+    & img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /* Size variants */
+  .avatar--small {
+    --avatar-size: var(--line-15);
+  }
+
+  .avatar--large {
+    --avatar-size: var(--line-3);
+  }
+
+  .avatar--xlarge {
+    --avatar-size: var(--line-8);
+  }
+
+  /* Square variant */
+  .avatar--square {
+    border-radius: var(--radius-normal);
+  }
+
+  /* Avatar group (overlapping) */
+  .avatar-group {
+    display: flex;
+
+    & .avatar {
+      border: calc(var(--line-1px) * 2) solid var(--color-bg);
+    }
+
+    & .avatar + .avatar {
+      margin-inline-start: calc(var(--line-05) * -1);
+    }
+  }
+}

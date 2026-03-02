@@ -1,0 +1,238 @@
+/**
+ * Checkbox & Radio Components
+ *
+ * Custom styled checkboxes and radio buttons using pseudo-elements.
+ * No extra spans needed - just label + input.
+ *
+ * @example
+ * <label class="checkbox">
+ *   <input type="checkbox" name="field" value="value">
+ *   Label text
+ * </label>
+ *
+ * <label class="radio">
+ *   <input type="radio" name="field" value="value">
+ *   Label text
+ * </label>
+ */
+
+@layer components {
+
+  /* Shared base for checkbox and radio */
+  .checkbox,
+  .radio {
+    --control-size: 1.25em;
+    --control-gap: 0.5em;
+    --control-border-width: 2px;
+    --control-bg: var(--color-bg);
+    --control-border-color: var(--color-border);
+    --control-checked-bg: var(--color-accent);
+    --control-checked-border: var(--color-accent);
+    --control-focus-ring: var(--color-accent);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--control-gap);
+    padding-inline-start: calc(var(--control-size) + var(--control-gap));
+    cursor: pointer;
+    user-select: none;
+    font-weight: var(--font-normal);
+    line-height: var(--leading-normal);
+
+    /* The box/circle indicator */
+    &::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: 0.15em;
+      inline-size: var(--control-size);
+      block-size: var(--control-size);
+      background: var(--control-bg);
+      border: var(--control-border-width) solid var(--control-border-color);
+      transition: border-color var(--duration-fast) var(--ease-out),
+                  background-color var(--duration-fast) var(--ease-out);
+    }
+
+    /* The check/dot indicator */
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: 0.15em;
+      inline-size: var(--control-size);
+      block-size: var(--control-size);
+      opacity: 0;
+      transition: opacity var(--duration-instant) var(--ease-out);
+    }
+
+    /* Hide native input but keep accessible */
+    & input {
+      position: absolute;
+      opacity: 0;
+      inline-size: 0;
+      block-size: 0;
+      pointer-events: none;
+    }
+
+    /* Hover */
+    &:hover::before {
+      border-color: var(--control-checked-border);
+    }
+
+    /* Focus */
+    &:has(input:focus-visible)::before {
+      outline: 2px solid var(--control-focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* Checked */
+    &:has(input:checked) {
+      &::before {
+        background: var(--control-checked-bg);
+        border-color: var(--control-checked-border);
+      }
+
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    /* Disabled */
+    &:has(input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  /* Checkbox specifics */
+  .checkbox {
+    &::before {
+      border-radius: var(--radius-tight);
+    }
+
+    /* Checkmark shape */
+    &::after {
+      inline-size: 0.35em;
+      block-size: 0.6em;
+      inset-inline-start: calc(var(--control-size) * 0.35);
+      inset-block-start: calc(0.15em + var(--control-size) * 0.15);
+      border-inline-end: 2px solid var(--control-bg);
+      border-block-end: 2px solid var(--control-bg);
+      transform: rotate(45deg);
+      background: transparent;
+    }
+  }
+
+  /* Radio specifics */
+  .radio {
+    &::before {
+      border-radius: 50%;
+    }
+
+    /* Inner dot */
+    &::after {
+      inline-size: calc(var(--control-size) * 0.4);
+      block-size: calc(var(--control-size) * 0.4);
+      inset-inline-start: calc(var(--control-size) * 0.3);
+      inset-block-start: calc(0.15em + var(--control-size) * 0.3);
+      background: var(--control-bg);
+      border-radius: 50%;
+    }
+  }
+
+  /* Small variant */
+  .checkbox--small,
+  .radio--small {
+    --control-size: 1em;
+    --control-gap: 0.35em;
+    font-size: var(--text-sm);
+  }
+
+  /* Icon-only checkbox (for tables, matrices) */
+  .checkbox--icon {
+    --icon-size: 1.5rem;
+    padding-inline-start: var(--icon-size);
+    gap: 0;
+    font-size: 0;
+    color: transparent;
+  }
+
+  .checkbox--icon::before {
+    inline-size: var(--icon-size);
+    block-size: var(--icon-size);
+    inset-block-start: 0;
+    border-radius: var(--radius-normal);
+  }
+
+  .checkbox--icon::after {
+    inline-size: 0.4rem;
+    block-size: 0.7rem;
+    inset-inline-start: 0.55rem;
+    inset-block-start: 0.25rem;
+    border-inline-end: 2px solid var(--control-bg);
+    border-block-end: 2px solid var(--control-bg);
+    transform: rotate(45deg);
+    background: transparent;
+  }
+
+  /* Dash when unchecked */
+  .checkbox--icon:not(:has(input:checked))::after {
+    opacity: 1;
+    inline-size: 0.6rem;
+    block-size: 0;
+    inset-inline-start: 0.45rem;
+    inset-block-start: 0.7rem;
+    border: none;
+    border-block-end: 2px solid var(--color-muted);
+    transform: none;
+  }
+
+  /* Check/radio list layout */
+  .check-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    & li {
+      padding-block: var(--line-025);
+    }
+
+    & .checkbox,
+    & .radio {
+      display: flex;
+    }
+  }
+
+  .check-list--inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--line-1);
+
+    & li {
+      padding: 0;
+    }
+  }
+
+  /* Color variants */
+  .checkbox--ok,
+  .radio--ok {
+    --control-checked-bg: var(--color-success);
+    --control-checked-border: var(--color-success);
+    --control-focus-ring: var(--color-success);
+  }
+
+  .checkbox--warning,
+  .radio--warning {
+    --control-checked-bg: var(--color-warning);
+    --control-checked-border: var(--color-warning);
+    --control-focus-ring: var(--color-warning);
+  }
+
+  .checkbox--danger,
+  .radio--danger {
+    --control-checked-bg: var(--color-error);
+    --control-checked-border: var(--color-error);
+    --control-focus-ring: var(--color-error);
+  }
+}
