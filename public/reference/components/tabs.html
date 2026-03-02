@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+  <title>Tabs – Components Reference – Live Wires</title>
+</head>
+<body>
+  <html-include src="/_includes/header.html"></html-include>
+  <main id="main">
+    <article class="section prose">
+      <h1>Tabs</h1>
 <!-- Standard tabs -->
 <div class="tabs">
   <div class="list" role="tablist" aria-label="Content tabs">
@@ -25,11 +39,16 @@
   </div>
 </div>
 
-<!-- Link-based tabs (use aria-selected) -->
+<!-- Link-based tabs (use aria-current) -->
 <div class="tabs">
   <nav class="list">
-    <a class="tab" href="#section-1" aria-selected="true">Overview</a>
+    <a class="tab" href="#section-1" aria-current="page">Overview</a>
     <a class="tab" href="#section-2">Details</a>
     <a class="tab" href="#section-3">History</a>
   </nav>
 </div>
+    </article>
+  </main>
+  <html-include src="/_includes/footer.html"></html-include>
+</body>
+</html>
