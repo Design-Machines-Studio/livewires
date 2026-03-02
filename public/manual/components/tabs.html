@@ -80,13 +80,13 @@
             <section class="stack">
               <header>
                 <h2>Link-based tabs</h2>
-                <p>Use anchor tags with <code>aria-selected="true"</code> for navigation-style tabs.</p>
+                <p>Use anchor tags with <code>aria-current="page"</code> for navigation-style tabs.</p>
                 <popup-dialog title="Link Tabs HTML">
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;div class="tabs"&gt;
   &lt;nav class="list"&gt;
-    &lt;a class="tab" aria-selected="true" href="#"&gt;Overview&lt;/a&gt;
+    &lt;a class="tab" aria-current="page" href="#"&gt;Overview&lt;/a&gt;
     &lt;a class="tab" href="#"&gt;Details&lt;/a&gt;
     &lt;a class="tab" href="#"&gt;History&lt;/a&gt;
   &lt;/nav&gt;
@@ -96,7 +96,7 @@
               </header>
               <div class="tabs">
                 <nav class="list">
-                  <a class="tab" aria-selected="true" href="#">Overview</a>
+                  <a class="tab" aria-current="page" href="#">Overview</a>
                   <a class="tab" href="#">Details</a>
                   <a class="tab" href="#">History</a>
                 </nav>

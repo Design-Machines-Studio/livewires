@@ -51,9 +51,9 @@
 &lt;span class="status-indicator status-indicator--small"&gt;Small&lt;/span&gt;
 &lt;span class="status-indicator status-indicator--large"&gt;Large&lt;/span&gt;
 
-&lt;!-- Without text (use aria-label) --&gt;
+&lt;!-- Without text (use role="img" + aria-label) --&gt;
 &lt;span class="status-indicator status-indicator--success"
-  aria-label="Online"&gt;&lt;/span&gt;</code></pre>
+  role="img" aria-label="Online"&gt;&lt;/span&gt;</code></pre>
                   </div>
                 </popup-dialog>
               </header>
@@ -88,9 +88,9 @@
                 <h3>Without text</h3>
                 <p>Add <code>aria-label</code> for accessibility.</p>
                 <div class="cluster">
-                  <span class="status-indicator status-indicator--success" aria-label="Online"></span>
-                  <span class="status-indicator status-indicator--warning" aria-label="Away"></span>
-                  <span class="status-indicator status-indicator--error" aria-label="Offline"></span>
+                  <span class="status-indicator status-indicator--success" role="img" aria-label="Online"></span>
+                  <span class="status-indicator status-indicator--warning" role="img" aria-label="Away"></span>
+                  <span class="status-indicator status-indicator--error" role="img" aria-label="Offline"></span>
                 </div>
               </section>
             </section>
