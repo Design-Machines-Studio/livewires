@@ -78,6 +78,14 @@
 @import './6_components/indicators.css';
 @import './6_components/badges.css';
 @import './6_components/progress.css';
+@import './6_components/avatars.css';
+@import './6_components/cards.css';
+@import './6_components/checkboxes.css';
+@import './6_components/dropdown.css';
+@import './6_components/tabs.css';
+@import './6_components/timeline.css';
+@import './6_components/toasts.css';
+@import './6_components/loading.css';
 
 /* Utilities */
 @import './7_utilities/spacing.css';

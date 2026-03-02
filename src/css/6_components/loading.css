@@ -1,0 +1,76 @@
+/**
+ * Loading Indicators
+ *
+ * CSS-only shimmer/skeleton animation for loading states.
+ * Respects prefers-reduced-motion.
+ *
+ * @example
+ * <div class="loading">
+ *   <div class="loading-skeleton loading-skeleton--heading"></div>
+ *   <div class="loading-skeleton loading-skeleton--text"></div>
+ *   <div class="loading-skeleton loading-skeleton--text"></div>
+ * </div>
+ */
+
+@layer components {
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--line-05);
+  }
+
+  .loading-skeleton {
+    --skeleton-bg: var(--color-subtle);
+    --skeleton-highlight: var(--color-bg);
+
+    background: linear-gradient(
+      90deg,
+      var(--skeleton-bg) 25%,
+      var(--skeleton-highlight) 50%,
+      var(--skeleton-bg) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer var(--duration-slow) var(--ease-linear) infinite;
+    border-radius: var(--radius-tight);
+    min-block-size: var(--line-1);
+  }
+
+  /* Shape variants */
+  .loading-skeleton--text {
+    block-size: var(--line-075);
+    max-inline-size: 80%;
+  }
+
+  .loading-skeleton--heading {
+    block-size: var(--line-15);
+    max-inline-size: 50%;
+  }
+
+  .loading-skeleton--avatar {
+    inline-size: var(--line-2);
+    block-size: var(--line-2);
+    border-radius: 50%;
+  }
+
+  .loading-skeleton--image {
+    block-size: calc(var(--line) * 8);
+  }
+
+  /* Staggered animation for children */
+  .loading .loading-skeleton:nth-child(2) { animation-delay: 0.1s; }
+  .loading .loading-skeleton:nth-child(3) { animation-delay: 0.2s; }
+  .loading .loading-skeleton:nth-child(4) { animation-delay: 0.3s; }
+
+  /* Respect motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .loading-skeleton {
+      animation: none;
+    }
+  }
+}
