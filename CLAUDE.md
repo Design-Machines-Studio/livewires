@@ -194,6 +194,14 @@ This ensures utilities always win over components, components over layouts, etc.
    - [indicators.css](src/css/6_components/indicators.css) - Status indicators
    - [badges.css](src/css/6_components/badges.css) - Inline label badges
    - [progress.css](src/css/6_components/progress.css) - Progress bars and stacked bars
+   - [avatars.css](src/css/6_components/avatars.css) - User avatars with size/shape variants
+   - [cards.css](src/css/6_components/cards.css) - Stat cards, info panels, activity feeds
+   - [checkboxes.css](src/css/6_components/checkboxes.css) - Custom checkboxes, radios, check lists
+   - [dropdown.css](src/css/6_components/dropdown.css) - Toggleable overlay menus
+   - [tabs.css](src/css/6_components/tabs.css) - Tab navigation with ARIA support
+   - [timeline.css](src/css/6_components/timeline.css) - Vertical chronological timeline
+   - [toasts.css](src/css/6_components/toasts.css) - Dismissible notifications
+   - [loading.css](src/css/6_components/loading.css) - Loading skeleton animations
 6. **`utilities`** - Single-purpose classes ([7_utilities/](src/css/7_utilities/))
    - [spacing.css](src/css/7_utilities/spacing.css) - Margin and padding utilities
    - [typography.css](src/css/7_utilities/typography.css) - Font size, weight, alignment
@@ -365,6 +373,14 @@ Live Wires includes components in [6_components/](src/css/6_components/):
 - **[indicators.css](src/css/6_components/indicators.css)** - Status indicators
 - **[badges.css](src/css/6_components/badges.css)** - Inline label badges
 - **[progress.css](src/css/6_components/progress.css)** - Progress bars and stacked bars
+- **[avatars.css](src/css/6_components/avatars.css)** - User avatars with size/shape variants
+- **[cards.css](src/css/6_components/cards.css)** - Stat cards, info panels, activity feeds
+- **[checkboxes.css](src/css/6_components/checkboxes.css)** - Custom checkboxes, radios, check lists
+- **[dropdown.css](src/css/6_components/dropdown.css)** - Toggleable overlay menus
+- **[tabs.css](src/css/6_components/tabs.css)** - Tab navigation with ARIA support
+- **[timeline.css](src/css/6_components/timeline.css)** - Vertical chronological timeline
+- **[toasts.css](src/css/6_components/toasts.css)** - Dismissible notifications
+- **[loading.css](src/css/6_components/loading.css)** - Loading skeleton animations
 
 All components follow these principles:
 - Use custom properties for theming
@@ -493,6 +509,117 @@ Additive by design: no footer unless you add buttons via attributes or slots.
   <div slot="body"><p>Custom HTML content.</p></div>
   <div slot="actions"><button data-action="close" class="button">Got it</button></div>
 </popup-dialog>
+```
+
+#### Avatars
+
+```html
+<span class="avatar"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar avatar--small"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar avatar--large"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar avatar--square"><img src="logo.png" alt="Company"></span>
+
+<!-- Avatar group (overlapping) -->
+<div class="avatar-group">
+  <span class="avatar"><img src="user1.jpg" alt="User 1"></span>
+  <span class="avatar"><img src="user2.jpg" alt="User 2"></span>
+</div>
+```
+
+#### Cards
+
+```html
+<div class="card box stack">
+  <p class="card__title">Revenue</p>
+  <p class="card__value">$12,450</p>
+  <p class="card__description">+12% from last month</p>
+</div>
+
+<!-- Variants -->
+<div class="card card--subtle box stack">...</div>
+<div class="card card--borderless box stack">...</div>
+```
+
+#### Checkboxes & Radios
+
+```html
+<label class="checkbox">
+  <input type="checkbox" name="option" value="1">
+  Option label
+</label>
+
+<label class="radio">
+  <input type="radio" name="group" value="a">
+  Option A
+</label>
+
+<!-- Inline check list -->
+<ul class="check-list check-list--inline">
+  <li><label class="checkbox"><input type="checkbox"> Tag</label></li>
+</ul>
+```
+
+#### Dropdown
+
+```html
+<div class="dropdown">
+  <button class="button dropdown__trigger">Menu</button>
+  <ul class="dropdown__menu">
+    <li><a href="#">Action 1</a></li>
+    <li><hr></li>
+    <li><button>Delete</button></li>
+  </ul>
+</div>
+```
+
+#### Tabs
+
+```html
+<div class="tabs">
+  <div class="tabs__list" role="tablist">
+    <button class="tabs__tab" role="tab" aria-selected="true">Tab 1</button>
+    <button class="tabs__tab" role="tab">Tab 2</button>
+  </div>
+  <div class="tabs__panel" role="tabpanel">Content here.</div>
+</div>
+
+<!-- Pills variant -->
+<div class="tabs tabs--pills">...</div>
+```
+
+#### Timeline
+
+```html
+<ol class="timeline">
+  <li class="timeline__item">
+    <time class="timeline__date">March 2024</time>
+    <div class="timeline__content">
+      <h3>Event title</h3>
+      <p>Event description.</p>
+    </div>
+  </li>
+</ol>
+```
+
+#### Toasts
+
+```html
+<div class="toast toast--success">
+  <p class="toast__content">Changes saved.</p>
+  <button class="toast__close" aria-label="Dismiss">&times;</button>
+</div>
+
+<!-- Variants: toast--success, toast--error, toast--warning, toast--info -->
+```
+
+#### Loading Skeletons
+
+```html
+<div class="loading">
+  <div class="loading-skeleton loading-skeleton--heading"></div>
+  <div class="loading-skeleton loading-skeleton--text"></div>
+  <div class="loading-skeleton loading-skeleton--text"></div>
+</div>
 ```
 
 See [public/manual/components/](public/manual/components/) for complete component documentation.
@@ -855,7 +982,7 @@ Check:
 ### What's Built
 - ✅ Complete cascade layer system with 6 layers
 - ✅ Comprehensive design token system (spacing, typography, color)
-- ✅ 10 production-ready components
+- ✅ 22 production-ready components
 - ✅ 8 layout primitives
 - ✅ Complete utility class system (10+ utility modules)
 - ✅ Development tools (baseline grid, column overlays)

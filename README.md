@@ -122,6 +122,7 @@ Live Wires uses cutting-edge CSS features supported in modern browsers:
 │   ├── 3_generic/      # CSS reset
 │   ├── 4_elements/     # Semantic HTML defaults
 │   ├── 5_layouts/      # Layout primitives (stack, grid, cluster)
+│   ├── 6_components/   # UI components (buttons, cards, tabs, toasts, etc.)
 │   ├── 7_utilities/    # Utility classes
 │   └── main.css        # Main entry point
 │
