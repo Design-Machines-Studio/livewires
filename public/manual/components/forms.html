@@ -118,16 +118,6 @@
   &lt;option value="1"&gt;Option 1&lt;/option&gt;
 &lt;/select&gt;
 
-&lt;!-- Checkboxes --&gt;
-&lt;ul class="check-list"&gt;
-  &lt;li&gt;&lt;label&gt;&lt;input type="checkbox" /&gt; Option&lt;/label&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;!-- Radio buttons --&gt;
-&lt;ul class="check-list"&gt;
-  &lt;li&gt;&lt;label&gt;&lt;input type="radio" name="r" /&gt; Option&lt;/label&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
 &lt;!-- Date/time inputs --&gt;
 &lt;input type="date" /&gt;
 &lt;input type="time" /&gt;
@@ -209,34 +199,12 @@
                 </div>
 
                 <div class="field">
-                  <label for="checkbox">Checkboxes</label>
-                  <ul class="check-list">
-                    <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
-                    <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
-                    <li><label><input type="checkbox" name="checkbox" value="checkbox" /> Checkbox option</label></li>
-                  </ul>
-                </div>
-
-                <div class="field">
-                  <label for="radio">Radios</label>
-                  <ul class="check-list">
-                    <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
-                    <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
-                    <li><label><input type="radio" name="radio" value="radio" /> Radio option</label></li>
-                  </ul>
-                </div>
-
-                <div class="field">
                   <label for="file">File upload</label>
                   <input type="file" name="file" id="file" />
                 </div>
 
                 <div class="field">
-                  <button type="submit">Button input</button>
-                </div>
-
-                <div class="field">
-                  <input type="submit" value="Submit input" />
+                  <button type="submit">Submit button</button>
                 </div>
 
                 <div class="field">
@@ -247,121 +215,7 @@
             </div>
           </section>
         </section>
-        <section class="section">
-          <section class="stack">
-            <header>
-              <h2>Custom input components</h2>
-              <popup-dialog title="Custom Components HTML">
-                <p><a href="#" class="text-sm">Code</a></p>
-                <div slot="body">
-                  <pre><code>&lt;!-- Button variants --&gt;
-&lt;button class="button"&gt;Default&lt;/button&gt;
-&lt;a href="#" class="button button--accent"&gt;Accent&lt;/a&gt;
-&lt;a href="#" class="button button--small"&gt;Small&lt;/a&gt;
-&lt;a href="#" class="button button--large"&gt;Large&lt;/a&gt;
-
-&lt;!-- Button with icon --&gt;
-&lt;a href="#" class="button with-icon"&gt;
-  &lt;img src="icon.svg" class="icon" /&gt; Label
-&lt;/a&gt;
-
-&lt;!-- Button group --&gt;
-&lt;div class="button-group"&gt;
-  &lt;a href="#" class="button"&gt;One&lt;/a&gt;
-  &lt;a href="#" class="button"&gt;Two&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;!-- Toggle switch --&gt;
-&lt;div class="switch"&gt;
-  &lt;input id="off" name="toggle" type="radio" checked&gt;
-  &lt;label for="off"&gt;Off&lt;/label&gt;
-  &lt;input id="on" name="toggle" type="radio"&gt;
-  &lt;label for="on"&gt;On&lt;/label&gt;
-  &lt;span&gt;&lt;/span&gt;
-&lt;/div&gt;
-
-&lt;!-- Progress bar --&gt;
-&lt;div class="progress-bar"&gt;
-  &lt;div class="fill" style="width: 65%"&gt;&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-                </div>
-              </popup-dialog>
-              <hr />
-              <p>Uncomment @imports in main.css to style.</p>
-            </header>
-            <div class="grid">
-              <section class="stack">
-                <h3>Button components <small>6_components/buttons.css</small></h3>
-
-                <div class="field">
-                  <a href="#" class="button">Button link</a>
-                </div>
-
-
-                <div class="field">
-                  <a href="#" class="button button--accent">Accent button</a>
-                </div>
-
-                <div class="field">
-                  <a href="#" class="button with-icon"><img src="/img/livewires/lw.svg" alt="" class="icon" /> Icon button link</a>
-                </div>
-
-
-                <div class="field">
-                  <a href="#" class="button button--small">Small button link</a>
-                </div>
-
-                <div class="field">
-                  <a href="#" class="button button--large">Large button link</a>
-                </div>
-                <div class="field button-group">
-                  <a href="#" class="button">Button group</a>
-                  <a href="#" class="button">Button group</a>
-                  <a href="#" class="button">Button group</a>
-                </div>
-              </section>
-              <section class="stack">
-                <h3>Custom controls</h3>
-                <div>
-                  <label for="switch">Switch</label>
-                  <div class="field switch">
-                    <input id="x" name="switch" type="radio" checked>
-                    <label for="x" onclick="">Off</label>
-                    <input id="y" name="switch" type="radio">
-                    <label for="y" onclick="">On</label>
-                    <span></span>
-                  </div>
-                  <p>6_components/switches.css</p>
-                </div>
-
-                <div>
-                  <label>Progress bar</label>
-                  <div class="field stack stack-compact">
-                    <div class="progress-bar">
-                      <div class="fill" style="width: 65%"></div>
-                    </div>
-                    <div class="progress-bar progress-bar--thick">
-                      <div class="fill" style="width: 45%"></div>
-                    </div>
-                  </div>
-                  <p>6_components/progress.css</p>
-                </div>
-
-                <div>
-                  <label>Stacked bar</label>
-                  <div class="field">
-                    <div class="stacked-bar">
-                      <div class="segment segment--primary" style="width: 40%"></div>
-                      <div class="segment segment--secondary" style="width: 35%"></div>
-                      <div class="segment segment--muted" style="width: 25%"></div>
-                    </div>
-                  </div>
-                  <p>6_components/progress.css</p>
-                </div>
-
-            </section>
-          </div>
-        </section>
+      </section>
       </article>
     </main>
     <!-- HTML Include: site footer -->

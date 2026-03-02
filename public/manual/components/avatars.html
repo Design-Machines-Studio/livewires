@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-avatars">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Avatars</h1>
+          <p class="lead">Image-based user identification with round and square variants.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Sizes</h2>
+                <p>Avatars come in four sizes using <code>--line-*</code> spacing tokens.</p>
+                <popup-dialog title="Avatar HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;span class="avatar avatar--small"&gt;
+  &lt;img src="photo.jpg" alt="Name"&gt;
+&lt;/span&gt;
+
+&lt;span class="avatar"&gt;
+  &lt;img src="photo.jpg" alt="Name"&gt;
+&lt;/span&gt;
+
+&lt;span class="avatar avatar--large"&gt;
+  &lt;img src="photo.jpg" alt="Name"&gt;
+&lt;/span&gt;
+
+&lt;span class="avatar avatar--xlarge"&gt;
+  &lt;img src="photo.jpg" alt="Name"&gt;
+&lt;/span&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="cluster" style="align-items: center;">
+                <span class="avatar avatar--small" style="background: var(--color-grey-300);"></span>
+                <span class="avatar" style="background: var(--color-grey-300);"></span>
+                <span class="avatar avatar--large" style="background: var(--color-grey-300);"></span>
+                <span class="avatar avatar--xlarge" style="background: var(--color-grey-300);"></span>
+              </div>
+              <ul class="stack stack-compact text-sm" style="list-style: none; padding: 0;">
+                <li><code>.avatar--small</code> — 1.5 lines</li>
+                <li><code>.avatar</code> — 2 lines (default)</li>
+                <li><code>.avatar--large</code> — 3 lines</li>
+                <li><code>.avatar--xlarge</code> — 8 lines</li>
+              </ul>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Shapes</h2>
+                <p>Round by default, with a square variant for logos or icons.</p>
+                <popup-dialog title="Shape Variants HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;!-- Round (default) --&gt;
+&lt;span class="avatar"&gt;
+  &lt;img src="photo.jpg" alt="Name"&gt;
+&lt;/span&gt;
+
+&lt;!-- Square --&gt;
+&lt;span class="avatar avatar--square"&gt;
+  &lt;img src="logo.png" alt="Company"&gt;
+&lt;/span&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="cluster">
+                <span class="avatar avatar--large" style="background: var(--color-grey-300);"></span>
+                <span class="avatar avatar--large avatar--square" style="background: var(--color-grey-300);"></span>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Avatar group</h2>
+                <p>Overlapping avatars for showing multiple users.</p>
+                <popup-dialog title="Avatar Group HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="avatar-group"&gt;
+  &lt;span class="avatar"&gt;&lt;img src="user1.jpg" alt="User 1"&gt;&lt;/span&gt;
+  &lt;span class="avatar"&gt;&lt;img src="user2.jpg" alt="User 2"&gt;&lt;/span&gt;
+  &lt;span class="avatar"&gt;&lt;img src="user3.jpg" alt="User 3"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="avatar-group">
+                <span class="avatar" style="background: var(--color-blue-300);"></span>
+                <span class="avatar" style="background: var(--color-green-300);"></span>
+                <span class="avatar" style="background: var(--color-orange-300);"></span>
+                <span class="avatar" style="background: var(--color-red-300);"></span>
+              </div>
+            </section>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

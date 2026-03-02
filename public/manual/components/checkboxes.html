@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-checkboxes">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Toggles</h1>
+          <p class="lead">Checkboxes, radios, and switches — custom styled form controls with validation states.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Checkboxes</h2>
+                <p>Wrap a hidden input inside a label. The pseudo-elements create the visual indicator.</p>
+                <popup-dialog title="Checkbox HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="checkbox"&gt;
+  &lt;input type="checkbox" name="option" value="1"&gt;
+  Option label
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <ul class="stack stack-compact" style="list-style: none; padding: 0;">
+                <li>
+                  <label class="checkbox">
+                    <input type="checkbox" name="demo-a" value="1">
+                    Unchecked
+                  </label>
+                </li>
+                <li>
+                  <label class="checkbox">
+                    <input type="checkbox" name="demo-b" value="1" checked>
+                    Checked
+                  </label>
+                </li>
+                <li>
+                  <label class="checkbox">
+                    <input type="checkbox" name="demo-c" value="1" disabled>
+                    Disabled
+                  </label>
+                </li>
+              </ul>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Radios</h2>
+                <p>Same pattern as checkboxes but with circular indicators.</p>
+                <popup-dialog title="Radio HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="radio"&gt;
+  &lt;input type="radio" name="group" value="a"&gt;
+  Option A
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <ul class="stack stack-compact" style="list-style: none; padding: 0;">
+                <li>
+                  <label class="radio">
+                    <input type="radio" name="demo-radio" value="a" checked>
+                    Selected
+                  </label>
+                </li>
+                <li>
+                  <label class="radio">
+                    <input type="radio" name="demo-radio" value="b">
+                    Unselected
+                  </label>
+                </li>
+              </ul>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Size variants</h2>
+                <popup-dialog title="Size Variants HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="checkbox checkbox--small"&gt;...&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <ul class="stack stack-compact" style="list-style: none; padding: 0;">
+                <li>
+                  <label class="checkbox checkbox--small">
+                    <input type="checkbox" name="sm" value="1" checked>
+                    Small
+                  </label>
+                </li>
+                <li>
+                  <label class="checkbox">
+                    <input type="checkbox" name="def" value="1" checked>
+                    Default
+                  </label>
+                </li>
+              </ul>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Color variants</h2>
+                <p>Semantic colors for validation and status.</p>
+                <popup-dialog title="Color Variants HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="checkbox checkbox--ok"&gt;...&lt;/label&gt;
+&lt;label class="checkbox checkbox--warning"&gt;...&lt;/label&gt;
+&lt;label class="checkbox checkbox--danger"&gt;...&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <ul class="stack stack-compact" style="list-style: none; padding: 0;">
+                <li>
+                  <label class="checkbox checkbox--ok">
+                    <input type="checkbox" name="ok" value="1" checked>
+                    Success
+                  </label>
+                </li>
+                <li>
+                  <label class="checkbox checkbox--warning">
+                    <input type="checkbox" name="warn" value="1" checked>
+                    Warning
+                  </label>
+                </li>
+                <li>
+                  <label class="checkbox checkbox--danger">
+                    <input type="checkbox" name="danger" value="1" checked>
+                    Danger
+                  </label>
+                </li>
+              </ul>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Icon-only checkbox</h2>
+                <p>A compact checkbox that hides label text. Use in tables or matrices.</p>
+                <popup-dialog title="Icon Checkbox HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="checkbox checkbox--icon"&gt;
+  &lt;input type="checkbox" name="select" value="1"&gt;
+  Select row
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="cluster">
+                <label class="checkbox checkbox--icon">
+                  <input type="checkbox" name="icon-a" value="1">
+                  Select
+                </label>
+                <label class="checkbox checkbox--icon">
+                  <input type="checkbox" name="icon-b" value="1" checked>
+                  Select
+                </label>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Check lists</h2>
+                <p>Vertical and inline layouts for groups of checkboxes or radios.</p>
+                <popup-dialog title="Check List HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;ul class="check-list"&gt;
+  &lt;li&gt;&lt;label class="checkbox"&gt;...&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul class="check-list check-list--inline"&gt;
+  &lt;li&gt;&lt;label class="checkbox"&gt;...&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <p class="text-sm text-muted">Inline layout:</p>
+              <ul class="check-list check-list--inline">
+                <li>
+                  <label class="checkbox">
+                    <input type="checkbox" name="tag" value="design" checked>
+                    Design
+                  </label>
+                </li>
+                <li>
+                  <label class="checkbox">
+                    <input type="checkbox" name="tag" value="code">
+                    Code
+                  </label>
+                </li>
+                <li>
+                  <label class="checkbox">
+                    <input type="checkbox" name="tag" value="docs">
+                    Docs
+                  </label>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Toggle switch</h2>
+                <p>A binary on/off control built from radio inputs.</p>
+                <popup-dialog title="Switch HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="switch"&gt;
+  &lt;input id="on" name="toggle" type="radio" checked&gt;
+  &lt;label for="on"&gt;On&lt;/label&gt;
+  &lt;input id="off" name="toggle" type="radio"&gt;
+  &lt;label for="off"&gt;Off&lt;/label&gt;
+  &lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="switch">
+                <input id="switch-on" name="switch-demo" type="radio" checked>
+                <label for="switch-on" onclick="">On</label>
+                <input id="switch-off" name="switch-demo" type="radio">
+                <label for="switch-off" onclick="">Off</label>
+                <span></span>
+              </div>
+            </section>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

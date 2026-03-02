@@ -1,0 +1,76 @@
+/**
+ * Cards
+ *
+ * Bordered content containers for stats, info panels, and activity items.
+ * Composes with .box and .stack layout primitives for internal spacing.
+ *
+ * @example
+ * <div class="card box stack">
+ *   <h3 class="title">Revenue</h3>
+ *   <p class="value">$12,450</p>
+ * </div>
+ */
+
+@layer components {
+  .card {
+    background: var(--color-bg);
+    border: var(--line-1px) solid var(--color-border);
+    border-radius: var(--radius-normal);
+
+    & .title {
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      color: var(--color-muted);
+      margin: 0;
+    }
+
+    & .value {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      line-height: var(--leading-tight);
+      margin: 0;
+    }
+
+    & .description {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      margin: 0;
+    }
+
+    & .header {
+      border-block-end: var(--line-1px) solid var(--color-border);
+    }
+  }
+
+  /* Variants */
+  .card--subtle {
+    background: var(--color-subtle);
+    border-color: transparent;
+  }
+
+  .card--borderless {
+    border-color: transparent;
+  }
+
+  /* Clickable card */
+  a.card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      box-shadow: 0 4px 12px var(--overlay-shadow);
+    }
+  }
+
+  /* Activity card (list item pattern) */
+  .activity-card {
+    padding-block: var(--line-1);
+    border-block-end: var(--line-1px) solid var(--color-border);
+
+    &:last-child {
+      border-block-end: none;
+    }
+  }
+}

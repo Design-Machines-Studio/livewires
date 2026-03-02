@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-tabs">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Tabs</h1>
+          <p class="lead">Tab navigation for switching between content panels.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Standard tabs</h2>
+                <p>Uses ARIA tab pattern with <code>role="tablist"</code>, <code>role="tab"</code>, and <code>role="tabpanel"</code>.</p>
+                <popup-dialog title="Tabs HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="tabs"&gt;
+  &lt;div class="list" role="tablist"&gt;
+    &lt;button class="tab" role="tab" aria-selected="true"&gt;Tab 1&lt;/button&gt;
+    &lt;button class="tab" role="tab"&gt;Tab 2&lt;/button&gt;
+    &lt;button class="tab" role="tab"&gt;Tab 3&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="panel" role="tabpanel"&gt;
+    &lt;p&gt;Tab content here.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="tabs">
+                <div class="list" role="tablist">
+                  <button class="tab" role="tab" aria-selected="true">Overview</button>
+                  <button class="tab" role="tab" aria-selected="false">Details</button>
+                  <button class="tab" role="tab" aria-selected="false">History</button>
+                </div>
+                <div class="panel" role="tabpanel">
+                  <p>Overview content goes here.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Pills variant</h2>
+                <p>Rounded pill-style tabs without the underline indicator.</p>
+                <popup-dialog title="Pills HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="tabs tabs--pills"&gt;
+  &lt;div class="list" role="tablist"&gt;
+    &lt;button class="tab" role="tab" aria-selected="true"&gt;All&lt;/button&gt;
+    &lt;button class="tab" role="tab"&gt;Active&lt;/button&gt;
+    &lt;button class="tab" role="tab"&gt;Archived&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="tabs tabs--pills">
+                <div class="list" role="tablist">
+                  <button class="tab" role="tab" aria-selected="true">All</button>
+                  <button class="tab" role="tab" aria-selected="false">Active</button>
+                  <button class="tab" role="tab" aria-selected="false">Archived</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Link-based tabs</h2>
+                <p>Use anchor tags with <code>aria-selected="true"</code> for navigation-style tabs.</p>
+                <popup-dialog title="Link Tabs HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="tabs"&gt;
+  &lt;nav class="list"&gt;
+    &lt;a class="tab" aria-selected="true" href="#"&gt;Overview&lt;/a&gt;
+    &lt;a class="tab" href="#"&gt;Details&lt;/a&gt;
+    &lt;a class="tab" href="#"&gt;History&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="tabs">
+                <nav class="list">
+                  <a class="tab" aria-selected="true" href="#">Overview</a>
+                  <a class="tab" href="#">Details</a>
+                  <a class="tab" href="#">History</a>
+                </nav>
+              </div>
+            </section>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

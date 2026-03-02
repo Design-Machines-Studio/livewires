@@ -1,0 +1,107 @@
+/**
+ * Dropdown Menus
+ *
+ * Toggleable overlay menus for actions and navigation.
+ * Toggle via JS (data-open attribute) or :focus-within.
+ *
+ * @example
+ * <div class="dropdown">
+ *   <button class="button trigger">Menu</button>
+ *   <ul class="menu">
+ *     <li><a href="#">Action 1</a></li>
+ *     <li><a href="#">Action 2</a></li>
+ *   </ul>
+ * </div>
+ */
+
+@layer components {
+  .dropdown {
+    position: relative;
+    display: inline-block;
+
+    & .trigger {
+      cursor: pointer;
+    }
+
+    & .menu {
+      position: absolute;
+      inset-block-start: 100%;
+      inset-inline-start: 0;
+      z-index: 10;
+
+      min-inline-size: calc(var(--line) * 8);
+      margin-block-start: var(--line-025);
+      padding-block: var(--line-025);
+
+      background: var(--color-bg);
+      border: var(--line-1px) solid var(--color-border);
+      border-radius: var(--radius-normal);
+      box-shadow: 0 4px 12px var(--overlay-shadow);
+      list-style: none;
+
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(calc(var(--line-025) * -1));
+      transition: opacity var(--duration-fast),
+                  transform var(--duration-fast),
+                  visibility var(--duration-fast);
+
+      & a,
+      & button {
+        display: block;
+        inline-size: 100%;
+        padding: var(--line-025) var(--line-05);
+        text-align: start;
+        text-decoration: none;
+        color: var(--color-fg);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: var(--text-sm);
+        white-space: nowrap;
+
+        &:hover,
+        &:focus {
+          background: var(--color-subtle);
+          outline: none;
+        }
+
+        &:focus-visible {
+          outline: 2px solid var(--color-accent);
+          outline-offset: -2px;
+        }
+      }
+
+      & hr {
+        margin-block: var(--line-025);
+        border: none;
+        border-block-start: var(--line-1px) solid var(--color-subtle);
+      }
+
+      & [disabled] {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
+
+  /* Open state */
+  .dropdown[data-open] .menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Alignment variants */
+  .dropdown--end .menu {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+  }
+
+  .dropdown--up .menu {
+    inset-block-start: auto;
+    inset-block-end: 100%;
+    margin-block-start: 0;
+    margin-block-end: var(--line-025);
+  }
+}

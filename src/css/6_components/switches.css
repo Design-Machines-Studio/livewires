@@ -20,10 +20,10 @@
     position: relative;
     overflow: hidden;
     display: inline-block;
+    inline-size: fit-content;
     block-size: var(--line-15);
     padding: 0;
-    margin-block-end: var(--line-1);
-    line-height: 2.5;
+    line-height: var(--line-15);
     font-family: var(--font-sans);
     border-radius: var(--button-radius);
     background: var(--color-fg);

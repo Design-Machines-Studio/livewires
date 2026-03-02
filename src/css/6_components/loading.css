@@ -1,0 +1,73 @@
+/**
+ * Loading Indicators
+ *
+ * CSS-only shimmer/skeleton animation for loading states.
+ * Respects prefers-reduced-motion.
+ *
+ * @example
+ * <div class="loading">
+ *   <div class="skeleton skeleton--heading"></div>
+ *   <div class="skeleton skeleton--text"></div>
+ *   <div class="skeleton skeleton--text"></div>
+ * </div>
+ */
+
+@layer components {
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--line-05);
+
+    & .skeleton {
+      background: linear-gradient(
+        90deg,
+        var(--color-subtle) 25%,
+        var(--color-bg) 50%,
+        var(--color-subtle) 75%
+      );
+      background-size: 200% 100%;
+      animation: shimmer var(--duration-slow) var(--ease-linear) infinite;
+      border-radius: var(--radius-tight);
+      min-block-size: var(--line-1);
+    }
+
+    /* Shape variants */
+    & .skeleton--text {
+      block-size: var(--line-075);
+      max-inline-size: 80%;
+    }
+
+    & .skeleton--heading {
+      block-size: var(--line-15);
+      max-inline-size: 50%;
+    }
+
+    & .skeleton--avatar {
+      inline-size: var(--line-2);
+      block-size: var(--line-2);
+      border-radius: 50%;
+    }
+
+    & .skeleton--image {
+      block-size: calc(var(--line) * 8);
+    }
+
+    /* Staggered animation for children */
+    & .skeleton:nth-child(2) { animation-delay: 0.1s; }
+    & .skeleton:nth-child(3) { animation-delay: 0.2s; }
+    & .skeleton:nth-child(4) { animation-delay: 0.3s; }
+  }
+
+  /* Respect motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .loading .skeleton {
+      animation: none;
+    }
+  }
+}

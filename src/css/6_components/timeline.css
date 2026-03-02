@@ -1,0 +1,104 @@
+/**
+ * Timeline
+ *
+ * Vertical timeline for displaying chronological events.
+ * Renders as a list with a vertical line and marker dots.
+ * Use data-status attribute for semantic marker colors.
+ *
+ * @example
+ * <ol class="timeline">
+ *   <li>
+ *     <time class="date">Jan 2024</time>
+ *     <div class="content">
+ *       <h3>Event title</h3>
+ *       <p>Event description.</p>
+ *     </div>
+ *   </li>
+ *   <li data-status="success">
+ *     <time class="date">Feb 2024</time>
+ *     <div class="content">
+ *       <h3>Completed</h3>
+ *     </div>
+ *   </li>
+ * </ol>
+ */
+
+@layer components {
+  .timeline {
+    --timeline-dot-size: var(--line-05);
+    --timeline-indent: var(--line-2);
+
+    position: relative;
+    padding-inline-start: var(--timeline-indent);
+    list-style: none;
+    margin: 0;
+
+    /* Vertical line */
+    &::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: calc(var(--timeline-dot-size) / 2 - var(--line-1px));
+      inset-block: var(--line-05);
+      inline-size: calc(var(--line-1px) * 2);
+      background: var(--color-border);
+    }
+
+    & li {
+      position: relative;
+      padding-block-end: var(--line-1);
+
+      &:last-child {
+        padding-block-end: 0;
+      }
+
+      /* Dot marker */
+      &::before {
+        content: '';
+        position: absolute;
+        inset-inline-start: calc(var(--timeline-indent) * -1);
+        inset-block-start: var(--line-025);
+        inline-size: var(--timeline-dot-size);
+        block-size: var(--timeline-dot-size);
+        border-radius: 50%;
+        background: var(--color-accent);
+        border: calc(var(--line-1px) * 2) solid var(--color-bg);
+      }
+
+      /* Status-based marker colors */
+      &[data-status="success"]::before {
+        background: var(--color-success);
+      }
+
+      &[data-status="warning"]::before {
+        background: var(--color-warning);
+      }
+
+      &[data-status="error"]::before {
+        background: var(--color-error);
+      }
+    }
+
+    & .date {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-4xl);
+      line-height: var(--line-height-sm);
+    }
+
+    & .content {
+      font-size: var(--text-sm);
+
+      & h3 {
+        margin: 0;
+      }
+
+      & p {
+        color: var(--color-muted);
+        margin-block-start: var(--line-025);
+      }
+    }
+  }
+}

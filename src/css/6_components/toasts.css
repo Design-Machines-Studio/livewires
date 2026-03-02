@@ -1,0 +1,108 @@
+/**
+ * Toast Notifications
+ *
+ * Dismissible notification messages for user feedback.
+ * Position with .imposter-fixed layout primitive or utility classes.
+ *
+ * @example
+ * <div class="toast toast--success">
+ *   <p class="content">Changes saved.</p>
+ *   <button class="close" aria-label="Dismiss">&times;</button>
+ * </div>
+ */
+
+@layer components {
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--line-05);
+    padding: var(--line-05) var(--line-075);
+    max-inline-size: calc(var(--line) * 16);
+
+    background: var(--color-subtle);
+    color: var(--color-fg);
+    border: var(--line-1px) solid var(--color-border);
+    border-inline-start: calc(var(--line-1px) * 3) solid var(--color-accent);
+    border-radius: var(--radius-normal);
+    box-shadow: 0 4px 12px var(--overlay-shadow);
+    font-size: var(--text-sm);
+
+    animation: toast-in var(--duration-fast) var(--ease-out);
+
+    & .content {
+      flex: 1;
+      margin: 0;
+    }
+
+    & .close {
+      flex-shrink: 0;
+      padding: 0;
+      background: none;
+      border: none;
+      font-size: 1.25em;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--color-muted);
+      min-block-size: auto;
+
+      &:hover {
+        color: var(--color-fg);
+      }
+    }
+  }
+
+  .toast--dismissing {
+    animation: toast-out var(--duration-fast) var(--ease-in) forwards;
+  }
+
+  /* Semantic variants */
+  .toast--success {
+    background: var(--color-green-100);
+    color: var(--color-green-900);
+    border-color: var(--color-green-200);
+    border-inline-start-color: var(--color-success);
+  }
+
+  .toast--error {
+    background: var(--color-red-100);
+    color: var(--color-red-900);
+    border-color: var(--color-red-200);
+    border-inline-start-color: var(--color-error);
+  }
+
+  .toast--warning {
+    background: var(--color-yellow-100);
+    color: var(--color-yellow-900);
+    border-color: var(--color-yellow-200);
+    border-inline-start-color: var(--color-warning);
+  }
+
+  .toast--info {
+    background: var(--color-blue-100);
+    color: var(--color-blue-900);
+    border-color: var(--color-blue-200);
+    border-inline-start-color: var(--color-accent);
+  }
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--line-1));
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes toast-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(var(--line-1));
+    }
+  }
+}

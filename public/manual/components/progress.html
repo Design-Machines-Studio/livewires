@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-progress">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Progress</h1>
+          <p class="lead">Progress bars and stacked distribution bars for showing completion and breakdown.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Progress bar</h2>
+                <p>Set width on the <code>.fill</code> child to indicate completion.</p>
+                <popup-dialog title="Progress Bar HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="progress-bar"&gt;
+  &lt;div class="fill" style="width: 65%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="progress-bar progress-bar--thick"&gt;
+  &lt;div class="fill" style="width: 45%"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="stack">
+                <div>
+                  <p class="text-sm text-muted">Default</p>
+                  <div class="progress-bar">
+                    <div class="fill" style="width: 65%"></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-sm text-muted">Thick variant</p>
+                  <div class="progress-bar progress-bar--thick">
+                    <div class="fill" style="width: 45%"></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-sm text-muted">Near complete</p>
+                  <div class="progress-bar">
+                    <div class="fill" style="width: 90%"></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-sm text-muted">Just started</p>
+                  <div class="progress-bar">
+                    <div class="fill" style="width: 10%"></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Stacked bar</h2>
+                <p>Show distribution across categories. Each <code>.segment</code> gets a width.</p>
+                <popup-dialog title="Stacked Bar HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="stacked-bar"&gt;
+  &lt;div class="segment segment--primary" style="width: 40%"&gt;&lt;/div&gt;
+  &lt;div class="segment segment--secondary" style="width: 35%"&gt;&lt;/div&gt;
+  &lt;div class="segment segment--muted" style="width: 25%"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="stack">
+                <div>
+                  <p class="text-sm text-muted">Three-way split</p>
+                  <div class="stacked-bar">
+                    <div class="segment segment--primary" style="width: 40%"></div>
+                    <div class="segment segment--secondary" style="width: 35%"></div>
+                    <div class="segment segment--muted" style="width: 25%"></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-sm text-muted">Two-way split</p>
+                  <div class="stacked-bar">
+                    <div class="segment segment--primary" style="width: 70%"></div>
+                    <div class="segment segment--muted" style="width: 30%"></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
