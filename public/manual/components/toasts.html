@@ -27,15 +27,15 @@
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;div class="toast"&gt;
-  &lt;p class="toast-content"&gt;Something happened.&lt;/p&gt;
-  &lt;button class="toast-close" aria-label="Dismiss"&gt;&amp;times;&lt;/button&gt;
+  &lt;p class="content"&gt;Something happened.&lt;/p&gt;
+  &lt;button class="close" aria-label="Dismiss"&gt;&amp;times;&lt;/button&gt;
 &lt;/div&gt;</code></pre>
                   </div>
                 </popup-dialog>
               </header>
               <div class="toast" style="position: relative;">
-                <p class="toast-content">Something happened.</p>
-                <button class="toast-close" aria-label="Dismiss">&times;</button>
+                <p class="content">Something happened.</p>
+                <button class="close" aria-label="Dismiss">&times;</button>
               </div>
             </section>
 
@@ -55,45 +55,30 @@
               </header>
               <div class="stack stack-compact">
                 <div class="toast toast--success" style="position: relative;">
-                  <p class="toast-content">Changes saved successfully.</p>
-                  <button class="toast-close" aria-label="Dismiss">&times;</button>
+                  <p class="content">Changes saved successfully.</p>
+                  <button class="close" aria-label="Dismiss">&times;</button>
                 </div>
                 <div class="toast toast--error" style="position: relative;">
-                  <p class="toast-content">Something went wrong.</p>
-                  <button class="toast-close" aria-label="Dismiss">&times;</button>
+                  <p class="content">Something went wrong.</p>
+                  <button class="close" aria-label="Dismiss">&times;</button>
                 </div>
                 <div class="toast toast--warning" style="position: relative;">
-                  <p class="toast-content">Please review before continuing.</p>
-                  <button class="toast-close" aria-label="Dismiss">&times;</button>
+                  <p class="content">Please review before continuing.</p>
+                  <button class="close" aria-label="Dismiss">&times;</button>
                 </div>
                 <div class="toast toast--info" style="position: relative;">
-                  <p class="toast-content">New version available.</p>
-                  <button class="toast-close" aria-label="Dismiss">&times;</button>
+                  <p class="content">New version available.</p>
+                  <button class="close" aria-label="Dismiss">&times;</button>
                 </div>
               </div>
             </section>
 
             <section class="stack">
               <header>
-                <h2>Toast container</h2>
-                <p>Stack toasts in a fixed-position container at the top right of the viewport.</p>
-                <popup-dialog title="Toast Container HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
-                  <div slot="body">
-                    <pre><code>&lt;div class="toast-container"&gt;
-  &lt;div class="toast toast--success"&gt;
-    &lt;p class="toast-content"&gt;Toast 1&lt;/p&gt;
-    &lt;button class="toast-close" aria-label="Dismiss"&gt;&amp;times;&lt;/button&gt;
-  &lt;/div&gt;
-  &lt;div class="toast toast--info"&gt;
-    &lt;p class="toast-content"&gt;Toast 2&lt;/p&gt;
-    &lt;button class="toast-close" aria-label="Dismiss"&gt;&amp;times;&lt;/button&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-                  </div>
-                </popup-dialog>
+                <h2>Positioning toasts</h2>
+                <p>Use the <code>.imposter-fixed</code> layout primitive to position a toast container in the viewport.</p>
               </header>
-              <p class="text-sm text-muted">The container uses <code>position: fixed</code> to anchor toasts to the top-right corner.</p>
+              <p class="text-sm text-muted">Compose layout primitives rather than using a toast-specific container class.</p>
             </section>
           </div>
         </section>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-buttons">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Buttons</h1>
+          <p class="lead">Styled button and link variants for actions and navigation.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Variants</h2>
+                <p>Apply <code>.button</code> to links or buttons. Add <code>.button--accent</code> for emphasis.</p>
+                <popup-dialog title="Button Variants HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;button class="button"&gt;Default&lt;/button&gt;
+&lt;a href="#" class="button button--accent"&gt;Accent&lt;/a&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="stack stack-compact">
+                <div><button class="button">Default button</button></div>
+                <div><a href="#" class="button button--accent">Accent button</a></div>
+                <div><button class="button" disabled>Disabled button</button></div>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Sizes</h2>
+                <p>Use <code>.button--small</code> or <code>.button--large</code> to adjust scale.</p>
+                <popup-dialog title="Button Sizes HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;a href="#" class="button button--small"&gt;Small&lt;/a&gt;
+&lt;a href="#" class="button"&gt;Default&lt;/a&gt;
+&lt;a href="#" class="button button--large"&gt;Large&lt;/a&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="stack stack-compact">
+                <div><a href="#" class="button button--small">Small button</a></div>
+                <div><a href="#" class="button">Default button</a></div>
+                <div><a href="#" class="button button--large">Large button</a></div>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>With icon</h2>
+                <p>Add <code>.with-icon</code> and an <code>.icon</code> image inside the button.</p>
+                <popup-dialog title="Icon Button HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;a href="#" class="button with-icon"&gt;
+  &lt;img src="icon.svg" class="icon" /&gt; Label
+&lt;/a&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div>
+                <a href="#" class="button with-icon"><img src="/img/livewires/lw.svg" alt="" class="icon" /> Icon button</a>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Button group</h2>
+                <p>Wrap buttons in <code>.button-group</code> to join them visually.</p>
+                <popup-dialog title="Button Group HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="button-group"&gt;
+  &lt;a href="#" class="button"&gt;One&lt;/a&gt;
+  &lt;a href="#" class="button"&gt;Two&lt;/a&gt;
+  &lt;a href="#" class="button"&gt;Three&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="button-group">
+                <a href="#" class="button">One</a>
+                <a href="#" class="button">Two</a>
+                <a href="#" class="button">Three</a>
+              </div>
+            </section>
+          </div>
+        </section>
+
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
