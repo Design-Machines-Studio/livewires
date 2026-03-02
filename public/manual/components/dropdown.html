@@ -22,13 +22,13 @@
             <section class="stack">
               <header>
                 <h2>Basic dropdown</h2>
-                <p>Toggle via <code>.is-open</code> class or <code>[open]</code> attribute on the container.</p>
+                <p>Toggle via <code>data-open</code> attribute on the container.</p>
                 <popup-dialog title="Dropdown HTML">
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
-                    <pre><code>&lt;div class="dropdown is-open"&gt;
-  &lt;button class="button dropdown-trigger"&gt;Menu&lt;/button&gt;
-  &lt;ul class="dropdown-menu"&gt;
+                    <pre><code>&lt;div class="dropdown" data-open&gt;
+  &lt;button class="button trigger"&gt;Menu&lt;/button&gt;
+  &lt;ul class="menu"&gt;
     &lt;li&gt;&lt;a href="#"&gt;Action 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="#"&gt;Action 2&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;hr&gt;&lt;/li&gt;
@@ -38,9 +38,9 @@
                   </div>
                 </popup-dialog>
               </header>
-              <div class="dropdown is-open" style="position: relative; z-index: 3;">
-                <button class="button dropdown-trigger">Menu</button>
-                <ul class="dropdown-menu">
+              <div class="dropdown" data-open style="position: relative; z-index: 3;">
+                <button class="button trigger">Menu</button>
+                <ul class="menu">
                   <li><a href="#">Edit</a></li>
                   <li><a href="#">Duplicate</a></li>
                   <li><hr></li>
@@ -57,7 +57,7 @@
                 <popup-dialog title="Dividers HTML">
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
-                    <pre><code>&lt;ul class="dropdown-menu"&gt;
+                    <pre><code>&lt;ul class="menu"&gt;
   &lt;li&gt;&lt;a href="#"&gt;View&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="#"&gt;Edit&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;hr&gt;&lt;/li&gt;
@@ -66,9 +66,9 @@
                   </div>
                 </popup-dialog>
               </header>
-              <div class="dropdown is-open" style="position: relative; z-index: 2;">
-                <button class="button dropdown-trigger">More</button>
-                <ul class="dropdown-menu">
+              <div class="dropdown" data-open style="position: relative; z-index: 2;">
+                <button class="button trigger">More</button>
+                <ul class="menu">
                   <li><a href="#">View</a></li>
                   <li><a href="#">Edit</a></li>
                   <li><hr></li>
@@ -80,36 +80,48 @@
 
             <section class="stack">
               <header>
-                <h2>Alignment</h2>
-                <p>End-align the menu with <code>.dropdown--end</code>. Open upward with <code>.dropdown--up</code>.</p>
-                <popup-dialog title="Alignment Variants HTML">
+                <h2>End-aligned</h2>
+                <p>Align the menu to the end edge with <code>.dropdown--end</code>.</p>
+                <popup-dialog title="End-aligned HTML">
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
-                    <pre><code>&lt;div class="dropdown dropdown--end"&gt;...&lt;/div&gt;
-&lt;div class="dropdown dropdown--up"&gt;...&lt;/div&gt;</code></pre>
+                    <pre><code>&lt;div class="dropdown dropdown--end" data-open&gt;...&lt;/div&gt;</code></pre>
                   </div>
                 </popup-dialog>
               </header>
-              <div class="cluster" style="gap: var(--line-2);">
-                <div class="dropdown dropdown--end is-open" style="position: relative; z-index: 2;">
-                  <button class="button dropdown-trigger">End-aligned</button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Settings</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div style="min-height: var(--line-5);"></div>
-              <div style="min-height: var(--line-6);"></div>
-              <div class="dropdown dropdown--up is-open" style="position: relative; z-index: 1;">
-                <button class="button dropdown-trigger">Upward</button>
-                <ul class="dropdown-menu">
-                  <li><a href="#">View</a></li>
-                  <li><a href="#">Export</a></li>
+              <div class="dropdown dropdown--end" data-open style="position: relative; z-index: 2;">
+                <button class="button trigger">End-aligned</button>
+                <ul class="menu">
+                  <li><a href="#">Profile</a></li>
+                  <li><a href="#">Settings</a></li>
                 </ul>
               </div>
+              <div style="min-height: var(--line-4);"></div>
             </section>
           </div>
+        </section>
+
+        <section class="section">
+          <section class="stack">
+            <header>
+              <h2>Upward</h2>
+              <p>Open the menu above the trigger with <code>.dropdown--up</code>.</p>
+              <popup-dialog title="Upward HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;div class="dropdown dropdown--up" data-open&gt;...&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div style="min-height: var(--line-4);"></div>
+            <div class="dropdown dropdown--up" data-open style="position: relative;">
+              <button class="button trigger">Upward</button>
+              <ul class="menu">
+                <li><a href="#">View</a></li>
+                <li><a href="#">Export</a></li>
+              </ul>
+            </div>
+          </section>
         </section>
 
       </article>
