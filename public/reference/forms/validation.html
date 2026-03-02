@@ -1,0 +1,24 @@
+<!-- Required field -->
+<label for="required-field">Required field <span aria-hidden="true">*</span></label>
+<input type="text" id="required-field" name="required" required aria-required="true">
+
+<!-- Field with error -->
+<label for="error-field">Email</label>
+<input type="email" id="error-field" name="email" value="invalid" aria-invalid="true" aria-describedby="error-msg">
+<p id="error-msg" role="alert">Please enter a valid email address.</p>
+
+<!-- Checkbox validation variants -->
+<label class="checkbox checkbox--ok">
+  <input type="checkbox" name="ok" value="1" checked>
+  Approved
+</label>
+
+<label class="checkbox checkbox--warning">
+  <input type="checkbox" name="warn" value="1">
+  Needs review
+</label>
+
+<label class="checkbox checkbox--danger">
+  <input type="checkbox" name="danger" value="1">
+  Rejected
+</label>
