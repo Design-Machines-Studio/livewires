@@ -1,0 +1,109 @@
+/**
+ * Tabs
+ *
+ * Tab navigation for switching between content panels.
+ * Works with ARIA tab pattern for accessibility.
+ *
+ * @example
+ * <div class="tabs">
+ *   <div class="tabs__list" role="tablist">
+ *     <button class="tabs__tab" role="tab" aria-selected="true">Tab 1</button>
+ *     <button class="tabs__tab" role="tab">Tab 2</button>
+ *   </div>
+ *   <div class="tabs__panel" role="tabpanel">Content 1</div>
+ *   <div class="tabs__panel" role="tabpanel" hidden>Content 2</div>
+ * </div>
+ */
+
+@layer components {
+  .tabs {
+    --tabs-border: var(--color-border);
+    --tabs-active-border: var(--color-accent);
+  }
+
+  .tabs__list {
+    display: flex;
+    gap: var(--line-025);
+    border-block-end: var(--line-1px) solid var(--tabs-border);
+  }
+
+  .tabs__tab {
+    position: relative;
+    padding: var(--line-025) var(--line-075);
+    margin-block-end: calc(var(--line-1px) * -1);
+
+    background: transparent;
+    border: var(--line-1px) solid transparent;
+    border-block-end: none;
+    border-radius: var(--radius-normal) var(--radius-normal) 0 0;
+
+    font: inherit;
+    font-weight: var(--font-medium);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: color var(--duration-fast);
+
+    &:hover {
+      color: var(--color-fg);
+    }
+
+    /* Active tab */
+    &[aria-selected="true"],
+    &.is-active {
+      background: var(--color-bg);
+      border-color: var(--tabs-border);
+      color: var(--color-fg);
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset-block-end: 0;
+        inset-inline: 0;
+        block-size: calc(var(--line-1px) * 2);
+        background: var(--tabs-active-border);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  .tabs__panel {
+    padding-block-start: var(--line-1);
+    animation: tab-fade-in var(--duration-fast) var(--ease-out);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  @keyframes tab-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Variant: Pills */
+  .tabs--pills .tabs__list {
+    border-block-end: none;
+    gap: var(--line-025);
+  }
+
+  .tabs--pills .tabs__tab {
+    border: none;
+    border-radius: var(--radius-normal);
+    margin-block-end: 0;
+
+    &[aria-selected="true"],
+    &.is-active {
+      background: var(--color-subtle);
+      color: var(--color-fg);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
