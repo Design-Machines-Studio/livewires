@@ -13,8 +13,8 @@
       <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
       <article class="prose">
         <header class="section scheme-dark">
-          <h1>Checkboxes &amp; radios</h1>
-          <p class="lead">Custom styled form controls with validation states and size variants.</p>
+          <h1>Toggles</h1>
+          <p class="lead">Checkboxes, radios, and switches — custom styled form controls with validation states.</p>
         </header>
 
         <section class="section">
@@ -210,6 +210,36 @@
                   </label>
                 </li>
               </ul>
+            </section>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Toggle switch</h2>
+                <p>A binary on/off control built from radio inputs.</p>
+                <popup-dialog title="Switch HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="switch"&gt;
+  &lt;input id="on" name="toggle" type="radio" checked&gt;
+  &lt;label for="on"&gt;On&lt;/label&gt;
+  &lt;input id="off" name="toggle" type="radio"&gt;
+  &lt;label for="off"&gt;Off&lt;/label&gt;
+  &lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="switch">
+                <input id="switch-on" name="switch-demo" type="radio" checked>
+                <label for="switch-on" onclick="">On</label>
+                <input id="switch-off" name="switch-demo" type="radio">
+                <label for="switch-off" onclick="">Off</label>
+                <span></span>
+              </div>
             </section>
           </div>
         </section>
