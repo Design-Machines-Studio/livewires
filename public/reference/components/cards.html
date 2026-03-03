@@ -13,14 +13,14 @@
     <article class="section prose">
       <h1>Cards</h1>
 <!-- Stat card -->
-<div class="card box stack">
+<div class="card rounded box stack">
   <p class="title">Revenue</p>
   <p class="value">$12,450</p>
   <p class="description">+12% from last month</p>
 </div>
 
 <!-- Card with header -->
-<div class="card">
+<div class="card rounded">
   <div class="header box">
     <h3>Panel Title</h3>
   </div>
@@ -30,21 +30,44 @@
 </div>
 
 <!-- Subtle card -->
-<div class="card card--subtle box stack">
+<div class="card card--subtle rounded box stack">
   <p class="title">Users</p>
   <p class="value">1,234</p>
 </div>
 
 <!-- Borderless card -->
-<div class="card card--borderless box stack">
+<div class="card card--borderless rounded box stack">
   <p>Borderless card content.</p>
 </div>
 
 <!-- Clickable card -->
-<a href="#" class="card box stack">
+<a href="#" class="card rounded box stack">
   <p class="title">Click me</p>
   <p class="description">This card is a link.</p>
 </a>
+
+<!-- Stat card with semantic DL markup -->
+<dl>
+  <div class="card box box-tight rounded text-sm">
+    <dt class="title">Revenue</dt>
+    <dd class="value text-6xl font-black">$12,450</dd>
+    <dd class="description">+12% from last month</dd>
+  </div>
+</dl>
+
+<!-- Card with status indicator -->
+<div class="card box box-tight rounded text-sm">
+  <p class="title">
+    <span class="status-indicator status-indicator--success">Active Members</span>
+  </p>
+  <p class="value text-6xl font-black">42</p>
+</div>
+
+<!-- Card with color scheme -->
+<div class="card rounded box stack scheme-subtle">
+  <p class="title">Subtle Scheme Card</p>
+  <p class="description">Content with scheme applied.</p>
+</div>
 
 <!-- Activity card list -->
 <div class="stack">
