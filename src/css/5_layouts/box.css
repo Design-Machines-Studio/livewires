@@ -1,18 +1,23 @@
 /**
  * Box Layout
  *
- * Standard box with padding
- * Inspired by Every Layout
+ * Standard box with padding.
+ * Inspired by Every Layout.
+ *
+ * Modifiers ONLY set --box-padding (same pattern as stack, section, reel).
+ * Always use .box as the base class.
  */
 
 @layer layouts {
   .box {
-    padding: var(--line-1);
+    padding: var(--box-padding, var(--line-1));
   }
+
+  /* Modifiers - ONLY set variables, never direct properties */
   .box-tight {
-    padding: var(--line-05);
+    --box-padding: var(--line-05);
   }
   .box-loose {
-    padding: var(--line-2);
+    --box-padding: var(--line-2);
   }
 }
