@@ -28,6 +28,14 @@
       block-size: 100%;
       object-fit: cover;
     }
+
+    & .initials {
+      font-size: calc(var(--avatar-size) * 0.4);
+      font-weight: var(--font-semibold);
+      line-height: 1;
+      text-transform: uppercase;
+      user-select: none;
+    }
   }
 
   /* Size variants */
