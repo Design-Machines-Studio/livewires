@@ -56,6 +56,21 @@
     }
   }
 
+  /* Card with media (figure + content) */
+  .card--media {
+    overflow: hidden;
+
+    & > figure {
+      margin: 0;
+    }
+
+    & > figure img,
+    & > figure .avatar {
+      display: block;
+      inline-size: 100%;
+    }
+  }
+
   /* Activity card (list item pattern) */
   .activity-card {
     padding-block: var(--line-1);
