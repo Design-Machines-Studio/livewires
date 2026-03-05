@@ -30,7 +30,7 @@
     cursor: pointer;
     user-select: none;
     font-weight: var(--font-normal);
-    line-height: var(--leading-normal);
+    line-height: var(--leading-base);
 
     /* The box/circle indicator — in-flow flex child, centered with text */
     &::before {
@@ -40,8 +40,6 @@
       block-size: var(--control-size);
       background: var(--color-bg);
       border: calc(var(--line-1px) * 2) solid var(--color-border);
-      transition: border-color var(--duration-fast) var(--ease-out),
-                  background-color var(--duration-fast) var(--ease-out);
     }
 
     /* The check/dot indicator — overlays ::before */
@@ -54,7 +52,17 @@
       block-size: var(--control-size);
       margin-block-start: calc(var(--control-size) / -2);
       opacity: 0;
-      transition: opacity var(--duration-instant) var(--ease-out);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &::before {
+        transition: border-color var(--duration-fast) var(--ease-out),
+                    background-color var(--duration-fast) var(--ease-out);
+      }
+
+      &::after {
+        transition: opacity var(--duration-instant) var(--ease-out);
+      }
     }
 
     /* Hide native input but keep accessible */
@@ -185,8 +193,8 @@
   }
 
   /* Color variants */
-  .checkbox--ok,
-  .radio--ok {
+  .checkbox--success,
+  .radio--success {
     &:has(input:checked)::before {
       background: var(--color-success);
       border-color: var(--color-success);
@@ -201,8 +209,8 @@
     }
   }
 
-  .checkbox--danger,
-  .radio--danger {
+  .checkbox--error,
+  .radio--error {
     &:has(input:checked)::before {
       background: var(--color-error);
       border-color: var(--color-error);

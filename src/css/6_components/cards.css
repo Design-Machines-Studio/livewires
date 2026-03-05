@@ -13,20 +13,18 @@
 
 @layer components {
   .card {
-    background: var(--color-bg);
-    border: var(--line-1px) solid var(--color-border);
-
     & .title {
       font-size: var(--text-sm);
-      font-weight: var(--font-medium);
-      color: var(--color-muted);
-      margin: 0;
+      letter-spacing: var(--tracking-sm);
+      line-height: var(--line-height-sm);
     }
 
     & .value {
       font-size: var(--text-2xl);
+      line-height: var(--line-height-2xl);
+      letter-spacing: var(--tracking-2xl);
       font-weight: var(--font-bold);
-      line-height: var(--leading-tight);
+      
       margin: 0;
     }
 
@@ -41,25 +39,20 @@
     }
   }
 
-  /* Variants */
-  .card--subtle {
-    background: var(--color-subtle);
-    border-color: transparent;
-  }
-
-  .card--borderless {
-    border-color: transparent;
-  }
-
   /* Clickable card */
-  a.card {
+  .card[href] {
+    --card-shadow: 0 4px 12px var(--overlay-shadow);
+
     display: block;
     text-decoration: none;
     color: inherit;
-    transition: box-shadow var(--duration-fast) var(--ease-out);
 
     &:hover {
-      box-shadow: 0 4px 12px var(--overlay-shadow);
+      box-shadow: var(--card-shadow);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: box-shadow var(--duration-fast) var(--ease-out);
     }
   }
 
