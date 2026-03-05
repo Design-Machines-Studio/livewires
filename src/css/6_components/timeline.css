@@ -4,9 +4,11 @@
  * Vertical timeline for displaying chronological events.
  * Renders as a list with a vertical line and marker dots.
  * Use data-status attribute for semantic marker colors.
+ * Use .milestone for prominent year/phase/stage dividers.
  *
  * @example
  * <ol class="timeline">
+ *   <li class="milestone">2024</li>
  *   <li>
  *     <time class="date">Jan 2024</time>
  *     <div class="content">
@@ -26,7 +28,10 @@
 @layer components {
   .timeline {
     --timeline-dot-size: var(--line-05);
+    --timeline-milestone-dot-size: var(--line-075);
     --timeline-indent: var(--line-2);
+    --timeline-line-color: var(--color-fg);
+    --timeline-dot-color: var(--color-accent);
 
     position: relative;
     padding-inline-start: var(--timeline-indent);
@@ -40,7 +45,7 @@
       inset-inline-start: calc(var(--timeline-dot-size) / 2 - var(--line-1px));
       inset-block: var(--line-05);
       inline-size: calc(var(--line-1px) * 2);
-      background: var(--color-border);
+      background: var(--timeline-line-color);
     }
 
     & li {
@@ -60,7 +65,7 @@
         inline-size: var(--timeline-dot-size);
         block-size: var(--timeline-dot-size);
         border-radius: 50%;
-        background: var(--color-accent);
+        background: var(--timeline-dot-color);
         border: calc(var(--line-1px) * 2) solid var(--color-bg);
       }
 
@@ -81,15 +86,16 @@
     & .date {
       display: block;
       font-size: var(--text-xs);
-      font-weight: var(--font-semibold);
+      font-weight: var(--font-bold);
       color: var(--color-muted);
-      text-transform: uppercase;
-      letter-spacing: var(--tracking-4xl);
-      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-xs);
+      line-height: var(--line-height-xs);
     }
 
     & .content {
       font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
 
       & h3 {
         margin: 0;
@@ -97,8 +103,36 @@
 
       & p {
         color: var(--color-muted);
-        margin-block-start: var(--line-025);
       }
+    }
+  }
+
+  /* Milestone -- prominent year/phase/stage divider within the timeline */
+  .timeline .milestone {
+    padding-block: var(--line-05) var(--line-1);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    line-height: var(--line-height-3xl);
+    letter-spacing: var(--tracking-3xl);
+
+    &:first-child {
+      padding-block-start: 0;
+    }
+
+    /* Reset heading styles when used inside milestone */
+    & :is(h1, h2, h3, h4, h5, h6) {
+      margin: 0;
+      font: inherit;
+    }
+
+    /* Larger structural dot, centered on the line */
+    &::before {
+      inline-size: var(--timeline-milestone-dot-size);
+      block-size: var(--timeline-milestone-dot-size);
+      inset-inline-start: calc(var(--timeline-indent) * -1 - (var(--timeline-milestone-dot-size) - var(--timeline-dot-size)) / 2);
+      inset-block-start: var(--line-075);
+      background: var(--timeline-line-color);
+      border: none;
     }
   }
 }

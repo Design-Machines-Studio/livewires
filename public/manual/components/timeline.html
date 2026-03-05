@@ -24,7 +24,7 @@
                 <h2>Basic timeline</h2>
                 <p>An ordered list with a vertical line and marker dots.</p>
                 <popup-dialog title="Timeline HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
+                  <p><a href="#" class="text-sm" aria-label="Code for basic timeline">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;ol class="timeline"&gt;
   &lt;li&gt;
@@ -68,7 +68,7 @@
                 <h2>Semantic markers</h2>
                 <p>Color the dot markers to indicate status: success, warning, or error.</p>
                 <popup-dialog title="Marker Variants HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
+                  <p><a href="#" class="text-sm" aria-label="Code for semantic markers">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;li data-status="success"&gt;...&lt;/li&gt;
 &lt;li data-status="warning"&gt;...&lt;/li&gt;
@@ -100,6 +100,68 @@
                 </li>
               </ol>
             </section>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="stack">
+            <header>
+              <h2>Milestone markers</h2>
+              <p>Group events by year, phase, or stage with a <code>.milestone</code> list item. Uses a larger structural dot and prominent label.</p>
+              <popup-dialog title="Milestone HTML">
+                <p><a href="#" class="text-sm" aria-label="Code for milestone markers">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;ol class="timeline"&gt;
+  &lt;li class="milestone"&gt;2024&lt;/li&gt;
+  &lt;li&gt;
+    &lt;time class="date"&gt;March&lt;/time&gt;
+    &lt;div class="content"&gt;
+      &lt;h3&gt;Event title&lt;/h3&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class="milestone"&gt;2023&lt;/li&gt;
+  &lt;li data-status="success"&gt;
+    &lt;time class="date"&gt;November&lt;/time&gt;
+    &lt;div class="content"&gt;
+      &lt;h3&gt;Planning complete&lt;/h3&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <ol class="timeline">
+              <li class="milestone">2024</li>
+              <li>
+                <time class="date">March 2024</time>
+                <div class="content">
+                  <h3>Project launched</h3>
+                  <p>Initial release to the public.</p>
+                </div>
+              </li>
+              <li>
+                <time class="date">January 2024</time>
+                <div class="content">
+                  <h3>Development started</h3>
+                  <p>Repository created and initial architecture defined.</p>
+                </div>
+              </li>
+              <li class="milestone">2023</li>
+              <li data-status="success">
+                <time class="date">November 2023</time>
+                <div class="content">
+                  <h3>Planning complete</h3>
+                  <p>Requirements gathered and design system scoped.</p>
+                </div>
+              </li>
+              <li>
+                <time class="date">September 2023</time>
+                <div class="content">
+                  <h3>Concept exploration</h3>
+                  <p>Initial research and proof of concept.</p>
+                </div>
+              </li>
+            </ol>
           </div>
         </section>
 
