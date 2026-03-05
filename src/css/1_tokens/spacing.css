@@ -11,6 +11,7 @@
     * Includes fine-grained fractional values and larger multipliers
     */
     --line-0: 0;
+    --line-0125: calc(var(--line) * 0.125); /* Eighth line */
     --line-025: calc(var(--line) * 0.25);  /* Quarter line */
     --line-05: calc(var(--line) * 0.5);    /* Half line */
     --line-075: calc(var(--line) * 0.75);  /* Three-quarter line */

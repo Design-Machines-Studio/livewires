@@ -34,6 +34,7 @@
     gap: var(--line-025);
     padding: var(--line-025);
     font-size: var(--text-xs);
+    letter-spacing: var(--tracking-xs);
     line-height: 1;
     font-weight: var(--font-bold);
     border-radius: var(--line-025);
@@ -126,13 +127,14 @@
    * ========================================================================== */
 
   .badge--small {
-    padding: var(--line-025) calc(var(--line-025) * 0.5);
+    padding: var(--line-0125) var(--line-025);
     font-size: calc(var(--text-xs) * 0.85);
   }
 
   .badge--large {
-    padding: var(--line-05) var(--line-025);
+    padding: var(--line-025) var(--line-05);
     font-size: var(--text-sm);
+    letter-spacing: var(--tracking-sm);
   }
 
 }
