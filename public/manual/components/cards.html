@@ -35,17 +35,17 @@
                 </popup-dialog>
               </header>
               <div class="grid grid-narrow">
-                <div class="card rounded box stack">
+                <div class="card scheme-subtle rounded box stack">
                   <p class="title">Revenue</p>
                   <p class="value">$12,450</p>
                   <p class="description">+12% from last month</p>
                 </div>
-                <div class="card rounded box stack">
+                <div class="card scheme-subtle rounded box stack">
                   <p class="title">Users</p>
                   <p class="value">1,234</p>
                   <p class="description">+5% this week</p>
                 </div>
-                <div class="card rounded box stack">
+                <div class="card scheme-subtle rounded box stack">
                   <p class="title">Tasks</p>
                   <p class="value">89</p>
                   <p class="description">12 completed today</p>
@@ -55,24 +55,29 @@
 
             <section class="stack">
               <header>
-                <h2>Variants</h2>
-                <p>Subtle removes the border for a softer look. Borderless removes all visual boundaries.</p>
-                <popup-dialog title="Card Variants HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
+                <h2>Schemes applied</h2>
+                <p>Apply color schemes to cards for visual variety.</p>
+                <popup-dialog title="Card Schemes HTML">
+                  <p><a href="#" class="text-sm" aria-label="Code for card schemes">Code</a></p>
                   <div slot="body">
-                    <pre><code>&lt;div class="card card--subtle rounded box stack"&gt;...&lt;/div&gt;
-&lt;div class="card card--borderless rounded box stack"&gt;...&lt;/div&gt;</code></pre>
+                    <pre><code>&lt;div class="card scheme-subtle rounded box stack"&gt;...&lt;/div&gt;
+&lt;div class="card scheme-dark rounded box stack"&gt;...&lt;/div&gt;
+&lt;div class="card scheme-accent rounded box stack"&gt;...&lt;/div&gt;</code></pre>
                   </div>
                 </popup-dialog>
               </header>
               <div class="grid grid-narrow">
-                <div class="card card--subtle rounded box stack">
-                  <p class="title">Subtle</p>
-                  <p class="value">No border</p>
+                <div class="card scheme-subtle rounded box stack">
+                  <p class="title">Subtle scheme applied</p>
+                  <p class="value">Subtle</p>
                 </div>
-                <div class="card card--borderless rounded box stack">
-                  <p class="title">Borderless</p>
-                  <p class="value">Transparent</p>
+                <div class="card scheme-dark rounded box stack">
+                  <p class="title">Dark scheme applied</p>
+                  <p class="value">Dark</p>
+                </div>
+                <div class="card scheme-accent rounded box stack">
+                  <p class="title">Accent scheme applied</p>
+                  <p class="value">Accent</p>
                 </div>
               </div>
             </section>
@@ -95,7 +100,7 @@
                   </div>
                 </popup-dialog>
               </header>
-              <div class="card rounded">
+              <div class="card scheme-subtle rounded">
                 <div class="header box">
                   <h3>Panel Title</h3>
                 </div>
@@ -119,7 +124,7 @@
                   </div>
                 </popup-dialog>
               </header>
-              <a href="#" class="card rounded box stack">
+              <a href="#" class="card scheme-subtle rounded box stack">
                 <p class="title">Click me</p>
                 <p class="description">This card is a link. Hover to see the shadow effect.</p>
               </a>
