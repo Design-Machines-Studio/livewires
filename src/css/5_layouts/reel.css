@@ -99,4 +99,13 @@
   .reel-padded {
     padding-block-end: var(--line-05);
   }
+
+  /* -------------------------
+   * Scroll affordance
+   * Always show scrollbar as overflow indicator
+   * ------------------------- */
+
+  .reel-scroll {
+    overflow-x: scroll;
+  }
 }

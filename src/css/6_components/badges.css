@@ -39,6 +39,10 @@
     font-weight: var(--font-bold);
     border-radius: var(--line-025);
     white-space: nowrap;
+
+    /* Default fallback - unrecognized variants get grey */
+    background: var(--badge-grey-bg);
+    color: var(--badge-grey-fg);
   }
 
   /* ==========================================================================
