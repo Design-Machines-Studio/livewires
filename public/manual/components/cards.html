@@ -132,6 +132,41 @@
 
             <section class="stack">
               <header>
+                <h2>Card with media</h2>
+                <p>A figure+content card for images, avatars, or media alongside text.</p>
+                <popup-dialog title="Media Card HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;div class="card card--media rounded"&gt;
+  &lt;figure&gt;&lt;img src="photo.jpg" alt="Description"&gt;&lt;/figure&gt;
+  &lt;div class="box stack"&gt;
+    &lt;h3&gt;Title&lt;/h3&gt;
+    &lt;p&gt;Description text.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="grid grid-narrow">
+                <div class="card card--media scheme-subtle rounded">
+                  <figure><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' fill='%23ccc'%3E%3Crect width='600' height='400'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999' font-family='sans-serif' font-size='24'%3E600 x 400%3C/text%3E%3C/svg%3E" alt="Placeholder image"></figure>
+                  <div class="box stack">
+                    <h3>Media card</h3>
+                    <p class="description">Image fills the card width with no extra margin.</p>
+                  </div>
+                </div>
+                <div class="card card--media scheme-subtle rounded">
+                  <figure><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' fill='%23ccc'%3E%3Crect width='600' height='400'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999' font-family='sans-serif' font-size='24'%3E600 x 400%3C/text%3E%3C/svg%3E" alt="Placeholder image"></figure>
+                  <div class="box stack">
+                    <h3>Another media card</h3>
+                    <p class="description">Works with any image or avatar inside a figure.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
                 <h2>Activity cards</h2>
                 <p>List-style cards separated by bottom borders. Last item has no border.</p>
                 <popup-dialog title="Activity Card HTML">

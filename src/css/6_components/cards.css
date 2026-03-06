@@ -1,13 +1,19 @@
 /**
  * Cards
  *
- * Bordered content containers for stats, info panels, and activity items.
- * Composes with .box and .stack layout primitives for internal spacing.
+ * Bordered content containers for stats, info panels, media cards, and
+ * activity items. Composes with .box and .stack layout primitives for
+ * internal spacing.
  *
  * @example
  * <div class="card box stack">
  *   <h3 class="title">Revenue</h3>
  *   <p class="value">$12,450</p>
+ * </div>
+ *
+ * <div class="card card--media rounded">
+ *   <figure><img src="photo.jpg" alt="Description"></figure>
+ *   <div class="box stack">...</div>
  * </div>
  */
 
