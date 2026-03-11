@@ -90,10 +90,14 @@
     :where(li) :is(ul, ol) {
       margin-block-start: var(--line-025);
     }
-    a {
-      text-decoration: underline;
-      text-underline-offset: 0.09em;
-      text-decoration-thickness: var(--line-1px);
+    p,
+    li,
+    dd {
+      a {
+        text-decoration: underline;
+        text-underline-offset: 0.09em;
+        text-decoration-thickness: var(--line-1px);
+      }
     }
   }
   .lead {
