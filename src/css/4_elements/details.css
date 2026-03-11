@@ -7,9 +7,8 @@
 @layer base {
   summary {
     cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: var(--color-accent);
-    text-decoration-thickness: 1px;
+    text-decoration: none;
+    font-weight: var(--font-bold);
 
     &::-webkit-details-marker {
       display: none;

@@ -16,7 +16,6 @@
 
 @layer components {
   .switch {
-    transition: var(--transition-link);
     position: relative;
     overflow: hidden;
     display: inline-block;
@@ -29,7 +28,6 @@
     background: var(--color-fg);
 
     & label {
-      transition: opacity 0.3s linear;
       position: relative;
       inset-inline-start: 0;
       block-size: 100%;
@@ -71,7 +69,6 @@
     }
 
     & span:last-child {
-      transition: var(--transition-link);
       position: absolute;
       inset-block-start: 0;
       inset-inline-start: 0;
@@ -128,6 +125,20 @@
     & input:last-of-type:checked + span + label {
       inset-inline-end: 0%;
       inset-inline-start: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .switch {
+      transition: var(--transition-link);
+    }
+
+    .switch label {
+      transition: opacity 0.3s linear;
+    }
+
+    .switch span:last-child {
+      transition: var(--transition-link);
     }
   }
 }

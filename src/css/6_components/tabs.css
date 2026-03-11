@@ -38,7 +38,6 @@
       font-size: var(--text-sm);
       color: var(--color-muted);
       cursor: pointer;
-      transition: color var(--duration-fast);
 
       &:hover {
         color: var(--color-fg);
@@ -68,11 +67,20 @@
 
     & .panel {
       padding-block-start: var(--line-1);
-      animation: tab-fade-in var(--duration-fast) var(--ease-out);
 
       &[hidden] {
         display: none;
       }
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tabs .tab {
+      transition: color var(--duration-fast);
+    }
+
+    .tabs .panel {
+      animation: tab-fade-in var(--duration-fast) var(--ease-out);
     }
   }
 

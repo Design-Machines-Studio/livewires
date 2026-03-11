@@ -27,8 +27,6 @@
     box-shadow: 0 4px 12px var(--overlay-shadow);
     font-size: var(--text-sm);
 
-    animation: toast-in var(--duration-fast) var(--ease-out);
-
     & .content {
       flex: 1;
       margin: 0;
@@ -52,7 +50,6 @@
   }
 
   .toast--dismissing {
-    animation: toast-out var(--duration-fast) var(--ease-in) forwards;
   }
 
   /* Semantic variants */
@@ -82,6 +79,16 @@
     color: var(--color-blue-900);
     border-color: var(--color-blue-200);
     border-inline-start-color: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .toast {
+      animation: toast-in var(--duration-fast) var(--ease-out);
+    }
+
+    .toast--dismissing {
+      animation: toast-out var(--duration-fast) var(--ease-in) forwards;
+    }
   }
 
   @keyframes toast-in {

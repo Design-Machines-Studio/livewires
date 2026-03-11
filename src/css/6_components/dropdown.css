@@ -42,9 +42,6 @@
       opacity: 0;
       visibility: hidden;
       transform: translateY(calc(var(--line-025) * -1));
-      transition: opacity var(--duration-fast),
-                  transform var(--duration-fast),
-                  visibility var(--duration-fast);
 
       & a,
       & button {
@@ -96,6 +93,14 @@
   .dropdown--end .menu {
     inset-inline-start: auto;
     inset-inline-end: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .dropdown .menu {
+      transition: opacity var(--duration-fast),
+                  transform var(--duration-fast),
+                  visibility var(--duration-fast);
+    }
   }
 
   .dropdown--up .menu {
