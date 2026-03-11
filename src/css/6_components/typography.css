@@ -90,6 +90,11 @@
     :where(li) :is(ul, ol) {
       margin-block-start: var(--line-025);
     }
+    a {
+      text-decoration: underline;
+      text-underline-offset: 0.09em;
+      text-decoration-thickness: var(--line-1px);
+    }
   }
   .lead {
     font-size: var(--text-lg);
@@ -112,6 +117,9 @@
   .prose > * + *,
   .flow > * + * {
     margin-block-start: var(--line-05);
+  }
+  .more {
+    font-weight: var(--font-bold);
   }
 }
 
