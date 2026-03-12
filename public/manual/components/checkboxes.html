@@ -14,7 +14,7 @@
       <article class="prose">
         <header class="section scheme-dark">
           <h1>Toggles</h1>
-          <p class="lead">Checkboxes, radios, and switches — custom styled form controls with validation states.</p>
+          <p class="lead">Checkboxes, radios, and switches - custom styled form controls with validation states.</p>
         </header>
 
         <section class="section">
@@ -91,21 +91,21 @@
                 <popup-dialog title="Size Variants HTML">
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
-                    <pre><code>&lt;label class="checkbox checkbox--small"&gt;...&lt;/label&gt;</code></pre>
+                    <pre><code>&lt;label class="checkbox checkbox--large"&gt;...&lt;/label&gt;</code></pre>
                   </div>
                 </popup-dialog>
               </header>
               <ul class="stack stack-compact" style="list-style: none; padding: 0;">
                 <li>
-                  <label class="checkbox checkbox--small">
-                    <input type="checkbox" name="sm" value="1" checked>
-                    Small
-                  </label>
-                </li>
-                <li>
                   <label class="checkbox">
                     <input type="checkbox" name="def" value="1" checked>
                     Default
+                  </label>
+                </li>
+                <li>
+                  <label class="checkbox checkbox--large">
+                    <input type="checkbox" name="lg" value="1" checked>
+                    Large
                   </label>
                 </li>
               </ul>
@@ -163,11 +163,11 @@
               <div class="cluster">
                 <label class="checkbox checkbox--icon">
                   <input type="checkbox" name="icon-a" value="1">
-                  Select
+                  Select row 1
                 </label>
                 <label class="checkbox checkbox--icon">
                   <input type="checkbox" name="icon-b" value="1" checked>
-                  Select
+                  Select row 2
                 </label>
               </div>
             </section>
@@ -235,9 +235,9 @@
               </header>
               <div class="switch">
                 <input id="switch-on" name="switch-demo" type="radio" checked>
-                <label for="switch-on" onclick="">On</label>
+                <label for="switch-on">On</label>
                 <input id="switch-off" name="switch-demo" type="radio">
-                <label for="switch-off" onclick="">Off</label>
+                <label for="switch-off">Off</label>
                 <span></span>
               </div>
             </section>

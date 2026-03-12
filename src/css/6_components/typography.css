@@ -121,5 +121,12 @@
   .more {
     font-weight: var(--font-bold);
   }
+  /* .hint is a semantic helper for form field hints and contextual notes,
+     distinct from the general-purpose .text-muted utility. Use .hint when
+     the element has semantic meaning (e.g. below a form input); use .text-muted
+     for pure art-direction color overrides. */
+  .hint {
+    color: var(--color-muted);
+  }
 }
 

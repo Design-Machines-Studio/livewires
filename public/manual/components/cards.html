@@ -24,9 +24,9 @@
                 <h2>Stat card</h2>
                 <p>Display key metrics with a title, value, and optional description.</p>
                 <popup-dialog title="Stat Card HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
+                  <p><a href="#" class="text-sm" aria-label="Code for stat card">Code</a></p>
                   <div slot="body">
-                    <pre><code>&lt;div class="card rounded box stack"&gt;
+                    <pre><code>&lt;div class="card card--stat rounded box stack"&gt;
   &lt;p class="title"&gt;Revenue&lt;/p&gt;
   &lt;p class="value"&gt;$12,450&lt;/p&gt;
   &lt;p class="description"&gt;+12% from last month&lt;/p&gt;
@@ -35,17 +35,17 @@
                 </popup-dialog>
               </header>
               <div class="grid grid-narrow">
-                <div class="card scheme-subtle rounded box stack">
+                <div class="card card--stat scheme-subtle rounded box stack">
                   <p class="title">Revenue</p>
                   <p class="value">$12,450</p>
                   <p class="description">+12% from last month</p>
                 </div>
-                <div class="card scheme-subtle rounded box stack">
+                <div class="card card--stat scheme-subtle rounded box stack">
                   <p class="title">Users</p>
                   <p class="value">1,234</p>
                   <p class="description">+5% this week</p>
                 </div>
-                <div class="card scheme-subtle rounded box stack">
+                <div class="card card--stat scheme-subtle rounded box stack">
                   <p class="title">Tasks</p>
                   <p class="value">89</p>
                   <p class="description">12 completed today</p>
@@ -87,7 +87,7 @@
                 <h2>Card with header</h2>
                 <p>Add a bordered header with <code>.header</code> for panel-style cards.</p>
                 <popup-dialog title="Card Header HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
+                  <p><a href="#" class="text-sm" aria-label="Code for card with header">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;div class="card rounded"&gt;
   &lt;div class="header box"&gt;
@@ -115,7 +115,7 @@
                 <h2>Clickable card</h2>
                 <p>Wrap a card in an anchor tag for a clickable container with hover shadow.</p>
                 <popup-dialog title="Clickable Card HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
+                  <p><a href="#" class="text-sm" aria-label="Code for clickable card">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;a href="#" class="card rounded box stack"&gt;
   &lt;p class="title"&gt;Click me&lt;/p&gt;
@@ -135,7 +135,7 @@
                 <h2>Card with media</h2>
                 <p>A figure+content card for images, avatars, or media alongside text.</p>
                 <popup-dialog title="Media Card HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
+                  <p><a href="#" class="text-sm" aria-label="Code for media card">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;div class="card card--media rounded"&gt;
   &lt;figure&gt;&lt;img src="photo.jpg" alt="Description"&gt;&lt;/figure&gt;
@@ -170,7 +170,7 @@
                 <h2>Activity cards</h2>
                 <p>List-style cards separated by bottom borders. Last item has no border.</p>
                 <popup-dialog title="Activity Card HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
+                  <p><a href="#" class="text-sm" aria-label="Code for activity card">Code</a></p>
                   <div slot="body">
                     <pre><code>&lt;div class="activity-card"&gt;
   &lt;p&gt;Activity item content.&lt;/p&gt;

@@ -5,7 +5,7 @@
   <meta name="viewport" content="initial-scale=1.0">
   <script type="module" src="/dist/main.js"></script>
   <html-include src="/_includes/head.html"></html-include>
-  <title>Checkboxes – Components Reference – Live Wires</title>
+  <title>Checkboxes - Components Reference - Live Wires</title>
 </head>
 <body>
   <html-include src="/_includes/header.html"></html-include>
@@ -24,10 +24,10 @@
   Radio option
 </label>
 
-<!-- Small variant -->
-<label class="checkbox checkbox--small">
-  <input type="checkbox" name="small" value="1">
-  Small checkbox
+<!-- Large variant -->
+<label class="checkbox checkbox--large">
+  <input type="checkbox" name="large" value="1">
+  Large checkbox
 </label>
 
 <!-- Icon-only checkbox (for tables) -->
@@ -106,21 +106,24 @@
   Danger
 </label>
 
-<!-- Radio group -->
-<ul class="check-list">
-  <li>
-    <label class="radio">
-      <input type="radio" name="group" value="1">
-      First choice
-    </label>
-  </li>
-  <li>
-    <label class="radio">
-      <input type="radio" name="group" value="2">
-      Second choice
-    </label>
-  </li>
-</ul>
+<!-- Radio group (fieldset + legend required for grouped radio inputs) -->
+<fieldset class="border-none p-0 m-0">
+  <legend>Preferred option</legend>
+  <ul class="check-list">
+    <li>
+      <label class="radio">
+        <input type="radio" name="group" value="1">
+        First choice
+      </label>
+    </li>
+    <li>
+      <label class="radio">
+        <input type="radio" name="group" value="2">
+        Second choice
+      </label>
+    </li>
+  </ul>
+</fieldset>
     </article>
   </main>
   <html-include src="/_includes/footer.html"></html-include>

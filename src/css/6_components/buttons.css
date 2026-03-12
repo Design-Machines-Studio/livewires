@@ -6,7 +6,9 @@
  */
 
 @layer components {
-
+  a.button {
+    text-decoration: none;
+  }
   /* Button colours */
   .button-accent,
   .button--accent {

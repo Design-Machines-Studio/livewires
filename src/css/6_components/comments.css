@@ -2,13 +2,15 @@
  * Comments
  *
  * Comment thread component with avatar, author name, timestamp, and body.
+ * Structural layout (flex alignment) is handled by utility classes in markup.
+ * Font-weight is defined here for project customization.
  *
  * @example
- * <div class="comment cluster">
+ * <div class="comment cluster items-start text-sm">
  *   <div class="avatar">...</div>
- *   <div class="stack stack-compact">
+ *   <div class="comment-body flex-1 stack stack-compact">
  *     <div class="cluster cluster-between">
- *       <span class="author cluster cluster-compact">Jane Doe</span>
+ *       <span class="author">Jane Doe</span>
  *       <time>Mar 15</time>
  *     </div>
  *     <div class="prose"><p>Comment text</p></div>
@@ -19,23 +21,7 @@
 @layer components {
   .comment {
     & .author {
-      font-weight: var(--font-semibold);
-      font-size: var(--text-sm);
-      line-height: var(--line-height-sm);
-      letter-spacing: var(--tracking-sm);
-    }
-
-    & time {
-      font-size: var(--text-sm);
-      line-height: var(--line-height-sm);
-      letter-spacing: var(--tracking-sm);
-      color: var(--color-muted);
-    }
-
-    & .prose p {
-      font-size: var(--text-sm);
-      line-height: var(--line-height-sm);
-      letter-spacing: var(--tracking-sm);
+      font-weight: var(--font-bold);
     }
   }
 }

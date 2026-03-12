@@ -64,6 +64,9 @@
 @import './5_layouts/imposter.css';
 
 /* Custom components and expanded elements */
+/* Note: 6_components/forms.css was intentionally removed. Form element defaults
+   are handled by 4_elements/forms.css (base layer). Component-level overrides
+   should use utility classes applied in markup. */
 @import './6_components/logo.css';
 @import './6_components/typography.css';
 @import './6_components/dividers.css';
@@ -90,7 +93,6 @@
 @import './6_components/comments.css';
 @import './6_components/checklists.css';
 @import './6_components/kanban.css';
-@import './6_components/forms.css';
 
 /* Utilities */
 @import './7_utilities/spacing.css';

@@ -103,7 +103,9 @@
     */
 
     --color-error: var(--color-red);
-    --color-warning: var(--color-yellow);
+    /* --color-yellow-500 (#FFA300) fails 3:1 non-text contrast (WCAG 1.4.11).
+       Using yellow-600 (#996100) achieves ~4:1 against white backgrounds. */
+    --color-warning: var(--color-yellow-600);
     --color-success: var(--color-green);
 
     /*
@@ -314,11 +316,15 @@
     --color-subtle: var(--color-grey-500);
     --vf-grad: 0;
   }
+  /* scheme-grey-500: mid-grey background. White fg achieves ~3.95:1 (passes
+     large-text AA, borderline for normal text). Suitable for headings and
+     display text, not body paragraphs. Muted set to grey-100 for max contrast
+     (~3.6:1); 4.5:1 is unachievable against this background. */
   .scheme-grey-500 {
     --color-bg: var(--color-grey-500);
     --color-fg: var(--color-white);
     --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-300);
+    --color-muted: var(--color-grey-100);
     --color-border: var(--color-white);
     --color-subtle: var(--color-grey-600);
     --vf-grad: -25;

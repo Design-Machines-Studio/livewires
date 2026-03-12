@@ -1,28 +1,23 @@
 /**
  * Empty State
  *
- * Centered placeholder shown when a section has no content.
+ * Placeholder shown when a section has no content.
+ * Text alignment is controlled via the Align prop (default: center).
+ * Muted color is defined here for project customization.
  *
  * @example
- * <div class="empty-state">
+ * <div class="empty-state text-center">
  *   <p>No proposals yet</p>
  *   <p class="detail">Create one to get started</p>
- *   <p class="action"><a href="/new" class="button button--small">Create</a></p>
+ *   <p class="empty-state-action"><a href="/new" class="button button--small">Create</a></p>
  * </div>
  */
 
 @layer components {
   .empty-state {
-    text-align: center;
     color: var(--color-muted);
 
-    & .detail {
-      font-size: var(--text-sm);
-      line-height: var(--line-height-sm);
-      letter-spacing: var(--tracking-sm);
-    }
-
-    & .action {
+    & .empty-state-action {
       margin-block-start: var(--line-05);
     }
   }

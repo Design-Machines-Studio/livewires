@@ -3,10 +3,11 @@
  *
  * Bordered content containers for stats, info panels, media cards, and
  * activity items. Composes with .box and .stack layout primitives for
- * internal spacing.
+ * internal spacing. Typography and color are intentionally left to
+ * utilities or the Class parameter for maximum customization.
  *
  * @example
- * <div class="card box stack">
+ * <div class="card box stack text-sm">
  *   <h3 class="title">Revenue</h3>
  *   <p class="value">$12,450</p>
  * </div>
@@ -19,29 +20,25 @@
 
 @layer components {
   .card {
-    & .title {
-      font-size: var(--text-sm);
-      letter-spacing: var(--tracking-sm);
-      line-height: var(--line-height-sm);
-    }
-
     & .value {
-      font-size: var(--text-2xl);
-      line-height: var(--line-height-2xl);
-      letter-spacing: var(--tracking-2xl);
       font-weight: var(--font-bold);
-      
       margin: 0;
     }
 
     & .description {
-      font-size: var(--text-sm);
-      color: var(--color-muted);
       margin: 0;
     }
 
     & .header {
       border-block-end: var(--line-1px) solid var(--color-border);
+    }
+
+    & .card-heading {
+      font-weight: var(--font-bold);
+    }
+
+    & :is(.category, .subtitle) {
+      color: var(--color-muted);
     }
   }
 
@@ -77,49 +74,11 @@
     }
   }
 
-  /* Stat card (dl-based metric display) */
-  .stat-card {
-    font-size: var(--text-sm);
-    line-height: var(--line-height-sm);
-    letter-spacing: var(--tracking-sm);
-
+  /* Stat card - large metric display, use with .card.
+     Overrides .card .value font-weight (bold -> black) for heavy numerics. */
+  .card--stat {
     & .value {
-      font-size: var(--text-6xl);
-      line-height: var(--line-height-6xl);
-      letter-spacing: var(--tracking-6xl);
       font-weight: var(--font-black);
-    }
-  }
-
-  .card .sub-detail {
-    font-size: var(--text-sm);
-    line-height: var(--line-height-sm);
-    letter-spacing: var(--tracking-sm);
-    color: var(--color-muted);
-  }
-
-  .card .card-heading {
-    font-size: var(--text-lg);
-    line-height: var(--line-height-lg);
-    letter-spacing: var(--tracking-lg);
-    font-weight: var(--font-bold);
-  }
-
-  .card .subtitle {
-    font-size: var(--text-sm);
-    line-height: var(--line-height-sm);
-    letter-spacing: var(--tracking-sm);
-    color: var(--color-muted);
-  }
-
-  .card .avatar-meta {
-    margin-block-start: var(--line-05);
-
-    & span {
-      font-size: var(--text-sm);
-      line-height: var(--line-height-sm);
-      letter-spacing: var(--tracking-sm);
-      color: var(--color-muted);
     }
   }
 
@@ -137,9 +96,6 @@
     }
 
     & .meta {
-      font-size: var(--text-sm);
-      line-height: var(--line-height-sm);
-      letter-spacing: var(--tracking-sm);
       color: var(--color-muted);
     }
   }

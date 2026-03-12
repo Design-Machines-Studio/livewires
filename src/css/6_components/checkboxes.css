@@ -2,7 +2,7 @@
  * Checkbox & Radio Components
  *
  * Custom styled checkboxes and radio buttons using pseudo-elements.
- * No extra spans needed — just label + input.
+ * No extra spans needed - just label + input.
  *
  * @example
  * <label class="checkbox">
@@ -21,7 +21,7 @@
   /* Shared base for checkbox and radio */
   .checkbox,
   .radio {
-    --control-size: var(--line-1);
+    --control-size: var(--line-075);
 
     position: relative;
     display: inline-flex;
@@ -29,10 +29,19 @@
     gap: var(--line-025);
     cursor: pointer;
     user-select: none;
+    /* font-size is intentionally retained here (not via utility class) because
+       the ::before/::after indicator sizes are proportional to label text via
+       em-based calc() on --control-size. Do not remove.
+       letter-spacing is 0em (--tracking-sm default). */
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-sm);
     font-weight: var(--font-normal);
-    line-height: var(--leading-base);
+    line-height: var(--line-height-base);
+    /* min-block-size ensures a 36px touch target (WCAG 2.5.8) regardless of
+       the smaller visual indicator size. The full label is the hit area. */
+    min-block-size: var(--line-15);
 
-    /* The box/circle indicator — in-flow flex child, centered with text */
+    /* The box/circle indicator - in-flow flex child, centered with text */
     &::before {
       content: '';
       flex-shrink: 0;
@@ -42,7 +51,7 @@
       border: calc(var(--line-1px) * 2) solid var(--color-border);
     }
 
-    /* The check/dot indicator — overlays ::before */
+    /* The check/dot indicator - overlays ::before */
     &::after {
       content: '';
       position: absolute;
@@ -106,11 +115,11 @@
       border-radius: var(--radius-tight);
     }
 
-    /* Checkmark shape — proportional to --control-size */
+    /* Checkmark shape - proportional to --control-size */
     &::after {
       inline-size: calc(var(--control-size) * 0.3);
       block-size: calc(var(--control-size) * 0.5);
-      inset-inline-start: calc(var(--control-size) * 0.35);
+      inset-inline-start: calc(var(--control-size) * 0.36);
       margin-block-start: calc(var(--control-size) * -0.3);
       border-inline-end: calc(var(--line-1px) * 2) solid var(--color-bg);
       border-block-end: calc(var(--line-1px) * 2) solid var(--color-bg);
@@ -125,7 +134,7 @@
       border-radius: 50%;
     }
 
-    /* Inner dot — proportional to --control-size */
+    /* Inner dot - proportional to --control-size */
     &::after {
       inline-size: calc(var(--control-size) * 0.4);
       block-size: calc(var(--control-size) * 0.4);
@@ -136,19 +145,27 @@
     }
   }
 
-  /* Size variants */
-  .checkbox--small,
-  .radio--small {
-    --control-size: var(--line-075);
-    font-size: var(--text-sm);
+  /* Size variants - min-block-size ensures touch target compliance */
+  .checkbox--large,
+  .radio--large {
+    /* --control-size matches .checkbox--icon intentionally: icon checkboxes
+       use a card-sized hit area that aligns with this baseline. If you resize
+       one, review the other. */
+    --control-size: var(--line-1);
+    font-size: var(--text-base);
+    letter-spacing: var(--tracking-base);
+    min-block-size: var(--line-2);
   }
 
-  /* Icon-only checkbox (for tables, compact UIs) */
+  /* Icon-only checkbox (for tables, compact UIs)
+     Padding provides invisible touch affordance around the small indicator.
+     --control-size matches .checkbox--large, see comment above. */
   .checkbox--icon {
     --control-size: var(--line-1);
     gap: 0;
     font-size: 0;
     color: transparent;
+    padding: var(--line-025);
 
     &::before {
       border-radius: var(--radius-normal);
@@ -157,8 +174,8 @@
     &::after {
       inline-size: calc(var(--control-size) * 0.25);
       block-size: calc(var(--control-size) * 0.45);
-      inset-inline-start: calc(var(--control-size) * 0.375);
-      margin-block-start: calc(var(--control-size) * -0.275);
+      inset-inline-start: calc(var(--control-size) * 0.625);
+      margin-block-start: calc(var(--control-size) * -0.26);
       border-inline-end: calc(var(--line-1px) * 2) solid var(--color-bg);
       border-block-end: calc(var(--line-1px) * 2) solid var(--color-bg);
       transform: rotate(45deg);

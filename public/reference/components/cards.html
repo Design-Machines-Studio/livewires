@@ -5,7 +5,7 @@
   <meta name="viewport" content="initial-scale=1.0">
   <script type="module" src="/dist/main.js"></script>
   <html-include src="/_includes/head.html"></html-include>
-  <title>Cards – Components Reference – Live Wires</title>
+  <title>Cards - Components Reference - Live Wires</title>
 </head>
 <body>
   <html-include src="/_includes/header.html"></html-include>
@@ -49,19 +49,19 @@
 
 <!-- Stat card with semantic DL markup -->
 <dl>
-  <div class="card box box-tight rounded text-sm">
+  <div class="card card--stat box box-tight rounded text-sm">
     <dt class="title">Revenue</dt>
-    <dd class="value text-6xl font-black">$12,450</dd>
+    <dd class="value text-6xl">$12,450</dd>
     <dd class="description">+12% from last month</dd>
   </div>
 </dl>
 
 <!-- Card with status indicator -->
-<div class="card box box-tight rounded text-sm">
+<div class="card card--stat box box-tight rounded text-sm">
   <p class="title">
     <span class="status-indicator status-indicator--success">Active Members</span>
   </p>
-  <p class="value text-6xl font-black">42</p>
+  <p class="value text-6xl">42</p>
 </div>
 
 <!-- Card with color scheme -->
@@ -79,8 +79,8 @@
   </div>
 </div>
 
-<!-- Activity card list -->
-<div class="stack">
+<!-- Activity card list (no .stack needed - .activity-card uses border-block-end for spacing) -->
+<div>
   <div class="activity-card">
     <p>First activity item.</p>
   </div>
