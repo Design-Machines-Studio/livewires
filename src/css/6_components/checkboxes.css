@@ -145,7 +145,7 @@
 
   /* Icon-only checkbox (for tables, compact UIs) */
   .checkbox--icon {
-    --control-size: var(--line-15);
+    --control-size: var(--line-1);
     gap: 0;
     font-size: 0;
     color: transparent;

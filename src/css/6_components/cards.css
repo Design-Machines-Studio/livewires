@@ -77,6 +77,52 @@
     }
   }
 
+  /* Stat card (dl-based metric display) */
+  .stat-card {
+    font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
+
+    & .value {
+      font-size: var(--text-6xl);
+      line-height: var(--line-height-6xl);
+      letter-spacing: var(--tracking-6xl);
+      font-weight: var(--font-black);
+    }
+  }
+
+  .card .sub-detail {
+    font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
+    color: var(--color-muted);
+  }
+
+  .card .card-heading {
+    font-size: var(--text-lg);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--tracking-lg);
+    font-weight: var(--font-bold);
+  }
+
+  .card .subtitle {
+    font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
+    color: var(--color-muted);
+  }
+
+  .card .avatar-meta {
+    margin-block-start: var(--line-05);
+
+    & span {
+      font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
+      color: var(--color-muted);
+    }
+  }
+
   /* Activity card (list item pattern) */
   .activity-card {
     padding-block: var(--line-1);
@@ -84,6 +130,17 @@
 
     &:last-child {
       border-block-end: none;
+    }
+
+    & .title {
+      font-weight: var(--font-bold);
+    }
+
+    & .meta {
+      font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
+      color: var(--color-muted);
     }
   }
 }

@@ -86,6 +86,11 @@
 @import './6_components/timeline.css';
 @import './6_components/toasts.css';
 @import './6_components/loading.css';
+@import './6_components/empty-state.css';
+@import './6_components/comments.css';
+@import './6_components/checklists.css';
+@import './6_components/kanban.css';
+@import './6_components/forms.css';
 
 /* Utilities */
 @import './7_utilities/spacing.css';

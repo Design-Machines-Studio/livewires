@@ -1,0 +1,54 @@
+/**
+ * Checklists
+ *
+ * Task checklists with completion indicators and optional progress bars.
+ *
+ * @example
+ * <ul class="checklist stack stack-compact">
+ *   <li class="cluster cluster-compact">
+ *     <span class="check">&#10003;</span>
+ *     <span class="completed"><s>Done task</s></span>
+ *   </li>
+ * </ul>
+ */
+
+@layer components {
+  .checklist {
+    font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
+
+    & .check {
+      color: var(--color-green-500);
+    }
+
+    & .completed {
+      color: var(--color-muted);
+    }
+  }
+
+  .progress-checklist {
+    & .progress-header {
+      margin-block-end: var(--line-1);
+    }
+
+    & .progress-count {
+      font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
+      color: var(--color-muted);
+    }
+
+    & .checklist-body {
+      margin-block-start: var(--line-1);
+    }
+
+    & .footer {
+      font-size: var(--text-xs);
+      line-height: var(--line-height-xs);
+      letter-spacing: var(--tracking-xs);
+      color: var(--color-muted);
+      margin-block-start: var(--line-1);
+    }
+  }
+}
