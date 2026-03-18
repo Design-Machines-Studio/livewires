@@ -1,133 +1,172 @@
 /**
- * Switches Component
+ * Switch Component
  *
- * Toggle switch for two-option radio fields.
- * Ported from source/scss/5_components/_forms--switches.scss
+ * Pill-shaped toggle switch using a checkbox input.
+ * Modeled after the Louder Than Ten switch design.
  *
- * Usage:
- * <div class="field switch">
- *   <input id="option-off" name="switch-x" type="radio" checked>
- *   <label for="option-off" onclick="">Off</label>
- *   <input id="option-on" name="switch-x" type="radio">
- *   <label for="option-on" onclick="">On</label>
+ * @example
+ * <label class="switch">
+ *   <input type="checkbox" role="switch">
  *   <span></span>
- * </div>
+ *   Enable feature
+ * </label>
+ *
+ * Variants:
+ *   .switch--small  - Compact switch, no track text
+ *
+ * Customizable text (defaults to "on" / "off"):
+ *   style="--switch-on: 'yes'; --switch-off: 'no';"
+ *
+ * No track text:
+ *   style="--switch-on: ''; --switch-off: '';"
  */
 
 @layer components {
   .switch {
-    transition: var(--transition-link);
+    /* Dimensions */
+    --switch-width: calc(var(--line) * 2.5);
+    --switch-height: calc(var(--line) * 1.25);
+    --switch-handle-size: calc(var(--switch-height) * 0.75);
+    --switch-handle-offset: calc(var(--switch-height) * 0.125);
+
+    /* Colors - track-bg must contrast 3:1 against page bg in all schemes */
+    --switch-track-bg: var(--color-grey-400);
+    --switch-track-bg-checked: var(--color-accent);
+    --switch-handle-bg: var(--color-white);
+    --switch-handle-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    --switch-text-color: var(--color-fg);
+
+    /* Text labels */
+    --switch-on: 'on';
+    --switch-off: 'off';
+
+    /* Animation */
+    --switch-speed: var(--duration-fast);
+
+    /* Layout */
     position: relative;
-    overflow: hidden;
-    display: inline-block;
-    inline-size: fit-content;
-    block-size: var(--line-15);
-    padding: 0;
-    line-height: var(--line-15);
-    font-family: var(--font-sans);
-    border-radius: var(--button-radius);
-    background: var(--color-fg);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--line-05);
+    cursor: pointer;
+    user-select: none;
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-sm);
+    font-weight: var(--font-normal);
+    line-height: var(--line-height-base);
+    margin: 0;
+    min-block-size: var(--line-15);
 
-    & label {
-      transition: opacity 0.3s linear;
+    /* Hide native checkbox but keep accessible */
+    & input {
+      position: absolute;
+      opacity: 0;
+      inline-size: 0;
+      block-size: 0;
+      pointer-events: none;
+    }
+
+    /* Track (pill-shaped background) */
+    & span {
       position: relative;
-      inset-inline-start: 0;
-      block-size: 100%;
-      margin: 0;
-      float: left;
-      z-index: 2;
-      text-align: start;
-      color: var(--color-bg);
-
-      &:first-of-type {
-        padding-block: 0;
-        padding-inline: var(--line-075);
-      }
-
-      &:last-of-type {
-        padding-block: 0;
-        padding-inline: 0 var(--line-075);
-      }
+      display: inline-block;
+      flex-shrink: 0;
+      inline-size: var(--switch-width);
+      block-size: var(--switch-height);
+      background: var(--switch-track-bg);
+      border-radius: var(--switch-height);
     }
 
-    & input {
+    /* Handle (circular knob) */
+    & span::before {
+      content: '';
       position: absolute;
-      z-index: 3;
-      opacity: 0;
-      inline-size: 100%;
-      block-size: 100%;
-      cursor: pointer;
-      appearance: none;
-
-      &:focus-visible ~ span:last-child {
-        outline: 2px solid var(--color-accent);
-        outline-offset: 2px;
-      }
-
-      &:first-of-type:checked ~ span:last-child {
-        inset-inline-start: 100%;
-        margin-inline-start: calc(var(--line-1) * -1.5 + 1px);
-      }
+      inset-block-start: var(--switch-handle-offset);
+      inset-inline-start: var(--switch-handle-offset);
+      inline-size: var(--switch-handle-size);
+      block-size: var(--switch-handle-size);
+      background: var(--switch-handle-bg);
+      border-radius: 50%;
+      box-shadow: var(--switch-handle-shadow);
     }
 
-    & span:last-child {
-      transition: var(--transition-link);
+    /* Status text - sized to fill the non-handle area, then centered */
+    & span::after {
+      content: var(--switch-off);
       position: absolute;
-      inset-block-start: 0;
-      inset-inline-start: 0;
-      display: block;
-      inline-size: calc(var(--line-1) * 1.5);
-      block-size: calc(var(--line-1) * 1.5);
-      padding: 0;
-      z-index: 1;
-      border-width: 1px;
-      border-style: solid;
-      border-radius: var(--button-radius);
-      cursor: pointer;
-      border-color: var(--color-fg);
-      box-shadow:
-        2px 0 10px 0 rgba(0, 0, 0, 0.07),
-        1000px 0 0 980px var(--color-black),
-        -2px 0 10px 0 rgba(0, 0, 0, 0.07),
-        -1000px 0 0 1000px var(--color-accent);
+      inset-block-start: 50%;
+      transform: translateY(-50%);
+      inset-inline-start: calc(var(--switch-handle-size) + var(--switch-handle-offset));
+      inline-size: calc(var(--switch-width) - var(--switch-handle-size) - var(--switch-handle-offset));
+      text-align: center;
+      /* Proportional to track height, not the type scale -
+         a --text-* token would not track with --switch-height changes */
+      font-size: 0.7em;
+      font-weight: var(--font-medium);
+      color: var(--switch-text-color);
+      line-height: 1;
+      pointer-events: none;
     }
 
-    & input:not(:checked) + label {
-      opacity: 0;
+    /* Transitions */
+    @media (prefers-reduced-motion: no-preference) {
+      & span {
+        transition: background-color var(--switch-speed) var(--ease-in-out);
+      }
+
+      & span::before {
+        transition: inset-inline-start var(--switch-speed) var(--ease-in-out);
+      }
+
+      & span::after {
+        transition: opacity calc(var(--switch-speed) * 0.5) var(--ease-out);
+      }
     }
 
-    & input:checked {
-      display: none !important;
+    /* Hover */
+    &:hover span {
+      filter: brightness(0.95);
     }
 
-    & input {
-      inset-inline-start: 0;
-      display: block !important;
+    /* Focus */
+    &:has(input:focus-visible) span {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
     }
 
-    /* Left label alignment */
-    & input:first-of-type + label,
-    & input:first-of-type + span + label {
-      inset-inline-start: -50%;
+    /* Checked state */
+    &:has(input:checked) {
+      & span {
+        background: var(--switch-track-bg-checked);
+      }
+
+      & span::before {
+        inset-inline-start: calc(var(--switch-width) - var(--switch-handle-size) - var(--switch-handle-offset));
+      }
+
+      & span::after {
+        content: var(--switch-on);
+        inset-inline-start: 0;
+        color: var(--color-white);
+      }
     }
 
-    & input:first-of-type:checked + label,
-    & input:first-of-type:checked + span + label {
-      inset-inline-start: 0%;
+    /* Disabled state */
+    &:has(input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
+  }
 
-    /* Right label alignment */
-    & input:last-of-type + label,
-    & input:last-of-type + span + label {
-      inset-inline-end: -50%;
-      inset-inline-start: auto;
-      text-align: end;
-    }
+  /* Small variant - no track text */
+  .switch--small {
+    --switch-width: calc(var(--line) * 1.25);
+    --switch-height: var(--line-075);
+    --switch-on: '';
+    --switch-off: '';
 
-    & input:last-of-type:checked + label,
-    & input:last-of-type:checked + span + label {
-      inset-inline-end: 0%;
-      inset-inline-start: auto;
-    }
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-xs);
+    min-block-size: var(--line-1);
   }
 }

@@ -10,16 +10,36 @@
 <body>
   <html-include src="/_includes/header.html"></html-include>
   <main id="main">
-    <article class="section prose">
+    <article class="section prose stack">
       <h1>Switches</h1>
-<!-- Toggle switch (two-option radio) -->
-<div class="field switch">
-  <input id="switch-off" name="switch-1" type="radio" checked>
-  <label for="switch-off" onclick="">Off</label>
-  <input id="switch-on" name="switch-1" type="radio">
-  <label for="switch-on" onclick="">On</label>
-  <span></span>
-</div>
+
+      <!-- Default switch -->
+      <label class="switch">
+        <input type="checkbox" role="switch">
+        <span></span>
+        Default
+      </label>
+
+      <!-- Checked switch -->
+      <label class="switch">
+        <input type="checkbox" role="switch" checked>
+        <span></span>
+        Checked
+      </label>
+
+      <!-- Small variant -->
+      <label class="switch switch--small">
+        <input type="checkbox" role="switch">
+        <span></span>
+        Small
+      </label>
+
+      <!-- Disabled switch -->
+      <label class="switch">
+        <input type="checkbox" role="switch" disabled>
+        <span></span>
+        Disabled
+      </label>
     </article>
   </main>
   <html-include src="/_includes/footer.html"></html-include>

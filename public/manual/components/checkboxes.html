@@ -219,26 +219,39 @@
             <section class="stack">
               <header>
                 <h2>Toggle switch</h2>
-                <p>A binary on/off control built from radio inputs.</p>
+                <p>A pill-shaped on/off toggle built from a checkbox input.</p>
                 <popup-dialog title="Switch HTML">
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
-                    <pre><code>&lt;div class="switch"&gt;
-  &lt;input id="on" name="toggle" type="radio" checked&gt;
-  &lt;label for="on"&gt;On&lt;/label&gt;
-  &lt;input id="off" name="toggle" type="radio"&gt;
-  &lt;label for="off"&gt;Off&lt;/label&gt;
+                    <pre><code>&lt;label class="switch"&gt;
+  &lt;input type="checkbox" role="switch"&gt;
   &lt;span&gt;&lt;/span&gt;
-&lt;/div&gt;</code></pre>
+  Enable feature
+&lt;/label&gt;</code></pre>
                   </div>
                 </popup-dialog>
               </header>
-              <div class="switch">
-                <input id="switch-on" name="switch-demo" type="radio" checked>
-                <label for="switch-on">On</label>
-                <input id="switch-off" name="switch-demo" type="radio">
-                <label for="switch-off">Off</label>
-                <span></span>
+              <div class="cluster" style="align-items: center;">
+                <label class="switch">
+                  <input type="checkbox" role="switch">
+                  <span></span>
+                  Default
+                </label>
+                <label class="switch">
+                  <input type="checkbox" role="switch" checked>
+                  <span></span>
+                  Checked
+                </label>
+                <label class="switch switch--small">
+                  <input type="checkbox" role="switch">
+                  <span></span>
+                  Small
+                </label>
+                <label class="switch">
+                  <input type="checkbox" role="switch" disabled>
+                  <span></span>
+                  Disabled
+                </label>
               </div>
             </section>
           </div>
