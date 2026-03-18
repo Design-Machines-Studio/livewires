@@ -38,8 +38,8 @@
   /*
    * Responsive tables - stack on mobile
    *
-   * For accessible responsive tables, add data-label attributes to <td> elements:
-   * <td data-label="Price">$45.00</td>
+   * For accessible responsive tables, add data-th attributes to <td> elements:
+   * <td data-th="Price">$45.00</td>
    *
    * The label will display before the cell content on small screens.
    */
@@ -102,22 +102,23 @@
       padding-block-end: 0;
     }
 
-    /* Show data-label as pseudo-element before cell content */
-    td[data-label]::before {
-      content: attr(data-label);
+    /* Show data-th as pseudo-element before cell content */
+    td[data-th]::before {
+      content: attr(data-th);
       font-weight: var(--font-medium);
       text-align: start;
       color: var(--color-muted);
     }
 
     /* Cells without labels stay left-aligned */
-    td:not([data-label]) {
+    td:not([data-th]) {
       text-align: start;
     }
 
     /* First cell in row (often the item name) - full width, prominent */
-    td:first-of-type:not([data-label]) {
+    td:first-of-type:not([data-th]) {
       font-weight: var(--font-medium);
     }
+
   }
 }

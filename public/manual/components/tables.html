@@ -222,6 +222,66 @@
             </tbody>
           </table>
         </section>
+        <!-- Selectable table with checkboxes -->
+        <section class="section">
+          <header>
+            <h2>Selectable rows</h2>
+            <p>Use <code>.checkbox--icon</code> for compact row selection. On narrow screens, checkboxes cluster below the row label.</p>
+            <popup-dialog title="Selectable Table HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;table class="table--lined"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Task&lt;/th&gt;
+      &lt;th&gt;Review&lt;/th&gt;
+      &lt;th&gt;Approve&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td data-th="Task"&gt;Budget proposal&lt;/td&gt;
+      &lt;td&gt;&lt;label class="checkbox checkbox--icon"&gt;
+        &lt;input type="checkbox" name="review" value="budget"&gt;
+        Review budget&lt;/label&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;label class="checkbox checkbox--icon"&gt;
+        &lt;input type="checkbox" name="approve" value="budget"&gt;
+        Approve budget&lt;/label&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+              </div>
+            </popup-dialog>
+          </header>
+          <table class="table--lined">
+            <caption>Governance actions</caption>
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Review</th>
+                <th>Approve</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-th="Task">Budget proposal</td>
+                <td><label class="checkbox checkbox--icon"><input type="checkbox" name="review-1" value="1"> Review budget</label></td>
+                <td><label class="checkbox checkbox--icon"><input type="checkbox" name="approve-1" value="1"> Approve budget</label></td>
+              </tr>
+              <tr>
+                <td data-th="Task">Bylaw amendment</td>
+                <td><label class="checkbox checkbox--icon"><input type="checkbox" name="review-2" value="1" checked> Review bylaw</label></td>
+                <td><label class="checkbox checkbox--icon"><input type="checkbox" name="approve-2" value="1"> Approve bylaw</label></td>
+              </tr>
+              <tr>
+                <td data-th="Task">Member application</td>
+                <td><label class="checkbox checkbox--icon"><input type="checkbox" name="review-3" value="1" checked> Review application</label></td>
+                <td><label class="checkbox checkbox--icon"><input type="checkbox" name="approve-3" value="1" checked> Approve application</label></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
       </article>
     </main>
     <!-- HTML Include: site footer -->

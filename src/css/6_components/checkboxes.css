@@ -37,6 +37,9 @@
     letter-spacing: var(--tracking-sm);
     font-weight: var(--font-normal);
     line-height: var(--line-height-base);
+    /* Override forms.css label { margin-block-end } — checkbox labels
+       are inline controls, not block-level field labels. */
+    margin-block-end: 0;
     /* min-block-size ensures a 36px touch target (WCAG 2.5.8) regardless of
        the smaller visual indicator size. The full label is the hit area. */
     min-block-size: var(--line-15);
@@ -164,7 +167,9 @@
     --control-size: var(--line-1);
     gap: 0;
     font-size: 0;
+    line-height: 0;
     color: transparent;
+    vertical-align: middle;
     padding: var(--line-025);
 
     &::before {
@@ -231,6 +236,30 @@
     &:has(input:checked)::before {
       background: var(--color-error);
       border-color: var(--color-error);
+    }
+  }
+
+  /* Checkbox rows in responsive tables: cluster-inspired layout.
+     Label cell takes full width; checkbox cells wrap into a
+     horizontal cluster on the next line. */
+  @container (width < 30em) {
+    tr:has(.checkbox--icon) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 var(--line-05);
+      align-items: center;
+    }
+
+    tr:has(.checkbox--icon) > td:first-child {
+      flex-basis: 100%;
+    }
+
+    tr:has(.checkbox--icon) > td:has(.checkbox--icon) {
+      display: flex;
+      align-items: center;
+      gap: var(--line-025);
+      justify-content: flex-start;
+      padding: var(--line-025) 0;
     }
   }
 }
