@@ -11,7 +11,7 @@
 
 @layer components {
   .avatar {
-    --avatar-size: var(--line-2);
+    --avatar-size: var(--line-1);
 
     display: inline-flex;
     align-items: center;
@@ -30,24 +30,41 @@
     }
 
     & .initials {
-      font-size: calc(var(--avatar-size) * 0.4);
+      font-size: clamp(var(--text-xs), calc(var(--avatar-size) * 0.4), var(--avatar-size));
       font-weight: var(--font-semibold);
       line-height: 1;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       user-select: none;
     }
   }
 
   /* Size variants */
-  .avatar--small {
+  .avatar--xs {
+    --avatar-size: var(--line-05);
+  }
+
+  .avatar--sm {
+    --avatar-size: var(--line-075);
+  }
+
+  .avatar--lg {
     --avatar-size: var(--line-15);
   }
 
-  .avatar--large {
-    --avatar-size: var(--line-3);
+  .avatar--xl {
+    --avatar-size: var(--line-2);
   }
 
-  .avatar--xlarge {
+  .avatar--2xl {
+    --avatar-size: var(--line-4);
+  }
+
+  .avatar--3xl {
+    --avatar-size: var(--line-6);
+  }
+
+  .avatar--4xl {
     --avatar-size: var(--line-8);
   }
 
@@ -65,7 +82,13 @@
     }
 
     & .avatar + .avatar {
-      margin-inline-start: calc(var(--line-05) * -1);
+      margin-inline-start: calc(var(--avatar-size) * -0.25);
+    }
+
+    @media (forced-colors: active) {
+      & .avatar {
+        border-color: ButtonFace;
+      }
     }
   }
 }
