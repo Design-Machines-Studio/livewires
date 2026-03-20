@@ -63,15 +63,16 @@
     --color-red-900: #1A0100;
     --color-red: var(--color-red-500);
 
-    --color-blue-100: #E6F7FF;
-    --color-blue-200: #CCEEFF;
-    --color-blue-300: #99DDFF;
-    --color-blue-400: #00AAFF;
-    --color-blue-500: #0008FF;
-    --color-blue-600: #000599;
-    --color-blue-700: #000366;
-    --color-blue-800: #000240;
-    --color-blue-900: #00011A;
+    --color-blue-50: #F3F7FE;
+    --color-blue-100: #EAF0FD;
+    --color-blue-200: #DDE8FD;
+    --color-blue-300: #A0B5DC;
+    --color-blue-400: #6B93E2;
+    --color-blue-500: #3D6FD9;
+    --color-blue-600: #1B3BDB;
+    --color-blue-700: #1E2993;
+    --color-blue-800: #181858;
+    --color-blue-900: #0D0B2F;
     --color-blue: var(--color-blue-500);
 
     --color-yellow-100: #FFF6E6;
@@ -268,7 +269,7 @@
   .scheme-black {
     --color-bg: var(--color-black);
     --color-fg: var(--color-white);
-    --color-accent: var(--color-blue-400);
+    --color-accent: var(--color-blue-500);
     --color-muted: var(--color-grey-400);
     --color-border: var(--color-grey-100);
     --color-subtle: var(--color-grey-900);
@@ -332,7 +333,7 @@
   .scheme-grey-600 {
     --color-bg: var(--color-grey-600);
     --color-fg: var(--color-white);
-    --color-accent: var(--color-blue-400);
+    --color-accent: var(--color-blue-500);
     --color-muted: var(--color-grey-200);
     --color-border: var(--color-white);
     --color-subtle: var(--color-grey-700);
@@ -341,7 +342,7 @@
   .scheme-grey-700 {
     --color-bg: var(--color-grey-700);
     --color-fg: var(--color-white);
-    --color-accent: var(--color-blue-400);
+    --color-accent: var(--color-blue-500);
     --color-muted: var(--color-grey-300);
     --color-border: var(--color-grey-100);
     --color-subtle: var(--color-grey-800);
@@ -350,7 +351,7 @@
   .scheme-grey-800 {
     --color-bg: var(--color-grey-800);
     --color-fg: var(--color-grey-100);
-    --color-accent: var(--color-blue-400);
+    --color-accent: var(--color-blue-500);
     --color-muted: var(--color-grey-400);
     --color-border: var(--color-grey-100);
     --color-subtle: var(--color-grey-900);
@@ -359,7 +360,7 @@
   .scheme-grey-900 {
     --color-bg: var(--color-grey-900);
     --color-fg: var(--color-grey-100);
-    --color-accent: var(--color-blue-400);
+    --color-accent: var(--color-blue-500);
     --color-muted: var(--color-grey-400);
     --color-border: var(--color-grey-100);
     --color-subtle: var(--color-black);
@@ -375,7 +376,7 @@
     .scheme-default {
       --color-bg: var(--color-grey-900);
       --color-fg: var(--color-grey-100);
-      --color-accent: var(--color-blue-400);
+      --color-accent: var(--color-blue-500);
       --color-muted: var(--color-grey-400);
       --color-border: var(--color-grey-600);
       --color-subtle: var(--color-black);
@@ -384,7 +385,7 @@
     .scheme-subtle {
       --color-bg: var(--color-grey-800);
       --color-fg: var(--color-grey-100);
-      --color-accent: var(--color-blue-300);
+      --color-accent: var(--color-blue-500);
       --color-muted: var(--color-grey-400);
       --color-border: var(--color-grey-600);
       --color-subtle: var(--color-grey-900);
@@ -401,7 +402,7 @@
   .scheme-dark {
     --color-bg: var(--color-grey-900);
     --color-fg: var(--color-grey-100);
-    --color-accent: var(--color-blue-400);
+    --color-accent: var(--color-blue-500);
     --color-muted: var(--color-grey-400);
     --color-border: var(--color-grey-400);
     --color-subtle: var(--color-black);
@@ -412,7 +413,7 @@
   .dark-mode .scheme-subtle {
     --color-bg: var(--color-grey-800);
     --color-fg: var(--color-grey-100);
-    --color-accent: var(--color-blue-400);
+    --color-accent: var(--color-blue-500);
     --color-muted: var(--color-grey-400);
     --color-border: var(--color-grey-300);
     --color-subtle: var(--color-grey-900);
