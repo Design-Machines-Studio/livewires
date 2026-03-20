@@ -27,6 +27,18 @@
   <span class="initials" aria-hidden="true">J</span>
 </span>
 
+<!-- With name (cluster layout) -->
+<div class="cluster" style="align-items: center;">
+  <span class="avatar avatar--sm"><img src="photo.jpg" alt=""></span>
+  <span>Jane Doe</span>
+</div>
+
+<!-- As link -->
+<a href="/profile/jane" class="cluster" style="align-items: center;">
+  <span class="avatar avatar--sm"><img src="photo.jpg" alt=""></span>
+  Jane Doe
+</a>
+
 <!-- Avatar group (overlapping, proportional overlap) -->
 <div class="avatar-group">
   <span class="avatar"><img src="u1.jpg" alt="User 1"></span>

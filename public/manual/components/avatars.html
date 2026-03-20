@@ -152,6 +152,93 @@
             </div>
           </section>
 
+          <!-- With name -->
+          <section class="stack">
+            <header>
+              <h2>With name</h2>
+              <p>Pair an avatar with a name using a <code>.cluster</code> layout. Works at any size.</p>
+              <popup-dialog title="Avatar With Name HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;div class="cluster" style="align-items: center;"&gt;
+  &lt;span class="avatar avatar--sm"&gt;
+    &lt;img src="photo.jpg" alt=""&gt;
+  &lt;/span&gt;
+  &lt;span&gt;Jane Doe&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- With initials --&gt;
+&lt;div class="cluster" style="align-items: center;"&gt;
+  &lt;span class="avatar avatar--sm" role="img" aria-label="Jane Doe"&gt;
+    &lt;span class="initials" aria-hidden="true"&gt;J&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span&gt;Jane Doe&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="stack stack-compact">
+              <div class="cluster" style="align-items: center;">
+                <span class="avatar avatar--xs" aria-hidden="true" style="background: var(--color-blue-300);"></span>
+                <span class="text-sm">Jane Doe</span>
+              </div>
+              <div class="cluster" style="align-items: center;">
+                <span class="avatar avatar--sm" aria-hidden="true" style="background: var(--color-blue-300);"></span>
+                <span>Jane Doe</span>
+              </div>
+              <div class="cluster" style="align-items: center;">
+                <span class="avatar" aria-hidden="true" style="background: var(--color-blue-300);"></span>
+                <span>Jane Doe</span>
+              </div>
+              <div class="cluster" style="align-items: center;">
+                <span class="avatar avatar--lg" aria-hidden="true" style="background: var(--color-blue-300);"></span>
+                <span>Jane Doe</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- As link -->
+          <section class="stack">
+            <header>
+              <h2>As link</h2>
+              <p>Wrap an avatar in an <code>&lt;a&gt;</code> to make it clickable. The link text provides the accessible name, so the image <code>alt</code> can be empty.</p>
+              <popup-dialog title="Avatar As Link HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;!-- Image avatar as link --&gt;
+&lt;a href="/profile/jane"&gt;
+  &lt;span class="avatar avatar--sm"&gt;
+    &lt;img src="photo.jpg" alt=""&gt;
+  &lt;/span&gt;
+  Jane Doe
+&lt;/a&gt;
+
+&lt;!-- Initials avatar as link --&gt;
+&lt;a href="/profile/jane" class="cluster" style="align-items: center;"&gt;
+  &lt;span class="avatar avatar--sm" role="img" aria-label=""&gt;
+    &lt;span class="initials" aria-hidden="true"&gt;J&lt;/span&gt;
+  &lt;/span&gt;
+  Jane Doe
+&lt;/a&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="stack stack-compact">
+              <div>
+                <a href="#" class="cluster" style="align-items: center; text-decoration: none; color: inherit;">
+                  <span class="avatar avatar--sm" aria-hidden="true" style="background: var(--color-green-300);"></span>
+                  <span>Jane Doe</span>
+                </a>
+              </div>
+              <div>
+                <a href="#" class="cluster" style="align-items: center; text-decoration: none; color: inherit;">
+                  <span class="avatar" aria-hidden="true" style="background: var(--color-green-300);"></span>
+                  <span>Jane Doe</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
           <!-- Groups (round) -->
           <section class="stack">
             <header>
