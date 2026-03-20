@@ -28,13 +28,13 @@
 </span>
 
 <!-- With name (cluster layout) -->
-<div class="cluster" style="align-items: center;">
+<div class="cluster items-center">
   <span class="avatar avatar--sm"><img src="photo.jpg" alt=""></span>
   <span>Jane Doe</span>
 </div>
 
 <!-- As link -->
-<a href="/profile/jane" class="cluster" style="align-items: center;">
+<a href="/profile/jane" class="cluster items-center">
   <span class="avatar avatar--sm"><img src="photo.jpg" alt=""></span>
   Jane Doe
 </a>
