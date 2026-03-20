@@ -5,53 +5,153 @@
   <meta name="viewport" content="initial-scale=1.0">
   <script type="module" src="/dist/main.js"></script>
   <html-include src="/_includes/head.html"></html-include>
-  <title>Avatars – Components Reference – Live Wires</title>
+  <title>Avatars &ndash; Components Reference &ndash; Live Wires</title>
 </head>
 <body>
   <html-include src="/_includes/header.html"></html-include>
   <main id="main">
     <article class="section prose">
       <h1>Avatars</h1>
-<!-- Default (round) -->
+
+<!-- Size: xs (0.5 lines) -->
+<span class="avatar avatar--xs">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Size: sm (0.75 lines) -->
+<span class="avatar avatar--sm">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Size: default (1 line) -->
 <span class="avatar">
-  <img src="/img/placeholder.jpg" alt="Jane Doe">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
 </span>
 
-<!-- Small -->
-<span class="avatar avatar--small">
-  <img src="/img/placeholder.jpg" alt="Jane Doe">
+<!-- Size: lg (1.5 lines) -->
+<span class="avatar avatar--lg">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
 </span>
 
-<!-- Large -->
-<span class="avatar avatar--large">
-  <img src="/img/placeholder.jpg" alt="Jane Doe">
+<!-- Size: xl (2 lines) -->
+<span class="avatar avatar--xl">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
 </span>
 
-<!-- Extra large -->
-<span class="avatar avatar--xlarge">
-  <img src="/img/placeholder.jpg" alt="Jane Doe">
+<!-- Size: 2xl (4 lines) -->
+<span class="avatar avatar--2xl">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
 </span>
 
-<!-- Square -->
+<!-- Size: 3xl (6 lines) -->
+<span class="avatar avatar--3xl">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Size: 4xl (8 lines) -->
+<span class="avatar avatar--4xl">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Square: xs -->
+<span class="avatar avatar--xs avatar--square">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Square: sm -->
+<span class="avatar avatar--sm avatar--square">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Square: default -->
 <span class="avatar avatar--square">
-  <img src="/img/placeholder.jpg" alt="Jane Doe">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
 </span>
 
-<!-- Initials fallback (no image) -->
-<span class="avatar" aria-label="Jane Doe">
+<!-- Square: lg -->
+<span class="avatar avatar--lg avatar--square">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Square: xl -->
+<span class="avatar avatar--xl avatar--square">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Square: 2xl -->
+<span class="avatar avatar--2xl avatar--square">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Square: 3xl -->
+<span class="avatar avatar--3xl avatar--square">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Square: 4xl -->
+<span class="avatar avatar--4xl avatar--square">
+  <img src="/img/guide/ludd-avatar.jpg" alt="Jane Doe">
+</span>
+
+<!-- Initials: xs (single character recommended) -->
+<span class="avatar avatar--xs" role="img" aria-label="Jane Doe">
+  <span class="initials" aria-hidden="true">J</span>
+</span>
+
+<!-- Initials: sm (single character recommended) -->
+<span class="avatar avatar--sm" role="img" aria-label="Jane Doe">
+  <span class="initials" aria-hidden="true">J</span>
+</span>
+
+<!-- Initials: default -->
+<span class="avatar" role="img" aria-label="Jane Doe">
   <span class="initials" aria-hidden="true">JD</span>
 </span>
 
-<!-- Initials, small -->
-<span class="avatar avatar--small" aria-label="Jane Doe">
+<!-- Initials: lg -->
+<span class="avatar avatar--lg" role="img" aria-label="Jane Doe">
   <span class="initials" aria-hidden="true">JD</span>
 </span>
 
-<!-- Avatar group (overlapping) -->
+<!-- Initials: xl -->
+<span class="avatar avatar--xl" role="img" aria-label="Jane Doe">
+  <span class="initials" aria-hidden="true">JD</span>
+</span>
+
+<!-- Initials: 2xl -->
+<span class="avatar avatar--2xl" role="img" aria-label="Jane Doe">
+  <span class="initials" aria-hidden="true">JD</span>
+</span>
+
+<!-- Initials: 3xl -->
+<span class="avatar avatar--3xl" role="img" aria-label="Jane Doe">
+  <span class="initials" aria-hidden="true">JD</span>
+</span>
+
+<!-- Initials: 4xl -->
+<span class="avatar avatar--4xl" role="img" aria-label="Jane Doe">
+  <span class="initials" aria-hidden="true">JD</span>
+</span>
+
+<!-- Avatar group (round, default size) -->
 <div class="avatar-group">
-  <span class="avatar"><img src="/img/placeholder.jpg" alt="User 1"></span>
-  <span class="avatar"><img src="/img/placeholder.jpg" alt="User 2"></span>
-  <span class="avatar"><img src="/img/placeholder.jpg" alt="User 3"></span>
+  <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt="User 1"></span>
+  <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt="User 2"></span>
+  <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt="User 3"></span>
+</div>
+
+<!-- Avatar group (round, xs size) -->
+<div class="avatar-group">
+  <span class="avatar avatar--xs"><img src="/img/guide/ludd-avatar.jpg" alt="User 1"></span>
+  <span class="avatar avatar--xs"><img src="/img/guide/ludd-avatar.jpg" alt="User 2"></span>
+  <span class="avatar avatar--xs"><img src="/img/guide/ludd-avatar.jpg" alt="User 3"></span>
+</div>
+
+<!-- Avatar group (square, sm size) -->
+<div class="avatar-group">
+  <span class="avatar avatar--sm avatar--square"><img src="/img/guide/ludd-avatar.jpg" alt="User 1"></span>
+  <span class="avatar avatar--sm avatar--square"><img src="/img/guide/ludd-avatar.jpg" alt="User 2"></span>
+  <span class="avatar avatar--sm avatar--square"><img src="/img/guide/ludd-avatar.jpg" alt="User 3"></span>
 </div>
     </article>
   </main>

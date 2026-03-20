@@ -1,5 +1,42 @@
 # Components Reference
 
+## Avatars
+
+```html
+<!-- Size variants (smallest to largest) -->
+<span class="avatar avatar--xs"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar avatar--sm"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar avatar--lg"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar avatar--xl"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar avatar--2xl"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar avatar--3xl"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar avatar--4xl"><img src="photo.jpg" alt="Name"></span>
+
+<!-- Square variant (works with any size) -->
+<span class="avatar avatar--square"><img src="logo.png" alt="Company"></span>
+<span class="avatar avatar--xs avatar--square"><img src="logo.png" alt="Company"></span>
+
+<!-- Initials fallback (use role="img" + aria-label) -->
+<span class="avatar" role="img" aria-label="Jane Doe">
+  <span class="initials" aria-hidden="true">JD</span>
+</span>
+
+<!-- Single character at xs/sm for readability -->
+<span class="avatar avatar--xs" role="img" aria-label="Jane Doe">
+  <span class="initials" aria-hidden="true">J</span>
+</span>
+
+<!-- Avatar group (overlapping, proportional overlap) -->
+<div class="avatar-group">
+  <span class="avatar"><img src="u1.jpg" alt="User 1"></span>
+  <span class="avatar"><img src="u2.jpg" alt="User 2"></span>
+  <span class="avatar"><img src="u3.jpg" alt="User 3"></span>
+</div>
+```
+
+Sizes: `--xs` (0.5 lines), `--sm` (0.75 lines), default (1 line), `--lg` (1.5 lines), `--xl` (2 lines), `--2xl` (4 lines), `--3xl` (6 lines), `--4xl` (8 lines).
+
 ## Dialogs and Modals
 
 ```html
