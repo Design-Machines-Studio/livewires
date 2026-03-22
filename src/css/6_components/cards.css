@@ -71,6 +71,7 @@
     & > figure .avatar {
       display: block;
       inline-size: 100%;
+      border-radius: 0;
     }
   }
 
