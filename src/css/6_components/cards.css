@@ -78,6 +78,9 @@
   /* Stat card - large metric display, use with .card.
      Overrides .card .value font-weight (bold -> black) for heavy numerics. */
   .card--stat {
+    display: flex;
+    flex-direction: column;
+
     & .value {
       font-weight: var(--font-black);
     }
