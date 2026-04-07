@@ -15,6 +15,19 @@
     gap: var(--grid-gap, var(--gutter));
     container-type: inline-size;
   }
+  .subgrid {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-template-columns: subgrid;
+  }
+  .subgrid-rows { 
+    display: grid;
+    grid-template-rows: subgrid;
+  }
+  .subgrid-columns {
+    display: grid;
+    grid-template-columns: subgrid;
+  }
 
   .grid-narrow {
     --min-column-width: var(--line-8);
