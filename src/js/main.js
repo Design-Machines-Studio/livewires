@@ -40,3 +40,48 @@ if (document.readyState === 'loading') {
 } else {
   mountDesignPanelOverlays();
 }
+
+// When the G tool is active (body.dev-outline-grids), each .grid needs
+// a data-dev-cols attribute so prototyping.css can render the column
+// count label. The ported panel toggles the class but doesn't scan
+// grids -- scan here instead, on class change and viewport resize.
+function updateGridColumnCounts() {
+  document.querySelectorAll('.grid').forEach((grid) => {
+    const style = getComputedStyle(grid);
+    const columns = style.gridTemplateColumns
+      .split(' ')
+      .filter((c) => c !== 'none' && c.trim()).length;
+    if (columns > 0) {
+      grid.dataset.devCols = columns;
+      grid.style.setProperty('--grid-columns', columns);
+    }
+    const gap = style.columnGap || style.rowGap || style.gap;
+    if (gap && gap !== 'normal') {
+      grid.style.setProperty('--grid-gap', gap);
+    }
+  });
+}
+
+function watchGridOutlineTool() {
+  const scanIfActive = () => {
+    if (document.body.classList.contains('dev-outline-grids')) {
+      updateGridColumnCounts();
+    }
+  };
+  new MutationObserver(scanIfActive).observe(document.body, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(scanIfActive, 100);
+  });
+  scanIfActive();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', watchGridOutlineTool);
+} else {
+  watchGridOutlineTool();
+}
