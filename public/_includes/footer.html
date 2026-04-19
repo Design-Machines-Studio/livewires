@@ -9,3 +9,9 @@
     <small>Live Wires is built with native CSS and modern web standards.</small>
   </p>
 </footer>
+
+<!-- Dev-only: floating design panel with baseline / columns / margins overlays.
+     Fixed-positioned in Shadow DOM so it escapes the footer visually.
+     aria-hidden keeps it out of the AT landmark tree; the panel itself
+     reflects open state to document.body via data-panel-open. -->
+<design-panel aria-hidden="true"></design-panel>
