@@ -278,11 +278,24 @@
    * panel companions the content instead of overlaying primary nav.
    * The panel mirrors `data-panel-open` to <body> for exactly this.
    * Narrow viewports keep the overlay behaviour (no room to shift).
+   *
+   * Fixed-position overlays (column and margin) are positioned
+   * relative to the viewport, not the body, so they need their own
+   * right-edge offset to stay inside the content area rather than
+   * sliding under the panel.
    */
   @media (min-width: 60rem) {
     body[data-panel-open] {
       margin-inline-end: var(--dp-width, 17.5rem);
       transition: margin-inline-end 250ms ease;
+    }
+
+    body[data-panel-open] #dev-column-overlay {
+      right: calc(var(--dev-margin) + var(--dp-width, 17.5rem));
+    }
+
+    body[data-panel-open] #dev-margin-overlay {
+      right: var(--dp-width, 17.5rem);
     }
   }
 
