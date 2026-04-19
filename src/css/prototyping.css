@@ -227,6 +227,18 @@
   }
 
   /*
+   * HIDE BACKGROUNDS (X tool)
+   * Strip all background colors and images site-wide so the
+   * design-panel "BG off" toggle exposes bare content hierarchy.
+   */
+  body.hide-backgrounds *,
+  body.hide-backgrounds *::before,
+  body.hide-backgrounds *::after {
+    background-color: transparent !important;
+    background-image: none !important;
+  }
+
+  /*
    * CURRENT PAGE NAVIGATION
    * Style for active/current page in navigation
    * Uses pg-* body classes with nav link href matching
