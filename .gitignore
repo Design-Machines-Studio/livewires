@@ -49,3 +49,4 @@ node_modules
 
 # Marketing export folder (for extracting content to use on marketing site)
 /_marketing-export/
+.claude/ux-review/

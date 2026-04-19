@@ -52,9 +52,12 @@
 │   │   ├── print.css         # Print styles
 │   │   └── prototyping.css   # Dev tools (baseline grid, etc.)
 │   └── js/
-│       ├── main.js           # Vite entry point
+│       ├── main.js           # Vite entry point + overlay / grid shims
 │       ├── html-include.js   # Include Web Component
-│       └── prototyping.js    # Prototyping utilities
+│       ├── popup-dialog.js   # Dialog Web Component
+│       └── components/
+│           ├── design-panel.js         # <design-panel> dev toolbar
+│           └── design-panel-runtime.js # Scheme runtime stylesheet helpers
 ├── public/                   # Your prototype (site root)
 │   ├── index.html            # Your pages
 │   ├── _includes/            # HTML fragments (header, footer, nav)
@@ -192,8 +195,11 @@
             <dt><code>/src/js/html-include.js</code></dt>
             <dd>Zero-dependency Web Component for including HTML fragments. See <a href="/docs/includes.html">HTML includes documentation</a>.</dd>
 
-            <dt><code>/src/js/prototyping.js</code></dt>
-            <dd>Development utilities: keyboard shortcuts for baseline grid, column overlays, and dark mode toggle.</dd>
+            <dt><code>/src/js/components/design-panel.js</code></dt>
+            <dd>The <code>&lt;design-panel&gt;</code> web component. Shadow-DOM chrome, keyboard shortcuts, and tool toggles for baseline, columns, margins, grids, outlines, dark mode, redact, and backgrounds. See <a href="/docs/design-panel.html">Design panel documentation</a>.</dd>
+
+            <dt><code>/src/js/components/design-panel-runtime.js</code></dt>
+            <dd>Runtime stylesheet helpers (<code>window.__dpSchemeUpdate</code>, <code>__dpSchemeReset</code>, <code>__dpSchemeSerialize</code>) used by slotted scheme editors. Inert in Live Wires; kept for parity with Assembly.</dd>
           </dl>
           <p class="more"><a href="#main">To top</a></p>
         </section>

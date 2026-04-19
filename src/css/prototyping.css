@@ -230,12 +230,60 @@
    * HIDE BACKGROUNDS (X tool)
    * Strip all background colors and images site-wide so the
    * design-panel "BG off" toggle exposes bare content hierarchy.
+   * `!important` required to beat inline styles and high-specificity
+   * component rules (.bg-*, .scheme-*). The :not(.show-baseline)
+   * scope preserves the baseline grid overlay when both tools are
+   * active simultaneously.
    */
-  body.hide-backgrounds *,
-  body.hide-backgrounds *::before,
-  body.hide-backgrounds *::after {
+  body.hide-backgrounds:not(.show-baseline) *,
+  body.hide-backgrounds:not(.show-baseline) *::before,
+  body.hide-backgrounds:not(.show-baseline) *::after {
     background-color: transparent !important;
     background-image: none !important;
+  }
+
+  /*
+   * LAYOUT PRIMITIVE OUTLINES (O tool)
+   * Outline every Live Wires layout primitive and its direct
+   * children so you can see composition and nesting boundaries.
+   * Ports the rules that used to live in prototyping.js addOutlineStyles().
+   */
+  body.dev-outline .stack,
+  body.dev-outline .cluster,
+  body.dev-outline .grid,
+  body.dev-outline .sidebar,
+  body.dev-outline .center,
+  body.dev-outline .box,
+  body.dev-outline .cover,
+  body.dev-outline .section {
+    outline: 1px dashed var(--color-accent);
+    outline-offset: -1px;
+  }
+
+  body.dev-outline .stack > *,
+  body.dev-outline .cluster > *,
+  body.dev-outline .grid > *,
+  body.dev-outline .sidebar > *,
+  body.dev-outline .center > *,
+  body.dev-outline .box > *,
+  body.dev-outline .cover > *,
+  body.dev-outline .section > * {
+    outline: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+    outline-offset: -1px;
+  }
+
+  /*
+   * PANEL LAYOUT SHIFT
+   * When the design panel is open, shift the page content so the
+   * panel companions the content instead of overlaying primary nav.
+   * The panel mirrors `data-panel-open` to <body> for exactly this.
+   * Narrow viewports keep the overlay behaviour (no room to shift).
+   */
+  @media (min-width: 60rem) {
+    body[data-panel-open] {
+      margin-inline-end: var(--dp-width, 17.5rem);
+      transition: margin-inline-end 250ms ease;
+    }
   }
 
   /*

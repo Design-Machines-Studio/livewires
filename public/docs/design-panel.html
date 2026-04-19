@@ -24,7 +24,7 @@
           <p class="lead">A fixed-position dev panel for checking layout, alignment, and rhythm. Shadow-DOM web component, keyboard-driven, zero dependencies.</p>
         </header>
 
-        <nav class="section section-snug">
+        <nav class="section section-snug" aria-label="On this page">
           <p><strong>On this page:</strong></p>
           <ul class="cluster">
             <li><a href="#overview">Overview</a></li>
@@ -42,7 +42,7 @@
           <h3>Opening the panel</h3>
           <p>Press <kbd>T</kbd> anywhere on the page to toggle the panel. Or click the floating action button at the bottom-right of the viewport. Keyboard shortcuts are input-aware: typing in a form field won't trigger them.</p>
 
-          <aside class="box bg-subtle">
+          <aside class="box scheme-subtle">
             <p><strong>Keyboard shortcuts work whether the panel is open or closed.</strong> Press any tool's shortcut key to toggle it from anywhere on the page.</p>
           </aside>
 
@@ -53,15 +53,15 @@
         </section>
 
         <section id="tools" class="section">
-          <h2>Tools</h2>
+          <h2 id="tools-heading">Tools</h2>
           <p>Each tool can be toggled by clicking its button in the Guides tab or by pressing its keyboard shortcut.</p>
 
-          <table class="table--lined">
+          <table class="table--lined" aria-labelledby="tools-heading">
             <thead>
               <tr>
-                <th class="col-15">Key</th>
-                <th class="col-20">Tool</th>
-                <th class="col-65">Description</th>
+                <th class="col-15" scope="col">Key</th>
+                <th class="col-20" scope="col">Tool</th>
+                <th class="col-65" scope="col">Description</th>
               </tr>
             </thead>
             <tbody>
@@ -117,7 +117,7 @@
           <h3>Columns</h3>
           <p>Set the number of columns for the column grid overlay (1-24). This is purely a visual reference; it doesn't affect your actual CSS grid layouts.</p>
 
-          <h3>Baseline subdivisions</h3>
+          <h3>Subdivisions</h3>
           <p>Choose how many subdivisions to show between baseline lines:</p>
           <ul>
             <li><strong>1:</strong> No subdivisions, only main baseline lines</li>
@@ -127,13 +127,14 @@
           </ul>
 
           <h3>Gap</h3>
-          <p>Set the gap between columns in the overlay. Options use <code>--line-*</code> tokens:</p>
+          <p>Set the gap between columns in the overlay. Labels match the panel select exactly:</p>
           <ul>
+            <li><strong>Default:</strong> <code>var(--gutter)</code> (default)</li>
             <li><strong>0:</strong> No gap</li>
-            <li><strong>1px:</strong> 1 pixel gap</li>
-            <li><strong>1/4:</strong> <code>var(--line-025)</code></li>
-            <li><strong>1/2:</strong> <code>var(--line-05)</code></li>
-            <li><strong>1:</strong> <code>var(--line-1)</code> (default)</li>
+            <li><strong>1px:</strong> <code>var(--line-1px)</code></li>
+            <li><strong>0.25:</strong> <code>var(--line-025)</code></li>
+            <li><strong>0.5:</strong> <code>var(--line-05)</code></li>
+            <li><strong>1:</strong> <code>var(--line-1)</code></li>
             <li><strong>2:</strong> <code>var(--line-2)</code></li>
           </ul>
 

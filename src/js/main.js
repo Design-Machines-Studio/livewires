@@ -19,6 +19,14 @@ import './components/design-panel.js';
 // Assembly <-> Live Wires diffs stay clean.
 import './components/design-panel-runtime.js';
 
+function onReady(fn) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fn, { once: true });
+  } else {
+    fn();
+  }
+}
+
 // The panel writes data-margin-mode on #dev-column-overlay and
 // #dev-margin-overlay but does not create them. Previously created by
 // prototyping.js; now mounted here so the ports stay self-contained.
@@ -33,12 +41,6 @@ function mountDesignPanelOverlays() {
     mar.id = 'dev-margin-overlay';
     document.body.appendChild(mar);
   }
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', mountDesignPanelOverlays);
-} else {
-  mountDesignPanelOverlays();
 }
 
 // When the G tool is active (body.dev-outline-grids), each .grid needs
@@ -80,8 +82,7 @@ function watchGridOutlineTool() {
   scanIfActive();
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', watchGridOutlineTool);
-} else {
+onReady(() => {
+  mountDesignPanelOverlays();
   watchGridOutlineTool();
-}
+});
