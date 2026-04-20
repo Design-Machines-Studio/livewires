@@ -431,6 +431,17 @@
     --vf-grad: -50;
   }
 
+  .dark-mode .scheme-accent {
+    --color-bg: var(--color-blue-800);
+    --color-fg: var(--color-blue-50);
+    --color-accent: var(--color-blue-200);
+    --color-muted: var(--color-blue-400);
+    --color-border: var(--color-blue-600);
+    --color-border-subtle: var(--color-blue-700);
+    --color-subtle: var(--color-blue-900);
+    --vf-grad: -50;
+  }
+
   .light-mode,
   .light-mode .scheme-default {
     --color-bg: var(--color-white);
