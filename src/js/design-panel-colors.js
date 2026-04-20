@@ -1,28 +1,29 @@
 /**
- * Design Panel — Colours tab controller (Pass A + B).
+ * Design Panel — Colours tab controller.
  *
- * Wires up the slotted Colours editor DOM (authored in A3) to the runtime:
+ * Builds the Colours editor DOM (ramp matrix + scheme cards) programmatically
+ * from FAMILIES/SCHEMES/MODES/TOKENS constants and wires it to the runtime:
  *
  *   1. Reads --color-{family}-{step} tokens from the cascade via
  *      getComputedStyle (source of truth: src/css/1_tokens/color.css).
- *   2. Paints the 66 ramp-matrix swatches with the resolved hex values.
+ *   2. Paints the 6x11 ramp-matrix swatches with the resolved hex values.
  *   3. Populates all 30 scheme <select> elements with 1 blank + 6 optgroups
  *      x 11 options each, using createElement/appendChild (never
  *      innerHTML) to keep the XSS surface closed even for trusted data.
  *   4. Hydrates scheme selections from localStorage['design-panel:schemes']
- *      and re-applies the corresponding CSS overrides.
- *   5. Attaches change listeners that apply the Iteration 5 dual-emit
- *      routing via window.__dpSchemeUpdate:
+ *      (validated against a strict allow-list before use) and re-applies
+ *      the corresponding CSS overrides.
+ *   5. Attaches change listeners that apply dual-emit routing via
+ *      window.__dpSchemeUpdate:
  *        - scheme === 'default' -> :root / .dark-mode in @layer utilities
  *        - scheme === 'subtle'|'accent' -> .scheme-<name> / .scheme-<name>.dark-mode in @layer tokens
  *      Saves state back to localStorage with a 300ms debounce.
- *   6. (Pass B) Wires anchor / step / chroma controls to live
- *      regeneration via window.DesignPanelColor.generateRamp. Per-family
- *      settings persist in localStorage['design-panel:ramps']. Zero
- *      network requests at regeneration time -- all math runs client-side.
- *   7. (Pass B) Copy CSS button serializes the current 66 runtime values
- *      into an @layer tokens :root {} block via navigator.clipboard,
- *      for manual paste back into src/css/1_tokens/color.css.
+ *   6. Wires anchor / step / chroma controls to live regeneration via
+ *      window.DesignPanelColor.generateRamp. Per-family settings persist
+ *      in localStorage['design-panel:ramps']. Zero network requests at
+ *      regeneration time -- all math runs client-side.
+ *   7. Copy CSS button serializes the current 66 runtime values into an
+ *      @layer tokens :root {} block via navigator.clipboard.
  *
  * Zero imports by policy — this file is loaded via Vite's bundler from
  * main.js but must not declare its own ES imports. It relies on
@@ -34,20 +35,272 @@
 (function () {
   'use strict';
 
-  const FAMILIES = ['blue', 'red', 'orange', 'yellow', 'green', 'grey'];
-  const STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+  // Prefer the canonical lists from the ramp runtime so adding a 7th family
+  // in ramp.js doesn't silently diverge here. Fall back to identical literals
+  // if the runtime isn't registered yet (e.g. during unit tests).
+  const RUNTIME = (typeof window !== 'undefined' && window.DesignPanelColor) || {};
+  const FAMILIES = RUNTIME.FAMILY_NAMES
+    ? Array.from(RUNTIME.FAMILY_NAMES)
+    : ['blue', 'red', 'orange', 'yellow', 'green', 'grey'];
+  const STEPS = RUNTIME.STEPS
+    ? RUNTIME.STEPS.map(String)
+    : ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
   const SCHEMES = ['default', 'subtle', 'accent'];
   const MODES = ['light', 'dark'];
   const TOKENS = ['bg', 'fg', 'accent', 'muted', 'subtle'];
-  const STORAGE_KEY = 'design-panel:schemes';
-  const SAVE_DEBOUNCE_MS = 300;
-  const DOM_READY_TIMEOUT_MS = 5000;
 
-  let saveTimer = null;
+  const SCHEMES_STORAGE_KEY = 'design-panel:schemes';
+  const RAMP_STORAGE_KEY = 'design-panel:ramps';
+  const SAVE_DEBOUNCE_MS = 300;
+
+  // Per-family default anchor hex for the color picker fallback. These match
+  // the brand palette anchors in src/css/1_tokens/color.css at the 500 step
+  // and are only used if getComputedStyle can't resolve the cascade value.
+  const ANCHOR_FALLBACKS = {
+    blue: '#1f75ff',
+    red: '#e10600',
+    orange: '#ff4f00',
+    yellow: '#ffa300',
+    green: '#00b312',
+    grey: '#808080'
+  };
+
+  const FAMILY_LABEL = {};
+  for (const family of FAMILIES) {
+    FAMILY_LABEL[family] = family.charAt(0).toUpperCase() + family.slice(1);
+  }
+
+  // Allow-list for validating scheme select values loaded from localStorage.
+  // Closes the CSS injection channel at the controller boundary: any value
+  // not matching `{family}-{step}` is discarded before it can reach
+  // CSSStyleSheet.insertRule in design-panel-runtime.js.
+  const SCHEME_VALUE_RE = new RegExp(
+    `^(?:${FAMILIES.join('|')})-(?:${STEPS.join('|')})$`
+  );
+
+  // Separate log gates per failure mode so a missing token doesn't silence
+  // a missing __dpSchemeUpdate warning or vice versa.
   let missingTokenLogged = false;
+  let schemeUpdateMissingLogged = false;
+  let rampRuntimeMissingLogged = false;
 
   /* --------------------------------------------------------------- */
-  /* 1. Read tokens from the cascade                                 */
+  /* DOM builders                                                    */
+  /* --------------------------------------------------------------- */
+
+  function el(tag, attrs, children) {
+    const node = document.createElement(tag);
+    if (attrs) {
+      for (const key in attrs) {
+        if (key === 'text') {
+          node.textContent = attrs[key];
+        } else if (key in node && typeof attrs[key] !== 'string') {
+          // Direct DOM property (e.g. disabled: true, selected: true).
+          node[key] = attrs[key];
+        } else {
+          node.setAttribute(key, attrs[key]);
+        }
+      }
+    }
+    if (children) {
+      for (const child of children) {
+        if (child != null) node.appendChild(child);
+      }
+    }
+    return node;
+  }
+
+  function buildRampRow(family) {
+    const label = FAMILY_LABEL[family];
+    const settingsId = `dp-ramp-settings-${family}`;
+
+    const labelSpan = el('span', { class: 'dp-ramp-label', text: label });
+    const grid = el('span', { class: 'dp-ramp-grid', 'aria-hidden': 'true' });
+    for (const step of STEPS) {
+      grid.appendChild(
+        el('span', { class: 'dp-ramp-swatch', 'data-step': step })
+      );
+    }
+
+    const button = el(
+      'button',
+      {
+        class: 'dp-ramp-row',
+        type: 'button',
+        'aria-expanded': 'false',
+        'aria-controls': settingsId,
+        // SC 2.4.6 / 4.1.2: distinguish the disclosure action from the label.
+        'aria-label': `${label} ramp settings`
+      },
+      [labelSpan, grid]
+    );
+
+    // Ramp settings drawer wrapped in a <fieldset> so AT groups the three
+    // controls under one legend and announces "Blue ramp settings" once.
+    // SC 1.3.1 grouping.
+    const legend = el('legend', {
+      class: 'dp-ramp-settings-legend',
+      text: `${label} ramp settings`
+    });
+
+    const anchorLabel = el('label', {
+      for: `dp-anchor-${family}`,
+      text: 'Anchor color'
+    });
+    const anchorInput = el('input', {
+      type: 'color',
+      id: `dp-anchor-${family}`,
+      // Intentional: omit hardcoded value — the controller hydrates from
+      // computed tokens on init so JS failure cannot surface stale hex.
+    });
+
+    const stepLabel = el('label', {
+      for: `dp-step-${family}`,
+      text: 'Anchor step'
+    });
+    const stepSelect = el('select', { id: `dp-step-${family}` });
+    for (const step of STEPS) {
+      const opt = el('option', { value: step, text: step });
+      if (step === '500') opt.selected = true;
+      stepSelect.appendChild(opt);
+    }
+
+    const chromaLabel = el('label', {
+      for: `dp-chroma-${family}`,
+      text: 'Chroma intensity'
+    });
+    const chromaInput = el('input', {
+      type: 'range',
+      id: `dp-chroma-${family}`,
+      min: '0',
+      max: '100',
+      value: '80'
+      // aria-valuetext intentionally omitted — attachRampListeners sets it
+      // on initial hydration and every input event.
+    });
+
+    const fieldset = el(
+      'fieldset',
+      { class: 'dp-ramp-settings', id: settingsId, hidden: '' },
+      [
+        legend,
+        anchorLabel, anchorInput,
+        stepLabel, stepSelect,
+        chromaLabel, chromaInput
+      ]
+    );
+
+    return el(
+      'div',
+      { class: 'dp-ramp-row-wrapper', 'data-family': family },
+      [button, fieldset]
+    );
+  }
+
+  function buildSchemePreview(scheme, mode) {
+    const label = scheme.charAt(0).toUpperCase() + scheme.slice(1);
+    const previewModeClass =
+      mode === 'dark' ? 'dp-scheme-preview-dark dark-mode' : 'dp-scheme-preview-light';
+
+    return el(
+      'div',
+      { class: `dp-scheme-preview ${previewModeClass}`, 'aria-hidden': 'true' },
+      [
+        el('div', { class: `scheme-${scheme}` }, [
+          el('div', { class: 'dp-scheme-heading', text: label }),
+          el('div', { class: 'dp-scheme-divider' }),
+          el('div', { class: 'dp-scheme-body', text: 'Sample body text' }),
+          el('div', { class: 'dp-scheme-meta' }, [
+            el('span', { class: 'dp-scheme-accent-text', text: 'Accent' }),
+            el('span', { class: 'dp-scheme-subtle-swatch' }),
+            el('span', { class: 'dp-scheme-muted-text', text: 'Muted' })
+          ])
+        ])
+      ]
+    );
+  }
+
+  function buildSchemeMappingRow(scheme, mode, token) {
+    const id = `dp-scheme-${scheme}-${mode}-${token}`;
+    return el('div', { class: 'dp-scheme-mapping-row' }, [
+      el('label', { for: id, text: token }),
+      el('select', {
+        id,
+        'data-scheme': scheme,
+        'data-mode': mode,
+        'data-token': token,
+        // Initial placeholder lets static-render state announce something
+        // other than "0 of 0" while scripts are still loading.
+        'aria-busy': 'true'
+      }, [
+        el('option', { value: '', disabled: true, selected: true, text: 'Loading…' })
+      ])
+    ]);
+  }
+
+  function buildSchemeCardMode(scheme, mode) {
+    const label = FAMILY_LABEL_SCHEME(scheme);
+    const modeLabel = mode.charAt(0).toUpperCase() + mode.slice(1);
+
+    const summary = el(
+      'summary',
+      {
+        // SC 1.3.1 / 2.4.6: give each disclosure an accessible name that
+        // distinguishes which scheme and mode it controls. The preview
+        // inside is marked aria-hidden because it duplicates no info.
+        'aria-label': `${label} scheme, ${modeLabel} mode`
+      },
+      [buildSchemePreview(scheme, mode)]
+    );
+
+    const legend = el('legend', { class: 'dp-scheme-mode-label', text: modeLabel });
+    const fieldset = el('fieldset', { class: 'dp-scheme-mode-column' }, [legend]);
+    for (const token of TOKENS) {
+      fieldset.appendChild(buildSchemeMappingRow(scheme, mode, token));
+    }
+
+    return el(
+      'details',
+      { class: 'dp-scheme-card-mode', 'data-mode': mode },
+      [summary, fieldset]
+    );
+  }
+
+  function buildSchemeCard(scheme) {
+    const label = FAMILY_LABEL_SCHEME(scheme);
+    return el(
+      'div',
+      {
+        class: 'dp-scheme-card',
+        'data-scheme': scheme,
+        role: 'listitem',
+        'aria-label': `${label} scheme`
+      },
+      [buildSchemeCardMode(scheme, 'light'), buildSchemeCardMode(scheme, 'dark')]
+    );
+  }
+
+  function FAMILY_LABEL_SCHEME(scheme) {
+    return scheme.charAt(0).toUpperCase() + scheme.slice(1);
+  }
+
+  function buildAll() {
+    const matrix = document.querySelector('[data-dp-ramp-matrix]');
+    if (matrix && !matrix.firstChild) {
+      for (const family of FAMILIES) {
+        matrix.appendChild(buildRampRow(family));
+      }
+    }
+    const list = document.querySelector('[data-dp-scheme-list]');
+    if (list && !list.firstChild) {
+      for (const scheme of SCHEMES) {
+        list.appendChild(buildSchemeCard(scheme));
+      }
+    }
+  }
+
+  /* --------------------------------------------------------------- */
+  /* Read tokens from the cascade                                    */
   /* --------------------------------------------------------------- */
 
   function readRampsFromTokens() {
@@ -64,10 +317,6 @@
     return ramps;
   }
 
-  /* --------------------------------------------------------------- */
-  /* 2. Paint ramp matrix swatches                                    */
-  /* --------------------------------------------------------------- */
-
   function paintSwatches(ramps) {
     for (const family of FAMILIES) {
       const wrapper = document.querySelector(
@@ -83,7 +332,6 @@
         if (hex) {
           swatch.style.backgroundColor = hex;
         } else if (!missingTokenLogged) {
-          // Log once; color.css should declare all 66 tokens after A1.
           // eslint-disable-next-line no-console
           console.warn(
             `[design-panel-colors] Missing --color-${family}-${step} ` +
@@ -96,7 +344,7 @@
   }
 
   /* --------------------------------------------------------------- */
-  /* 3. Populate scheme <select> options (DOM API only)               */
+  /* Populate scheme <select> options (DOM API only)                 */
   /* --------------------------------------------------------------- */
 
   function populateSchemeSelects() {
@@ -105,8 +353,8 @@
     );
 
     for (const select of selects) {
-      // Clear existing options so re-running this (e.g., from B4's live
-      // regeneration) cannot accumulate duplicates.
+      // Clear placeholder + any accumulated options so re-running this is
+      // idempotent (e.g. during ramp regeneration).
       while (select.firstChild) {
         select.removeChild(select.firstChild);
       }
@@ -117,7 +365,7 @@
       select.appendChild(blank);
 
       for (const family of FAMILIES) {
-        const label = family.charAt(0).toUpperCase() + family.slice(1);
+        const label = FAMILY_LABEL[family];
         const group = document.createElement('optgroup');
         group.label = label;
 
@@ -130,17 +378,20 @@
 
         select.appendChild(group);
       }
+
+      // Options are live; drop the aria-busy placeholder hint.
+      select.removeAttribute('aria-busy');
     }
   }
 
   /* --------------------------------------------------------------- */
-  /* 4. Hydrate selections from localStorage                          */
+  /* Hydrate selections from localStorage                            */
   /* --------------------------------------------------------------- */
 
-  function readStoredState() {
+  function readStoredState(key) {
     let raw;
     try {
-      raw = localStorage.getItem(STORAGE_KEY);
+      raw = localStorage.getItem(key);
     } catch {
       return {};
     }
@@ -153,8 +404,15 @@
     }
   }
 
+  function isValidSchemeValue(value) {
+    // Security: reject anything not matching `{family}-{step}` before the
+    // value reaches CSSStyleSheet.insertRule. Defense-in-depth against a
+    // hostile localStorage write (CWE-95 / CWE-74).
+    return typeof value === 'string' && SCHEME_VALUE_RE.test(value);
+  }
+
   function hydrateSchemeSelections() {
-    const stored = readStoredState();
+    const stored = readStoredState(SCHEMES_STORAGE_KEY);
     for (const scheme of SCHEMES) {
       const schemeState = stored[scheme];
       if (!schemeState || typeof schemeState !== 'object') continue;
@@ -163,13 +421,12 @@
         if (!modeState || typeof modeState !== 'object') continue;
         for (const token of TOKENS) {
           const value = modeState[token];
-          if (!value) continue;
+          if (!isValidSchemeValue(value)) continue;
           const select = document.getElementById(
             `dp-scheme-${scheme}-${mode}-${token}`
           );
           if (!select) continue;
           select.value = value;
-          // Re-apply the CSS override so the page matches the saved state.
           applySchemeMapping(scheme, mode, token, value);
         }
       }
@@ -177,7 +434,7 @@
   }
 
   /* --------------------------------------------------------------- */
-  /* 5. Attach change listeners                                       */
+  /* Attach change listeners                                         */
   /* --------------------------------------------------------------- */
 
   function attachSchemeListeners() {
@@ -193,25 +450,33 @@
     const select = event.currentTarget;
     const { scheme, mode, token } = select.dataset;
     if (!scheme || !mode || !token) return;
+    // Blank (clear override) is always safe; any other value must pass
+    // the same allow-list used during hydration so runtime and storage
+    // share one validation gate.
+    if (select.value !== '' && !isValidSchemeValue(select.value)) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[design-panel-colors] ignoring invalid scheme value "${select.value}"`
+      );
+      return;
+    }
     applySchemeMapping(scheme, mode, token, select.value);
-    debouncedSave();
+    debouncedSchemeSave();
   }
 
   /* --------------------------------------------------------------- */
-  /* 6. Apply scheme mapping — Iteration 5 dual-emit                  */
+  /* Apply scheme mapping — dual-emit routing                        */
   /* --------------------------------------------------------------- */
 
   function applySchemeMapping(scheme, mode, token, value) {
     if (typeof window.__dpSchemeUpdate !== 'function') {
-      // design-panel-runtime.js should have installed this; log once
-      // via the existing missingTokenLogged gate to avoid spam.
-      if (!missingTokenLogged) {
+      if (!schemeUpdateMissingLogged) {
         // eslint-disable-next-line no-console
         console.warn(
           '[design-panel-colors] window.__dpSchemeUpdate is unavailable; ' +
             'runtime scheme overrides cannot be written.'
         );
-        missingTokenLogged = true;
+        schemeUpdateMissingLogged = true;
       }
       return;
     }
@@ -220,14 +485,9 @@
     const cssValue = value ? `var(--color-${value})` : 'initial';
 
     if (scheme === 'default') {
-      // Iteration 5: write Default scheme edits to :root (light) or
-      // .dark-mode (dark) in @layer utilities so they apply page-wide
-      // without requiring a .scheme-default class anywhere.
       const selector = mode === 'dark' ? '.dark-mode' : ':root';
       window.__dpSchemeUpdate(selector, prop, cssValue, 'utilities');
     } else {
-      // Subtle / Accent: write to the scheme class in @layer tokens;
-      // only elements that opt in via the class receive the override.
       const selector =
         mode === 'dark'
           ? `.scheme-${scheme}.dark-mode`
@@ -237,19 +497,22 @@
   }
 
   /* --------------------------------------------------------------- */
-  /* 7. Debounced localStorage save                                   */
+  /* Debounced localStorage save (factory)                           */
   /* --------------------------------------------------------------- */
 
-  function debouncedSave() {
-    if (saveTimer) clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => {
-      saveTimer = null;
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(serializeSchemes()));
-      } catch {
-        // Quota exceeded / disabled storage — silently skip.
-      }
-    }, SAVE_DEBOUNCE_MS);
+  function makeDebouncedSaver(key, serialize) {
+    let timer = null;
+    return function save() {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = null;
+        try {
+          localStorage.setItem(key, JSON.stringify(serialize()));
+        } catch {
+          // Quota exceeded / disabled storage — silently skip.
+        }
+      }, SAVE_DEBOUNCE_MS);
+    };
   }
 
   function serializeSchemes() {
@@ -270,32 +533,14 @@
     return state;
   }
 
-  /* --------------------------------------------------------------- */
-  /* 8. Bootstrap — wait for DOM, then init                           */
-  /* --------------------------------------------------------------- */
+  const debouncedSchemeSave = makeDebouncedSaver(
+    SCHEMES_STORAGE_KEY,
+    serializeSchemes
+  );
 
-  function waitForSchemeCards() {
-    if (document.querySelector('.dp-scheme-card')) {
-      return Promise.resolve();
-    }
-    return new Promise((resolve, reject) => {
-      const observer = new MutationObserver(() => {
-        if (document.querySelector('.dp-scheme-card')) {
-          cleanup();
-          resolve();
-        }
-      });
-      const timeoutId = setTimeout(() => {
-        cleanup();
-        reject(new Error('Colours editor DOM not found after 5s'));
-      }, DOM_READY_TIMEOUT_MS);
-      function cleanup() {
-        observer.disconnect();
-        clearTimeout(timeoutId);
-      }
-      observer.observe(document.body, { childList: true, subtree: true });
-    });
-  }
+  /* --------------------------------------------------------------- */
+  /* Ramp row disclosure toggles                                     */
+  /* --------------------------------------------------------------- */
 
   function attachRampRowToggles() {
     const rows = document.querySelectorAll('.dp-ramp-row');
@@ -318,17 +563,9 @@
   }
 
   /* --------------------------------------------------------------- */
-  /* Pass B: live ramp regeneration                                   */
+  /* Live ramp regeneration                                          */
   /* --------------------------------------------------------------- */
 
-  const RAMP_STORAGE_KEY = 'design-panel:ramps';
-  const RAMP_SAVE_DEBOUNCE_MS = 300;
-  let rampSaveTimer = null;
-  let rampRuntimeMissingLogged = false;
-
-  // Resolve the ramp runtime. Tests run in node and never invoke this file;
-  // if main.js forgot to call registerOnWindow, log once and leave ramp
-  // controls as no-ops so the Schemes editor still works.
   function getRampRuntime() {
     const rt = window.DesignPanelColor;
     if (!rt || typeof rt.generateRamp !== 'function') {
@@ -346,16 +583,14 @@
     return rt;
   }
 
-  // Build per-family defaults at runtime from the current color.css tokens.
-  // If the user edits color.css manually, the panel picks up the new anchor
-  // on next load -- no hard-coded fallback values beyond pure grey.
   function loadDefaultRampSettings() {
     const computed = getComputedStyle(document.documentElement);
     const defaults = {};
     for (const family of FAMILIES) {
       const raw = computed.getPropertyValue(`--color-${family}-500`).trim();
+      const fallback = ANCHOR_FALLBACKS[family] || '#808080';
       defaults[family] = {
-        anchorHex: (raw || '#808080').toLowerCase(),
+        anchorHex: (raw || fallback).toLowerCase(),
         anchorStep: 500,
         chroma: 80,
         isNeutral: false
@@ -365,14 +600,7 @@
   }
 
   function readStoredRampOverrides() {
-    try {
-      const raw = localStorage.getItem(RAMP_STORAGE_KEY);
-      if (!raw) return {};
-      const parsed = JSON.parse(raw);
-      return parsed && typeof parsed === 'object' ? parsed : {};
-    } catch {
-      return {};
-    }
+    return readStoredState(RAMP_STORAGE_KEY);
   }
 
   function loadRampSettings() {
@@ -393,42 +621,26 @@
     return Object.keys(stored).length > 0;
   }
 
-  function saveRampSettings(settings) {
-    try {
-      localStorage.setItem(RAMP_STORAGE_KEY, JSON.stringify(settings));
-    } catch {
-      // Quota exceeded / disabled storage -- silently skip.
-    }
-  }
-
-  function debouncedRampSave(settings) {
-    if (rampSaveTimer) clearTimeout(rampSaveTimer);
-    rampSaveTimer = setTimeout(() => {
-      rampSaveTimer = null;
-      saveRampSettings(settings);
-    }, RAMP_SAVE_DEBOUNCE_MS);
-  }
-
+  // buildScaledChromaProfile shadows runtime.scaleChromaProfile if available,
+  // keeping backwards compatibility if main.js is loaded without ramp.js.
   function buildScaledChromaProfile(runtime, chromaPct) {
+    if (typeof runtime.scaleChromaProfile === 'function') {
+      return runtime.scaleChromaProfile(
+        runtime.DEFAULT_CHROMA_PROFILE,
+        chromaPct
+      );
+    }
     const scale = Math.max(0, Math.min(100, chromaPct)) / 100;
     const baseline = runtime.DEFAULT_CHROMA_PROFILE || {};
     const profile = {};
     for (const step of STEPS) {
       const numericStep = Number(step);
-      // Runtime constants come from ramp.js where keys are numbers; fall
-      // back to DEFAULT_CHROMA_PROFILE[stringStep] just in case a consumer
-      // passes us a string-keyed object.
       const base = baseline[numericStep] ?? baseline[step] ?? 0.5;
       profile[numericStep] = base * scale;
     }
     return profile;
   }
 
-  // Regenerate one family and apply the 11 resulting hex values:
-  //   - rewrite the 11 --color-{family}-{step} custom properties on :root
-  //   - repaint the 11 swatches in the ramp matrix row
-  // All other families are left alone, so regeneration cost scales O(1)
-  // in the number of families regardless of DOM size.
   function regenerateFamily(family, settings) {
     const runtime = getRampRuntime();
     if (!runtime) return;
@@ -476,13 +688,24 @@
     }
   }
 
+  function setChromaAriaValuetext(input, pct) {
+    input.setAttribute('aria-valuetext', `Chroma ${pct} percent`);
+  }
+
   function attachRampListeners(settings) {
+    const debouncedSave = makeDebouncedSaver(
+      RAMP_STORAGE_KEY,
+      () => settings
+    );
+
     for (const family of FAMILIES) {
       const anchor = document.getElementById(`dp-anchor-${family}`);
       const step = document.getElementById(`dp-step-${family}`);
       const chroma = document.getElementById(`dp-chroma-${family}`);
 
-      // Hydrate controls from state (so restored localStorage values show up).
+      // Hydrate controls from state (so restored localStorage values show up)
+      // AND set aria-valuetext from the hydrated value so the first SR read
+      // is accurate even if the user never moves the slider.
       if (anchor && settings[family].anchorHex) {
         anchor.value = settings[family].anchorHex;
       }
@@ -491,17 +714,14 @@
       }
       if (chroma) {
         chroma.value = String(settings[family].chroma);
-        chroma.setAttribute(
-          'aria-valuetext',
-          `Chroma ${settings[family].chroma} percent`
-        );
+        setChromaAriaValuetext(chroma, settings[family].chroma);
       }
 
       if (anchor) {
         anchor.addEventListener('input', () => {
           settings[family].anchorHex = (anchor.value || '').toLowerCase();
           regenerateFamily(family, settings);
-          debouncedRampSave(settings);
+          debouncedSave();
         });
       }
       if (step) {
@@ -510,7 +730,7 @@
           if (Number.isFinite(parsed)) {
             settings[family].anchorStep = parsed;
             regenerateFamily(family, settings);
-            debouncedRampSave(settings);
+            debouncedSave();
           }
         });
       }
@@ -519,9 +739,9 @@
           const parsed = parseInt(chroma.value, 10);
           if (Number.isFinite(parsed)) {
             settings[family].chroma = parsed;
-            chroma.setAttribute('aria-valuetext', `Chroma ${parsed} percent`);
+            setChromaAriaValuetext(chroma, parsed);
             regenerateFamily(family, settings);
-            debouncedRampSave(settings);
+            debouncedSave();
           }
         });
       }
@@ -532,7 +752,7 @@
     const computed = getComputedStyle(document.documentElement);
     const lines = ['@layer tokens {', '  :root {'];
     for (const family of FAMILIES) {
-      const label = family.charAt(0).toUpperCase() + family.slice(1);
+      const label = FAMILY_LABEL[family];
       lines.push(`    /* ${label} */`);
       for (const step of STEPS) {
         const value = computed.getPropertyValue(`--color-${family}-${step}`).trim();
@@ -546,16 +766,40 @@
     return lines.join('\n');
   }
 
+  function ensureCopyStatusRegion(btn) {
+    // Live region sibling so button label changes ("Copied", "Failed") are
+    // also announced to screen readers. Visually hidden via the sr-only
+    // class shared with other Live Wires components.
+    let status = document.getElementById('dp-copy-css-status');
+    if (!status) {
+      status = el('span', {
+        id: 'dp-copy-css-status',
+        class: 'visually-hidden',
+        role: 'status',
+        'aria-live': 'polite',
+        'aria-atomic': 'true'
+      });
+      btn.insertAdjacentElement('afterend', status);
+    }
+    return status;
+  }
+
   function attachCopyCSSButton() {
     const btn = document.querySelector('.dp-copy-css');
     if (!btn) return;
+
+    const status = ensureCopyStatusRegion(btn);
 
     btn.addEventListener('click', () => {
       const css = serializeRampsAsCSS();
       const original = btn.textContent;
       const restore = (label, delay) => {
         btn.textContent = label;
-        setTimeout(() => { btn.textContent = original; }, delay);
+        status.textContent = label;
+        setTimeout(() => {
+          btn.textContent = original;
+          status.textContent = '';
+        }, delay);
       };
 
       if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
@@ -567,8 +811,6 @@
 
       navigator.clipboard.writeText(css).then(
         () => {
-          // 66 tokens = 6 families * 11 steps when all color.css declarations
-          // are present; label is informational only.
           restore('Copied', 2000);
         },
         (err) => {
@@ -580,7 +822,19 @@
     });
   }
 
+  /* --------------------------------------------------------------- */
+  /* Bootstrap                                                       */
+  /* --------------------------------------------------------------- */
+
   function main() {
+    // Mount points may not exist yet if this page doesn't use footer.html
+    // (e.g. a standalone docs page). Early-exit silently in that case.
+    const matrixMount = document.querySelector('[data-dp-ramp-matrix]');
+    const listMount = document.querySelector('[data-dp-scheme-list]');
+    if (!matrixMount && !listMount) return;
+
+    buildAll();
+
     const ramps = readRampsFromTokens();
     paintSwatches(ramps);
     populateSchemeSelects();
@@ -588,8 +842,8 @@
     attachSchemeListeners();
     attachRampRowToggles();
 
-    // Pass B: live regeneration. Order matters -- reapply stored overrides
-    // first so subsequent user input writes on top of the restored state.
+    // Live regeneration. Order matters -- reapply stored overrides first
+    // so subsequent user input writes on top of the restored state.
     const rampSettings = loadRampSettings();
     if (hasStoredOverrides()) {
       regenerateAllFamilies(rampSettings);
@@ -598,20 +852,9 @@
     attachCopyCSSButton();
   }
 
-  function init() {
-    waitForSchemeCards()
-      .then(main)
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `[design-panel-colors] init skipped: ${err.message}`
-        );
-      });
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
+    document.addEventListener('DOMContentLoaded', main, { once: true });
   } else {
-    init();
+    main();
   }
 })();

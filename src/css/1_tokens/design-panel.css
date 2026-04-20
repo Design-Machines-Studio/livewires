@@ -1,0 +1,64 @@
+/**
+ * Design Panel Tokens
+ *
+ * Panel-scoped design tokens for the <design-panel> web component and its
+ * slotted light-DOM editors. Kept in the `tokens` layer (not `components`)
+ * so they share the same cascade position as every other `:root` custom
+ * property declaration in Live Wires.
+ *
+ * Most `--dp-*` tokens reference the existing `--color-grey-*` scale so
+ * the panel inherits user theming. Exceptions are the accent pair (which
+ * keeps the panel's blue identity consistent across color schemes) and
+ * the translucent chrome tokens that bridge panel surfaces without
+ * cascade dependencies.
+ */
+
+@layer tokens {
+  :root {
+    /* Surfaces — reference the grey scale so user theming flows through. */
+    --dp-bg: var(--color-grey-900);
+    --dp-bg-input: var(--color-grey-800);
+    --dp-bg-elevated: #2E2E2E; /* matches grey-800; kept explicit for Shadow DOM fallback */
+    --dp-border: var(--color-grey-700);
+    --dp-text-muted: var(--color-grey-400);
+    --dp-text-secondary: var(--color-grey-300);
+    --dp-text: var(--color-grey-100);
+
+    /* Accent pair — panel identity colors. Intentionally decoupled from
+       --color-accent so the panel reads consistently across scheme changes. */
+    --dp-accent: #1966D9;
+    --dp-accent-light: #5DAEFF;
+
+    /* Geometry */
+    --dp-radius: 3px;
+    --dp-width: 320px;
+
+    /* Micro-scale for button padding and compact flex gaps. Complements
+       the xs/sm/md scale used for section padding. */
+    --dp-space-2xs: 2px;
+    --dp-space-xxs: 4px;
+    --dp-space-xs: 6px;
+    --dp-space-sm: 12px;
+    --dp-space-md: 18px;
+
+    /* Typography — compact scale for the dev panel. Separate from the main
+       --text-* scale because panel chrome should not reflow when the user
+       adjusts base body copy. */
+    --dp-text-xs: 9px;
+    --dp-text-sm: 10px;
+    --dp-text-md: 11px;
+    --dp-text-lg: 0.75rem;  /* 12px at default root */
+
+    /* Border + input treatments shared across row dividers and inline
+       form inputs. */
+    --dp-border-subtle: color-mix(in srgb, var(--color-white) 8%, transparent);
+    --dp-input-bg: color-mix(in srgb, var(--color-white) 8%, transparent);
+    /* Raised from rgba(255,255,255,0.15) to hit 3:1 on --dp-bg (SC 1.4.11). */
+    --dp-input-border: color-mix(in srgb, var(--color-white) 30%, transparent);
+
+    /* Magic grid column widths pulled up into named tokens so ramp + scheme
+       rows can share a consistent label-gutter width. */
+    --dp-col-ramp-label: 50px;
+    --dp-col-scheme-label: 70px;
+  }
+}

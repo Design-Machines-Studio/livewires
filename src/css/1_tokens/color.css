@@ -129,7 +129,15 @@
     --color-accent: var(--color-blue);
     --color-muted: var(--color-grey-600);
     --color-border: var(--color-fg);
+    --color-border-subtle: var(--color-grey-200);
     --color-subtle: var(--color-grey-100);
+
+    /*
+    * Focus ring color (SC 2.4.7)
+    * Used by component :focus-visible outlines when the component's own
+    * accent token doesn't provide sufficient contrast.
+    */
+    --color-focus: var(--color-blue-400);
 
     /*
     * Overlay Colors
