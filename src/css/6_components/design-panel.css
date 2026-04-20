@@ -50,7 +50,7 @@
     --dp-border-subtle: rgba(255, 255, 255, 0.08);
     --dp-input-bg: rgba(255, 255, 255, 0.08);
     --dp-input-border: rgba(255, 255, 255, 0.15);
-    --dp-width: 280px;
+    --dp-width: 320px;
   }
 
   /* Button size variants defined near the bottom of this file, after
@@ -613,7 +613,7 @@
 
   .dp-scheme-mapping-row {
     display: grid;
-    grid-template-columns: 45px 1fr;
+    grid-template-columns: 70px 1fr;
     align-items: center;
     gap: var(--dp-space-xs);
   }

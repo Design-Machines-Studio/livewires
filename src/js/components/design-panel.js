@@ -44,7 +44,7 @@ const PANEL_CSS = `
     --dp-space-xs: 6px;
     --dp-space-sm: 12px;
     --dp-space-md: 18px;
-    --dp-width: 280px;
+    --dp-width: 320px;
 
     display: block;
     font-family: system-ui, -apple-system, sans-serif;
