@@ -240,6 +240,29 @@
     color: var(--dp-text-muted);
   }
 
+  /* Typography tab: stack the label above a full-width control (range slider
+     followed by a preset row). Overrides the default 1fr/auto two-column
+     grid. Must follow .design-panel-setting source-order so cascade wins. */
+  .design-panel-setting.dp-setting--stack {
+    grid-template-columns: 1fr;
+    gap: var(--dp-space-2xs);
+  }
+
+  /* Typography tab: <fieldset> reset so the section chrome shows through.
+     Removes the browser's default border, padding, and inline-size: min-content
+     quirk that would otherwise collapse min/max grids. */
+  .dp-fieldset {
+    border: 0;
+    padding: var(--dp-space-sm) var(--dp-space-md);
+    margin: 0;
+    min-inline-size: 0;
+  }
+
+  .dp-fieldset > legend {
+    padding: 0;
+    margin-block-end: var(--dp-space-sm);
+  }
+
   .design-panel-setting select,
   .design-panel-setting input[type="number"] {
     appearance: none;
@@ -354,7 +377,13 @@
 
   .design-panel-tool--xs {
     font-size: var(--dp-text-xs);
-    padding: var(--dp-space-2xs) var(--dp-space-xs);
+    /* WCAG 2.2 SC 2.5.8 Target Size (Minimum, AA): 24x24 CSS px. The xs
+       variant is used for typography preset buttons; padding alone wasn't
+       enough to clear 24px block-size at --dp-text-xs (9px). Set explicit
+       min-* to lock the floor regardless of font-size tweaks. */
+    padding: var(--dp-space-2xs) var(--dp-space-sm);
+    min-block-size: 24px;
+    min-inline-size: 24px;
     flex-direction: row;
   }
 

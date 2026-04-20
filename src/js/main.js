@@ -38,6 +38,13 @@ registerColor();
 // time this controller runs.
 import './design-panel-colors.js';
 
+// Typography tab controller. Wires 9 inputs in the slotted
+// [data-tab="typography"] editor to 9 :root custom properties; persists
+// state to localStorage['design-panel:typography']. Zero imports, no
+// network. Order-independent w.r.t. design-panel-colors.js -- there are
+// no shared globals.
+import './design-panel-typography.js';
+
 function onReady(fn) {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fn, { once: true });

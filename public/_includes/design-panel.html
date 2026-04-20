@@ -6,7 +6,12 @@
      The Colours editor slot below is a minimal mount point. The 6 ramp rows
      and 3 scheme cards are built programmatically by design-panel-colors.js
      from its FAMILIES/SCHEMES/MODES/TOKENS constants so that adding a 7th
-     family is a one-line change instead of a 150-line copy-paste. -->
+     family is a one-line change instead of a 150-line copy-paste.
+
+     The Typography slot is static markup -- 9 inputs + 7 presets. Wiring lives
+     in design-panel-typography.js. Slot fragments must be DIRECT children of
+     <design-panel> for shadow-DOM slot assignment to work, which is why both
+     editors are inlined here rather than fetched via <html-include>. -->
 <design-panel>
   <div slot="editor" data-tab="colors">
     <div class="design-panel-section">
@@ -22,5 +27,82 @@
       <h3 class="design-panel-section-title">Schemes</h3>
       <div class="dp-scheme-list" role="list" data-dp-scheme-list></div>
     </div>
+  </div>
+
+  <div slot="editor" data-tab="typography">
+    <div class="design-panel-section">
+      <h3 class="design-panel-section-title">Scale</h3>
+
+      <div class="design-panel-setting dp-setting--stack">
+        <label for="dp-type-ratio">Scale ratio</label>
+        <input type="range" id="dp-type-ratio" min="1.1" max="1.618" step="0.001"
+               aria-describedby="dp-type-ratio-presets">
+        <div class="dp-preset-row" role="group" aria-label="Scale ratio presets" id="dp-type-ratio-presets">
+          <button type="button" class="design-panel-tool design-panel-tool--xs" data-preset-ratio="1.125" aria-pressed="false">1.125</button>
+          <button type="button" class="design-panel-tool design-panel-tool--xs" data-preset-ratio="1.2"   aria-pressed="false">1.2</button>
+          <button type="button" class="design-panel-tool design-panel-tool--xs" data-preset-ratio="1.25"  aria-pressed="false">1.25</button>
+          <button type="button" class="design-panel-tool design-panel-tool--xs" data-preset-ratio="1.333" aria-pressed="false">1.333</button>
+          <button type="button" class="design-panel-tool design-panel-tool--xs" data-preset-ratio="1.414" aria-pressed="false">1.414</button>
+          <button type="button" class="design-panel-tool design-panel-tool--xs" data-preset-ratio="1.5"   aria-pressed="false">1.5</button>
+          <button type="button" class="design-panel-tool design-panel-tool--xs" data-preset-ratio="1.618" aria-pressed="false">1.618</button>
+        </div>
+      </div>
+    </div>
+
+    <fieldset class="design-panel-section dp-fieldset">
+      <legend class="design-panel-section-title">Base size (px)</legend>
+      <div class="design-panel-settings">
+        <div class="design-panel-setting">
+          <label for="dp-text-base-min">Min</label>
+          <input type="number" id="dp-text-base-min" min="12" max="32">
+        </div>
+        <div class="design-panel-setting">
+          <label for="dp-text-base-max">Max</label>
+          <input type="number" id="dp-text-base-max" min="12" max="32">
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="design-panel-section">
+      <h3 class="design-panel-section-title">Line height</h3>
+      <div class="design-panel-setting dp-setting--stack">
+        <label for="dp-lh-body">Body</label>
+        <input type="range" id="dp-lh-body" min="1.0" max="2.0" step="0.05">
+      </div>
+      <div class="design-panel-setting dp-setting--stack">
+        <label for="dp-lh-heading">Heading</label>
+        <input type="range" id="dp-lh-heading" min="1.0" max="2.0" step="0.05">
+      </div>
+    </div>
+
+    <div class="design-panel-section">
+      <h3 class="design-panel-section-title">Fonts</h3>
+      <div class="dp-font-block">
+        <label class="dp-font-block-label" for="dp-font-body">Body</label>
+        <input type="text" id="dp-font-body" class="dp-input-text"
+               placeholder="-apple-system, system-ui, sans-serif"
+               autocomplete="off" spellcheck="false">
+      </div>
+      <div class="dp-font-block">
+        <label class="dp-font-block-label" for="dp-font-heading">Heading</label>
+        <input type="text" id="dp-font-heading" class="dp-input-text"
+               placeholder="Georgia, serif"
+               autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+
+    <fieldset class="design-panel-section dp-fieldset">
+      <legend class="design-panel-section-title">Baseline (px)</legend>
+      <div class="design-panel-settings">
+        <div class="design-panel-setting">
+          <label for="dp-line-height-min">Min</label>
+          <input type="number" id="dp-line-height-min" min="16" max="48">
+        </div>
+        <div class="design-panel-setting">
+          <label for="dp-line-height-max">Max</label>
+          <input type="number" id="dp-line-height-max" min="16" max="48">
+        </div>
+      </div>
+    </fieldset>
   </div>
 </design-panel>
