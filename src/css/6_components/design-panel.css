@@ -478,16 +478,27 @@
     background: transparent;
   }
 
+  /* Container wrapping the two independent Light / Dark <details> siblings */
   .dp-scheme-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
     background: transparent;
     color: var(--dp-text);
   }
 
-  .dp-scheme-card summary {
-    display: block;
+  /* Each mode (Light / Dark) is its own <details> -- toggles independently */
+  .dp-scheme-card-mode {
+    background: transparent;
+  }
+
+  .dp-scheme-card-mode summary {
     cursor: pointer;
-    padding: 0;
     list-style: none;
+    display: block;
+    padding: 0;
+    background: transparent;
+    color: var(--dp-text);
 
     &::-webkit-details-marker {
       display: none;
@@ -496,15 +507,6 @@
     &::after {
       display: none;
     }
-  }
-
-  /* Side-by-side light + dark scheme previews */
-  .dp-scheme-pair {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    flex: 1;
-    min-width: 0;
   }
 
   .dp-scheme-preview {
@@ -609,13 +611,6 @@
     border-radius: 1px;
   }
 
-  .dp-scheme-mappings {
-    display: grid;
-    gap: 2px;
-    padding: var(--dp-space-xs) 0;
-    background: var(--dp-bg);
-  }
-
   .dp-scheme-mapping-row {
     display: grid;
     grid-template-columns: 45px 1fr;
@@ -655,9 +650,8 @@
      because they're the live scheme preview and should render with scheme colors. */
   .dp-scheme-list,
   .dp-scheme-card,
-  .dp-scheme-pair,
-  .dp-scheme-mappings,
-  .dp-scheme-mappings-dual,
+  .dp-scheme-card-mode,
+  .dp-scheme-card-mode summary,
   .dp-scheme-mode-column,
   .dp-scheme-mode-label,
   .dp-scheme-mapping-row,
@@ -666,22 +660,14 @@
     color: var(--dp-text);
   }
 
-  /* Dual-mode mapping layout: Light column | Dark column */
-  .dp-scheme-mappings-dual {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--dp-space-sm);
-    padding: var(--dp-space-xs) 0;
-    background: var(--dp-bg);
-  }
-
   /* fieldset reset: browsers default to inset border + padding. The
-     semantic grouping still applies for screen readers (Light / Dark). */
+     semantic grouping still applies for screen readers (Light / Dark).
+     Padding-block gives open-state breathing room under the preview. */
   .dp-scheme-mode-column {
     display: grid;
     gap: 2px;
     border: 0;
-    padding: 0;
+    padding: var(--dp-space-xs) 0 0;
     margin: 0;
     min-width: 0;
   }
