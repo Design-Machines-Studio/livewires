@@ -456,7 +456,7 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .dp-ramp-settings {
+  .dp-ramp-settings:not([hidden]) {
     display: grid;
     gap: var(--dp-space-xs);
     padding: var(--dp-space-xs) var(--dp-space-sm);

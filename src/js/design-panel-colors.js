@@ -293,12 +293,33 @@
     });
   }
 
+  function attachRampRowToggles() {
+    const rows = document.querySelectorAll('.dp-ramp-row');
+    for (const row of rows) {
+      row.addEventListener('click', () => {
+        const targetId = row.getAttribute('aria-controls');
+        if (!targetId) return;
+        const settings = document.getElementById(targetId);
+        if (!settings) return;
+        const isHidden = settings.hasAttribute('hidden');
+        if (isHidden) {
+          settings.removeAttribute('hidden');
+          row.setAttribute('aria-expanded', 'true');
+        } else {
+          settings.setAttribute('hidden', '');
+          row.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  }
+
   function main() {
     const ramps = readRampsFromTokens();
     paintSwatches(ramps);
     populateSchemeSelects();
     hydrateSchemeSelections();
     attachSchemeListeners();
+    attachRampRowToggles();
   }
 
   function init() {
