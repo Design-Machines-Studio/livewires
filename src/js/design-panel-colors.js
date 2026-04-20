@@ -561,7 +561,7 @@
       if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
         // eslint-disable-next-line no-console
         console.warn('[design-panel-colors] navigator.clipboard unavailable');
-        restore('Clipboard unavailable', 2000);
+        restore('Unavailable', 2000);
         return;
       }
 
@@ -569,12 +569,12 @@
         () => {
           // 66 tokens = 6 families * 11 steps when all color.css declarations
           // are present; label is informational only.
-          restore('Copied 66 tokens', 2000);
+          restore('Copied', 2000);
         },
         (err) => {
           // eslint-disable-next-line no-console
           console.error('[design-panel-colors] clipboard write failed:', err);
-          restore('Copy failed', 2000);
+          restore('Failed', 2000);
         }
       );
     });
