@@ -1,7 +1,10 @@
 <div slot="editor" data-tab="colors">
   <div class="design-panel-section">
     <h3 class="design-panel-section-title">Colour Ramps</h3>
-    <p class="dp-note">Ramp regeneration ships in Pass B</p>
+    <div class="dp-ramp-actions">
+      <button class="dp-copy-css" type="button">Copy CSS</button>
+      <p class="dp-hint">Paste into <code>src/css/1_tokens/color.css</code> to persist ramp edits.</p>
+    </div>
     <div class="dp-ramp-matrix">
       <div class="dp-ramp-row-wrapper" data-family="blue">
         <button class="dp-ramp-row" type="button" aria-expanded="false" aria-controls="dp-ramp-settings-blue">
@@ -22,9 +25,9 @@
         </button>
         <div class="dp-ramp-settings" id="dp-ramp-settings-blue" hidden>
           <label for="dp-anchor-blue">Blue anchor color</label>
-          <input type="color" id="dp-anchor-blue" value="#1966d9" disabled>
+          <input type="color" id="dp-anchor-blue" value="#1966d9">
           <label for="dp-step-blue">Anchor step</label>
-          <select id="dp-step-blue" disabled>
+          <select id="dp-step-blue">
             <option value="50">50</option>
             <option value="100">100</option>
             <option value="200">200</option>
@@ -38,7 +41,7 @@
             <option value="950">950</option>
           </select>
           <label for="dp-chroma-blue">Chroma intensity</label>
-          <input type="range" id="dp-chroma-blue" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          <input type="range" id="dp-chroma-blue" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent">
         </div>
       </div>
 
@@ -61,9 +64,9 @@
         </button>
         <div class="dp-ramp-settings" id="dp-ramp-settings-red" hidden>
           <label for="dp-anchor-red">Red anchor color</label>
-          <input type="color" id="dp-anchor-red" value="#e03e3e" disabled>
+          <input type="color" id="dp-anchor-red" value="#e03e3e">
           <label for="dp-step-red">Anchor step</label>
-          <select id="dp-step-red" disabled>
+          <select id="dp-step-red">
             <option value="50">50</option>
             <option value="100">100</option>
             <option value="200">200</option>
@@ -77,7 +80,7 @@
             <option value="950">950</option>
           </select>
           <label for="dp-chroma-red">Chroma intensity</label>
-          <input type="range" id="dp-chroma-red" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          <input type="range" id="dp-chroma-red" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent">
         </div>
       </div>
 
@@ -100,9 +103,9 @@
         </button>
         <div class="dp-ramp-settings" id="dp-ramp-settings-orange" hidden>
           <label for="dp-anchor-orange">Orange anchor color</label>
-          <input type="color" id="dp-anchor-orange" value="#f29025" disabled>
+          <input type="color" id="dp-anchor-orange" value="#f29025">
           <label for="dp-step-orange">Anchor step</label>
-          <select id="dp-step-orange" disabled>
+          <select id="dp-step-orange">
             <option value="50">50</option>
             <option value="100">100</option>
             <option value="200">200</option>
@@ -116,7 +119,7 @@
             <option value="950">950</option>
           </select>
           <label for="dp-chroma-orange">Chroma intensity</label>
-          <input type="range" id="dp-chroma-orange" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          <input type="range" id="dp-chroma-orange" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent">
         </div>
       </div>
 
@@ -139,9 +142,9 @@
         </button>
         <div class="dp-ramp-settings" id="dp-ramp-settings-yellow" hidden>
           <label for="dp-anchor-yellow">Yellow anchor color</label>
-          <input type="color" id="dp-anchor-yellow" value="#f5c418" disabled>
+          <input type="color" id="dp-anchor-yellow" value="#f5c418">
           <label for="dp-step-yellow">Anchor step</label>
-          <select id="dp-step-yellow" disabled>
+          <select id="dp-step-yellow">
             <option value="50">50</option>
             <option value="100">100</option>
             <option value="200">200</option>
@@ -155,7 +158,7 @@
             <option value="950">950</option>
           </select>
           <label for="dp-chroma-yellow">Chroma intensity</label>
-          <input type="range" id="dp-chroma-yellow" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          <input type="range" id="dp-chroma-yellow" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent">
         </div>
       </div>
 
@@ -178,9 +181,9 @@
         </button>
         <div class="dp-ramp-settings" id="dp-ramp-settings-green" hidden>
           <label for="dp-anchor-green">Green anchor color</label>
-          <input type="color" id="dp-anchor-green" value="#28a03f" disabled>
+          <input type="color" id="dp-anchor-green" value="#28a03f">
           <label for="dp-step-green">Anchor step</label>
-          <select id="dp-step-green" disabled>
+          <select id="dp-step-green">
             <option value="50">50</option>
             <option value="100">100</option>
             <option value="200">200</option>
@@ -194,7 +197,7 @@
             <option value="950">950</option>
           </select>
           <label for="dp-chroma-green">Chroma intensity</label>
-          <input type="range" id="dp-chroma-green" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          <input type="range" id="dp-chroma-green" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent">
         </div>
       </div>
 
@@ -217,9 +220,9 @@
         </button>
         <div class="dp-ramp-settings" id="dp-ramp-settings-grey" hidden>
           <label for="dp-anchor-grey">Grey anchor color</label>
-          <input type="color" id="dp-anchor-grey" value="#1e1b16" disabled>
+          <input type="color" id="dp-anchor-grey" value="#1e1b16">
           <label for="dp-step-grey">Anchor step</label>
-          <select id="dp-step-grey" disabled>
+          <select id="dp-step-grey">
             <option value="50">50</option>
             <option value="100">100</option>
             <option value="200">200</option>
@@ -233,7 +236,7 @@
             <option value="950">950</option>
           </select>
           <label for="dp-chroma-grey">Chroma intensity</label>
-          <input type="range" id="dp-chroma-grey" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          <input type="range" id="dp-chroma-grey" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent">
         </div>
       </div>
     </div>

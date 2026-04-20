@@ -19,11 +19,25 @@ import './components/design-panel.js';
 // Assembly <-> Live Wires diffs stay clean.
 import './components/design-panel-runtime.js';
 
-// Colours tab controller (Pass A). Reads --color-{family}-{step} tokens
-// from the cascade, paints ramp-matrix swatches, populates scheme
+// OKLCH color-space math + ramp generator (Pass B). The consumer file
+// design-panel-colors.js stays zero-imports and accesses these helpers
+// through window.DesignPanelColor. Vite's tree-shaker would otherwise
+// drop a bare side-effect registration, so both modules expose explicit
+// registerOnWindow functions that we call here -- the imports alone are
+// not sufficient; the call is what survives the bundler.
+import { registerOnWindow as registerOklch } from './color/oklch.js';
+import { registerOnWindow as registerRamp } from './color/ramp.js';
+registerOklch();
+registerRamp();
+
+// Colours tab controller (Pass A + B). Reads --color-{family}-{step}
+// tokens from the cascade, paints ramp-matrix swatches, populates scheme
 // <select> elements, and wires change listeners through
-// window.__dpSchemeUpdate. Must load AFTER design-panel-runtime.js so
-// that global is defined by the time this controller runs.
+// window.__dpSchemeUpdate. In Pass B it also wires anchor/step/chroma
+// controls to live regeneration via window.DesignPanelColor.generateRamp
+// and a Copy CSS button. Must load AFTER design-panel-runtime.js and
+// AFTER registerOklch/registerRamp so both globals are defined by the
+// time this controller runs.
 import './design-panel-colors.js';
 
 function onReady(fn) {
