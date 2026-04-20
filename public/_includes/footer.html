@@ -14,4 +14,470 @@
      Fixed-positioned in Shadow DOM so it escapes the footer visually.
      The component syncs `inert` to its open state via attributeChangedCallback,
      which removes it from the AT tree AND blocks focus when closed. -->
-<design-panel></design-panel>
+<design-panel>
+  <div slot="editor" data-tab="colors">
+    <div class="design-panel-section">
+      <h3 class="design-panel-section-title">Colour Ramps</h3>
+      <p class="dp-note">Ramp regeneration ships in Pass B</p>
+      <div class="dp-ramp-matrix">
+        <div class="dp-ramp-row-wrapper" data-family="blue">
+          <button class="dp-ramp-row" type="button" aria-expanded="false" aria-controls="dp-ramp-settings-blue">
+            <span class="dp-ramp-label">Blue</span>
+            <span class="dp-ramp-grid" aria-hidden="true">
+              <span class="dp-ramp-swatch" data-step="50"></span>
+              <span class="dp-ramp-swatch" data-step="100"></span>
+              <span class="dp-ramp-swatch" data-step="200"></span>
+              <span class="dp-ramp-swatch" data-step="300"></span>
+              <span class="dp-ramp-swatch" data-step="400"></span>
+              <span class="dp-ramp-swatch" data-step="500"></span>
+              <span class="dp-ramp-swatch" data-step="600"></span>
+              <span class="dp-ramp-swatch" data-step="700"></span>
+              <span class="dp-ramp-swatch" data-step="800"></span>
+              <span class="dp-ramp-swatch" data-step="900"></span>
+              <span class="dp-ramp-swatch" data-step="950"></span>
+            </span>
+          </button>
+          <div class="dp-ramp-settings" id="dp-ramp-settings-blue" hidden>
+            <label for="dp-anchor-blue">Blue anchor color</label>
+            <input type="color" id="dp-anchor-blue" value="#1966d9" disabled>
+            <label for="dp-step-blue">Anchor step</label>
+            <select id="dp-step-blue" disabled>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500" selected>500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="950">950</option>
+            </select>
+            <label for="dp-chroma-blue">Chroma intensity</label>
+            <input type="range" id="dp-chroma-blue" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          </div>
+        </div>
+  
+        <div class="dp-ramp-row-wrapper" data-family="red">
+          <button class="dp-ramp-row" type="button" aria-expanded="false" aria-controls="dp-ramp-settings-red">
+            <span class="dp-ramp-label">Red</span>
+            <span class="dp-ramp-grid" aria-hidden="true">
+              <span class="dp-ramp-swatch" data-step="50"></span>
+              <span class="dp-ramp-swatch" data-step="100"></span>
+              <span class="dp-ramp-swatch" data-step="200"></span>
+              <span class="dp-ramp-swatch" data-step="300"></span>
+              <span class="dp-ramp-swatch" data-step="400"></span>
+              <span class="dp-ramp-swatch" data-step="500"></span>
+              <span class="dp-ramp-swatch" data-step="600"></span>
+              <span class="dp-ramp-swatch" data-step="700"></span>
+              <span class="dp-ramp-swatch" data-step="800"></span>
+              <span class="dp-ramp-swatch" data-step="900"></span>
+              <span class="dp-ramp-swatch" data-step="950"></span>
+            </span>
+          </button>
+          <div class="dp-ramp-settings" id="dp-ramp-settings-red" hidden>
+            <label for="dp-anchor-red">Red anchor color</label>
+            <input type="color" id="dp-anchor-red" value="#e03e3e" disabled>
+            <label for="dp-step-red">Anchor step</label>
+            <select id="dp-step-red" disabled>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500" selected>500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="950">950</option>
+            </select>
+            <label for="dp-chroma-red">Chroma intensity</label>
+            <input type="range" id="dp-chroma-red" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          </div>
+        </div>
+  
+        <div class="dp-ramp-row-wrapper" data-family="orange">
+          <button class="dp-ramp-row" type="button" aria-expanded="false" aria-controls="dp-ramp-settings-orange">
+            <span class="dp-ramp-label">Orange</span>
+            <span class="dp-ramp-grid" aria-hidden="true">
+              <span class="dp-ramp-swatch" data-step="50"></span>
+              <span class="dp-ramp-swatch" data-step="100"></span>
+              <span class="dp-ramp-swatch" data-step="200"></span>
+              <span class="dp-ramp-swatch" data-step="300"></span>
+              <span class="dp-ramp-swatch" data-step="400"></span>
+              <span class="dp-ramp-swatch" data-step="500"></span>
+              <span class="dp-ramp-swatch" data-step="600"></span>
+              <span class="dp-ramp-swatch" data-step="700"></span>
+              <span class="dp-ramp-swatch" data-step="800"></span>
+              <span class="dp-ramp-swatch" data-step="900"></span>
+              <span class="dp-ramp-swatch" data-step="950"></span>
+            </span>
+          </button>
+          <div class="dp-ramp-settings" id="dp-ramp-settings-orange" hidden>
+            <label for="dp-anchor-orange">Orange anchor color</label>
+            <input type="color" id="dp-anchor-orange" value="#f29025" disabled>
+            <label for="dp-step-orange">Anchor step</label>
+            <select id="dp-step-orange" disabled>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500" selected>500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="950">950</option>
+            </select>
+            <label for="dp-chroma-orange">Chroma intensity</label>
+            <input type="range" id="dp-chroma-orange" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          </div>
+        </div>
+  
+        <div class="dp-ramp-row-wrapper" data-family="yellow">
+          <button class="dp-ramp-row" type="button" aria-expanded="false" aria-controls="dp-ramp-settings-yellow">
+            <span class="dp-ramp-label">Yellow</span>
+            <span class="dp-ramp-grid" aria-hidden="true">
+              <span class="dp-ramp-swatch" data-step="50"></span>
+              <span class="dp-ramp-swatch" data-step="100"></span>
+              <span class="dp-ramp-swatch" data-step="200"></span>
+              <span class="dp-ramp-swatch" data-step="300"></span>
+              <span class="dp-ramp-swatch" data-step="400"></span>
+              <span class="dp-ramp-swatch" data-step="500"></span>
+              <span class="dp-ramp-swatch" data-step="600"></span>
+              <span class="dp-ramp-swatch" data-step="700"></span>
+              <span class="dp-ramp-swatch" data-step="800"></span>
+              <span class="dp-ramp-swatch" data-step="900"></span>
+              <span class="dp-ramp-swatch" data-step="950"></span>
+            </span>
+          </button>
+          <div class="dp-ramp-settings" id="dp-ramp-settings-yellow" hidden>
+            <label for="dp-anchor-yellow">Yellow anchor color</label>
+            <input type="color" id="dp-anchor-yellow" value="#f5c418" disabled>
+            <label for="dp-step-yellow">Anchor step</label>
+            <select id="dp-step-yellow" disabled>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500" selected>500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="950">950</option>
+            </select>
+            <label for="dp-chroma-yellow">Chroma intensity</label>
+            <input type="range" id="dp-chroma-yellow" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          </div>
+        </div>
+  
+        <div class="dp-ramp-row-wrapper" data-family="green">
+          <button class="dp-ramp-row" type="button" aria-expanded="false" aria-controls="dp-ramp-settings-green">
+            <span class="dp-ramp-label">Green</span>
+            <span class="dp-ramp-grid" aria-hidden="true">
+              <span class="dp-ramp-swatch" data-step="50"></span>
+              <span class="dp-ramp-swatch" data-step="100"></span>
+              <span class="dp-ramp-swatch" data-step="200"></span>
+              <span class="dp-ramp-swatch" data-step="300"></span>
+              <span class="dp-ramp-swatch" data-step="400"></span>
+              <span class="dp-ramp-swatch" data-step="500"></span>
+              <span class="dp-ramp-swatch" data-step="600"></span>
+              <span class="dp-ramp-swatch" data-step="700"></span>
+              <span class="dp-ramp-swatch" data-step="800"></span>
+              <span class="dp-ramp-swatch" data-step="900"></span>
+              <span class="dp-ramp-swatch" data-step="950"></span>
+            </span>
+          </button>
+          <div class="dp-ramp-settings" id="dp-ramp-settings-green" hidden>
+            <label for="dp-anchor-green">Green anchor color</label>
+            <input type="color" id="dp-anchor-green" value="#28a03f" disabled>
+            <label for="dp-step-green">Anchor step</label>
+            <select id="dp-step-green" disabled>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500" selected>500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="950">950</option>
+            </select>
+            <label for="dp-chroma-green">Chroma intensity</label>
+            <input type="range" id="dp-chroma-green" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          </div>
+        </div>
+  
+        <div class="dp-ramp-row-wrapper" data-family="grey">
+          <button class="dp-ramp-row" type="button" aria-expanded="false" aria-controls="dp-ramp-settings-grey">
+            <span class="dp-ramp-label">Grey</span>
+            <span class="dp-ramp-grid" aria-hidden="true">
+              <span class="dp-ramp-swatch" data-step="50"></span>
+              <span class="dp-ramp-swatch" data-step="100"></span>
+              <span class="dp-ramp-swatch" data-step="200"></span>
+              <span class="dp-ramp-swatch" data-step="300"></span>
+              <span class="dp-ramp-swatch" data-step="400"></span>
+              <span class="dp-ramp-swatch" data-step="500"></span>
+              <span class="dp-ramp-swatch" data-step="600"></span>
+              <span class="dp-ramp-swatch" data-step="700"></span>
+              <span class="dp-ramp-swatch" data-step="800"></span>
+              <span class="dp-ramp-swatch" data-step="900"></span>
+              <span class="dp-ramp-swatch" data-step="950"></span>
+            </span>
+          </button>
+          <div class="dp-ramp-settings" id="dp-ramp-settings-grey" hidden>
+            <label for="dp-anchor-grey">Grey anchor color</label>
+            <input type="color" id="dp-anchor-grey" value="#1e1b16" disabled>
+            <label for="dp-step-grey">Anchor step</label>
+            <select id="dp-step-grey" disabled>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500" selected>500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+              <option value="950">950</option>
+            </select>
+            <label for="dp-chroma-grey">Chroma intensity</label>
+            <input type="range" id="dp-chroma-grey" min="0" max="100" value="80" aria-valuetext="Chroma 80 percent" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="design-panel-section">
+      <h3 class="design-panel-section-title">Schemes</h3>
+      <div class="dp-scheme-list">
+        <details class="dp-scheme-card" data-scheme="default" open>
+          <summary class="dp-scheme-card-summary">
+            <span class="dp-scheme-card-title">Default</span>
+          </summary>
+  
+          <div class="dp-scheme-pair">
+            <div class="dp-scheme-preview dp-scheme-preview-light">
+              <div class="scheme-default">
+                <p class="dp-scheme-heading">Heading</p>
+                <p class="dp-scheme-body">Body text</p>
+                <span class="dp-scheme-accent-text">Accent</span>
+              </div>
+            </div>
+            <div class="dp-scheme-preview dp-scheme-preview-dark dark-mode">
+              <div class="scheme-default">
+                <p class="dp-scheme-heading">Heading</p>
+                <p class="dp-scheme-body">Body text</p>
+                <span class="dp-scheme-accent-text">Accent</span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="dp-scheme-mappings dp-scheme-mappings-dual">
+            <fieldset class="dp-scheme-mode-column">
+              <legend>Light</legend>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-light-bg">Background</label>
+                <select id="dp-scheme-default-light-bg" data-scheme="default" data-mode="light" data-token="bg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-light-fg">Foreground</label>
+                <select id="dp-scheme-default-light-fg" data-scheme="default" data-mode="light" data-token="fg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-light-accent">Accent</label>
+                <select id="dp-scheme-default-light-accent" data-scheme="default" data-mode="light" data-token="accent"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-light-muted">Muted</label>
+                <select id="dp-scheme-default-light-muted" data-scheme="default" data-mode="light" data-token="muted"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-light-subtle">Subtle</label>
+                <select id="dp-scheme-default-light-subtle" data-scheme="default" data-mode="light" data-token="subtle"></select>
+              </div>
+            </fieldset>
+  
+            <fieldset class="dp-scheme-mode-column">
+              <legend>Dark</legend>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-dark-bg">Background</label>
+                <select id="dp-scheme-default-dark-bg" data-scheme="default" data-mode="dark" data-token="bg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-dark-fg">Foreground</label>
+                <select id="dp-scheme-default-dark-fg" data-scheme="default" data-mode="dark" data-token="fg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-dark-accent">Accent</label>
+                <select id="dp-scheme-default-dark-accent" data-scheme="default" data-mode="dark" data-token="accent"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-dark-muted">Muted</label>
+                <select id="dp-scheme-default-dark-muted" data-scheme="default" data-mode="dark" data-token="muted"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-default-dark-subtle">Subtle</label>
+                <select id="dp-scheme-default-dark-subtle" data-scheme="default" data-mode="dark" data-token="subtle"></select>
+              </div>
+            </fieldset>
+          </div>
+        </details>
+  
+        <details class="dp-scheme-card" data-scheme="subtle">
+          <summary class="dp-scheme-card-summary">
+            <span class="dp-scheme-card-title">Subtle</span>
+          </summary>
+  
+          <div class="dp-scheme-pair">
+            <div class="dp-scheme-preview dp-scheme-preview-light">
+              <div class="scheme-subtle">
+                <p class="dp-scheme-heading">Heading</p>
+                <p class="dp-scheme-body">Body text</p>
+                <span class="dp-scheme-accent-text">Accent</span>
+              </div>
+            </div>
+            <div class="dp-scheme-preview dp-scheme-preview-dark dark-mode">
+              <div class="scheme-subtle">
+                <p class="dp-scheme-heading">Heading</p>
+                <p class="dp-scheme-body">Body text</p>
+                <span class="dp-scheme-accent-text">Accent</span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="dp-scheme-mappings dp-scheme-mappings-dual">
+            <fieldset class="dp-scheme-mode-column">
+              <legend>Light</legend>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-light-bg">Background</label>
+                <select id="dp-scheme-subtle-light-bg" data-scheme="subtle" data-mode="light" data-token="bg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-light-fg">Foreground</label>
+                <select id="dp-scheme-subtle-light-fg" data-scheme="subtle" data-mode="light" data-token="fg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-light-accent">Accent</label>
+                <select id="dp-scheme-subtle-light-accent" data-scheme="subtle" data-mode="light" data-token="accent"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-light-muted">Muted</label>
+                <select id="dp-scheme-subtle-light-muted" data-scheme="subtle" data-mode="light" data-token="muted"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-light-subtle">Subtle</label>
+                <select id="dp-scheme-subtle-light-subtle" data-scheme="subtle" data-mode="light" data-token="subtle"></select>
+              </div>
+            </fieldset>
+  
+            <fieldset class="dp-scheme-mode-column">
+              <legend>Dark</legend>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-dark-bg">Background</label>
+                <select id="dp-scheme-subtle-dark-bg" data-scheme="subtle" data-mode="dark" data-token="bg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-dark-fg">Foreground</label>
+                <select id="dp-scheme-subtle-dark-fg" data-scheme="subtle" data-mode="dark" data-token="fg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-dark-accent">Accent</label>
+                <select id="dp-scheme-subtle-dark-accent" data-scheme="subtle" data-mode="dark" data-token="accent"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-dark-muted">Muted</label>
+                <select id="dp-scheme-subtle-dark-muted" data-scheme="subtle" data-mode="dark" data-token="muted"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-subtle-dark-subtle">Subtle</label>
+                <select id="dp-scheme-subtle-dark-subtle" data-scheme="subtle" data-mode="dark" data-token="subtle"></select>
+              </div>
+            </fieldset>
+          </div>
+        </details>
+  
+        <details class="dp-scheme-card" data-scheme="accent">
+          <summary class="dp-scheme-card-summary">
+            <span class="dp-scheme-card-title">Accent</span>
+          </summary>
+  
+          <div class="dp-scheme-pair">
+            <div class="dp-scheme-preview dp-scheme-preview-light">
+              <div class="scheme-accent">
+                <p class="dp-scheme-heading">Heading</p>
+                <p class="dp-scheme-body">Body text</p>
+                <span class="dp-scheme-accent-text">Accent</span>
+              </div>
+            </div>
+            <div class="dp-scheme-preview dp-scheme-preview-dark dark-mode">
+              <div class="scheme-accent">
+                <p class="dp-scheme-heading">Heading</p>
+                <p class="dp-scheme-body">Body text</p>
+                <span class="dp-scheme-accent-text">Accent</span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="dp-scheme-mappings dp-scheme-mappings-dual">
+            <fieldset class="dp-scheme-mode-column">
+              <legend>Light</legend>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-light-bg">Background</label>
+                <select id="dp-scheme-accent-light-bg" data-scheme="accent" data-mode="light" data-token="bg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-light-fg">Foreground</label>
+                <select id="dp-scheme-accent-light-fg" data-scheme="accent" data-mode="light" data-token="fg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-light-accent">Accent</label>
+                <select id="dp-scheme-accent-light-accent" data-scheme="accent" data-mode="light" data-token="accent"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-light-muted">Muted</label>
+                <select id="dp-scheme-accent-light-muted" data-scheme="accent" data-mode="light" data-token="muted"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-light-subtle">Subtle</label>
+                <select id="dp-scheme-accent-light-subtle" data-scheme="accent" data-mode="light" data-token="subtle"></select>
+              </div>
+            </fieldset>
+  
+            <fieldset class="dp-scheme-mode-column">
+              <legend>Dark</legend>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-dark-bg">Background</label>
+                <select id="dp-scheme-accent-dark-bg" data-scheme="accent" data-mode="dark" data-token="bg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-dark-fg">Foreground</label>
+                <select id="dp-scheme-accent-dark-fg" data-scheme="accent" data-mode="dark" data-token="fg"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-dark-accent">Accent</label>
+                <select id="dp-scheme-accent-dark-accent" data-scheme="accent" data-mode="dark" data-token="accent"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-dark-muted">Muted</label>
+                <select id="dp-scheme-accent-dark-muted" data-scheme="accent" data-mode="dark" data-token="muted"></select>
+              </div>
+              <div class="dp-scheme-mapping-row">
+                <label for="dp-scheme-accent-dark-subtle">Subtle</label>
+                <select id="dp-scheme-accent-dark-subtle" data-scheme="accent" data-mode="dark" data-token="subtle"></select>
+              </div>
+            </fieldset>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</design-panel>
