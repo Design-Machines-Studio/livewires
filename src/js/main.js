@@ -19,6 +19,13 @@ import './components/design-panel.js';
 // Assembly <-> Live Wires diffs stay clean.
 import './components/design-panel-runtime.js';
 
+// Colours tab controller (Pass A). Reads --color-{family}-{step} tokens
+// from the cascade, paints ramp-matrix swatches, populates scheme
+// <select> elements, and wires change listeners through
+// window.__dpSchemeUpdate. Must load AFTER design-panel-runtime.js so
+// that global is defined by the time this controller runs.
+import './design-panel-colors.js';
+
 function onReady(fn) {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fn, { once: true });
