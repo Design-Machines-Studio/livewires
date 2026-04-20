@@ -12,6 +12,6 @@
 
 <!-- Dev-only: floating design panel with baseline / columns / margins overlays.
      Fixed-positioned in Shadow DOM so it escapes the footer visually.
-     aria-hidden keeps it out of the AT landmark tree; the panel itself
-     reflects open state to document.body via data-panel-open. -->
-<design-panel aria-hidden="true"></design-panel>
+     The component syncs `inert` to its open state via attributeChangedCallback,
+     which removes it from the AT tree AND blocks focus when closed. -->
+<design-panel></design-panel>

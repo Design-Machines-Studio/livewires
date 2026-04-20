@@ -1,0 +1,698 @@
+@layer components {
+  /* Design Panel slotted-partial styles.
+     --------------------------------------------------------------------
+     This file used to contain the full design-panel chrome (slide-over
+     aside, header, tabs, tools, trigger FAB). Those styles migrated into
+     the <design-panel> web component's Shadow DOM in Chunks 1-3 of the
+     vanilla-web-component refactor, and the chrome rules were deleted
+     in Chunk 4.
+
+     What remains here is the light-DOM styling used by the Datastar-
+     driven token editor partials that slot into the component:
+       - design_panel_typography.templ
+       - design_panel_spacing.templ
+       - design_panel_colors.templ
+       - design_panel_schemes.templ
+       - design_panel_theme.templ
+
+     Because slotted content is light DOM (not inside the shadow root),
+     the shadow stylesheet cannot style these descendants. These rules
+     live at page scope so the partials render correctly.
+
+     Exception: .dp-scheme-preview and children use LW semantic tokens
+     (--color-bg, --color-fg, --color-accent, etc.) for live scheme
+     preview. */
+
+  :root {
+    /* Panel-scoped design tokens (hardcoded hex, immune to app token
+       changes). Inherited by slotted token editor partials and by the
+       web component's shadow DOM fallback. */
+    --dp-bg: #1A1A1A;
+    --dp-bg-input: #252525;
+    --dp-bg-elevated: #2E2E2E;
+    --dp-border: #4A4A4A;
+    --dp-text-muted: #A8A8A8;
+    --dp-text-secondary: #D1D1D1;
+    --dp-text: #F5F5F5;
+    --dp-accent: #1966D9;
+    --dp-accent-light: #5DAEFF;
+    --dp-radius: 3px;
+    /* Micro-scale for button padding and compact flex gaps. Complements
+       the xs/sm/md scale used for section padding. */
+    --dp-space-2xs: 2px;
+    --dp-space-xxs: 4px;
+    --dp-space-xs: 6px;
+    --dp-space-sm: 12px;
+    --dp-space-md: 18px;
+    /* Border + input treatments shared across row dividers and inline
+       form inputs. Previously hardcoded as rgba(255,255,255,0.08/0.15)
+       in multiple partials. */
+    --dp-border-subtle: rgba(255, 255, 255, 0.08);
+    --dp-input-bg: rgba(255, 255, 255, 0.08);
+    --dp-input-border: rgba(255, 255, 255, 0.15);
+    --dp-width: 280px;
+  }
+
+  /* Button size variants defined near the bottom of this file, after
+     .design-panel-tool, so their font-size/padding overrides win on
+     source order (same specificity, same layer). */
+
+  /* Flattening utility: makes the wrapping <form> participate in the
+     parent flex layout as if it weren't there. Used so submit buttons
+     inside <form method="post"> wrappers align with bare peer buttons. */
+  .dp-form-contents {
+    display: contents;
+  }
+
+  /* Inline input used in inline forms (rename, new theme). Dark
+     translucent treatment consistent with panel chrome. */
+  .dp-input-inline {
+    flex: 1;
+    min-width: 0;
+    font-size: 10px;
+    padding: var(--dp-space-2xs) var(--dp-space-xs);
+    background: var(--dp-input-bg);
+    border: 1px solid var(--dp-input-border);
+    border-radius: var(--dp-radius);
+    color: inherit;
+  }
+
+  /* Full-width text input used for font family stacks. Larger than
+     .dp-input-inline (0.75rem vs 10px) because it's a full editor
+     input, not an inline-form widget. */
+  .dp-input-text {
+    width: 100%;
+    background: var(--dp-bg-elevated);
+    border: 1px solid var(--dp-border);
+    color: var(--dp-text);
+    padding: var(--dp-space-xs) var(--dp-space-sm);
+    border-radius: var(--dp-radius);
+    font-size: 0.75rem;
+  }
+
+  /* Preset-button row (Typography presets, font quick-picks). Wraps
+     and spacing-top for when it follows a slider or text input. */
+  .dp-preset-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dp-space-xs);
+    margin-top: var(--dp-space-xs);
+  }
+
+  /* Form wrapping that the Typography font-body/heading inputs use to
+     keep presets + input as one vertical stack. */
+  .dp-font-block {
+    margin-top: var(--dp-space-sm);
+  }
+
+  .dp-font-block-label {
+    font-size: 0.75rem;
+    color: var(--dp-text-muted);
+    display: block;
+    margin-bottom: var(--dp-space-xs);
+  }
+
+  /* Theme tab: row + drawer layout primitives */
+  .dp-theme-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dp-space-xxs);
+    padding: var(--dp-space-xxs) 0;
+    border-bottom: 1px solid var(--dp-border-subtle);
+  }
+
+  .dp-theme-row-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--dp-space-xs);
+  }
+
+  .dp-theme-row-name {
+    font-size: 11px;
+    font-weight: 500;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dp-theme-row-name-sub {
+    font-size: 9px;
+    opacity: 0.5;
+    margin-left: var(--dp-space-xxs);
+  }
+
+  .dp-theme-row-actions {
+    display: flex;
+    gap: var(--dp-space-2xs);
+    flex-shrink: 0;
+    align-items: stretch;
+  }
+
+  .dp-theme-drawer-row {
+    display: flex;
+    gap: var(--dp-space-xxs);
+
+    /* Buttons inside stretch to equal width across the row */
+    & .design-panel-tool {
+      flex: 1;
+    }
+  }
+
+  .dp-theme-rename-form {
+    display: flex;
+    gap: var(--dp-space-xxs);
+    align-items: stretch;
+  }
+
+  /* Current Theme header: two-column label/value row */
+  .dp-active-label {
+    font-size: 11px;
+    opacity: 0.7;
+  }
+
+  .dp-active-name {
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* Theme tab button cluster below Current Theme */
+  .dp-theme-actions {
+    display: flex;
+    gap: var(--dp-space-xs);
+    margin-top: var(--dp-space-sm);
+  }
+
+  /* Empty state "No saved themes" message */
+  .dp-empty-notice {
+    font-size: 11px;
+    opacity: 0.5;
+    margin: 0;
+  }
+
+  /* Sections inside the slotted editor bodies. The web component wraps
+     its Guides-tab content in a shadow .section; these are the light-DOM
+     equivalents used by typography/colors/schemes/theme partials. */
+  .design-panel-section {
+    padding: var(--dp-space-sm) var(--dp-space-md);
+    border-bottom: 1px solid var(--dp-bg-elevated);
+    color: var(--dp-text);
+    background: var(--dp-bg);
+  }
+
+  .design-panel-section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--dp-text-muted);
+    margin: 0 0 var(--dp-space-sm) 0;
+  }
+
+  /* Flush modifier: no bottom margin. Used when the title sits in a
+     flex row next to an action button (e.g. "+ New" toggle). */
+  .design-panel-section-title--flush {
+    margin-bottom: 0;
+  }
+
+  /* Shared lock-state notice: rendered by DesignPanelLockedNotice()
+     under Typography, Spacing, Colour, and Schemes when Default active. */
+  .dp-locked-notice {
+    font-size: 10px;
+    opacity: 0.5;
+    margin: 0 0 var(--dp-space-sm) 0;
+  }
+
+  /* Settings list: label-left / control-right layout. */
+  .design-panel-settings {
+    display: grid;
+    gap: var(--dp-space-xs);
+  }
+
+  .design-panel-setting {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--dp-space-sm);
+  }
+
+  .design-panel-setting label {
+    font-size: 0.75rem;
+    color: var(--dp-text-muted);
+  }
+
+  .design-panel-setting select,
+  .design-panel-setting input[type="number"] {
+    appearance: none;
+    min-block-size: 0;
+    background: var(--dp-bg-elevated);
+    border: 1px solid var(--dp-border);
+    color: var(--dp-text);
+    padding: var(--dp-space-xs) var(--dp-space-sm);
+    border-radius: var(--dp-radius);
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.75rem;
+    min-width: 80px;
+    box-sizing: border-box;
+  }
+
+  /* Range sliders (colors + typography tabs). */
+  .design-panel-setting input[type="range"],
+  .design-panel-section input[type="range"] {
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--dp-bg-elevated);
+    border-radius: 3px;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      background: var(--dp-text);
+      border: 2px solid var(--dp-accent);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      background: var(--dp-text);
+      border: 2px solid var(--dp-accent);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  /* Disclosure details (Schemes tab). */
+  .design-panel-section details summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &::after {
+      content: "";
+      width: 0.5em;
+      height: 0.5em;
+      border-right: 1.5px solid var(--dp-text-muted);
+      border-bottom: 1.5px solid var(--dp-text-muted);
+      transform: rotate(-45deg);
+      transition: transform 150ms ease;
+      flex-shrink: 0;
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  .design-panel-section details[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  /* .design-panel-tool: used by slotted buttons for the dark-panel
+     button treatment. Retained in light DOM for slotted consumers.
+     font-size: 0 is intentional: the default tool is an icon-only
+     button in the Guides tab (SVG child, no text). Size variants
+     below re-enable text via font-size override. */
+  .design-panel-tool {
+    appearance: none;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 0;
+    padding: 4px;
+    background: var(--dp-bg-elevated);
+    color: var(--dp-text-secondary);
+    border: 1px solid var(--dp-border);
+    border-radius: var(--dp-radius);
+    font-size: 0;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    box-sizing: border-box;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+
+    &:hover {
+      background: var(--dp-border);
+      color: var(--dp-text);
+    }
+
+    &[data-active] {
+      background: var(--dp-accent);
+      border-color: var(--dp-accent-light);
+      color: var(--dp-text);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--dp-accent-light);
+      outline-offset: 2px;
+    }
+  }
+
+  /* Button size variants: applied alongside .design-panel-tool. Must be
+     declared AFTER the base class (same specificity, same layer) so
+     source-order cascade overrides the base's font-size:0 + padding:4px
+     icon-only defaults. */
+  .design-panel-tool--xs {
+    font-size: 9px;
+    padding: var(--dp-space-2xs) var(--dp-space-xs);
+    flex-direction: row;
+  }
+
+  .design-panel-tool--sm {
+    font-size: 10px;
+    padding: 3px 8px;
+    flex-direction: row;
+  }
+
+  /* Color ramp matrix */
+  .dp-ramp-matrix {
+    display: grid;
+    gap: 2px;
+  }
+
+  /* Ramp rows are <button> elements so keyboard users can focus and
+     activate them. Reset button defaults (no native chrome, inherit
+     fonts/colors) while preserving keyboard focus behavior.
+     min-block-size: 0 overrides forms.css's --touch-target-min (44px)
+     which was stacking ramp rows into tall boxes with vertical gaps. */
+  .dp-ramp-row {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: var(--dp-space-xs);
+    align-items: center;
+    width: 100%;
+    min-block-size: 0;
+    padding: 2px 0;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 150ms ease;
+
+    &:hover:not(:disabled) {
+      background: var(--dp-bg-elevated);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-focus, #5e9ed6);
+      outline-offset: -2px;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  .dp-ramp-selected {
+    background: var(--dp-bg-elevated);
+  }
+
+  .dp-ramp-label {
+    font-size: 10px;
+    color: var(--dp-text-muted);
+    text-transform: capitalize;
+  }
+
+  .dp-ramp-grid {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 0;
+    height: 16px;
+    overflow: hidden;
+  }
+
+  .dp-swatch-anchor {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes dp-slide-down {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dp-ramp-settings {
+    display: grid;
+    gap: var(--dp-space-xs);
+    padding: var(--dp-space-xs) var(--dp-space-sm);
+    margin-left: 50px;
+    animation: dp-slide-down 150ms ease;
+  }
+
+  /* Loading state for ramp grid during SSE regeneration */
+  .dp-ramp-loading {
+    opacity: 0.5;
+    transition: opacity 150ms ease;
+  }
+
+  /* Scheme preview cards */
+  .dp-scheme-list {
+    display: grid;
+    gap: 2px;
+    background: transparent;
+  }
+
+  .dp-scheme-card {
+    background: transparent;
+    color: var(--dp-text);
+  }
+
+  .dp-scheme-card summary {
+    display: block;
+    cursor: pointer;
+    padding: 0;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+
+  /* Side-by-side light + dark scheme previews */
+  .dp-scheme-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .dp-scheme-preview {
+    width: 100%;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-size: 8px;
+    line-height: 1.4;
+    overflow: hidden;
+  }
+
+  .dp-scheme-preview > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 8px;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  /* Light-mode scheme preview: force light-mode tokens on the scheme child.
+     Needed because .dark-mode on a page ancestor would cause
+     .dark-mode .scheme-accent to override the light preview's colors. */
+  .dp-scheme-preview-light .scheme-accent {
+    --color-bg: var(--color-blue-500);
+    --color-fg: var(--color-white);
+    --color-accent: var(--color-blue-800);
+    --color-muted: var(--color-blue-200);
+    --color-border: var(--color-blue-300);
+    --color-subtle: var(--color-blue-600);
+    --vf-grad: 0;
+  }
+  .dp-scheme-preview-light .scheme-default {
+    --color-bg: var(--color-white);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-blue-500);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-300);
+    --color-border-subtle: var(--color-grey-200);
+    --color-subtle: var(--color-grey-100);
+    --vf-grad: 0;
+  }
+  .dp-scheme-preview-light .scheme-subtle {
+    --color-bg: var(--color-grey-100);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-blue-500);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-300);
+    --color-border-subtle: var(--color-grey-200);
+    --color-subtle: var(--color-grey-200);
+    --vf-grad: 0;
+  }
+
+  /* Dark-mode scheme preview: apply dark defaults regardless of page state */
+  .dp-scheme-preview-dark {
+    --color-bg: var(--color-grey-900);
+    --color-fg: var(--color-grey-100);
+    --color-accent: var(--color-blue-500);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-600);
+    --color-border-subtle: var(--color-grey-800);
+    --color-subtle: var(--color-black);
+    --vf-grad: -50;
+  }
+
+  .dp-scheme-heading {
+    font-weight: 700;
+    font-size: 9px;
+  }
+
+  .dp-scheme-body {
+    font-size: 7px;
+    opacity: 0.85;
+  }
+
+  .dp-scheme-meta {
+    display: flex;
+    gap: 6px;
+    font-size: 7px;
+    margin-top: 1px;
+  }
+
+  .dp-scheme-accent-text {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .dp-scheme-muted-text {
+    color: var(--color-muted);
+  }
+
+  .dp-scheme-divider {
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.5;
+  }
+
+  .dp-scheme-subtle-swatch {
+    flex: 1;
+    height: 6px;
+    background: var(--color-subtle, var(--color-bg));
+    border-radius: 1px;
+  }
+
+  .dp-scheme-mappings {
+    display: grid;
+    gap: 2px;
+    padding: var(--dp-space-xs) 0;
+    background: var(--dp-bg);
+  }
+
+  .dp-scheme-mapping-row {
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    align-items: center;
+    gap: var(--dp-space-xs);
+  }
+
+  .dp-scheme-mapping-row label {
+    font-size: 0.625rem;
+    color: var(--dp-text-muted);
+    text-transform: capitalize;
+  }
+
+  .dp-scheme-mapping-row select {
+    appearance: none;
+    -webkit-appearance: none;
+    min-block-size: 0;
+    background: var(--dp-bg-input);
+    border: 1px solid transparent;
+    color: var(--dp-text);
+    padding: 2px 4px;
+    border-radius: var(--dp-radius);
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.625rem;
+    line-height: 1.2;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  /* document.css has `[class*='scheme-'] { background-color: var(--color-bg);
+     color: var(--color-fg) }` which matches ANY element with a 'scheme-' substring
+     in its class name -- including our dp-scheme-* panel chrome classes. Those
+     should use the panel's own --dp-* tokens, not cascade from the page's current
+     scheme. Explicitly reset them. dp-scheme-preview-light / -dark are EXCLUDED
+     because they're the live scheme preview and should render with scheme colors. */
+  .dp-scheme-list,
+  .dp-scheme-card,
+  .dp-scheme-pair,
+  .dp-scheme-mappings,
+  .dp-scheme-mappings-dual,
+  .dp-scheme-mode-column,
+  .dp-scheme-mode-label,
+  .dp-scheme-mapping-row,
+  .dp-scheme-mapping-row label {
+    background-color: transparent;
+    color: var(--dp-text);
+  }
+
+  /* Dual-mode mapping layout: Light column | Dark column */
+  .dp-scheme-mappings-dual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--dp-space-sm);
+    padding: var(--dp-space-xs) 0;
+    background: var(--dp-bg);
+  }
+
+  /* fieldset reset: browsers default to inset border + padding. The
+     semantic grouping still applies for screen readers (Light / Dark). */
+  .dp-scheme-mode-column {
+    display: grid;
+    gap: 2px;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+
+  /* <legend> styled as a label-eyebrow. Placed inline so the fieldset
+     reads as a grouped block rather than a bordered box. */
+  .dp-scheme-mode-label {
+    font-size: 0.625rem;
+    color: var(--dp-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--dp-space-xs);
+    padding: 0;
+  }
+}

@@ -92,6 +92,7 @@
 @import './6_components/empty-state.css';
 @import './6_components/comments.css';
 @import './6_components/checklists.css';
+@import './6_components/design-panel.css';
 
 /* Utilities */
 @import './7_utilities/spacing.css';
