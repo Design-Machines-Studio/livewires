@@ -6,6 +6,7 @@ import {
   linearRGBToSRGB,
   hexToOKLCH,
   oklchToHex,
+  oklabToOKLCH,
   isInSRGBGamut,
   maxChromaSRGB,
   clampChroma,
@@ -110,9 +111,34 @@ describe('hexToOKLCH extremes', () => {
     expect(Math.abs(w.L - 1.0)).toBeLessThan(0.01);
     expect(w.C).toBeLessThan(0.001);
   });
-  test('black L ≈ 0', () => {
+  test('black L ≈ 0 and C ≈ 0', () => {
     const b = hexToOKLCH('#000000');
     expect(Math.abs(b.L)).toBeLessThan(0.01);
+    expect(b.C).toBeLessThan(0.001);
+  });
+});
+
+describe('oklabToOKLCH hue normalization', () => {
+  // oklch.js documents this modulo trick as correctness-critical for
+  // Go -> JS parity. Lab colors with negative `b` hit Math.atan2 paths
+  // that return [-pi, 0) radians; the double-modulo wraps those into
+  // [0, 360) degrees. Without this normalization, -45 degrees leaks
+  // out and downstream hue math (ramps, scheme overrides) drift.
+  test('normalizes negative atan2 to [0, 360)', () => {
+    const r = oklabToOKLCH({ L: 0.5, a: 0.1, b: -0.1 });
+    expect(r.H).toBeCloseTo(315, 1);
+  });
+  test('zero Lab stays at hue 0', () => {
+    const r = oklabToOKLCH({ L: 0.5, a: 0, b: 0 });
+    expect(r.H).toBe(0);
+  });
+  test('positive quadrant stays in [0, 180)', () => {
+    const r = oklabToOKLCH({ L: 0.5, a: 0.1, b: 0.1 });
+    expect(r.H).toBeCloseTo(45, 1);
+  });
+  test('negative a positive b stays in (90, 180)', () => {
+    const r = oklabToOKLCH({ L: 0.5, a: -0.1, b: 0.1 });
+    expect(r.H).toBeCloseTo(135, 1);
   });
 });
 

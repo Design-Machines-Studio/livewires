@@ -1,6 +1,7 @@
 import { test, expect, describe } from 'vitest';
 import {
   generateRamp,
+  scaleChromaProfile,
   STEPS,
   FAMILY_NAMES,
   DEFAULT_L_TARGETS,
@@ -196,18 +197,67 @@ describe('generateRamp overrides', () => {
 });
 
 describe('generateRamp hueFn', () => {
-  test('hueFn overrides per-step hue', () => {
+  test('hueFn overrides per-step hue at every non-anchor step', () => {
+    // Per-step hue rotator: step / 10 gives a unique hue for each canonical
+    // step (5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95). This exercises both
+    // sides of the anchor so a bug that applies hueFn only near the anchor
+    // (or only at step 100) would surface as hue drift elsewhere.
     const ramp = generateRamp({
       anchorHex: '#1966D9',
       anchorStep: 500,
-      hueFn: (step) => step / 10 // arbitrary mapping
+      hueFn: (step) => step / 10
     });
-    const at100 = ramp.find(r => r.step === 100);
-    const at500 = ramp.find(r => r.step === 500);
-    // step 500 is anchor-pinned and bypasses hueFn.
-    expect(at500.hex).toBeDefined();
-    // step 100 uses hueFn(100) = 10, clampChroma may adjust C but H should survive.
-    expect(Math.abs(at100.H - 10)).toBeLessThan(1);
+    for (const entry of ramp) {
+      if (entry.step === 500) {
+        // Anchor step is pinned to the anchor's own hue; hueFn is bypassed.
+        expect(entry.hex).toBeDefined();
+        continue;
+      }
+      const expectedHue = entry.step / 10;
+      // clampChroma may shrink C for out-of-gamut targets, but hue survives.
+      expect(Math.abs(entry.H - expectedHue)).toBeLessThan(1);
+    }
+  });
+});
+
+describe('scaleChromaProfile', () => {
+  test('100% returns byte-parity of the default profile', () => {
+    const scaled = scaleChromaProfile(DEFAULT_CHROMA_PROFILE, 100);
+    for (const step of STEPS) {
+      expect(scaled[step]).toBeCloseTo(DEFAULT_CHROMA_PROFILE[step], 12);
+    }
+  });
+  test('0% zeroes every step', () => {
+    const scaled = scaleChromaProfile(DEFAULT_CHROMA_PROFILE, 0);
+    for (const step of STEPS) {
+      expect(scaled[step]).toBe(0);
+    }
+  });
+  test('50% halves every step', () => {
+    const scaled = scaleChromaProfile(DEFAULT_CHROMA_PROFILE, 50);
+    for (const step of STEPS) {
+      expect(scaled[step]).toBeCloseTo(DEFAULT_CHROMA_PROFILE[step] / 2, 12);
+    }
+  });
+  test('clamps negative and >100 inputs', () => {
+    const low = scaleChromaProfile(DEFAULT_CHROMA_PROFILE, -10);
+    const high = scaleChromaProfile(DEFAULT_CHROMA_PROFILE, 500);
+    for (const step of STEPS) {
+      expect(low[step]).toBe(0);
+      expect(high[step]).toBeCloseTo(DEFAULT_CHROMA_PROFILE[step], 12);
+    }
+  });
+  test('accepts string-keyed profiles (DOM-attribute shape)', () => {
+    const stringKeyed = {};
+    for (const step of STEPS) stringKeyed[String(step)] = 0.5;
+    const scaled = scaleChromaProfile(stringKeyed, 100);
+    for (const step of STEPS) expect(scaled[step]).toBe(0.5);
+  });
+  test('null profile falls back to DEFAULT_CHROMA_PROFILE', () => {
+    const scaled = scaleChromaProfile(null, 100);
+    for (const step of STEPS) {
+      expect(scaled[step]).toBeCloseTo(DEFAULT_CHROMA_PROFILE[step], 12);
+    }
   });
 });
 
@@ -216,6 +266,7 @@ describe('registerOnWindow', () => {
     const fakeWindow = {};
     registerOnWindow(fakeWindow);
     expect(typeof fakeWindow.DesignPanelColor.generateRamp).toBe('function');
+    expect(typeof fakeWindow.DesignPanelColor.scaleChromaProfile).toBe('function');
     expect(fakeWindow.DesignPanelColor.STEPS).toEqual([...STEPS]);
     expect(fakeWindow.DesignPanelColor.FAMILY_NAMES).toEqual([...FAMILY_NAMES]);
   });

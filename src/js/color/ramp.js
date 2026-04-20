@@ -66,6 +66,21 @@ export const DEFAULT_CHROMA_PROFILE = Object.freeze({
   950: 0.38
 });
 
+// Scale a chroma profile by a 0-100 percentage and return a new profile
+// keyed by numeric step (matching DEFAULT_CHROMA_PROFILE). Pure function so
+// it can be unit tested without a browser harness.
+export function scaleChromaProfile(profile, chromaPct) {
+  const baseline = profile || DEFAULT_CHROMA_PROFILE;
+  const scale = Math.max(0, Math.min(100, chromaPct)) / 100;
+  const out = {};
+  for (const step of STEPS) {
+    const numericStep = Number(step);
+    const base = baseline[numericStep] ?? baseline[String(numericStep)] ?? 0.5;
+    out[numericStep] = base * scale;
+  }
+  return out;
+}
+
 // generateRamp(config) -> array of 11 { step, hex, L, C, H } entries.
 //
 // config shape (all fields optional except anchorHex / anchorStep):
@@ -182,6 +197,7 @@ export function registerOnWindow(w = globalThis) {
     FAMILY_NAMES,
     DEFAULT_L_TARGETS,
     DEFAULT_CHROMA_PROFILE,
-    generateRamp
+    generateRamp,
+    scaleChromaProfile
   });
 }
