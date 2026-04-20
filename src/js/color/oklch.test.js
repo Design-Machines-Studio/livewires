@@ -230,4 +230,28 @@ describe('registerOnWindow', () => {
     expect(fakeWindow.DesignPanelColor.previous).toBe(1);
     expect(typeof fakeWindow.DesignPanelColor.hexToOKLCH).toBe('function');
   });
+  test('is idempotent: calling twice is a no-op', () => {
+    const fakeWindow = {};
+    registerOnWindow(fakeWindow);
+    const firstRef = fakeWindow.DesignPanelColor.hexToOKLCH;
+    registerOnWindow(fakeWindow);
+    expect(fakeWindow.DesignPanelColor.hexToOKLCH).toBe(firstRef);
+  });
+});
+
+describe('sRGBToHex rounding', () => {
+  test('midpoint values round independently per channel', () => {
+    // 0.498 * 255 = 126.99 -> 127; 0.5 * 255 = 127.5 -> 128; 0.502 * 255 = 128.01 -> 128
+    const h = sRGBToHex({ R: 0.5, G: 0.498, B: 0.502 });
+    expect(h).toBe('#807f80');
+  });
+  test('0.5 rounds to 128 (banker rounding not used)', () => {
+    expect(sRGBToHex({ R: 0.5, G: 0.5, B: 0.5 })).toBe('#808080');
+  });
+  test('clamps out-of-range input', () => {
+    expect(sRGBToHex({ R: -1, G: 0.5, B: 2 })).toBe('#0080ff');
+  });
+  test('handles non-finite input safely', () => {
+    expect(sRGBToHex({ R: NaN, G: 0, B: 0 })).toBe('#000000');
+  });
 });

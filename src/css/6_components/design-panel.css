@@ -170,21 +170,27 @@
     margin-block-end: var(--dp-space-sm);
   }
 
+  /* Primary action in the Ramps section. Lifted visual weight via
+     --dp-bg-elevated + --dp-border + semi-bold weight so the button reads
+     as more prominent than the adjacent --dp-text-muted hint copy. */
   .dp-copy-css {
     flex: 0 0 auto;
     min-block-size: 0;
     padding: var(--dp-space-xxs) var(--dp-space-sm);
-    background: var(--dp-input-bg);
-    border: 1px solid var(--dp-input-border);
+    background: var(--dp-bg-elevated);
+    border: 1px solid var(--dp-border);
     border-radius: var(--dp-radius);
     color: var(--dp-text);
     font-family: system-ui, -apple-system, sans-serif;
     font-size: var(--dp-text-sm);
+    font-weight: 600;
     line-height: 1.2;
     cursor: pointer;
+    transition: background-color 150ms ease, border-color 150ms ease;
 
     &:hover {
-      background: var(--dp-bg-elevated);
+      background: var(--dp-border);
+      border-color: var(--dp-accent-light);
     }
 
     /* --dp-accent-light hits 6.44:1 on --dp-bg (SC 1.4.11 headroom). */
@@ -455,7 +461,12 @@
     gap: var(--dp-space-xs) var(--dp-space-sm);
     padding: var(--dp-space-xs) var(--dp-space-sm);
     margin-inline-start: var(--dp-col-ramp-label);
-    animation: dp-slide-down 150ms ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .dp-ramp-settings:not([hidden]) {
+      animation: dp-slide-down 150ms ease;
+    }
   }
 
   .dp-ramp-settings-legend {

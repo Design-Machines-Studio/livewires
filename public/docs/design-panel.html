@@ -168,7 +168,7 @@
           <h3>Schemes editor</h3>
           <p>Three scheme preview cards (Default, Subtle, Accent) each expose independent Light and Dark overrides for the five semantic tokens: <code>--color-bg</code>, <code>--color-fg</code>, <code>--color-accent</code>, <code>--color-muted</code>, <code>--color-subtle</code>. Each selection is wired through a dual-emit router so that Default-scheme edits cascade at <code>:root</code>/<code>.dark-mode</code> while Subtle/Accent edits scope to their <code>.scheme-X</code> classes.</p>
 
-          <h3>Persistence</h3>
+          <h3>Ramp and scheme persistence</h3>
           <p>Ramp settings live in <code>localStorage['design-panel:ramps']</code> as per-family <code>{anchorHex, anchorStep, chroma}</code> entries. Scheme selections live in <code>localStorage['design-panel:schemes']</code>. Both restore automatically on reload; ramps re-run the generator so the regenerated tokens match what you saw before the reload.</p>
           <p class="more"><a href="#main">To top</a></p>
         </section>

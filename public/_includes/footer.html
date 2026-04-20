@@ -10,31 +10,8 @@
   </p>
 </footer>
 
-<!-- Dev-only: floating design panel with baseline / columns / margins overlays.
-     Fixed-positioned in Shadow DOM so it escapes the footer visually.
-     The component syncs `inert` to its open state via attributeChangedCallback,
-     which removes it from the AT tree AND blocks focus when closed.
-
-     The Colours editor slot below is a minimal mount point. The 6 ramp rows
-     and 3 scheme cards are built programmatically by design-panel-colors.js
-     from its FAMILIES/SCHEMES/MODES/TOKENS constants so that adding a 7th
-     family is a one-line change instead of a 150-line copy-paste. We can't
-     use <html-include> here because slot assignment needs direct children
-     and the include wraps its content in its own shadow host. -->
-<design-panel>
-  <div slot="editor" data-tab="colors">
-    <div class="design-panel-section">
-      <h3 class="design-panel-section-title">Colour Ramps</h3>
-      <div class="dp-ramp-actions">
-        <button class="dp-copy-css" type="button" aria-describedby="dp-copy-css-hint">Copy CSS</button>
-        <p class="dp-hint" id="dp-copy-css-hint">Paste into <code>src/css/1_tokens/color.css</code> to persist ramp edits.</p>
-      </div>
-      <div class="dp-ramp-matrix" data-dp-ramp-matrix></div>
-    </div>
-
-    <div class="design-panel-section">
-      <h3 class="design-panel-section-title">Schemes</h3>
-      <div class="dp-scheme-list" role="list" data-dp-scheme-list></div>
-    </div>
-  </div>
-</design-panel>
+<!-- Design panel is dev-only. Include it on pages that need prototyping
+     tools. Production deploys can drop this include (and the
+     design-panel.js + design-panel-colors.js bundles) without affecting
+     the site itself. -->
+<html-include src="/_includes/design-panel.html"></html-include>

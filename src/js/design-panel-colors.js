@@ -603,6 +603,36 @@
     return readStoredState(RAMP_STORAGE_KEY);
   }
 
+  // Validate one ramp-family record loaded from localStorage. Returns a
+  // sanitized partial override object; unknown fields are dropped. Closes
+  // the attack surface where a crafted localStorage write could inject
+  // non-hex strings into the ramp generator.
+  const HEX_RE = /^#[0-9a-f]{6}$/;
+  const VALID_STEPS_SET = new Set(STEPS.map((s) => Number(s)));
+
+  function sanitizeFamilyOverride(raw) {
+    if (!raw || typeof raw !== 'object') return {};
+    const out = {};
+    if (typeof raw.anchorHex === 'string') {
+      const lower = raw.anchorHex.toLowerCase();
+      if (HEX_RE.test(lower)) out.anchorHex = lower;
+    }
+    if (Number.isFinite(raw.anchorStep) && VALID_STEPS_SET.has(raw.anchorStep)) {
+      out.anchorStep = raw.anchorStep;
+    }
+    if (Number.isFinite(raw.chroma) && raw.chroma >= 0 && raw.chroma <= 100) {
+      out.chroma = raw.chroma;
+    }
+    if (typeof raw.isNeutral === 'boolean') out.isNeutral = raw.isNeutral;
+    if (Number.isFinite(raw.neutralChroma) && raw.neutralChroma >= 0 && raw.neutralChroma <= 0.5) {
+      out.neutralChroma = raw.neutralChroma;
+    }
+    if (Number.isFinite(raw.neutralHue) && raw.neutralHue >= 0 && raw.neutralHue < 360) {
+      out.neutralHue = raw.neutralHue;
+    }
+    return out;
+  }
+
   function loadRampSettings() {
     const defaults = loadDefaultRampSettings();
     const stored = readStoredRampOverrides();
@@ -610,7 +640,7 @@
     for (const family of FAMILIES) {
       merged[family] = {
         ...defaults[family],
-        ...(stored[family] && typeof stored[family] === 'object' ? stored[family] : {})
+        ...sanitizeFamilyOverride(stored[family])
       };
     }
     return merged;
@@ -756,8 +786,14 @@
       lines.push(`    /* ${label} */`);
       for (const step of STEPS) {
         const value = computed.getPropertyValue(`--color-${family}-${step}`).trim();
-        if (value) {
-          lines.push(`    --color-${family}-${step}: ${value};`);
+        // Defense-in-depth: reject anything not a #rrggbb literal before
+        // the value lands on the user's clipboard. Runtime hex values come
+        // from oklchToHex which always emits #rrggbb, but if a hostile
+        // script has overwritten a --color-* token this gate drops the
+        // tampered value.
+        const lowered = value.toLowerCase();
+        if (lowered && HEX_RE.test(lowered)) {
+          lines.push(`    --color-${family}-${step}: ${lowered};`);
         }
       }
       lines.push('');
@@ -826,12 +862,50 @@
   /* Bootstrap                                                       */
   /* --------------------------------------------------------------- */
 
+  const DOM_READY_TIMEOUT_MS = 5000;
+
+  function mountPointsPresent() {
+    return (
+      document.querySelector('[data-dp-ramp-matrix]') ||
+      document.querySelector('[data-dp-scheme-list]')
+    );
+  }
+
+  function waitForMountPoints() {
+    if (mountPointsPresent()) return Promise.resolve(true);
+    return new Promise((resolve) => {
+      const observer = new MutationObserver(() => {
+        if (mountPointsPresent()) {
+          cleanup();
+          resolve(true);
+        }
+      });
+      const timeoutId = setTimeout(() => {
+        cleanup();
+        // Not an error; a page may legitimately omit the design panel.
+        resolve(false);
+      }, DOM_READY_TIMEOUT_MS);
+      function cleanup() {
+        observer.disconnect();
+        clearTimeout(timeoutId);
+      }
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  }
+
   function main() {
-    // Mount points may not exist yet if this page doesn't use footer.html
-    // (e.g. a standalone docs page). Early-exit silently in that case.
-    const matrixMount = document.querySelector('[data-dp-ramp-matrix]');
-    const listMount = document.querySelector('[data-dp-scheme-list]');
-    if (!matrixMount && !listMount) return;
+    // Mount points may not exist yet when the design panel loads via
+    // <html-include> (async fetch). Wait for them to appear, or give up
+    // silently if the page doesn't include the panel at all.
+    waitForMountPoints().then((ready) => {
+      if (!ready) return;
+      initOnce();
+    });
+  }
+
+  function initOnce() {
+    if (initOnce.done) return;
+    initOnce.done = true;
 
     buildAll();
 
