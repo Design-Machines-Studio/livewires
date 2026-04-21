@@ -214,6 +214,15 @@
 
     const stored = hydrateFromStorage() || {};
     const computed = getComputedStyle(document.documentElement);
+    // When the active theme is Default (or no theme set), an absent key in
+    // storage means "use the cascade." Falling back to getComputedStyle and
+    // then writing that value back to :root would re-pollute the inline
+    // style the theme controller just cleared via clearRootOverridesNotIn.
+    // So: empty the input and removeProperty instead. For non-default
+    // themes, a missing key genuinely means "no override provided" and the
+    // legacy computed-style fallback is appropriate.
+    const activeId = localStorage.getItem('design-panel:active-theme-id');
+    const isDefault = activeId === 'thm_default' || activeId === null;
 
     for (const id of Object.keys(SIGNAL_TO_CSS)) {
       const input = document.getElementById(id);
@@ -223,6 +232,12 @@
       if (fromStorage != null) {
         input.value = fromStorage;
         applyToRoot(input);
+      } else if (isDefault) {
+        // No stored value + default theme active -- wipe the inline
+        // override and leave the input blank. The cascade (tokens layer)
+        // provides the effective value now.
+        input.value = '';
+        document.documentElement.style.removeProperty(SIGNAL_TO_CSS[id]);
       } else if (isFontInput(id)) {
         // Font inputs intentionally start empty so the placeholder shows
         // and the cascade default (--font-sans) keeps applying. Hydrating

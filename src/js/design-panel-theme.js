@@ -66,6 +66,61 @@
     '--line-height-max',
   ]);
 
+  // Seam translation: theme bundle files store typography with CSS-property
+  // keys (e.g. "--type-scale-ratio"), but the Typography controller's
+  // localStorage['design-panel:typography'] is keyed by input id (e.g.
+  // "dp-type-ratio") because dozens of call sites there depend on that
+  // shape. This map mirrors the SIGNAL_TO_CSS constant in
+  // design-panel-typography.js (kept in sync manually -- both sides are
+  // zero-import by policy).
+  const TYPOGRAPHY_INPUT_TO_CSS = Object.freeze({
+    'dp-type-ratio':       '--type-scale-ratio',
+    'dp-text-base-min':    '--text-base-min',
+    'dp-text-base-max':    '--text-base-max',
+    'dp-lh-body':          '--line-height-ratio-body',
+    'dp-lh-heading':       '--line-height-ratio-heading',
+    'dp-font-body':        '--font-body',
+    'dp-font-heading':     '--font-heading',
+    'dp-line-height-min':  '--line-height-min',
+    'dp-line-height-max':  '--line-height-max',
+  });
+
+  // Invert for theme-bundle -> LS translation.
+  const TYPOGRAPHY_CSS_TO_INPUT = Object.freeze(
+    Object.fromEntries(Object.entries(TYPOGRAPHY_INPUT_TO_CSS).map(([k, v]) => [v, k]))
+  );
+
+  // Theme bundle shape -> Typography localStorage shape. Accepts an object
+  // keyed by CSS custom property names; returns an object keyed by input ids.
+  // Non-string values and unknown keys are silently dropped so a malformed
+  // theme file can't poison localStorage.
+  function themeTypographyToStorage(bundleTypography) {
+    const out = {};
+    for (const [cssProp, value] of Object.entries(bundleTypography || {})) {
+      const inputId = TYPOGRAPHY_CSS_TO_INPUT[cssProp];
+      if (inputId && typeof value === 'string') {
+        out[inputId] = value;
+      }
+    }
+    return out;
+  }
+
+  // Typography localStorage shape -> theme bundle shape. Accepts an object
+  // keyed by input ids; returns an object keyed by CSS custom property names.
+  // Empty strings are dropped (the Typography controller uses '' to mean
+  // "cascade default" on font inputs, which shouldn't be PUT as an explicit
+  // override) -- the server schema requires non-empty string values.
+  function storageToThemeTypography(storageTypography) {
+    const out = {};
+    for (const [inputId, value] of Object.entries(storageTypography || {})) {
+      const cssProp = TYPOGRAPHY_INPUT_TO_CSS[inputId];
+      if (cssProp && typeof value === 'string' && value !== '') {
+        out[cssProp] = value;
+      }
+    }
+    return out;
+  }
+
   // Cached state.
   let themes = [];
   let activeId = DEFAULT_THEME_ID;
@@ -367,8 +422,13 @@
     }
 
     // STEP 3: Overwrite the "uncommitted edits" layer with the theme's snapshot.
+    // Translate typography from CSS-prop keys (bundle shape) to input-id keys
+    // (Typography controller's localStorage shape).
     try {
-      localStorage.setItem(TYPOGRAPHY_KEY, JSON.stringify(theme.typography || {}));
+      localStorage.setItem(
+        TYPOGRAPHY_KEY,
+        JSON.stringify(themeTypographyToStorage(theme.typography))
+      );
       localStorage.setItem(
         SCHEMES_KEY,
         JSON.stringify(normalizeSchemes(theme.schemes))
@@ -434,7 +494,9 @@
       return;
     }
 
-    const typography = readJSON(TYPOGRAPHY_KEY);
+    // Typography localStorage uses input-id keys; translate to CSS-prop keys
+    // for the bundle (matches the schema + what the server validates).
+    const typography = storageToThemeTypography(readJSON(TYPOGRAPHY_KEY));
     const schemes = normalizeSchemes(readJSON(SCHEMES_KEY));
 
     const bundle = {
@@ -445,9 +507,7 @@
       isDefault: false,
       createdAt: typeof theme.createdAt === 'string' ? theme.createdAt : new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      typography: (typography && typeof typography === 'object' && !Array.isArray(typography))
-        ? typography
-        : {},
+      typography,
       schemes,
     };
 
@@ -507,7 +567,9 @@
       window.__dpColorsSave.flush();
     }
 
-    const typography = readJSON(TYPOGRAPHY_KEY);
+    // Same translation as saveCurrent: Typography LS is input-id keyed, the
+    // server (and any future reader of the bundle JSON) expects CSS-prop keys.
+    const typography = storageToThemeTypography(readJSON(TYPOGRAPHY_KEY));
     const schemes = normalizeSchemes(readJSON(SCHEMES_KEY));
 
     // ID collision retry loop. `crypto.randomUUID().slice` has ~16^8 keyspace
@@ -531,9 +593,7 @@
         isDefault: false,
         createdAt: now,
         updatedAt: now,
-        typography: (typography && typeof typography === 'object' && !Array.isArray(typography))
-          ? typography
-          : {},
+        typography,
         schemes,
       };
 
