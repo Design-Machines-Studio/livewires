@@ -22,9 +22,6 @@
  *      window.DesignPanelColor.generateRamp. Per-family settings persist
  *      in localStorage['design-panel:ramps']. Zero network requests at
  *      regeneration time -- all math runs client-side.
- *   7. Copy CSS button serializes the current 66 runtime values into an
- *      @layer tokens :root {} block via navigator.clipboard.
- *
  * Zero imports by policy — this file is loaded via Vite's bundler from
  * main.js but must not declare its own ES imports. It relies on
  * window.__dpSchemeUpdate (installed by design-panel-runtime.js),
@@ -778,86 +775,6 @@
     }
   }
 
-  function serializeRampsAsCSS() {
-    const computed = getComputedStyle(document.documentElement);
-    const lines = ['@layer tokens {', '  :root {'];
-    for (const family of FAMILIES) {
-      const label = FAMILY_LABEL[family];
-      lines.push(`    /* ${label} */`);
-      for (const step of STEPS) {
-        const value = computed.getPropertyValue(`--color-${family}-${step}`).trim();
-        // Defense-in-depth: reject anything not a #rrggbb literal before
-        // the value lands on the user's clipboard. Runtime hex values come
-        // from oklchToHex which always emits #rrggbb, but if a hostile
-        // script has overwritten a --color-* token this gate drops the
-        // tampered value.
-        const lowered = value.toLowerCase();
-        if (lowered && HEX_RE.test(lowered)) {
-          lines.push(`    --color-${family}-${step}: ${lowered};`);
-        }
-      }
-      lines.push('');
-    }
-    lines.push('  }', '}');
-    return lines.join('\n');
-  }
-
-  function ensureCopyStatusRegion(btn) {
-    // Live region sibling so button label changes ("Copied", "Failed") are
-    // also announced to screen readers. Visually hidden via the sr-only
-    // class shared with other Live Wires components.
-    let status = document.getElementById('dp-copy-css-status');
-    if (!status) {
-      status = el('span', {
-        id: 'dp-copy-css-status',
-        class: 'visually-hidden',
-        role: 'status',
-        'aria-live': 'polite',
-        'aria-atomic': 'true'
-      });
-      btn.insertAdjacentElement('afterend', status);
-    }
-    return status;
-  }
-
-  function attachCopyCSSButton() {
-    const btn = document.querySelector('.dp-copy-css');
-    if (!btn) return;
-
-    const status = ensureCopyStatusRegion(btn);
-
-    btn.addEventListener('click', () => {
-      const css = serializeRampsAsCSS();
-      const original = btn.textContent;
-      const restore = (label, delay) => {
-        btn.textContent = label;
-        status.textContent = label;
-        setTimeout(() => {
-          btn.textContent = original;
-          status.textContent = '';
-        }, delay);
-      };
-
-      if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
-        // eslint-disable-next-line no-console
-        console.warn('[design-panel-colors] navigator.clipboard unavailable');
-        restore('Unavailable', 2000);
-        return;
-      }
-
-      navigator.clipboard.writeText(css).then(
-        () => {
-          restore('Copied', 2000);
-        },
-        (err) => {
-          // eslint-disable-next-line no-console
-          console.error('[design-panel-colors] clipboard write failed:', err);
-          restore('Failed', 2000);
-        }
-      );
-    });
-  }
-
   /* --------------------------------------------------------------- */
   /* Bootstrap                                                       */
   /* --------------------------------------------------------------- */
@@ -923,7 +840,6 @@
       regenerateAllFamilies(rampSettings);
     }
     attachRampListeners(rampSettings);
-    attachCopyCSSButton();
   }
 
   if (document.readyState === 'loading') {

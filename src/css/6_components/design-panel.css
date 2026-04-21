@@ -161,61 +161,6 @@
     margin-block-end: 0;
   }
 
-  /* Copy-CSS action: compact utility button that exports current ramp
-     runtime values to the clipboard for manual paste into color.css. */
-  .dp-ramp-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--dp-space-sm);
-    margin-block-end: var(--dp-space-sm);
-  }
-
-  /* Primary action in the Ramps section. Lifted visual weight via
-     --dp-bg-elevated + --dp-border + semi-bold weight so the button reads
-     as more prominent than the adjacent --dp-text-muted hint copy. */
-  .dp-copy-css {
-    flex: 0 0 auto;
-    min-block-size: 0;
-    padding: var(--dp-space-xxs) var(--dp-space-sm);
-    background: var(--dp-bg-elevated);
-    border: 1px solid var(--dp-border);
-    border-radius: var(--dp-radius);
-    color: var(--dp-text);
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: var(--dp-text-sm);
-    font-weight: 600;
-    line-height: 1.2;
-    cursor: pointer;
-    transition: background-color 150ms ease, border-color 150ms ease;
-
-    &:hover {
-      background: var(--dp-border);
-      border-color: var(--dp-accent-light);
-    }
-
-    /* --dp-accent-light hits 6.44:1 on --dp-bg (SC 1.4.11 headroom). */
-    &:focus-visible {
-      outline: 2px solid var(--dp-accent-light);
-      outline-offset: 1px;
-    }
-  }
-
-  .dp-hint {
-    flex: 1 1 auto;
-    margin: 0;
-    font-size: var(--dp-text-xs);
-    line-height: 1.3;
-    color: var(--dp-text-muted);
-
-    & code {
-      font-family: ui-monospace, monospace;
-      font-size: var(--dp-text-xs);
-      background: var(--dp-input-bg);
-      padding: 1px 3px;
-      border-radius: 2px;
-    }
-  }
-
   .dp-locked-notice {
     font-size: var(--dp-text-sm);
     opacity: 0.5;
