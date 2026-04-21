@@ -499,10 +499,30 @@
 
   function makeDebouncedSaver(key, serialize) {
     let timer = null;
-    return function save() {
+    // pendingInvocation: set to the synchronous saver while a timer is armed;
+    // cleared to null once the timer fires or flush() drains it. The theme
+    // controller (Chunk 3) relies on debouncedSchemeSave.flush() to
+    // synchronously persist any pending write before swapping localStorage +
+    // dispatching design-panel:reactivate.
+    let pendingInvocation = null;
+    const save = () => {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+      pendingInvocation = null;
+      try {
+        localStorage.setItem(key, JSON.stringify(serialize()));
+      } catch {
+        // Quota exceeded / disabled storage — silently skip.
+      }
+    };
+    const debouncedSave = function () {
       if (timer) clearTimeout(timer);
+      pendingInvocation = save;
       timer = setTimeout(() => {
         timer = null;
+        pendingInvocation = null;
         try {
           localStorage.setItem(key, JSON.stringify(serialize()));
         } catch {
@@ -510,6 +530,13 @@
         }
       }, SAVE_DEBOUNCE_MS);
     };
+    debouncedSave.flush = function flush() {
+      if (pendingInvocation) {
+        save();
+      }
+      // else: no-op (not an error) when no timer is pending.
+    };
+    return debouncedSave;
   }
 
   function serializeSchemes() {
@@ -820,6 +847,78 @@
     });
   }
 
+  // Idempotent re-hydrate + re-apply for schemes only. Called at the end of
+  // initOnce() on boot, and again whenever the theme controller (Chunk 3)
+  // dispatches design-panel:reactivate after calling __dpSchemeReset() and
+  // swapping localStorage['design-panel:schemes'].
+  //
+  // Ramp state is orthogonal to themes and is NOT re-applied here -- ramps
+  // persist to localStorage['design-panel:ramps'] and apply via their own
+  // boot-only code path in initOnce().
+  function applyState() {
+    // Guard: if the scheme list hasn't been built yet (boot race), bail.
+    const list = document.querySelector('[data-dp-scheme-list]');
+    if (!list) return;
+
+    // 1. Hydrate select values from localStorage and re-emit overrides via
+    //    __dpSchemeUpdate. hydrateSchemeSelections already does both -- it
+    //    walks the SCHEMES/MODES/TOKENS matrix, validates against the
+    //    allow-list, sets select.value, and calls applySchemeMapping with
+    //    the 4-arg signature (scheme, mode, token, value).
+    //
+    //    On reactivate after __dpSchemeReset() (which clears the runtime
+    //    stylesheet and resets select .value to defaults), this rebuilds
+    //    every override from scratch. Selects that are no longer in storage
+    //    stay at their reset value -- no stale override sticks.
+    hydrateSchemeSelections();
+
+    // 2. For any select that is NOT in the stored state, also re-emit an
+    //    explicit "clear" (value === '') so the runtime stylesheet's rule
+    //    for that token drops back to `initial`. Otherwise a reactivate
+    //    that removes a token from localStorage would leave the prior
+    //    override live (hydrateSchemeSelections only iterates keys present
+    //    in storage).
+    const stored = readStoredState(SCHEMES_STORAGE_KEY);
+    for (const scheme of SCHEMES) {
+      const schemeState = (stored && stored[scheme]) || {};
+      for (const mode of MODES) {
+        const modeState = (schemeState[mode]) || {};
+        for (const token of TOKENS) {
+          const select = document.getElementById(
+            `dp-scheme-${scheme}-${mode}-${token}`
+          );
+          if (!select) continue;
+          const stillStored = isValidSchemeValue(modeState[token]);
+          if (!stillStored) {
+            // Clear both the select and the runtime rule.
+            select.value = '';
+            applySchemeMapping(scheme, mode, token, '');
+          }
+        }
+      }
+    }
+
+    // 3. Disable controls when the default theme is active.
+    applyDisabledState();
+  }
+
+  // Toggle `disabled` on every input/button/select inside the colors editor
+  // slot based on active theme. Covers ramp inputs (color + range), scheme
+  // selects, and the ramp-row disclosure buttons. Default theme (or no theme
+  // set) means the user is looking at the baseline tokens -- editors are
+  // read-only until a thm_ id other than thm_default is active.
+  function applyDisabledState() {
+    const activeId = localStorage.getItem('design-panel:active-theme-id');
+    const isDefault = activeId === 'thm_default' || activeId === null;
+    document
+      .querySelectorAll(
+        '[slot="editor"][data-tab="colors"] :is(input, button, select)'
+      )
+      .forEach((el) => {
+        el.disabled = isDefault;
+      });
+  }
+
   function initOnce() {
     if (initOnce.done) return;
     initOnce.done = true;
@@ -829,17 +928,36 @@
     const ramps = readRampsFromTokens();
     paintSwatches(ramps);
     populateSchemeSelects();
-    hydrateSchemeSelections();
     attachSchemeListeners();
     attachRampRowToggles();
 
-    // Live regeneration. Order matters -- reapply stored overrides first
-    // so subsequent user input writes on top of the restored state.
+    // Live ramp regeneration (orthogonal to themes). Order matters --
+    // reapply stored overrides first so subsequent user input writes on top
+    // of the restored state.
     const rampSettings = loadRampSettings();
     if (hasStoredOverrides()) {
       regenerateAllFamilies(rampSettings);
     }
     attachRampListeners(rampSettings);
+
+    // Register the reactivate listener only after scheme DOM is built and
+    // listeners are wired. Theme activation before this point would throw
+    // when applyState probes for selects. Same rationale as Typography.
+    document.addEventListener('design-panel:reactivate', applyState);
+
+    // Expose a synchronous flush hook so the theme controller (Chunk 3) can
+    // drain any pending debounced scheme save before swapping localStorage
+    // and dispatching design-panel:reactivate. Guard against
+    // double-registration so re-running this IIFE (hot reload, eval, etc.)
+    // doesn't clobber an existing reference.
+    if (!window.__dpColorsSave) {
+      window.__dpColorsSave = { flush: debouncedSchemeSave.flush };
+    }
+
+    // Apply scheme state + disabled state. Replaces the previous direct
+    // hydrateSchemeSelections() call so the same logic runs on boot and on
+    // every reactivate event.
+    applyState();
   }
 
   if (document.readyState === 'loading') {

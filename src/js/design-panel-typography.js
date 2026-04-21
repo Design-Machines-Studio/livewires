@@ -101,10 +101,30 @@
 
   function makeDebouncedSaver(key, serialize) {
     let timer = null;
-    return function save() {
+    // pendingInvocation: set to the synchronous saver while a timer is armed;
+    // cleared to null once the timer fires or flush() drains it. The theme
+    // controller (Chunk 3) relies on debouncedSave.flush() to synchronously
+    // persist any pending write before swapping localStorage + dispatching
+    // design-panel:reactivate.
+    let pendingInvocation = null;
+    const save = () => {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+      pendingInvocation = null;
+      try {
+        localStorage.setItem(key, JSON.stringify(serialize()));
+      } catch {
+        // Quota / disabled storage -- silently skip.
+      }
+    };
+    const debouncedSave = function () {
       if (timer) clearTimeout(timer);
+      pendingInvocation = save;
       timer = setTimeout(() => {
         timer = null;
+        pendingInvocation = null;
         try {
           localStorage.setItem(key, JSON.stringify(serialize()));
         } catch {
@@ -112,6 +132,13 @@
         }
       }, SAVE_DEBOUNCE_MS);
     };
+    debouncedSave.flush = function flush() {
+      if (pendingInvocation) {
+        save();
+      }
+      // else: no-op (not an error) when no timer is pending.
+    };
+    return debouncedSave;
   }
 
   function serializeState() {
@@ -178,11 +205,12 @@
 
   let initDone = false;
 
-  function init() {
-    if (initDone) return;
+  // Idempotent re-hydrate + re-apply. Called at the end of init() on boot,
+  // and again whenever the theme controller (Chunk 3) dispatches
+  // design-panel:reactivate after swapping localStorage.
+  function applyState() {
     const slot = document.querySelector('[slot="editor"][data-tab="typography"]');
-    if (!slot) return; // tab not projected -- nothing to wire
-    initDone = true;
+    if (!slot) return; // guard: tab not projected, nothing to re-apply
 
     const stored = hydrateFromStorage() || {};
     const computed = getComputedStyle(document.documentElement);
@@ -200,12 +228,52 @@
         // and the cascade default (--font-sans) keeps applying. Hydrating
         // from getComputedStyle would dump the entire resolved stack into
         // the input -- correct value, but ugly and unnecessary.
+        // CLAUDE.md decision log: skip font hydration when no stored override.
         input.value = '';
+        // Also clear any inline override so the cascade default reapplies
+        // when switching from a non-default theme back to default.
+        applyToRoot(input);
       } else {
         input.value = computed.getPropertyValue(SIGNAL_TO_CSS[id]).trim();
         applyToRoot(input);
       }
       updateAriaValueText(input);
+    }
+
+    applyDisabledState();
+    updatePresetPressed();
+  }
+
+  // Toggle `disabled` on every input/button/select inside the typography
+  // editor slot based on active theme. Default theme (or no theme set) means
+  // the user is looking at the baseline tokens -- editors are read-only until
+  // a thm_ id other than thm_default is active.
+  function applyDisabledState() {
+    const activeId = localStorage.getItem('design-panel:active-theme-id');
+    const isDefault = activeId === 'thm_default' || activeId === null;
+    document
+      .querySelectorAll(
+        '[slot="editor"][data-tab="typography"] :is(input, button, select)'
+      )
+      .forEach((el) => {
+        el.disabled = isDefault;
+      });
+  }
+
+  function init() {
+    if (initDone) return;
+    const slot = document.querySelector('[slot="editor"][data-tab="typography"]');
+    if (!slot) return; // tab not projected -- nothing to wire
+    initDone = true;
+
+    // Wire listeners FIRST so applyState's input writes don't fire change
+    // events on already-attached handlers mid-hydration. The handlers only
+    // react to user input events, not synthetic input.value assignments, so
+    // order here is safe either way -- but keeping attach-before-apply
+    // matches the mental model "build DOM + listeners, then seed state."
+    for (const id of Object.keys(SIGNAL_TO_CSS)) {
+      const input = document.getElementById(id);
+      if (!input) continue;
 
       input.addEventListener('input', () => {
         applyToRoot(input);
@@ -227,7 +295,21 @@
       });
     }
 
-    updatePresetPressed();
+    // Register the reactivate listener only after the slot is confirmed
+    // present. Theme activation before the tab has rendered would otherwise
+    // throw when applyState probes for inputs.
+    document.addEventListener('design-panel:reactivate', applyState);
+
+    // Expose a synchronous flush hook so the theme controller (Chunk 3) can
+    // drain any pending debounced save before swapping localStorage and
+    // dispatching design-panel:reactivate. Guard against double-registration
+    // so re-running this IIFE (hot reload, eval, etc.) doesn't clobber an
+    // existing reference.
+    if (!window.__dpTypographySave) {
+      window.__dpTypographySave = { flush: debouncedSave.flush };
+    }
+
+    applyState();
   }
 
   function main() {
