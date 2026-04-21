@@ -750,4 +750,65 @@
       background: CanvasText;
     }
   }
+
+  /* Theme tab - additions for the chunk-03 controller.
+     .dp-theme-row / .dp-theme-row-head / .dp-theme-row-name /
+     .dp-theme-row-actions are already defined above (they pre-dated this
+     controller). The rules below cover the gaps: list spacing, active-row
+     highlight, current-theme name, create-form layout, and live-region
+     status slot. */
+
+  .dp-theme-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dp-space-xxs);
+  }
+
+  .dp-theme-row[aria-current="true"] {
+    background: var(--dp-bg-elevated);
+    border-radius: var(--dp-radius);
+    padding-inline: var(--dp-space-xs);
+  }
+
+  .dp-theme-current-name {
+    font-size: var(--dp-text-md);
+    font-weight: 600;
+    margin: 0 0 var(--dp-space-xs) 0;
+  }
+
+  .dp-theme-create {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dp-space-xxs);
+  }
+
+  .dp-theme-create label {
+    font-size: var(--dp-text-sm);
+    color: var(--dp-text-muted);
+  }
+
+  .dp-theme-create input {
+    inline-size: 100%;
+    font-size: var(--dp-text-md);
+    padding: var(--dp-space-2xs) var(--dp-space-xs);
+    background: var(--dp-input-bg);
+    border: 1px solid var(--dp-input-border);
+    border-radius: var(--dp-radius);
+    color: inherit;
+  }
+
+  .dp-theme-create input[aria-invalid="true"] {
+    border-color: var(--color-red-500, currentColor);
+  }
+
+  .dp-theme-create button {
+    align-self: flex-start;
+    margin-block-start: var(--dp-space-xxs);
+  }
+
+  #dp-theme-name-error {
+    font-size: var(--dp-text-sm);
+    color: var(--color-red-500, currentColor);
+    margin-block-start: var(--dp-space-xxs);
+  }
 }
