@@ -163,9 +163,6 @@
           </ul>
           <p>Regeneration is entirely client-side. No network requests fire when you drag a slider or pick a new colour; the math runs in <code>src/js/color/ramp.js</code>, which is a line-for-line port of Assembly's <code>backend/internal/color/ramp.go</code>.</p>
 
-          <h3>Copy CSS</h3>
-          <p>The <strong>Copy CSS</strong> button at the top of the ramp matrix serializes the current 66 runtime values into an <code>@layer tokens { :root { ... } }</code> block and copies it to the clipboard. To persist regenerated ramps, paste the output into <code>src/css/1_tokens/color.css</code> replacing the existing declarations. This keeps the design system's source of truth in CSS; the panel is a generator, not a storage layer.</p>
-
           <h3>Schemes editor</h3>
           <p>Three scheme preview cards (Default, Subtle, Accent) each expose independent Light and Dark overrides for the five semantic tokens: <code>--color-bg</code>, <code>--color-fg</code>, <code>--color-accent</code>, <code>--color-muted</code>, <code>--color-subtle</code>. Each selection is wired through a dual-emit router so that Default-scheme edits cascade at <code>:root</code>/<code>.dark-mode</code> while Subtle/Accent edits scope to their <code>.scheme-X</code> classes.</p>
 
@@ -204,10 +201,7 @@
           <p>Min and Max number inputs write <code>--line-height-min</code> and <code>--line-height-max</code>. The computed <code>--line</code> baseline reads these, so the Guides tool's baseline overlay re-aligns the moment you adjust them.</p>
 
           <h3>Persistence</h3>
-          <p>All nine input values persist to <code>localStorage['design-panel:typography']</code> with a 200ms debounce. On reload the controller restores stored values; missing keys hydrate from the cascade (<code>getComputedStyle()</code> against <code>:root</code>).</p>
-
-          <h3>Copy CSS</h3>
-          <p>The <strong>Copy CSS</strong> button at the top of the Typography tab serializes the current values into two pasteable <code>@layer tokens { :root { ... } }</code> blocks &mdash; one per source file &mdash; and copies them to the clipboard. The first block (scale ratio + base sizes + line-height ratios) pastes into <code>src/css/1_tokens/typography-scale-auto.css</code>; the second (fonts + baseline) pastes into <code>src/css/1_tokens/typography-base.css</code>. Empty font inputs are skipped so the cascade default keeps applying. Same pattern as the Colours tab: the panel is a generator, the CSS files remain the source of truth.</p>
+          <p>All nine input values persist to <code>localStorage['design-panel:typography']</code> with a 200ms debounce. On reload the controller restores stored values; missing keys hydrate from the cascade (<code>getComputedStyle()</code> against <code>:root</code>). The forthcoming Theme tab will be the canonical mechanism for promoting these runtime edits into named, version-controllable theme bundles.</p>
 
           <h3>Accessibility</h3>
           <p>Range inputs update <code>aria-valuetext</code> on every change so screen readers announce the current value with context (e.g. "Scale ratio 1.25, Major third"; "Body line height 1.5"). Min/Max number-input pairs are grouped in <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code> so the group name is announced when each input gains focus.</p>
