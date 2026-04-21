@@ -45,6 +45,15 @@ import './design-panel-colors.js';
 // no shared globals.
 import './design-panel-typography.js';
 
+// Theme tab controller. Binds the Theme editor slot to the dev-only
+// /__dp/themes endpoint and orchestrates save/activate/delete/reset/create
+// flows. Coordinates the two sibling controllers via
+// window.__dpTypographySave.flush + window.__dpColorsSave.flush and the
+// design-panel:reactivate CustomEvent. MUST load AFTER both sibling
+// controllers so their flush globals are registered by the time a user
+// can click Activate.
+import './design-panel-theme.js';
+
 function onReady(fn) {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fn, { once: true });
