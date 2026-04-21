@@ -176,6 +176,108 @@
     });
   }
 
+  // Map each input id to the source file its CSS property lives in. Used
+  // by the Copy CSS serializer to group the export into two paste-targets,
+  // since the typography tokens are split between scale-auto.css and
+  // typography-base.css.
+  const SOURCE_FILE = Object.freeze({
+    'dp-type-ratio':       'scale',
+    'dp-text-base-min':    'scale',
+    'dp-text-base-max':    'scale',
+    'dp-lh-body':          'scale',
+    'dp-lh-heading':       'scale',
+    'dp-font-body':        'base',
+    'dp-font-heading':     'base',
+    'dp-line-height-min':  'base',
+    'dp-line-height-max':  'base',
+  });
+
+  function serializeTypographyAsCSS() {
+    const groups = { scale: [], base: [] };
+    for (const id of Object.keys(SIGNAL_TO_CSS)) {
+      const input = document.getElementById(id);
+      if (!input) continue;
+      const value = input.value;
+      // Skip empty font inputs -- they mean "use the cascade default" and
+      // exporting an empty value would blank --font-body in source.
+      if (isFontInput(id) && !value.trim()) continue;
+      const prop = SIGNAL_TO_CSS[id];
+      const formatted = isFontInput(id) ? value.trim() : String(value);
+      groups[SOURCE_FILE[id]].push(`    ${prop}: ${formatted};`);
+    }
+    const lines = [];
+    if (groups.scale.length) {
+      lines.push('/* Paste into src/css/1_tokens/typography-scale-auto.css :root */');
+      lines.push('@layer tokens {');
+      lines.push('  :root {');
+      lines.push(...groups.scale);
+      lines.push('  }');
+      lines.push('}');
+    }
+    if (groups.base.length) {
+      if (lines.length) lines.push('');
+      lines.push('/* Paste into src/css/1_tokens/typography-base.css :root */');
+      lines.push('@layer tokens {');
+      lines.push('  :root {');
+      lines.push(...groups.base);
+      lines.push('  }');
+      lines.push('}');
+    }
+    return lines.join('\n');
+  }
+
+  function ensureCopyStatusRegion(btn) {
+    // Live region sibling so button label changes ("Copied", "Failed") are
+    // also announced to screen readers. Separate id from the Colours
+    // tab's status region so the two buttons don't share announcements.
+    let status = document.getElementById('dp-copy-typography-status');
+    if (!status) {
+      status = document.createElement('span');
+      status.id = 'dp-copy-typography-status';
+      status.className = 'visually-hidden';
+      status.setAttribute('role', 'status');
+      status.setAttribute('aria-live', 'polite');
+      status.setAttribute('aria-atomic', 'true');
+      btn.insertAdjacentElement('afterend', status);
+    }
+    return status;
+  }
+
+  function attachCopyCSSButton(slot) {
+    // Scope to the typography slot so we don't grab the Colours tab's
+    // .dp-copy-css button (which is also a sibling inside <design-panel>).
+    const btn = slot.querySelector('[data-dp-copy="typography"]');
+    if (!btn) return;
+    const status = ensureCopyStatusRegion(btn);
+
+    btn.addEventListener('click', () => {
+      const css = serializeTypographyAsCSS();
+      const original = btn.textContent;
+      const restore = (label, delay) => {
+        btn.textContent = label;
+        status.textContent = label;
+        setTimeout(() => {
+          btn.textContent = original;
+          status.textContent = '';
+        }, delay);
+      };
+      if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+        // eslint-disable-next-line no-console
+        console.warn('[design-panel-typography] navigator.clipboard unavailable');
+        restore('Unavailable', 2000);
+        return;
+      }
+      navigator.clipboard.writeText(css).then(
+        () => restore('Copied', 2000),
+        (err) => {
+          // eslint-disable-next-line no-console
+          console.error('[design-panel-typography] clipboard write failed:', err);
+          restore('Failed', 2000);
+        }
+      );
+    });
+  }
+
   let initDone = false;
 
   function init() {
@@ -228,6 +330,7 @@
     }
 
     updatePresetPressed();
+    attachCopyCSSButton(slot);
   }
 
   function main() {
