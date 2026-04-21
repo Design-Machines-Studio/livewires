@@ -940,17 +940,12 @@
     }
     attachRampListeners(rampSettings);
 
-    // Register the reactivate listener only after scheme DOM is built and
-    // listeners are wired. Theme activation before this point would throw
-    // when applyState probes for selects. Same rationale as Typography.
-    document.addEventListener('design-panel:reactivate', applyState);
-
-    // Expose a synchronous flush hook so the theme controller (Chunk 3) can
-    // drain any pending debounced scheme save before swapping localStorage
-    // and dispatching design-panel:reactivate. Guard against
-    // double-registration so re-running this IIFE (hot reload, eval, etc.)
-    // doesn't clobber an existing reference.
+    // Register the reactivate listener and expose the flush hook together so
+    // HMR re-execution (module-scoped guards reset while window-level ones
+    // survive) cannot create a second listener bound to a stale applyState
+    // closure. The window.__dpColorsSave guard gates both.
     if (!window.__dpColorsSave) {
+      document.addEventListener('design-panel:reactivate', applyState);
       window.__dpColorsSave = { flush: debouncedSchemeSave.flush };
     }
 

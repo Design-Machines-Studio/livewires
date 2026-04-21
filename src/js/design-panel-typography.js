@@ -310,17 +310,12 @@
       });
     }
 
-    // Register the reactivate listener only after the slot is confirmed
-    // present. Theme activation before the tab has rendered would otherwise
-    // throw when applyState probes for inputs.
-    document.addEventListener('design-panel:reactivate', applyState);
-
-    // Expose a synchronous flush hook so the theme controller (Chunk 3) can
-    // drain any pending debounced save before swapping localStorage and
-    // dispatching design-panel:reactivate. Guard against double-registration
-    // so re-running this IIFE (hot reload, eval, etc.) doesn't clobber an
-    // existing reference.
+    // Register the reactivate listener and expose the flush hook together so
+    // HMR re-execution (module-scoped guards reset while window-level ones
+    // survive) cannot create a second listener bound to a stale applyState
+    // closure. The window.__dpTypographySave guard gates both.
     if (!window.__dpTypographySave) {
+      document.addEventListener('design-panel:reactivate', applyState);
       window.__dpTypographySave = { flush: debouncedSave.flush };
     }
 
