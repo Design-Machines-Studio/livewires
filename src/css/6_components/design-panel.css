@@ -91,7 +91,7 @@
 
   .dp-theme-row-name-sub {
     font-size: var(--dp-text-xs);
-    opacity: 0.5;
+    color: var(--dp-text-muted);
     margin-inline-start: var(--dp-space-xxs);
   }
 
@@ -136,7 +136,7 @@
 
   .dp-empty-notice {
     font-size: var(--dp-text-md);
-    opacity: 0.5;
+    color: var(--dp-text-muted);
     margin: 0;
   }
 
@@ -163,7 +163,7 @@
 
   .dp-locked-notice {
     font-size: var(--dp-text-sm);
-    opacity: 0.5;
+    color: var(--dp-text-muted);
     margin: 0 0 var(--dp-space-sm) 0;
   }
 
@@ -233,6 +233,11 @@
     border-radius: var(--dp-radius);
     outline: none;
 
+    &:focus-visible {
+      outline: 2px solid var(--dp-accent-light);
+      outline-offset: 2px;
+    }
+
     &::-webkit-slider-thumb {
       appearance: none;
       inline-size: 14px;
@@ -269,8 +274,13 @@
       border-inline-end: 1.5px solid var(--dp-text-muted);
       border-block-end: 1.5px solid var(--dp-text-muted);
       transform: rotate(-45deg);
-      transition: transform 150ms ease;
       flex-shrink: 0;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &::after {
+        transition: transform 150ms ease;
+      }
     }
 
     &::-webkit-details-marker {
@@ -558,8 +568,13 @@
       border-block-end: 1px solid currentColor;
       transform: rotate(45deg);
       opacity: 0.5;
-      transition: transform 150ms ease;
       pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &::after {
+        transition: transform 150ms ease;
+      }
     }
   }
 
@@ -762,6 +777,15 @@
     display: flex;
     flex-direction: column;
     gap: var(--dp-space-xxs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dp-theme-list-placeholder {
+    color: var(--dp-text-muted);
+    font-size: var(--dp-text-md);
+    padding-block: var(--dp-space-xs);
   }
 
   .dp-theme-row[aria-current="true"] {
@@ -798,7 +822,13 @@
   }
 
   .dp-theme-create input[aria-invalid="true"] {
-    border-color: var(--color-red-500, currentColor);
+    border-color: var(--dp-danger);
+    /* Doubled border width is a second, non-color cue so the error state
+       is perceivable by users with red-green color vision deficiency
+       (WCAG 1.4.1 Use of Color). */
+    border-width: 2px;
+    /* Compensate so the control doesn't jump vertically when the width changes. */
+    padding-block: calc(var(--dp-space-xxs) - 1px);
   }
 
   .dp-theme-create button {
@@ -808,7 +838,7 @@
 
   #dp-theme-name-error {
     font-size: var(--dp-text-sm);
-    color: var(--color-red-500, currentColor);
+    color: var(--dp-danger);
     margin-block-start: var(--dp-space-xxs);
   }
 }

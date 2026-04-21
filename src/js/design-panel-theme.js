@@ -249,7 +249,14 @@
     const output = document.querySelector(
       '[slot="editor"][data-tab="theme"] .dp-theme-status'
     );
-    if (output) output.textContent = message;
+    if (!output) return;
+    // Clear first, then write on the next animation frame. Identical
+    // consecutive messages would otherwise not re-announce because the
+    // textContent mutation is a no-op when the string matches.
+    output.textContent = '';
+    requestAnimationFrame(() => {
+      output.textContent = message;
+    });
   }
 
   /* --------------------------------------------------------------- */
@@ -313,9 +320,8 @@
   }
 
   function buildThemeRow(theme) {
-    const row = document.createElement('div');
+    const row = document.createElement('li');
     row.className = 'dp-theme-row';
-    row.setAttribute('role', 'listitem');
     row.setAttribute('data-theme-id', theme.id);
     if (theme.id === activeId) row.setAttribute('aria-current', 'true');
 

@@ -29,6 +29,11 @@
     --dp-accent: #1966D9;
     --dp-accent-light: #5DAEFF;
 
+    /* Danger — for validation errors and destructive affordances. Chosen to
+       hit ≥4.5:1 contrast on --dp-bg (#1A1A1A). Independent of the
+       framework's --color-red-* ramp by design. */
+    --dp-danger: #FF5C5C;
+
     /* Geometry */
     --dp-radius: 3px;
     --dp-width: 320px;

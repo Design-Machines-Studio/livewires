@@ -114,18 +114,20 @@
     </div>
 
     <div class="design-panel-section">
-      <h3 class="design-panel-section-title">Saved themes</h3>
-      <div class="dp-theme-list" role="list" data-dp-theme-list></div>
+      <h3 id="dp-theme-saved-heading" class="design-panel-section-title">Saved themes</h3>
+      <ul class="dp-theme-list" data-dp-theme-list aria-labelledby="dp-theme-saved-heading">
+        <li class="dp-theme-list-placeholder" data-dp-theme-list-placeholder>Loading themes...</li>
+      </ul>
     </div>
 
     <div class="design-panel-section">
-      <h3 class="design-panel-section-title">New theme</h3>
-      <form class="dp-theme-create" data-dp-theme-create>
+      <h3 id="dp-theme-create-heading" class="design-panel-section-title">New theme</h3>
+      <form class="dp-theme-create" data-dp-theme-create aria-labelledby="dp-theme-create-heading">
         <label for="dp-theme-name">Name</label>
         <input type="text" id="dp-theme-name" name="name" maxlength="80" required>
         <button type="submit" class="design-panel-tool design-panel-tool--sm">Create</button>
       </form>
-      <aside id="dp-theme-name-error" role="alert" class="visually-hidden"></aside>
+      <p id="dp-theme-name-error" role="alert" aria-live="assertive" class="visually-hidden"></p>
     </div>
   </div>
 </design-panel>
