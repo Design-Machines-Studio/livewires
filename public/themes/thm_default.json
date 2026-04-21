@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "thm_default",
+  "name": "Default",
+  "description": "Live Wires cascade defaults — read-only.",
+  "isDefault": true,
+  "createdAt": "2026-04-21T00:00:00Z",
+  "updatedAt": "2026-04-21T00:00:00Z",
+  "typography": {},
+  "schemes": {
+    "default": { "light": {}, "dark": {} },
+    "subtle": { "light": {}, "dark": {} },
+    "accent": { "light": {}, "dark": {} }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "thm_dusk",
+  "name": "Dusk",
+  "description": "Serif headlines, tighter scale, denser baseline.",
+  "isDefault": false,
+  "createdAt": "2026-04-21T00:00:00Z",
+  "updatedAt": "2026-04-21T00:00:00Z",
+  "typography": {
+    "--type-scale-ratio": "1.2",
+    "--text-base-min": "16",
+    "--text-base-max": "18",
+    "--line-height-ratio-body": "1.5",
+    "--line-height-ratio-heading": "1.2",
+    "--font-body": "Georgia, serif",
+    "--font-heading": "Georgia, serif",
+    "--line-height-min": "24",
+    "--line-height-max": "28"
+  },
+  "schemes": {
+    "default": { "light": {}, "dark": {} },
+    "subtle": { "light": {}, "dark": {} },
+    "accent": { "light": {}, "dark": {} }
+  }
+}
