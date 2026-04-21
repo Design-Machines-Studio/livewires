@@ -217,15 +217,15 @@ All design tokens are CSS custom properties defined in `src/css/1_tokens/`:
 
 Change these variables to customize the entire system.
 
-### Colours tab in the design panel
+### Design panel: Colours, Typography, and Theme tabs
 
-Press **T** (or click the floating toggle) and open the **Colours** tab to tweak the palette without leaving the browser:
+Press **T** (or click the floating toggle) to open the design panel. Three editor tabs let you tweak tokens live in the browser:
 
-- **Ramp matrix** — six 11-step OKLCH-generated ramps (blue / red / orange / yellow / green / grey). Click a row to expand controls for anchor colour, anchor step, and chroma intensity; the ramp regenerates live.
-- **Scheme editor** — map `--color-bg / fg / accent / muted / subtle` per scheme and per mode (Light / Dark). Changes persist in `localStorage` so reloads keep your edits.
-- **Copy CSS** — serialize the current 66 runtime values to an `@layer tokens :root { ... }` block on the clipboard. Paste into `src/css/1_tokens/color.css` to persist beyond the browser.
+- **Colours** — ramp matrix (six 11-step OKLCH-generated ramps: blue / red / orange / yellow / green / grey) plus a schemes editor that maps `--color-bg / fg / accent / muted / subtle` per scheme and per mode (Light / Dark).
+- **Typography** — nine controls (scale ratio, base size, line-height, font families, baseline clamp) that write directly to `:root` custom properties.
+- **Theme** — save, activate, and delete named theme bundles. Bundles persist as `public/themes/<id>.json` files via a dev-only Vite endpoint, so your edits survive browser state wipes and can be committed to git. The default theme is read-only; create a new theme to start editing.
 
-All maths runs client-side; no network requests during regeneration. The pure-function layer lives in `src/js/color/` (covered by Vitest).
+All colour math runs client-side; no network requests during regeneration. The pure-function layer lives in `src/js/color/` (covered by Vitest). Theme persistence uses a local Vite middleware at `/__dp/themes` that only runs during `npm run dev`.
 
 ## Tailwind Compatibility
 

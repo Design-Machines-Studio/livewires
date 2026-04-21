@@ -32,6 +32,7 @@
             <li><a href="#settings">Settings</a></li>
             <li><a href="#colours">Colours</a></li>
             <li><a href="#typography">Typography</a></li>
+            <li><a href="#theme">Theme</a></li>
             <li><a href="#persistence">Persistence</a></li>
             <li><a href="#tips">Tips</a></li>
           </ul>
@@ -49,7 +50,7 @@
           </aside>
 
           <h3>Tabs</h3>
-          <p>The panel has four tabs: <strong>Guides</strong>, <strong>Typography</strong>, <strong>Colours</strong>, and <strong>Theme</strong>. Live Wires ships Guides, Colours, and Typography as active tabs. Theme auto-hides because no editor content is slotted in. (It's wired up in Assembly, where the panel originated.)</p>
+          <p>The panel has four tabs: <strong>Guides</strong>, <strong>Typography</strong>, <strong>Colours</strong>, and <strong>Theme</strong>. All four ship active: Guides toggles visual overlays, Typography edits the type scale, Colours edits ramps and schemes, and Theme saves the current runtime state as a named bundle you can commit to the repo.</p>
 
           <p class="more"><a href="#main">To top</a></p>
         </section>
@@ -201,10 +202,74 @@
           <p>Min and Max number inputs write <code>--line-height-min</code> and <code>--line-height-max</code>. The computed <code>--line</code> baseline reads these, so the Guides tool's baseline overlay re-aligns the moment you adjust them.</p>
 
           <h3>Persistence</h3>
-          <p>All nine input values persist to <code>localStorage['design-panel:typography']</code> with a 200ms debounce. On reload the controller restores stored values; missing keys hydrate from the cascade (<code>getComputedStyle()</code> against <code>:root</code>). The forthcoming Theme tab will be the canonical mechanism for promoting these runtime edits into named, version-controllable theme bundles.</p>
+          <p>All nine input values persist to <code>localStorage['design-panel:typography']</code> with a 200ms debounce. On reload the controller restores stored values; missing keys hydrate from the cascade (<code>getComputedStyle()</code> against <code>:root</code>). The Theme tab (see below) promotes these runtime edits into named, version-controllable JSON bundles stored in <code>public/themes/</code>.</p>
 
           <h3>Accessibility</h3>
           <p>Range inputs update <code>aria-valuetext</code> on every change so screen readers announce the current value with context (e.g. "Scale ratio 1.25, Major third"; "Body line height 1.5"). Min/Max number-input pairs are grouped in <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code> so the group name is announced when each input gains focus.</p>
+          <p class="more"><a href="#main">To top</a></p>
+        </section>
+
+        <section id="theme" class="section">
+          <h2>Theme tab</h2>
+          <p>The Theme tab is the canonical persistence layer for design-panel state. Where Typography and Colours edit runtime values, the Theme tab saves those values as named JSON bundles in <code>public/themes/</code> that you can commit to your repo, share between machines, and switch between during development.</p>
+
+          <h3>What a theme is</h3>
+          <p>A theme is a JSON file at <code>public/themes/&lt;id&gt;.json</code>. Each bundle carries the current typography and scheme state plus metadata:</p>
+          <pre><code>{
+  "schemaVersion": 1,
+  "id": "thm_dusk",
+  "name": "Dusk",
+  "description": "Serif headlines, tighter scale",
+  "isDefault": false,
+  "createdAt": "2026-04-21T00:00:00Z",
+  "updatedAt": "2026-04-21T00:00:00Z",
+  "typography": {
+    "--type-scale-ratio": "1.2",
+    "--font-body": "Georgia, serif"
+  },
+  "schemes": {
+    "default": { "light": {}, "dark": {} },
+    "subtle":  { "light": {}, "dark": {} },
+    "accent":  { "light": {}, "dark": {} }
+  }
+}</code></pre>
+          <p>Empty <code>typography</code> and <code>schemes</code> objects mean "use cascade defaults" — activating such a theme calls <code>removeProperty</code> on every override.</p>
+
+          <h3>UI</h3>
+          <p>The tab has three sections:</p>
+          <ul>
+            <li><strong>Current theme</strong> — shows the active theme name, with <strong>Save</strong> and <strong>Reset</strong> buttons. Save writes the current runtime state to the active theme's JSON file; Reset re-applies the active theme's last saved state, discarding any unsaved edits.</li>
+            <li><strong>Saved themes</strong> — lists every theme in <code>public/themes/</code>. Default is pinned first with a read-only badge. Non-active rows have an <strong>Activate</strong> button; non-default rows also have a <strong>Delete</strong> button (wrapped in a confirmation dialog).</li>
+            <li><strong>New theme</strong> — a labeled form that creates a new bundle by snapshotting the current runtime state. Names are validated 1-80 characters and must be unique.</li>
+          </ul>
+
+          <h3>Default theme protection</h3>
+          <p>The default theme (<code>thm_default</code>) is read-only. When it is active, the Save button is disabled, Typography and Colours inputs all carry <code>disabled</code>, and the default row has no Delete button. The Vite endpoint also refuses <code>DELETE /__dp/themes/thm_default</code> with HTTP 403. To edit starting from defaults, create a new theme first.</p>
+
+          <h3>Dev-only persistence via Vite</h3>
+          <p>The Theme tab talks to a small dev-only middleware registered in <code>vite.config.js</code> as <code>designPanelThemesPlugin</code>. It exposes three endpoints on the Vite dev server:</p>
+          <ul>
+            <li><code>GET /__dp/themes</code> — list all bundles</li>
+            <li><code>PUT /__dp/themes/:id</code> — upsert a bundle (validates id regex, name length, property-key regex, body size; writes atomically via temp + rename)</li>
+            <li><code>DELETE /__dp/themes/:id</code> — delete; refuses <code>isDefault: true</code></li>
+          </ul>
+          <p>The plugin uses <code>apply: 'serve'</code> so production builds never include it. Production users see the Theme tab as a static shell — they can read whatever JSON bundles are on disk but cannot save or delete. Localhost-only guard; <code>X-Forwarded-For</code> is ignored.</p>
+
+          <h3>Cross-controller activation</h3>
+          <p>Switching themes coordinates three controllers. The sequence is:</p>
+          <ol>
+            <li>The theme controller flushes pending debounced saves in Typography and Colours via <code>window.__dpTypographySave.flush()</code> and <code>window.__dpColorsSave.flush()</code>.</li>
+            <li>It calls <code>window.__dpSchemeReset()</code> to tear down any runtime scheme overrides.</li>
+            <li>It overwrites <code>localStorage['design-panel:typography']</code> and <code>['design-panel:schemes']</code> with the new theme's values (translating from bundle shape to storage shape at the seam).</li>
+            <li>It calls <code>removeProperty</code> on any <code>:root</code> typography custom property not carried by the new theme.</li>
+            <li>It writes <code>localStorage['design-panel:active-theme-id']</code>.</li>
+            <li>It dispatches <code>design-panel:reactivate</code> on <code>document</code>. Typography and Colours controllers listen for this event and re-run their <code>applyState()</code> functions.</li>
+            <li>It updates the Theme tab UI (active row, current name, status announcement).</li>
+          </ol>
+
+          <h3>Accessibility</h3>
+          <p>The name input is labeled (<code>&lt;label for&gt;</code>) and carries <code>maxlength="80"</code> + <code>required</code>. Validation errors set <code>aria-invalid="true"</code> on the input and route descriptive text through <code>aria-describedby</code>. The save/activate/delete status messages announce via a visually hidden <code>&lt;output role="status" aria-live="polite"&gt;</code> region. The active theme row carries <code>aria-current="true"</code> so screen readers announce the current selection. Delete is wrapped in <code>confirm()</code> to prevent accidental loss.</p>
+
           <p class="more"><a href="#main">To top</a></p>
         </section>
 
