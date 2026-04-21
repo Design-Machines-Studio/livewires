@@ -1,6 +1,13 @@
 import { defineConfig } from 'vite';
 import { resolve, join } from 'path';
 import {
+  isLocalhost,
+  validateBundle,
+  isValidId,
+  ID_RE,
+  MAX_BODY_BYTES,
+} from './src/dev/theme-plugin-validators.js';
+import {
   copyFileSync,
   mkdirSync,
   readFileSync,
@@ -39,12 +46,6 @@ const devCssPlugin = () => ({
 // Exposes GET /__dp/themes, PUT /__dp/themes/:id, DELETE /__dp/themes/:id.
 // Runs exclusively during `vite dev`; production builds never include this code.
 const designPanelThemesPlugin = () => {
-  const LOOPBACK = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1']);
-  const ID_RE = /^thm_[a-z0-9]{1,32}$/;
-  const PROP_KEY_RE = /^--[a-z][a-z0-9-]*$/;
-  const SCHEME_KEYS = ['default', 'subtle', 'accent'];
-  const MAX_BODY_BYTES = 64 * 1024;
-
   const themesDir = resolve(__dirname, 'public/themes');
 
   const send = (res, status, payload) => {
@@ -57,62 +58,10 @@ const designPanelThemesPlugin = () => {
     send(res, status, { ok: false, code, error });
   };
 
-  const isLocalhost = (req) => {
-    // Only the real socket address is consulted — X-Forwarded-For and similar
-    // headers are deliberately ignored so they cannot be spoofed to bypass
-    // the loopback check.
-    const addr = req.socket && req.socket.remoteAddress;
-    return typeof addr === 'string' && LOOPBACK.has(addr);
-  };
-
   const ensureThemesDir = () => {
     if (!existsSync(themesDir)) {
       mkdirSync(themesDir, { recursive: true });
     }
-  };
-
-  const validateBundle = (body, urlId) => {
-    if (!body || typeof body !== 'object' || Array.isArray(body)) {
-      return { code: 'SCHEMA_MISMATCH', error: 'body must be a JSON object' };
-    }
-    if (body.id !== urlId) {
-      return { code: 'BAD_ID', error: 'body.id must match URL id' };
-    }
-    if (typeof body.name !== 'string' || body.name.length < 1 || body.name.length > 80) {
-      return { code: 'BAD_NAME', error: 'name must be a string of length 1-80' };
-    }
-    if (body.schemaVersion !== 1) {
-      return { code: 'SCHEMA_MISMATCH', error: 'schemaVersion must be 1' };
-    }
-    if (!body.typography || typeof body.typography !== 'object' || Array.isArray(body.typography)) {
-      return { code: 'SCHEMA_MISMATCH', error: 'typography must be an object' };
-    }
-    for (const key of Object.keys(body.typography)) {
-      if (!PROP_KEY_RE.test(key)) {
-        return { code: 'BAD_PROPERTY_KEY', error: `invalid typography property key: ${key}` };
-      }
-    }
-    if (!body.schemes || typeof body.schemes !== 'object' || Array.isArray(body.schemes)) {
-      return { code: 'SCHEMA_MISMATCH', error: 'schemes must be an object' };
-    }
-    for (const schemeKey of SCHEME_KEYS) {
-      const scheme = body.schemes[schemeKey];
-      if (!scheme || typeof scheme !== 'object' || Array.isArray(scheme)) {
-        return { code: 'SCHEMA_MISMATCH', error: `schemes.${schemeKey} must be an object` };
-      }
-      for (const mode of ['light', 'dark']) {
-        const modeObj = scheme[mode];
-        if (!modeObj || typeof modeObj !== 'object' || Array.isArray(modeObj)) {
-          return { code: 'SCHEMA_MISMATCH', error: `schemes.${schemeKey}.${mode} must be an object` };
-        }
-        for (const key of Object.keys(modeObj)) {
-          if (!PROP_KEY_RE.test(key)) {
-            return { code: 'BAD_PROPERTY_KEY', error: `invalid schemes.${schemeKey}.${mode} property key: ${key}` };
-          }
-        }
-      }
-    }
-    return null;
   };
 
   const readBody = (req) => new Promise((resolvePromise, rejectPromise) => {
