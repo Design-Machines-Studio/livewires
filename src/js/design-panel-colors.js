@@ -497,48 +497,6 @@
   /* Debounced localStorage save (factory)                           */
   /* --------------------------------------------------------------- */
 
-  function makeDebouncedSaver(key, serialize) {
-    let timer = null;
-    // pendingInvocation: set to the synchronous saver while a timer is armed;
-    // cleared to null once the timer fires or flush() drains it. The theme
-    // controller (Chunk 3) relies on debouncedSchemeSave.flush() to
-    // synchronously persist any pending write before swapping localStorage +
-    // dispatching design-panel:reactivate.
-    let pendingInvocation = null;
-    const save = () => {
-      if (timer) {
-        clearTimeout(timer);
-        timer = null;
-      }
-      pendingInvocation = null;
-      try {
-        localStorage.setItem(key, JSON.stringify(serialize()));
-      } catch {
-        // Quota exceeded / disabled storage — silently skip.
-      }
-    };
-    const debouncedSave = function () {
-      if (timer) clearTimeout(timer);
-      pendingInvocation = save;
-      timer = setTimeout(() => {
-        timer = null;
-        pendingInvocation = null;
-        try {
-          localStorage.setItem(key, JSON.stringify(serialize()));
-        } catch {
-          // Quota exceeded / disabled storage — silently skip.
-        }
-      }, SAVE_DEBOUNCE_MS);
-    };
-    debouncedSave.flush = function flush() {
-      if (pendingInvocation) {
-        save();
-      }
-      // else: no-op (not an error) when no timer is pending.
-    };
-    return debouncedSave;
-  }
-
   function serializeSchemes() {
     const state = {};
     for (const scheme of SCHEMES) {
@@ -557,9 +515,12 @@
     return state;
   }
 
-  const debouncedSchemeSave = makeDebouncedSaver(
+  // Debounced saver lives in design-panel-shared.js; consumed here via a
+  // window global so the factory is shared with design-panel-typography.js.
+  const debouncedSchemeSave = window.__dpMakeDebouncedSaver(
     SCHEMES_STORAGE_KEY,
-    serializeSchemes
+    serializeSchemes,
+    SAVE_DEBOUNCE_MS
   );
 
   /* --------------------------------------------------------------- */
@@ -747,9 +708,10 @@
   }
 
   function attachRampListeners(settings) {
-    const debouncedSave = makeDebouncedSaver(
+    const debouncedSave = window.__dpMakeDebouncedSaver(
       RAMP_STORAGE_KEY,
-      () => settings
+      () => settings,
+      SAVE_DEBOUNCE_MS
     );
 
     for (const family of FAMILIES) {
@@ -908,8 +870,7 @@
   // set) means the user is looking at the baseline tokens -- editors are
   // read-only until a thm_ id other than thm_default is active.
   function applyDisabledState() {
-    const activeId = localStorage.getItem('design-panel:active-theme-id');
-    const isDefault = activeId === 'thm_default' || activeId === null;
+    const isDefault = window.__dpIsDefaultActive();
     document
       .querySelectorAll(
         '[slot="editor"][data-tab="colors"] :is(input, button, select)'

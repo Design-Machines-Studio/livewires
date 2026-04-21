@@ -22,18 +22,10 @@
   const SAVE_DEBOUNCE_MS = 200;
   const PRESET_EPSILON = 1e-3;
 
-  // Single source of truth: input id -> CSS custom property.
-  const SIGNAL_TO_CSS = Object.freeze({
-    'dp-type-ratio':       '--type-scale-ratio',
-    'dp-text-base-min':    '--text-base-min',
-    'dp-text-base-max':    '--text-base-max',
-    'dp-lh-body':          '--line-height-ratio-body',
-    'dp-lh-heading':       '--line-height-ratio-heading',
-    'dp-font-body':        '--font-body',
-    'dp-font-heading':     '--font-heading',
-    'dp-line-height-min':  '--line-height-min',
-    'dp-line-height-max':  '--line-height-max',
-  });
+  // Single source of truth for input id -> CSS custom property. Owned by
+  // design-panel-shared.js so the theme controller can read the same map
+  // without duplicating it. Local alias for readability.
+  const SIGNAL_TO_CSS = window.__dpTypographySignalMap;
 
   // Musical-interval labels for screen-reader announcements on the ratio
   // slider. Keys are exact slider values; absent values get a numeric-only
@@ -99,48 +91,6 @@
     }
   }
 
-  function makeDebouncedSaver(key, serialize) {
-    let timer = null;
-    // pendingInvocation: set to the synchronous saver while a timer is armed;
-    // cleared to null once the timer fires or flush() drains it. The theme
-    // controller (Chunk 3) relies on debouncedSave.flush() to synchronously
-    // persist any pending write before swapping localStorage + dispatching
-    // design-panel:reactivate.
-    let pendingInvocation = null;
-    const save = () => {
-      if (timer) {
-        clearTimeout(timer);
-        timer = null;
-      }
-      pendingInvocation = null;
-      try {
-        localStorage.setItem(key, JSON.stringify(serialize()));
-      } catch {
-        // Quota / disabled storage -- silently skip.
-      }
-    };
-    const debouncedSave = function () {
-      if (timer) clearTimeout(timer);
-      pendingInvocation = save;
-      timer = setTimeout(() => {
-        timer = null;
-        pendingInvocation = null;
-        try {
-          localStorage.setItem(key, JSON.stringify(serialize()));
-        } catch {
-          // Quota / disabled storage -- silently skip.
-        }
-      }, SAVE_DEBOUNCE_MS);
-    };
-    debouncedSave.flush = function flush() {
-      if (pendingInvocation) {
-        save();
-      }
-      // else: no-op (not an error) when no timer is pending.
-    };
-    return debouncedSave;
-  }
-
   function serializeState() {
     const state = {};
     for (const id of Object.keys(SIGNAL_TO_CSS)) {
@@ -150,7 +100,14 @@
     return state;
   }
 
-  const debouncedSave = makeDebouncedSaver(STORAGE_KEY, serializeState);
+  // Debounced saver lives in design-panel-shared.js; consumed here via a
+  // window global so the same factory is shared with design-panel-colors.js
+  // and the flush semantics can never drift between the two controllers.
+  const debouncedSave = window.__dpMakeDebouncedSaver(
+    STORAGE_KEY,
+    serializeState,
+    SAVE_DEBOUNCE_MS
+  );
 
   function hydrateFromStorage() {
     try {
@@ -221,8 +178,7 @@
     // So: empty the input and removeProperty instead. For non-default
     // themes, a missing key genuinely means "no override provided" and the
     // legacy computed-style fallback is appropriate.
-    const activeId = localStorage.getItem('design-panel:active-theme-id');
-    const isDefault = activeId === 'thm_default' || activeId === null;
+    const isDefault = window.__dpIsDefaultActive();
 
     for (const id of Object.keys(SIGNAL_TO_CSS)) {
       const input = document.getElementById(id);
@@ -264,8 +220,7 @@
   // the user is looking at the baseline tokens -- editors are read-only until
   // a thm_ id other than thm_default is active.
   function applyDisabledState() {
-    const activeId = localStorage.getItem('design-panel:active-theme-id');
-    const isDefault = activeId === 'thm_default' || activeId === null;
+    const isDefault = window.__dpIsDefaultActive();
     document
       .querySelectorAll(
         '[slot="editor"][data-tab="typography"] :is(input, button, select)'

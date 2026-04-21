@@ -28,6 +28,13 @@ import './components/design-panel-runtime.js';
 import { registerAll as registerColor } from './color/index.js';
 registerColor();
 
+// Shared design-panel helpers: typography signal map, default-theme
+// id, is-default predicate, and makeDebouncedSaver factory. Registers
+// window.__dpTypographySignalMap, __dpDefaultThemeId, __dpIsDefaultActive,
+// __dpMakeDebouncedSaver. Must load BEFORE the three panel controllers
+// so their IIFEs can read the globals at init time.
+import './design-panel-shared.js';
+
 // Colours tab controller (Pass A + B). Reads --color-{family}-{step}
 // tokens from the cascade, paints ramp-matrix swatches, populates scheme
 // <select> elements, and wires change listeners through

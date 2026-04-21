@@ -46,7 +46,9 @@
   // PUT/DELETE an id the server would reject.
   const ID_REGEX = /^thm_[a-z0-9]{1,32}$/;
   const NAME_MAX = 80;
-  const DEFAULT_THEME_ID = 'thm_default';
+  // Canonical default-theme id lives on design-panel-shared.js so all three
+  // panel controllers agree on the string.
+  const DEFAULT_THEME_ID = window.__dpDefaultThemeId;
   const DOM_READY_TIMEOUT_MS = 5000;
   const CREATE_COLLISION_RETRIES = 3;
 
@@ -70,22 +72,10 @@
   // keys (e.g. "--type-scale-ratio"), but the Typography controller's
   // localStorage['design-panel:typography'] is keyed by input id (e.g.
   // "dp-type-ratio") because dozens of call sites there depend on that
-  // shape. This map mirrors the SIGNAL_TO_CSS constant in
-  // design-panel-typography.js (kept in sync manually -- both sides are
-  // zero-import by policy).
-  const TYPOGRAPHY_INPUT_TO_CSS = Object.freeze({
-    'dp-type-ratio':       '--type-scale-ratio',
-    'dp-text-base-min':    '--text-base-min',
-    'dp-text-base-max':    '--text-base-max',
-    'dp-lh-body':          '--line-height-ratio-body',
-    'dp-lh-heading':       '--line-height-ratio-heading',
-    'dp-font-body':        '--font-body',
-    'dp-font-heading':     '--font-heading',
-    'dp-line-height-min':  '--line-height-min',
-    'dp-line-height-max':  '--line-height-max',
-  });
-
-  // Invert for theme-bundle -> LS translation.
+  // shape. The forward map is owned by design-panel-shared.js and used
+  // directly by the Typography controller; we invert it here for the
+  // bundle-file -> localStorage direction.
+  const TYPOGRAPHY_INPUT_TO_CSS = window.__dpTypographySignalMap;
   const TYPOGRAPHY_CSS_TO_INPUT = Object.freeze(
     Object.fromEntries(Object.entries(TYPOGRAPHY_INPUT_TO_CSS).map(([k, v]) => [v, k]))
   );
@@ -124,6 +114,32 @@
   // Cached state.
   let themes = [];
   let activeId = DEFAULT_THEME_ID;
+
+  /* --------------------------------------------------------------- */
+  /* Sibling-controller flush invariant                              */
+  /* --------------------------------------------------------------- */
+
+  // Called from activateTheme / saveCurrent / createTheme before any
+  // localStorage write or PUT, so the PREVIOUS theme's pending debounced
+  // save is persisted before we swap slots. If either sibling controller
+  // hasn't finished init() yet, abort the whole action rather than
+  // silently dropping in-flight edits into the wrong theme's slot.
+  // Returns true if the caller may proceed, false if it must return early.
+  function flushSiblingsOrAbort(actionLabel) {
+    const typoOk = !!(window.__dpTypographySave && typeof window.__dpTypographySave.flush === 'function');
+    const colorsOk = !!(window.__dpColorsSave && typeof window.__dpColorsSave.flush === 'function');
+    if (!typoOk || !colorsOk) {
+      console.warn(
+        '[design-panel-theme] flush global missing, aborting',
+        actionLabel
+      );
+      announce(actionLabel + ' aborted - panel still initializing. Try again in a moment.');
+      return false;
+    }
+    window.__dpTypographySave.flush();
+    window.__dpColorsSave.flush();
+    return true;
+  }
 
   /* --------------------------------------------------------------- */
   /* Slot readiness                                                  */
@@ -403,23 +419,8 @@
 
     // STEP 1: Flush pending debounced saves in both sibling controllers.
     // This persists the PREVIOUS theme's in-flight edits before we overwrite
-    // storage. CRITICAL: if either sibling's flush global is missing (slot
-    // race -- that controller hasn't finished init() yet), abort rather than
-    // silently dropping in-flight edits into the wrong theme's slot. This
-    // guarantees the flush-ordering invariant.
-    if (
-      typeof (window.__dpTypographySave && window.__dpTypographySave.flush) !== 'function' ||
-      typeof (window.__dpColorsSave && window.__dpColorsSave.flush) !== 'function'
-    ) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        '[design-panel-theme] flush global missing -- aborting activate to prevent data loss'
-      );
-      announce('Activation aborted -- panel still initializing. Try again in a moment.');
-      return;
-    }
-    window.__dpTypographySave.flush();
-    window.__dpColorsSave.flush();
+    // storage. If either sibling's flush global is missing, abort.
+    if (!flushSiblingsOrAbort('Activation')) return;
 
     // STEP 2: Tear down the runtime scheme stylesheet. All existing scheme
     // overrides are wiped so the next hydrate step rebuilds from a clean slate.
@@ -481,18 +482,53 @@
   /* Save                                                            */
   /* --------------------------------------------------------------- */
 
+  // Builds a valid theme bundle by snapshotting the current runtime state.
+  // Callers pass identity fields (id, name, description, createdAt) and
+  // this helper fills in schemaVersion, timestamps, and the
+  // translated-from-localStorage typography + schemes. Output is safe to
+  // JSON.stringify and PUT directly.
+  function buildBundle({ id, name, description = '', createdAt }) {
+    const now = new Date().toISOString();
+    return {
+      schemaVersion: 1,
+      id,
+      name,
+      description,
+      isDefault: false,
+      createdAt: typeof createdAt === 'string' ? createdAt : now,
+      updatedAt: now,
+      // Typography localStorage uses input-id keys; translate to CSS-prop
+      // keys for the bundle (matches the schema + what the server validates).
+      typography: storageToThemeTypography(readJSON(TYPOGRAPHY_KEY)),
+      schemes: normalizeSchemes(readJSON(SCHEMES_KEY)),
+    };
+  }
+
+  // PUTs a bundle to the Vite endpoint and returns the server-echoed bundle
+  // on success. Throws on network error or non-ok response so callers can
+  // attach `catch` blocks with specific recovery (e.g. create's retry loop).
+  async function putBundle(bundle) {
+    const res = await fetch(`/__dp/themes/${encodeURIComponent(bundle.id)}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bundle),
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data || !data.ok) {
+      const err = new Error((data && data.error) || `HTTP ${res.status}`);
+      err.code = data && data.code;
+      err.status = res.status;
+      throw err;
+    }
+    return data.theme || bundle;
+  }
+
   async function saveCurrent() {
     if (activeId === DEFAULT_THEME_ID) {
       announce('Default theme is read-only');
       return;
     }
-    // Flush pending debounced writes so we snapshot the freshest state.
-    if (window.__dpTypographySave && typeof window.__dpTypographySave.flush === 'function') {
-      window.__dpTypographySave.flush();
-    }
-    if (window.__dpColorsSave && typeof window.__dpColorsSave.flush === 'function') {
-      window.__dpColorsSave.flush();
-    }
+    if (!flushSiblingsOrAbort('Save')) return;
 
     const theme = themes.find((t) => t.id === activeId);
     if (!theme) {
@@ -500,35 +536,17 @@
       return;
     }
 
-    // Typography localStorage uses input-id keys; translate to CSS-prop keys
-    // for the bundle (matches the schema + what the server validates).
-    const typography = storageToThemeTypography(readJSON(TYPOGRAPHY_KEY));
-    const schemes = normalizeSchemes(readJSON(SCHEMES_KEY));
-
-    const bundle = {
-      schemaVersion: 1,
+    const bundle = buildBundle({
       id: theme.id,
       name: theme.name,
       description: typeof theme.description === 'string' ? theme.description : '',
-      isDefault: false,
-      createdAt: typeof theme.createdAt === 'string' ? theme.createdAt : new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      typography,
-      schemes,
-    };
+      createdAt: theme.createdAt,
+    });
 
     try {
-      const res = await fetch(`/__dp/themes/${encodeURIComponent(activeId)}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(bundle),
-      });
-      const data = await res.json();
-      if (!res.ok || !data || !data.ok) {
-        throw new Error((data && data.error) || `HTTP ${res.status}`);
-      }
+      const saved = await putBundle(bundle);
       const idx = themes.findIndex((t) => t.id === activeId);
-      if (idx >= 0 && data.theme) themes[idx] = data.theme;
+      if (idx >= 0) themes[idx] = saved;
       announce(`Saved ${theme.name}`);
     } catch (e) {
       announce(`Save failed: ${(e && e.message) || 'unknown error'}`);
@@ -566,76 +584,37 @@
     // bundle -- otherwise a pending debounced save from Typography/Colours
     // could overwrite our PUT moments later, against a snapshot that lacked
     // that edit.
-    if (window.__dpTypographySave && typeof window.__dpTypographySave.flush === 'function') {
-      window.__dpTypographySave.flush();
-    }
-    if (window.__dpColorsSave && typeof window.__dpColorsSave.flush === 'function') {
-      window.__dpColorsSave.flush();
-    }
+    if (!flushSiblingsOrAbort('Create')) return;
 
-    // Same translation as saveCurrent: Typography LS is input-id keyed, the
-    // server (and any future reader of the bundle JSON) expects CSS-prop keys.
-    const typography = storageToThemeTypography(readJSON(TYPOGRAPHY_KEY));
-    const schemes = normalizeSchemes(readJSON(SCHEMES_KEY));
-
-    // ID collision retry loop. `crypto.randomUUID().slice` has ~16^8 keyspace
+    // ID collision retry loop. crypto.randomUUID().slice gives ~16^8 keyspace
     // per try so a collision is astronomically rare, but when it happens
-    // (the server rejects with an existing-file error), retry with a fresh
-    // id up to CREATE_COLLISION_RETRIES times.
+    // (server rejects with an existing-file error), retry up to
+    // CREATE_COLLISION_RETRIES times with a fresh id.
     let lastError = null;
     for (let attempt = 0; attempt < CREATE_COLLISION_RETRIES; attempt++) {
       const id = 'thm_' + crypto.randomUUID().replace(/-/g, '').slice(0, 8);
-      // Guard: if by some chance the generated id matches one already in our
-      // cache, skip the PUT and try again.
-      if (themes.some((t) => t.id === id)) {
-        continue;
-      }
-      const now = new Date().toISOString();
-      const bundle = {
-        schemaVersion: 1,
-        id,
-        name: trimmed,
-        description: '',
-        isDefault: false,
-        createdAt: now,
-        updatedAt: now,
-        typography,
-        schemes,
-      };
+      if (themes.some((t) => t.id === id)) continue;
 
+      const bundle = buildBundle({ id, name: trimmed });
       try {
-        const res = await fetch(`/__dp/themes/${encodeURIComponent(id)}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(bundle),
-        });
-        const data = await res.json().catch(() => null);
-
-        if (res.ok && data && data.ok) {
-          // Success -- stash, re-render, activate, clear form.
-          themes.push(data.theme || bundle);
-          renderThemeList();
-          clearNameError();
-          clearNameInput();
-          activateTheme(id);
-          return;
-        }
-
-        // Server rejected. Decide whether to retry.
-        const code = data && data.code;
-        const msg = (data && data.error) || `HTTP ${res.status}`;
-        if (code === 'BAD_ID' || (res.status === 400 && /exist|collis/i.test(msg))) {
-          // Likely id collision or related -- retry with a new uuid.
+        const saved = await putBundle(bundle);
+        themes.push(saved);
+        renderThemeList();
+        clearNameError();
+        clearNameInput();
+        activateTheme(id);
+        return;
+      } catch (e) {
+        const msg = (e && e.message) || 'network error';
+        const code = e && e.code;
+        const status = e && e.status;
+        // Retry on id-collision shapes; everything else is terminal.
+        if (code === 'BAD_ID' || (status === 400 && /exist|collis/i.test(msg))) {
           lastError = msg;
           continue;
         }
-        // Any other error is terminal (validation, server failure, etc.).
         showNameError(`Create failed: ${msg}`);
         return;
-      } catch (e) {
-        // Network-level error -- retry once with a fresh id in case the
-        // failure was transient.
-        lastError = (e && e.message) || 'network error';
       }
     }
 
