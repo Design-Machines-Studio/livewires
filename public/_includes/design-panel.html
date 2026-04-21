@@ -101,4 +101,31 @@
       </div>
     </fieldset>
   </div>
+
+  <div slot="editor" data-tab="theme">
+    <div class="design-panel-section">
+      <h3 class="design-panel-section-title">Current theme</h3>
+      <p class="dp-theme-current-name" data-dp-theme-current>Default</p>
+      <div class="cluster">
+        <button type="button" class="design-panel-tool design-panel-tool--sm" data-dp-theme-save>Save</button>
+        <button type="button" class="design-panel-tool design-panel-tool--sm" data-dp-theme-reset>Reset</button>
+      </div>
+      <output class="dp-theme-status visually-hidden" role="status" aria-live="polite" aria-atomic="true"></output>
+    </div>
+
+    <div class="design-panel-section">
+      <h3 class="design-panel-section-title">Saved themes</h3>
+      <div class="dp-theme-list" role="list" data-dp-theme-list></div>
+    </div>
+
+    <div class="design-panel-section">
+      <h3 class="design-panel-section-title">New theme</h3>
+      <form class="dp-theme-create" data-dp-theme-create>
+        <label for="dp-theme-name">Name</label>
+        <input type="text" id="dp-theme-name" name="name" maxlength="80" required>
+        <button type="submit" class="design-panel-tool design-panel-tool--sm">Create</button>
+      </form>
+      <aside id="dp-theme-name-error" role="alert" class="visually-hidden"></aside>
+    </div>
+  </div>
 </design-panel>
