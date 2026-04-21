@@ -60,6 +60,15 @@ npm run build
 
 Creates optimized CSS and JS in `public/dist/`.
 
+### Test
+
+```bash
+npm test         # watch mode
+npm run test:run # single run (CI mode)
+```
+
+Vitest runs the pure-function suites in `src/js/color/` covering OKLCH conversions and ramp generation.
+
 ### Deploy
 
 The `public/` folder is your deployable site. Two options:
@@ -204,9 +213,19 @@ All design tokens are CSS custom properties defined in `src/css/1_tokens/`:
 
 - **tokens.css** - Baseline, spacing scale
 - **typography.css** - Type scale, font stacks, reading measures
-- **color.css** - Color palette, semantic colors, schemes
+- **color.css** - Color palette (11-step scales from 50 to 950), semantic colors, schemes
 
 Change these variables to customize the entire system.
+
+### Design panel: Colours, Typography, and Theme tabs
+
+Press **T** (or click the floating toggle) to open the design panel. Three editor tabs let you tweak tokens live in the browser:
+
+- **Colours** — ramp matrix (six 11-step OKLCH-generated ramps: blue / red / orange / yellow / green / grey) plus a schemes editor that maps `--color-bg / fg / accent / muted / subtle` per scheme and per mode (Light / Dark).
+- **Typography** — nine controls (scale ratio, base size, line-height, font families, baseline clamp) that write directly to `:root` custom properties.
+- **Theme** — save, activate, and delete named theme bundles. Bundles persist as `public/themes/<id>.json` files via a dev-only Vite endpoint, so your edits survive browser state wipes and can be committed to git. The default theme is read-only; create a new theme to start editing.
+
+All colour math runs client-side; no network requests during regeneration. The pure-function layer lives in `src/js/color/` (covered by Vitest). Theme persistence uses a local Vite middleware at `/__dp/themes` that only runs during `npm run dev`.
 
 ## Tailwind Compatibility
 

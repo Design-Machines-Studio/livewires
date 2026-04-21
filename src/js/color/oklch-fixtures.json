@@ -1,0 +1,29 @@
+{
+  "_note": "Fixture data ported from Assembly's backend/internal/color/oklch_test.go. Tolerances follow Go's ±1.5 byte tolerance from TestRoundTripHex, loosened to ±2 here because Math.cbrt/pow are implementation-defined in JS.",
+  "roundTripHexes": [
+    { "hex": "#3d6fd9" },
+    { "hex": "#ff0000" },
+    { "hex": "#00ff00" },
+    { "hex": "#0000ff" },
+    { "hex": "#ffffff" },
+    { "hex": "#000000" },
+    { "hex": "#808080" },
+    { "hex": "#ed1d26" },
+    { "hex": "#ffcb09" },
+    { "hex": "#220d46" },
+    { "hex": "#f9f5f0" }
+  ],
+  "blueAnchor": {
+    "hex": "#3d6fd9",
+    "LBounds": [0.50, 0.65],
+    "CBounds": [0.10, 0.20],
+    "HBounds": [255, 270]
+  },
+  "maxChromaCases": [
+    { "_note": "TestMaxChromaSRGB_Blue: positive gamut capacity at DM blue anchor", "L": 0.58, "H": 263, "minExpected": 0.0001, "maxExpected": 0.4 },
+    { "_note": "TestMaxChromaSRGB_Extremes: near-zero at white", "L": 1.0, "H": 0, "minExpected": 0, "maxExpected": 0.02 },
+    { "_note": "TestMaxChromaSRGB_Extremes: meaningful capacity at mid lightness", "L": 0.5, "H": 0, "minExpected": 0.05, "maxExpected": 0.4 }
+  ],
+  "gammaRoundTripValues": [0.0, 0.01, 0.03, 0.05, 0.1, 0.5, 0.9, 1.0],
+  "gammaRoundTripTolerance": 1e-10
+}

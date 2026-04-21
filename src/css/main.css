@@ -18,6 +18,7 @@
 @import './1_tokens/spacing.css';
 @import './1_tokens/typography-base.css';
 @import './1_tokens/animation.css';
+@import './1_tokens/design-panel.css';
 
 
 /* Typography scale mode (choose one) */
@@ -92,6 +93,7 @@
 @import './6_components/empty-state.css';
 @import './6_components/comments.css';
 @import './6_components/checklists.css';
+@import './6_components/design-panel.css';
 
 /* Utilities */
 @import './7_utilities/spacing.css';

@@ -19,6 +19,48 @@ import './components/design-panel.js';
 // Assembly <-> Live Wires diffs stay clean.
 import './components/design-panel-runtime.js';
 
+// OKLCH color-space math + ramp generator. The consumer file
+// design-panel-colors.js stays zero-imports and accesses these helpers
+// through window.DesignPanelColor. Vite's tree-shaker would otherwise
+// drop a bare side-effect registration, so color/index.js exposes an
+// explicit registerAll() function that we call here -- the import alone
+// is not sufficient; the call is what survives the bundler.
+import { registerAll as registerColor } from './color/index.js';
+registerColor();
+
+// Shared design-panel helpers: typography signal map, default-theme
+// id, is-default predicate, and makeDebouncedSaver factory. Registers
+// window.__dpTypographySignalMap, __dpDefaultThemeId, __dpIsDefaultActive,
+// __dpMakeDebouncedSaver. Must load BEFORE the three panel controllers
+// so their IIFEs can read the globals at init time.
+import './design-panel-shared.js';
+
+// Colours tab controller (Pass A + B). Reads --color-{family}-{step}
+// tokens from the cascade, paints ramp-matrix swatches, populates scheme
+// <select> elements, and wires change listeners through
+// window.__dpSchemeUpdate. In Pass B it also wires anchor/step/chroma
+// controls to live regeneration via window.DesignPanelColor.generateRamp
+// and a Copy CSS button. Must load AFTER design-panel-runtime.js and
+// AFTER registerOklch/registerRamp so both globals are defined by the
+// time this controller runs.
+import './design-panel-colors.js';
+
+// Typography tab controller. Wires 9 inputs in the slotted
+// [data-tab="typography"] editor to 9 :root custom properties; persists
+// state to localStorage['design-panel:typography']. Zero imports, no
+// network. Order-independent w.r.t. design-panel-colors.js -- there are
+// no shared globals.
+import './design-panel-typography.js';
+
+// Theme tab controller. Binds the Theme editor slot to the dev-only
+// /__dp/themes endpoint and orchestrates save/activate/delete/reset/create
+// flows. Coordinates the two sibling controllers via
+// window.__dpTypographySave.flush + window.__dpColorsSave.flush and the
+// design-panel:reactivate CustomEvent. MUST load AFTER both sibling
+// controllers so their flush globals are registered by the time a user
+// can click Activate.
+import './design-panel-theme.js';
+
 function onReady(fn) {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fn, { once: true });

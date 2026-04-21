@@ -44,7 +44,7 @@ const PANEL_CSS = `
     --dp-space-xs: 6px;
     --dp-space-sm: 12px;
     --dp-space-md: 18px;
-    --dp-width: 280px;
+    --dp-width: 320px;
 
     display: block;
     font-family: system-ui, -apple-system, sans-serif;
@@ -527,6 +527,7 @@ class DesignPanel extends HTMLElement {
     this.#render();
     this.#reflectTab();
     this.#applyState();
+    this.inert = !this.hasAttribute('open');
     this.#installKeyboard();
     this.#installSlotListener();
   }
@@ -546,6 +547,7 @@ class DesignPanel extends HTMLElement {
     if (oldValue === newValue) return;
     if (name === 'open') {
       this.#state.open = newValue !== null;
+      this.inert = !this.hasAttribute('open');
     } else if (name === 'active-tab') {
       this.#state.activeTab = newValue || 'guides';
       if (this.#rendered) this.#reflectTab();
