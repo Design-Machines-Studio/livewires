@@ -206,6 +206,9 @@
           <h3>Persistence</h3>
           <p>All nine input values persist to <code>localStorage['design-panel:typography']</code> with a 200ms debounce. On reload the controller restores stored values; missing keys hydrate from the cascade (<code>getComputedStyle()</code> against <code>:root</code>).</p>
 
+          <h3>Copy CSS</h3>
+          <p>The <strong>Copy CSS</strong> button at the top of the Typography tab serializes the current values into two pasteable <code>@layer tokens { :root { ... } }</code> blocks &mdash; one per source file &mdash; and copies them to the clipboard. The first block (scale ratio + base sizes + line-height ratios) pastes into <code>src/css/1_tokens/typography-scale-auto.css</code>; the second (fonts + baseline) pastes into <code>src/css/1_tokens/typography-base.css</code>. Empty font inputs are skipped so the cascade default keeps applying. Same pattern as the Colours tab: the panel is a generator, the CSS files remain the source of truth.</p>
+
           <h3>Accessibility</h3>
           <p>Range inputs update <code>aria-valuetext</code> on every change so screen readers announce the current value with context (e.g. "Scale ratio 1.25, Major third"; "Body line height 1.5"). Min/Max number-input pairs are grouped in <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code> so the group name is announced when each input gains focus.</p>
           <p class="more"><a href="#main">To top</a></p>
