@@ -10,8 +10,8 @@
   </p>
 </footer>
 
-<!-- Dev-only: floating design panel with baseline / columns / margins overlays.
-     Fixed-positioned in Shadow DOM so it escapes the footer visually.
-     aria-hidden keeps it out of the AT landmark tree; the panel itself
-     reflects open state to document.body via data-panel-open. -->
-<design-panel aria-hidden="true"></design-panel>
+<!-- Design panel is dev-only. Include it on pages that need prototyping
+     tools. Production deploys can drop this include (and the
+     design-panel.js + design-panel-colors.js bundles) without affecting
+     the site itself. -->
+<html-include src="/_includes/design-panel.html"></html-include>

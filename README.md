@@ -60,6 +60,15 @@ npm run build
 
 Creates optimized CSS and JS in `public/dist/`.
 
+### Test
+
+```bash
+npm test         # watch mode
+npm run test:run # single run (CI mode)
+```
+
+Vitest runs the pure-function suites in `src/js/color/` covering OKLCH conversions and ramp generation.
+
 ### Deploy
 
 The `public/` folder is your deployable site. Two options:
@@ -204,9 +213,19 @@ All design tokens are CSS custom properties defined in `src/css/1_tokens/`:
 
 - **tokens.css** - Baseline, spacing scale
 - **typography.css** - Type scale, font stacks, reading measures
-- **color.css** - Color palette, semantic colors, schemes
+- **color.css** - Color palette (11-step scales from 50 to 950), semantic colors, schemes
 
 Change these variables to customize the entire system.
+
+### Colours tab in the design panel
+
+Press **T** (or click the floating toggle) and open the **Colours** tab to tweak the palette without leaving the browser:
+
+- **Ramp matrix** — six 11-step OKLCH-generated ramps (blue / red / orange / yellow / green / grey). Click a row to expand controls for anchor colour, anchor step, and chroma intensity; the ramp regenerates live.
+- **Scheme editor** — map `--color-bg / fg / accent / muted / subtle` per scheme and per mode (Light / Dark). Changes persist in `localStorage` so reloads keep your edits.
+- **Copy CSS** — serialize the current 66 runtime values to an `@layer tokens :root { ... }` block on the clipboard. Paste into `src/css/1_tokens/color.css` to persist beyond the browser.
+
+All maths runs client-side; no network requests during regeneration. The pure-function layer lives in `src/js/color/` (covered by Vitest).
 
 ## Tailwind Compatibility
 

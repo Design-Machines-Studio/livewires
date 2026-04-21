@@ -1,0 +1,753 @@
+@layer components {
+  /* Design Panel slotted-partial styles.
+     --------------------------------------------------------------------
+     The full design-panel chrome (slide-over aside, header, tabs, tools,
+     trigger FAB) lives inside the <design-panel> web component's Shadow
+     DOM. What remains in this file is the light-DOM styling used by the
+     Colours editor slot that projects into the panel.
+
+     Token declarations (`--dp-*`) live in src/css/1_tokens/design-panel.css
+     (tokens layer). Only selectors live here (components layer).
+
+     Exception: .dp-scheme-preview and children use LW semantic tokens
+     (--color-bg, --color-fg, --color-accent, etc.) for live scheme
+     preview. */
+
+  /* Flattening utility: makes the wrapping <form> participate in the
+     parent flex layout as if it weren't there. */
+  .dp-form-contents {
+    display: contents;
+  }
+
+  /* Inline input used in inline forms (rename, new theme). Dark
+     translucent treatment consistent with panel chrome. */
+  .dp-input-inline {
+    flex: 1;
+    min-width: 0;
+    font-size: var(--dp-text-sm);
+    padding: var(--dp-space-2xs) var(--dp-space-xs);
+    background: var(--dp-input-bg);
+    border: 1px solid var(--dp-input-border);
+    border-radius: var(--dp-radius);
+    color: inherit;
+  }
+
+  /* Full-width text input used for font family stacks. */
+  .dp-input-text {
+    width: 100%;
+    background: var(--dp-bg-elevated);
+    border: 1px solid var(--dp-border);
+    color: var(--dp-text);
+    padding: var(--dp-space-xs) var(--dp-space-sm);
+    border-radius: var(--dp-radius);
+    font-size: var(--dp-text-lg);
+  }
+
+  /* Preset-button row (Typography presets, font quick-picks). */
+  .dp-preset-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dp-space-xs);
+    margin-block-start: var(--dp-space-xs);
+  }
+
+  /* Typography font-body/heading grouping. */
+  .dp-font-block {
+    margin-block-start: var(--dp-space-sm);
+  }
+
+  .dp-font-block-label {
+    font-size: var(--dp-text-lg);
+    color: var(--dp-text-muted);
+    display: block;
+    margin-block-end: var(--dp-space-xs);
+  }
+
+  /* Theme tab: row + drawer layout primitives */
+  .dp-theme-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dp-space-xxs);
+    padding: var(--dp-space-xxs) 0;
+    border-block-end: 1px solid var(--dp-border-subtle);
+  }
+
+  .dp-theme-row-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--dp-space-xs);
+  }
+
+  .dp-theme-row-name {
+    font-size: var(--dp-text-md);
+    font-weight: 500;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dp-theme-row-name-sub {
+    font-size: var(--dp-text-xs);
+    opacity: 0.5;
+    margin-inline-start: var(--dp-space-xxs);
+  }
+
+  .dp-theme-row-actions {
+    display: flex;
+    gap: var(--dp-space-2xs);
+    flex-shrink: 0;
+    align-items: stretch;
+  }
+
+  .dp-theme-drawer-row {
+    display: flex;
+    gap: var(--dp-space-xxs);
+
+    & .design-panel-tool {
+      flex: 1;
+    }
+  }
+
+  .dp-theme-rename-form {
+    display: flex;
+    gap: var(--dp-space-xxs);
+    align-items: stretch;
+  }
+
+  /* Current Theme header: two-column label/value row */
+  .dp-active-label {
+    font-size: var(--dp-text-md);
+    opacity: 0.7;
+  }
+
+  .dp-active-name {
+    font-size: var(--dp-text-md);
+    font-weight: 600;
+  }
+
+  .dp-theme-actions {
+    display: flex;
+    gap: var(--dp-space-xs);
+    margin-block-start: var(--dp-space-sm);
+  }
+
+  .dp-empty-notice {
+    font-size: var(--dp-text-md);
+    opacity: 0.5;
+    margin: 0;
+  }
+
+  /* Sections inside the slotted editor bodies. */
+  .design-panel-section {
+    padding: var(--dp-space-sm) var(--dp-space-md);
+    border-block-end: 1px solid var(--dp-bg-elevated);
+    color: var(--dp-text);
+    background: var(--dp-bg);
+  }
+
+  .design-panel-section-title {
+    font-size: var(--dp-text-lg);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--dp-text-muted);
+    margin: 0 0 var(--dp-space-sm) 0;
+  }
+
+  .design-panel-section-title--flush {
+    margin-block-end: 0;
+  }
+
+  .dp-locked-notice {
+    font-size: var(--dp-text-sm);
+    opacity: 0.5;
+    margin: 0 0 var(--dp-space-sm) 0;
+  }
+
+  /* Settings list: label-left / control-right layout. */
+  .design-panel-settings {
+    display: grid;
+    gap: var(--dp-space-xs);
+  }
+
+  .design-panel-setting {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--dp-space-sm);
+  }
+
+  .design-panel-setting label {
+    font-size: var(--dp-text-lg);
+    color: var(--dp-text-muted);
+  }
+
+  /* Typography tab: stack the label above a full-width control (range slider
+     followed by a preset row). Overrides the default 1fr/auto two-column
+     grid. Must follow .design-panel-setting source-order so cascade wins. */
+  .design-panel-setting.dp-setting--stack {
+    grid-template-columns: 1fr;
+    gap: var(--dp-space-2xs);
+  }
+
+  /* Typography tab: <fieldset> reset so the section chrome shows through.
+     Removes the browser's default border, padding, and inline-size: min-content
+     quirk that would otherwise collapse min/max grids. */
+  .dp-fieldset {
+    border: 0;
+    padding: var(--dp-space-sm) var(--dp-space-md);
+    margin: 0;
+    min-inline-size: 0;
+  }
+
+  .dp-fieldset > legend {
+    padding: 0;
+    margin-block-end: var(--dp-space-sm);
+  }
+
+  .design-panel-setting select,
+  .design-panel-setting input[type="number"] {
+    appearance: none;
+    min-block-size: 0;
+    background: var(--dp-bg-elevated);
+    border: 1px solid var(--dp-border);
+    color: var(--dp-text);
+    padding: var(--dp-space-xs) var(--dp-space-sm);
+    border-radius: var(--dp-radius);
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: var(--dp-text-lg);
+    min-inline-size: 80px;
+    box-sizing: border-box;
+  }
+
+  /* Range sliders (colors + typography tabs). */
+  .design-panel-setting input[type="range"],
+  .design-panel-section input[type="range"] {
+    appearance: none;
+    inline-size: 100%;
+    block-size: var(--dp-space-xs);
+    background: var(--dp-bg-elevated);
+    border-radius: var(--dp-radius);
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      inline-size: 14px;
+      block-size: 14px;
+      background: var(--dp-text);
+      border: 2px solid var(--dp-accent);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+      inline-size: 14px;
+      block-size: 14px;
+      background: var(--dp-text);
+      border: 2px solid var(--dp-accent);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  /* Disclosure details (Schemes tab). */
+  .design-panel-section details summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      inline-size: 0.5em;
+      block-size: 0.5em;
+      border-inline-end: 1.5px solid var(--dp-text-muted);
+      border-block-end: 1.5px solid var(--dp-text-muted);
+      transform: rotate(-45deg);
+      transition: transform 150ms ease;
+      flex-shrink: 0;
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  .design-panel-section details[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  /* .design-panel-tool: slotted-button dark-panel treatment. */
+  .design-panel-tool {
+    appearance: none;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 0;
+    padding: var(--dp-space-xxs);
+    background: var(--dp-bg-elevated);
+    color: var(--dp-text-secondary);
+    border: 1px solid var(--dp-border);
+    border-radius: var(--dp-radius);
+    font-size: 0;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    box-sizing: border-box;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+
+    &:hover {
+      background: var(--dp-border);
+      color: var(--dp-text);
+    }
+
+    &[data-active] {
+      background: var(--dp-accent);
+      border-color: var(--dp-accent-light);
+      color: var(--dp-text);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--dp-accent-light);
+      outline-offset: 2px;
+    }
+  }
+
+  .design-panel-tool--xs {
+    font-size: var(--dp-text-xs);
+    /* WCAG 2.2 SC 2.5.8 Target Size (Minimum, AA): 24x24 CSS px. The xs
+       variant is used for typography preset buttons; padding alone wasn't
+       enough to clear 24px block-size at --dp-text-xs (9px). Set explicit
+       min-* to lock the floor regardless of font-size tweaks. */
+    padding: var(--dp-space-2xs) var(--dp-space-sm);
+    min-block-size: 24px;
+    min-inline-size: 24px;
+    flex-direction: row;
+  }
+
+  .design-panel-tool--sm {
+    font-size: var(--dp-text-sm);
+    padding: 3px 8px;
+    flex-direction: row;
+  }
+
+  /* Color ramp matrix */
+  .dp-ramp-matrix {
+    display: grid;
+    gap: var(--dp-space-2xs);
+  }
+
+  .dp-ramp-row {
+    display: grid;
+    grid-template-columns: var(--dp-col-ramp-label) 1fr;
+    gap: var(--dp-space-xs);
+    align-items: center;
+    inline-size: 100%;
+    min-block-size: 0;
+    padding: var(--dp-space-2xs) 0;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 150ms ease;
+
+    &:hover:not(:disabled) {
+      background: var(--dp-bg-elevated);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: -2px;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  .dp-ramp-selected {
+    background: var(--dp-bg-elevated);
+  }
+
+  .dp-ramp-label {
+    font-size: var(--dp-text-sm);
+    color: var(--dp-text-muted);
+    text-transform: capitalize;
+  }
+
+  .dp-ramp-grid {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 0;
+    block-size: 16px;
+    overflow: hidden;
+  }
+
+  /* Anchor indicator: dark outline ring guarantees 3:1 contrast on any
+     swatch luminance (SC 1.4.11 graphical object). */
+  .dp-swatch-anchor {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset-block-end: 1px;
+      inset-inline-start: 50%;
+      transform: translateX(-50%);
+      inline-size: 4px;
+      block-size: 4px;
+      border-radius: 50%;
+      background: var(--color-white);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  @keyframes dp-slide-down {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Ramp settings drawer: <fieldset> wrapping anchor / step / chroma
+     controls so AT announces them as a group. Browsers default fieldsets
+     to inset border + padding; reset both so the drawer reads as an
+     indented block rather than a bordered box. */
+  .dp-ramp-settings {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-inline-size: 0;
+  }
+
+  .dp-ramp-settings:not([hidden]) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--dp-space-xs) var(--dp-space-sm);
+    padding: var(--dp-space-xs) var(--dp-space-sm);
+    margin-inline-start: var(--dp-col-ramp-label);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .dp-ramp-settings:not([hidden]) {
+      animation: dp-slide-down 150ms ease;
+    }
+  }
+
+  .dp-ramp-settings-legend {
+    /* Legend is visually hidden but read by AT. Shortened visible labels
+       rely on this for context. */
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Ramp drawer form controls: reuse the dark panel treatment so
+     <input type="color">, <select>, <input type="range">, and <label>
+     children don't fall through to browser defaults (SC ui-standards). */
+  .dp-ramp-settings label {
+    font-size: var(--dp-text-sm);
+    color: var(--dp-text-muted);
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .dp-ramp-settings select {
+    appearance: none;
+    min-block-size: 0;
+    background: var(--dp-bg-elevated);
+    border: 1px solid var(--dp-border);
+    color: var(--dp-text);
+    padding: var(--dp-space-2xs) var(--dp-space-xs);
+    border-radius: var(--dp-radius);
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: var(--dp-text-sm);
+    min-inline-size: 80px;
+    box-sizing: border-box;
+    cursor: pointer;
+    grid-column: 2;
+  }
+
+  .dp-ramp-settings input[type="color"] {
+    appearance: none;
+    -webkit-appearance: none;
+    inline-size: 32px;
+    block-size: 20px;
+    padding: 0;
+    border: 1px solid var(--dp-border);
+    border-radius: var(--dp-radius);
+    background: var(--dp-bg-elevated);
+    cursor: pointer;
+    grid-column: 2;
+
+    &::-webkit-color-swatch-wrapper { padding: 0; }
+    &::-webkit-color-swatch { border: 0; border-radius: calc(var(--dp-radius) - 1px); }
+    &::-moz-color-swatch { border: 0; border-radius: calc(var(--dp-radius) - 1px); }
+  }
+
+  .dp-ramp-settings input[type="range"] {
+    inline-size: 80px;
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  /* Loading state for ramp grid during SSE regeneration */
+  .dp-ramp-loading {
+    opacity: 0.5;
+    transition: opacity 150ms ease;
+  }
+
+  /* Scheme preview cards */
+  .dp-scheme-list {
+    display: grid;
+    gap: var(--dp-space-2xs);
+    background: transparent;
+  }
+
+  .dp-scheme-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--dp-space-2xs);
+    background: transparent;
+    color: var(--dp-text);
+  }
+
+  .dp-scheme-card-mode {
+    background: transparent;
+  }
+
+  /* Each mode (Light / Dark) is its own <details> -- toggles independently.
+     Summary carries a small disclosure chevron in the corner so users
+     get a visual affordance that the preview card is expandable. */
+  .dp-scheme-card-mode summary {
+    cursor: pointer;
+    list-style: none;
+    display: block;
+    padding: 0;
+    position: relative;
+    background: transparent;
+    color: var(--dp-text);
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset-block-start: var(--dp-space-2xs);
+      inset-inline-end: var(--dp-space-2xs);
+      inline-size: var(--dp-space-xs);
+      block-size: var(--dp-space-xs);
+      border-inline-end: 1px solid currentColor;
+      border-block-end: 1px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.5;
+      transition: transform 150ms ease;
+      pointer-events: none;
+    }
+  }
+
+  .dp-scheme-card-mode[open] summary::after {
+    transform: rotate(225deg);
+  }
+
+  .dp-scheme-preview {
+    inline-size: 100%;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-size: var(--dp-text-sm);
+    line-height: 1.4;
+    overflow: hidden;
+  }
+
+  .dp-scheme-preview > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dp-space-2xs);
+    padding: var(--dp-space-xs) var(--dp-space-sm);
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  /* Light-mode scheme preview: force light-mode tokens on the scheme child. */
+  .dp-scheme-preview-light .scheme-accent {
+    --color-bg: var(--color-blue-500);
+    --color-fg: var(--color-white);
+    --color-accent: var(--color-blue-800);
+    --color-muted: var(--color-blue-200);
+    --color-border: var(--color-blue-300);
+    --color-subtle: var(--color-blue-600);
+    --vf-grad: 0;
+  }
+  .dp-scheme-preview-light .scheme-default {
+    --color-bg: var(--color-white);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-blue-500);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-300);
+    --color-border-subtle: var(--color-grey-200);
+    --color-subtle: var(--color-grey-100);
+    --vf-grad: 0;
+  }
+  .dp-scheme-preview-light .scheme-subtle {
+    --color-bg: var(--color-grey-100);
+    --color-fg: var(--color-grey-900);
+    --color-accent: var(--color-blue-500);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-300);
+    --color-border-subtle: var(--color-grey-200);
+    --color-subtle: var(--color-grey-200);
+    --vf-grad: 0;
+  }
+
+  .dp-scheme-preview-dark {
+    --color-bg: var(--color-grey-900);
+    --color-fg: var(--color-grey-100);
+    --color-accent: var(--color-blue-500);
+    --color-muted: var(--color-grey-500);
+    --color-border: var(--color-grey-600);
+    --color-border-subtle: var(--color-grey-800);
+    --color-subtle: var(--color-black);
+    --vf-grad: -50;
+  }
+
+  .dp-scheme-heading {
+    font-weight: 700;
+    font-size: var(--dp-text-sm);
+  }
+
+  .dp-scheme-body {
+    font-size: var(--dp-text-xs);
+    opacity: 0.85;
+  }
+
+  .dp-scheme-meta {
+    display: flex;
+    gap: var(--dp-space-xs);
+    font-size: var(--dp-text-xs);
+    margin-block-start: 1px;
+  }
+
+  .dp-scheme-accent-text {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .dp-scheme-muted-text {
+    color: var(--color-muted);
+  }
+
+  .dp-scheme-divider {
+    block-size: 1px;
+    background: var(--color-accent);
+    opacity: 0.5;
+  }
+
+  .dp-scheme-subtle-swatch {
+    flex: 1;
+    block-size: var(--dp-space-xs);
+    background: var(--color-subtle, var(--color-bg));
+    border-radius: 1px;
+  }
+
+  .dp-scheme-mapping-row {
+    display: grid;
+    grid-template-columns: var(--dp-col-scheme-label) 1fr;
+    align-items: center;
+    gap: var(--dp-space-xs);
+  }
+
+  .dp-scheme-mapping-row label {
+    font-size: var(--dp-text-sm);
+    color: var(--dp-text-muted);
+    text-transform: capitalize;
+  }
+
+  .dp-scheme-mapping-row select {
+    appearance: none;
+    min-block-size: 0;
+    background: var(--dp-bg-input);
+    border: 1px solid var(--dp-input-border);
+    color: var(--dp-text);
+    padding: var(--dp-space-2xs) var(--dp-space-xxs);
+    border-radius: var(--dp-radius);
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: var(--dp-text-sm);
+    line-height: 1.2;
+    min-inline-size: 0;
+    inline-size: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  /* document.css has `[class*='scheme-'] { background-color: var(--color-bg);
+     color: var(--color-fg) }` which matches ANY element with a 'scheme-'
+     substring in its class name -- including our dp-scheme-* panel chrome
+     classes. Those should use the panel's own --dp-* tokens, not cascade
+     from the page's current scheme. Explicitly reset them. Preview classes
+     are EXCLUDED because they ARE the live scheme preview. Note: scheme
+     mapping-row labels are NOT reset here — they use --dp-text-muted set
+     above so they match every other panel label. */
+  .dp-scheme-list,
+  .dp-scheme-card,
+  .dp-scheme-card-mode,
+  .dp-scheme-card-mode summary,
+  .dp-scheme-mode-column,
+  .dp-scheme-mode-label,
+  .dp-scheme-mapping-row {
+    background-color: transparent;
+    color: var(--dp-text);
+  }
+
+  /* fieldset reset: browsers default to inset border + padding. */
+  .dp-scheme-mode-column {
+    display: grid;
+    gap: var(--dp-space-2xs);
+    border: 0;
+    padding: var(--dp-space-xs) 0 0;
+    margin: 0;
+    min-inline-size: 0;
+  }
+
+  .dp-scheme-mode-label {
+    font-size: var(--dp-text-sm);
+    color: var(--dp-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-block-end: var(--dp-space-xs);
+    padding: 0;
+  }
+
+  /* Forced-colors (Windows High Contrast): make the decorative chrome
+     participate in the system palette so users don't lose the anchor dot,
+     disclosure chevron, or divider. */
+  @media (forced-colors: active) {
+    .dp-swatch-anchor::after {
+      background: CanvasText;
+      box-shadow: 0 0 0 1px Canvas;
+    }
+    .dp-scheme-card-mode summary::after,
+    .design-panel-section details summary::after {
+      border-color: CanvasText;
+    }
+    .dp-scheme-divider {
+      background: CanvasText;
+    }
+  }
+}
