@@ -16,10 +16,6 @@
   .file-upload {
     --file-upload-button-bg: var(--color-fg);
     --file-upload-button-fg: var(--color-bg);
-    --file-upload-button-h-space: var(--button-h-space);
-    --file-upload-button-v-space: var(--button-v-space);
-    --file-upload-button-font-size: var(--button-font-size);
-    --file-upload-border: var(--color-border);
 
     position: relative;
     display: flex;
@@ -47,13 +43,13 @@
       justify-content: center;
       flex-shrink: 0;
       min-block-size: calc(var(--touch-target-min) - var(--line-05));
-      padding-block: var(--file-upload-button-v-space);
-      padding-inline: var(--file-upload-button-h-space);
+      padding-block: var(--button-v-space);
+      padding-inline: var(--button-h-space);
       background: var(--file-upload-button-bg);
       color: var(--file-upload-button-fg);
       border-radius: var(--button-radius);
       font-weight: var(--font-medium);
-      font-size: var(--file-upload-button-font-size);
+      font-size: var(--button-font-size);
       line-height: var(--line-height-none);
       user-select: none;
     }
@@ -102,13 +98,12 @@
 
   .file-upload--accent {
     --file-upload-button-bg: var(--color-accent);
-    --file-upload-button-fg: var(--color-bg);
   }
 
   .file-upload--compact {
-    --file-upload-button-h-space: var(--line-025);
-    --file-upload-button-v-space: var(--line-025);
-    --file-upload-button-font-size: var(--text-xs);
+    --button-h-space: var(--line-025);
+    --button-v-space: var(--line-025);
+    --button-font-size: var(--text-xs);
 
     display: inline-flex;
     min-block-size: auto;
@@ -132,11 +127,15 @@
   }
 
   .file-upload--zone {
+    --file-upload-border: var(--color-border);
+
     flex-direction: column;
     justify-content: center;
     min-block-size: calc(var(--line) * 6);
     padding: var(--line-1);
-    border: 2px dashed var(--file-upload-border);
+    border-width: 2px;
+    border-style: dashed;
+    border-color: var(--file-upload-border);
     text-align: center;
 
     @media (prefers-reduced-motion: no-preference) {
@@ -152,13 +151,7 @@
 
     &[data-drag-over] {
       border-color: var(--color-accent);
-      background: color-mix(in srgb, var(--color-accent) 5%, var(--color-bg));
+      background: color-mix(in oklch, var(--color-accent) 5%, var(--color-bg));
     }
-  }
-
-  .file-upload--large {
-    --file-upload-button-h-space: var(--line-1);
-    --file-upload-button-v-space: var(--line-05);
-    --file-upload-button-font-size: var(--text-lg);
   }
 }
