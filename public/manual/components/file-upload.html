@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="pg-components-file-upload">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>File upload</h1>
+          <p class="lead">Custom file upload inputs with full control over button text, colours, and layout. Includes a drop zone variant for drag-and-drop.</p>
+        </header>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Default</h2>
+                <p>Wraps a hidden file input inside a label. The button text is whatever you put in <code>.file-upload-button</code>.</p>
+                <popup-dialog title="Default File Upload HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="file-upload"&gt;
+  &lt;input type="file" name="resume" accept=".pdf,.doc"&gt;
+  &lt;span class="file-upload-button"&gt;Upload resume&lt;/span&gt;
+  &lt;span class="file-upload-text"&gt;No file selected&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="stack stack-compact">
+                <label class="file-upload">
+                  <input type="file" name="resume" accept=".pdf,.doc">
+                  <span class="file-upload-button">Upload resume</span>
+                  <span class="file-upload-text">No file selected</span>
+                </label>
+                <label class="file-upload">
+                  <input type="file" name="photo" accept="image/*">
+                  <span class="file-upload-button">Choose photo</span>
+                  <span class="file-upload-text">PNG, JPG, or GIF up to 5MB</span>
+                </label>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Accent variant</h2>
+                <p>Accent-coloured button for primary upload actions.</p>
+                <popup-dialog title="Accent File Upload HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="file-upload file-upload--accent"&gt;
+  &lt;input type="file" name="doc"&gt;
+  &lt;span class="file-upload-button"&gt;Upload document&lt;/span&gt;
+  &lt;span class="file-upload-text"&gt;No file selected&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <label class="file-upload file-upload--accent">
+                <input type="file" name="doc">
+                <span class="file-upload-button">Upload document</span>
+                <span class="file-upload-text">No file selected</span>
+              </label>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Compact</h2>
+                <p>Small inline button with no filename area. Uses <code>button--small</code> sizing. The status text is visually hidden but remains accessible to screen readers.</p>
+                <popup-dialog title="Compact File Upload HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="file-upload file-upload--compact"&gt;
+  &lt;input type="file" name="import" accept=".csv"&gt;
+  &lt;span class="file-upload-button"&gt;Import CSV&lt;/span&gt;
+  &lt;span class="file-upload-text"&gt;No file selected&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="cluster">
+                <label class="file-upload file-upload--compact">
+                  <input type="file" name="import" accept=".csv">
+                  <span class="file-upload-button">Import CSV</span>
+                  <span class="file-upload-text">No file selected</span>
+                </label>
+                <label class="file-upload file-upload--compact file-upload--accent">
+                  <input type="file" name="import-accent" accept=".csv">
+                  <span class="file-upload-button">Upload</span>
+                  <span class="file-upload-text">No file selected</span>
+                </label>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Disabled</h2>
+                <popup-dialog title="Disabled File Upload HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="file-upload"&gt;
+  &lt;input type="file" name="locked" disabled&gt;
+  &lt;span class="file-upload-button"&gt;Upload&lt;/span&gt;
+  &lt;span class="file-upload-text"&gt;Uploads disabled&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <label class="file-upload">
+                <input type="file" name="locked" disabled>
+                <span class="file-upload-button">Upload</span>
+                <span class="file-upload-text">Uploads disabled</span>
+              </label>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Large</h2>
+                <p>Larger button for prominent upload areas.</p>
+                <popup-dialog title="Large File Upload HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="file-upload file-upload--large"&gt;
+  &lt;input type="file" name="hero"&gt;
+  &lt;span class="file-upload-button"&gt;Choose hero image&lt;/span&gt;
+  &lt;span class="file-upload-text"&gt;No file selected&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <label class="file-upload file-upload--large">
+                <input type="file" name="hero">
+                <span class="file-upload-button">Choose hero image</span>
+                <span class="file-upload-text">No file selected</span>
+              </label>
+            </section>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>Drop zone</h2>
+                <p>Dashed border area for drag-and-drop uploads. Add <code>multiple</code> to accept multiple files.</p>
+                <popup-dialog title="Drop Zone HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;label class="file-upload file-upload--zone"&gt;
+  &lt;input type="file" name="docs" multiple&gt;
+  &lt;span class="file-upload-button"&gt;Browse files&lt;/span&gt;
+  &lt;span class="file-upload-text"&gt;or drag and drop files here&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <label class="file-upload file-upload--zone">
+                <input type="file" name="docs" multiple>
+                <span class="file-upload-button">Browse files</span>
+                <span class="file-upload-text">or drag and drop files here</span>
+              </label>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Drop zone (accent)</h2>
+                <p>Combine variants for an accent-coloured drop zone.</p>
+              </header>
+              <label class="file-upload file-upload--zone file-upload--accent">
+                <input type="file" name="images" multiple accept="image/*">
+                <span class="file-upload-button">Upload images</span>
+                <span class="file-upload-text">PNG, JPG, GIF, or SVG</span>
+              </label>
+            </section>
+          </div>
+        </section>
+
+        <section class="section">
+          <header>
+            <h2>Native file input</h2>
+            <p>Bare <code>&lt;input type="file"&gt;</code> styled automatically by the base layer. No classes needed.</p>
+            <popup-dialog title="Native File Input HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;input type="file" name="attachment"&gt;</code></pre>
+              </div>
+            </popup-dialog>
+          </header>
+          <div style="max-inline-size: 30rem;">
+            <input type="file" name="attachment">
+          </div>
+        </section>
+
+        <section class="section">
+          <header>
+            <h2>Custom properties</h2>
+          </header>
+          <table class="table--bordered text-sm">
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Default</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--file-upload-button-bg</code></td>
+                <td><code>var(--color-fg)</code></td>
+                <td>Button background</td>
+              </tr>
+              <tr>
+                <td><code>--file-upload-button-fg</code></td>
+                <td><code>var(--color-bg)</code></td>
+                <td>Button text colour</td>
+              </tr>
+              <tr>
+                <td><code>--file-upload-button-h-space</code></td>
+                <td><code>var(--button-h-space)</code></td>
+                <td>Button horizontal padding</td>
+              </tr>
+              <tr>
+                <td><code>--file-upload-button-v-space</code></td>
+                <td><code>var(--button-v-space)</code></td>
+                <td>Button vertical padding</td>
+              </tr>
+              <tr>
+                <td><code>--file-upload-button-font-size</code></td>
+                <td><code>var(--button-font-size)</code></td>
+                <td>Button font size</td>
+              </tr>
+              <tr>
+                <td><code>--file-upload-border</code></td>
+                <td><code>var(--color-border)</code></td>
+                <td>Outer border colour</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="section">
+          <header>
+            <h2>JavaScript enhancement</h2>
+            <p>The component works without JavaScript. Optionally add this snippet to show the selected filename and enable drag-and-drop feedback.</p>
+          </header>
+          <popup-dialog title="JS Enhancement">
+            <p><a href="#" class="text-sm">Code</a></p>
+            <div slot="body">
+              <pre><code>&lt;script&gt;
+// Show selected filename
+document.querySelectorAll('.file-upload input[type="file"]')
+  .forEach(input =&gt; {
+    input.addEventListener('change', () =&gt; {
+      const label = input.closest('.file-upload');
+      const text = label.querySelector('.file-upload-text');
+      if (input.files.length &gt; 0) {
+        const names = Array.from(input.files)
+          .map(f =&gt; f.name).join(', ');
+        text.textContent = names;
+        label.setAttribute('data-has-file', '');
+      } else {
+        text.textContent = 'No file selected';
+        label.removeAttribute('data-has-file');
+      }
+    });
+  });
+
+// Drag-and-drop feedback for zone variant
+document.querySelectorAll('.file-upload--zone')
+  .forEach(zone =&gt; {
+    ['dragenter', 'dragover'].forEach(evt =&gt; {
+      zone.addEventListener(evt, e =&gt; {
+        e.preventDefault();
+        zone.setAttribute('data-drag-over', '');
+      });
+    });
+    ['dragleave', 'drop'].forEach(evt =&gt; {
+      zone.addEventListener(evt, e =&gt; {
+        e.preventDefault();
+        zone.removeAttribute('data-drag-over');
+      });
+    });
+    zone.addEventListener('drop', e =&gt; {
+      const input = zone.querySelector('input[type="file"]');
+      if (input &amp;&amp; e.dataTransfer.files.length) {
+        const dt = new DataTransfer();
+        Array.from(e.dataTransfer.files)
+          .forEach(f =&gt; dt.items.add(f));
+        input.files = dt.files;
+        input.dispatchEvent(
+          new Event('change', { bubbles: true })
+        );
+      }
+    });
+  });
+&lt;/script&gt;</code></pre>
+            </div>
+          </popup-dialog>
+        </section>
+
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

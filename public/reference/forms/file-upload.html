@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+  <title>File Upload – Forms Reference – Live Wires</title>
+</head>
+<body>
+  <html-include src="/_includes/header.html"></html-include>
+  <main id="main">
+    <article class="section prose">
+      <h1>File upload</h1>
+
+<!-- Native (base layer styling, zero classes) -->
+<h2>Native file input</h2>
+<input type="file" name="native-demo">
+
+<!-- Default component -->
+<h2>Default</h2>
+<label class="file-upload">
+  <input type="file" name="default-demo">
+  <span class="file-upload-button">Upload file</span>
+  <span class="file-upload-text">No file selected</span>
+</label>
+
+<!-- Accent -->
+<h2>Accent</h2>
+<label class="file-upload file-upload--accent">
+  <input type="file" name="accent-demo">
+  <span class="file-upload-button">Upload document</span>
+  <span class="file-upload-text">No file selected</span>
+</label>
+
+<!-- Compact -->
+<h2>Compact</h2>
+<label class="file-upload file-upload--compact">
+  <input type="file" name="compact-demo" accept=".csv">
+  <span class="file-upload-button">Import CSV</span>
+  <span class="file-upload-text">No file selected</span>
+</label>
+
+<!-- Large -->
+<h2>Large</h2>
+<label class="file-upload file-upload--large">
+  <input type="file" name="large-demo">
+  <span class="file-upload-button">Choose hero image</span>
+  <span class="file-upload-text">No file selected</span>
+</label>
+
+<!-- Drop zone -->
+<h2>Drop zone</h2>
+<label class="file-upload file-upload--zone">
+  <input type="file" name="zone-demo" multiple>
+  <span class="file-upload-button">Browse files</span>
+  <span class="file-upload-text">or drag and drop files here</span>
+</label>
+
+<!-- Disabled -->
+<h2>Disabled</h2>
+<label class="file-upload">
+  <input type="file" name="disabled-demo" disabled>
+  <span class="file-upload-button">Upload</span>
+  <span class="file-upload-text">Uploads disabled</span>
+</label>
+
+    </article>
+  </main>
+  <html-include src="/_includes/footer.html"></html-include>
+</body>
+</html>
