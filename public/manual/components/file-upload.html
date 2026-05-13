@@ -73,7 +73,7 @@
             <section class="stack">
               <header>
                 <h2>Compact</h2>
-                <p>Small inline button with no filename area. Uses <code>button--small</code> sizing. The status text is visually hidden but remains accessible to screen readers.</p>
+                <p>Small inline button with no filename area. Reduced padding and font size. The status text is visually hidden but remains accessible to screen readers.</p>
                 <popup-dialog title="Compact File Upload HTML">
                   <p><a href="#" class="text-sm">Code</a></p>
                   <div slot="body">
@@ -120,27 +120,6 @@
               </label>
             </section>
 
-            <section class="stack">
-              <header>
-                <h2>Large</h2>
-                <p>Larger button for prominent upload areas.</p>
-                <popup-dialog title="Large File Upload HTML">
-                  <p><a href="#" class="text-sm">Code</a></p>
-                  <div slot="body">
-                    <pre><code>&lt;label class="file-upload file-upload--large"&gt;
-  &lt;input type="file" name="hero"&gt;
-  &lt;span class="file-upload-button"&gt;Choose hero image&lt;/span&gt;
-  &lt;span class="file-upload-text"&gt;No file selected&lt;/span&gt;
-&lt;/label&gt;</code></pre>
-                  </div>
-                </popup-dialog>
-              </header>
-              <label class="file-upload file-upload--large">
-                <input type="file" name="hero">
-                <span class="file-upload-button">Choose hero image</span>
-                <span class="file-upload-text">No file selected</span>
-              </label>
-            </section>
           </div>
         </section>
 
@@ -193,7 +172,7 @@
               </div>
             </popup-dialog>
           </header>
-          <div style="max-inline-size: 30rem;">
+          <div class="measure-narrow">
             <input type="file" name="attachment">
           </div>
         </section>
@@ -222,24 +201,9 @@
                 <td>Button text colour</td>
               </tr>
               <tr>
-                <td><code>--file-upload-button-h-space</code></td>
-                <td><code>var(--button-h-space)</code></td>
-                <td>Button horizontal padding</td>
-              </tr>
-              <tr>
-                <td><code>--file-upload-button-v-space</code></td>
-                <td><code>var(--button-v-space)</code></td>
-                <td>Button vertical padding</td>
-              </tr>
-              <tr>
-                <td><code>--file-upload-button-font-size</code></td>
-                <td><code>var(--button-font-size)</code></td>
-                <td>Button font size</td>
-              </tr>
-              <tr>
                 <td><code>--file-upload-border</code></td>
                 <td><code>var(--color-border)</code></td>
-                <td>Outer border colour</td>
+                <td>Zone border colour (<code>--zone</code> only)</td>
               </tr>
             </tbody>
           </table>

@@ -10,61 +10,58 @@
 <body>
   <html-include src="/_includes/header.html"></html-include>
   <main id="main">
-    <article class="section prose">
+    <article class="section prose stack">
       <h1>File upload</h1>
 
-<!-- Native (base layer styling, zero classes) -->
-<h2>Native file input</h2>
-<input type="file" name="native-demo">
+      <section class="stack">
+        <h2>Native file input</h2>
+        <input type="file" name="native-demo">
+      </section>
 
-<!-- Default component -->
-<h2>Default</h2>
-<label class="file-upload">
-  <input type="file" name="default-demo">
-  <span class="file-upload-button">Upload file</span>
-  <span class="file-upload-text">No file selected</span>
-</label>
+      <section class="stack">
+        <h2>Default</h2>
+        <label class="file-upload">
+          <input type="file" name="default-demo">
+          <span class="file-upload-button">Upload file</span>
+          <span class="file-upload-text">No file selected</span>
+        </label>
+      </section>
 
-<!-- Accent -->
-<h2>Accent</h2>
-<label class="file-upload file-upload--accent">
-  <input type="file" name="accent-demo">
-  <span class="file-upload-button">Upload document</span>
-  <span class="file-upload-text">No file selected</span>
-</label>
+      <section class="stack">
+        <h2>Accent</h2>
+        <label class="file-upload file-upload--accent">
+          <input type="file" name="accent-demo">
+          <span class="file-upload-button">Upload document</span>
+          <span class="file-upload-text">No file selected</span>
+        </label>
+      </section>
 
-<!-- Compact -->
-<h2>Compact</h2>
-<label class="file-upload file-upload--compact">
-  <input type="file" name="compact-demo" accept=".csv">
-  <span class="file-upload-button">Import CSV</span>
-  <span class="file-upload-text">No file selected</span>
-</label>
+      <section class="stack">
+        <h2>Compact</h2>
+        <label class="file-upload file-upload--compact">
+          <input type="file" name="compact-demo" accept=".csv">
+          <span class="file-upload-button">Import CSV</span>
+          <span class="file-upload-text">No file selected</span>
+        </label>
+      </section>
 
-<!-- Large -->
-<h2>Large</h2>
-<label class="file-upload file-upload--large">
-  <input type="file" name="large-demo">
-  <span class="file-upload-button">Choose hero image</span>
-  <span class="file-upload-text">No file selected</span>
-</label>
+      <section class="stack">
+        <h2>Drop zone</h2>
+        <label class="file-upload file-upload--zone">
+          <input type="file" name="zone-demo" multiple>
+          <span class="file-upload-button">Browse files</span>
+          <span class="file-upload-text">or drag and drop files here</span>
+        </label>
+      </section>
 
-<!-- Drop zone -->
-<h2>Drop zone</h2>
-<label class="file-upload file-upload--zone">
-  <input type="file" name="zone-demo" multiple>
-  <span class="file-upload-button">Browse files</span>
-  <span class="file-upload-text">or drag and drop files here</span>
-</label>
-
-<!-- Disabled -->
-<h2>Disabled</h2>
-<label class="file-upload">
-  <input type="file" name="disabled-demo" disabled>
-  <span class="file-upload-button">Upload</span>
-  <span class="file-upload-text">Uploads disabled</span>
-</label>
-
+      <section class="stack">
+        <h2>Disabled</h2>
+        <label class="file-upload">
+          <input type="file" name="disabled-demo" disabled>
+          <span class="file-upload-button">Upload</span>
+          <span class="file-upload-text">Uploads disabled</span>
+        </label>
+      </section>
     </article>
   </main>
   <html-include src="/_includes/footer.html"></html-include>
