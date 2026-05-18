@@ -1,10 +1,14 @@
 /**
  * <scheme-panel> Web Component
  *
- * Displays all 8 semantic tokens for a colour scheme with sample content.
+ * Displays a comprehensive color scheme testing panel with typography, colors, borders, and form elements.
  *
  * @attr {string} scheme - Scheme class to apply (e.g., "scheme-default", "scheme-dark")
- * @attr {string} title - Display title
+ * @attr {string} title - Optional title override (defaults to scheme value)
+ *
+ * @example
+ * <scheme-panel scheme="scheme-default"></scheme-panel>
+ * <scheme-panel scheme="scheme-dark" title="Dark Mode"></scheme-panel>
  */
 class SchemePanel extends HTMLElement {
   connectedCallback() {
@@ -20,127 +24,58 @@ class SchemePanel extends HTMLElement {
   }
 
   render() {
-    const id = this.scheme.replace(/[^a-z0-9]/g, '');
+    const html = `
+      <div class="box ${this.scheme}">
+        <h3>${this.title}</h3>
 
-    const wrapper = document.createElement('div');
-    wrapper.className = `box ${this.scheme}`;
+        <div class="prose mb-1">
+          <p class="lead">The best tools are the ones that <a href="#">dis­appear</a>. They don't demand atten­tion or require con­stant <strong>up­grades</strong>. They simply work, day after day, be­com­ing ex­ten­sions of the <em>crafts­person's</em> hand.</p>
+          <p>We've for­got­ten the value of work­ing with our hands, of under­stand­ing mat­er­ials in­ti­mate­ly. There's wis­dom in the <a href="#">slow</a> approach, in <strong>re­sis­ting</strong> the urge to auto­mate every­thing.</p>
+          <p class="more"><a href="#">Read more</a></p>
+        </div>
 
-    const heading = document.createElement('h3');
-    heading.textContent = this.title;
-    wrapper.appendChild(heading);
+        <div class="grid grid-narrow">
+          <div>
+            <h4 class="mb-05">Secondary colours</h4>
+            <div class="p-025 bg-accent">Accent</div>
+            <div class="p-025" style="background: var(--color-accent2); color: var(--color-white);">Accent 2</div>
+            <div class="p-025 bg-subtle">Subtle</div>
+            <div class="p-025 text-accent">Accent text</div>
+            <div class="p-025" style="color: var(--color-accent2);">Accent 2 text</div>
+            <div class="p-025 text-muted">Muted text</div>
+          </div>
 
-    const grid = document.createElement('div');
-    grid.className = 'grid grid-narrow';
+          <div class="box bg-subtle text-sm">
+            <h4>Callout</h4>
+            <p>Sim­pli­city isn't about hav­ing less. It's about mak­ing room for what <a href="#">mat­ters</a>. Every un­nec­es­sary fea­ture is a <strong>dis­trac­tion</strong> from the <em>essen­tial</em>.</p>
+          </div>
 
-    const tokens = [
-      { name: 'Background', bg: 'var(--color-bg)', fg: 'var(--color-fg)', border: '1px solid var(--color-border-muted)' },
-      { name: 'Foreground', bg: 'var(--color-fg)', fg: 'var(--color-bg)', border: 'none' },
-      { name: 'Subtle', bg: 'var(--color-subtle)', fg: 'var(--color-fg)', border: '1px solid var(--color-border-muted)' },
-      { name: 'Accent', bg: 'var(--color-accent)', fg: 'var(--color-white)', border: 'none' },
-      { name: 'Accent 2', bg: 'var(--color-accent2)', fg: 'var(--color-white)', border: 'none' },
-      { name: 'Muted', bg: 'var(--color-muted)', fg: 'var(--color-bg)', border: 'none' },
-      { name: 'Border', bg: 'var(--color-border)', fg: 'var(--color-bg)', border: 'none' },
-      { name: 'Border muted', bg: 'var(--color-border-muted)', fg: 'var(--color-fg)', border: '1px solid var(--color-border)' },
-    ];
+          <div class="stack stack-half">
+            <h4>Borders</h4>
+            <hr class="my-05">
+            <hr class="divider--dotted">
+            <hr class="divider--dashed">
+            <hr class="divider--hairline">
+            <hr class="divider--accent">
+            <hr class="divider--semibold">
+            <hr class="divider--bold">
+            <hr class="divider--extrabold">
+          </div>
 
-    const tokenCol = document.createElement('div');
-    tokenCol.className = 'stack stack-compact';
-    const tokenHeading = document.createElement('h4');
-    tokenHeading.className = 'text-sm font-semibold mb-025';
-    tokenHeading.textContent = 'Semantic tokens';
-    tokenCol.appendChild(tokenHeading);
+          <div class="stack">
+            <h4>Forms</h4>
+            <div class="field">
+              <label for="${this.scheme}">Label</label>
+              <input type="text" name="${this.scheme}" id="${this.scheme}" value="" placeholder="Placeholder" />
+            </div>
+            <button>Button</button>
+            <button class="button--accent">Button</button>
+          </div>
+        </div>
+      </div>
+    `;
 
-    for (const t of tokens) {
-      const swatch = document.createElement('div');
-      swatch.style.cssText = `background: ${t.bg}; color: ${t.fg}; border: ${t.border}; padding: var(--line-025);`;
-      const label = document.createElement('span');
-      label.className = 'text-xs';
-      label.textContent = t.name;
-      swatch.appendChild(label);
-      tokenCol.appendChild(swatch);
-    }
-    grid.appendChild(tokenCol);
-
-    const sampleCol = document.createElement('div');
-    sampleCol.className = 'stack stack-compact';
-    const sampleHeading = document.createElement('h4');
-    sampleHeading.className = 'text-sm font-semibold mb-025';
-    sampleHeading.textContent = 'Sample content';
-    sampleCol.appendChild(sampleHeading);
-
-    const bodyP = document.createElement('p');
-    bodyP.className = 'text-sm';
-    bodyP.append(
-      'Body text in ',
-      Object.assign(document.createElement('a'), { href: '#', textContent: 'this scheme' }),
-      ' with a ',
-      Object.assign(document.createElement('strong'), { textContent: 'bold phrase' }),
-      ' and ',
-      Object.assign(document.createElement('em'), { textContent: 'emphasis' }),
-      '.'
-    );
-    sampleCol.appendChild(bodyP);
-
-    const mutedP = document.createElement('p');
-    mutedP.className = 'text-sm text-muted';
-    mutedP.textContent = 'Muted secondary text.';
-    sampleCol.appendChild(mutedP);
-
-    const accentP = document.createElement('p');
-    accentP.className = 'text-sm text-accent';
-    accentP.textContent = 'Accent coloured text.';
-    sampleCol.appendChild(accentP);
-
-    sampleCol.appendChild(document.createElement('hr'));
-
-    const callout = document.createElement('div');
-    callout.className = 'box bg-subtle text-xs p-025';
-    const calloutP = document.createElement('p');
-    calloutP.append(
-      'Subtle background callout with ',
-      Object.assign(document.createElement('a'), { href: '#', textContent: 'a link' }),
-      '.'
-    );
-    callout.appendChild(calloutP);
-    sampleCol.appendChild(callout);
-    grid.appendChild(sampleCol);
-
-    const controlCol = document.createElement('div');
-    controlCol.className = 'stack stack-compact';
-    const controlHeading = document.createElement('h4');
-    controlHeading.className = 'text-sm font-semibold mb-025';
-    controlHeading.textContent = 'Controls';
-    controlCol.appendChild(controlHeading);
-
-    const field = document.createElement('div');
-    field.className = 'field';
-    const inputLabel = document.createElement('label');
-    inputLabel.htmlFor = `${id}-input`;
-    inputLabel.className = 'text-xs';
-    inputLabel.textContent = 'Text input';
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.name = id;
-    input.id = `${id}-input`;
-    input.placeholder = 'Placeholder';
-    field.appendChild(inputLabel);
-    field.appendChild(input);
-    controlCol.appendChild(field);
-
-    const btn1 = document.createElement('button');
-    btn1.className = 'button button--small';
-    btn1.textContent = 'Button';
-    controlCol.appendChild(btn1);
-
-    const btn2 = document.createElement('button');
-    btn2.className = 'button button--small button--accent';
-    btn2.textContent = 'Accent';
-    controlCol.appendChild(btn2);
-
-    grid.appendChild(controlCol);
-    wrapper.appendChild(grid);
-
-    this.replaceChildren(wrapper);
+    this.innerHTML = html;
   }
 }
 
