@@ -11,7 +11,7 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-schemes">
+  <body class="scheme-default pg-schemes">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
@@ -32,18 +32,14 @@
             <popup-dialog title="Color Schemes HTML">
               <p><a href="#" class="text-sm">Code</a></p>
               <div slot="body">
-                <pre><code>&lt;!-- Mode schemes (dark-mode adaptive) --&gt;
-&lt;section class="scheme-default"&gt;...&lt;/section&gt;
+                <pre><code>&lt;!-- Light mode (applied to body by default) --&gt;
+&lt;body class="scheme-default"&gt;...&lt;/body&gt;
+
+&lt;!-- Subtle variant --&gt;
 &lt;div class="scheme-subtle"&gt;...&lt;/div&gt;
 
-&lt;!-- Colour schemes --&gt;
-&lt;div class="scheme-purple"&gt;...&lt;/div&gt;
-&lt;div class="scheme-black"&gt;...&lt;/div&gt;
-&lt;div class="scheme-red"&gt;...&lt;/div&gt;
-&lt;div class="scheme-orange"&gt;...&lt;/div&gt;
-&lt;div class="scheme-gold"&gt;...&lt;/div&gt;
-&lt;div class="scheme-green"&gt;...&lt;/div&gt;
-&lt;div class="scheme-blue"&gt;...&lt;/div&gt;
+&lt;!-- Dark mode (manual override) --&gt;
+&lt;section class="scheme-dark"&gt;...&lt;/section&gt;
 
 &lt;!-- Status schemes --&gt;
 &lt;div class="scheme-danger"&gt;...&lt;/div&gt;
@@ -54,32 +50,27 @@
           </header>
           <section>
             <header class="section section-wide section-tight border-b">
-              <h3 class="mt-2">Mode schemes (dark-mode adaptive)</h3>
+              <h3 class="mt-2">Light mode</h3>
             </header>
-            <scheme-panel scheme="scheme-default" title="Default"></scheme-panel>
-            <scheme-panel scheme="scheme-subtle" title="Subtle"></scheme-panel>
+            <scheme-panel scheme="scheme-default" title="Default (Light)"></scheme-panel>
+            <scheme-panel scheme="scheme-subtle" title="Subtle (Light)"></scheme-panel>
           </section>
           <section>
             <header class="section section-wide section-bottom-tight">
-              <h3 class="mt-2">Colour schemes</h3>
+              <h3 class="mt-2">Dark mode</h3>
             </header>
-            <scheme-panel scheme="scheme-purple" title="Purple"></scheme-panel>
-            <scheme-panel scheme="scheme-black" title="Black"></scheme-panel>
-            <scheme-panel scheme="scheme-red" title="Red"></scheme-panel>
-            <scheme-panel scheme="scheme-bold" title="Bold (Red)"></scheme-panel>
-            <scheme-panel scheme="scheme-orange" title="Orange"></scheme-panel>
-            <scheme-panel scheme="scheme-gold" title="Gold"></scheme-panel>
-            <scheme-panel scheme="scheme-green" title="Green"></scheme-panel>
-            <scheme-panel scheme="scheme-blue" title="Blue"></scheme-panel>
+            <scheme-panel scheme="scheme-dark" title="Dark"></scheme-panel>
+            <div class="dark-mode">
+              <scheme-panel scheme="scheme-subtle" title="Subtle (Dark)"></scheme-panel>
+            </div>
           </section>
           <section>
             <header class="section section-wide section-bottom-tight">
               <h3 class="mt-2">Status schemes</h3>
             </header>
-            <scheme-panel scheme="scheme-danger" title="Danger"></scheme-panel>
+            <scheme-panel scheme="scheme-danger" title="Error"></scheme-panel>
             <scheme-panel scheme="scheme-warning" title="Warning"></scheme-panel>
             <scheme-panel scheme="scheme-success" title="Success"></scheme-panel>
-            <scheme-panel scheme="scheme-info" title="Info"></scheme-panel>
           </section>            
         </section>
       </article>

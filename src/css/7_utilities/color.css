@@ -259,18 +259,4 @@
     color: var(--color-fg);
   }
 
-  .scheme-info {
-    --color-bg: var(--color-blue-50);
-    --color-fg: var(--color-blue-900);
-    --color-accent: var(--color-blue-500);
-    --color-accent2: var(--color-blue-400);
-    --color-muted: var(--color-blue-300);
-    --color-subtle: var(--color-blue-100);
-    --color-border: var(--color-blue-800);
-    --color-border-muted: var(--color-blue-300);
-    --vf-grad: 0;
-    background: var(--color-bg);
-    color: var(--color-fg);
-  }
-
 }

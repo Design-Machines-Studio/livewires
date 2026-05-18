@@ -10,7 +10,7 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-docs">
+  <body class="scheme-default pg-docs">
 
     <!-- HTML Include: site header -->
     <html-include src="/_includes/header.html"></html-include>
@@ -198,18 +198,13 @@
           <h3>Color schemes</h3>
           <p>Apply a color scheme to a container. All children inherit the semantic colors (<code>--color-bg</code>, <code>--color-fg</code>, <code>--color-accent</code>, etc.):</p>
 
-          <h4>Adaptive schemes (respond to dark mode)</h4>
-          <pre><code>.scheme-default   /* System default */
-.scheme-subtle    /* Subtle background */</code></pre>
-
-          <h4>Colour schemes</h4>
-          <pre><code>.scheme-purple   .scheme-red      .scheme-bold
-.scheme-orange   .scheme-gold     .scheme-green
-.scheme-blue     .scheme-black</code></pre>
+          <h4>Mode schemes</h4>
+          <pre><code>.scheme-default   /* Light mode (on body) */
+.scheme-subtle    /* Subtle variant */
+.scheme-dark      /* Dark mode override */</code></pre>
 
           <h4>Status schemes</h4>
-          <pre><code>.scheme-danger   .scheme-warning  .scheme-success
-.scheme-info</code></pre>
+          <pre><code>.scheme-danger   .scheme-warning  .scheme-success</code></pre>
 
           <h3>Text colors</h3>
           <h4>Semantic</h4>
