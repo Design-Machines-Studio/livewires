@@ -47,8 +47,8 @@
     background: var(--color-green-500);
   }
 
-  .status-indicator--yellow::before {
-    background: var(--color-yellow-500);
+  .status-indicator--gold::before {
+    background: var(--color-gold-500);
   }
 
   .status-indicator--red::before {

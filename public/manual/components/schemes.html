@@ -11,7 +11,7 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-schemes">
+  <body class="scheme-default pg-schemes">
 
     <!-- HTML Include: site header -->
     <html-include src="../_includes/header.html"></html-include>
@@ -28,68 +28,49 @@
         <section>
           <header class="section section-bottom-tight">
             <h2>Available schemes</h2>
-            <p>Each scheme sets <code>--color-bg</code>, <code>--color-fg</code>, and <code>--color-accent</code> for its descendants.</p>
+            <p>Each scheme sets 8 semantic tokens: <code>--color-bg</code>, <code>--color-fg</code>, <code>--color-accent</code>, <code>--color-accent2</code>, <code>--color-muted</code>, <code>--color-subtle</code>, <code>--color-border</code>, <code>--color-border-muted</code>.</p>
             <popup-dialog title="Color Schemes HTML">
               <p><a href="#" class="text-sm">Code</a></p>
               <div slot="body">
-                <pre><code>&lt;!-- Apply to any container --&gt;
-&lt;section class="scheme-dark"&gt;...&lt;/section&gt;
+                <pre><code>&lt;!-- Light mode (applied to body by default) --&gt;
+&lt;body class="scheme-default"&gt;...&lt;/body&gt;
+
+&lt;!-- Subtle variant --&gt;
 &lt;div class="scheme-subtle"&gt;...&lt;/div&gt;
-&lt;header class="scheme-accent"&gt;...&lt;/header&gt;
 
-&lt;!-- Greyscale --&gt;
-&lt;div class="scheme-black"&gt;...&lt;/div&gt;
-&lt;div class="scheme-grey-900"&gt;...&lt;/div&gt;
-&lt;div class="scheme-grey-100"&gt;...&lt;/div&gt;
+&lt;!-- Dark mode (manual override) --&gt;
+&lt;section class="scheme-dark"&gt;...&lt;/section&gt;
 
-&lt;!-- Brand colors --&gt;
-&lt;div class="scheme-orange"&gt;...&lt;/div&gt;
-&lt;div class="scheme-blue"&gt;...&lt;/div&gt;
-&lt;div class="scheme-green"&gt;...&lt;/div&gt;
-
-&lt;!-- Light variants --&gt;
-&lt;div class="scheme-orange-light"&gt;...&lt;/div&gt;
-&lt;div class="scheme-blue-light"&gt;...&lt;/div&gt;</code></pre>
+&lt;!-- Status schemes --&gt;
+&lt;div class="scheme-danger"&gt;...&lt;/div&gt;
+&lt;div class="scheme-warning"&gt;...&lt;/div&gt;
+&lt;div class="scheme-success"&gt;...&lt;/div&gt;</code></pre>
               </div>
             </popup-dialog>
           </header>
           <section>
             <header class="section section-wide section-tight border-b">
-              <h3 class="mt-2">Dark mode adaptive schemes</h3>
+              <h3 class="mt-2">Light mode</h3>
             </header>
-            <scheme-panel scheme="scheme-default" title="Default"></scheme-panel>
-            <scheme-panel scheme="scheme-subtle" title="Subtle"></scheme-panel>
+            <scheme-panel scheme="scheme-default" title="Default (Light)"></scheme-panel>
+            <scheme-panel scheme="scheme-subtle" title="Subtle (Light)"></scheme-panel>
           </section>
           <section>
             <header class="section section-wide section-bottom-tight">
-              <h3 class="mt-2">Greyscale schemes</h3>
+              <h3 class="mt-2">Dark mode</h3>
             </header>
-            <scheme-panel scheme="scheme-black" title="Black"></scheme-panel>
-            <scheme-panel scheme="scheme-grey-900" title="Grey 900"></scheme-panel>
-            <scheme-panel scheme="scheme-grey-800" title="Grey 800"></scheme-panel>
-            <scheme-panel scheme="scheme-grey-700" title="Grey 700"></scheme-panel>
-            <scheme-panel scheme="scheme-grey-600" title="Grey 600"></scheme-panel>
-            <scheme-panel scheme="scheme-grey-500" title="Grey 500"></scheme-panel>
-            <scheme-panel scheme="scheme-grey-400" title="Grey 400"></scheme-panel>
-            <scheme-panel scheme="scheme-grey-300" title="Grey 300"></scheme-panel>
-            <scheme-panel scheme="scheme-grey-200" title="Grey 200"></scheme-panel>
-            <scheme-panel scheme="scheme-grey-100" title="Grey 100"></scheme-panel>
-          </section>  
+            <scheme-panel scheme="scheme-dark" title="Dark"></scheme-panel>
+            <div class="dark-mode">
+              <scheme-panel scheme="scheme-subtle" title="Subtle (Dark)"></scheme-panel>
+            </div>
+          </section>
           <section>
             <header class="section section-wide section-bottom-tight">
-              <h3 class="mt-2">Brand color schemes</h3>
+              <h3 class="mt-2">Status schemes</h3>
             </header>
-            <scheme-panel scheme="scheme-accent" title="Accent"></scheme-panel>
-            <scheme-panel scheme="scheme-orange" title="Orange"></scheme-panel>
-            <scheme-panel scheme="scheme-orange-light" title="Orange Light"></scheme-panel>
-            <scheme-panel scheme="scheme-red" title="Red"></scheme-panel>
-            <scheme-panel scheme="scheme-red-light" title="Red Light"></scheme-panel>
-            <scheme-panel scheme="scheme-blue" title="Blue"></scheme-panel>
-            <scheme-panel scheme="scheme-blue-light" title="Blue Light"></scheme-panel>
-            <scheme-panel scheme="scheme-yellow" title="Yellow"></scheme-panel>
-            <scheme-panel scheme="scheme-yellow-light" title="Yellow Light"></scheme-panel>
-            <scheme-panel scheme="scheme-green" title="Green"></scheme-panel>
-            <scheme-panel scheme="scheme-green-light" title="Green Light"></scheme-panel>
+            <scheme-panel scheme="scheme-danger" title="Error"></scheme-panel>
+            <scheme-panel scheme="scheme-warning" title="Warning"></scheme-panel>
+            <scheme-panel scheme="scheme-success" title="Success"></scheme-panel>
           </section>            
         </section>
       </article>

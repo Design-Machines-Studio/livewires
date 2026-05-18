@@ -1,14 +1,9 @@
 /**
  * Color System
  *
- * Minimal, semantic color palette for editorial design
- *
- * WCAG Contrast Ratios (AA minimum: 4.5:1 for text, 3:1 for large text):
- * - grey-900 on white: 12.6:1 ✓
- * - grey-100 on grey-900: 10.4:1 ✓
- * - brand (#0066CC) on white: 5.7:1 ✓
- * - white on brand: 5.7:1 ✓
- * - grey-600 on white: 5.7:1 ✓ (muted text meets AA)
+ * Design Machines colour palette - 7 families x 11 steps (50-950).
+ * Built in OKLCH for perceptual uniformity, stored as sRGB hex fallbacks.
+ * Catalogue code DM-002/WORKS, March 2026.
  */
 
 @layer tokens {
@@ -20,414 +15,263 @@
     --color-black: #000000;
 
     /*
-    * Grey Scale
+    * Grey (warm neutral)
+    * Anchor at 100. Hue 75. Compressed light end with cliff between 500-600.
     */
-    --color-grey-100: #F5F5F5;
-    --color-grey-200: #E5E5E5;
-    --color-grey-300: #D1D1D1;
-    --color-grey-400: #A8A8A8;
-    --color-grey-500: #808080;
-    --color-grey-600: #666666;
-    --color-grey-700: #4A4A4A;
-    --color-grey-800: #2E2E2E;
-    --color-grey-900: #1A1A1A;
-
+    --color-grey-50: #fdf9f4;
+    --color-grey-100: #f9f5f0;
+    --color-grey-200: #f3efea;
+    --color-grey-300: #e9e4dd;
+    --color-grey-400: #d9d3cc;
+    --color-grey-500: #bcb6ae;
+    --color-grey-600: #6c665d;
+    --color-grey-700: #4e4941;
+    --color-grey-800: #34302b;
+    --color-grey-900: #201d18;
+    --color-grey-950: #14100c;
+    --color-grey: var(--color-grey-500);
 
     /*
-    * Brand Colors
-    * Customize these for your project
+    * Purple (brand primary)
+    * Anchor at 800. Hue 294.
     */
-    --color-orange-100: #FFEEE6;
-    --color-orange-200: #FFDCCC;
-    --color-orange-300: #FFB999;
-    --color-orange-400: #FF7C40;
-    --color-orange-500: #FF4F00;
-    --color-orange-600: #BF3D00;
-    --color-orange-700: #662000;
-    --color-orange-800: #331000;
-    --color-orange-900: #1A0800;
-    --color-orange: var(--color-orange-500); 
+    --color-purple-50: #f7f5fe;
+    --color-purple-100: #f0eefb;
+    --color-purple-200: #e8e5f9;
+    --color-purple-300: #ada4d2;
+    --color-purple-400: #917ecd;
+    --color-purple-500: #774ece;
+    --color-purple-600: #5a2ea7;
+    --color-purple-700: #3d1679;
+    --color-purple-800: #220d46;
+    --color-purple-900: #0f0128;
+    --color-purple-950: #050013;
+    --color-purple: var(--color-purple-500);
 
-    --color-brand: var(--color-blue-500);
-    --color-brand-light: var(--color-blue-300);
-    --color-brand-dark: var(--color-blue-700);
-
-    --color-red-100: #FFE6E6;
-    --color-red-200: #FFCECC;
-    --color-red-300: #FF9C99;
-    --color-red-400: #FF4640;
-    --color-red-500: #E10600;
-    --color-red-600: #990500;
-    --color-red-700: #660300;
-    --color-red-800: #330200;
-    --color-red-900: #1A0100;
-    --color-red: var(--color-red-500);
-
-    --color-blue-50: #F3F7FE;
-    --color-blue-100: #EBF6FF;
-    --color-blue-200: #CBE1FF;
-    --color-blue-300: #99CCFF;
-    --color-blue-400: #5DAEFF;
-    --color-blue-500: #1F75FF;
-    --color-blue-600: #2F3CB7;
-    --color-blue-700: #18238B;
-    --color-blue-800: #151553;
-    --color-blue-900: #080725;
+    /*
+    * Blue (informational, interactive, links)
+    * Anchor at 500. Hue drifts warm toward navy-violet in darks (263-281).
+    */
+    --color-blue-50: #f3f7fe;
+    --color-blue-100: #eaf0fd;
+    --color-blue-200: #dde8fd;
+    --color-blue-300: #a0b5dc;
+    --color-blue-400: #6b93e2;
+    --color-blue-500: #3d6fd9;
+    --color-blue-600: #1b3bdb;
+    --color-blue-700: #1e2993;
+    --color-blue-800: #181858;
+    --color-blue-900: #0d0b2f;
+    --color-blue-950: #05031a;
     --color-blue: var(--color-blue-500);
 
-    --color-yellow-100: #FFF6E6;
-    --color-yellow-200: #FFECCC;
-    --color-yellow-300: #FFDA99;
-    --color-yellow-400: #FFB940;
-    --color-yellow-500: #FFA300;
-    --color-yellow-600: #996100;
-    --color-yellow-700: #4D3000;
-    --color-yellow-800: #332000;
-    --color-yellow-900: #1A1000;
-    --color-yellow: var(--color-yellow-500);
+    /*
+    * Red (danger, urgent, destructive)
+    * Anchor at 500. Hue 27.
+    */
+    --color-red-50: #fff4f2;
+    --color-red-100: #ffebe8;
+    --color-red-200: #ffddd9;
+    --color-red-300: #ffc3bc;
+    --color-red-400: #ff7f73;
+    --color-red-500: #ed1d26;
+    --color-red-600: #ba1e20;
+    --color-red-700: #891817;
+    --color-red-800: #5f1210;
+    --color-red-900: #3d0b09;
+    --color-red-950: #250504;
+    --color-red: var(--color-red-500);
 
-    --color-green-100: #E6FFE8;
-    --color-green-200: #CCFFD1;
-    --color-green-300: #91F29B;
-    --color-green-400: #5CE66A;
-    --color-green-500: #00B312;
-    --color-green-600: #00800D;
-    --color-green-700: #004D08;
-    --color-green-800: #003305;
-    --color-green-900: #001A03;
+    /*
+    * Orange (warning, action needed)
+    * Hybrid ramp: everyday warmth at 500, International Orange intensity at 600.
+    * Hue 36-41.
+    */
+    --color-orange-50: #fff4f1;
+    --color-orange-100: #ffebe5;
+    --color-orange-200: #ffe0d6;
+    --color-orange-300: #ffd0c1;
+    --color-orange-400: #ffaf93;
+    --color-orange-500: #fc7f4f;
+    --color-orange-600: #e94c00;
+    --color-orange-700: #ae390c;
+    --color-orange-800: #7c2d18;
+    --color-orange-900: #552519;
+    --color-orange-950: #3b1d16;
+    --color-orange: var(--color-orange-500);
+
+    /*
+    * Gold (accent, highlight, positive energy - replaces yellow)
+    * Anchor at 400. Light end is visible peach-cream. 500+ shifted toward amber.
+    * Hue 63-45.
+    */
+    --color-gold-50: #fff7f0;
+    --color-gold-100: #fff3e7;
+    --color-gold-200: #ffedda;
+    --color-gold-300: #ffe5c5;
+    --color-gold-400: #ffcb09;
+    --color-gold-500: #ea9434;
+    --color-gold-600: #c1783c;
+    --color-gold-700: #985f39;
+    --color-gold-800: #71462e;
+    --color-gold-900: #543425;
+    --color-gold-950: #41281d;
+    --color-gold: var(--color-gold-500);
+
+    /*
+    * Green (success, approved, healthy)
+    * Warm-leaning, avoids cold mint. Anchor at 500. Hue 134-150.
+    */
+    --color-green-50: #edfbef;
+    --color-green-100: #dff8e3;
+    --color-green-200: #caf3ce;
+    --color-green-300: #a2e9a7;
+    --color-green-400: #68cb69;
+    --color-green-500: #4aa342;
+    --color-green-600: #397e28;
+    --color-green-700: #305d1e;
+    --color-green-800: #264018;
+    --color-green-900: #1a2910;
+    --color-green-950: #0f1909;
     --color-green: var(--color-green-500);
 
+
     /*
-    * Utility Colors (WCAG AA accessible)
-    * Customize these for your project
-    * Contrast ratios verified against white background
+    * Brand + Utility Colors
     */
+    --color-brand: var(--color-purple-800);
+    --color-brand-light: var(--color-purple-300);
+    --color-brand-dark: var(--color-purple-900);
 
-    --color-error: var(--color-red);
-    /* --color-yellow-500 (#FFA300) fails 3:1 non-text contrast (WCAG 1.4.11).
-       Using yellow-600 (#996100) achieves ~4:1 against white backgrounds. */
-    --color-warning: var(--color-yellow-600);
-    --color-success: var(--color-green);
+    --color-error: var(--color-red-500);
+    --color-warning: var(--color-orange-600);
+    --color-success: var(--color-green-500);
+    --color-link: var(--color-blue-500);
+
 
     /*
-    * Semantic Colors
-    * These are what components and utilities reference
+    * Semantic Colors (8-token system)
+    * Components and utilities reference these, never raw ramp values.
     */
     --color-bg: var(--color-white);
-    --color-fg: var(--color-grey-900);
-    --color-accent: var(--color-blue);
+    --color-fg: var(--color-grey-800);
+    --color-accent: var(--color-blue-500);
+    --color-accent2: var(--color-purple-500);
     --color-muted: var(--color-grey-600);
-    --color-border: var(--color-fg);
-    --color-subtle: var(--color-grey-100);
+    --color-subtle: var(--color-grey-50);
+    --color-border: var(--color-grey-800);
+    --color-border-muted: var(--color-grey-300);
 
     /*
     * Overlay Colors
-    * For dialogs, modals, and backdrop effects
     */
     --overlay-backdrop: color-mix(in srgb, var(--color-fg) 50%, transparent);
     --overlay-shadow: color-mix(in srgb, var(--color-fg) 20%, transparent);
-
   }
 
 
   /*
-  * Color schemes for different colored blocks and areas across the project
+  * ─── Mode Schemes ───
+  * Light/dark with all 8 semantic tokens (from Figma variables).
   */
+
   .light-mode,
   .scheme-white,
   .scheme-default,
   .light-mode .scheme-default {
-    --color-bg: var(--color-white);
-    --color-fg: var(--color-grey-900);
+    --color-bg: var(--color-grey-100);
+    --color-fg: var(--color-grey-800);
     --color-accent: var(--color-blue-500);
+    --color-accent2: var(--color-purple-500);
     --color-muted: var(--color-grey-600);
-    --color-border: var(--color-grey-900);
-    --color-subtle: var(--color-grey-100);  
+    --color-subtle: var(--color-grey-50);
+    --color-border: var(--color-grey-800);
+    --color-border-muted: var(--color-grey-300);
     --vf-grad: 0;
   }
+
   .scheme-subtle,
   .light-mode .scheme-subtle {
-    --color-bg: var(--color-grey-100);
-    --color-fg: var(--color-grey-900);
+    --color-bg: var(--color-grey-50);
+    --color-fg: var(--color-grey-800);
     --color-accent: var(--color-blue-500);
+    --color-accent2: var(--color-purple-500);
     --color-muted: var(--color-grey-600);
-    --color-border: var(--color-grey-900);
-    --color-subtle: var(--color-grey-200);
+    --color-subtle: var(--color-white);
+    --color-border: var(--color-grey-800);
+    --color-border-muted: var(--color-grey-300);
     --vf-grad: 0;
   }
 
-
-  .scheme-accent {
-    --color-bg: var(--color-blue-500);
-    --color-fg: var(--color-white);
-    --color-accent: var(--color-blue-300);
-    --color-muted: var(--color-blue-200);
-    --color-border: var(--color-blue-300);
-    --color-subtle: var(--color-blue-600);
-    --vf-grad: 0;
-  }
 
   /*
-  * Brand Color Schemes
-  * Accessible combinations for each color family
+  * ─── Dark Mode ───
   */
-  .scheme-orange {
-    --color-bg: var(--color-orange-500);
-    --color-fg: var(--color-black);
-    --color-accent: var(--color-orange-900);
-    --color-muted: var(--color-orange-800);
-    --color-border: var(--color-orange-800);
-    --color-subtle: var(--color-orange-400);
-    --vf-grad: 0;
-  }
-  .scheme-orange-light {
-    --color-bg: var(--color-orange-100);
-    --color-fg: var(--color-orange-900);
-    --color-accent: var(--color-orange-500);
-    --color-muted: var(--color-orange-700);
-    --color-border: var(--color-orange-500);
-    --color-subtle: var(--color-orange-200);
-    --vf-grad: 0;
-  }
 
-  .scheme-red {
-    --color-bg: var(--color-red-500);
-    --color-fg: var(--color-white);
-    --color-accent: var(--color-red-300);
-    --color-muted: var(--color-red-200);
-    --color-border: var(--color-red-100);
-    --color-subtle: var(--color-red-600);
-    --vf-grad: 0;
-  }
-  .scheme-red-light {
-    --color-bg: var(--color-red-100);
-    --color-fg: var(--color-red-900);
-    --color-accent: var(--color-red-500);
-    --color-muted: var(--color-red-700);
-    --color-border: var(--color-red-500);
-    --color-subtle: var(--color-red-200);
-    --vf-grad: 0;
-  }
-
-  .scheme-blue {
-    --color-bg: var(--color-blue-500);
-    --color-fg: var(--color-white);
-    --color-accent: var(--color-blue-300);
-    --color-muted: var(--color-blue-200);
-    --color-border: var(--color-blue-300);
-    --color-subtle: var(--color-blue-600);
-    --vf-grad: 0;
-  }
-  .scheme-blue-light {
-    --color-bg: var(--color-blue-100);
-    --color-fg: var(--color-blue-900);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-blue-700);
-    --color-border: var(--color-blue-500);
-    --color-subtle: var(--color-blue-200);
-    --vf-grad: 0;
-  }
-
-  .scheme-yellow {
-    --color-bg: var(--color-yellow-500);
-    --color-fg: var(--color-black);
-    --color-accent: var(--color-yellow-700);
-    --color-muted: var(--color-yellow-800);
-    --color-border: var(--color-yellow-900);
-    --color-subtle: var(--color-yellow-400);
-    --vf-grad: 0;
-  }
-  .scheme-yellow-light {
-    --color-bg: var(--color-yellow-100);
-    --color-fg: var(--color-yellow-900);
-    --color-accent: var(--color-yellow-500);
-    --color-muted: var(--color-yellow-800);
-    --color-border: var(--color-yellow-500);
-    --color-subtle: var(--color-yellow-200);
-    --vf-grad: 0;
-  }
-
-  .scheme-green {
-    --color-bg: var(--color-green-500);
-    --color-fg: var(--color-black);
-    --color-accent: var(--color-green-800);
-    --color-muted: var(--color-green-800);
-    --color-border: var(--color-green-900);
-    --color-subtle: var(--color-green-400);
-    --vf-grad: 0;
-  }
-  .scheme-green-light {
-    --color-bg: var(--color-green-100);
-    --color-fg: var(--color-green-900);
-    --color-accent: var(--color-green-500);
-    --color-muted: var(--color-green-700);
-    --color-border: var(--color-green-500);
-    --color-subtle: var(--color-green-200);
-    --vf-grad: 0;
-  }
-
-  .scheme-black {
-    --color-bg: var(--color-black);
-    --color-fg: var(--color-white);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-400);
-    --color-border: var(--color-grey-100);
-    --color-subtle: var(--color-grey-900);
-    --vf-grad: -50;
-  }
-
-  /*
-  * Greyscale Schemes
-  * Light greys use dark text with blue accents
-  * Dark greys use light text with light blue accents
-  */
-  .scheme-grey-100 {
-    --color-bg: var(--color-grey-100);
-    --color-fg: var(--color-grey-900);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-600);
-    --color-border: var(--color-grey-900);
-    --color-subtle: var(--color-grey-200);
-    --vf-grad: 0;
-  }
-  .scheme-grey-200 {
-    --color-bg: var(--color-grey-200);
-    --color-fg: var(--color-grey-900);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-700);
-    --color-border: var(--color-grey-900);
-    --color-subtle: var(--color-grey-300);
-    --vf-grad: 0;
-  }
-  .scheme-grey-300 {
-    --color-bg: var(--color-grey-300);
-    --color-fg: var(--color-black);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-700);
-    --color-border: var(--color-black);
-    --color-subtle: var(--color-grey-400);
-    --vf-grad: 0;
-  }
-  .scheme-grey-400 {
-    --color-bg: var(--color-grey-400);
-    --color-fg: var(--color-black);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-800);
-    --color-border: var(--color-black);
-    --color-subtle: var(--color-grey-500);
-    --vf-grad: 0;
-  }
-  /* scheme-grey-500: mid-grey background. White fg achieves ~3.95:1 (passes
-     large-text AA, borderline for normal text). Suitable for headings and
-     display text, not body paragraphs. Muted set to grey-100 for max contrast
-     (~3.6:1); 4.5:1 is unachievable against this background. */
-  .scheme-grey-500 {
-    --color-bg: var(--color-grey-500);
-    --color-fg: var(--color-white);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-100);
-    --color-border: var(--color-white);
-    --color-subtle: var(--color-grey-600);
-    --vf-grad: -25;
-  }
-  .scheme-grey-600 {
-    --color-bg: var(--color-grey-600);
-    --color-fg: var(--color-white);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-200);
-    --color-border: var(--color-white);
-    --color-subtle: var(--color-grey-700);
-    --vf-grad: -25;
-  }
-  .scheme-grey-700 {
-    --color-bg: var(--color-grey-700);
-    --color-fg: var(--color-white);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-300);
-    --color-border: var(--color-grey-100);
-    --color-subtle: var(--color-grey-800);
-    --vf-grad: -50;
-  }
-  .scheme-grey-800 {
-    --color-bg: var(--color-grey-800);
-    --color-fg: var(--color-grey-100);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-400);
-    --color-border: var(--color-grey-100);
-    --color-subtle: var(--color-grey-900);
-    --vf-grad: -50;
-  }
-  .scheme-grey-900 {
-    --color-bg: var(--color-grey-900);
-    --color-fg: var(--color-grey-100);
-    --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-400);
-    --color-border: var(--color-grey-100);
-    --color-subtle: var(--color-black);
-    --vf-grad: -50;
-  }
-
-    /*
-  * Dark Mode Support
-  * Automatically adjusts for system preference
-  */
   @media (prefers-color-scheme: dark) {
     :root,
     .scheme-default {
       --color-bg: var(--color-grey-900);
       --color-fg: var(--color-grey-100);
       --color-accent: var(--color-blue-500);
-      --color-muted: var(--color-grey-400);
-      --color-border: var(--color-grey-600);
-      --color-subtle: var(--color-black);
-      --vf-grad: -50; /* Adjust per font reduces font grade */
+      --color-accent2: var(--color-purple-500);
+      --color-muted: var(--color-grey-500);
+      --color-subtle: var(--color-grey-800);
+      --color-border: var(--color-grey-100);
+      --color-border-muted: var(--color-grey-700);
+      --vf-grad: -50;
     }
     .scheme-subtle {
       --color-bg: var(--color-grey-800);
       --color-fg: var(--color-grey-100);
       --color-accent: var(--color-blue-500);
-      --color-muted: var(--color-grey-400);
-      --color-border: var(--color-grey-600);
-      --color-subtle: var(--color-grey-900);
+      --color-accent2: var(--color-purple-500);
+      --color-muted: var(--color-grey-500);
+      --color-subtle: var(--color-grey-700);
+      --color-border: var(--color-grey-100);
+      --color-border-muted: var(--color-grey-600);
       --vf-grad: -50;
     }
   }
 
-  /*
-  * Manual Mode Overrides
-  * Force light or dark mode regardless of system preference
-  */
   .dark-mode,
   .dark-mode .scheme-default,
   .scheme-dark {
     --color-bg: var(--color-grey-900);
     --color-fg: var(--color-grey-100);
     --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-400);
-    --color-border: var(--color-grey-400);
-    --color-subtle: var(--color-black);
+    --color-accent2: var(--color-purple-500);
+    --color-muted: var(--color-grey-500);
+    --color-subtle: var(--color-grey-800);
+    --color-border: var(--color-grey-100);
+    --color-border-muted: var(--color-grey-700);
     --vf-grad: -50;
     background-color: var(--color-bg);
     color: var(--color-fg);
   }
+
   .dark-mode .scheme-subtle {
     --color-bg: var(--color-grey-800);
     --color-fg: var(--color-grey-100);
     --color-accent: var(--color-blue-500);
-    --color-muted: var(--color-grey-400);
-    --color-border: var(--color-grey-300);
-    --color-subtle: var(--color-grey-900);
+    --color-accent2: var(--color-purple-500);
+    --color-muted: var(--color-grey-500);
+    --color-subtle: var(--color-grey-700);
+    --color-border: var(--color-grey-100);
+    --color-border-muted: var(--color-grey-600);
     --vf-grad: -50;
   }
 
   .light-mode,
   .light-mode .scheme-default {
-    --color-bg: var(--color-white);
-    --color-fg: var(--color-grey-900);
+    --color-bg: var(--color-grey-100);
+    --color-fg: var(--color-grey-800);
     --color-accent: var(--color-blue-500);
+    --color-accent2: var(--color-purple-500);
     --color-muted: var(--color-grey-600);
-    --color-border: var(--color-grey-900);
-    --color-subtle: var(--color-grey-100);
+    --color-subtle: var(--color-grey-50);
+    --color-border: var(--color-grey-800);
+    --color-border-muted: var(--color-grey-300);
     --vf-grad: 0;
     background-color: var(--color-bg);
     color: var(--color-fg);

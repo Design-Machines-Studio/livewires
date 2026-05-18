@@ -3,20 +3,18 @@
  *
  * Displays a comprehensive color scheme testing panel with typography, colors, borders, and form elements.
  *
- * @attr {string} theme - Theme class to apply (e.g., "theme-white", "theme-black", "theme-brand")
- * @attr {string} title - Optional title override (defaults to theme value)
+ * @attr {string} scheme - Scheme class to apply (e.g., "scheme-default", "scheme-dark")
+ * @attr {string} title - Optional title override (defaults to scheme value)
  *
  * @example
- * <scheme-panel scheme="theme-white"></scheme-panel>
- * <scheme-panel scheme="theme-black"></scheme-panel>
- * <scheme-panel scheme="theme-brand" title="Brand Colors"></scheme-panel>
+ * <scheme-panel scheme="scheme-default"></scheme-panel>
+ * <scheme-panel scheme="scheme-dark" title="Dark Mode"></scheme-panel>
  */
 class SchemePanel extends HTMLElement {
   connectedCallback() {
     this.render();
   }
 
-  // Get attribute values with defaults
   get scheme() {
     return this.getAttribute('scheme') || '';
   }
@@ -40,9 +38,11 @@ class SchemePanel extends HTMLElement {
           <div>
             <h4 class="mb-05">Secondary colours</h4>
             <div class="p-025 bg-accent">Accent</div>
+            <div class="p-025" style="background: var(--color-accent2); color: var(--color-white);">Accent 2</div>
             <div class="p-025 bg-subtle">Subtle</div>
-            <div class="p-025 text-accent">Accent</div>
-            <div class="p-025 text-muted">Off-foreground</div>
+            <div class="p-025 text-accent">Accent text</div>
+            <div class="p-025" style="color: var(--color-accent2);">Accent 2 text</div>
+            <div class="p-025 text-muted">Muted text</div>
           </div>
 
           <div class="box bg-subtle text-sm">
@@ -65,11 +65,11 @@ class SchemePanel extends HTMLElement {
           <div class="stack">
             <h4>Forms</h4>
             <div class="field">
-              <label for="${this.scheme}">Text input</label>
-              <input type="text" name="${this.scheme}" id="${this.scheme}" value="" placeholder="Text" />
+              <label for="${this.scheme}">Label</label>
+              <input type="text" name="${this.scheme}" id="${this.scheme}" value="" placeholder="Placeholder" />
             </div>
-            <button>Standard button</button>
-            <button class="button--accent">Accent button</button>
+            <button>Button</button>
+            <button class="button--accent">Button</button>
           </div>
         </div>
       </div>
@@ -79,5 +79,4 @@ class SchemePanel extends HTMLElement {
   }
 }
 
-// Register the custom element
 customElements.define('scheme-panel', SchemePanel);

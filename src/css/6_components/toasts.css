@@ -71,9 +71,9 @@
   }
 
   .toast--warning {
-    background: var(--color-yellow-100);
-    color: var(--color-yellow-900);
-    border-color: var(--color-yellow-200);
+    background: var(--color-gold-100);
+    color: var(--color-gold-900);
+    border-color: var(--color-gold-200);
     border-inline-start-color: var(--color-warning);
   }
 

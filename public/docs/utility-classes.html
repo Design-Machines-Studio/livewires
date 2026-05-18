@@ -10,7 +10,7 @@
     <!-- HTML Include: additional head metadata -->
     <html-include src="/_includes/head.html"></html-include>
   </head>
-  <body class="pg-docs">
+  <body class="scheme-default pg-docs">
 
     <!-- HTML Include: site header -->
     <html-include src="/_includes/header.html"></html-include>
@@ -198,47 +198,41 @@
           <h3>Color schemes</h3>
           <p>Apply a color scheme to a container. All children inherit the semantic colors (<code>--color-bg</code>, <code>--color-fg</code>, <code>--color-accent</code>, etc.):</p>
 
-          <h4>Adaptive schemes (respond to dark mode)</h4>
-          <pre><code>.scheme-default   /* System default */
-.scheme-subtle    /* Subtle grey background */</code></pre>
+          <h4>Mode schemes</h4>
+          <pre><code>.scheme-default   /* Light mode (on body) */
+.scheme-subtle    /* Subtle variant */
+.scheme-dark      /* Dark mode override */</code></pre>
 
-          <h4>Brand color schemes</h4>
-          <pre><code>.scheme-accent        .scheme-orange       .scheme-orange-light
-.scheme-red           .scheme-red-light    .scheme-blue
-.scheme-blue-light    .scheme-yellow       .scheme-yellow-light
-.scheme-green         .scheme-green-light</code></pre>
-
-          <h4>Greyscale schemes</h4>
-          <pre><code>.scheme-black     .scheme-grey-900    .scheme-grey-800
-.scheme-grey-700  .scheme-grey-600    .scheme-grey-500
-.scheme-grey-400  .scheme-grey-300    .scheme-grey-200
-.scheme-grey-100</code></pre>
+          <h4>Status schemes</h4>
+          <pre><code>.scheme-danger   .scheme-warning  .scheme-success</code></pre>
 
           <h3>Text colors</h3>
           <h4>Semantic</h4>
-          <pre><code>.text-fg       .text-accent   .text-muted
-.text-white    .text-black</code></pre>
+          <pre><code>.text-fg       .text-accent   .text-accent2
+.text-muted    .text-white    .text-black</code></pre>
 
-          <h4>Brand colors (100-900 scale)</h4>
-          <pre><code>.text-orange   .text-orange-100 ... .text-orange-900
-.text-red      .text-red-100 ... .text-red-900
-.text-blue     .text-blue-100 ... .text-blue-900
-.text-yellow   .text-yellow-100 ... .text-yellow-900
-.text-green    .text-green-100 ... .text-green-900
-.text-grey-100 ... .text-grey-900</code></pre>
+          <h4>Colour ramps (50-950 scale)</h4>
+          <pre><code>.text-grey     .text-grey-50 ... .text-grey-950
+.text-purple   .text-purple-50 ... .text-purple-950
+.text-blue     .text-blue-50 ... .text-blue-950
+.text-red      .text-red-50 ... .text-red-950
+.text-orange   .text-orange-50 ... .text-orange-950
+.text-gold     .text-gold-50 ... .text-gold-950
+.text-green    .text-green-50 ... .text-green-950</code></pre>
 
           <h3>Background colors</h3>
           <h4>Semantic</h4>
           <pre><code>.bg-white       .bg-black       .bg-subtle
 .bg-accent      .bg-transparent</code></pre>
 
-          <h4>Brand colors (100-900 scale)</h4>
-          <pre><code>.bg-orange   .bg-orange-100 ... .bg-orange-900
-.bg-red      .bg-red-100 ... .bg-red-900
-.bg-blue     .bg-blue-100 ... .bg-blue-900
-.bg-yellow   .bg-yellow-100 ... .bg-yellow-900
-.bg-green    .bg-green-100 ... .bg-green-900
-.bg-grey-100 ... .bg-grey-900</code></pre>
+          <h4>Colour ramps (50-950 scale)</h4>
+          <pre><code>.bg-grey     .bg-grey-50 ... .bg-grey-950
+.bg-purple   .bg-purple-50 ... .bg-purple-950
+.bg-blue     .bg-blue-50 ... .bg-blue-950
+.bg-red      .bg-red-50 ... .bg-red-950
+.bg-orange   .bg-orange-50 ... .bg-orange-950
+.bg-gold     .bg-gold-50 ... .bg-gold-950
+.bg-green    .bg-green-50 ... .bg-green-950</code></pre>
           <p class="more"><a href="#main">To top</a></p>
         </section>
 

@@ -22,10 +22,12 @@
     --badge-green-fg: var(--color-green-700);
     --badge-orange-bg: var(--color-orange-100);
     --badge-orange-fg: var(--color-orange-700);
-    --badge-yellow-bg: var(--color-yellow-100);
-    --badge-yellow-fg: var(--color-yellow-700);
+    --badge-gold-bg: var(--color-gold-100);
+    --badge-gold-fg: var(--color-gold-700);
     --badge-red-bg: var(--color-red-100);
     --badge-red-fg: var(--color-red-700);
+    --badge-purple-bg: var(--color-purple-100);
+    --badge-purple-fg: var(--color-purple-700);
     --badge-grey-bg: var(--color-grey-200);
     --badge-grey-fg: var(--color-grey-700);
 
@@ -64,9 +66,14 @@
     color: var(--badge-orange-fg);
   }
 
-  .badge--yellow {
-    background: var(--badge-yellow-bg);
-    color: var(--badge-yellow-fg);
+  .badge--gold {
+    background: var(--badge-gold-bg);
+    color: var(--badge-gold-fg);
+  }
+
+  .badge--purple {
+    background: var(--badge-purple-bg);
+    color: var(--badge-purple-fg);
   }
 
   .badge--red {
@@ -91,8 +98,8 @@
   }
 
   .badge--pending {
-    background: var(--badge-yellow-bg);
-    color: var(--badge-yellow-fg);
+    background: var(--badge-gold-bg);
+    color: var(--badge-gold-fg);
   }
 
   .badge--active {
