@@ -30,7 +30,7 @@
     --switch-handle-offset: calc(var(--switch-height) * 0.125);
 
     /* Colors - track-bg must contrast 3:1 against page bg in all schemes */
-    --switch-track-bg: var(--color-iron-400);
+    --switch-track-bg: var(--color-grey-400);
     --switch-track-bg-checked: var(--color-accent);
     --switch-handle-bg: var(--color-white);
     --switch-handle-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
