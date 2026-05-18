@@ -8,7 +8,7 @@
  * <span class="badge badge--blue">New</span>
  * <span class="badge badge--green">Active</span>
  * <span class="badge badge--red">Urgent</span>
- * <span class="badge badge--grey">Draft</span>
+ * <span class="badge badge--iron">Draft</span>
  */
 
 @layer components {
@@ -22,12 +22,14 @@
     --badge-green-fg: var(--color-green-700);
     --badge-orange-bg: var(--color-orange-100);
     --badge-orange-fg: var(--color-orange-700);
-    --badge-yellow-bg: var(--color-yellow-100);
-    --badge-yellow-fg: var(--color-yellow-700);
+    --badge-gold-bg: var(--color-gold-100);
+    --badge-gold-fg: var(--color-gold-700);
     --badge-red-bg: var(--color-red-100);
     --badge-red-fg: var(--color-red-700);
-    --badge-grey-bg: var(--color-grey-200);
-    --badge-grey-fg: var(--color-grey-700);
+    --badge-purple-bg: var(--color-purple-100);
+    --badge-purple-fg: var(--color-purple-700);
+    --badge-iron-bg: var(--color-iron-200);
+    --badge-iron-fg: var(--color-iron-700);
 
     display: inline-flex;
     align-items: center;
@@ -40,9 +42,9 @@
     border-radius: var(--line-025);
     white-space: nowrap;
 
-    /* Default fallback - unrecognized variants get grey */
-    background: var(--badge-grey-bg);
-    color: var(--badge-grey-fg);
+    /* Default fallback - unrecognized variants get iron */
+    background: var(--badge-iron-bg);
+    color: var(--badge-iron-fg);
   }
 
   /* ==========================================================================
@@ -64,9 +66,14 @@
     color: var(--badge-orange-fg);
   }
 
-  .badge--yellow {
-    background: var(--badge-yellow-bg);
-    color: var(--badge-yellow-fg);
+  .badge--gold {
+    background: var(--badge-gold-bg);
+    color: var(--badge-gold-fg);
+  }
+
+  .badge--purple {
+    background: var(--badge-purple-bg);
+    color: var(--badge-purple-fg);
   }
 
   .badge--red {
@@ -74,9 +81,9 @@
     color: var(--badge-red-fg);
   }
 
-  .badge--grey {
-    background: var(--badge-grey-bg);
-    color: var(--badge-grey-fg);
+  .badge--iron {
+    background: var(--badge-iron-bg);
+    color: var(--badge-iron-fg);
   }
 
   /* ==========================================================================
@@ -86,13 +93,13 @@
 
   /* Document/workflow states */
   .badge--draft {
-    background: var(--badge-grey-bg);
-    color: var(--badge-grey-fg);
+    background: var(--badge-iron-bg);
+    color: var(--badge-iron-fg);
   }
 
   .badge--pending {
-    background: var(--badge-yellow-bg);
-    color: var(--badge-yellow-fg);
+    background: var(--badge-gold-bg);
+    color: var(--badge-gold-fg);
   }
 
   .badge--active {
