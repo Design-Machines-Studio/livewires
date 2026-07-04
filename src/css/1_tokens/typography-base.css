@@ -66,13 +66,27 @@
     --viewport-max: 1200;  /* Desktop viewport (px) */
 
     /* ===============================================
-       THE BASELINE
-       --line scales from 24px (mobile) to 32px (desktop)
-       All spacing derives from this
+       UI SCALE
+       Master multiplier for the entire UI. 1 = default,
+       1.25 = +25%, 0.9 = -10%. Feeds the four px source tokens
+       (line-height min/max here + text-base min/max in
+       typography-scale-auto.css), so every --text-* size AND all
+       --line-derived spacing scale together -- bounds and fluid
+       amplitude alike. Number x number only, so it stays
+       Firefox-safe. Wire a scaler control to it:
+         document.documentElement.style.setProperty('--ui-scale', 1.25)
        =============================================== */
 
-    --line-height-min: 24;  /* Mobile baseline */
-    --line-height-max: 32;  /* Desktop baseline */
+    --ui-scale: 1;
+
+    /* ===============================================
+       THE BASELINE
+       --line scales from 24px (mobile) to 32px (desktop) at
+       --ui-scale 1. All spacing derives from this.
+       =============================================== */
+
+    --line-height-min: calc(24 * var(--ui-scale));  /* Mobile baseline */
+    --line-height-max: calc(32 * var(--ui-scale));  /* Desktop baseline */
 
     /* Fluid interpolation factor.
        Firefox-safe: the only division is by the UNITLESS viewport range

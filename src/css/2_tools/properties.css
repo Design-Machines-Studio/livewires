@@ -17,6 +17,12 @@
    Core typography settings
    =============================================== */
 
+@property --ui-scale {
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
 @property --type-scale-ratio {
   syntax: "<number>";
   initial-value: 1.25;
