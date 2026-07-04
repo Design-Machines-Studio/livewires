@@ -20,9 +20,9 @@
        Change these to customize your scale
        =============================================== */
 
-    /* Base font size (px) */
-    --text-base-min: 16;
-    --text-base-max: 22;
+    /* Base font size (px) -- scaled by --ui-scale (see typography-base.css) */
+    --text-base-min: calc(16 * var(--ui-scale));
+    --text-base-max: calc(22 * var(--ui-scale));
 
     /* Type scale ratio - Common scales:
        - Minor Third: 1.2

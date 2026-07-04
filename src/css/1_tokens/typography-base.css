@@ -66,17 +66,54 @@
     --viewport-max: 1200;  /* Desktop viewport (px) */
 
     /* ===============================================
-       THE BASELINE
-       --line scales from 24px (mobile) to 32px (desktop)
-       All spacing derives from this
+       UI SCALE
+       Master multiplier for the entire UI. 1 = default,
+       1.25 = +25%, 0.9 = -10%. Feeds the four px source tokens
+       (line-height min/max here + text-base min/max in
+       typography-scale-auto.css), so every --text-* size AND all
+       --line-derived spacing scale together -- bounds and fluid
+       amplitude alike. Number x number only, so it stays
+       Firefox-safe. Wire a scaler control to it:
+         document.documentElement.style.setProperty('--ui-scale', 1.25)
        =============================================== */
 
-    --line-height-min: 24;  /* Mobile baseline */
-    --line-height-max: 32;  /* Desktop baseline */
+    --ui-scale: 1;
+
+    /* ===============================================
+       THE BASELINE
+       --line scales from 24px (mobile) to 32px (desktop) at
+       --ui-scale 1. All spacing derives from this.
+       =============================================== */
+
+    --line-height-min: calc(24 * var(--ui-scale));  /* Mobile baseline */
+    --line-height-max: calc(32 * var(--ui-scale));  /* Desktop baseline */
+
+    /* Fluid interpolation factor.
+       Firefox-safe: the only division is by the UNITLESS viewport range
+       (--viewport-max - --viewport-min). The old per-size formula divided
+       (100vw - ...) by ((viewport-max - viewport-min) * 1px) -- a length --
+       which relies on CSS typed arithmetic (length / length) that Firefox
+       does not support, so --line and every --text-* collapsed in Gecko.
+
+       The viewport anchor stays in px (--viewport-min * 1px) because
+       --viewport-min / --viewport-max are px viewport widths -- this pins the
+       ramp to the 320-1200px design window at any root font-size. Value: 0px
+       at --viewport-min, exactly 1px at --viewport-max. Consumed by --line and
+       every --text-* size, which multiply it by their unitless (max - min)
+       delta.
+
+       Trade-off: because the delta is unitless, the fluid amplitude no longer
+       rem-scales, so sizes reach their configured max *exactly* only at the
+       default 16px root (values still stay within the rem clamp() bounds at
+       any root). Full rem-scaled interpolation is impossible without a
+       length/length division, so this is the deliberate Firefox-safe choice. */
+    --fluid-factor: calc(
+      (100vw - var(--viewport-min) * 1px) / (var(--viewport-max) - var(--viewport-min))
+    );
 
     --line: clamp(
       calc(var(--line-height-min) / 16 * 1rem),
-      calc(var(--line-height-min) / 16 * 1rem + (var(--line-height-max) - var(--line-height-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-height-min) / 16 * 1rem + (var(--line-height-max) - var(--line-height-min)) * var(--fluid-factor)),
       calc(var(--line-height-max) / 16 * 1rem)
     );
 

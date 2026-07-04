@@ -17,6 +17,12 @@
    Core typography settings
    =============================================== */
 
+@property --ui-scale {
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
 @property --type-scale-ratio {
   syntax: "<number>";
   initial-value: 1.25;
@@ -32,6 +38,15 @@
 @property --viewport-max {
   syntax: "<number>";
   initial-value: 1200;
+  inherits: true;
+}
+
+/* Computed fluid interpolation factor (a length). Registered for consistency
+   with the other computed type intermediates. Defined in
+   1_tokens/typography-base.css; consumed by --line and every --text-* size. */
+@property --fluid-factor {
+  syntax: "<length>";
+  initial-value: 0px;
   inherits: true;
 }
 
