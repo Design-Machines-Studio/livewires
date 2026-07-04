@@ -35,6 +35,15 @@
   inherits: true;
 }
 
+/* Computed fluid interpolation factor (a length). Registered for consistency
+   with the other computed type intermediates. Defined in
+   1_tokens/typography-base.css; consumed by --line and every --text-* size. */
+@property --fluid-factor {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: true;
+}
+
 @property --line-height-ratio-body {
   syntax: "<number>";
   initial-value: 1.5;

@@ -11,15 +11,31 @@
  * This preserves user font-size preferences and accessibility.
  * The body element receives --text-base for the actual content sizing.
  *
- * FORMULA (Utopia-style fluid interpolation):
+ * ⚠ NOT FIREFOX-SAFE -- manual mode is currently disabled (commented out in
+ * main.css). Before enabling it, convert this file the way the auto scale was
+ * (see 2_tools/typography-scale-auto.css + the --fluid-factor token in
+ * 1_tokens/typography-base.css). Two separate length ÷ length divisions here
+ * rely on CSS typed arithmetic that Firefox/Gecko does not support and will
+ * collapse every value to nothing:
+ *   1. The fluid FORMULA below divides by ((viewportMax - viewportMin) * 1px),
+ *      a length. Replace the `(100vw - ...) / ((...) * 1px)` tail with
+ *      `* var(--fluid-factor)` and drop the `/ 16 * 1rem` scaling on the delta.
+ *   2. The --line-height-* ratios (bottom of file) divide --leading-* by
+ *      --text-* -- length ÷ length. These need restructuring too (e.g. consume
+ *      the length --leading-* directly), which is why the fix is deferred until
+ *      manual mode is actually adopted rather than half-done here.
+ *
+ * FORMULA (Utopia-style fluid interpolation -- Firefox-BROKEN, see warning above):
  * clamp(
  *   min / 16 * 1rem,
  *   min / 16 * 1rem + (max - min) / 16 * 1rem * (100vw - viewportMin * 1px) / ((viewportMax - viewportMin) * 1px),
  *   max / 16 * 1rem
  * )
  *
- * Key: (100vw - Xpx) / Ypx produces a unitless ratio (0 to 1).
- * This scales linearly from min at --viewport-min (320px) to max at --viewport-max (1200px).
+ * Key: (100vw - Xpx) / Ypx produces a unitless ratio (0 to 1) -- but the
+ * `/ Ypx` divisor is a length, which is the Gecko incompatibility.
+ * At the default 16px root this scales from min at --viewport-min (320px) to
+ * max at --viewport-max (1200px).
  */
 
 @layer tokens {
