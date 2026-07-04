@@ -11,93 +11,100 @@
  * 4. Font sizes and line-heights are calculated (see 2_tools/typography-scale-manual-computed.css)
  *
  * To use: Import this file in main.css instead of typography-scale-ratio.css
+ *
+ * Every size/line value is multiplied by --ui-scale (default 1, defined in
+ * 1_tokens/typography-base.css) so the master UI scaler drives manual mode too,
+ * exactly as it drives auto mode. calc() is number x number -- Firefox-safe.
+ * --tracking-* stay in em, which already scale with font-size.
  */
 
 @layer tokens {
   :root {
     /* ===============================================
        CONFIGURATION
-       =============================================== 
+       ===============================================
        TYPE SCALE DEFINITIONS
-       Define min/max for size AND line-height
+       Define min/max for size AND line-height.
+       Base (unscaled) values in the calc()s; --ui-scale applies the
+       master multiplier.
        =============================================== */
 
-    --size-xs-min: 14;
-    --line-xs-min: 16;
-    --size-xs-max: 15;
-    --line-xs-max: 20;
+    --size-xs-min: calc(14 * var(--ui-scale));
+    --line-xs-min: calc(16 * var(--ui-scale));
+    --size-xs-max: calc(15 * var(--ui-scale));
+    --line-xs-max: calc(20 * var(--ui-scale));
     --tracking-xs: 0.01em;
 
-    --size-sm-min: 15;
-    --line-sm-min: 20;
-    --size-sm-max: 18;
-    --line-sm-max: 24;
+    --size-sm-min: calc(15 * var(--ui-scale));
+    --line-sm-min: calc(20 * var(--ui-scale));
+    --size-sm-max: calc(18 * var(--ui-scale));
+    --line-sm-max: calc(24 * var(--ui-scale));
     --tracking-sm: 0em;
 
-    --size-base-min: 17;
-    --line-base-min: 24;
-    --size-base-max: 22;
-    --line-base-max: 32;
+    --size-base-min: calc(17 * var(--ui-scale));
+    --line-base-min: calc(24 * var(--ui-scale));
+    --size-base-max: calc(22 * var(--ui-scale));
+    --line-base-max: calc(32 * var(--ui-scale));
     --tracking-base: 0em;
 
-    --size-lg-min: 20;
-    --line-lg-min: 24;
-    --size-lg-max: 27;
-    --line-lg-max: 32;
+    --size-lg-min: calc(20 * var(--ui-scale));
+    --line-lg-min: calc(24 * var(--ui-scale));
+    --size-lg-max: calc(27 * var(--ui-scale));
+    --line-lg-max: calc(32 * var(--ui-scale));
     --tracking-lg: -0.01em;
 
-    --size-xl-min: 23;
-    --line-xl-min: 28;
-    --size-xl-max: 32;
-    --line-xl-max: 36;
+    --size-xl-min: calc(23 * var(--ui-scale));
+    --line-xl-min: calc(28 * var(--ui-scale));
+    --size-xl-max: calc(32 * var(--ui-scale));
+    --line-xl-max: calc(36 * var(--ui-scale));
     --tracking-xl: -0.015em;
 
-    --size-2xl-min: 28;
-    --line-2xl-min: 32;
-    --size-2xl-max: 38;
-    --line-2xl-max: 40;
+    --size-2xl-min: calc(28 * var(--ui-scale));
+    --line-2xl-min: calc(32 * var(--ui-scale));
+    --size-2xl-max: calc(38 * var(--ui-scale));
+    --line-2xl-max: calc(40 * var(--ui-scale));
     --tracking-2xl: -0.02em;
 
-    --size-3xl-min: 32;
-    --line-3xl-min: 32;
-    --size-3xl-max: 48;
-    --line-3xl-max: 48;
+    --size-3xl-min: calc(32 * var(--ui-scale));
+    --line-3xl-min: calc(32 * var(--ui-scale));
+    --size-3xl-max: calc(48 * var(--ui-scale));
+    --line-3xl-max: calc(48 * var(--ui-scale));
     --tracking-3xl: -0.025em;
 
-    --size-4xl-min: 36;
-    --line-4xl-min: 36;
-    --size-4xl-max: 64;
-    --line-4xl-max: 64;
+    --size-4xl-min: calc(36 * var(--ui-scale));
+    --line-4xl-min: calc(36 * var(--ui-scale));
+    --size-4xl-max: calc(64 * var(--ui-scale));
+    --line-4xl-max: calc(64 * var(--ui-scale));
     --tracking-4xl: -0.03em;
 
-    --size-5xl-min: 40;
-    --line-5xl-min: 40;
-    --size-5xl-max: 80;
-    --line-5xl-max: 80;
+    --size-5xl-min: calc(40 * var(--ui-scale));
+    --line-5xl-min: calc(40 * var(--ui-scale));
+    --size-5xl-max: calc(80 * var(--ui-scale));
+    --line-5xl-max: calc(80 * var(--ui-scale));
     --tracking-5xl: -0.035em;
 
-    --size-6xl-min: 48;
-    --line-6xl-min: 48;
-    --size-6xl-max: 96;
-    --line-6xl-max: 96;
+    --size-6xl-min: calc(48 * var(--ui-scale));
+    --line-6xl-min: calc(48 * var(--ui-scale));
+    --size-6xl-max: calc(96 * var(--ui-scale));
+    --line-6xl-max: calc(96 * var(--ui-scale));
     --tracking-6xl: -0.04em;
 
-    --size-7xl-min: 60;
-    --line-7xl-min: 60;
-    --size-7xl-max: 128;
-    --line-7xl-max: 128;
+    --size-7xl-min: calc(60 * var(--ui-scale));
+    --line-7xl-min: calc(60 * var(--ui-scale));
+    --size-7xl-max: calc(128 * var(--ui-scale));
+    --line-7xl-max: calc(128 * var(--ui-scale));
     --tracking-7xl: -0.045em;
 
-    --size-8xl-min: 72;
-    --line-8xl-min: 72;
-    --size-8xl-max: 160;
-    --line-8xl-max: 160;
+    --size-8xl-min: calc(72 * var(--ui-scale));
+    --line-8xl-min: calc(72 * var(--ui-scale));
+    --size-8xl-max: calc(160 * var(--ui-scale));
+    --line-8xl-max: calc(160 * var(--ui-scale));
     --tracking-8xl: -0.05em;
 
-    --size-9xl-min: 96;
-    --line-9xl-min: 96;
-    --size-9xl-max: 192;
-    --line-9xl-max: 192;
+    --size-9xl-min: calc(96 * var(--ui-scale));
+    --line-9xl-min: calc(96 * var(--ui-scale));
+    --size-9xl-max: calc(192 * var(--ui-scale));
+    --line-9xl-max: calc(192 * var(--ui-scale));
     --tracking-9xl: -0.055em;
 
     /* ===============================================
