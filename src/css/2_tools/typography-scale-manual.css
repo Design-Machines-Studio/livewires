@@ -11,219 +11,210 @@
  * This preserves user font-size preferences and accessibility.
  * The body element receives --text-base for the actual content sizing.
  *
- * ⚠ NOT FIREFOX-SAFE -- manual mode is currently disabled (commented out in
- * main.css). Before enabling it, convert this file the way the auto scale was
- * (see 2_tools/typography-scale-auto.css + the --fluid-factor token in
- * 1_tokens/typography-base.css). Two separate length ÷ length divisions here
- * rely on CSS typed arithmetic that Firefox/Gecko does not support and will
- * collapse every value to nothing:
- *   1. The fluid FORMULA below divides by ((viewportMax - viewportMin) * 1px),
- *      a length. Replace the `(100vw - ...) / ((...) * 1px)` tail with
- *      `* var(--fluid-factor)` and drop the `/ 16 * 1rem` scaling on the delta.
- *   2. The --line-height-* ratios (bottom of file) divide --leading-* by
- *      --text-* -- length ÷ length. These need restructuring too (e.g. consume
- *      the length --leading-* directly), which is why the fix is deferred until
- *      manual mode is actually adopted rather than half-done here.
+ * Firefox-safe: every fluid clamp() divides only by the unitless viewport range
+ * via --fluid-factor (defined in 1_tokens/typography-base.css). No length ÷ length
+ * (CSS typed arithmetic) is used anywhere -- that construct is unsupported in
+ * Gecko and would collapse every value. Line-heights use the length --leading-*
+ * directly (baseline-locked), which is the correct behaviour for manual mode and
+ * sidesteps the unitless leading ÷ text ratio that auto mode computes.
  *
- * FORMULA (Utopia-style fluid interpolation -- Firefox-BROKEN, see warning above):
+ * FORMULA (Utopia-style fluid interpolation, Firefox-safe):
  * clamp(
  *   min / 16 * 1rem,
- *   min / 16 * 1rem + (max - min) / 16 * 1rem * (100vw - viewportMin * 1px) / ((viewportMax - viewportMin) * 1px),
+ *   min / 16 * 1rem + (max - min) * var(--fluid-factor),
  *   max / 16 * 1rem
  * )
- *
- * Key: (100vw - Xpx) / Ypx produces a unitless ratio (0 to 1) -- but the
- * `/ Ypx` divisor is a length, which is the Gecko incompatibility.
- * At the default 16px root this scales from min at --viewport-min (320px) to
- * max at --viewport-max (1200px).
  */
 
 @layer tokens {
   :root {
     /* ===============================================
        COMPUTED FONT SIZES
-       Fluid rem-based clamp() with Utopia-style interpolation
+       Fluid rem-based clamp() -- amplitude scaled by --fluid-factor
        =============================================== */
 
     --text-xs: clamp(
       calc(var(--size-xs-min) / 16 * 1rem),
-      calc(var(--size-xs-min) / 16 * 1rem + (var(--size-xs-max) - var(--size-xs-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-xs-min) / 16 * 1rem + (var(--size-xs-max) - var(--size-xs-min)) * var(--fluid-factor)),
       calc(var(--size-xs-max) / 16 * 1rem)
     );
 
     --text-sm: clamp(
       calc(var(--size-sm-min) / 16 * 1rem),
-      calc(var(--size-sm-min) / 16 * 1rem + (var(--size-sm-max) - var(--size-sm-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-sm-min) / 16 * 1rem + (var(--size-sm-max) - var(--size-sm-min)) * var(--fluid-factor)),
       calc(var(--size-sm-max) / 16 * 1rem)
     );
 
     --text-base: clamp(
       calc(var(--size-base-min) / 16 * 1rem),
-      calc(var(--size-base-min) / 16 * 1rem + (var(--size-base-max) - var(--size-base-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-base-min) / 16 * 1rem + (var(--size-base-max) - var(--size-base-min)) * var(--fluid-factor)),
       calc(var(--size-base-max) / 16 * 1rem)
     );
 
     --text-lg: clamp(
       calc(var(--size-lg-min) / 16 * 1rem),
-      calc(var(--size-lg-min) / 16 * 1rem + (var(--size-lg-max) - var(--size-lg-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-lg-min) / 16 * 1rem + (var(--size-lg-max) - var(--size-lg-min)) * var(--fluid-factor)),
       calc(var(--size-lg-max) / 16 * 1rem)
     );
 
     --text-xl: clamp(
       calc(var(--size-xl-min) / 16 * 1rem),
-      calc(var(--size-xl-min) / 16 * 1rem + (var(--size-xl-max) - var(--size-xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-xl-min) / 16 * 1rem + (var(--size-xl-max) - var(--size-xl-min)) * var(--fluid-factor)),
       calc(var(--size-xl-max) / 16 * 1rem)
     );
 
     --text-2xl: clamp(
       calc(var(--size-2xl-min) / 16 * 1rem),
-      calc(var(--size-2xl-min) / 16 * 1rem + (var(--size-2xl-max) - var(--size-2xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-2xl-min) / 16 * 1rem + (var(--size-2xl-max) - var(--size-2xl-min)) * var(--fluid-factor)),
       calc(var(--size-2xl-max) / 16 * 1rem)
     );
 
     --text-3xl: clamp(
       calc(var(--size-3xl-min) / 16 * 1rem),
-      calc(var(--size-3xl-min) / 16 * 1rem + (var(--size-3xl-max) - var(--size-3xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-3xl-min) / 16 * 1rem + (var(--size-3xl-max) - var(--size-3xl-min)) * var(--fluid-factor)),
       calc(var(--size-3xl-max) / 16 * 1rem)
     );
 
     --text-4xl: clamp(
       calc(var(--size-4xl-min) / 16 * 1rem),
-      calc(var(--size-4xl-min) / 16 * 1rem + (var(--size-4xl-max) - var(--size-4xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-4xl-min) / 16 * 1rem + (var(--size-4xl-max) - var(--size-4xl-min)) * var(--fluid-factor)),
       calc(var(--size-4xl-max) / 16 * 1rem)
     );
 
     --text-5xl: clamp(
       calc(var(--size-5xl-min) / 16 * 1rem),
-      calc(var(--size-5xl-min) / 16 * 1rem + (var(--size-5xl-max) - var(--size-5xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-5xl-min) / 16 * 1rem + (var(--size-5xl-max) - var(--size-5xl-min)) * var(--fluid-factor)),
       calc(var(--size-5xl-max) / 16 * 1rem)
     );
 
     --text-6xl: clamp(
       calc(var(--size-6xl-min) / 16 * 1rem),
-      calc(var(--size-6xl-min) / 16 * 1rem + (var(--size-6xl-max) - var(--size-6xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-6xl-min) / 16 * 1rem + (var(--size-6xl-max) - var(--size-6xl-min)) * var(--fluid-factor)),
       calc(var(--size-6xl-max) / 16 * 1rem)
     );
 
     --text-7xl: clamp(
       calc(var(--size-7xl-min) / 16 * 1rem),
-      calc(var(--size-7xl-min) / 16 * 1rem + (var(--size-7xl-max) - var(--size-7xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-7xl-min) / 16 * 1rem + (var(--size-7xl-max) - var(--size-7xl-min)) * var(--fluid-factor)),
       calc(var(--size-7xl-max) / 16 * 1rem)
     );
 
     --text-8xl: clamp(
       calc(var(--size-8xl-min) / 16 * 1rem),
-      calc(var(--size-8xl-min) / 16 * 1rem + (var(--size-8xl-max) - var(--size-8xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-8xl-min) / 16 * 1rem + (var(--size-8xl-max) - var(--size-8xl-min)) * var(--fluid-factor)),
       calc(var(--size-8xl-max) / 16 * 1rem)
     );
 
     --text-9xl: clamp(
       calc(var(--size-9xl-min) / 16 * 1rem),
-      calc(var(--size-9xl-min) / 16 * 1rem + (var(--size-9xl-max) - var(--size-9xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--size-9xl-min) / 16 * 1rem + (var(--size-9xl-max) - var(--size-9xl-min)) * var(--fluid-factor)),
       calc(var(--size-9xl-max) / 16 * 1rem)
     );
 
     /* ===============================================
-       COMPUTED LINE-HEIGHTS
-       Fluid rem-based clamp() with Utopia-style interpolation
+       COMPUTED LINE-HEIGHTS (leading)
+       Fluid rem-based clamp() -- amplitude scaled by --fluid-factor
        =============================================== */
 
     --leading-xs: clamp(
       calc(var(--line-xs-min) / 16 * 1rem),
-      calc(var(--line-xs-min) / 16 * 1rem + (var(--line-xs-max) - var(--line-xs-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-xs-min) / 16 * 1rem + (var(--line-xs-max) - var(--line-xs-min)) * var(--fluid-factor)),
       calc(var(--line-xs-max) / 16 * 1rem)
     );
 
     --leading-sm: clamp(
       calc(var(--line-sm-min) / 16 * 1rem),
-      calc(var(--line-sm-min) / 16 * 1rem + (var(--line-sm-max) - var(--line-sm-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-sm-min) / 16 * 1rem + (var(--line-sm-max) - var(--line-sm-min)) * var(--fluid-factor)),
       calc(var(--line-sm-max) / 16 * 1rem)
     );
 
     --leading-base: clamp(
       calc(var(--line-base-min) / 16 * 1rem),
-      calc(var(--line-base-min) / 16 * 1rem + (var(--line-base-max) - var(--line-base-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-base-min) / 16 * 1rem + (var(--line-base-max) - var(--line-base-min)) * var(--fluid-factor)),
       calc(var(--line-base-max) / 16 * 1rem)
     );
 
     --leading-lg: clamp(
       calc(var(--line-lg-min) / 16 * 1rem),
-      calc(var(--line-lg-min) / 16 * 1rem + (var(--line-lg-max) - var(--line-lg-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-lg-min) / 16 * 1rem + (var(--line-lg-max) - var(--line-lg-min)) * var(--fluid-factor)),
       calc(var(--line-lg-max) / 16 * 1rem)
     );
 
     --leading-xl: clamp(
       calc(var(--line-xl-min) / 16 * 1rem),
-      calc(var(--line-xl-min) / 16 * 1rem + (var(--line-xl-max) - var(--line-xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-xl-min) / 16 * 1rem + (var(--line-xl-max) - var(--line-xl-min)) * var(--fluid-factor)),
       calc(var(--line-xl-max) / 16 * 1rem)
     );
 
     --leading-2xl: clamp(
       calc(var(--line-2xl-min) / 16 * 1rem),
-      calc(var(--line-2xl-min) / 16 * 1rem + (var(--line-2xl-max) - var(--line-2xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-2xl-min) / 16 * 1rem + (var(--line-2xl-max) - var(--line-2xl-min)) * var(--fluid-factor)),
       calc(var(--line-2xl-max) / 16 * 1rem)
     );
 
     --leading-3xl: clamp(
       calc(var(--line-3xl-min) / 16 * 1rem),
-      calc(var(--line-3xl-min) / 16 * 1rem + (var(--line-3xl-max) - var(--line-3xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-3xl-min) / 16 * 1rem + (var(--line-3xl-max) - var(--line-3xl-min)) * var(--fluid-factor)),
       calc(var(--line-3xl-max) / 16 * 1rem)
     );
 
     --leading-4xl: clamp(
       calc(var(--line-4xl-min) / 16 * 1rem),
-      calc(var(--line-4xl-min) / 16 * 1rem + (var(--line-4xl-max) - var(--line-4xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-4xl-min) / 16 * 1rem + (var(--line-4xl-max) - var(--line-4xl-min)) * var(--fluid-factor)),
       calc(var(--line-4xl-max) / 16 * 1rem)
     );
 
     --leading-5xl: clamp(
       calc(var(--line-5xl-min) / 16 * 1rem),
-      calc(var(--line-5xl-min) / 16 * 1rem + (var(--line-5xl-max) - var(--line-5xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-5xl-min) / 16 * 1rem + (var(--line-5xl-max) - var(--line-5xl-min)) * var(--fluid-factor)),
       calc(var(--line-5xl-max) / 16 * 1rem)
     );
 
     --leading-6xl: clamp(
       calc(var(--line-6xl-min) / 16 * 1rem),
-      calc(var(--line-6xl-min) / 16 * 1rem + (var(--line-6xl-max) - var(--line-6xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-6xl-min) / 16 * 1rem + (var(--line-6xl-max) - var(--line-6xl-min)) * var(--fluid-factor)),
       calc(var(--line-6xl-max) / 16 * 1rem)
     );
 
     --leading-7xl: clamp(
       calc(var(--line-7xl-min) / 16 * 1rem),
-      calc(var(--line-7xl-min) / 16 * 1rem + (var(--line-7xl-max) - var(--line-7xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-7xl-min) / 16 * 1rem + (var(--line-7xl-max) - var(--line-7xl-min)) * var(--fluid-factor)),
       calc(var(--line-7xl-max) / 16 * 1rem)
     );
 
     --leading-8xl: clamp(
       calc(var(--line-8xl-min) / 16 * 1rem),
-      calc(var(--line-8xl-min) / 16 * 1rem + (var(--line-8xl-max) - var(--line-8xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-8xl-min) / 16 * 1rem + (var(--line-8xl-max) - var(--line-8xl-min)) * var(--fluid-factor)),
       calc(var(--line-8xl-max) / 16 * 1rem)
     );
 
     --leading-9xl: clamp(
       calc(var(--line-9xl-min) / 16 * 1rem),
-      calc(var(--line-9xl-min) / 16 * 1rem + (var(--line-9xl-max) - var(--line-9xl-min)) / 16 * 1rem * (100vw - var(--viewport-min) * 1px) / ((var(--viewport-max) - var(--viewport-min)) * 1px)),
+      calc(var(--line-9xl-min) / 16 * 1rem + (var(--line-9xl-max) - var(--line-9xl-min)) * var(--fluid-factor)),
       calc(var(--line-9xl-max) / 16 * 1rem)
     );
 
     /* ===============================================
-       LINE-HEIGHTS AS UNITLESS NUMBERS
-       Pre-calculate ratio once (instead of per-element)
-       Formula: leading ÷ text = unitless ratio
+       LINE-HEIGHT TOKENS
+       Baseline-locked: use the length --leading-* directly.
+       A unitless leading ÷ text ratio would be length ÷ length
+       (CSS typed arithmetic), which Firefox does not support.
+       A length is a valid line-height and locks each element to
+       its baseline row -- the intent of manual mode.
        =============================================== */
 
-    --line-height-xs: calc(var(--leading-xs) / var(--text-xs));
-    --line-height-sm: calc(var(--leading-sm) / var(--text-sm));
-    --line-height-base: calc(var(--leading-base) / var(--text-base));
-    --line-height-lg: calc(var(--leading-lg) / var(--text-lg));
-    --line-height-xl: calc(var(--leading-xl) / var(--text-xl));
-    --line-height-2xl: calc(var(--leading-2xl) / var(--text-2xl));
-    --line-height-3xl: calc(var(--leading-3xl) / var(--text-3xl));
-    --line-height-4xl: calc(var(--leading-4xl) / var(--text-4xl));
-    --line-height-5xl: calc(var(--leading-5xl) / var(--text-5xl));
-    --line-height-6xl: calc(var(--leading-6xl) / var(--text-6xl));
-    --line-height-7xl: calc(var(--leading-7xl) / var(--text-7xl));
-    --line-height-8xl: calc(var(--leading-8xl) / var(--text-8xl));
-    --line-height-9xl: calc(var(--leading-9xl) / var(--text-9xl));
+    --line-height-xs: var(--leading-xs);
+    --line-height-sm: var(--leading-sm);
+    --line-height-base: var(--leading-base);
+    --line-height-lg: var(--leading-lg);
+    --line-height-xl: var(--leading-xl);
+    --line-height-2xl: var(--leading-2xl);
+    --line-height-3xl: var(--leading-3xl);
+    --line-height-4xl: var(--leading-4xl);
+    --line-height-5xl: var(--leading-5xl);
+    --line-height-6xl: var(--leading-6xl);
+    --line-height-7xl: var(--leading-7xl);
+    --line-height-8xl: var(--leading-8xl);
+    --line-height-9xl: var(--leading-9xl);
   }
 }
