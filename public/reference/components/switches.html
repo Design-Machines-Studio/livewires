@@ -40,6 +40,30 @@
         <span></span>
         Disabled
       </label>
+
+      <!-- With a hint. The label body is wrapped in spans so the two lines can
+           carry their own ids for aria-labelledby / aria-describedby. Only the
+           span adjacent to the input is the track; the rest must stay unstyled. -->
+      <label class="switch">
+        <input type="checkbox" role="switch" checked
+               aria-labelledby="hinted-label" aria-describedby="hinted-hint">
+        <span aria-hidden="true"></span>
+        <span>
+          <span id="hinted-label" class="block">Show in permissions table</span>
+          <span id="hinted-hint" class="hint block">Adds a column for this circle in the permissions table.</span>
+        </span>
+      </label>
+
+      <!-- Small variant with a hint -->
+      <label class="switch switch--small">
+        <input type="checkbox" role="switch"
+               aria-labelledby="hinted-small-label" aria-describedby="hinted-small-hint">
+        <span aria-hidden="true"></span>
+        <span>
+          <span id="hinted-small-label" class="block">Notify on changes</span>
+          <span id="hinted-small-hint" class="hint block">Sends a digest once a week.</span>
+        </span>
+      </label>
     </article>
   </main>
   <html-include src="/_includes/footer.html"></html-include>

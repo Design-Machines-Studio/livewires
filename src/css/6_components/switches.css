@@ -11,6 +11,11 @@
  *   Enable feature
  * </label>
  *
+ * The track <span> must immediately follow the <input>. Every track rule is
+ * scoped to `> input + span` rather than to any descendant span, so a label
+ * that also wraps its text in spans -- a label plus a hint, say -- does not
+ * render those as extra pill tracks.
+ *
  * Variants:
  *   .switch--small  - Compact switch, no track text
  *
@@ -67,7 +72,7 @@
     }
 
     /* Track (pill-shaped background) */
-    & span {
+    & > input + span {
       position: relative;
       display: inline-block;
       flex-shrink: 0;
@@ -78,7 +83,7 @@
     }
 
     /* Handle (circular knob) */
-    & span::before {
+    & > input + span::before {
       content: '';
       position: absolute;
       inset-block-start: var(--switch-handle-offset);
@@ -91,7 +96,7 @@
     }
 
     /* Status text - sized to fill the non-handle area, then centered */
-    & span::after {
+    & > input + span::after {
       content: var(--switch-off);
       position: absolute;
       inset-block-start: 50%;
@@ -110,41 +115,41 @@
 
     /* Transitions */
     @media (prefers-reduced-motion: no-preference) {
-      & span {
+      & > input + span {
         transition: background-color var(--switch-speed) var(--ease-in-out);
       }
 
-      & span::before {
+      & > input + span::before {
         transition: inset-inline-start var(--switch-speed) var(--ease-in-out);
       }
 
-      & span::after {
+      & > input + span::after {
         transition: opacity calc(var(--switch-speed) * 0.5) var(--ease-out);
       }
     }
 
     /* Hover */
-    &:hover span {
+    &:hover > input + span {
       filter: brightness(0.95);
     }
 
     /* Focus */
-    &:has(input:focus-visible) span {
+    &:has(input:focus-visible) > input + span {
       outline: 2px solid var(--color-accent);
       outline-offset: 2px;
     }
 
     /* Checked state */
     &:has(input:checked) {
-      & span {
+      & > input + span {
         background: var(--switch-track-bg-checked);
       }
 
-      & span::before {
+      & > input + span::before {
         inset-inline-start: calc(var(--switch-width) - var(--switch-handle-size) - var(--switch-handle-offset));
       }
 
-      & span::after {
+      & > input + span::after {
         content: var(--switch-on);
         inset-inline-start: 0;
         color: var(--color-white);
@@ -155,6 +160,19 @@
     &:has(input:disabled) {
       opacity: 0.5;
       cursor: not-allowed;
+    }
+
+    /* A label plus a hint is a multi-line block. Centering the track against
+       the whole block leaves it floating between the lines and drifting further
+       down as the hint wraps, so top-align instead and pull the track back onto
+       the label's own line. The track is taller than one line, so the offset is
+       negative -- 1lh is the label's line box, which is what it must centre on. */
+    &:has(.hint) {
+      align-items: flex-start;
+
+      & > input + span {
+        margin-block-start: calc((1lh - var(--switch-height)) / 2);
+      }
     }
   }
 
