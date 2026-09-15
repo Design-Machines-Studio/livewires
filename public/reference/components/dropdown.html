@@ -41,6 +41,37 @@
   </ul>
 </div>
 
+<!-- Panel dropdown: checkbox filter (native details/summary, no JS) -->
+<details class="dropdown dropdown--panel">
+  <summary class="trigger button button--small">
+    <span>Circles</span>
+    <span class="text-muted ml-025">All</span>
+    <svg class="icon dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+  </summary>
+  <div class="menu">
+    <div id="circle-options" class="dropdown-body stack stack-compact px-05 py-025" role="group" aria-label="Filter by circle">
+      <label class="checkbox">
+        <input type="checkbox" name="circle" value="design">
+        <span>Design</span>
+        <span class="text-muted">12<span class="visually-hidden"> members</span></span>
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" name="circle" value="engineering">
+        <span>Engineering</span>
+        <span class="text-muted">8<span class="visually-hidden"> members</span></span>
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" name="circle" value="operations">
+        <span>Operations</span>
+        <span class="text-muted">3<span class="visually-hidden"> members</span></span>
+      </label>
+    </div>
+    <footer class="cluster pt-025 pb-0">
+      <button type="button" class="button button--small">Clear all</button>
+    </footer>
+  </div>
+</details>
+
 <!-- With disabled item -->
 <div class="dropdown">
   <button class="button trigger">More</button>

@@ -124,6 +124,70 @@
           </section>
         </section>
 
+        <section class="section">
+          <section class="stack">
+            <header>
+              <h2>Filter panel</h2>
+              <p>Add <code>.dropdown--panel</code> for a wider content panel instead of a list of actions. The panel is a scrollable <code>.dropdown-body</code> between an optional sticky <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code>. Built on native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code>, so it opens and closes without JavaScript. Add <code>.dropdown-chevron</code> to the trigger icon to flip it while open.</p>
+              <popup-dialog title="Filter panel HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;details class="dropdown dropdown--panel"&gt;
+  &lt;summary class="trigger button button--small"&gt;
+    &lt;span&gt;Circles&lt;/span&gt;
+    &lt;span class="text-muted ml-025"&gt;All&lt;/span&gt;
+    &lt;svg class="icon dropdown-chevron" aria-hidden="true"&gt;...&lt;/svg&gt;
+  &lt;/summary&gt;
+  &lt;div class="menu"&gt;
+    &lt;div class="dropdown-body stack stack-compact px-05 py-025"
+         role="group" aria-label="Filter by circle"&gt;
+      &lt;label class="checkbox"&gt;
+        &lt;input type="checkbox" name="circle" value="design"&gt;
+        &lt;span&gt;Design&lt;/span&gt;
+        &lt;span class="text-muted"&gt;12&lt;span class="visually-hidden"&gt; members&lt;/span&gt;&lt;/span&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;footer class="cluster pt-025 pb-0"&gt;
+      &lt;button type="button" class="button button--small"&gt;Clear all&lt;/button&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/details&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <details class="dropdown dropdown--panel" open style="position: relative; z-index: 1;">
+              <summary class="trigger button button--small">
+                <span>Circles</span>
+                <span class="text-muted ml-025">All</span>
+                <svg class="icon dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </summary>
+              <div class="menu">
+                <div class="dropdown-body stack stack-compact px-05 py-025" role="group" aria-label="Filter by circle">
+                  <label class="checkbox">
+                    <input type="checkbox" name="manual-circle" value="design">
+                    <span>Design</span>
+                    <span class="text-muted">12<span class="visually-hidden"> members</span></span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="manual-circle" value="engineering">
+                    <span>Engineering</span>
+                    <span class="text-muted">8<span class="visually-hidden"> members</span></span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="manual-circle" value="operations">
+                    <span>Operations</span>
+                    <span class="text-muted">3<span class="visually-hidden"> members</span></span>
+                  </label>
+                </div>
+                <footer class="cluster pt-025 pb-0">
+                  <button type="button" class="button button--small">Clear all</button>
+                </footer>
+              </div>
+            </details>
+            <div style="min-height: var(--line-8);"></div>
+          </section>
+        </section>
+
       </article>
     </main>
     <html-include src="/_includes/footer.html"></html-include>
