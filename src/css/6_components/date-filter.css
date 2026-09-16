@@ -80,7 +80,6 @@
     & .radio {
       display: flex;
       inline-size: 100%;
-      min-block-size: var(--line-15);
       padding-inline: var(--line-05);
       border-radius: var(--radius-normal);
       gap: 0;
@@ -95,7 +94,7 @@
       }
 
       &:has(input:checked) {
-        background: var(--color-subtle);
+        background: color-mix(in srgb, var(--color-accent) 15%, transparent);
         font-weight: var(--font-medium);
       }
 
@@ -140,7 +139,6 @@
     /* Wide layout: presets beside the calendars. Presets take a fixed
        column, calendars fill the rest and wrap when the panel narrows. */
     & .menu > .body.sidebar {
-      --sidebar-width: calc(var(--line) * 7);
       --sidebar-content-min: 60%;
       --sidebar-space: var(--line-05);
       flex-direction: row;

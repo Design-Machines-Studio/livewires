@@ -65,7 +65,6 @@
       }
 
       & .title {
-        display: block;
         grid-column: 2;
         font-size: var(--text-sm);
         font-weight: var(--font-medium);
@@ -199,7 +198,6 @@
     /* Range band: the cell paints the band, the button sits on top.
        Ends paint half a band so the run reads as one connected shape. */
     & td.in-range {
-      background: var(--color-subtle);
       background: var(--calendar-range-bg);
     }
 

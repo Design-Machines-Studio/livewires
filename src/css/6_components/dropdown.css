@@ -188,10 +188,6 @@
       text-decoration: none;
       list-style: none;
 
-      &::-webkit-details-marker {
-        display: none;
-      }
-
       &::marker {
         content: '';
       }
