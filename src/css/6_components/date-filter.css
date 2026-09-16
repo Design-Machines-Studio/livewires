@@ -1,0 +1,194 @@
+/**
+ * Date Filter
+ *
+ * A date range filter built from the dropdown panel, preset radios,
+ * a pair of date fields, and one or two calendars. Every part is
+ * optional: presets alone, fields alone, or the full picker.
+ *
+ * Two pieces are usable outside the dropdown:
+ *   .date-range   two date fields joined by a separator
+ *   .presets      a radio group styled as a list of choices
+ *
+ * @example
+ * <details class="dropdown dropdown--panel date-filter">
+ *   <summary class="trigger button button--small">
+ *     <svg class="icon" aria-hidden="true">...</svg>
+ *     <span>Jan 8 – Jan 14, 2027</span>
+ *     <svg class="icon chevron" aria-hidden="true">...</svg>
+ *   </summary>
+ *   <form class="menu" method="get">
+ *     <div class="body">
+ *       <div class="presets presets--inline" role="group" aria-label="Preset ranges">
+ *         <label class="radio"><input type="radio" name="range" value="7d"><span>Last week</span></label>
+ *         <label class="radio"><input type="radio" name="range" value="30d"><span>Last month</span></label>
+ *       </div>
+ *       <div class="date-range">
+ *         <input type="date" name="from" aria-label="Start date">
+ *         <span aria-hidden="true">–</span>
+ *         <input type="date" name="to" aria-label="End date">
+ *       </div>
+ *       <div class="calendar">...</div>
+ *     </div>
+ *     <footer class="cluster cluster-end cluster-compact">
+ *       <button type="reset" class="button button--small">Cancel</button>
+ *       <button type="submit" class="button button--small button--accent">Apply</button>
+ *     </footer>
+ *   </form>
+ * </details>
+ */
+
+@layer components {
+  /*
+   * Date range fields
+   * Two date inputs on one row with a separator between them.
+   */
+  .date-range {
+    display: flex;
+    align-items: center;
+    gap: var(--line-025);
+
+    & > input {
+      flex: 1 1 0;
+      min-inline-size: 0;
+      inline-size: auto;
+      font-size: var(--text-sm);
+      font-variant-numeric: tabular-nums lining-nums;
+    }
+
+    & > span {
+      flex: 0 0 auto;
+      color: var(--color-muted);
+    }
+  }
+
+  /* Tighter fields for toolbars and panels */
+  .date-range--small > input {
+    min-block-size: var(--line-15);
+    padding-block: 0;
+  }
+
+  /*
+   * Presets
+   * Radios styled as a list of choices. Vertical by default, add
+   * .presets--inline for a wrapping row. The radio indicator is hidden:
+   * the selected row is shown by its background.
+   */
+  .presets {
+    display: flex;
+    flex-direction: column;
+
+    & .radio {
+      display: flex;
+      inline-size: 100%;
+      min-block-size: var(--line-15);
+      padding-inline: var(--line-05);
+      border-radius: var(--radius-normal);
+      gap: 0;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        background: var(--color-subtle);
+      }
+
+      &:has(input:checked) {
+        background: var(--color-subtle);
+        font-weight: var(--font-medium);
+      }
+
+      &:has(input:focus-visible) {
+        outline: 2px solid var(--color-accent);
+        outline-offset: -2px;
+      }
+    }
+  }
+
+  .presets--inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--line-025);
+
+    & .radio {
+      inline-size: auto;
+      color: var(--color-accent);
+
+      &:has(input:checked) {
+        color: var(--color-fg);
+      }
+    }
+  }
+
+  /*
+   * Date filter panel
+   * Sizes to its content: one calendar makes a compact panel, a
+   * .calendar-group with two months and a sidebar of presets makes
+   * the wide one.
+   */
+  .date-filter {
+    --panel-inline-size: max-content;
+    --panel-max-block-size: min(90vh, calc(var(--line) * 26));
+
+    & .menu > .body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--line-05);
+    }
+
+    /* Wide layout: presets beside the calendars. Presets take a fixed
+       column, calendars fill the rest and wrap when the panel narrows. */
+    & .menu > .body.sidebar {
+      --sidebar-width: calc(var(--line) * 7);
+      --sidebar-content-min: 60%;
+      --sidebar-space: var(--line-05);
+      flex-direction: row;
+      padding: 0;
+
+      /* Presets size to their labels. A fixed basis would exceed the
+         panel's max-content width and force the calendars to wrap. */
+      & > .presets {
+        flex: 0 0 auto;
+        padding: var(--line-025) var(--line-05);
+        border-inline-end: var(--line-1px) solid var(--color-border-muted);
+      }
+
+      /* Size the calendar column to its content so the panel's
+         max-content width fits both months on one row */
+      & > .presets + * {
+        flex-basis: max-content;
+        padding: var(--line-025) var(--line-05);
+      }
+    }
+
+    /* Footer holds fields and actions; fields shrink before wrapping */
+    & .menu > footer .date-range {
+      flex: 1 1 calc(var(--line) * 12);
+    }
+
+    /* Stacked presets get a divider under them */
+    & .menu > .body:not(.sidebar) > .presets:not(.presets--inline) {
+      border-block-end: var(--line-1px) solid var(--color-border-muted);
+      padding-block-end: var(--line-025);
+    }
+  }
+
+  /* Narrow containers: sidebar wraps, presets go inline above the calendar */
+  @container (width < 40em) {
+    .date-filter .menu > .body.sidebar {
+      & > .presets {
+        flex: 1 1 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--line-025);
+        border-inline-end: none;
+        border-block-end: var(--line-1px) solid var(--color-border-muted);
+
+        & .radio {
+          inline-size: auto;
+        }
+      }
+    }
+  }
+}

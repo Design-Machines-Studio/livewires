@@ -149,7 +149,7 @@ Connect your templates to your CMS or framework. Your prototype becomes the prod
 For detailed reference, see these files in the same directory:
 
 - **[layouts.md](layouts.md)** — Stack, Grid, Cluster, Sidebar, Center, Section, Cover, Box, Reel, Imposter
-- **[components.md](components.md)** — Dialogs, Popups, Status Indicators, Badges, Progress Bars
+- **[components.md](components.md)** — Dialogs, Popups, Status Indicators, Badges, Progress Bars, Dropdown, Calendar, Date Filter
 - **[utilities.md](utilities.md)** — Typography, Spacing, Color Schemes, Container Queries
 - **[patterns.md](patterns.md)** — Article Structure, Hero, Statistics Grid, Responsive Picture
 - **[theming.md](theming.md)** — Visual transformation workflow, color scales, typography, accessibility

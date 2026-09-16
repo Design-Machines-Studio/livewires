@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="scheme-default pg-components-date-filter">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Date filter</h1>
+          <p class="lead">Preset ranges, date fields, and calendars in a dropdown panel.</p>
+        </header>
+        <section class="section">
+          <div class="grid">
+          <section class="stack">
+            <header>
+              <h2>Date range fields</h2>
+              <p>Two native date inputs joined by a separator. Use it alone in a toolbar or inside the picker. <code>.date-range--small</code> drops the inputs to one-and-a-half lines for panels and filter bars.</p>
+              <popup-dialog title="Date range fields HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;div class=&quot;date-range&quot;&gt;
+  &lt;input type=&quot;date&quot; name=&quot;f-from&quot; value=&quot;2027-01-08&quot; aria-label=&quot;Start date&quot;&gt;
+  &lt;span aria-hidden=&quot;true&quot;&gt;–&lt;/span&gt;
+  &lt;input type=&quot;date&quot; name=&quot;f-to&quot; value=&quot;2027-01-14&quot; aria-label=&quot;End date&quot;&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;date-range date-range--small&quot;&gt;
+  &lt;input type=&quot;date&quot; name=&quot;g-from&quot; value=&quot;2027-01-08&quot; aria-label=&quot;Start date&quot;&gt;
+  &lt;span aria-hidden=&quot;true&quot;&gt;–&lt;/span&gt;
+  &lt;input type=&quot;date&quot; name=&quot;g-to&quot; value=&quot;2027-01-14&quot; aria-label=&quot;End date&quot;&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="date-range">
+              <input type="date" name="f-from" value="2027-01-08" aria-label="Start date">
+              <span aria-hidden="true">–</span>
+              <input type="date" name="f-to" value="2027-01-14" aria-label="End date">
+            </div>
+            <div class="mt-05"></div>
+            <div class="date-range date-range--small">
+              <input type="date" name="g-from" value="2027-01-08" aria-label="Start date">
+              <span aria-hidden="true">–</span>
+              <input type="date" name="g-to" value="2027-01-14" aria-label="End date">
+            </div>
+          </section>
+          <section class="stack">
+            <header>
+              <h2>Presets</h2>
+              <p>A radio group styled as a list of choices, so it submits with the form and needs no script to show the selected row. Add <code>.presets--inline</code> for a wrapping row of links.</p>
+              <popup-dialog title="Presets HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;div class=&quot;presets&quot; role=&quot;group&quot; aria-label=&quot;Preset ranges&quot;&gt;
+  &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;p1&quot; value=&quot;7d&quot; checked&gt;&lt;span&gt;Last week&lt;/span&gt;&lt;/label&gt;
+  &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;p1&quot; value=&quot;30d&quot;&gt;&lt;span&gt;Last month&lt;/span&gt;&lt;/label&gt;
+  &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;p1&quot; value=&quot;12m&quot;&gt;&lt;span&gt;Last 12 months&lt;/span&gt;&lt;/label&gt;
+  &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;p1&quot; value=&quot;fy&quot;&gt;&lt;span&gt;This fiscal year&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;presets presets--inline&quot; role=&quot;group&quot; aria-label=&quot;Preset ranges&quot;&gt;
+  &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;p2&quot; value=&quot;7d&quot; checked&gt;&lt;span&gt;Last week&lt;/span&gt;&lt;/label&gt;
+  &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;p2&quot; value=&quot;30d&quot;&gt;&lt;span&gt;Last month&lt;/span&gt;&lt;/label&gt;
+  &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;p2&quot; value=&quot;12m&quot;&gt;&lt;span&gt;Last year&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="presets" role="group" aria-label="Preset ranges">
+              <label class="radio"><input type="radio" name="p1" value="7d" checked><span>Last week</span></label>
+              <label class="radio"><input type="radio" name="p1" value="30d"><span>Last month</span></label>
+              <label class="radio"><input type="radio" name="p1" value="12m"><span>Last 12 months</span></label>
+              <label class="radio"><input type="radio" name="p1" value="fy"><span>This fiscal year</span></label>
+            </div>
+            <div class="mt-05"></div>
+            <div class="presets presets--inline" role="group" aria-label="Preset ranges">
+              <label class="radio"><input type="radio" name="p2" value="7d" checked><span>Last week</span></label>
+              <label class="radio"><input type="radio" name="p2" value="30d"><span>Last month</span></label>
+              <label class="radio"><input type="radio" name="p2" value="12m"><span>Last year</span></label>
+            </div>
+          </section>
+          </div>
+        </section>
+        <section class="section">
+          <div class="grid">
+          <section class="stack">
+            <header>
+              <h2>Presets only</h2>
+              <p>The lightest filter: a <code>.dropdown--panel</code> carrying <code>.date-filter</code>, a list of presets in the body, and Cancel and Apply in the footer. The <code>.menu</code> is a <code>&lt;form&gt;</code>, so Cancel is <code>type="reset"</code> and Apply submits.</p>
+              <popup-dialog title="Presets only HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;details class=&quot;dropdown dropdown--panel date-filter&quot;&gt;
+  &lt;summary class=&quot;trigger button button--small&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;16&quot; rx=&quot;2&quot;&gt;&lt;/rect&gt;&lt;path d=&quot;M3 10h18M8 3v4M16 3v4&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+    &lt;span&gt;Last week&lt;/span&gt;
+    &lt;svg class=&quot;icon chevron&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m6 9 6 6 6-6&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+  &lt;/summary&gt;
+  &lt;form class=&quot;menu&quot; method=&quot;get&quot;&gt;
+    &lt;div class=&quot;body&quot;&gt;
+      &lt;div class=&quot;presets&quot; role=&quot;group&quot; aria-label=&quot;Preset ranges&quot;&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;today&quot;&gt;&lt;span&gt;Today&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;yesterday&quot;&gt;&lt;span&gt;Yesterday&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;week&quot;&gt;&lt;span&gt;This week&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;7d&quot; checked&gt;&lt;span&gt;Last week&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;month&quot;&gt;&lt;span&gt;This month&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;30d&quot;&gt;&lt;span&gt;Last month&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;year&quot;&gt;&lt;span&gt;This year&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;12m&quot;&gt;&lt;span&gt;Last 12 months&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;fy&quot;&gt;&lt;span&gt;This fiscal year&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r1&quot; value=&quot;all&quot;&gt;&lt;span&gt;All time&lt;/span&gt;&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;footer class=&quot;cluster cluster-end cluster-compact&quot;&gt;
+      &lt;button type=&quot;reset&quot; class=&quot;button button--small&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;submit&quot; class=&quot;button button--small button--accent&quot;&gt;Apply&lt;/button&gt;
+    &lt;/footer&gt;
+  &lt;/form&gt;
+&lt;/details&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <details class="dropdown dropdown--panel date-filter" open>
+              <summary class="trigger button button--small">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+                <span>Last week</span>
+                <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </summary>
+              <form class="menu" method="get">
+                <div class="body">
+                  <div class="presets" role="group" aria-label="Preset ranges">
+                    <label class="radio"><input type="radio" name="r1" value="today"><span>Today</span></label>
+                    <label class="radio"><input type="radio" name="r1" value="yesterday"><span>Yesterday</span></label>
+                    <label class="radio"><input type="radio" name="r1" value="week"><span>This week</span></label>
+                    <label class="radio"><input type="radio" name="r1" value="7d" checked><span>Last week</span></label>
+                    <label class="radio"><input type="radio" name="r1" value="month"><span>This month</span></label>
+                    <label class="radio"><input type="radio" name="r1" value="30d"><span>Last month</span></label>
+                    <label class="radio"><input type="radio" name="r1" value="year"><span>This year</span></label>
+                    <label class="radio"><input type="radio" name="r1" value="12m"><span>Last 12 months</span></label>
+                    <label class="radio"><input type="radio" name="r1" value="fy"><span>This fiscal year</span></label>
+                    <label class="radio"><input type="radio" name="r1" value="all"><span>All time</span></label>
+                  </div>
+                </div>
+                <footer class="cluster cluster-end cluster-compact">
+                  <button type="reset" class="button button--small">Cancel</button>
+                  <button type="submit" class="button button--small button--accent">Apply</button>
+                </footer>
+              </form>
+            </details>
+            <div style="min-height: calc(var(--line) * 18);"></div>
+          </section>
+          <section class="stack">
+            <header>
+              <h2>Compact picker</h2>
+              <p>Fields, a row of inline presets, and one calendar. The panel sizes to the calendar.</p>
+              <popup-dialog title="Compact picker HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;details class=&quot;dropdown dropdown--panel date-filter&quot;&gt;
+  &lt;summary class=&quot;trigger button button--small&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;16&quot; rx=&quot;2&quot;&gt;&lt;/rect&gt;&lt;path d=&quot;M3 10h18M8 3v4M16 3v4&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+    &lt;span&gt;Jan 8 – Jan 14, 2027&lt;/span&gt;
+    &lt;svg class=&quot;icon chevron&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m6 9 6 6 6-6&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+  &lt;/summary&gt;
+  &lt;form class=&quot;menu&quot; method=&quot;get&quot;&gt;
+    &lt;div class=&quot;body&quot;&gt;
+      &lt;div class=&quot;date-range date-range--small&quot;&gt;
+        &lt;input type=&quot;date&quot; name=&quot;r2-from&quot; value=&quot;2027-01-08&quot; aria-label=&quot;Start date&quot;&gt;
+        &lt;span aria-hidden=&quot;true&quot;&gt;–&lt;/span&gt;
+        &lt;input type=&quot;date&quot; name=&quot;r2-to&quot; value=&quot;2027-01-14&quot; aria-label=&quot;End date&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;presets presets--inline&quot; role=&quot;group&quot; aria-label=&quot;Preset ranges&quot;&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r2&quot; value=&quot;7d&quot; checked&gt;&lt;span&gt;Last week&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r2&quot; value=&quot;30d&quot;&gt;&lt;span&gt;Last month&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r2&quot; value=&quot;12m&quot;&gt;&lt;span&gt;Last year&lt;/span&gt;&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;calendar&quot;&gt;
+        &lt;header&gt;
+          &lt;button type=&quot;button&quot; class=&quot;prev&quot; aria-label=&quot;Previous month&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m15 6-6 6 6 6&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;
+          &lt;span class=&quot;title&quot; id=&quot;r2-cal&quot;&gt;January 2027&lt;/span&gt;
+          &lt;button type=&quot;button&quot; class=&quot;next&quot; aria-label=&quot;Next month&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m9 6 6 6-6 6&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;/header&gt;
+        &lt;table role=&quot;grid&quot; aria-labelledby=&quot;r2-cal&quot;&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th scope=&quot;col&quot; abbr=&quot;Monday&quot;&gt;Mo&lt;/th&gt;
+              &lt;th scope=&quot;col&quot; abbr=&quot;Tuesday&quot;&gt;Tu&lt;/th&gt;
+              &lt;th scope=&quot;col&quot; abbr=&quot;Wednesday&quot;&gt;We&lt;/th&gt;
+              &lt;th scope=&quot;col&quot; abbr=&quot;Thursday&quot;&gt;Th&lt;/th&gt;
+              &lt;th scope=&quot;col&quot; abbr=&quot;Friday&quot;&gt;Fr&lt;/th&gt;
+              &lt;th scope=&quot;col&quot; abbr=&quot;Saturday&quot;&gt;Sa&lt;/th&gt;
+              &lt;th scope=&quot;col&quot; abbr=&quot;Sunday&quot;&gt;Su&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;28&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;29&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;30&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;31&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;marked&quot;&gt;&lt;button type=&quot;button&quot;&gt;1&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;2&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;3&lt;/button&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;4&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;5&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;6&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;7&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;range-start&quot;&gt;&lt;button type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;8&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;9&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;10&lt;/button&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;11&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;12&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;13&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;range-end&quot;&gt;&lt;button type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;14&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;15&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;16&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;17&lt;/button&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;18&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;19&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;20&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;21&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;22&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;23&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;24&lt;/button&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;25&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;today&quot;&gt;&lt;button type=&quot;button&quot; aria-current=&quot;date&quot;&gt;26&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;27&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;28&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;29&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;marked&quot;&gt;&lt;button type=&quot;button&quot;&gt;30&lt;/button&gt;&lt;/td&gt;
+              &lt;td&gt;&lt;button type=&quot;button&quot;&gt;31&lt;/button&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;1&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;2&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;3&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;outside marked&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;4&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;5&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;6&lt;/button&gt;&lt;/td&gt;
+              &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;7&lt;/button&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;footer class=&quot;cluster cluster-end cluster-compact&quot;&gt;
+      &lt;button type=&quot;reset&quot; class=&quot;button button--small&quot;&gt;Cancel&lt;/button&gt;
+      &lt;button type=&quot;submit&quot; class=&quot;button button--small button--accent&quot;&gt;Apply&lt;/button&gt;
+    &lt;/footer&gt;
+  &lt;/form&gt;
+&lt;/details&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <details class="dropdown dropdown--panel date-filter" open>
+              <summary class="trigger button button--small">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+                <span>Jan 8 – Jan 14, 2027</span>
+                <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </summary>
+              <form class="menu" method="get">
+                <div class="body">
+                  <div class="date-range date-range--small">
+                    <input type="date" name="r2-from" value="2027-01-08" aria-label="Start date">
+                    <span aria-hidden="true">–</span>
+                    <input type="date" name="r2-to" value="2027-01-14" aria-label="End date">
+                  </div>
+                  <div class="presets presets--inline" role="group" aria-label="Preset ranges">
+                    <label class="radio"><input type="radio" name="r2" value="7d" checked><span>Last week</span></label>
+                    <label class="radio"><input type="radio" name="r2" value="30d"><span>Last month</span></label>
+                    <label class="radio"><input type="radio" name="r2" value="12m"><span>Last year</span></label>
+                  </div>
+                  <div class="calendar">
+                    <header>
+                      <button type="button" class="prev" aria-label="Previous month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+                      <span class="title" id="r2-cal">January 2027</span>
+                      <button type="button" class="next" aria-label="Next month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+                    </header>
+                    <table role="grid" aria-labelledby="r2-cal">
+                      <thead>
+                        <tr>
+                          <th scope="col" abbr="Monday">Mo</th>
+                          <th scope="col" abbr="Tuesday">Tu</th>
+                          <th scope="col" abbr="Wednesday">We</th>
+                          <th scope="col" abbr="Thursday">Th</th>
+                          <th scope="col" abbr="Friday">Fr</th>
+                          <th scope="col" abbr="Saturday">Sa</th>
+                          <th scope="col" abbr="Sunday">Su</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="outside"><button type="button" tabindex="-1">28</button></td>
+                          <td class="outside"><button type="button" tabindex="-1">29</button></td>
+                          <td class="outside"><button type="button" tabindex="-1">30</button></td>
+                          <td class="outside"><button type="button" tabindex="-1">31</button></td>
+                          <td class="marked"><button type="button">1</button></td>
+                          <td><button type="button">2</button></td>
+                          <td><button type="button">3</button></td>
+                        </tr>
+                        <tr>
+                          <td><button type="button">4</button></td>
+                          <td><button type="button">5</button></td>
+                          <td><button type="button">6</button></td>
+                          <td><button type="button">7</button></td>
+                          <td class="range-start"><button type="button" aria-pressed="true">8</button></td>
+                          <td class="in-range"><button type="button">9</button></td>
+                          <td class="in-range"><button type="button">10</button></td>
+                        </tr>
+                        <tr>
+                          <td class="in-range"><button type="button">11</button></td>
+                          <td class="in-range"><button type="button">12</button></td>
+                          <td class="in-range"><button type="button">13</button></td>
+                          <td class="range-end"><button type="button" aria-pressed="true">14</button></td>
+                          <td><button type="button">15</button></td>
+                          <td><button type="button">16</button></td>
+                          <td><button type="button">17</button></td>
+                        </tr>
+                        <tr>
+                          <td><button type="button">18</button></td>
+                          <td><button type="button">19</button></td>
+                          <td><button type="button">20</button></td>
+                          <td><button type="button">21</button></td>
+                          <td><button type="button">22</button></td>
+                          <td><button type="button">23</button></td>
+                          <td><button type="button">24</button></td>
+                        </tr>
+                        <tr>
+                          <td><button type="button">25</button></td>
+                          <td class="today"><button type="button" aria-current="date">26</button></td>
+                          <td><button type="button">27</button></td>
+                          <td><button type="button">28</button></td>
+                          <td><button type="button">29</button></td>
+                          <td class="marked"><button type="button">30</button></td>
+                          <td><button type="button">31</button></td>
+                        </tr>
+                        <tr>
+                          <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                          <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                          <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                          <td class="outside marked"><button type="button" tabindex="-1">4</button></td>
+                          <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                          <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                          <td class="outside"><button type="button" tabindex="-1">7</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <footer class="cluster cluster-end cluster-compact">
+                  <button type="reset" class="button button--small">Cancel</button>
+                  <button type="submit" class="button button--small button--accent">Apply</button>
+                </footer>
+              </form>
+            </details>
+            <div style="min-height: calc(var(--line) * 18);"></div>
+          </section>
+          </div>
+        </section>
+        <section class="section">
+          <section class="stack">
+            <header>
+              <h2>Full picker</h2>
+              <p>Add <code>.sidebar</code> to the body: presets take the first column, a <code>.calendar-group</code> with two months takes the rest. The footer carries the fields and the actions, as in the reference design. On narrow containers the sidebar wraps and the presets fall into an inline row above the calendars.</p>
+              <popup-dialog title="Full picker HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;details class=&quot;dropdown dropdown--panel date-filter&quot;&gt;
+  &lt;summary class=&quot;trigger button button--small&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;16&quot; rx=&quot;2&quot;&gt;&lt;/rect&gt;&lt;path d=&quot;M3 10h18M8 3v4M16 3v4&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+    &lt;span&gt;Jan 8 – Jan 14, 2027&lt;/span&gt;
+    &lt;svg class=&quot;icon chevron&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m6 9 6 6 6-6&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+  &lt;/summary&gt;
+  &lt;form class=&quot;menu&quot; method=&quot;get&quot;&gt;
+    &lt;div class=&quot;body sidebar&quot;&gt;
+      &lt;div class=&quot;presets&quot; role=&quot;group&quot; aria-label=&quot;Preset ranges&quot;&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;today&quot;&gt;&lt;span&gt;Today&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;yesterday&quot;&gt;&lt;span&gt;Yesterday&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;week&quot;&gt;&lt;span&gt;This week&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;7d&quot; checked&gt;&lt;span&gt;Last week&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;month&quot;&gt;&lt;span&gt;This month&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;30d&quot;&gt;&lt;span&gt;Last month&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;year&quot;&gt;&lt;span&gt;This year&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;12m&quot;&gt;&lt;span&gt;Last 12 months&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;fy&quot;&gt;&lt;span&gt;This fiscal year&lt;/span&gt;&lt;/label&gt;
+        &lt;label class=&quot;radio&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;r3&quot; value=&quot;all&quot;&gt;&lt;span&gt;All time&lt;/span&gt;&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;calendar-group&quot;&gt;
+        &lt;div class=&quot;calendar&quot;&gt;
+          &lt;header&gt;
+            &lt;button type=&quot;button&quot; class=&quot;prev&quot; aria-label=&quot;Previous month&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m15 6-6 6 6 6&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;
+            &lt;span class=&quot;title&quot; id=&quot;r3-jan&quot;&gt;January 2027&lt;/span&gt;
+          &lt;/header&gt;
+          &lt;table role=&quot;grid&quot; aria-labelledby=&quot;r3-jan&quot;&gt;
+            &lt;thead&gt;
+              &lt;tr&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Monday&quot;&gt;Mo&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Tuesday&quot;&gt;Tu&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Wednesday&quot;&gt;We&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Thursday&quot;&gt;Th&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Friday&quot;&gt;Fr&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Saturday&quot;&gt;Sa&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Sunday&quot;&gt;Su&lt;/th&gt;
+              &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+              &lt;tr&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;28&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;29&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;30&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;31&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;marked&quot;&gt;&lt;button type=&quot;button&quot;&gt;1&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;2&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;3&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;4&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;5&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;6&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;7&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;range-start&quot;&gt;&lt;button type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;8&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;9&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;10&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;11&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;12&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;13&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;range-end&quot;&gt;&lt;button type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;14&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;15&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;16&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;17&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;18&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;19&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;20&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;21&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;22&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;23&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;24&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;25&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;today&quot;&gt;&lt;button type=&quot;button&quot; aria-current=&quot;date&quot;&gt;26&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;27&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;28&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;29&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;marked&quot;&gt;&lt;button type=&quot;button&quot;&gt;30&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;31&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;1&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;2&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;3&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside marked&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;4&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;5&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;6&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;7&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;calendar&quot;&gt;
+          &lt;header&gt;
+            &lt;span class=&quot;title&quot; id=&quot;r3-feb&quot;&gt;February 2027&lt;/span&gt;
+            &lt;button type=&quot;button&quot; class=&quot;next&quot; aria-label=&quot;Next month&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m9 6 6 6-6 6&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;
+          &lt;/header&gt;
+          &lt;table role=&quot;grid&quot; aria-labelledby=&quot;r3-feb&quot;&gt;
+            &lt;thead&gt;
+              &lt;tr&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Monday&quot;&gt;Mo&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Tuesday&quot;&gt;Tu&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Wednesday&quot;&gt;We&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Thursday&quot;&gt;Th&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Friday&quot;&gt;Fr&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Saturday&quot;&gt;Sa&lt;/th&gt;
+                &lt;th scope=&quot;col&quot; abbr=&quot;Sunday&quot;&gt;Su&lt;/th&gt;
+              &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+              &lt;tr&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;1&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;2&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;3&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;marked&quot;&gt;&lt;button type=&quot;button&quot;&gt;4&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;5&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;6&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;7&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td class=&quot;marked&quot;&gt;&lt;button type=&quot;button&quot;&gt;8&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;9&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;10&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;11&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;12&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;13&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;marked&quot;&gt;&lt;button type=&quot;button&quot;&gt;14&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;15&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;16&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;17&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;18&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;19&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;20&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;21&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;22&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;23&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;24&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;25&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;26&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;27&lt;/button&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;button type=&quot;button&quot;&gt;28&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;1&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;2&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;3&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;4&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;5&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;6&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;7&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tr&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;8&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;9&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;10&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;11&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;12&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;13&lt;/button&gt;&lt;/td&gt;
+                &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;14&lt;/button&gt;&lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;footer class=&quot;cluster cluster-between&quot;&gt;
+      &lt;div class=&quot;date-range date-range--small&quot;&gt;
+        &lt;input type=&quot;date&quot; name=&quot;r3-from&quot; value=&quot;2027-01-08&quot; aria-label=&quot;Start date&quot;&gt;
+        &lt;span aria-hidden=&quot;true&quot;&gt;–&lt;/span&gt;
+        &lt;input type=&quot;date&quot; name=&quot;r3-to&quot; value=&quot;2027-01-14&quot; aria-label=&quot;End date&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;cluster cluster-compact&quot;&gt;
+        &lt;button type=&quot;reset&quot; class=&quot;button button--small&quot;&gt;Cancel&lt;/button&gt;
+        &lt;button type=&quot;submit&quot; class=&quot;button button--small button--accent&quot;&gt;Apply&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+  &lt;/form&gt;
+&lt;/details&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <details class="dropdown dropdown--panel date-filter" open>
+              <summary class="trigger button button--small">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+                <span>Jan 8 – Jan 14, 2027</span>
+                <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </summary>
+              <form class="menu" method="get">
+                <div class="body sidebar">
+                  <div class="presets" role="group" aria-label="Preset ranges">
+                    <label class="radio"><input type="radio" name="r3" value="today"><span>Today</span></label>
+                    <label class="radio"><input type="radio" name="r3" value="yesterday"><span>Yesterday</span></label>
+                    <label class="radio"><input type="radio" name="r3" value="week"><span>This week</span></label>
+                    <label class="radio"><input type="radio" name="r3" value="7d" checked><span>Last week</span></label>
+                    <label class="radio"><input type="radio" name="r3" value="month"><span>This month</span></label>
+                    <label class="radio"><input type="radio" name="r3" value="30d"><span>Last month</span></label>
+                    <label class="radio"><input type="radio" name="r3" value="year"><span>This year</span></label>
+                    <label class="radio"><input type="radio" name="r3" value="12m"><span>Last 12 months</span></label>
+                    <label class="radio"><input type="radio" name="r3" value="fy"><span>This fiscal year</span></label>
+                    <label class="radio"><input type="radio" name="r3" value="all"><span>All time</span></label>
+                  </div>
+                  <div class="calendar-group">
+                    <div class="calendar">
+                      <header>
+                        <button type="button" class="prev" aria-label="Previous month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+                        <span class="title" id="r3-jan">January 2027</span>
+                      </header>
+                      <table role="grid" aria-labelledby="r3-jan">
+                        <thead>
+                          <tr>
+                            <th scope="col" abbr="Monday">Mo</th>
+                            <th scope="col" abbr="Tuesday">Tu</th>
+                            <th scope="col" abbr="Wednesday">We</th>
+                            <th scope="col" abbr="Thursday">Th</th>
+                            <th scope="col" abbr="Friday">Fr</th>
+                            <th scope="col" abbr="Saturday">Sa</th>
+                            <th scope="col" abbr="Sunday">Su</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="outside"><button type="button" tabindex="-1">28</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">29</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">30</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">31</button></td>
+                            <td class="marked"><button type="button">1</button></td>
+                            <td><button type="button">2</button></td>
+                            <td><button type="button">3</button></td>
+                          </tr>
+                          <tr>
+                            <td><button type="button">4</button></td>
+                            <td><button type="button">5</button></td>
+                            <td><button type="button">6</button></td>
+                            <td><button type="button">7</button></td>
+                            <td class="range-start"><button type="button" aria-pressed="true">8</button></td>
+                            <td class="in-range"><button type="button">9</button></td>
+                            <td class="in-range"><button type="button">10</button></td>
+                          </tr>
+                          <tr>
+                            <td class="in-range"><button type="button">11</button></td>
+                            <td class="in-range"><button type="button">12</button></td>
+                            <td class="in-range"><button type="button">13</button></td>
+                            <td class="range-end"><button type="button" aria-pressed="true">14</button></td>
+                            <td><button type="button">15</button></td>
+                            <td><button type="button">16</button></td>
+                            <td><button type="button">17</button></td>
+                          </tr>
+                          <tr>
+                            <td><button type="button">18</button></td>
+                            <td><button type="button">19</button></td>
+                            <td><button type="button">20</button></td>
+                            <td><button type="button">21</button></td>
+                            <td><button type="button">22</button></td>
+                            <td><button type="button">23</button></td>
+                            <td><button type="button">24</button></td>
+                          </tr>
+                          <tr>
+                            <td><button type="button">25</button></td>
+                            <td class="today"><button type="button" aria-current="date">26</button></td>
+                            <td><button type="button">27</button></td>
+                            <td><button type="button">28</button></td>
+                            <td><button type="button">29</button></td>
+                            <td class="marked"><button type="button">30</button></td>
+                            <td><button type="button">31</button></td>
+                          </tr>
+                          <tr>
+                            <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                            <td class="outside marked"><button type="button" tabindex="-1">4</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">7</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="calendar">
+                      <header>
+                        <span class="title" id="r3-feb">February 2027</span>
+                        <button type="button" class="next" aria-label="Next month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+                      </header>
+                      <table role="grid" aria-labelledby="r3-feb">
+                        <thead>
+                          <tr>
+                            <th scope="col" abbr="Monday">Mo</th>
+                            <th scope="col" abbr="Tuesday">Tu</th>
+                            <th scope="col" abbr="Wednesday">We</th>
+                            <th scope="col" abbr="Thursday">Th</th>
+                            <th scope="col" abbr="Friday">Fr</th>
+                            <th scope="col" abbr="Saturday">Sa</th>
+                            <th scope="col" abbr="Sunday">Su</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><button type="button">1</button></td>
+                            <td><button type="button">2</button></td>
+                            <td><button type="button">3</button></td>
+                            <td class="marked"><button type="button">4</button></td>
+                            <td><button type="button">5</button></td>
+                            <td><button type="button">6</button></td>
+                            <td><button type="button">7</button></td>
+                          </tr>
+                          <tr>
+                            <td class="marked"><button type="button">8</button></td>
+                            <td><button type="button">9</button></td>
+                            <td><button type="button">10</button></td>
+                            <td><button type="button">11</button></td>
+                            <td><button type="button">12</button></td>
+                            <td><button type="button">13</button></td>
+                            <td class="marked"><button type="button">14</button></td>
+                          </tr>
+                          <tr>
+                            <td><button type="button">15</button></td>
+                            <td><button type="button">16</button></td>
+                            <td><button type="button">17</button></td>
+                            <td><button type="button">18</button></td>
+                            <td><button type="button">19</button></td>
+                            <td><button type="button">20</button></td>
+                            <td><button type="button">21</button></td>
+                          </tr>
+                          <tr>
+                            <td><button type="button">22</button></td>
+                            <td><button type="button">23</button></td>
+                            <td><button type="button">24</button></td>
+                            <td><button type="button">25</button></td>
+                            <td><button type="button">26</button></td>
+                            <td><button type="button">27</button></td>
+                            <td><button type="button">28</button></td>
+                          </tr>
+                          <tr>
+                            <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">4</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">7</button></td>
+                          </tr>
+                          <tr>
+                            <td class="outside"><button type="button" tabindex="-1">8</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">9</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">10</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">11</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">12</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">13</button></td>
+                            <td class="outside"><button type="button" tabindex="-1">14</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <footer class="cluster cluster-between">
+                  <div class="date-range date-range--small">
+                    <input type="date" name="r3-from" value="2027-01-08" aria-label="Start date">
+                    <span aria-hidden="true">–</span>
+                    <input type="date" name="r3-to" value="2027-01-14" aria-label="End date">
+                  </div>
+                  <div class="cluster cluster-compact">
+                    <button type="reset" class="button button--small">Cancel</button>
+                    <button type="submit" class="button button--small button--accent">Apply</button>
+                  </div>
+                </footer>
+              </form>
+            </details>
+            <div style="min-height: calc(var(--line) * 18);"></div>
+          </section>
+        </section>
+        <section class="section">
+          <section class="stack">
+            <header>
+              <h2>Filter bar</h2>
+              <p>Filters compose in a <code>.cluster</code>. Each dropdown is its own form, so they submit independently. Wrap them in one form instead when the filters combine.</p>
+              <popup-dialog title="Filter bar HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;div class=&quot;cluster cluster-compact&quot;&gt;
+  &lt;details class=&quot;dropdown dropdown--panel&quot;&gt;…Circles…&lt;/details&gt;
+  &lt;details class=&quot;dropdown dropdown--panel&quot;&gt;…Status…&lt;/details&gt;
+  &lt;details class=&quot;dropdown dropdown--panel date-filter&quot;&gt;…&lt;/details&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="cluster cluster-compact">
+              <details class="dropdown dropdown--panel">
+                <summary class="trigger button button--small">
+                  <span>Circles</span>
+                  <span class="text-muted">All</span>
+                  <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </summary>
+                <form class="menu" method="get">
+                  <div class="body" role="group" aria-label="Filter by circle">
+                    <label class="checkbox">
+                      <input type="checkbox" name="fb-circle" value="design">
+                      <span>Design</span>
+                      <span class="text-muted">12<span class="visually-hidden"> members</span></span>
+                    </label>
+                    <label class="checkbox">
+                      <input type="checkbox" name="fb-circle" value="engineering">
+                      <span>Engineering</span>
+                      <span class="text-muted">8<span class="visually-hidden"> members</span></span>
+                    </label>
+                    <label class="checkbox">
+                      <input type="checkbox" name="fb-circle" value="operations">
+                      <span>Operations</span>
+                      <span class="text-muted">3<span class="visually-hidden"> members</span></span>
+                    </label>
+                  </div>
+                  <footer class="cluster cluster-between">
+                    <button type="reset" class="button button--small">Clear all</button>
+                    <button type="submit" class="button button--small button--accent">Apply</button>
+                  </footer>
+                </form>
+              </details>
+              <details class="dropdown dropdown--panel ">
+                <summary class="trigger button button--small">
+                  <span>Status</span>
+                  <span class="text-muted">2</span>
+                  <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </summary>
+                <form class="menu" method="get">
+                  <header class="cluster cluster-between">
+                    <strong class="text-sm">Status</strong>
+                    <button type="reset" class="button button--small">Clear</button>
+                  </header>
+                  <div class="body" role="group" aria-label="Filter by status">
+                    <label class="checkbox">
+                      <input type="checkbox" name="fb-status" value="draft" checked>
+                      <span>Draft</span>
+                      <span class="text-muted">4</span>
+                    </label>
+                    <label class="checkbox">
+                      <input type="checkbox" name="fb-status" value="active" checked>
+                      <span>Active</span>
+                      <span class="text-muted">21</span>
+                    </label>
+                    <label class="checkbox">
+                      <input type="checkbox" name="fb-status" value="archived">
+                      <span>Archived</span>
+                      <span class="text-muted">7</span>
+                    </label>
+                  </div>
+                  <footer class="cluster cluster-end">
+                    <button type="submit" class="button button--small button--accent">Apply</button>
+                  </footer>
+                </form>
+              </details>
+              <details class="dropdown dropdown--panel date-filter">
+                <summary class="trigger button button--small">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+                  <span>Last week</span>
+                  <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </summary>
+                <form class="menu" method="get">
+                  <div class="body">
+                    <div class="presets" role="group" aria-label="Preset ranges">
+                      <label class="radio"><input type="radio" name="fb-range" value="today"><span>Today</span></label>
+                      <label class="radio"><input type="radio" name="fb-range" value="yesterday"><span>Yesterday</span></label>
+                      <label class="radio"><input type="radio" name="fb-range" value="week"><span>This week</span></label>
+                      <label class="radio"><input type="radio" name="fb-range" value="7d" checked><span>Last week</span></label>
+                      <label class="radio"><input type="radio" name="fb-range" value="month"><span>This month</span></label>
+                      <label class="radio"><input type="radio" name="fb-range" value="30d"><span>Last month</span></label>
+                      <label class="radio"><input type="radio" name="fb-range" value="year"><span>This year</span></label>
+                      <label class="radio"><input type="radio" name="fb-range" value="12m"><span>Last 12 months</span></label>
+                      <label class="radio"><input type="radio" name="fb-range" value="fy"><span>This fiscal year</span></label>
+                      <label class="radio"><input type="radio" name="fb-range" value="all"><span>All time</span></label>
+                    </div>
+                  </div>
+                  <footer class="cluster cluster-end cluster-compact">
+                    <button type="reset" class="button button--small">Cancel</button>
+                    <button type="submit" class="button button--small button--accent">Apply</button>
+                  </footer>
+                </form>
+              </details>
+            </div>
+            <div style="min-height: var(--line-2);"></div>
+          </section>
+          <section class="stack">
+            <header>
+              <h2>Behaviour</h2>
+            </header>
+            <p>Everything here submits as a normal form: <code>range</code> from the presets, <code>from</code> and <code>to</code> from the fields. Selecting a preset should fill the fields and the calendar, and picking days should clear the preset. That is a few lines of script or a server round trip. Live Wires ships the states, not the script.</p>
+            <p>For times, swap the date inputs for <code>type="datetime-local"</code>. The trigger label is plain text: render it from the applied range.</p>
+          </section>
+        </section>
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

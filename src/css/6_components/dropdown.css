@@ -46,8 +46,10 @@
                   transform var(--duration-fast),
                   visibility var(--duration-fast);
 
-      & a,
-      & button {
+      /* Action rows. Scoped to list items so panel chrome (header/footer)
+         can hold regular buttons. */
+      & > li > a,
+      & > li > button {
         display: block;
         inline-size: 100%;
         padding: var(--line-025) var(--line-05);
@@ -78,7 +80,7 @@
         border-block-start: var(--line-1px) solid var(--color-subtle);
       }
 
-      & [disabled] {
+      & > li > [disabled] {
         opacity: 0.5;
         pointer-events: none;
       }
@@ -110,139 +112,122 @@
    * Panel variant
    *
    * A wider content panel instead of a list of actions: a scrollable
-   * .dropdown-body between an optional sticky <header> and <footer>.
-   * Built for filter and notification panels driven by native
-   * <details>/<summary>, so it needs no JavaScript to open and close.
+   * .body between an optional <header> and <footer>. Built for filter
+   * and notification panels driven by native <details>/<summary>, so it
+   * needs no JavaScript to open and close. Works with the [data-open]
+   * container too.
+   *
+   * Size with --panel-inline-size and --panel-max-block-size.
    *
    * @example
    * <details class="dropdown dropdown--panel">
    *   <summary class="trigger button button--small">
    *     <span>Circles</span>
-   *     <span class="text-muted ml-025">All</span>
-   *     <svg class="icon dropdown-chevron" aria-hidden="true">...</svg>
+   *     <span class="text-muted">All</span>
+   *     <svg class="icon chevron" aria-hidden="true">...</svg>
    *   </summary>
    *   <div class="menu">
-   *     <div class="dropdown-body stack stack-compact px-05 py-025"
-   *          role="group" aria-label="Filter by circle">
+   *     <div class="body" role="group" aria-label="Filter by circle">
    *       <label class="checkbox">
    *         <input type="checkbox" name="circle" value="design">
    *         <span>Design</span>
    *         <span class="text-muted">12<span class="visually-hidden"> members</span></span>
    *       </label>
    *     </div>
-   *     <footer class="cluster pt-025 pb-0">
-   *       <button type="button" class="button button--small">Clear all</button>
+   *     <footer class="cluster">
+   *       <button type="reset" class="button button--small">Clear all</button>
    *     </footer>
    *   </div>
    * </details>
    */
-  .dropdown--panel .menu {
-    inline-size: min(22rem, 80vw);
-    max-block-size: min(70vh, calc(var(--line) * 18));
-    display: flex;
-    flex-direction: column;
-  }
+  .dropdown--panel {
+    --panel-inline-size: min(22rem, calc(100vw - var(--line-1)));
+    --panel-max-block-size: min(70vh, calc(var(--line) * 18));
 
-  /* Sticky chrome paints on the menu background so scrolled rows pass behind it */
-  .dropdown--panel .menu > header,
-  .dropdown--panel .menu > footer {
-    position: sticky;
-    flex: 0 0 auto;
-    background: var(--color-bg);
-    z-index: 1;
-  }
-
-  .dropdown--panel .menu > header {
-    inset-block-start: 0;
-    border-block-end: var(--line-1px) solid var(--color-border);
-  }
-
-  .dropdown--panel .menu > footer {
-    inset-block-end: 0;
-    border-block-start: var(--line-1px) solid var(--color-border);
-  }
-
-  /* Footer actions are regular controls, not full-width menu rows */
-  .dropdown--panel .menu > footer button {
-    display: inline-flex;
-    align-items: center;
-    inline-size: auto;
-  }
-
-  .dropdown--panel .menu > .dropdown-body {
-    flex: 1 1 auto;
-    min-block-size: 0;
-    overflow-y: auto;
-  }
-
-  /* Trigger: a <summary> carrying .trigger. Drops the disclosure marker and
-     the base summary underline so it reads as a control, not a link. */
-  .dropdown--panel > summary.trigger {
-    display: flex;
-    align-items: center;
-    gap: var(--line-025);
-    white-space: nowrap;
-    text-decoration: none;
-    list-style: none;
-
-    &::-webkit-details-marker {
-      display: none;
+    & .menu {
+      display: flex;
+      flex-direction: column;
+      inline-size: var(--panel-inline-size);
+      max-inline-size: calc(100vw - var(--line-1));
+      max-block-size: var(--panel-max-block-size);
+      padding-block: 0;
     }
 
-    &::marker {
-      content: '';
+    /* Regions own their padding so markup stays minimal */
+    & .menu > header,
+    & .menu > footer {
+      flex: 0 0 auto;
+      padding: var(--line-025) var(--line-05);
     }
-  }
 
-  .dropdown--panel > summary.trigger .dropdown-chevron {
-    flex: 0 0 auto;
-
-    @media (prefers-reduced-motion: no-preference) {
-      transition: rotate var(--duration-fast);
+    & .menu > header {
+      border-block-end: var(--line-1px) solid var(--color-border-muted);
     }
-  }
 
-  .dropdown--panel[open] > summary.trigger .dropdown-chevron {
-    rotate: 180deg;
-  }
+    & .menu > footer {
+      border-block-start: var(--line-1px) solid var(--color-border-muted);
+    }
 
-  /* Checkbox filter rows: label text takes the free space, a trailing count
-     stays flush to the end edge. */
-  .dropdown--panel .dropdown-body .checkbox {
-    display: flex;
-    inline-size: 100%;
-
-    & > span:first-of-type {
+    & .menu > .body {
       flex: 1 1 auto;
-      min-inline-size: 0;
-      overflow-wrap: anywhere;
-    }
-  }
-
-  /* Narrow viewports: anchor the panel to the viewport so an end-aligned
-     trigger near the edge cannot push the panel off-screen. */
-  @media (max-width: 768px) {
-    .dropdown--panel.dropdown--end .menu {
-      position: fixed;
-      inset-block-start: calc(var(--line-2) + var(--line-025));
-      inset-inline-start: auto;
-      inset-inline-end: var(--line-05);
+      min-block-size: 0;
+      padding: var(--line-025) var(--line-05);
+      overflow-y: auto;
     }
 
-    .dropdown--panel .menu {
-      inline-size: min(80vw, calc(100vw - var(--line)));
-      max-block-size: calc(100dvh - var(--line-3));
-    }
-  }
+    /* Trigger: a <summary> carrying .trigger. Drops the disclosure marker
+       and the base summary underline so it reads as a control. */
+    & > summary.trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--line-025);
+      white-space: nowrap;
+      text-decoration: none;
+      list-style: none;
 
-  @media (max-width: 360px) {
-    .dropdown--panel.dropdown--end .menu {
-      inset-inline-start: var(--line-05);
-      inset-inline-end: var(--line-05);
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &::marker {
+        content: '';
+      }
+
+      /* A muted count inherits the button colour instead of --color-muted,
+         which has no contrast on the button background */
+      & .text-muted {
+        color: inherit;
+        opacity: 0.7;
+      }
     }
 
-    .dropdown--panel .menu {
-      inline-size: auto;
+    /* .chevron flips while open. Scoped to a class so a leading icon in
+       the trigger is not rotated too. */
+    & .trigger .chevron {
+      flex: 0 0 auto;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: rotate var(--duration-fast) var(--ease-out);
+      }
+    }
+
+    &[open] .trigger .chevron,
+    &[data-open] .trigger .chevron {
+      rotate: 180deg;
+    }
+
+    /* Checkbox filter rows: label text takes the free space, a trailing
+       count stays flush to the end edge. */
+    & .body > .checkbox,
+    & .body > .radio {
+      display: flex;
+      inline-size: 100%;
+
+      & > span:first-of-type {
+        flex: 1 1 auto;
+        min-inline-size: 0;
+        overflow-wrap: anywhere;
+      }
     }
   }
 }

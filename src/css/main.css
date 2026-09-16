@@ -86,6 +86,8 @@
 @import './6_components/checkboxes.css';
 @import './6_components/file-upload.css';
 @import './6_components/dropdown.css';
+@import './6_components/calendar.css';
+@import './6_components/date-filter.css';
 @import './6_components/tabs.css';
 @import './6_components/timeline.css';
 @import './6_components/toasts.css';

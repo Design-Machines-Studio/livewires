@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+  <title>Date filter – Components Reference – Live Wires</title>
+</head>
+<body class="scheme-default">
+  <html-include src="/_includes/header.html"></html-include>
+  <main id="main">
+    <article class="section prose">
+      <h1>Date filter</h1>
+<!-- Date range fields -->
+<div class="date-range">
+  <input type="date" name="a-from" value="2027-01-08" aria-label="Start date">
+  <span aria-hidden="true">–</span>
+  <input type="date" name="a-to" value="2027-01-14" aria-label="End date">
+</div>
+
+<!-- Small fields -->
+<div class="date-range date-range--small">
+  <input type="date" name="b-from" value="2027-01-08" aria-label="Start date">
+  <span aria-hidden="true">–</span>
+  <input type="date" name="b-to" value="2027-01-14" aria-label="End date">
+</div>
+
+<!-- Presets, stacked -->
+<div class="presets" role="group" aria-label="Preset ranges">
+  <label class="radio"><input type="radio" name="p1" value="today"><span>Today</span></label>
+  <label class="radio"><input type="radio" name="p1" value="yesterday"><span>Yesterday</span></label>
+  <label class="radio"><input type="radio" name="p1" value="week"><span>This week</span></label>
+  <label class="radio"><input type="radio" name="p1" value="7d" checked><span>Last week</span></label>
+  <label class="radio"><input type="radio" name="p1" value="month"><span>This month</span></label>
+  <label class="radio"><input type="radio" name="p1" value="30d"><span>Last month</span></label>
+  <label class="radio"><input type="radio" name="p1" value="year"><span>This year</span></label>
+  <label class="radio"><input type="radio" name="p1" value="12m"><span>Last 12 months</span></label>
+  <label class="radio"><input type="radio" name="p1" value="fy"><span>This fiscal year</span></label>
+  <label class="radio"><input type="radio" name="p1" value="all"><span>All time</span></label>
+</div>
+
+<!-- Presets, inline -->
+<div class="presets presets--inline" role="group" aria-label="Preset ranges">
+  <label class="radio"><input type="radio" name="p2" value="7d" checked><span>Last week</span></label>
+  <label class="radio"><input type="radio" name="p2" value="30d"><span>Last month</span></label>
+  <label class="radio"><input type="radio" name="p2" value="12m"><span>Last year</span></label>
+</div>
+
+<!-- Presets only -->
+<details class="dropdown dropdown--panel date-filter">
+  <summary class="trigger button button--small">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+    <span>Last week</span>
+    <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+  </summary>
+  <form class="menu" method="get">
+    <div class="body">
+      <div class="presets" role="group" aria-label="Preset ranges">
+        <label class="radio"><input type="radio" name="r1" value="today"><span>Today</span></label>
+        <label class="radio"><input type="radio" name="r1" value="yesterday"><span>Yesterday</span></label>
+        <label class="radio"><input type="radio" name="r1" value="week"><span>This week</span></label>
+        <label class="radio"><input type="radio" name="r1" value="7d" checked><span>Last week</span></label>
+        <label class="radio"><input type="radio" name="r1" value="month"><span>This month</span></label>
+        <label class="radio"><input type="radio" name="r1" value="30d"><span>Last month</span></label>
+        <label class="radio"><input type="radio" name="r1" value="year"><span>This year</span></label>
+        <label class="radio"><input type="radio" name="r1" value="12m"><span>Last 12 months</span></label>
+        <label class="radio"><input type="radio" name="r1" value="fy"><span>This fiscal year</span></label>
+        <label class="radio"><input type="radio" name="r1" value="all"><span>All time</span></label>
+      </div>
+    </div>
+    <footer class="cluster cluster-end cluster-compact">
+      <button type="reset" class="button button--small">Cancel</button>
+      <button type="submit" class="button button--small button--accent">Apply</button>
+    </footer>
+  </form>
+</details>
+
+<!-- Compact picker: fields, inline presets, one calendar -->
+<details class="dropdown dropdown--panel date-filter">
+  <summary class="trigger button button--small">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+    <span>Jan 8 – Jan 14, 2027</span>
+    <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+  </summary>
+  <form class="menu" method="get">
+    <div class="body">
+      <div class="date-range date-range--small">
+        <input type="date" name="r2-from" value="2027-01-08" aria-label="Start date">
+        <span aria-hidden="true">–</span>
+        <input type="date" name="r2-to" value="2027-01-14" aria-label="End date">
+      </div>
+      <div class="presets presets--inline" role="group" aria-label="Preset ranges">
+        <label class="radio"><input type="radio" name="r2" value="7d" checked><span>Last week</span></label>
+        <label class="radio"><input type="radio" name="r2" value="30d"><span>Last month</span></label>
+        <label class="radio"><input type="radio" name="r2" value="12m"><span>Last year</span></label>
+      </div>
+      <div class="calendar">
+        <header>
+          <button type="button" class="prev" aria-label="Previous month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+          <span class="title" id="r2-cal">January 2027</span>
+          <button type="button" class="next" aria-label="Next month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+        </header>
+        <table role="grid" aria-labelledby="r2-cal">
+          <thead>
+            <tr>
+              <th scope="col" abbr="Monday">Mo</th>
+              <th scope="col" abbr="Tuesday">Tu</th>
+              <th scope="col" abbr="Wednesday">We</th>
+              <th scope="col" abbr="Thursday">Th</th>
+              <th scope="col" abbr="Friday">Fr</th>
+              <th scope="col" abbr="Saturday">Sa</th>
+              <th scope="col" abbr="Sunday">Su</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="outside"><button type="button" tabindex="-1">28</button></td>
+              <td class="outside"><button type="button" tabindex="-1">29</button></td>
+              <td class="outside"><button type="button" tabindex="-1">30</button></td>
+              <td class="outside"><button type="button" tabindex="-1">31</button></td>
+              <td class="marked"><button type="button">1</button></td>
+              <td><button type="button">2</button></td>
+              <td><button type="button">3</button></td>
+            </tr>
+            <tr>
+              <td><button type="button">4</button></td>
+              <td><button type="button">5</button></td>
+              <td><button type="button">6</button></td>
+              <td><button type="button">7</button></td>
+              <td class="range-start"><button type="button" aria-pressed="true">8</button></td>
+              <td class="in-range"><button type="button">9</button></td>
+              <td class="in-range"><button type="button">10</button></td>
+            </tr>
+            <tr>
+              <td class="in-range"><button type="button">11</button></td>
+              <td class="in-range"><button type="button">12</button></td>
+              <td class="in-range"><button type="button">13</button></td>
+              <td class="range-end"><button type="button" aria-pressed="true">14</button></td>
+              <td><button type="button">15</button></td>
+              <td><button type="button">16</button></td>
+              <td><button type="button">17</button></td>
+            </tr>
+            <tr>
+              <td><button type="button">18</button></td>
+              <td><button type="button">19</button></td>
+              <td><button type="button">20</button></td>
+              <td><button type="button">21</button></td>
+              <td><button type="button">22</button></td>
+              <td><button type="button">23</button></td>
+              <td><button type="button">24</button></td>
+            </tr>
+            <tr>
+              <td><button type="button">25</button></td>
+              <td class="today"><button type="button" aria-current="date">26</button></td>
+              <td><button type="button">27</button></td>
+              <td><button type="button">28</button></td>
+              <td><button type="button">29</button></td>
+              <td class="marked"><button type="button">30</button></td>
+              <td><button type="button">31</button></td>
+            </tr>
+            <tr>
+              <td class="outside"><button type="button" tabindex="-1">1</button></td>
+              <td class="outside"><button type="button" tabindex="-1">2</button></td>
+              <td class="outside"><button type="button" tabindex="-1">3</button></td>
+              <td class="outside marked"><button type="button" tabindex="-1">4</button></td>
+              <td class="outside"><button type="button" tabindex="-1">5</button></td>
+              <td class="outside"><button type="button" tabindex="-1">6</button></td>
+              <td class="outside"><button type="button" tabindex="-1">7</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <footer class="cluster cluster-end cluster-compact">
+      <button type="reset" class="button button--small">Cancel</button>
+      <button type="submit" class="button button--small button--accent">Apply</button>
+    </footer>
+  </form>
+</details>
+
+<!-- Full picker: sidebar presets, two months, fields in footer -->
+<details class="dropdown dropdown--panel date-filter">
+  <summary class="trigger button button--small">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+    <span>Jan 8 – Jan 14, 2027</span>
+    <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+  </summary>
+  <form class="menu" method="get">
+    <div class="body sidebar">
+      <div class="presets" role="group" aria-label="Preset ranges">
+        <label class="radio"><input type="radio" name="r3" value="today"><span>Today</span></label>
+        <label class="radio"><input type="radio" name="r3" value="yesterday"><span>Yesterday</span></label>
+        <label class="radio"><input type="radio" name="r3" value="week"><span>This week</span></label>
+        <label class="radio"><input type="radio" name="r3" value="7d" checked><span>Last week</span></label>
+        <label class="radio"><input type="radio" name="r3" value="month"><span>This month</span></label>
+        <label class="radio"><input type="radio" name="r3" value="30d"><span>Last month</span></label>
+        <label class="radio"><input type="radio" name="r3" value="year"><span>This year</span></label>
+        <label class="radio"><input type="radio" name="r3" value="12m"><span>Last 12 months</span></label>
+        <label class="radio"><input type="radio" name="r3" value="fy"><span>This fiscal year</span></label>
+        <label class="radio"><input type="radio" name="r3" value="all"><span>All time</span></label>
+      </div>
+      <div class="calendar-group">
+        <div class="calendar">
+          <header>
+            <button type="button" class="prev" aria-label="Previous month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+            <span class="title" id="r3-jan">January 2027</span>
+          </header>
+          <table role="grid" aria-labelledby="r3-jan">
+            <thead>
+              <tr>
+                <th scope="col" abbr="Monday">Mo</th>
+                <th scope="col" abbr="Tuesday">Tu</th>
+                <th scope="col" abbr="Wednesday">We</th>
+                <th scope="col" abbr="Thursday">Th</th>
+                <th scope="col" abbr="Friday">Fr</th>
+                <th scope="col" abbr="Saturday">Sa</th>
+                <th scope="col" abbr="Sunday">Su</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="outside"><button type="button" tabindex="-1">28</button></td>
+                <td class="outside"><button type="button" tabindex="-1">29</button></td>
+                <td class="outside"><button type="button" tabindex="-1">30</button></td>
+                <td class="outside"><button type="button" tabindex="-1">31</button></td>
+                <td class="marked"><button type="button">1</button></td>
+                <td><button type="button">2</button></td>
+                <td><button type="button">3</button></td>
+              </tr>
+              <tr>
+                <td><button type="button">4</button></td>
+                <td><button type="button">5</button></td>
+                <td><button type="button">6</button></td>
+                <td><button type="button">7</button></td>
+                <td class="range-start"><button type="button" aria-pressed="true">8</button></td>
+                <td class="in-range"><button type="button">9</button></td>
+                <td class="in-range"><button type="button">10</button></td>
+              </tr>
+              <tr>
+                <td class="in-range"><button type="button">11</button></td>
+                <td class="in-range"><button type="button">12</button></td>
+                <td class="in-range"><button type="button">13</button></td>
+                <td class="range-end"><button type="button" aria-pressed="true">14</button></td>
+                <td><button type="button">15</button></td>
+                <td><button type="button">16</button></td>
+                <td><button type="button">17</button></td>
+              </tr>
+              <tr>
+                <td><button type="button">18</button></td>
+                <td><button type="button">19</button></td>
+                <td><button type="button">20</button></td>
+                <td><button type="button">21</button></td>
+                <td><button type="button">22</button></td>
+                <td><button type="button">23</button></td>
+                <td><button type="button">24</button></td>
+              </tr>
+              <tr>
+                <td><button type="button">25</button></td>
+                <td class="today"><button type="button" aria-current="date">26</button></td>
+                <td><button type="button">27</button></td>
+                <td><button type="button">28</button></td>
+                <td><button type="button">29</button></td>
+                <td class="marked"><button type="button">30</button></td>
+                <td><button type="button">31</button></td>
+              </tr>
+              <tr>
+                <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                <td class="outside marked"><button type="button" tabindex="-1">4</button></td>
+                <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                <td class="outside"><button type="button" tabindex="-1">7</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="calendar">
+          <header>
+            <span class="title" id="r3-feb">February 2027</span>
+            <button type="button" class="next" aria-label="Next month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+          </header>
+          <table role="grid" aria-labelledby="r3-feb">
+            <thead>
+              <tr>
+                <th scope="col" abbr="Monday">Mo</th>
+                <th scope="col" abbr="Tuesday">Tu</th>
+                <th scope="col" abbr="Wednesday">We</th>
+                <th scope="col" abbr="Thursday">Th</th>
+                <th scope="col" abbr="Friday">Fr</th>
+                <th scope="col" abbr="Saturday">Sa</th>
+                <th scope="col" abbr="Sunday">Su</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><button type="button">1</button></td>
+                <td><button type="button">2</button></td>
+                <td><button type="button">3</button></td>
+                <td class="marked"><button type="button">4</button></td>
+                <td><button type="button">5</button></td>
+                <td><button type="button">6</button></td>
+                <td><button type="button">7</button></td>
+              </tr>
+              <tr>
+                <td class="marked"><button type="button">8</button></td>
+                <td><button type="button">9</button></td>
+                <td><button type="button">10</button></td>
+                <td><button type="button">11</button></td>
+                <td><button type="button">12</button></td>
+                <td><button type="button">13</button></td>
+                <td class="marked"><button type="button">14</button></td>
+              </tr>
+              <tr>
+                <td><button type="button">15</button></td>
+                <td><button type="button">16</button></td>
+                <td><button type="button">17</button></td>
+                <td><button type="button">18</button></td>
+                <td><button type="button">19</button></td>
+                <td><button type="button">20</button></td>
+                <td><button type="button">21</button></td>
+              </tr>
+              <tr>
+                <td><button type="button">22</button></td>
+                <td><button type="button">23</button></td>
+                <td><button type="button">24</button></td>
+                <td><button type="button">25</button></td>
+                <td><button type="button">26</button></td>
+                <td><button type="button">27</button></td>
+                <td><button type="button">28</button></td>
+              </tr>
+              <tr>
+                <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                <td class="outside"><button type="button" tabindex="-1">4</button></td>
+                <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                <td class="outside"><button type="button" tabindex="-1">7</button></td>
+              </tr>
+              <tr>
+                <td class="outside"><button type="button" tabindex="-1">8</button></td>
+                <td class="outside"><button type="button" tabindex="-1">9</button></td>
+                <td class="outside"><button type="button" tabindex="-1">10</button></td>
+                <td class="outside"><button type="button" tabindex="-1">11</button></td>
+                <td class="outside"><button type="button" tabindex="-1">12</button></td>
+                <td class="outside"><button type="button" tabindex="-1">13</button></td>
+                <td class="outside"><button type="button" tabindex="-1">14</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <footer class="cluster cluster-between">
+      <div class="date-range date-range--small">
+        <input type="date" name="r3-from" value="2027-01-08" aria-label="Start date">
+        <span aria-hidden="true">–</span>
+        <input type="date" name="r3-to" value="2027-01-14" aria-label="End date">
+      </div>
+      <div class="cluster cluster-compact">
+        <button type="reset" class="button button--small">Cancel</button>
+        <button type="submit" class="button button--small button--accent">Apply</button>
+      </div>
+    </footer>
+  </form>
+</details>
+
+<!-- Filter bar -->
+<div class="cluster cluster-compact">
+  <details class="dropdown dropdown--panel">
+    <summary class="trigger button button--small">
+      <span>Circles</span>
+      <span class="text-muted">All</span>
+      <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+    </summary>
+    <form class="menu" method="get">
+      <div class="body" role="group" aria-label="Filter by circle">
+        <label class="checkbox">
+          <input type="checkbox" name="fb-circle" value="design">
+          <span>Design</span>
+          <span class="text-muted">12<span class="visually-hidden"> members</span></span>
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="fb-circle" value="engineering">
+          <span>Engineering</span>
+          <span class="text-muted">8<span class="visually-hidden"> members</span></span>
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="fb-circle" value="operations">
+          <span>Operations</span>
+          <span class="text-muted">3<span class="visually-hidden"> members</span></span>
+        </label>
+      </div>
+      <footer class="cluster cluster-between">
+        <button type="reset" class="button button--small">Clear all</button>
+        <button type="submit" class="button button--small button--accent">Apply</button>
+      </footer>
+    </form>
+  </details>
+  <details class="dropdown dropdown--panel date-filter">
+    <summary class="trigger button button--small">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+      <span>Last week</span>
+      <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+    </summary>
+    <form class="menu" method="get">
+      <div class="body">
+        <div class="presets" role="group" aria-label="Preset ranges">
+          <label class="radio"><input type="radio" name="fb-range" value="today"><span>Today</span></label>
+          <label class="radio"><input type="radio" name="fb-range" value="yesterday"><span>Yesterday</span></label>
+          <label class="radio"><input type="radio" name="fb-range" value="week"><span>This week</span></label>
+          <label class="radio"><input type="radio" name="fb-range" value="7d" checked><span>Last week</span></label>
+          <label class="radio"><input type="radio" name="fb-range" value="month"><span>This month</span></label>
+          <label class="radio"><input type="radio" name="fb-range" value="30d"><span>Last month</span></label>
+          <label class="radio"><input type="radio" name="fb-range" value="year"><span>This year</span></label>
+          <label class="radio"><input type="radio" name="fb-range" value="12m"><span>Last 12 months</span></label>
+          <label class="radio"><input type="radio" name="fb-range" value="fy"><span>This fiscal year</span></label>
+          <label class="radio"><input type="radio" name="fb-range" value="all"><span>All time</span></label>
+        </div>
+      </div>
+      <footer class="cluster cluster-end cluster-compact">
+        <button type="reset" class="button button--small">Cancel</button>
+        <button type="submit" class="button button--small button--accent">Apply</button>
+      </footer>
+    </form>
+  </details>
+</div>
+    </article>
+  </main>
+  <html-include src="/_includes/footer.html"></html-include>
+</body>
+</html>
