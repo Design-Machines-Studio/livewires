@@ -18,6 +18,9 @@
   .dropdown {
     position: relative;
     display: inline-block;
+    /* Shrink-wrap the trigger inside flex columns (.stack) so an
+       end-aligned menu hangs from the button, not a stretched box */
+    inline-size: fit-content;
 
     & .trigger {
       cursor: pointer;

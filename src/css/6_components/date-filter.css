@@ -167,8 +167,8 @@
       flex: 1 1 calc(var(--line) * 12);
     }
 
-    /* Stacked presets get a divider under them */
-    & .menu > .body:not(.sidebar) > .presets:not(.presets--inline) {
+    /* Stacked presets get a divider when something follows them */
+    & .menu > .body:not(.sidebar) > .presets:not(.presets--inline):not(:last-child) {
       border-block-end: var(--line-1px) solid var(--color-border-muted);
       padding-block-end: var(--line-025);
     }
