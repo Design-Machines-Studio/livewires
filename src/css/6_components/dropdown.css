@@ -63,6 +63,8 @@
         border: none;
         cursor: pointer;
         font-size: var(--text-sm);
+        line-height: var(--line-height-sm);
+        letter-spacing: var(--tracking-sm);
         white-space: nowrap;
 
         &:hover,
@@ -144,7 +146,7 @@
    * </details>
    */
   .dropdown--panel {
-    --panel-inline-size: min(22rem, calc(100vw - var(--line-1)));
+    --panel-inline-size: 22rem;
     --panel-max-block-size: min(70vh, calc(var(--line) * 18));
 
     & .menu {

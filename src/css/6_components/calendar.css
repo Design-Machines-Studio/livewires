@@ -43,7 +43,7 @@
 @layer components {
   .calendar {
     --calendar-cell: var(--line-15);
-    --calendar-range-bg: color-mix(in srgb, var(--color-accent) 15%, transparent);
+    --calendar-range-bg: var(--color-accent-tint);
 
     display: inline-block;
     inline-size: max-content;
@@ -56,13 +56,6 @@
       grid-template-columns: var(--calendar-cell) 1fr var(--calendar-cell);
       align-items: center;
       margin-block-end: var(--line-025);
-
-      /* Reset prose heading spacing so the row stays one line tall */
-      & > .prev,
-      & > .next,
-      & > .title {
-        margin: 0;
-      }
 
       & .title {
         grid-column: 2;
@@ -137,7 +130,6 @@
       letter-spacing: var(--tracking-xs);
       font-weight: var(--font-medium);
       color: var(--color-muted);
-      vertical-align: middle;
     }
 
     & td {

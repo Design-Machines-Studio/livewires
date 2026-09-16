@@ -295,7 +295,7 @@ Cell states on `<td>`: `.outside`, `.today`, `.selected`, `.range-start`, `.in-r
       <div class="presets presets--inline" role="group" aria-label="Preset ranges">…</div>
       <div class="calendar">…</div>
     </div>
-    <footer class="cluster cluster-end cluster-compact">
+    <footer class="grid grid-columns-2">
       <button type="reset" class="button button--small">Cancel</button>
       <button type="submit" class="button button--small button--accent">Apply</button>
     </footer>

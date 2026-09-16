@@ -29,7 +29,7 @@
  *       </div>
  *       <div class="calendar">...</div>
  *     </div>
- *     <footer class="cluster cluster-end cluster-compact">
+ *     <footer class="grid grid-columns-2">
  *       <button type="reset" class="button button--small">Cancel</button>
  *       <button type="submit" class="button button--small button--accent">Apply</button>
  *     </footer>
@@ -95,7 +95,7 @@
       }
 
       &:has(input:checked) {
-        background: color-mix(in srgb, var(--color-accent) 15%, transparent);
+        background: var(--color-accent-tint);
         font-weight: var(--font-medium);
       }
 
