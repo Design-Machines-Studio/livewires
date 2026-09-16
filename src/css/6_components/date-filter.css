@@ -52,6 +52,8 @@
       min-inline-size: 0;
       inline-size: auto;
       font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
       font-variant-numeric: tabular-nums lining-nums;
     }
 
@@ -79,7 +81,6 @@
 
     & .radio {
       display: flex;
-      inline-size: 100%;
       padding-inline: var(--line-05);
       border-radius: var(--radius-normal);
       gap: 0;
@@ -111,7 +112,6 @@
     gap: var(--line-025);
 
     & .radio {
-      inline-size: auto;
       color: var(--color-accent);
 
       &:has(input:checked) {
@@ -182,10 +182,6 @@
         gap: var(--line-025);
         border-inline-end: none;
         border-block-end: var(--line-1px) solid var(--color-border-muted);
-
-        & .radio {
-          inline-size: auto;
-        }
       }
     }
   }

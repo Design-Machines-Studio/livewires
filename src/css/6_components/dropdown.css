@@ -186,11 +186,6 @@
       gap: var(--line-025);
       white-space: nowrap;
       text-decoration: none;
-      list-style: none;
-
-      &::marker {
-        content: '';
-      }
 
       /* A muted count inherits the button colour instead of --color-muted,
          which has no contrast on the button background */
@@ -220,7 +215,6 @@
     & .body > .checkbox,
     & .body > .radio {
       display: flex;
-      inline-size: 100%;
 
       & > span:first-of-type {
         flex: 1 1 auto;

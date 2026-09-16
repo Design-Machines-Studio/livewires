@@ -67,8 +67,9 @@
       & .title {
         grid-column: 2;
         font-size: var(--text-sm);
-        font-weight: var(--font-medium);
         line-height: var(--line-height-sm);
+        letter-spacing: var(--tracking-sm);
+        font-weight: var(--font-medium);
         text-align: center;
       }
 
@@ -132,6 +133,8 @@
     & th {
       block-size: var(--line-1);
       font-size: var(--text-xs);
+      line-height: var(--line-height-xs);
+      letter-spacing: var(--tracking-xs);
       font-weight: var(--font-medium);
       color: var(--color-muted);
       vertical-align: middle;
@@ -155,6 +158,8 @@
       color: var(--color-fg);
       border-radius: var(--radius-normal);
       font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
       font-weight: var(--font-normal);
 
       &:hover {
@@ -245,6 +250,8 @@
 
     & td > button {
       font-size: var(--text-xs);
+      line-height: var(--line-height-xs);
+      letter-spacing: var(--tracking-xs);
     }
   }
 
