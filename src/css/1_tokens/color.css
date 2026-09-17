@@ -167,6 +167,9 @@
     */
     --overlay-backdrop: color-mix(in srgb, var(--color-fg) 50%, transparent);
     --overlay-shadow: color-mix(in srgb, var(--color-fg) 20%, transparent);
+
+    /* Selection tint: range bands, checked rows */
+    --color-accent-tint: color-mix(in srgb, var(--color-accent) 15%, transparent);
   }
 
 

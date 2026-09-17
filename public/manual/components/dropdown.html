@@ -14,7 +14,7 @@
       <article class="prose">
         <header class="section scheme-dark">
           <h1>Dropdown</h1>
-          <p class="lead">Toggleable overlay menus for actions and navigation.</p>
+          <p class="lead">Toggleable overlay menus for actions, navigation, and filter panels.</p>
         </header>
 
         <section class="section">
@@ -89,12 +89,14 @@
                   </div>
                 </popup-dialog>
               </header>
-              <div class="dropdown dropdown--end" data-open style="position: relative; z-index: 2;">
-                <button class="button trigger">End-aligned</button>
-                <ul class="menu">
-                  <li><a href="#">Profile</a></li>
-                  <li><a href="#">Settings</a></li>
-                </ul>
+              <div class="cluster cluster-end">
+                <div class="dropdown dropdown--end" data-open style="position: relative; z-index: 2;">
+                  <button class="button trigger">End-aligned</button>
+                  <ul class="menu">
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Settings</a></li>
+                  </ul>
+                </div>
               </div>
               <div style="min-height: var(--line-4);"></div>
             </section>
@@ -121,6 +123,130 @@
                 <li><a href="#">Export</a></li>
               </ul>
             </div>
+          </section>
+        </section>
+
+        <section class="section">
+          <section class="stack">
+            <header>
+              <h2>Filter panel</h2>
+              <p>Add <code>.dropdown--panel</code> for a content panel instead of a list of actions: a scrollable <code>.body</code> between an optional <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code>. Built on native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code>, so it opens and closes without JavaScript. Add <code>.chevron</code> to the trigger icon to flip it while open. Checkbox rows push a trailing count to the end edge. Make the <code>.menu</code> a <code>&lt;form&gt;</code> and the footer buttons submit and reset it.</p>
+              <popup-dialog title="Filter panel HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;details class=&quot;dropdown dropdown--panel&quot;&gt;
+  &lt;summary class=&quot;trigger button button--small&quot;&gt;
+    &lt;span&gt;Circles&lt;/span&gt;
+    &lt;span class=&quot;text-muted&quot;&gt;All&lt;/span&gt;
+    &lt;svg class=&quot;icon chevron&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/svg&gt;
+  &lt;/summary&gt;
+  &lt;form class=&quot;menu&quot; method=&quot;get&quot;&gt;
+    &lt;div class=&quot;body&quot; role=&quot;group&quot; aria-label=&quot;Filter by circle&quot;&gt;
+      &lt;label class=&quot;checkbox&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;circle&quot; value=&quot;design&quot;&gt;
+        &lt;span&gt;Design&lt;/span&gt;
+        &lt;span class=&quot;text-muted&quot;&gt;12&lt;span class=&quot;visually-hidden&quot;&gt; members&lt;/span&gt;&lt;/span&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;footer class=&quot;cluster cluster-between&quot;&gt;
+      &lt;button type=&quot;reset&quot; class=&quot;button button--small&quot;&gt;Clear all&lt;/button&gt;
+      &lt;button type=&quot;submit&quot; class=&quot;button button--small button--accent&quot;&gt;Apply&lt;/button&gt;
+    &lt;/footer&gt;
+  &lt;/form&gt;
+&lt;/details&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <details class="dropdown dropdown--panel" open>
+              <summary class="trigger button button--small">
+                <span>Circles</span>
+                <span class="text-muted">All</span>
+                <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </summary>
+              <form class="menu" method="get">
+                <div class="body" role="group" aria-label="Filter by circle">
+                  <label class="checkbox">
+                    <input type="checkbox" name="manual-circle" value="design">
+                    <span>Design</span>
+                    <span class="text-muted">12<span class="visually-hidden"> members</span></span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="manual-circle" value="engineering">
+                    <span>Engineering</span>
+                    <span class="text-muted">8<span class="visually-hidden"> members</span></span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="manual-circle" value="operations">
+                    <span>Operations</span>
+                    <span class="text-muted">3<span class="visually-hidden"> members</span></span>
+                  </label>
+                </div>
+                <footer class="cluster cluster-between">
+                  <button type="reset" class="button button--small">Clear all</button>
+                  <button type="submit" class="button button--small button--accent">Apply</button>
+                </footer>
+              </form>
+            </details>
+            <div style="min-height: var(--line-8);"></div>
+          </section>
+        </section>
+        <section class="section">
+          <section class="stack">
+            <header>
+              <h2>Panel with header</h2>
+              <p>A <code>&lt;header&gt;</code> sits above the body with a divider. Size the panel with <code>--panel-inline-size</code> and <code>--panel-max-block-size</code>; the body scrolls when the content is taller. Combine with <code>.dropdown--end</code> to hang the panel from the trigger's end edge.</p>
+              <popup-dialog title="Panel with header HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;form class=&quot;menu&quot; method=&quot;get&quot;&gt;
+  &lt;header class=&quot;cluster cluster-between&quot;&gt;
+    &lt;strong class=&quot;text-sm&quot;&gt;Status&lt;/strong&gt;
+    &lt;button type=&quot;reset&quot; class=&quot;button button--small&quot;&gt;Clear&lt;/button&gt;
+  &lt;/header&gt;
+  &lt;div class=&quot;body&quot; role=&quot;group&quot; aria-label=&quot;Filter by status&quot;&gt;…&lt;/div&gt;
+  &lt;footer class=&quot;cluster cluster-end&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;button button--small button--accent&quot;&gt;Apply&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/form&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="cluster cluster-end">
+              <details class="dropdown dropdown--panel dropdown--end" open>
+                <summary class="trigger button button--small">
+                  <span>Status</span>
+                  <span class="text-muted">2</span>
+                  <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </summary>
+                <form class="menu" method="get">
+                  <header class="cluster cluster-between">
+                    <strong class="text-sm">Status</strong>
+                    <button type="reset" class="button button--small">Clear</button>
+                  </header>
+                  <div class="body" role="group" aria-label="Filter by status">
+                    <label class="checkbox">
+                      <input type="checkbox" name="manual-status" value="draft" checked>
+                      <span>Draft</span>
+                      <span class="text-muted">4<span class="visually-hidden"> items</span></span>
+                    </label>
+                    <label class="checkbox">
+                      <input type="checkbox" name="manual-status" value="active" checked>
+                      <span>Active</span>
+                      <span class="text-muted">21<span class="visually-hidden"> items</span></span>
+                    </label>
+                    <label class="checkbox">
+                      <input type="checkbox" name="manual-status" value="archived">
+                      <span>Archived</span>
+                      <span class="text-muted">7<span class="visually-hidden"> items</span></span>
+                    </label>
+                  </div>
+                  <footer class="cluster cluster-end">
+                    <button type="submit" class="button button--small button--accent">Apply</button>
+                  </footer>
+                </form>
+              </details>
+            </div>
+            <div style="min-height: var(--line-8);"></div>
           </section>
         </section>
 

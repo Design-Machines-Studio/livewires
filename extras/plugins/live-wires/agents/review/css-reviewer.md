@@ -156,6 +156,9 @@ Don't create layout CSS when these exist:
 | `.lead` | (none) | `typography.css` |
 | `.logo` | (none) | `logo.css` |
 | `.embed` | (none) | `embeds.css` |
+| `.dropdown` | `--end`, `--up`, `--panel` (children `.trigger`, `.menu`, `.body`, `.chevron`) | `dropdown.css` |
+| `.calendar` | `--compact`; `.calendar-group`; cell states `.outside`, `.today`, `.selected`, `.range-start`, `.in-range`, `.range-end`, `.marked` | `calendar.css` |
+| `.date-filter` | (composes `.dropdown--panel`); `.date-range` `--small`; `.presets` `--inline` | `date-filter.css` |
 
 ## Cascade Layer Compliance
 

@@ -1,0 +1,257 @@
+/**
+ * Calendar
+ *
+ * A month grid for picking a single date or a date range. Pure CSS
+ * states: the markup carries the selection, a script or server render
+ * updates it. Built on a <table> so the grid is readable without styles.
+ *
+ * Always render six rows so the block size stays stable between months.
+ *
+ * Cell states (on <td>):
+ *   .outside      day belongs to the previous or next month
+ *   .today        current date (pair with aria-current="date" on the button)
+ *   .selected     single selected date (pair with aria-pressed="true")
+ *   .range-start  first day of a selected range
+ *   .in-range     day inside a selected range
+ *   .range-end    last day of a selected range
+ *   .marked       day carries a marker dot (an event, a deadline)
+ *
+ * @example
+ * <div class="calendar">
+ *   <header>
+ *     <button type="button" class="prev" aria-label="Previous month">...</button>
+ *     <span class="title" id="cal-2027-01">January 2027</span>
+ *     <button type="button" class="next" aria-label="Next month">...</button>
+ *   </header>
+ *   <table role="grid" aria-labelledby="cal-2027-01">
+ *     <thead>
+ *       <tr><th scope="col" abbr="Monday">Mo</th> ... </tr>
+ *     </thead>
+ *     <tbody>
+ *       <tr>
+ *         <td class="outside"><button type="button" tabindex="-1">28</button></td>
+ *         <td class="range-start"><button type="button" aria-pressed="true">8</button></td>
+ *         <td class="in-range"><button type="button">9</button></td>
+ *         <td class="range-end"><button type="button" aria-pressed="true">14</button></td>
+ *         <td class="today"><button type="button" aria-current="date">26</button></td>
+ *       </tr>
+ *     </tbody>
+ *   </table>
+ * </div>
+ */
+
+@layer components {
+  .calendar {
+    --calendar-cell: var(--line-15);
+    --calendar-range-bg: var(--color-accent-tint);
+
+    display: inline-block;
+    inline-size: max-content;
+    font-variant-numeric: tabular-nums lining-nums;
+
+    /* Month navigation. Fixed outer columns keep the title centred when
+       a prev or next button is omitted (multi-month layouts). */
+    & > header {
+      display: grid;
+      grid-template-columns: var(--calendar-cell) 1fr var(--calendar-cell);
+      align-items: center;
+      margin-block-end: var(--line-025);
+
+      & .title {
+        grid-column: 2;
+        font-size: var(--text-sm);
+        line-height: var(--line-height-sm);
+        letter-spacing: var(--tracking-sm);
+        font-weight: var(--font-medium);
+        text-align: center;
+      }
+
+      & .prev { grid-column: 1; }
+      & .next { grid-column: 3; }
+
+      & .prev,
+      & .next {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        inline-size: var(--calendar-cell);
+        min-block-size: var(--calendar-cell);
+        padding: 0;
+        background: transparent;
+        color: var(--color-muted);
+        border-radius: var(--radius-normal);
+
+        &:hover {
+          background: var(--color-subtle);
+          color: var(--color-fg);
+          opacity: 1;
+        }
+      }
+    }
+
+    /* Undo base table defaults, including the narrow-container stacking
+       rules in 4_elements/tables.css, so the grid stays a grid. */
+    & table {
+      display: table;
+      inline-size: auto;
+      margin-block: 0;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+    }
+
+    & thead {
+      display: table-header-group;
+      position: static;
+      inline-size: auto;
+      block-size: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+    }
+
+    & tbody { display: table-row-group; }
+    & tr { display: table-row; border: none; padding: 0; }
+
+    & th,
+    & td {
+      display: table-cell;
+      inline-size: var(--calendar-cell);
+      padding: 0;
+      text-align: center;
+      background: transparent;
+      border: none;
+    }
+
+    & th {
+      block-size: var(--line-1);
+      font-size: var(--text-xs);
+      line-height: var(--line-height-xs);
+      letter-spacing: var(--tracking-xs);
+      font-weight: var(--font-medium);
+      color: var(--color-muted);
+    }
+
+    & td {
+      block-size: var(--calendar-cell);
+    }
+
+    /* Day buttons */
+    & td > button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 100%;
+      block-size: 100%;
+      min-block-size: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--color-fg);
+      border-radius: var(--radius-normal);
+      font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
+      font-weight: var(--font-normal);
+
+      &:hover {
+        background: var(--color-subtle);
+        color: var(--color-fg);
+        opacity: 1;
+      }
+
+      &:disabled {
+        background: transparent;
+        color: var(--color-muted);
+        opacity: 0.5;
+      }
+    }
+
+    /* Days from adjacent months */
+    & td.outside > button {
+      color: var(--color-muted);
+    }
+
+    /* Today */
+    & td.today > button {
+      font-weight: var(--font-bold);
+      box-shadow: inset 0 0 0 var(--line-1px) var(--color-border-muted);
+    }
+
+    /* Single selection and range ends */
+    & td.selected > button,
+    & td.range-start > button,
+    & td.range-end > button {
+      background: var(--color-accent);
+      color: var(--color-bg);
+      box-shadow: none;
+
+      &:hover {
+        background: var(--color-accent);
+        color: var(--color-bg);
+      }
+    }
+
+    /* Range band: the cell paints the band, the button sits on top.
+       Ends paint half a band so the run reads as one connected shape. */
+    & td.in-range {
+      background: var(--calendar-range-bg);
+    }
+
+    & td.range-start:not(.range-end) {
+      background: linear-gradient(to right, transparent 50%, var(--calendar-range-bg) 50%);
+    }
+
+    & td.range-end:not(.range-start) {
+      background: linear-gradient(to right, var(--calendar-range-bg) 50%, transparent 50%);
+    }
+
+    & tr > td.in-range:first-child {
+      border-start-start-radius: var(--radius-normal);
+      border-end-start-radius: var(--radius-normal);
+    }
+
+    & tr > td.in-range:last-child {
+      border-start-end-radius: var(--radius-normal);
+      border-end-end-radius: var(--radius-normal);
+    }
+
+    /* Marker dot under the number */
+    & td.marked > button::after {
+      content: '';
+      position: absolute;
+      inset-block-end: calc(var(--calendar-cell) * 0.12);
+      inset-inline-start: 50%;
+      inline-size: calc(var(--calendar-cell) * 0.12);
+      block-size: calc(var(--calendar-cell) * 0.12);
+      translate: -50% 0;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+
+    & td.selected > button::after,
+    & td.range-start > button::after,
+    & td.range-end > button::after {
+      background: var(--color-bg);
+    }
+  }
+
+  /* Compact cells for tight panels */
+  .calendar--compact {
+    --calendar-cell: var(--line-1);
+
+    & td > button {
+      font-size: var(--text-xs);
+      line-height: var(--line-height-xs);
+      letter-spacing: var(--tracking-xs);
+    }
+  }
+
+  /* Several months side by side. Wraps on narrow containers. */
+  .calendar-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--line-05) var(--line-1);
+    align-items: flex-start;
+  }
+}

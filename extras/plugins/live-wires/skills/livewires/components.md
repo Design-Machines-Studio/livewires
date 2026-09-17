@@ -182,3 +182,149 @@ Additive by design: no footer unless you add buttons via attributes or slots.
   <div class="segment segment--muted" style="width: 25%"></div>
 </div>
 ```
+
+## Dropdown
+
+```html
+<!-- Action menu: toggle with data-open (JS) or use <details> -->
+<div class="dropdown" data-open>
+  <button class="button trigger">Menu</button>
+  <ul class="menu">
+    <li><a href="#">Edit</a></li>
+    <li><hr></li>
+    <li><button>Delete</button></li>
+  </ul>
+</div>
+
+<!-- Alignment: .dropdown--end (end edge), .dropdown--up (opens upward) -->
+
+<!-- Filter panel: native details/summary, no JS. A scrollable .body
+     between an optional <header> and <footer>. Make .menu a <form>. -->
+<details class="dropdown dropdown--panel">
+  <summary class="trigger button button--small">
+    <span>Circles</span>
+    <span class="text-muted">All</span>
+    <svg class="icon chevron" aria-hidden="true">…</svg>  <!-- flips while open -->
+  </summary>
+  <form class="menu" method="get">
+    <header class="cluster cluster-between">            <!-- optional -->
+      <strong class="text-sm">Circles</strong>
+      <button type="reset" class="button button--small">Clear</button>
+    </header>
+    <div class="body" role="group" aria-label="Filter by circle">
+      <label class="checkbox">
+        <input type="checkbox" name="circle" value="design">
+        <span>Design</span>
+        <span class="text-muted">12<span class="visually-hidden"> members</span></span>
+      </label>
+    </div>
+    <footer class="cluster cluster-between">
+      <button type="reset" class="button button--small">Clear all</button>
+      <button type="submit" class="button button--small button--accent">Apply</button>
+    </footer>
+  </form>
+</details>
+```
+
+Panel size: `--panel-inline-size` (default `min(22rem, 100vw - 1 line)`) and `--panel-max-block-size` (default `min(70vh, 18 lines)`) on the `.dropdown--panel`.
+
+## Calendar
+
+```html
+<!-- Month grid. Always render six rows. -->
+<div class="calendar">
+  <header>
+    <button type="button" class="prev" aria-label="Previous month">…</button>
+    <span class="title" id="cal-2027-01">January 2027</span>
+    <button type="button" class="next" aria-label="Next month">…</button>
+  </header>
+  <table role="grid" aria-labelledby="cal-2027-01">
+    <thead><tr><th scope="col" abbr="Monday">Mo</th> … </tr></thead>
+    <tbody>
+      <tr>
+        <td class="outside"><button type="button" tabindex="-1">28</button></td>
+        <td class="marked"><button type="button">1</button></td>
+        <td class="today"><button type="button" aria-current="date">26</button></td>
+        <td class="selected"><button type="button" aria-pressed="true">14</button></td>
+        <td class="range-start"><button type="button" aria-pressed="true">8</button></td>
+        <td class="in-range"><button type="button">9</button></td>
+        <td class="range-end"><button type="button" aria-pressed="true">14</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Two months side by side: omit .prev on the first, .next on the last -->
+<div class="calendar-group">
+  <div class="calendar">…</div>
+  <div class="calendar">…</div>
+</div>
+
+<!-- One-line cells -->
+<div class="calendar calendar--compact">…</div>
+```
+
+Cell states on `<td>`: `.outside`, `.today`, `.selected`, `.range-start`, `.in-range`, `.range-end`, `.marked`. Tokens: `--calendar-cell` (cell size), `--calendar-range-bg` (range band). Navigation and selection are state, not behaviour: the server render or a script updates the classes.
+
+## Date Filter
+
+```html
+<!-- Date range fields (standalone or inside a panel). --small for toolbars. -->
+<div class="date-range date-range--small">
+  <input type="date" name="from" aria-label="Start date">
+  <span aria-hidden="true">–</span>
+  <input type="date" name="to" aria-label="End date">
+</div>
+
+<!-- Presets: radios styled as a list. .presets--inline for a wrapping row. -->
+<div class="presets" role="group" aria-label="Preset ranges">
+  <label class="radio"><input type="radio" name="range" value="7d" checked><span>Last week</span></label>
+  <label class="radio"><input type="radio" name="range" value="fy"><span>This fiscal year</span></label>
+</div>
+
+<!-- Compact picker: fields + inline presets + one calendar -->
+<details class="dropdown dropdown--panel date-filter">
+  <summary class="trigger button button--small">
+    <svg class="icon" aria-hidden="true">…</svg>
+    <span>Jan 8 – Jan 14, 2027</span>
+    <svg class="icon chevron" aria-hidden="true">…</svg>
+  </summary>
+  <form class="menu" method="get">
+    <div class="body">
+      <div class="date-range date-range--small">…</div>
+      <div class="presets presets--inline" role="group" aria-label="Preset ranges">…</div>
+      <div class="calendar">…</div>
+    </div>
+    <footer class="grid grid-columns-2">
+      <button type="reset" class="button button--small">Cancel</button>
+      <button type="submit" class="button button--small button--accent">Apply</button>
+    </footer>
+  </form>
+</details>
+
+<!-- Full picker: sidebar presets + two months, fields in the footer -->
+<details class="dropdown dropdown--panel date-filter">
+  <summary class="trigger button button--small">…</summary>
+  <form class="menu" method="get">
+    <div class="body sidebar">
+      <div class="presets" role="group" aria-label="Preset ranges">…</div>
+      <div class="calendar-group">
+        <div class="calendar">…</div>
+        <div class="calendar">…</div>
+      </div>
+    </div>
+    <footer class="cluster cluster-between">
+      <div class="date-range date-range--small">…</div>
+      <div class="cluster cluster-compact">
+        <button type="reset" class="button button--small">Cancel</button>
+        <button type="submit" class="button button--small button--accent">Apply</button>
+      </div>
+    </footer>
+  </form>
+</details>
+
+<!-- Presets only: same shell with just .presets in the body -->
+<!-- Filter bar: several panels in a .cluster.cluster-compact -->
+```
+
+The panel sizes to its content. Under a 40em container the sidebar wraps and presets fall into an inline row above the calendars. Use `type="datetime-local"` for times.

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+  </head>
+  <body class="scheme-default pg-components-calendar">
+    <html-include src="../_includes/header.html"></html-include>
+
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Calendar</h1>
+          <p class="lead">Month grids for picking a date or a date range.</p>
+        </header>
+        <section class="section">
+          <div class="grid">
+          <section class="stack">
+            <header>
+              <h2>Month grid</h2>
+              <p>A <code>&lt;table&gt;</code> with one button per day. Mark days from adjacent months with <code>.outside</code>, the current date with <code>.today</code>, and days that carry something with <code>.marked</code>. Render six rows every month so the block size never jumps.</p>
+              <popup-dialog title="Month grid HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;div class=&quot;calendar&quot;&gt;
+  &lt;header&gt;
+    &lt;button type=&quot;button&quot; class=&quot;prev&quot; aria-label=&quot;Previous month&quot;&gt;…&lt;/button&gt;
+    &lt;span class=&quot;title&quot; id=&quot;cal-2027-01&quot;&gt;January 2027&lt;/span&gt;
+    &lt;button type=&quot;button&quot; class=&quot;next&quot; aria-label=&quot;Next month&quot;&gt;…&lt;/button&gt;
+  &lt;/header&gt;
+  &lt;table role=&quot;grid&quot; aria-labelledby=&quot;cal-2027-01&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;&lt;th scope=&quot;col&quot; abbr=&quot;Monday&quot;&gt;Mo&lt;/th&gt; … &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;outside&quot;&gt;&lt;button type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;28&lt;/button&gt;&lt;/td&gt;
+        …
+        &lt;td class=&quot;marked&quot;&gt;&lt;button type=&quot;button&quot;&gt;1&lt;/button&gt;&lt;/td&gt;
+        &lt;td class=&quot;today&quot;&gt;&lt;button type=&quot;button&quot; aria-current=&quot;date&quot;&gt;26&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;!-- always six rows --&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="calendar">
+              <header>
+                <button type="button" class="prev" aria-label="Previous month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+                <span class="title" id="m-basic">January 2027</span>
+                <button type="button" class="next" aria-label="Next month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+              </header>
+              <table role="grid" aria-labelledby="m-basic">
+                <thead>
+                  <tr>
+                    <th scope="col" abbr="Monday">Mo</th>
+                    <th scope="col" abbr="Tuesday">Tu</th>
+                    <th scope="col" abbr="Wednesday">We</th>
+                    <th scope="col" abbr="Thursday">Th</th>
+                    <th scope="col" abbr="Friday">Fr</th>
+                    <th scope="col" abbr="Saturday">Sa</th>
+                    <th scope="col" abbr="Sunday">Su</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="outside"><button type="button" tabindex="-1">28</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">29</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">30</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">31</button></td>
+                    <td class="marked"><button type="button">1</button></td>
+                    <td><button type="button">2</button></td>
+                    <td><button type="button">3</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">4</button></td>
+                    <td><button type="button">5</button></td>
+                    <td><button type="button">6</button></td>
+                    <td><button type="button">7</button></td>
+                    <td><button type="button">8</button></td>
+                    <td><button type="button">9</button></td>
+                    <td><button type="button">10</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">11</button></td>
+                    <td><button type="button">12</button></td>
+                    <td><button type="button">13</button></td>
+                    <td><button type="button">14</button></td>
+                    <td><button type="button">15</button></td>
+                    <td><button type="button">16</button></td>
+                    <td><button type="button">17</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">18</button></td>
+                    <td><button type="button">19</button></td>
+                    <td><button type="button">20</button></td>
+                    <td><button type="button">21</button></td>
+                    <td><button type="button">22</button></td>
+                    <td><button type="button">23</button></td>
+                    <td><button type="button">24</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">25</button></td>
+                    <td class="today"><button type="button" aria-current="date">26</button></td>
+                    <td><button type="button">27</button></td>
+                    <td><button type="button">28</button></td>
+                    <td><button type="button">29</button></td>
+                    <td class="marked"><button type="button">30</button></td>
+                    <td><button type="button">31</button></td>
+                  </tr>
+                  <tr>
+                    <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                    <td class="outside marked"><button type="button" tabindex="-1">4</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">7</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section class="stack">
+            <header>
+              <h2>Single date</h2>
+              <p>Add <code>.selected</code> to the cell and <code>aria-pressed="true"</code> to its button.</p>
+              <popup-dialog title="Single date HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;td class=&quot;selected&quot;&gt;
+  &lt;button type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;14&lt;/button&gt;
+&lt;/td&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="calendar">
+              <header>
+                <button type="button" class="prev" aria-label="Previous month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+                <span class="title" id="m-single">January 2027</span>
+                <button type="button" class="next" aria-label="Next month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+              </header>
+              <table role="grid" aria-labelledby="m-single">
+                <thead>
+                  <tr>
+                    <th scope="col" abbr="Monday">Mo</th>
+                    <th scope="col" abbr="Tuesday">Tu</th>
+                    <th scope="col" abbr="Wednesday">We</th>
+                    <th scope="col" abbr="Thursday">Th</th>
+                    <th scope="col" abbr="Friday">Fr</th>
+                    <th scope="col" abbr="Saturday">Sa</th>
+                    <th scope="col" abbr="Sunday">Su</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="outside"><button type="button" tabindex="-1">28</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">29</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">30</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">31</button></td>
+                    <td><button type="button">1</button></td>
+                    <td><button type="button">2</button></td>
+                    <td><button type="button">3</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">4</button></td>
+                    <td><button type="button">5</button></td>
+                    <td><button type="button">6</button></td>
+                    <td><button type="button">7</button></td>
+                    <td><button type="button">8</button></td>
+                    <td><button type="button">9</button></td>
+                    <td><button type="button">10</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">11</button></td>
+                    <td><button type="button">12</button></td>
+                    <td><button type="button">13</button></td>
+                    <td class="selected"><button type="button" aria-pressed="true">14</button></td>
+                    <td><button type="button">15</button></td>
+                    <td><button type="button">16</button></td>
+                    <td><button type="button">17</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">18</button></td>
+                    <td><button type="button">19</button></td>
+                    <td><button type="button">20</button></td>
+                    <td><button type="button">21</button></td>
+                    <td><button type="button">22</button></td>
+                    <td><button type="button">23</button></td>
+                    <td><button type="button">24</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">25</button></td>
+                    <td class="today"><button type="button" aria-current="date">26</button></td>
+                    <td><button type="button">27</button></td>
+                    <td><button type="button">28</button></td>
+                    <td><button type="button">29</button></td>
+                    <td><button type="button">30</button></td>
+                    <td><button type="button">31</button></td>
+                  </tr>
+                  <tr>
+                    <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">4</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">7</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          </div>
+        </section>
+        <section class="section">
+          <section class="stack">
+            <header>
+              <h2>Date range</h2>
+              <p><code>.range-start</code> and <code>.range-end</code> paint the ends, <code>.in-range</code> paints the band between them. The band is a cell background, so it runs edge to edge across a week.</p>
+              <popup-dialog title="Date range HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;td class=&quot;range-start&quot;&gt;&lt;button type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;8&lt;/button&gt;&lt;/td&gt;
+&lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;9&lt;/button&gt;&lt;/td&gt;
+&lt;td class=&quot;in-range&quot;&gt;&lt;button type=&quot;button&quot;&gt;10&lt;/button&gt;&lt;/td&gt;
+…
+&lt;td class=&quot;range-end&quot;&gt;&lt;button type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;14&lt;/button&gt;&lt;/td&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="calendar">
+              <header>
+                <button type="button" class="prev" aria-label="Previous month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+                <span class="title" id="m-range">January 2027</span>
+                <button type="button" class="next" aria-label="Next month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+              </header>
+              <table role="grid" aria-labelledby="m-range">
+                <thead>
+                  <tr>
+                    <th scope="col" abbr="Monday">Mo</th>
+                    <th scope="col" abbr="Tuesday">Tu</th>
+                    <th scope="col" abbr="Wednesday">We</th>
+                    <th scope="col" abbr="Thursday">Th</th>
+                    <th scope="col" abbr="Friday">Fr</th>
+                    <th scope="col" abbr="Saturday">Sa</th>
+                    <th scope="col" abbr="Sunday">Su</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="outside"><button type="button" tabindex="-1">28</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">29</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">30</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">31</button></td>
+                    <td class="marked"><button type="button">1</button></td>
+                    <td><button type="button">2</button></td>
+                    <td><button type="button">3</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">4</button></td>
+                    <td><button type="button">5</button></td>
+                    <td><button type="button">6</button></td>
+                    <td><button type="button">7</button></td>
+                    <td class="range-start"><button type="button" aria-pressed="true">8</button></td>
+                    <td class="in-range"><button type="button">9</button></td>
+                    <td class="in-range"><button type="button">10</button></td>
+                  </tr>
+                  <tr>
+                    <td class="in-range"><button type="button">11</button></td>
+                    <td class="in-range"><button type="button">12</button></td>
+                    <td class="in-range"><button type="button">13</button></td>
+                    <td class="range-end"><button type="button" aria-pressed="true">14</button></td>
+                    <td><button type="button">15</button></td>
+                    <td><button type="button">16</button></td>
+                    <td><button type="button">17</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">18</button></td>
+                    <td><button type="button">19</button></td>
+                    <td><button type="button">20</button></td>
+                    <td><button type="button">21</button></td>
+                    <td><button type="button">22</button></td>
+                    <td><button type="button">23</button></td>
+                    <td><button type="button">24</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">25</button></td>
+                    <td class="today"><button type="button" aria-current="date">26</button></td>
+                    <td><button type="button">27</button></td>
+                    <td><button type="button">28</button></td>
+                    <td><button type="button">29</button></td>
+                    <td class="marked"><button type="button">30</button></td>
+                    <td><button type="button">31</button></td>
+                  </tr>
+                  <tr>
+                    <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                    <td class="outside marked"><button type="button" tabindex="-1">4</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">7</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section class="stack">
+            <header>
+              <h2>Several months</h2>
+              <p>Wrap calendars in <code>.calendar-group</code>. Omit <code>.prev</code> on the first month and <code>.next</code> on the last: the header keeps its title centred either way.</p>
+              <popup-dialog title="Several months HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;div class=&quot;calendar-group&quot;&gt;
+  &lt;div class=&quot;calendar&quot;&gt;
+    &lt;header&gt;
+      &lt;button type=&quot;button&quot; class=&quot;prev&quot; aria-label=&quot;Previous month&quot;&gt;…&lt;/button&gt;
+      &lt;span class=&quot;title&quot;&gt;January 2027&lt;/span&gt;
+    &lt;/header&gt;
+    …
+  &lt;/div&gt;
+  &lt;div class=&quot;calendar&quot;&gt;
+    &lt;header&gt;
+      &lt;span class=&quot;title&quot;&gt;February 2027&lt;/span&gt;
+      &lt;button type=&quot;button&quot; class=&quot;next&quot; aria-label=&quot;Next month&quot;&gt;…&lt;/button&gt;
+    &lt;/header&gt;
+    …
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="calendar-group">
+              <div class="calendar">
+                <header>
+                  <button type="button" class="prev" aria-label="Previous month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+                  <span class="title" id="m-g1">January 2027</span>
+                </header>
+                <table role="grid" aria-labelledby="m-g1">
+                  <thead>
+                    <tr>
+                      <th scope="col" abbr="Monday">Mo</th>
+                      <th scope="col" abbr="Tuesday">Tu</th>
+                      <th scope="col" abbr="Wednesday">We</th>
+                      <th scope="col" abbr="Thursday">Th</th>
+                      <th scope="col" abbr="Friday">Fr</th>
+                      <th scope="col" abbr="Saturday">Sa</th>
+                      <th scope="col" abbr="Sunday">Su</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="outside"><button type="button" tabindex="-1">28</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">29</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">30</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">31</button></td>
+                      <td class="marked"><button type="button">1</button></td>
+                      <td><button type="button">2</button></td>
+                      <td><button type="button">3</button></td>
+                    </tr>
+                    <tr>
+                      <td><button type="button">4</button></td>
+                      <td><button type="button">5</button></td>
+                      <td><button type="button">6</button></td>
+                      <td><button type="button">7</button></td>
+                      <td class="range-start"><button type="button" aria-pressed="true">8</button></td>
+                      <td class="in-range"><button type="button">9</button></td>
+                      <td class="in-range"><button type="button">10</button></td>
+                    </tr>
+                    <tr>
+                      <td class="in-range"><button type="button">11</button></td>
+                      <td class="in-range"><button type="button">12</button></td>
+                      <td class="in-range"><button type="button">13</button></td>
+                      <td class="range-end"><button type="button" aria-pressed="true">14</button></td>
+                      <td><button type="button">15</button></td>
+                      <td><button type="button">16</button></td>
+                      <td><button type="button">17</button></td>
+                    </tr>
+                    <tr>
+                      <td><button type="button">18</button></td>
+                      <td><button type="button">19</button></td>
+                      <td><button type="button">20</button></td>
+                      <td><button type="button">21</button></td>
+                      <td><button type="button">22</button></td>
+                      <td><button type="button">23</button></td>
+                      <td><button type="button">24</button></td>
+                    </tr>
+                    <tr>
+                      <td><button type="button">25</button></td>
+                      <td class="today"><button type="button" aria-current="date">26</button></td>
+                      <td><button type="button">27</button></td>
+                      <td><button type="button">28</button></td>
+                      <td><button type="button">29</button></td>
+                      <td class="marked"><button type="button">30</button></td>
+                      <td><button type="button">31</button></td>
+                    </tr>
+                    <tr>
+                      <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                      <td class="outside marked"><button type="button" tabindex="-1">4</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">7</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="calendar">
+                <header>
+                  <span class="title" id="m-g2">February 2027</span>
+                  <button type="button" class="next" aria-label="Next month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+                </header>
+                <table role="grid" aria-labelledby="m-g2">
+                  <thead>
+                    <tr>
+                      <th scope="col" abbr="Monday">Mo</th>
+                      <th scope="col" abbr="Tuesday">Tu</th>
+                      <th scope="col" abbr="Wednesday">We</th>
+                      <th scope="col" abbr="Thursday">Th</th>
+                      <th scope="col" abbr="Friday">Fr</th>
+                      <th scope="col" abbr="Saturday">Sa</th>
+                      <th scope="col" abbr="Sunday">Su</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><button type="button">1</button></td>
+                      <td><button type="button">2</button></td>
+                      <td><button type="button">3</button></td>
+                      <td class="marked"><button type="button">4</button></td>
+                      <td><button type="button">5</button></td>
+                      <td><button type="button">6</button></td>
+                      <td><button type="button">7</button></td>
+                    </tr>
+                    <tr>
+                      <td class="marked"><button type="button">8</button></td>
+                      <td><button type="button">9</button></td>
+                      <td><button type="button">10</button></td>
+                      <td><button type="button">11</button></td>
+                      <td><button type="button">12</button></td>
+                      <td><button type="button">13</button></td>
+                      <td class="marked"><button type="button">14</button></td>
+                    </tr>
+                    <tr>
+                      <td><button type="button">15</button></td>
+                      <td><button type="button">16</button></td>
+                      <td><button type="button">17</button></td>
+                      <td><button type="button">18</button></td>
+                      <td><button type="button">19</button></td>
+                      <td><button type="button">20</button></td>
+                      <td><button type="button">21</button></td>
+                    </tr>
+                    <tr>
+                      <td><button type="button">22</button></td>
+                      <td><button type="button">23</button></td>
+                      <td><button type="button">24</button></td>
+                      <td><button type="button">25</button></td>
+                      <td><button type="button">26</button></td>
+                      <td><button type="button">27</button></td>
+                      <td><button type="button">28</button></td>
+                    </tr>
+                    <tr>
+                      <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">4</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">7</button></td>
+                    </tr>
+                    <tr>
+                      <td class="outside"><button type="button" tabindex="-1">8</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">9</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">10</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">11</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">12</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">13</button></td>
+                      <td class="outside"><button type="button" tabindex="-1">14</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section class="section">
+          <section class="stack">
+            <header>
+              <h2>Compact</h2>
+              <p><code>.calendar--compact</code> shrinks cells to one line for tight panels.</p>
+              <popup-dialog title="Compact HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;div class=&quot;calendar calendar--compact&quot;&gt;…&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <div class="calendar calendar--compact">
+              <header>
+                <button type="button" class="prev" aria-label="Previous month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+                <span class="title" id="m-compact">January 2027</span>
+                <button type="button" class="next" aria-label="Next month"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+              </header>
+              <table role="grid" aria-labelledby="m-compact">
+                <thead>
+                  <tr>
+                    <th scope="col" abbr="Monday">Mo</th>
+                    <th scope="col" abbr="Tuesday">Tu</th>
+                    <th scope="col" abbr="Wednesday">We</th>
+                    <th scope="col" abbr="Thursday">Th</th>
+                    <th scope="col" abbr="Friday">Fr</th>
+                    <th scope="col" abbr="Saturday">Sa</th>
+                    <th scope="col" abbr="Sunday">Su</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="outside"><button type="button" tabindex="-1">28</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">29</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">30</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">31</button></td>
+                    <td><button type="button">1</button></td>
+                    <td><button type="button">2</button></td>
+                    <td><button type="button">3</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">4</button></td>
+                    <td><button type="button">5</button></td>
+                    <td><button type="button">6</button></td>
+                    <td><button type="button">7</button></td>
+                    <td><button type="button">8</button></td>
+                    <td><button type="button">9</button></td>
+                    <td><button type="button">10</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">11</button></td>
+                    <td><button type="button">12</button></td>
+                    <td><button type="button">13</button></td>
+                    <td class="selected"><button type="button" aria-pressed="true">14</button></td>
+                    <td><button type="button">15</button></td>
+                    <td><button type="button">16</button></td>
+                    <td><button type="button">17</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">18</button></td>
+                    <td><button type="button">19</button></td>
+                    <td><button type="button">20</button></td>
+                    <td><button type="button">21</button></td>
+                    <td><button type="button">22</button></td>
+                    <td><button type="button">23</button></td>
+                    <td><button type="button">24</button></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button">25</button></td>
+                    <td class="today"><button type="button" aria-current="date">26</button></td>
+                    <td><button type="button">27</button></td>
+                    <td><button type="button">28</button></td>
+                    <td><button type="button">29</button></td>
+                    <td><button type="button">30</button></td>
+                    <td><button type="button">31</button></td>
+                  </tr>
+                  <tr>
+                    <td class="outside"><button type="button" tabindex="-1">1</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">2</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">3</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">4</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">5</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">6</button></td>
+                    <td class="outside"><button type="button" tabindex="-1">7</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section class="stack">
+            <header>
+              <h2>Behaviour</h2>
+            </header>
+            <p>The calendar is state, not behaviour. Month navigation and selection are set by the server render or a small script: change the cell classes and the <code>aria-*</code> attributes, nothing else. Cells are buttons, so keyboard users can tab through days and activate them without extra work.</p>
+            <p>Change the cell size with <code>--calendar-cell</code> and the range band colour with <code>--calendar-range-bg</code>.</p>
+          </section>
+        </section>
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

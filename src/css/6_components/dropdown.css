@@ -18,6 +18,9 @@
   .dropdown {
     position: relative;
     display: inline-block;
+    /* Shrink-wrap the trigger inside flex columns (.stack) so an
+       end-aligned menu hangs from the button, not a stretched box */
+    inline-size: fit-content;
 
     & .trigger {
       cursor: pointer;
@@ -46,8 +49,10 @@
                   transform var(--duration-fast),
                   visibility var(--duration-fast);
 
-      & a,
-      & button {
+      /* Action rows. Scoped to list items so panel chrome (header/footer)
+         can hold regular buttons. */
+      & > li > a,
+      & > li > button {
         display: block;
         inline-size: 100%;
         padding: var(--line-025) var(--line-05);
@@ -58,6 +63,8 @@
         border: none;
         cursor: pointer;
         font-size: var(--text-sm);
+        line-height: var(--line-height-sm);
+        letter-spacing: var(--tracking-sm);
         white-space: nowrap;
 
         &:hover,
@@ -78,15 +85,16 @@
         border-block-start: var(--line-1px) solid var(--color-subtle);
       }
 
-      & [disabled] {
+      & > li > [disabled] {
         opacity: 0.5;
         pointer-events: none;
       }
     }
   }
 
-  /* Open state */
-  .dropdown[data-open] .menu {
+  /* Open state - supports the [data-open] attribute and native <details>[open] */
+  .dropdown[data-open] .menu,
+  .dropdown[open] .menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -103,5 +111,118 @@
     inset-block-end: 100%;
     margin-block-start: 0;
     margin-block-end: var(--line-025);
+  }
+
+  /**
+   * Panel variant
+   *
+   * A wider content panel instead of a list of actions: a scrollable
+   * .body between an optional <header> and <footer>. Built for filter
+   * and notification panels driven by native <details>/<summary>, so it
+   * needs no JavaScript to open and close. Works with the [data-open]
+   * container too.
+   *
+   * Size with --panel-inline-size and --panel-max-block-size.
+   *
+   * @example
+   * <details class="dropdown dropdown--panel">
+   *   <summary class="trigger button button--small">
+   *     <span>Circles</span>
+   *     <span class="text-muted">All</span>
+   *     <svg class="icon chevron" aria-hidden="true">...</svg>
+   *   </summary>
+   *   <div class="menu">
+   *     <div class="body" role="group" aria-label="Filter by circle">
+   *       <label class="checkbox">
+   *         <input type="checkbox" name="circle" value="design">
+   *         <span>Design</span>
+   *         <span class="text-muted">12<span class="visually-hidden"> members</span></span>
+   *       </label>
+   *     </div>
+   *     <footer class="cluster">
+   *       <button type="reset" class="button button--small">Clear all</button>
+   *     </footer>
+   *   </div>
+   * </details>
+   */
+  .dropdown--panel {
+    --panel-inline-size: 22rem;
+    --panel-max-block-size: min(70vh, calc(var(--line) * 18));
+
+    & .menu {
+      display: flex;
+      flex-direction: column;
+      inline-size: var(--panel-inline-size);
+      max-inline-size: calc(100vw - var(--line-1));
+      max-block-size: var(--panel-max-block-size);
+      padding-block: 0;
+    }
+
+    /* Regions own their padding so markup stays minimal */
+    & .menu > header,
+    & .menu > footer {
+      flex: 0 0 auto;
+      padding: var(--line-025) var(--line-05);
+    }
+
+    & .menu > header {
+      border-block-end: var(--line-1px) solid var(--color-border-muted);
+    }
+
+    & .menu > footer {
+      border-block-start: var(--line-1px) solid var(--color-border-muted);
+    }
+
+    & .menu > .body {
+      flex: 1 1 auto;
+      min-block-size: 0;
+      padding: var(--line-025) var(--line-05);
+      overflow-y: auto;
+    }
+
+    /* Trigger: a <summary> carrying .trigger. Drops the disclosure marker
+       and the base summary underline so it reads as a control. */
+    & > summary.trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--line-025);
+      white-space: nowrap;
+      text-decoration: none;
+
+      /* A muted count inherits the button colour instead of --color-muted,
+         which has no contrast on the button background */
+      & .text-muted {
+        color: inherit;
+        opacity: 0.7;
+      }
+    }
+
+    /* .chevron flips while open. Scoped to a class so a leading icon in
+       the trigger is not rotated too. */
+    & .trigger .chevron {
+      flex: 0 0 auto;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: rotate var(--duration-fast) var(--ease-out);
+      }
+    }
+
+    &[open] .trigger .chevron,
+    &[data-open] .trigger .chevron {
+      rotate: 180deg;
+    }
+
+    /* Checkbox filter rows: label text takes the free space, a trailing
+       count stays flush to the end edge. */
+    & .body > .checkbox,
+    & .body > .radio {
+      display: flex;
+
+      & > span:first-of-type {
+        flex: 1 1 auto;
+        min-inline-size: 0;
+        overflow-wrap: anywhere;
+      }
+    }
   }
 }
