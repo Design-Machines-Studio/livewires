@@ -65,8 +65,12 @@
 
   /* Tighter fields for toolbars and panels */
   .date-range--small > input {
-    min-block-size: var(--line-15);
+    --touch-target-min: 0;
+    min-block-size: var(--line-1);
     padding-block: 0;
+    font-size: var(--text-xs);
+    line-height: var(--line-height-xs);
+    letter-spacing: var(--tracking-xs);
   }
 
   /*

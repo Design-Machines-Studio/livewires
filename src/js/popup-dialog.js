@@ -155,7 +155,7 @@ class PopupDialog extends HTMLElement {
 
     this.innerHTML = `
       <span class="dialog-trigger" data-trigger>${this._triggerContent}</span>
-      <dialog class="dialog imposter imposter-fixed">
+      <dialog class="dialog imposter-contain">
         <div class="box stack">
           ${headerHtml}
           <div>${bodyContent}</div>

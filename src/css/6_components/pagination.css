@@ -4,32 +4,31 @@
  * Navigation controls for multi-page content.
  *
  * Usage:
- * <nav class="pagination">
- *   <ul>
- *     <li><a href="#">&laquo;</a></li>
- *     <li class="current"><a href="#">1</a></li>
- *     <li><a href="#">2</a></li>
- *     <li><a href="#">3</a></li>
- *     <li>&hellip;</li>
- *     <li><a href="#">5</a></li>
- *     <li><a href="#">&raquo;</a></li>
- *   </ul>
+ * <nav class="pagination" aria-label="Pagination">
+ *   <a href="?page=1" rel="prev">Previous</a>
+ *   <a href="?page=1">1</a>
+ *   <a href="?page=2" aria-current="page">2</a>
+ *   <a href="?page=3">3</a>
+ *   <a href="?page=3" rel="next">Next</a>
  * </nav>
  *
+ * Lists (<ol>/<ul> with li.current) are also supported.
  */
 
 @layer components {
-  .pagination {
+  .pagination,
+  .pagination :is(ol, ul) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--line-05);
+  }
 
-    ol,
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--line-025);
-    }
-
-    & .current a {
-      cursor: default;
-    }
+  .pagination [aria-current="page"],
+  .pagination .current a {
+    color: var(--color-fg);
+    font-weight: var(--font-bold);
+    text-decoration: none;
+    cursor: default;
   }
 }

@@ -64,6 +64,18 @@
       outline-offset: 2px;
       border-color: var(--color-accent);
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      border-color: var(--color-border-muted);
+      background: var(--color-subtle);
+      color: var(--color-muted);
+    }
+
+    &:read-only:not(select, :disabled) {
+      border-style: dashed;
+      background: var(--color-subtle);
+    }
   }
 
   input[type="text"],
