@@ -118,6 +118,12 @@ pre, code {
   break-inside: avoid;
 }
 
+@supports (color: color(display-p3 1 1 1)) {
+  pre, code {
+    border-color: color(display-p3 0.6 0.6 0.6);
+  }
+}
+
 pre {
   white-space: pre-wrap;
   word-wrap: break-word;

@@ -30,7 +30,7 @@
 
 const PANEL_CSS = `
   :host {
-    /* Panel-scoped design tokens (hardcoded hex, immune to app scheme changes) */
+    /* Panel-scoped sRGB fallback tokens, immune to app scheme changes */
     --dp-bg: #1A1A1A;
     --dp-bg-input: #252525;
     --dp-bg-elevated: #2E2E2E;
@@ -38,8 +38,8 @@ const PANEL_CSS = `
     --dp-text-muted: #A8A8A8;
     --dp-text-secondary: #D1D1D1;
     --dp-text: #F5F5F5;
-    --dp-accent: #1966D9;
-    --dp-accent-light: #5DAEFF;
+    --dp-accent: #0063e4;
+    --dp-accent-light: #5daeff;
     --dp-radius: 3px;
     --dp-space-xs: 6px;
     --dp-space-sm: 12px;
@@ -51,6 +51,20 @@ const PANEL_CSS = `
     font-size: 0.75rem;
     line-height: 1.5;
     color: var(--dp-text);
+  }
+
+  @supports (color: color(display-p3 1 1 1)) {
+    :host {
+      --dp-accent: color(display-p3 0.024596 0.343385 0.964979);
+      --dp-accent-light: color(display-p3 0.426802 0.674010 0.993399);
+    }
+
+    .trigger {
+      background: color(display-p3 0 0 0 / 80%);
+      color: color(display-p3 1 1 1 / 70%);
+    }
+
+    .trigger:hover { color: color(display-p3 1 1 1); }
   }
 
   .panel {

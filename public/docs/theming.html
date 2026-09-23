@@ -78,6 +78,7 @@
           <p>Before writing CSS, extract the visual DNA from your source design. Whether it's a website, PDF, or screenshot, look for:</p>
 
           <h3>Colors</h3>
+          <p>The palette keeps sRGB hex values as fallbacks and enhances its colors on Display-P3 screens. The P3 values extend chroma while preserving OKLCH lightness and hue; they are not made by copying sRGB channel numbers into <code>color(display-p3 ...)</code>. When adding a custom wide-gamut color, derive the sRGB fallback from the P3 target with gamut mapping, then apply the P3 value inside <code>@supports (color: color(display-p3 1 1 1))</code>.</p>
           <ul>
             <li><strong>Primary brand color.</strong> The dominant color for key UI elements.</li>
             <li><strong>Secondary colors.</strong> Supporting colors for accents, CTAs, backgrounds.</li>
