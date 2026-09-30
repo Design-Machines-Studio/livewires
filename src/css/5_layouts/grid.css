@@ -33,6 +33,16 @@
     --min-column-width: var(--line-8);
   }
 
+  /* Opt-in compact placement backfills gaps left by spanning items. Pair it
+     with reading-flow so sequential reading and keyboard navigation follow
+     the visual rows. Browsers without reading-flow keep the default placement. */
+  @supports (reading-flow: grid-rows) {
+    .grid-dense {
+      grid-auto-flow: dense;
+      reading-flow: grid-rows;
+    }
+  }
+
   /* Fixed column grids (--grid-columns used by dev tools outline) */
   .grid-columns-2 { --grid-columns: 2; grid-template-columns: repeat(2, 1fr); }
   .grid-columns-3 { --grid-columns: 3; grid-template-columns: repeat(3, 1fr); }

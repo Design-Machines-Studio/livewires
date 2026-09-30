@@ -45,6 +45,14 @@
   <div class="grid-span-2@md">Spans 2 at medium+ container</div>
   <div>Single</div>
 </div>
+
+<!-- Compact placement backfills earlier gaps left by spanning items -->
+<div class="grid grid-columns-4 grid-dense">
+  <div class="grid-column-span-3 grid-row-span-2">Wide, tall item</div>
+  <div class="grid-column-span-2">Two-column item</div>
+  <div>Small item can fill an earlier gap</div>
+</div>
+<p>The <code>grid-dense</code> variant may change visual order to fill gaps. In browsers that support <code>reading-flow: grid-rows</code>, sequential reading and keyboard navigation follow the visual rows. Other browsers keep normal source-order placement.</p>
     </article>
   </main>
   <html-include src="/_includes/footer.html"></html-include>
