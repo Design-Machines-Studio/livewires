@@ -45,6 +45,21 @@
   <div class="grid-span-2@md">Spans 2 at medium+ container</div>
   <div>Single</div>
 </div>
+
+<!-- Compact placement backfills earlier gaps left by spanning items -->
+<div class="grid grid-columns-4 grid-dense">
+  <div class="grid-column-span-3 grid-row-span-2">Wide, tall item</div>
+  <div class="grid-column-span-2">Two-column item</div>
+  <div>Small item can fill an earlier gap</div>
+</div>
+<p>The <code>grid-dense</code> variant may change visual order to fill gaps. In browsers that support <code>reading-flow: grid-rows</code>, sequential reading and keyboard navigation follow the visual rows. Other browsers keep normal source-order placement.</p>
+
+<!-- A larger widget can span four row units, from a container threshold if needed -->
+<div class="grid grid-columns-3">
+  <div class="grid-column-span-2 grid-row-span-4">A summary that spans two columns and four rows</div>
+  <div class="grid-row-span-4@md">A four-row item beginning at medium width</div>
+  <div>One row by default</div>
+</div>
     </article>
   </main>
   <html-include src="/_includes/footer.html"></html-include>
