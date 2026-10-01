@@ -20,6 +20,9 @@
 <div class="grid grid-columns-3@lg"> <!-- 3 cols at 60rem+ container -->
 <div class="grid-column-span-2">     <!-- Span columns -->
 <div class="grid-column-span-2@md">  <!-- Responsive span -->
+<div class="grid-row-span-4">        <!-- Span four implicit rows -->
+<div class="grid-row-span-4@md">     <!-- Four rows at 40rem+ container -->
+<div class="grid-row-span-4@lg">     <!-- Four rows at 60rem+ container -->
 ```
 
 ## Cluster (Horizontal Grouping)
