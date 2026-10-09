@@ -17,8 +17,9 @@
       <p>This optional enhancement moves an item into its requested position immediately. The visible order is provisional while your application decides whether and how to apply it.</p>
       <p>This static reference includes a small local responder so the interaction can be tried. It updates each list as the application would, then confirms the matching request. It is an example only, not persistence or a server integration.</p>
       <p>Use the handle and arrow keys to stage a position, Space to request it, and Escape to cancel. Dragging moves the row with the pointer; on release, it lands in the requested position while the application catches up. A rejection restores the previous position unless the application has already replaced the list markup. The move buttons request the previous or next position directly. In an application, point each form to its own reorder endpoint for a no-JavaScript fallback.</p>
+      <p>Use <code>data-sortable-variant="cards"</code> for separate bordered rows; omit it for simple dividers. <code>data-sortable-density="compact"</code> reduces text and spacing while keeping the controls' touch targets intact. Include a handle, move buttons, or both to choose the controls each list needs.</p>
 
-      <lw-sortable-list aria-label="Reading list">
+      <lw-sortable-list data-sortable-variant="cards" aria-label="Reading list">
         <ol data-sortable-list>
           <li data-sortable-item data-item-id="essay-01" data-item-label="Field notes">
             <span data-sortable-content><a href="#field-notes">Field notes</a> <small>— a link stays usable</small></span>
@@ -82,26 +83,30 @@
           <caption>Member requirements</caption>
           <thead>
             <tr>
-              <th scope="col"><span class="sr-only">Order</span></th>
+              <th scope="col"><span class="visually-hidden">Order</span></th>
               <th scope="col">Member practice</th>
               <th scope="col">Shared purpose</th>
+              <th scope="col"><span class="visually-hidden">Position controls</span></th>
             </tr>
           </thead>
           <tbody data-sortable-list>
             <tr data-sortable-item data-item-id="orientation" data-item-label="Member orientation">
-              <td><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Member orientation" title="Drag or press Space to stage">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Member orientation up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Member orientation down">↓</button></span></td>
+              <td><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Member orientation" title="Drag or press Space to stage">⠿</button></span></td>
               <th scope="row" data-sortable-content>Member orientation</th>
               <td data-th="Shared purpose">Welcome people into the co-op and how members work together.</td>
+              <td data-th="Position"><span data-sortable-actions><button type="button" data-sortable-move="up" aria-label="Move Member orientation up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Member orientation down">↓</button></span></td>
             </tr>
             <tr data-sortable-item data-item-id="agreements" data-item-label="Shared agreements">
-              <td><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Shared agreements" title="Drag or press Space to stage">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Shared agreements up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Shared agreements down">↓</button></span></td>
+              <td><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Shared agreements" title="Drag or press Space to stage">⠿</button></span></td>
               <th scope="row" data-sortable-content>Shared agreements</th>
               <td data-th="Shared purpose">Review the agreements members use to work together.</td>
+              <td data-th="Position"><span data-sortable-actions><button type="button" data-sortable-move="up" aria-label="Move Shared agreements up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Shared agreements down">↓</button></span></td>
             </tr>
             <tr data-sortable-item data-item-id="governance" data-item-label="Governance participation">
-              <td><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Governance participation" title="Drag or press Space to stage">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Governance participation up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Governance participation down">↓</button></span></td>
+              <td><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Governance participation" title="Drag or press Space to stage">⠿</button></span></td>
               <th scope="row" data-sortable-content>Governance participation</th>
               <td data-th="Shared purpose">Take part in a member meeting or decision round.</td>
+              <td data-th="Position"><span data-sortable-actions><button type="button" data-sortable-move="up" aria-label="Move Governance participation up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Governance participation down">↓</button></span></td>
             </tr>
           </tbody>
         </table>

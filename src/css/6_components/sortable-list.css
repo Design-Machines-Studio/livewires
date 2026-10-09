@@ -78,6 +78,45 @@
       overflow-wrap: anywhere;
     }
 
+    /* Card rows have one even outline per item, with a clear gap between cards. */
+    &[data-sortable-variant="cards"] ol[data-sortable-list],
+    &[data-sortable-variant="cards"] ul[data-sortable-list] {
+      gap: var(--line-05);
+      border: 0;
+    }
+
+    &[data-sortable-variant="cards"] :is(ol, ul)[data-sortable-list] > [data-sortable-item] {
+      padding-block: var(--line-025);
+      border: var(--line-1px) solid var(--color-border);
+      border-radius: var(--radius-tight);
+      background-color: var(--color-bg);
+    }
+
+    &[data-sortable-variant="cards"] :is(ol, ul)[data-sortable-list] > [data-sortable-item] + [data-sortable-item] {
+      border-block-start: var(--line-1px) solid var(--color-border);
+    }
+
+    &[data-sortable-variant="cards"] [data-sortable-item][data-sortable-source] {
+      border-color: var(--color-accent);
+    }
+
+    &[data-sortable-variant="cards"] [data-sortable-item][data-sortable-source]::before {
+      content: none;
+    }
+
+    /* Keep hit targets the same size while reducing text and row spacing. */
+    &[data-sortable-density="compact"] [data-sortable-item] {
+      gap: var(--line-025);
+      padding-inline: var(--line-025);
+    }
+
+    &[data-sortable-density="compact"] [data-sortable-content],
+    &[data-sortable-density="compact"] :is([data-sortable-handle], [data-sortable-move]) {
+      font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
+    }
+
     /* Ordered lists show the current visible position, including pending moves. */
     & ol[data-sortable-list] > [data-sortable-item] > [data-sortable-content]::before {
       content: counter(sortable-item);
@@ -137,10 +176,16 @@
       z-index: 2;
       pointer-events: none;
       transform: translate3d(var(--sortable-pointer-x, 0px), var(--sortable-pointer-y, 0px), 0);
-      outline: 2px solid var(--color-accent);
-      outline-offset: -2px;
-      background: var(--color-bg);
+      opacity: 1;
+      background-color: var(--color-bg, Canvas);
+      outline: none;
+      box-shadow: 0 0 0 calc(var(--line-1px) * 2) var(--color-accent);
       transition: none;
+    }
+
+    &[data-sortable-variant="cards"] [data-sortable-item][data-sortable-dragging] {
+      border-color: var(--color-accent);
+      background-color: var(--color-bg, Canvas);
     }
 
     /*
@@ -212,6 +257,23 @@
       transition: background-color var(--duration-fast) var(--ease-out);
     }
 
+    & table [data-sortable-actions] {
+      flex-wrap: nowrap;
+    }
+
+    & table.table--lined :is(th, td) {
+      border-inline: 0;
+    }
+
+    & table.table--lined tbody [data-sortable-item] > :is(th, td) {
+      background-color: transparent;
+    }
+
+    & table.table--lined tbody [data-sortable-item] > th[scope="row"] {
+      border-block: 0;
+      font-weight: var(--font-bold);
+    }
+
     & table [data-sortable-item][data-sortable-source] > :is(th, td) {
       background: var(--color-accent-tint);
     }
@@ -229,11 +291,12 @@
     }
 
     & table [data-sortable-item][data-sortable-dragging] > :is(th, td) {
-      background: var(--color-bg);
+      background-color: var(--color-bg, Canvas);
     }
 
     & table [data-sortable-item][data-sortable-dragging] {
       outline: none;
+      box-shadow: none;
     }
 
     /*
