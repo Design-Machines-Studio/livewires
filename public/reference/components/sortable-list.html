@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="module" src="/dist/main.js"></script>
+  <script type="module" src="/dist/sortable-list.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+  <link rel="stylesheet" href="/dist/sortable-list.css">
+  <title>Sortable list – Components Reference – Live Wires</title>
+</head>
+<body class="scheme-default">
+  <html-include src="/_includes/header.html"></html-include>
+  <main id="main">
+    <article class="section prose">
+      <h1>Sortable list</h1>
+      <p>This optional enhancement keeps the list in its authored order until your application confirms a move. It sends a request; your application decides whether and how to apply it.</p>
+      <p>This static reference includes a small local responder so the interaction can be tried. It updates the list as the application would, then confirms the matching request. It is not persistence or a server integration; use the manual fixture for delayed, rejected and stale response cases.</p>
+      <p>Use the handle and arrow keys to stage a position, Space to request it, and Escape to cancel. Pointer and touch dragging announce the staged destination and cancel when released outside the list. The move buttons request the previous or next position directly. In an application, point each form to its own reorder endpoint for a no-JavaScript fallback.</p>
+
+      <lw-sortable-list aria-label="Reading list">
+        <ol data-sortable-list>
+          <li data-sortable-item data-item-id="essay-01" data-item-label="Field notes">
+            <span data-sortable-content><a href="#field-notes">Field notes</a> <small>— a link stays usable</small></span>
+            <span data-sortable-actions>
+              <button type="button" data-sortable-handle aria-label="Move Field notes" title="Drag or press Space to stage">⠿</button>
+              <form method="post" action="/items/reorder">
+                <input type="hidden" name="itemId" value="essay-01">
+                <input type="hidden" name="before" value="essay-01">
+                <button type="submit" data-sortable-move="up" aria-label="Move Field notes up" disabled>↑</button>
+              </form>
+              <form method="post" action="/items/reorder">
+                <input type="hidden" name="itemId" value="essay-01">
+                <input type="hidden" name="before" value="essay-03">
+                <button type="submit" data-sortable-move="down" aria-label="Move Field notes down">↓</button>
+              </form>
+            </span>
+          </li>
+          <li data-sortable-item data-item-id="essay-02" data-item-label="On paper">
+            <span data-sortable-content><a href="#on-paper">On paper</a> <small>— nested controls remain available</small></span>
+            <span data-sortable-actions>
+              <button type="button" data-sortable-handle aria-label="Move On paper" title="Drag or press Space to stage">⠿</button>
+              <form method="post" action="/items/reorder">
+                <input type="hidden" name="itemId" value="essay-02">
+                <input type="hidden" name="before" value="essay-01">
+                <button type="submit" data-sortable-move="up" aria-label="Move On paper up">↑</button>
+              </form>
+              <form method="post" action="/items/reorder">
+                <input type="hidden" name="itemId" value="essay-02">
+                <input type="hidden" name="before" value="">
+                <button type="submit" data-sortable-move="down" aria-label="Move On paper down">↓</button>
+              </form>
+            </span>
+          </li>
+          <li data-sortable-item data-item-id="essay-03" data-item-label="An index">
+            <span data-sortable-content>
+              <a href="#an-index">An index</a>
+              <label>Note <input type="text" aria-label="Note about An index" value="Keep this input usable"></label>
+            </span>
+            <span data-sortable-actions>
+              <button type="button" data-sortable-handle aria-label="Move An index" title="Drag or press Space to stage">⠿</button>
+              <form method="post" action="/items/reorder">
+                <input type="hidden" name="itemId" value="essay-03">
+                <input type="hidden" name="before" value="essay-02">
+                <button type="submit" data-sortable-move="up" aria-label="Move An index up">↑</button>
+              </form>
+              <form method="post" action="/items/reorder">
+                <input type="hidden" name="itemId" value="essay-03">
+                <input type="hidden" name="before" value="">
+                <button type="submit" data-sortable-move="down" aria-label="Move An index down" disabled>↓</button>
+              </form>
+            </span>
+          </li>
+        </ol>
+        <p data-sortable-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+      </lw-sortable-list>
+
+      <h2>Contract</h2>
+      <p>The component emits a bubbling <code>sortable-move-request</code> event with <code>{ itemId, before, requestId }</code>. An empty <code>before</code> means append at the end. Apply authorized, authoritative markup first, then call <code>list.resolveMove({ requestId, status, message? })</code> with <code>accepted</code> or <code>rejected</code>. Only a matching result clears the pending request. The opaque request ID correlates this UI response; it is not an authorization or idempotency token. The component does not persist, authorize, retry, or reorder the list.</p>
+      <pre><code>list.addEventListener('sortable-move-request', async (event) =&gt; {
+  const { itemId, before, requestId } = event.detail;
+  const result = await saveAuthorizedMove({ itemId, before });
+  renderAuthoritativeList(result.items);
+  list.resolveMove({ requestId, status: result.accepted ? 'accepted' : 'rejected' });
+});</code></pre>
+      <p>Use <code>data-sortable-list</code>, <code>data-sortable-item</code>, a unique <code>data-item-id</code>, <code>data-sortable-handle</code>, optional <code>data-sortable-move="up|down"</code>, and <code>data-sortable-status</code>. Component styles use those hooks for the staged source, target, end cue, pending state and status. The handle and move forms are authored controls. Change each example form’s action and before value to match an application endpoint and current order for a server fallback if the optional module fails.</p>
+      <p>Load <code>/dist/sortable-list.js</code> and <code>/dist/sortable-list.css</code> only on pages that use the element. It is outside <code>main.js</code>. Removing an instance cancels staging and invalidates its outstanding request; reinsertion attaches one listener set and ignores old results. A consumer must render its accepted order before calling <code>resolveMove</code>. The component never observes DOM changes as confirmation.</p>
+    </article>
+  </main>
+  <html-include src="/_includes/footer.html"></html-include>
+  <script type="module">
+    const list = document.querySelector('lw-sortable-list');
+    const orderedList = list.querySelector('[data-sortable-list]');
+
+    function updateFallbackForms() {
+      const items = [...orderedList.querySelectorAll('[data-sortable-item]')];
+      items.forEach((item, index) => {
+        const forms = [...item.querySelectorAll('form')];
+        const up = forms[0];
+        const down = forms[1];
+        up.querySelector('[name="before"]').value = items[index - 1]?.dataset.itemId || item.dataset.itemId;
+        down.querySelector('[name="before"]').value = items[index + 2]?.dataset.itemId || '';
+        up.querySelector('button').disabled = index === 0;
+        down.querySelector('button').disabled = index === items.length - 1;
+      });
+    }
+
+    list.addEventListener('sortable-move-request', ({ detail }) => {
+      const source = [...orderedList.querySelectorAll('[data-sortable-item]')]
+        .find((item) => item.dataset.itemId === detail.itemId);
+      const target = detail.before
+        ? [...orderedList.querySelectorAll('[data-sortable-item]')]
+          .find((item) => item.dataset.itemId === detail.before)
+        : null;
+      if (!source || (detail.before && !target)) {
+        list.resolveMove({ requestId: detail.requestId, status: 'rejected', message: 'The list changed before the move was applied.' });
+        return;
+      }
+      orderedList.insertBefore(source, target);
+      updateFallbackForms();
+      list.resolveMove({ requestId: detail.requestId, status: 'accepted' });
+    });
+
+    updateFallbackForms();
+  </script>
+</body>
+</html>

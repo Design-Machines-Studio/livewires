@@ -1,0 +1,94 @@
+@layer components {
+  lw-sortable-list {
+    display: block;
+    position: relative;
+  }
+
+  lw-sortable-list [data-sortable-list] {
+    display: grid;
+    gap: var(--line-05);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  lw-sortable-list [data-sortable-item] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--line-05);
+    padding: var(--line-05);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-normal);
+    background: var(--color-bg);
+    transition: box-shadow 160ms ease, opacity 160ms ease;
+  }
+
+  lw-sortable-list [data-sortable-item][data-sortable-source] {
+    opacity: 0.65;
+  }
+
+  lw-sortable-list [data-sortable-item][data-sortable-target] {
+    box-shadow: inset 0 3px 0 var(--color-accent);
+  }
+
+  lw-sortable-list[data-sortable-end-target]::after {
+    content: "Drop at end";
+    display: block;
+    border-block-end: 3px solid var(--color-accent);
+    padding-block: var(--line-025);
+    font-weight: var(--font-medium);
+  }
+
+  lw-sortable-list [data-sortable-content] {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  lw-sortable-list [data-sortable-actions] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--line-025);
+  }
+
+  lw-sortable-list [data-sortable-actions] form {
+    display: flex;
+    gap: var(--line-025);
+  }
+
+  lw-sortable-list [data-sortable-handle] {
+    cursor: grab;
+    touch-action: none;
+    min-inline-size: 44px;
+  }
+
+  lw-sortable-list [data-sortable-handle]:active {
+    cursor: grabbing;
+  }
+
+  lw-sortable-list [aria-disabled="true"] {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  lw-sortable-list[data-pending] [data-sortable-item] {
+    border-style: dashed;
+  }
+
+  lw-sortable-list [data-sortable-status] {
+    min-block-size: 1lh;
+    margin-block-start: var(--line-05);
+  }
+
+  lw-sortable-list [data-sortable-status][data-state="rejected"] {
+    border-inline-start: 3px solid var(--color-error);
+    padding-inline-start: var(--line-025);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    lw-sortable-list [data-sortable-item] {
+      transition: none;
+    }
+  }
+}

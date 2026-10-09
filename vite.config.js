@@ -33,7 +33,10 @@ export default defineConfig({
     alias: {
       '/src': resolve(__dirname, 'src'),
       // In dev, serve /dist/main.js from source
-      '/dist/main.js': resolve(__dirname, 'src/js/main.js')
+      '/dist/main.js': resolve(__dirname, 'src/js/main.js'),
+      // Keep the optional interaction outside the default application entry.
+      '/dist/sortable-list.js': resolve(__dirname, 'src/js/sortable-list.entry.js'),
+      '/dist/sortable-list.css': resolve(__dirname, 'src/css/6_components/sortable-list.css')
     }
   },
   build: {
@@ -44,12 +47,16 @@ export default defineConfig({
     // Don't process HTML - just build CSS and JS
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src/js/main.js')
+        main: resolve(__dirname, 'src/js/main.js'),
+        'sortable-list': resolve(__dirname, 'src/js/sortable-list.entry.js')
       },
       output: {
         // Fixed filenames (no hash) for easy HTML referencing
         assetFileNames: (assetInfo) => {
           // Name CSS file 'main.css' to match entry point
+          if (assetInfo.name?.includes('sortable-list')) {
+            return 'sortable-list.css';
+          }
           if (assetInfo.name?.endsWith('.css') || assetInfo.name === 'style.css') {
             return 'main.css';
           }
