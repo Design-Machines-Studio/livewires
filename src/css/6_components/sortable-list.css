@@ -347,16 +347,21 @@
       }
 
       & table [data-sortable-item] {
-        display: block;
+        display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        padding-block: var(--line-025);
       }
 
       & table [data-sortable-item] > th {
+        grid-column: 2;
+        grid-row: 1;
         display: block;
         text-align: start;
         padding-block-end: 0;
       }
 
       & table [data-sortable-item] > td {
+        grid-column: 2;
         display: flex;
         justify-content: space-between;
         align-items: baseline;
@@ -366,7 +371,14 @@
       }
 
       & table [data-sortable-item] > td:has([data-sortable-actions]) {
-        justify-content: flex-start;
+        justify-content: space-between;
+      }
+
+      & table [data-sortable-item] > td:first-child {
+        grid-column: 1;
+        grid-row: 1 / span 3;
+        align-self: start;
+        padding-block: 0;
       }
     }
 

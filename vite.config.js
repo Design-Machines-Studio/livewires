@@ -16,8 +16,10 @@ const devCssPlugin = () => ({
   name: 'dev-css',
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
-      if (req.url === '/dist/main.css') {
+      const pathname = req.url?.split('?')[0];
+      if (pathname === '/dist/main.css' || pathname === '/dist/sortable-list.css') {
         res.setHeader('Content-Type', 'text/css');
+        res.setHeader('Cache-Control', 'no-store');
         res.end('/* CSS loaded via JS in dev mode */');
         return;
       }

@@ -62,6 +62,7 @@ class LWSortableList extends HTMLElement {
     } else {
       this._announce(message || `Move of ${item?.getAttribute('data-item-label') || resolved.itemId} was not applied.`);
       if (statusNode) statusNode.dataset.state = 'rejected';
+      this._restoreFocus(resolved);
     }
     return true;
   }
@@ -338,6 +339,7 @@ class LWSortableList extends HTMLElement {
       focusItemId: item.dataset.itemId,
       focusWasInside: this.contains(activeElement),
       focusElement: activeElement,
+      focusMove: activeElement?.getAttribute?.('data-sortable-move'),
       fallbackHandle: handle,
       focusChanged: false,
       connection: this._moveState.connection,
@@ -347,6 +349,8 @@ class LWSortableList extends HTMLElement {
     const list = this._ownedElements('[data-sortable-list]')[0];
     const target = before ? this._itemById(before) : null;
     list.insertBefore(item, target);
+    // Moving a connected node can still reset focus to body in browsers.
+    if (item.contains(activeElement)) activeElement.focus({ preventScroll: true });
     this._animateMove(item, pending.origin);
     this.setAttribute('data-pending', '');
     this._setControlsPending(true);
@@ -375,7 +379,10 @@ class LWSortableList extends HTMLElement {
     })) return;
     const items = this._items();
     const nearby = items[Math.min(resolved.itemIndex, items.length - 1)];
-    const replacement = this._handleInItem(this._itemById(resolved.focusItemId) || {})
+    const focusItem = this._itemById(resolved.focusItemId) || nearby;
+    const moveControl = resolved.focusMove && [...(focusItem?.querySelectorAll(CONTROL_SELECTOR) || [])]
+      .find((control) => control.dataset.sortableMove === resolved.focusMove);
+    const replacement = moveControl || this._handleInItem(focusItem || {})
       || (nearby && this._handleInItem(nearby))
       || this._statusNode();
     replacement?.focus({ preventScroll: true });
@@ -396,9 +403,11 @@ class LWSortableList extends HTMLElement {
     const movedItem = itemsById.get(resolved.itemId);
     const currentRect = movedItem.getBoundingClientRect();
     const list = this._ownedElements('[data-sortable-list]')[0];
-    const restored = document.createDocumentFragment();
-    resolved.orderBefore.forEach((id) => restored.append(itemsById.get(id)));
-    list.append(restored);
+    const activeElement = document.activeElement;
+    const originalIndex = resolved.orderBefore.indexOf(resolved.itemId);
+    const nextItem = itemsById.get(resolved.orderBefore[originalIndex + 1]) || null;
+    list.insertBefore(movedItem, nextItem);
+    if (movedItem.contains(activeElement)) activeElement.focus({ preventScroll: true });
     if (animate) {
       const item = itemsById.get(resolved.itemId);
       this._animateMove(item, { left: currentRect.left, top: currentRect.top });
