@@ -12,6 +12,7 @@ class LWSortableList extends HTMLElement {
     this._pointer = null;
     this._pendingFocusAbort = null;
     this._stageFocusAbort = null;
+    this._moveAnimationCleanup = null;
   }
 
   connectedCallback() {
@@ -40,6 +41,7 @@ class LWSortableList extends HTMLElement {
     this._setControlsPending(false);
     this._pendingFocusAbort?.abort();
     this._pendingFocusAbort = null;
+    this._clearMoveAnimation();
     this._announce('');
   }
 
@@ -55,6 +57,7 @@ class LWSortableList extends HTMLElement {
     const item = this._itemById(resolved.itemId);
     const statusNode = this._statusNode();
     if (status === 'accepted') {
+      this._animateAcceptedMove(item, resolved.origin);
       this._announce(`${item?.getAttribute('data-item-label') || resolved.itemId} moved.`);
       this._restoreFocus(resolved);
     } else {
@@ -297,9 +300,11 @@ class LWSortableList extends HTMLElement {
     }
     const requestId = createRequestId();
     const activeElement = document.activeElement;
+    const originRect = item.getBoundingClientRect();
     const pending = this._moveState.begin({
       itemId: item.dataset.itemId,
       itemIndex: this._items().indexOf(item),
+      origin: { left: originRect.left, top: originRect.top },
       before,
       requestId,
       focusItemId: item.dataset.itemId,
@@ -341,6 +346,38 @@ class LWSortableList extends HTMLElement {
       || (nearby && this._handleInItem(nearby))
       || this._statusNode();
     replacement?.focus({ preventScroll: true });
+  }
+
+  _animateAcceptedMove(item, origin) {
+    if (!item || !origin || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rect = item.getBoundingClientRect();
+    const deltaX = origin.left - rect.left;
+    const deltaY = origin.top - rect.top;
+    if (Math.abs(deltaX) < 1 && Math.abs(deltaY) < 1) return;
+
+    this._clearMoveAnimation();
+    item.style.setProperty('--sortable-from-x', `${deltaX}px`);
+    item.style.setProperty('--sortable-from-y', `${deltaY}px`);
+    item.dataset.sortableResult = 'accepted';
+
+    const cleanup = (event) => {
+      if (event && event.animationName !== 'sortable-move-land') return;
+      item.removeEventListener('animationend', cleanup);
+      item.removeAttribute('data-sortable-result');
+      item.style.removeProperty('--sortable-from-x');
+      item.style.removeProperty('--sortable-from-y');
+      clearTimeout(this._moveAnimationTimer);
+      this._moveAnimationTimer = null;
+      if (this._moveAnimationCleanup === cleanup) this._moveAnimationCleanup = null;
+    };
+
+    this._moveAnimationCleanup = cleanup;
+    item.addEventListener('animationend', cleanup);
+    this._moveAnimationTimer = setTimeout(cleanup, 450);
+  }
+
+  _clearMoveAnimation() {
+    this._moveAnimationCleanup?.();
   }
 
   _setControlsPending(pending) {
