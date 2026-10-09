@@ -168,7 +168,7 @@ class LWSortableList extends HTMLElement {
   _onPointerDown = (event) => {
     const handle = this._handleFrom(event.target);
     const item = handle && this._itemFrom(handle);
-    if (!item || this._moveState.pending || event.button !== 0) return;
+    if (!item || this._pointer || this._moveState.pending || event.button !== 0) return;
     if (this._stage) this._clearStage();
     this._pointer = {
       pointerId: event.pointerId,
@@ -196,7 +196,12 @@ class LWSortableList extends HTMLElement {
       const afterTarget = event.clientY >= rect.top + rect.height / 2;
       before = afterTarget ? this._idAfter(target, this._pointer.item) : target.dataset.itemId;
     } else if (this._ownedElements('[data-sortable-list]')[0]?.contains(hit)) {
-      before = '';
+      // The source's original slot and inter-row gaps hit the list itself.
+      before = this._items().filter((item) => item !== this._pointer.item)
+        .find((item) => {
+          const rect = item.getBoundingClientRect();
+          return event.clientY < rect.top + rect.height / 2;
+        })?.dataset.itemId || '';
     }
     const changed = this._stage?.item !== this._pointer.item || this._stage?.before !== before;
     if (changed) {
@@ -380,9 +385,12 @@ class LWSortableList extends HTMLElement {
     const items = this._items();
     const nearby = items[Math.min(resolved.itemIndex, items.length - 1)];
     const focusItem = this._itemById(resolved.focusItemId) || nearby;
-    const moveControl = resolved.focusMove && [...(focusItem?.querySelectorAll(CONTROL_SELECTOR) || [])]
+    const moveControls = [...(focusItem?.querySelectorAll(CONTROL_SELECTOR) || [])]
+      .filter((control) => !control.matches(':disabled'));
+    const moveControl = resolved.focusMove && moveControls
       .find((control) => control.dataset.sortableMove === resolved.focusMove);
     const replacement = moveControl || this._handleInItem(focusItem || {})
+      || moveControls[0]
       || (nearby && this._handleInItem(nearby))
       || this._statusNode();
     replacement?.focus({ preventScroll: true });

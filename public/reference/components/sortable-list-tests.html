@@ -73,6 +73,45 @@ document.querySelector('#run').addEventListener('click', async () => {
     first.resolveMove({...a,status:'accepted'});
     assert(second.hasAttribute('data-pending'), 'second list pending cleared');
   });
+  await check('Pointer source-slot jitter, card gaps and a second pointer', async () => {
+    const list = makeList(); let requests = [];
+    list.addEventListener('sortable-move-request', event => requests.push(event.detail));
+    const ordered = list.querySelector('ol');
+    ordered.style.display = 'flex'; ordered.style.flexDirection = 'column'; ordered.style.gap = '20px';
+    list.scrollIntoView(); await frame();
+    const handles = [...list.querySelectorAll('[data-sortable-handle]')];
+    // Synthetic pointers have no browser capture; physical capture is checked by real dragging.
+    handles.forEach(handle => { handle.setPointerCapture = () => {}; });
+    const pointer = (handle, type, id, x, y) => handle.dispatchEvent(new PointerEvent(type,
+      {bubbles:true, pointerId:id, button:0, clientX:x, clientY:y}));
+    const rect = handles[0].getBoundingClientRect();
+    const x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
+    pointer(handles[0], 'pointerdown', 1, x, y);
+    pointer(handles[1], 'pointerdown', 2, x, y);
+    assert(!handles[1].closest('[data-sortable-item]').hasAttribute('data-sortable-dragging'), 'second pointer started another drag');
+    pointer(handles[0], 'pointermove', 1, x + 4, y);
+    pointer(handles[0], 'pointerup', 1, x + 4, y);
+    assert(order(list) === 'a1,a2,a3' && requests.length === 0, 'source-slot jitter appended row');
+    assert(!list.querySelector('[data-sortable-dragging]'), 'pointer visual stranded');
+    const second = handles[1].closest('[data-sortable-item]').getBoundingClientRect();
+    const third = handles[2].closest('[data-sortable-item]').getBoundingClientRect();
+    const gapY = (second.bottom + third.top) / 2;
+    pointer(handles[0], 'pointerdown', 3, x, y);
+    pointer(handles[0], 'pointermove', 3, x, gapY);
+    pointer(handles[0], 'pointerup', 3, x, gapY);
+    assert(order(list) === 'a2,a1,a3' && requests[0]?.before === 'a3', 'card gap resolved to list end');
+  });
+  await check('Replacement with disabled boundary arrow recovers an enabled arrow', () => {
+    const list = makeList('a', false); let request;
+    list.addEventListener('sortable-move-request', event => request = event.detail);
+    move(list, 'a2', 'up');
+    const ordered = list.querySelector('ol');
+    ordered.replaceChildren(...[...ordered.children].map(node => node.cloneNode(true)));
+    const first = list.querySelector('[data-item-id="a2"]');
+    first.querySelector('[data-sortable-move="up"]').disabled = true;
+    list.resolveMove({...request, status:'accepted'});
+    assert(document.activeElement === first.querySelector('[data-sortable-move="down"]'), 'disabled matching arrow lost focus');
+  });
   await check('Rejection restores order and focus without disturbing another item', () => {
     const list = makeList(); let request;
     list.addEventListener('sortable-move-request', event => request = event.detail);
