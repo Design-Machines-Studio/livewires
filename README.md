@@ -1,5 +1,23 @@
 # Live Wires
 
+### Optional sortable list
+
+The dependency-free `<lw-sortable-list>` enhancement is available separately
+from the default runtime. Load `/dist/sortable-list.js` and
+`/dist/sortable-list.css` on the pages that need it. See the
+[manual](public/manual/components/sortable-list.html) for visual variants and
+the [reference](public/reference/components/sortable-list.html) for markup,
+fallback forms, and the request/result contract. The application owns
+authorization, persistence, and authoritative ordering; only an explicit
+result matching the opaque request ID settles a pending move. Datastar can
+consume the move event as an optional application adapter.
+
+Run `node --test tests/sortable-list-state.test.js` for state checks. With
+`npm run dev`, open
+`http://localhost:3000/reference/components/sortable-list-tests.html` and click
+**Run checks** for browser DOM and lifecycle checks. Verify physical dragging,
+touch, and reduced motion separately.
+
 A prototyping-first design system for editorial websites. Built with modern CSS, rooted in timeless design principles.
 
 ## Philosophy
