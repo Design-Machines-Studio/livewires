@@ -31,11 +31,8 @@ class LWSortableList extends HTMLElement {
   disconnectedCallback() {
     this._abortController?.abort();
     this._abortController = null;
-    if (this._pointer?.handle?.hasPointerCapture?.(this._pointer.pointerId)) {
-      this._pointer.handle.releasePointerCapture(this._pointer.pointerId);
-    }
+    this._cancelPointer();
     this._clearStage();
-    this._pointer = null;
     this._moveState.disconnect();
     this.removeAttribute('data-pending');
     this._setControlsPending(false);
@@ -170,12 +167,24 @@ class LWSortableList extends HTMLElement {
     const item = handle && this._itemFrom(handle);
     if (!item || this._moveState.pending || event.button !== 0) return;
     if (this._stage) this._clearStage();
-    this._pointer = { pointerId: event.pointerId, handle, item, before: this._idAfter(item) };
+    this._pointer = {
+      pointerId: event.pointerId,
+      handle,
+      item,
+      before: this._idAfter(item),
+      startX: event.clientX,
+      startY: event.clientY,
+    };
+    item.dataset.sortableDragging = '';
+    item.style.setProperty('--sortable-pointer-x', '0px');
+    item.style.setProperty('--sortable-pointer-y', '0px');
     handle.setPointerCapture?.(event.pointerId);
   };
 
   _onPointerMove = (event) => {
     if (!this._pointer || this._pointer.pointerId !== event.pointerId) return;
+    this._pointer.item.style.setProperty('--sortable-pointer-x', `${event.clientX - this._pointer.startX}px`);
+    this._pointer.item.style.setProperty('--sortable-pointer-y', `${event.clientY - this._pointer.startY}px`);
     const hit = document.elementFromPoint(event.clientX, event.clientY);
     const target = this._itemFrom(hit);
     let before = this._pointer.before;
@@ -183,12 +192,12 @@ class LWSortableList extends HTMLElement {
       const rect = target.getBoundingClientRect();
       const afterTarget = event.clientY >= rect.top + rect.height / 2;
       before = afterTarget ? this._idAfter(target, this._pointer.item) : target.dataset.itemId;
-    } else if (hit === this._ownedElements('[data-sortable-list]')[0]) {
+    } else if (this._ownedElements('[data-sortable-list]')[0]?.contains(hit)) {
       before = '';
     }
     const changed = this._stage?.item !== this._pointer.item || this._stage?.before !== before;
-    this._setStage(this._pointer.item, before, this._pointer.handle, 'pointer');
     if (changed) {
+      this._setStage(this._pointer.item, before, this._pointer.handle, 'pointer');
       const target = before ? this._itemById(before) : null;
       const position = this._items().filter((item) => item !== this._pointer.item).findIndex((item) => item === target);
       const description = target ? `before ${target.getAttribute('data-item-label') || target.dataset.itemId}` : 'at the end';
@@ -199,21 +208,22 @@ class LWSortableList extends HTMLElement {
   _onPointerUp = (event) => {
     if (!this._pointer || this._pointer.pointerId !== event.pointerId) return;
     event.preventDefault();
+    const pointer = this._pointer;
     const list = this._ownedElements('[data-sortable-list]')[0];
     const hit = document.elementFromPoint(event.clientX, event.clientY);
+    this._pointer = null;
+    this._clearPointerVisual(pointer);
     if (!list?.contains(hit)) {
-      this._pointer = null;
       this._clearStage();
       this._announce('Move cancelled.');
       return;
     }
     this._commitStage();
-    this._pointer = null;
   };
 
   _onPointerCancel = (event) => {
     if (!this._pointer || this._pointer.pointerId !== event.pointerId) return;
-    this._pointer = null;
+    this._cancelPointer();
     this._clearStage();
     this._announce('Move cancelled.');
   };
@@ -221,9 +231,17 @@ class LWSortableList extends HTMLElement {
   _cancelPointer() {
     const pointer = this._pointer;
     this._pointer = null;
+    this._clearPointerVisual(pointer);
     if (pointer?.handle?.hasPointerCapture?.(pointer.pointerId)) {
       pointer.handle.releasePointerCapture(pointer.pointerId);
     }
+  }
+
+  _clearPointerVisual(pointer) {
+    if (!pointer?.item) return;
+    pointer.item.removeAttribute('data-sortable-dragging');
+    pointer.item.style.removeProperty('--sortable-pointer-x');
+    pointer.item.style.removeProperty('--sortable-pointer-y');
   }
 
   _onStageFocus = (event) => {

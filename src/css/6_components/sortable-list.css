@@ -59,7 +59,7 @@
       align-items: center;
       gap: var(--line-05);
       margin: 0;
-      padding-block: var(--line-0125);
+      padding-block: 0;
       padding-inline: var(--line-05) var(--line-0125);
       counter-increment: sortable-item;
       transition: background-color var(--duration-fast) var(--ease-out);
@@ -109,6 +109,7 @@
       --button-bg: transparent;
       --button-fg: var(--color-fg);
       --button-h-space: 0;
+      --button-v-space: var(--line-025);
 
       min-inline-size: var(--touch-target-min);
       transition: background-color var(--duration-fast) var(--ease-out);
@@ -130,6 +131,16 @@
     & [aria-disabled="true"] {
       cursor: progress;
       opacity: 0.5;
+    }
+
+    & [data-sortable-item][data-sortable-dragging] {
+      z-index: 2;
+      pointer-events: none;
+      transform: translate3d(var(--sortable-pointer-x, 0px), var(--sortable-pointer-y, 0px), 0);
+      outline: 2px solid var(--color-accent);
+      outline-offset: -2px;
+      background: var(--color-bg);
+      transition: none;
     }
 
     /*
@@ -158,6 +169,10 @@
       }
     }
 
+    & [data-sortable-item][data-sortable-source][data-sortable-dragging] {
+      animation: none;
+    }
+
     & [data-sortable-item][data-sortable-result="accepted"] {
       animation: sortable-move-land var(--duration-normal) var(--ease-out) both;
     }
@@ -180,6 +195,41 @@
 
     &[data-sortable-end-target] [data-sortable-list]::after {
       inset-block-end: calc((var(--line-1px) * 4) / -2);
+    }
+
+    /* Keep real table semantics while sharing the line-based list cues. */
+    & table [data-sortable-list] {
+      display: table-row-group;
+      border-block: 0;
+    }
+
+    & table [data-sortable-item] {
+      display: table-row;
+      padding: 0;
+    }
+
+    & table [data-sortable-item] > :is(th, td) {
+      transition: background-color var(--duration-fast) var(--ease-out);
+    }
+
+    & table [data-sortable-item][data-sortable-source] > :is(th, td) {
+      background: var(--color-accent-tint);
+    }
+
+    & table [data-sortable-item][data-sortable-source] > :first-child {
+      border-inline-start: calc(var(--line-1px) * 3) solid var(--color-accent);
+    }
+
+    & table [data-sortable-item][data-sortable-target] > :is(th, td) {
+      border-block-start: calc(var(--line-1px) * 3) solid var(--color-accent);
+    }
+
+    &[data-sortable-end-target] table [data-sortable-list] {
+      border-block-end: calc(var(--line-1px) * 3) solid var(--color-accent);
+    }
+
+    & table [data-sortable-item][data-sortable-dragging] > :is(th, td) {
+      background: var(--color-bg);
     }
 
     /*
@@ -235,6 +285,39 @@
       }
     }
 
+    @container sortable-list (width < 30em) {
+      & table {
+        display: block;
+      }
+
+      & table [data-sortable-list] {
+        display: block;
+      }
+
+      & table [data-sortable-item] {
+        display: block;
+      }
+
+      & table [data-sortable-item] > th {
+        display: block;
+        text-align: start;
+        padding-block-end: 0;
+      }
+
+      & table [data-sortable-item] > td {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: var(--line-05);
+        padding-inline: 0;
+        text-align: end;
+      }
+
+      & table [data-sortable-item] > td:has([data-sortable-actions]) {
+        justify-content: flex-end;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       & [data-sortable-item],
       & :is([data-sortable-handle], [data-sortable-move]) {
@@ -244,6 +327,7 @@
       & [data-sortable-item][data-sortable-source],
       & [data-sortable-item][data-sortable-result="accepted"],
       & [data-sortable-item][data-sortable-target]::after,
+      & [data-sortable-item][data-sortable-dragging],
       &[data-sortable-end-target] [data-sortable-list]::after {
         animation: none;
       }
