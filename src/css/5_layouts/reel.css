@@ -49,6 +49,13 @@
   .reel-snap {
     scroll-snap-type: inline mandatory;
     scroll-padding-inline: var(--line-025);
+    /* Keep the preferred snap area one card wide so focus scrolling cannot
+     * snap back to the previous card while the focused card is clipped.
+     */
+    scroll-padding-inline-end: max(
+      var(--line-025),
+      calc(100% - var(--reel-item-width) - var(--line-025))
+    );
   }
 
   .reel-snap > * {
