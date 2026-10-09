@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sortable list browser checks</title>
+<script type="module" src="/dist/main.js"></script>
+<script type="module" src="/dist/sortable-list.js"></script>
+<link rel="stylesheet" href="/dist/sortable-list.css">
+<body class="scheme-default">
+<main class="section">
+  <h1>Sortable list browser checks</h1>
+  <p>Runs DOM lifecycle and request/result checks against the optional component. These checks supplement real dragging; they do not prove physical touch input.</p>
+  <button type="button" id="run">Run checks</button>
+  <ol id="results" role="status" aria-live="polite"></ol>
+  <div id="fixtures"></div>
+</main>
+<script type="module">
+await customElements.whenDefined('lw-sortable-list');
+const fixtures = document.querySelector('#fixtures');
+const results = document.querySelector('#results');
+const assert = (condition, message) => { if (!condition) throw new Error(message); };
+const order = list => [...list.querySelectorAll('[data-sortable-item]')].map(item => item.dataset.itemId).join(',');
+const frame = () => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+function makeList(prefix = 'a', handles = true) {
+  const list = document.createElement('lw-sortable-list');
+  list.setAttribute('aria-label', `Check ${prefix}`);
+  list.innerHTML = `<ol data-sortable-list>${[1,2,3].map(n => `<li data-sortable-item data-item-id="${prefix}${n}" data-item-label="Item ${n}"><span data-sortable-content><a href="#nested">Item ${n}</a><input aria-label="Note ${n}" value="Keep me"></span><span data-sortable-actions>${handles ? `<button data-sortable-handle aria-label="Move ${n}">⠿</button>` : ''}<button data-sortable-move="up">↑</button><button data-sortable-move="down">↓</button></span></li>`).join('')}</ol><p data-sortable-status role="status" tabindex="-1"></p>`;
+  fixtures.append(list);
+  return list;
+}
+function move(list, id, direction = 'down') {
+  const button = list.querySelector(`[data-item-id="${id}"] [data-sortable-move="${direction}"]`);
+  button.focus();
+  button.click();
+  return button;
+}
+async function check(name, run) {
+  fixtures.replaceChildren();
+  const result = document.createElement('li');
+  try { await run(); result.textContent = `PASS: ${name}`; result.dataset.result = 'pass'; }
+  catch (error) { result.textContent = `FAIL: ${name}: ${error.message}`; result.dataset.result = 'fail'; }
+  results.append(result);
+}
+document.querySelector('#run').addEventListener('click', async () => {
+  document.querySelector('#run').disabled = true;
+  results.replaceChildren();
+  await check('Immediate order, stable event and one pending request', () => {
+    const list = makeList(); let events = [];
+    list.addEventListener('sortable-move-request', event => events.push(event.detail));
+    const button = move(list, 'a1');
+    assert(order(list) === 'a2,a1,a3', 'order did not move immediately');
+    assert(document.activeElement === button, 'focus lost during DOM move');
+    assert(events[0].itemId === 'a1' && events[0].before === 'a3' && events[0].requestId, 'invalid request');
+    move(list, 'a2');
+    assert(events.length === 1 && list.hasAttribute('data-pending'), 'second request permitted');
+  });
+  await check('Unrelated markup and mismatched results never acknowledge a request', () => {
+    const list = makeList(); let request;
+    list.addEventListener('sortable-move-request', event => request = event.detail);
+    move(list, 'a1');
+    list.querySelector('input').value = 'Unrelated incoming update';
+    assert(!list.resolveMove({requestId:'other',status:'accepted'}), 'unrelated request accepted');
+    assert(!list.resolveMove({requestId:request.requestId,status:'unknown'}), 'unknown result accepted');
+    assert(list.hasAttribute('data-pending'), 'pending cleared by unrelated update');
+    assert(list.resolveMove({...request,status:'accepted'}), 'matching result ignored');
+  });
+  await check('Two instances have independent pending state', () => {
+    const first = makeList('a'); const second = makeList('b'); let a, b;
+    first.addEventListener('sortable-move-request', event => a = event.detail);
+    second.addEventListener('sortable-move-request', event => b = event.detail);
+    move(first,'a1'); move(second,'b1');
+    assert(!first.resolveMove({...b,status:'accepted'}), 'cross-list result accepted');
+    first.resolveMove({...a,status:'accepted'});
+    assert(second.hasAttribute('data-pending'), 'second list pending cleared');
+  });
+  await check('Rejection restores order and focus without disturbing another item', () => {
+    const list = makeList(); let request;
+    list.addEventListener('sortable-move-request', event => request = event.detail);
+    const button = move(list,'a1');
+    list.resolveMove({...request,status:'rejected',message:'Permission denied'});
+    assert(order(list) === 'a1,a2,a3', 'rejection failed to restore order');
+    assert(document.activeElement === button, 'rejection lost focus');
+    assert(list.querySelector('[data-sortable-status]').textContent === 'Permission denied', 'rejection not announced');
+  });
+  await check('Authoritative replacement survives rejection and recovers arrows-only focus', () => {
+    const list = makeList('a', false); let request;
+    list.addEventListener('sortable-move-request', event => request = event.detail);
+    move(list,'a1');
+    const ordered = list.querySelector('ol');
+    ordered.replaceChildren(...[...ordered.children].reverse().map(node => node.cloneNode(true)));
+    const authoritative = order(list);
+    list.resolveMove({...request,status:'rejected'});
+    assert(order(list) === authoritative, 'component overwrote authoritative markup');
+    assert(document.activeElement === list.querySelector('[data-item-id="a1"] [data-sortable-move="down"]'), 'arrow focus not recovered');
+  });
+  await check('Focus moved by the user is preserved after confirmation', () => {
+    const list = makeList(); let request;
+    list.addEventListener('sortable-move-request', event => request = event.detail);
+    move(list,'a1');
+    const input = list.querySelector('[data-item-id="a3"] input'); input.focus();
+    list.resolveMove({...request,status:'accepted'});
+    assert(document.activeElement === input, 'confirmation stole focus');
+  });
+  await check('Disconnect/reinsert cancels old result and attaches one listener set', () => {
+    const list = makeList(); const events = [];
+    list.addEventListener('sortable-move-request', event => events.push(event.detail));
+    move(list,'a1'); list.remove(); fixtures.append(list);
+    assert(order(list) === 'a1,a2,a3' && !list.hasAttribute('data-pending'), 'disconnect did not reset provisional state');
+    move(list,'a1');
+    assert(events.length === 2, 'duplicate or absent listener');
+    assert(!list.resolveMove({...events[0],status:'accepted'}) && list.hasAttribute('data-pending'), 'old result settled new request');
+    list.resolveMove({...events[1],status:'accepted'});
+  });
+  await check('Nested input and link do not request moves; keyboard Escape cancels', () => {
+    const list = makeList(); let count = 0;
+    list.addEventListener('sortable-move-request', () => count++);
+    list.querySelector('input').click();
+    list.querySelector('a').addEventListener('click', event => event.preventDefault());
+    list.querySelector('a').click();
+    const handle = list.querySelector('[data-sortable-handle]'); handle.focus();
+    for (const key of [' ', 'ArrowDown', 'Escape']) handle.dispatchEvent(new KeyboardEvent('keydown',{key,bubbles:true,cancelable:true}));
+    assert(count === 0 && order(list) === 'a1,a2,a3' && !list.querySelector('[data-sortable-source]'), 'nested control or cancellation requested a move');
+  });
+  await check('Keyboard confirmation requests and announces the selected position', () => {
+    const list = makeList(); let request;
+    list.addEventListener('sortable-move-request', event => request = event.detail);
+    const handle = list.querySelector('[data-sortable-handle]'); handle.focus();
+    for (const key of [' ', 'ArrowDown', ' ']) handle.dispatchEvent(new KeyboardEvent('keydown',{key,bubbles:true,cancelable:true}));
+    assert(request?.before === 'a3' && order(list) === 'a2,a1,a3', 'keyboard move failed');
+    list.resolveMove({...request,status:'accepted'});
+    assert(list.querySelector('[data-sortable-status]').textContent === 'Item 1 moved.', 'movement not announced');
+  });
+  await check('Reduced motion uses no landing animation when preference is active', () => {
+    const list = makeList(); move(list,'a1');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) assert(!list.querySelector('[data-sortable-motion]'), 'animation active with reduced motion');
+    else assert(list.querySelector('[data-sortable-motion]'), 'normal landing animation absent');
+  });
+  await check('Reference fallback forms recover focus when a boundary arrow is disabled', async () => {
+    const iframe = document.createElement('iframe');
+    iframe.title = 'Fallback reference checks';
+    const loaded = new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => reject(new Error('reference load timed out')), 10000);
+      iframe.addEventListener('load', () => { clearTimeout(timeout); resolve(); }, {once:true});
+    });
+    iframe.src = '/reference/components/sortable-list.html'; fixtures.append(iframe);
+    await loaded;
+    await iframe.contentWindow.customElements.whenDefined('lw-sortable-list');
+    const doc = iframe.contentDocument;
+    const list = doc.querySelector('lw-sortable-list');
+    const item = list.querySelector('[data-item-id="essay-02"]');
+    const button = item.querySelector('[data-sortable-move="up"]');
+    button.focus(); button.click();
+    assert(order(list) === 'essay-02,essay-01,essay-03', 'fallback form did not move to first position');
+    assert(button.disabled && doc.activeElement === item.querySelector('[data-sortable-handle]'), 'disabled boundary arrow lost focus');
+  });
+  await check('Handler/next-frame measurement excludes simulated response delay', async () => {
+    const list = makeList(); let request;
+    list.addEventListener('sortable-move-request', event => request = event.detail);
+    const start = performance.now(); move(list,'a1'); const handled = performance.now();
+    await frame(); const framed = performance.now();
+    assert(list.hasAttribute('data-pending'), 'measurement auto-acknowledged request');
+    list.resolveMove({...request,status:'accepted'});
+    document.querySelector('#timing')?.remove();
+    const timing = document.createElement('p'); timing.id = 'timing';
+    timing.textContent = `Synchronous click handler + DOM update: ${(handled-start).toFixed(2)} ms; next two animation frames: ${(framed-handled).toFixed(2)} ms. Frame timing is a paint opportunity estimate, not direct paint instrumentation. Network delay: none in this check; manual fixture: 700 ms.`;
+    results.after(timing);
+  });
+  fixtures.replaceChildren();
+  document.querySelector('#run').textContent = 'Run checks again';
+  document.querySelector('#run').disabled = false;
+});
+</script>
+</body>
+</html>

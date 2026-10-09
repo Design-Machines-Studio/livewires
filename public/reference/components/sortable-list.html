@@ -143,6 +143,10 @@
           down.querySelector('[name="before"]').value = items[index + 2]?.dataset.itemId || '';
           up.querySelector('button').disabled = index === 0;
           down.querySelector('button').disabled = index === items.length - 1;
+          if ((document.activeElement === up.querySelector('button') && index === 0)
+            || (document.activeElement === down.querySelector('button') && index === items.length - 1)) {
+            item.querySelector('[data-sortable-handle]').focus({ preventScroll: true });
+          }
         });
       }
 
@@ -157,7 +161,7 @@
           list.resolveMove({ requestId: detail.requestId, status: 'rejected', message: 'The list changed before the move was applied.' });
           return;
         }
-        orderedList.insertBefore(source, target);
+        // The component has already staged this order; avoid moving the focused node twice.
         updateFallbackForms();
         list.resolveMove({ requestId: detail.requestId, status: 'accepted' });
       });
