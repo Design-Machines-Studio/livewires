@@ -43,6 +43,32 @@
     flex: 0 0 var(--reel-item-width);
   }
 
+  /* Opt-in native alignment for keyboard focus in horizontal collections.
+   * Pair with p-025 (or equivalent padding) to keep outlines inside the reel.
+   */
+  .reel-snap {
+    scroll-snap-type: inline mandatory;
+    scroll-padding-inline: var(--line-025);
+    /* Keep the preferred snap area one card wide so focus scrolling cannot
+     * snap back to the previous card while the focused card is clipped.
+     */
+    scroll-padding-inline-end: max(
+      var(--line-025),
+      calc(100% - var(--reel-item-width) - var(--line-025))
+    );
+  }
+
+  .reel-snap > * {
+    scroll-snap-align: start;
+  }
+
+  /* Let the last card reach its start snap position for reverse focus. */
+  .reel-snap::after {
+    content: "";
+    flex: 0 0 max(0px, calc(100% - var(--reel-item-width)));
+    margin-inline-start: calc(-1 * var(--reel-space));
+  }
+
   /* Images maintain aspect ratio */
   .reel > img {
     height: 100%;
