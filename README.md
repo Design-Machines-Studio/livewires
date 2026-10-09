@@ -294,3 +294,12 @@ Travis Gertz - [travisgertz.com](https://travisgertz.com)
 - [GitHub Repository](https://github.com/design-machines-studio/livewires)
 - [Original Live Wires Article](https://travisgertz.com/work/live-wires/)
 - [Design Machines Studio](https://design-machines.studio)
+
+### Keyboard focus in reels
+
+For a horizontal collection of linked cards, opt in with `reel reel-snap p-025`.
+Native scroll snapping aligns cards while Tab moves through the collection,
+without JavaScript. Keep each card no wider than the reel's content area and
+leave enough physical padding for its outline. Default reels keep free
+scrolling. See the [Reel reference](public/reference/layouts/reel.html) and
+[layout manual](public/manual/components/layout.html).

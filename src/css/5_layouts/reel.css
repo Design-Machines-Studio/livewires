@@ -43,6 +43,18 @@
     flex: 0 0 var(--reel-item-width);
   }
 
+  /* Opt-in native alignment for keyboard focus in horizontal collections.
+   * Pair with p-025 (or equivalent padding) to keep outlines inside the reel.
+   */
+  .reel-snap {
+    scroll-snap-type: inline mandatory;
+    scroll-padding-inline: var(--line-025);
+  }
+
+  .reel-snap > * {
+    scroll-snap-align: start;
+  }
+
   /* Images maintain aspect ratio */
   .reel > img {
     height: 100%;
