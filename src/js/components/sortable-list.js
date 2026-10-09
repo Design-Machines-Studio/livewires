@@ -33,6 +33,8 @@ class LWSortableList extends HTMLElement {
     this._abortController = null;
     this._cancelPointer();
     this._clearStage();
+    this._clearMoveAnimation();
+    if (this._moveState.pending) this._rollbackOptimisticMove(this._moveState.pending, false);
     this._moveState.disconnect();
     this.removeAttribute('data-pending');
     this._setControlsPending(false);
@@ -46,6 +48,7 @@ class LWSortableList extends HTMLElement {
     const resolved = this._moveState.resolve(requestId, status);
     if (!resolved || resolved.connection !== this._moveState.connection) return false;
 
+    if (status === 'rejected') this._rollbackOptimisticMove(resolved);
     this.removeAttribute('data-pending');
     this._setControlsPending(false);
     this._pendingFocusAbort?.abort();
@@ -54,7 +57,6 @@ class LWSortableList extends HTMLElement {
     const item = this._itemById(resolved.itemId);
     const statusNode = this._statusNode();
     if (status === 'accepted') {
-      this._animateAcceptedMove(item, resolved.origin);
       this._announce(`${item?.getAttribute('data-item-label') || resolved.itemId} moved.`);
       this._restoreFocus(resolved);
     } else {
@@ -211,6 +213,7 @@ class LWSortableList extends HTMLElement {
     const pointer = this._pointer;
     const list = this._ownedElements('[data-sortable-list]')[0];
     const hit = document.elementFromPoint(event.clientX, event.clientY);
+    const origin = pointer.item.getBoundingClientRect();
     this._pointer = null;
     this._clearPointerVisual(pointer);
     if (!list?.contains(hit)) {
@@ -218,7 +221,7 @@ class LWSortableList extends HTMLElement {
       this._announce('Move cancelled.');
       return;
     }
-    this._commitStage();
+    this._commitStage(origin);
   };
 
   _onPointerCancel = (event) => {
@@ -287,7 +290,7 @@ class LWSortableList extends HTMLElement {
     this._stage = null;
   }
 
-  _commitStage() {
+  _commitStage(origin) {
     const stage = this._stage;
     if (!stage) return;
     const currentItem = this._itemById(stage.item.dataset.itemId);
@@ -302,10 +305,10 @@ class LWSortableList extends HTMLElement {
       this._announce('Item is already in that position.');
       return;
     }
-    this._dispatchMove(currentItem, stage.before, this._handleInItem(currentItem));
+    this._dispatchMove(currentItem, stage.before, this._handleInItem(currentItem), origin);
   }
 
-  _dispatchMove(item, before, handle = this._handleInItem(item)) {
+  _dispatchMove(item, before, handle = this._handleInItem(item), origin = null) {
     const items = this._items();
     if (!this._validateItems()) {
       this._announce('This list needs unique, non-empty item IDs before items can move.');
@@ -318,11 +321,18 @@ class LWSortableList extends HTMLElement {
     }
     const requestId = createRequestId();
     const activeElement = document.activeElement;
-    const originRect = item.getBoundingClientRect();
+    const originRect = origin || item.getBoundingClientRect();
+    const orderBefore = items.map((candidate) => candidate.dataset.itemId);
+    const reordered = items.filter((candidate) => candidate !== item);
+    const insertionIndex = before ? reordered.findIndex((candidate) => candidate.dataset.itemId === before) : reordered.length;
+    reordered.splice(insertionIndex < 0 ? reordered.length : insertionIndex, 0, item);
     const pending = this._moveState.begin({
       itemId: item.dataset.itemId,
       itemIndex: this._items().indexOf(item),
       origin: { left: originRect.left, top: originRect.top },
+      orderBefore,
+      orderOptimistic: reordered.map((candidate) => candidate.dataset.itemId),
+      itemNodesBefore: items,
       before,
       requestId,
       focusItemId: item.dataset.itemId,
@@ -333,6 +343,11 @@ class LWSortableList extends HTMLElement {
       connection: this._moveState.connection,
     });
     if (!pending) return false;
+
+    const list = this._ownedElements('[data-sortable-list]')[0];
+    const target = before ? this._itemById(before) : null;
+    list.insertBefore(item, target);
+    this._animateMove(item, pending.origin);
     this.setAttribute('data-pending', '');
     this._setControlsPending(true);
     this._pendingFocusAbort = new AbortController();
@@ -366,7 +381,32 @@ class LWSortableList extends HTMLElement {
     replacement?.focus({ preventScroll: true });
   }
 
-  _animateAcceptedMove(item, origin) {
+  _rollbackOptimisticMove(resolved, animate = true) {
+    if (!Array.isArray(resolved.orderBefore) || !Array.isArray(resolved.orderOptimistic)) return false;
+    const items = this._items();
+    const currentOrder = items.map((item) => item.dataset.itemId);
+    if (currentOrder.length !== resolved.orderOptimistic.length
+      || currentOrder.some((id, index) => id !== resolved.orderOptimistic[index])) return false;
+
+    const itemsById = new Map(items.map((item) => [item.dataset.itemId, item]));
+    if (resolved.orderBefore.length !== items.length
+      || resolved.orderBefore.some((id, index) => !itemsById.has(id)
+        || itemsById.get(id) !== resolved.itemNodesBefore?.[index])) return false;
+
+    const movedItem = itemsById.get(resolved.itemId);
+    const currentRect = movedItem.getBoundingClientRect();
+    const list = this._ownedElements('[data-sortable-list]')[0];
+    const restored = document.createDocumentFragment();
+    resolved.orderBefore.forEach((id) => restored.append(itemsById.get(id)));
+    list.append(restored);
+    if (animate) {
+      const item = itemsById.get(resolved.itemId);
+      this._animateMove(item, { left: currentRect.left, top: currentRect.top });
+    }
+    return true;
+  }
+
+  _animateMove(item, origin) {
     if (!item || !origin || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const rect = item.getBoundingClientRect();
     const deltaX = origin.left - rect.left;
@@ -376,12 +416,12 @@ class LWSortableList extends HTMLElement {
     this._clearMoveAnimation();
     item.style.setProperty('--sortable-from-x', `${deltaX}px`);
     item.style.setProperty('--sortable-from-y', `${deltaY}px`);
-    item.dataset.sortableResult = 'accepted';
+    item.dataset.sortableMotion = 'moving';
 
     const cleanup = (event) => {
       if (event && event.animationName !== 'sortable-move-land') return;
       item.removeEventListener('animationend', cleanup);
-      item.removeAttribute('data-sortable-result');
+      item.removeAttribute('data-sortable-motion');
       item.style.removeProperty('--sortable-from-x');
       item.style.removeProperty('--sortable-from-y');
       clearTimeout(this._moveAnimationTimer);

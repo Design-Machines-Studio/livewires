@@ -4,8 +4,8 @@
  * Optional reorder control for <lw-sortable-list>. Ships as its own
  * stylesheet and script, outside main.css and main.js.
  *
- * Rows are ruled like .table--lined. Order never changes optimistically,
- * so these styles only mark intent and waiting. The component sets:
+ * Rows are ruled like .table--lined. A requested move appears immediately;
+ * the application still owns authorization and authoritative markup. The component sets:
  *   [data-sortable-source]      on the item being moved
  *   [data-sortable-target]      on the item the source will land before
  *   [data-sortable-end-target]  on the element when the source lands last
@@ -55,7 +55,7 @@
     & [data-sortable-item] {
       position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr) max-content;
       align-items: center;
       gap: var(--line-05);
       margin: 0;
@@ -78,7 +78,7 @@
       overflow-wrap: anywhere;
     }
 
-    /* Ordered lists show the authoritative position, which only moves on an accepted result */
+    /* Ordered lists show the current visible position, including pending moves. */
     & ol[data-sortable-list] > [data-sortable-item] > [data-sortable-content]::before {
       content: counter(sortable-item);
       content: counter(sortable-item) / "";
@@ -173,7 +173,7 @@
       animation: none;
     }
 
-    & [data-sortable-item][data-sortable-result="accepted"] {
+    & [data-sortable-item][data-sortable-motion="moving"] {
       animation: sortable-move-land var(--duration-normal) var(--ease-out) both;
     }
 
@@ -197,7 +197,7 @@
       inset-block-end: calc((var(--line-1px) * 4) / -2);
     }
 
-    /* Keep real table semantics while sharing the line-based list cues. */
+    /* Keep real table semantics and the horizontal-only .table--lined treatment. */
     & table [data-sortable-list] {
       display: table-row-group;
       border-block: 0;
@@ -216,8 +216,8 @@
       background: var(--color-accent-tint);
     }
 
-    & table [data-sortable-item][data-sortable-source] > :first-child {
-      border-inline-start: calc(var(--line-1px) * 3) solid var(--color-accent);
+    & table [data-sortable-item][data-sortable-source]::before {
+      content: none;
     }
 
     & table [data-sortable-item][data-sortable-target] > :is(th, td) {
@@ -232,9 +232,13 @@
       background: var(--color-bg);
     }
 
+    & table [data-sortable-item][data-sortable-dragging] {
+      outline: none;
+    }
+
     /*
      * Pending
-     * Order is unconfirmed until the matching result arrives.
+     * The visible order is provisional until the matching result arrives.
      */
     &[data-pending] [data-sortable-list] {
       border-block-style: dashed;
@@ -269,22 +273,7 @@
       color: var(--color-fg);
     }
 
-    /*
-     * Narrow containers
-     * Controls drop below the content and align to the end edge.
-     */
-    @container sortable-list (width < 20rem) {
-      & [data-sortable-item] {
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--line-0125);
-        padding-block: var(--line-025);
-      }
-
-      & [data-sortable-actions] {
-        justify-content: flex-end;
-      }
-    }
-
+    /* Narrow containers retain compact rows with inline actions. */
     @container sortable-list (width < 30em) {
       & table {
         display: block;
@@ -314,7 +303,7 @@
       }
 
       & table [data-sortable-item] > td:has([data-sortable-actions]) {
-        justify-content: flex-end;
+        justify-content: flex-start;
       }
     }
 
@@ -325,7 +314,7 @@
       }
 
       & [data-sortable-item][data-sortable-source],
-      & [data-sortable-item][data-sortable-result="accepted"],
+      & [data-sortable-item][data-sortable-motion="moving"],
       & [data-sortable-item][data-sortable-target]::after,
       & [data-sortable-item][data-sortable-dragging],
       &[data-sortable-end-target] [data-sortable-list]::after {
