@@ -191,6 +191,7 @@ For a horizontal collection of linked cards, opt in with `reel reel-snap p-025`.
 Add `max-w-full` to each linked card. Native scroll snapping aligns cards while
 Tab moves through the collection, without JavaScript. Keep each card no wider
 than the reel's content area and leave enough physical padding for its outline.
+The snap area and trailing space follow `--reel-item-width`.
 Default reels keep free scrolling. See the [Reel reference](public/reference/layouts/reel.html)
 and [layout manual](public/manual/components/layout.html).
 
