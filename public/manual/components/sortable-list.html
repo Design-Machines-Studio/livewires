@@ -1,84 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script type="module" src="/dist/main.js"></script>
-  <script type="module" src="/dist/sortable-list.js"></script>
-  <script type="module" src="/manual/_components/sortable-list-fixture.js"></script>
-  <html-include src="/_includes/head.html"></html-include>
-  <link rel="stylesheet" href="/dist/sortable-list.css">
-  <title>Sortable list – Manual – Live Wires</title>
-</head>
-<body class="scheme-default">
-  <html-include src="/_includes/header.html"></html-include>
-  <main id="main">
-    <article class="section prose">
-      <h1>Sortable list fixture</h1>
-      <p>This page simulates application responses. It does not contact a server. The list stays put until an accepted response updates its markup. Rejected and unrelated updates leave its order unchanged.</p>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
 
-      <section class="stack">
-        <h2>Response controls</h2>
-        <div class="cluster">
-          <label for="response-list">Set response for</label>
-          <select id="response-list"><option value="a">List A</option><option value="b">List B</option></select>
-          <button type="button" data-next-result="accepted">Next response: accept</button>
-          <button type="button" data-next-result="rejected">Next response: reject</button>
-          <button type="button" data-unrelated-update>Apply unrelated update</button>
-          <button type="button" data-move-focus>Move focus here</button>
-          <button type="button" data-remove-reinsert>Remove and reinsert first list</button>
-        </div>
-        <label for="response-delay">Simulated response delay</label>
-        <input id="response-delay" type="range" min="100" max="3000" step="100" value="900">
-        <output data-delay-output for="response-delay">900 ms</output>
-        <label><input type="checkbox" data-remove-source-on-accept> Remove the moved item on the next accepted result</label>
-        <p data-fixture-log role="status" aria-live="polite" aria-atomic="false"></p>
-      </section>
+    <!-- Load JS (CSS is in _includes/head.html) -->
+    <script type="module" src="/dist/main.js"></script>
 
-      <section class="stack">
-        <h2>List A</h2>
-        <lw-sortable-list data-fixture-list="a" aria-label="List A">
-          <ol data-sortable-list>
-            <li data-sortable-item data-item-id="a-1" data-item-label="First item"><span data-sortable-content>First item</span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move First item">⠿</button><button type="button" data-sortable-move="up" aria-label="Move First item up">↑</button><button type="button" data-sortable-move="down" aria-label="Move First item down">↓</button></span></li>
-            <li data-sortable-item data-item-id="a-2" data-item-label="Second item"><span data-sortable-content>Second item</span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Second item">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Second item up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Second item down">↓</button></span></li>
-            <li data-sortable-item data-item-id="a-3" data-item-label="Third item"><span data-sortable-content><a href="#nested">Third item has a nested link</a></span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Third item">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Third item up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Third item down">↓</button></span></li>
-          </ol>
-          <p data-sortable-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
-        </lw-sortable-list>
-      </section>
+    <!-- Optional sortable list, kept outside main.js and main.css -->
+    <script type="module" src="/dist/sortable-list.js"></script>
+    <script type="module" src="/manual/_components/sortable-list-fixture.js"></script>
 
-      <section class="stack">
-        <h2>List B</h2>
-        <lw-sortable-list data-fixture-list="b" aria-label="List B">
-          <ol data-sortable-list>
-            <li data-sortable-item data-item-id="b-1" data-item-label="Red folder"><span data-sortable-content>Red folder</span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Red folder">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Red folder up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Red folder down">↓</button></span></li>
-            <li data-sortable-item data-item-id="b-2" data-item-label="Blue folder"><span data-sortable-content>Blue folder</span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Blue folder">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Blue folder up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Blue folder down">↓</button></span></li>
-          </ol>
-          <p data-sortable-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
-        </lw-sortable-list>
-      </section>
+    <!-- HTML Include: additional head metadata -->
+    <html-include src="/_includes/head.html"></html-include>
+    <link rel="stylesheet" href="/dist/sortable-list.css">
+    <title>Sortable list – Manual – Live Wires</title>
+  </head>
+  <body class="scheme-default pg-sortable-list">
 
-      <section class="stack">
-        <h2>What to exercise</h2>
-        <ul>
-          <li>Use keyboard staging: focus a handle, press Space, use arrow keys, then Space to request or Escape to cancel.</li>
-          <li>Drag a handle with a pointer or touch input. The component marks a destination but leaves authoritative order unchanged.</li>
-          <li>Choose accept or reject before requesting a move. Try an unrelated update while pending; only the matching explicit result clears pending state.</li>
-          <li>Start a delayed move, remove and reinsert List A, then wait. Its old response must not reorder the reconnected list.</li>
-          <li>During a delayed accepted move, move focus to the external button. The result must not steal focus back into the replaced list.</li>
-          <li>Use both lists to confirm pending state and result IDs remain isolated. Try the nested link and a narrow viewport.</li>
-          <li>On a touch device, drag the handle. With reduced motion enabled, check that the source and destination cues remain visible without movement animation.</li>
-        </ul>
-        <p>Network delay is simulated. The fixture records adapter-listener duration separately from the response timer, then records markup/result handling and a two-frame observation. It does not measure the component’s input handler or guarantee paint timing; formal handler and paint measurements remain pending the maintained browser target.</p>
-        <h2>Update contract</h2>
-        <p>The consumer owns authorization, persistence, ordering and retries. It handles <code>sortable-move-request</code>, applies the authoritative server response, then calls <code>resolveMove</code> with the same request ID. The fixture represents the delayed response as a separate <code>fixture-sse-update</code> event and checks connection generation and request ID before replacing any list markup. Unrelated patches do not acknowledge requests.</p>
-        <p>HTML hooks are <code>data-sortable-list</code>, <code>data-sortable-item</code>, <code>data-item-id</code>, <code>data-sortable-handle</code>, <code>data-sortable-move</code> and <code>data-sortable-status</code>. CSS marks staged sources and targets with <code>data-sortable-source</code> and <code>data-sortable-target</code>, and pending state on the custom element. Disconnect cancels transient interaction and invalidates its pending ID; reinsertion installs one listener set.</p>
-        <h2>Build measurements</h2>
-        <p>Run the dependency-free contract checks with <code>node --test tests/sortable-list-state.test.js</code>. At the current build from <code>c67bacb24ba4c90e3873b5a50ac1b7404f524687</code>, the optional JavaScript is 10,875 bytes raw and 3,387 bytes gzip; the CSS is 2,453 bytes raw and 735 bytes gzip. The default <code>main.js</code> and <code>main.css</code> match the base byte-for-byte.</p>
-        <p>One local browser sample on 2026-10-09 used Firefox 153 and Playwright WebKit 26.5 at 1440×900 with a separate 100 ms fixture delay. The host capture-to-bubble event path (component plus synchronous request adapter) took 0–1 ms for keyboard and pointer input in Firefox, and 0–7 ms in WebKit. Authoritative DOM/result updates took 1–2 ms in Firefox and 1 ms in WebKit. The following two-frame observation took 9–14 ms in Firefox and 25–31 ms in WebKit. These are single-run diagnostics, not benchmarks; the two-frame value is not a direct paint measurement. Chromium, real touch input, reduced-motion emulation, and direct paint timing were not verified.</p>
-      </section>
-    </article>
-  </main>
-  <html-include src="/_includes/footer.html"></html-include>
-</body>
+    <!-- HTML Include: site header -->
+    <html-include src="../_includes/header.html"></html-include>
+
+    <!-- Content block, child page inject content -->
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Sortable list</h1>
+          <p class="lead">Reorder items with a drag handle, move buttons, or the keyboard. The list keeps its order until the application confirms a move.</p>
+        </header>
+
+        <!-- Fixture -->
+        <section class="section">
+          <header>
+            <h2>Fixture</h2>
+            <p>This page simulates application responses. It does not contact a server. The list stays put until an accepted response updates its markup. Rejected and unrelated updates leave its order unchanged.</p>
+            <popup-dialog title="Sortable list HTML">
+              <p><a href="#" class="text-sm">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;!-- Optional files, outside main.css and main.js --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/dist/sortable-list.css&quot;&gt;
+&lt;script type=&quot;module&quot; src=&quot;/dist/sortable-list.js&quot;&gt;&lt;/script&gt;
+
+&lt;lw-sortable-list aria-label=&quot;List A&quot;&gt;
+  &lt;ol data-sortable-list&gt;
+    &lt;li data-sortable-item data-item-id=&quot;a-1&quot; data-item-label=&quot;First item&quot;&gt;
+      &lt;span data-sortable-content&gt;First item&lt;/span&gt;
+      &lt;span data-sortable-actions&gt;
+        &lt;button type=&quot;button&quot; data-sortable-handle aria-label=&quot;Move First item&quot;&gt;⠿&lt;/button&gt;
+        &lt;button type=&quot;button&quot; data-sortable-move=&quot;up&quot; aria-label=&quot;Move First item up&quot;&gt;↑&lt;/button&gt;
+        &lt;button type=&quot;button&quot; data-sortable-move=&quot;down&quot; aria-label=&quot;Move First item down&quot;&gt;↓&lt;/button&gt;
+      &lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;p data-sortable-status role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot; tabindex=&quot;-1&quot;&gt;&lt;/p&gt;
+&lt;/lw-sortable-list&gt;</code></pre>
+              </div>
+            </popup-dialog>
+          </header>
+
+          <div class="grid">
+            <section class="stack">
+              <h3>List A</h3>
+              <lw-sortable-list data-fixture-list="a" aria-label="List A">
+                <ol data-sortable-list>
+                  <li data-sortable-item data-item-id="a-1" data-item-label="First item"><span data-sortable-content>First item</span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move First item">⠿</button><button type="button" data-sortable-move="up" aria-label="Move First item up">↑</button><button type="button" data-sortable-move="down" aria-label="Move First item down">↓</button></span></li>
+                  <li data-sortable-item data-item-id="a-2" data-item-label="Second item"><span data-sortable-content>Second item</span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Second item">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Second item up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Second item down">↓</button></span></li>
+                  <li data-sortable-item data-item-id="a-3" data-item-label="Third item"><span data-sortable-content><a href="#nested">Third item has a nested link</a></span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Third item">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Third item up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Third item down">↓</button></span></li>
+                </ol>
+                <p data-sortable-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+              </lw-sortable-list>
+            </section>
+
+            <section class="stack">
+              <h3>List B</h3>
+              <lw-sortable-list data-fixture-list="b" aria-label="List B">
+                <ol data-sortable-list>
+                  <li data-sortable-item data-item-id="b-1" data-item-label="Red folder"><span data-sortable-content>Red folder</span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Red folder">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Red folder up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Red folder down">↓</button></span></li>
+                  <li data-sortable-item data-item-id="b-2" data-item-label="Blue folder"><span data-sortable-content>Blue folder</span><span data-sortable-actions><button type="button" data-sortable-handle aria-label="Move Blue folder">⠿</button><button type="button" data-sortable-move="up" aria-label="Move Blue folder up">↑</button><button type="button" data-sortable-move="down" aria-label="Move Blue folder down">↓</button></span></li>
+                </ol>
+                <p data-sortable-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+              </lw-sortable-list>
+            </section>
+          </div>
+        </section>
+
+        <!-- Response controls -->
+        <section class="section">
+          <div class="box scheme-subtle stack">
+            <header>
+              <h2>Response controls</h2>
+              <p>Set the next result before requesting a move. These buttons sit outside both lists.</p>
+            </header>
+            <div class="grid">
+              <div class="stack stack-compact">
+                <label for="response-list">Set response for</label>
+                <select id="response-list"><option value="a">List A</option><option value="b">List B</option></select>
+                <div class="cluster cluster-compact">
+                  <button type="button" data-next-result="accepted">Next response: accept</button>
+                  <button type="button" data-next-result="rejected">Next response: reject</button>
+                </div>
+              </div>
+              <div class="stack stack-compact">
+                <label for="response-delay">Simulated response delay</label>
+                <div class="cluster cluster-compact cluster-nowrap">
+                  <input id="response-delay" type="range" min="100" max="3000" step="100" value="900">
+                  <output data-delay-output for="response-delay">900 ms</output>
+                </div>
+                <label class="checkbox"><input type="checkbox" data-remove-source-on-accept> Remove the moved item on the next accepted result</label>
+              </div>
+            </div>
+            <div class="cluster cluster-compact border-t pt-1">
+              <button type="button" data-unrelated-update>Apply unrelated update</button>
+              <button type="button" data-move-focus>Move focus here</button>
+              <button type="button" data-remove-reinsert>Remove and reinsert first list</button>
+            </div>
+            <p class="text-xs font-bold">Event log</p>
+            <p class="text-sm" data-fixture-log role="status" aria-live="polite" aria-atomic="false"></p>
+          </div>
+        </section>
+
+        <!-- Exercise and contract -->
+        <section class="section">
+          <div class="grid">
+            <section class="stack">
+              <header>
+                <h2>What to exercise</h2>
+              </header>
+              <ul>
+                <li>Use keyboard staging: focus a handle, press Space, use arrow keys, then Space to request or Escape to cancel.</li>
+                <li>Drag a handle with a pointer or touch input. The component marks a destination but leaves authoritative order unchanged.</li>
+                <li>Choose accept or reject before requesting a move. Try an unrelated update while pending; only the matching explicit result clears pending state.</li>
+                <li>Start a delayed move, remove and reinsert List A, then wait. Its old response must not reorder the reconnected list.</li>
+                <li>During a delayed accepted move, move focus to the external button. The result must not steal focus back into the replaced list.</li>
+                <li>Use both lists to confirm pending state and result IDs remain isolated. Try the nested link and a narrow viewport.</li>
+                <li>On a touch device, drag the handle. With reduced motion enabled, check that the source and destination cues remain visible without movement animation.</li>
+              </ul>
+          <p>When you stage a move, the source lifts into view and the destination rule sweeps into place. These cues show the requested position while the authoritative list stays unchanged. The fixture records adapter-listener duration separately from the response timer, then records markup/result handling and a two-frame observation. It does not measure the component’s input handler or guarantee paint timing; formal handler and paint measurements remain pending the maintained browser target.</p>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Update contract</h2>
+              </header>
+              <p>The consumer owns authorization, persistence, ordering and retries. It handles <code>sortable-move-request</code>, applies the authoritative server response, then calls <code>resolveMove</code> with the same request ID. The fixture represents the delayed response as a separate <code>fixture-sse-update</code> event and checks connection generation and request ID before replacing any list markup. Unrelated patches do not acknowledge requests.</p>
+              <p>HTML hooks are <code>data-sortable-list</code>, <code>data-sortable-item</code>, <code>data-item-id</code>, <code>data-sortable-handle</code>, <code>data-sortable-move</code> and <code>data-sortable-status</code>. CSS marks staged sources and targets with <code>data-sortable-source</code> and <code>data-sortable-target</code>, and pending state on the custom element. Disconnect cancels transient interaction and invalidates its pending ID; reinsertion installs one listener set.</p>
+            </section>
+          </div>
+        </section>
+
+        <!-- Build measurements -->
+        <section class="section">
+          <header>
+            <h2>Build measurements</h2>
+          </header>
+          <p>Run the dependency-free contract checks with <code>node --test tests/sortable-list-state.test.js</code>. In this build, the optional JavaScript is 10,875 bytes raw (3.37 kB gzip) and the CSS is 6,031 bytes raw (1.30 kB gzip). The default <code>main.js</code> and <code>main.css</code> still match the base byte-for-byte.</p>
+          <p>One local browser sample on 2026-10-09 used Firefox 153 and Playwright WebKit 26.5 at 1440×900 with a separate 100 ms fixture delay. The host capture-to-bubble event path (component plus synchronous request adapter) took 0–1 ms for keyboard and pointer input in Firefox, and 0–7 ms in WebKit. Authoritative DOM/result updates took 1–2 ms in Firefox and 1 ms in WebKit. The following two-frame observation took 9–14 ms in Firefox and 25–31 ms in WebKit. These are single-run diagnostics, not benchmarks; the two-frame value is not a direct paint measurement. Chromium, real touch input, reduced-motion emulation, and direct paint timing were not verified.</p>
+          <p>After the visual update, Firefox and WebKit both rendered the component sidebar without horizontal overflow at 320, 375, 768 and 1,440 CSS pixels. In WebKit, keyboard staging activated the source and destination CSS animations while preserving list order; the fixture then applied a delayed accepted response and the item moved to its confirmed position. Reduced-motion emulation, Chromium, real touch and direct paint timing were not checked in this visual pass.</p>
+        </section>
+
+      </article>
+    </main>
+    <!-- HTML Include: site footer -->
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
 </html>
