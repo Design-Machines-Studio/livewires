@@ -24,6 +24,8 @@
     flex-direction: column;
     gap: var(--line-05);
 
+    &[hidden] { display: none; }
+
     & .skeleton {
       background: linear-gradient(
         90deg,
@@ -68,6 +70,14 @@
   @media (prefers-reduced-motion: reduce) {
     .loading .skeleton {
       animation: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .loading .skeleton {
+      animation: none;
+      background: Canvas;
+      border: var(--line-1px) solid CanvasText;
     }
   }
 }
