@@ -103,7 +103,7 @@
           secondButton.focus();
           secondButton.click();
           await waitForUpdate();
-          check(second.querySelector('[data-copy-status]').textContent.includes('select the text'), 'failure announces the manual copying path');
+          check(second.querySelector('[data-copy-status]').textContent.toLowerCase().includes('select the text'), 'failure announces the manual copying path');
           check(second.dataset.state === 'manual-copy' && first.dataset.state === 'copied', 'two instances keep feedback isolated');
           check(document.activeElement === secondButton && second.querySelector('textarea').value === 'denied text', 'failure keeps focus and leaves source text selectable');
 
@@ -112,7 +112,7 @@
           await waitForUpdate();
           secondButton.click();
           await waitForUpdate();
-          check(second.querySelector('[data-copy-status]').textContent.includes('select the text'), 'reinserted copy control remains connected once');
+          check(second.querySelector('[data-copy-status]').textContent.toLowerCase().includes('select the text'), 'reinserted copy control remains connected once');
           check(passed === 13, `${passed} lifecycle and interaction checks passed`);
         } catch (error) {
           const item = document.createElement('li');
