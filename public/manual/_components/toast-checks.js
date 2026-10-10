@@ -120,8 +120,9 @@ export async function runToastChecks() {
     assert(document.activeElement === action && !node.hidden && older.hidden, 'reinsertion displaced focused action');
     assert(f.state('older').queued && f.state('older').remaining === 700, 'queued timer changed');
     assert(f.root.querySelector('[data-toast-review]').textContent === 'Show 1 more message', 'singular backlog label');
+    const review = f.root.querySelector('[data-toast-review]'); review.focus();
+    assert(document.activeElement === review, 'review control could not receive focus');
     f.region.dismiss('action'); assert(!older.hidden, 'waiting occurrence not admitted');
-    const review = f.root.querySelector('[data-toast-review]'); review.hidden = false; review.focus();
     f.region.refresh(); assert(review.textContent === 'No more messages' && !review.hidden, 'focused empty review removed');
   });
   await check('a preceding nested region cannot capture the parent list or focus return', async () => {
