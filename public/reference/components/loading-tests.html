@@ -37,7 +37,7 @@
       };
       const make = (durations = {}) => {
         const root = document.createElement('section');
-        root.innerHTML = `<button type="button">Send</button><div data-content><input aria-label="Unrelated input"><div class="loading" data-indicator hidden><div class="skeleton skeleton--text"></div></div></div><p data-status role="status" aria-live="polite" aria-atomic="true"></p>`;
+        root.innerHTML = `<button type="button">Send</button><input aria-label="Unrelated input"><div data-content><div class="loading" data-indicator hidden><div class="skeleton skeleton--text"></div></div></div><p data-status role="status" aria-live="polite" aria-atomic="true"></p>`;
         fixtures.append(root);
         const operation = createLoadingOperation({ root, content: '[data-content]', indicator: '[data-indicator]', status: '[data-status]', delay: 0, minDuration: 0, ...durations });
         owners.push(() => operation.dispose());
@@ -103,6 +103,12 @@
         b.root.remove();
         await tick();
         check(b.operation.state.phase === 'disposed' && late.finish() === false, 'root removal disposes state and ignores late completion');
+        const removedStatus = make();
+        removedStatus.operation.begin();
+        removedStatus.content().replaceWith(removedStatus.content().cloneNode(true));
+        removedStatus.status().remove();
+        await tick();
+        check(removedStatus.operation.state.phase === 'disposed' && removedStatus.content().getAttribute('aria-busy') === null && removedStatus.indicator().hidden, 'replacement busy targets are cleared when the status target disappears');
         document.querySelector('#results').dataset.result = 'pass';
       } catch (error) {
         const li = document.createElement('li');

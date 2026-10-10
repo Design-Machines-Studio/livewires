@@ -44,6 +44,7 @@ for (const root of document.querySelectorAll('[data-loading-demo]')) {
     if (action === 'restore' && !root.querySelector('[data-demo-action="send"]')) {
       const button = document.createElement('button');
       button.type = 'button';
+      button.className = 'button--accent';
       button.dataset.demoAction = 'send';
       button.textContent = 'Send request';
       root.querySelector('[data-demo-controls]').prepend(button);

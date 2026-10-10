@@ -82,3 +82,23 @@ test('announcements inside busy content are rejected, including later invalid pa
   assert.equal(op.state.phase, 'disposed');
   assert.equal(f.targets.content.getAttribute('aria-busy'), null);
 });
+
+test('a patch that replaces busy targets but removes status clears both old and new targets', () => {
+  const f = fixture();
+  const op = f.start();
+  const token = op.begin();
+  const old = { ...f.targets };
+  f.targets.content = f.element();
+  f.targets.content.setAttribute('aria-busy', 'true');
+  f.targets.indicator = f.element();
+  f.targets.indicator.hidden = false;
+  delete f.targets.status;
+  f.update();
+  assert.equal(op.state.phase, 'disposed');
+  assert.equal(f.targets.content.getAttribute('aria-busy'), null);
+  assert.equal(f.targets.indicator.hidden, true);
+  assert.equal(old.content.getAttribute('aria-busy'), null);
+  assert.equal(old.indicator.hidden, true);
+  assert.equal(old.status.textContent, '');
+  assert.equal(token.finish(), false);
+});

@@ -1,7 +1,7 @@
 import { createLoadingState } from './loading-state.js';
 
 const messages = {
-  idle: '', pending: 'Request pending.', unknown: 'Request ended. Save status is unknown.',
+  idle: '', pending: 'Request pending.', unknown: 'Request ended.',
   failed: 'Request failed. Check the result before retrying.',
   cancelled: 'Request cancelled. Save status is unknown.', disposed: '',
 };
@@ -14,16 +14,23 @@ export function createLoadingOperation({ root, content, indicator, status, delay
   }
   let nodes = {};
   let disposed = false;
-  const find = () => {
-    const next = { content: root.querySelector(content), indicator: root.querySelector(indicator), status: root.querySelector(status) };
-    if (next.content && next.status && (next.content === next.status || next.content.contains(next.status))) {
-      throw new TypeError('Loading announcements must be outside the busy content.');
-    }
-    return next;
-  };
+  const find = () => ({ content: root.querySelector(content), indicator: root.querySelector(indicator), status: root.querySelector(status) });
+  const hasBusyAnnouncement = (targets) => targets.content && targets.status &&
+    (targets.content === targets.status || targets.content.contains(targets.status));
   nodes = find();
+  if (hasBusyAnnouncement(nodes)) throw new TypeError('Loading announcements must be outside the busy content.');
   if (Object.values(nodes).some((node) => !node)) throw new TypeError('Loading targets must exist at setup.');
   const originalBusy = nodes.content.getAttribute('aria-busy');
+
+  function clearTargets(targets) {
+    if (targets.content) {
+      if (originalBusy === null) targets.content.removeAttribute('aria-busy');
+      else targets.content.setAttribute('aria-busy', originalBusy);
+      targets.content.removeAttribute('data-loading-state');
+    }
+    if (targets.indicator) targets.indicator.hidden = true;
+    if (targets.status) targets.status.textContent = '';
+  }
 
   function render(state) {
     nodes.content?.setAttribute('aria-busy', String(state.busy));
@@ -41,16 +48,11 @@ export function createLoadingOperation({ root, content, indicator, status, delay
   const observer = new Observer(() => {
     if (disposed) return;
     if (root.isConnected === false) { dispose(); return; }
-    let next;
-    try { next = find(); } catch { dispose(); return; }
+    const next = find();
     // Resolve final DOM after a patch, rather than resetting state on every mutation.
-    if (nodes.content !== next.content) {
-      nodes.content?.removeAttribute('aria-busy');
-      nodes.content?.removeAttribute('data-loading-state');
-    }
-    if (nodes.indicator !== next.indicator && nodes.indicator) nodes.indicator.hidden = true;
-    if (Object.values(next).some((node) => !node)) { dispose(); return; }
+    clearTargets(Object.fromEntries(Object.entries(nodes).filter(([key, node]) => node !== next[key])));
     nodes = next;
+    if (Object.values(next).some((node) => !node) || hasBusyAnnouncement(next)) { dispose(); return; }
     const state = local.state;
     if (nodes.content.getAttribute('aria-busy') !== String(state.busy) ||
         nodes.content.getAttribute('data-loading-state') !== state.phase ||
@@ -65,11 +67,7 @@ export function createLoadingOperation({ root, content, indicator, status, delay
     disposed = true;
     observer.disconnect();
     local.dispose();
-    if (nodes.content) {
-      if (originalBusy === null) nodes.content.removeAttribute('aria-busy');
-      else nodes.content.setAttribute('aria-busy', originalBusy);
-      nodes.content.removeAttribute('data-loading-state');
-    }
+    clearTargets(nodes);
   }
 
   return { begin: local.begin, get state() { return local.state; }, dispose };

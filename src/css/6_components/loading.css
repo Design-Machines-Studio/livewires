@@ -77,7 +77,7 @@
     .loading .skeleton {
       animation: none;
       background: Canvas;
-      border: 1px solid CanvasText;
+      border: var(--line-1px) solid CanvasText;
     }
   }
 }
