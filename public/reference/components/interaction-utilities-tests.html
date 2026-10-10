@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <script type="module" src="/dist/relative-time.js"></script>
+    <script type="module" src="/dist/copy-button.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+    <title>Interaction utility checks – Reference – Live Wires</title>
+  </head>
+  <body class="scheme-default">
+    <html-include src="/_includes/header.html"></html-include>
+    <main class="main center" id="main">
+      <article class="prose">
+        <h1>Interaction utility checks</h1>
+        <p>These checks use isolated temporary elements and a mocked clipboard. They do not contact a server or copy fixture values to the real clipboard.</p>
+        <button id="run" type="button">Run checks</button>
+        <ol id="results" aria-live="polite"></ol>
+        <div id="fixtures"></div>
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+    <script type="module">
+      const run = document.querySelector('#run');
+      const results = document.querySelector('#results');
+      const fixtures = document.querySelector('#fixtures');
+      const waitForUpdate = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      let originalClipboard;
+
+      run.addEventListener('click', async () => {
+        run.disabled = true;
+        results.replaceChildren();
+        let passed = 0;
+        const check = (condition, message) => {
+          const item = document.createElement('li');
+          item.textContent = `${condition ? 'PASS' : 'FAIL'} — ${message}`;
+          results.append(item);
+          if (!condition) throw new Error(message);
+          passed += 1;
+        };
+        try {
+          await Promise.all([
+            customElements.whenDefined('lw-relative-time'),
+            customElements.whenDefined('lw-copy'),
+          ]);
+
+          const relative = document.createElement('lw-relative-time');
+          relative.lang = 'en';
+          relative.innerHTML = `<time datetime="${new Date(Date.now() - 60_000).toISOString()}"><span data-relative-time-fallback>Absolute fallback</span><span data-relative-time-output hidden></span></time>`;
+          fixtures.append(relative);
+          await waitForUpdate();
+          const time = relative.querySelector('time');
+          const fallback = relative.querySelector('[data-relative-time-fallback]');
+          const output = relative.querySelector('[data-relative-time-output]');
+          check(fallback.textContent === 'Absolute fallback', 'semantic time retains its absolute fallback in markup');
+          check(!output.hidden && output.textContent.length > 0, 'valid timestamp receives a relative label');
+
+          time.dateTime = new Date(Date.now() + 60_000).toISOString();
+          await waitForUpdate();
+          check(output.textContent.startsWith('in '), 'changing datetime refreshes the relative label');
+
+          time.dateTime = 'not-a-date';
+          await waitForUpdate();
+          check(fallback.hidden === false && output.hidden === true, 'invalid updated date restores the absolute fallback');
+
+          time.dateTime = new Date(Date.now() + 86_400_000).toISOString();
+          await waitForUpdate();
+          relative.remove();
+          check(fallback.hidden === false, 'removal restores fallback content and disconnects the instance');
+          fixtures.append(relative);
+          await waitForUpdate();
+          check(!output.hidden, 'reinsertion reconnects and enhances the instance once');
+
+          originalClipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+          const copied = [];
+          Object.defineProperty(navigator, 'clipboard', {
+            configurable: true,
+            value: { writeText: async (value) => {
+              if (value === 'denied text') throw new Error('permission denied');
+              copied.push(value);
+            } },
+          });
+          const makeCopy = (id, value) => {
+            const component = document.createElement('lw-copy');
+            component.innerHTML = `<label for="${id}">Text ${id}</label><textarea id="${id}" data-copy-source readonly>${value}</textarea><button type="button" data-copy-button>Copy ${id}</button><p data-copy-status role="status" aria-live="polite" aria-atomic="true"></p>`;
+            fixtures.append(component);
+            return component;
+          };
+          const first = makeCopy('copy-a', 'first text');
+          const second = makeCopy('copy-b', 'denied text');
+          const firstButton = first.querySelector('button');
+          const firstSource = first.querySelector('textarea');
+          firstSource.value = 'updated text';
+          firstButton.focus();
+          firstButton.click();
+          await waitForUpdate();
+          check(first.querySelector('[data-copy-status]').textContent === 'Copied.', 'success is announced after clipboard completion');
+          check(copied[0] === 'updated text' && firstSource.value === 'updated text', 'copy uses the current visible source value and preserves it');
+          check(document.activeElement === firstButton, 'successful copy keeps keyboard focus on its button');
+
+          const secondButton = second.querySelector('button');
+          secondButton.focus();
+          secondButton.click();
+          await waitForUpdate();
+          check(second.querySelector('[data-copy-status]').textContent.includes('select the text'), 'failure announces the manual copying path');
+          check(second.dataset.state === 'manual-copy' && first.dataset.state === 'copied', 'two instances keep feedback isolated');
+          check(document.activeElement === secondButton && second.querySelector('textarea').value === 'denied text', 'failure keeps focus and leaves source text selectable');
+
+          second.remove();
+          fixtures.append(second);
+          await waitForUpdate();
+          secondButton.click();
+          await waitForUpdate();
+          check(second.querySelector('[data-copy-status]').textContent.includes('select the text'), 'reinserted copy control remains connected once');
+          check(passed === 13, `${passed} lifecycle and interaction checks passed`);
+        } catch (error) {
+          const item = document.createElement('li');
+          item.textContent = `FAIL — ${error.message}`;
+          results.append(item);
+        } finally {
+          fixtures.replaceChildren();
+          if (originalClipboard) Object.defineProperty(navigator, 'clipboard', originalClipboard);
+          else delete navigator.clipboard;
+          run.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

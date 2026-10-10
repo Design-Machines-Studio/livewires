@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <script type="module" src="/dist/relative-time.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+    <title>Relative time – Manual – Live Wires</title>
+  </head>
+  <body class="scheme-default pg-relative-time">
+    <html-include src="../_includes/header.html"></html-include>
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Relative time</h1>
+          <p class="lead">Show how recent something is while keeping its absolute date available.</p>
+        </header>
+
+        <section class="section">
+          <h2>Example</h2>
+          <p>Last updated
+            <lw-relative-time lang="en" time-zone="America/New_York">
+              <time datetime="2026-10-10T15:30:00-04:00">
+                <span data-relative-time-fallback>October 10, 2026 at 3:30 PM EDT</span>
+                <span data-relative-time-output hidden></span>
+              </time>
+            </lw-relative-time>.
+          </p>
+          <p>Without JavaScript, or when the date or options are invalid, the absolute label stays visible. The original <code>datetime</code> value retains its offset and precise instant.</p>
+        </section>
+
+        <section class="section">
+          <h2>Use it</h2>
+          <p>Load the optional <code>/dist/relative-time.js</code> entry only where this element is used. Put the localized absolute date in <code>data-relative-time-fallback</code>, and leave the output span empty. Set <code>lang</code> and optional <code>time-zone</code> on each wrapper when the page defaults do not express the desired locale or calendar-day boundary.</p>
+          <pre><code>&lt;lw-relative-time lang="en" time-zone="America/New_York"&gt;
+  &lt;time datetime="2026-10-10T15:30:00-04:00"&gt;
+    &lt;span data-relative-time-fallback&gt;October 10, 2026 at 3:30 PM EDT&lt;/span&gt;
+    &lt;span data-relative-time-output hidden&gt;&lt;/span&gt;
+  &lt;/time&gt;
+&lt;/lw-relative-time&gt;</code></pre>
+          <p>The module uses <code>Intl.RelativeTimeFormat</code>, recalculates calendar-day labels on one shared minute-aligned timer, and clears that timer after the final instance disconnects.</p>
+        </section>
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

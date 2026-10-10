@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <script type="module" src="/dist/relative-time.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+    <title>Relative time – Reference – Live Wires</title>
+  </head>
+  <body class="scheme-default">
+    <html-include src="/_includes/header.html"></html-include>
+    <main class="main center" id="main">
+      <article class="prose">
+        <h1>Relative time</h1>
+        <p>Keep an absolute date in semantic time markup. The optional script enhances it with a localized relative label.</p>
+        <h2>Recent date</h2>
+        <lw-relative-time lang="en" time-zone="America/New_York">
+          <time datetime="2026-10-10T15:30:00-04:00" data-relative-time>
+            <span data-relative-time-fallback>October 10, 2026 at 3:30 PM EDT</span>
+            <span data-relative-time-output hidden></span>
+          </time>
+        </lw-relative-time>
+        <h2>Invalid date fallback</h2>
+        <lw-relative-time lang="en">
+          <time datetime="not-a-date" data-relative-time>
+            <span data-relative-time-fallback>10 October 2026, 19:30 UTC</span>
+            <span data-relative-time-output hidden></span>
+          </time>
+        </lw-relative-time>
+        <h2>Markup contract</h2>
+        <pre><code>&lt;script type="module" src="/dist/relative-time.js"&gt;&lt;/script&gt;
+
+&lt;lw-relative-time lang="en" time-zone="America/New_York"&gt;
+  &lt;time datetime="2026-10-10T15:30:00-04:00"&gt;
+    &lt;span data-relative-time-fallback&gt;October 10, 2026 at 3:30 PM EDT&lt;/span&gt;
+    &lt;span data-relative-time-output hidden&gt;&lt;/span&gt;
+  &lt;/time&gt;
+&lt;/lw-relative-time&gt;</code></pre>
+        <p>The server-rendered absolute label remains visible without JavaScript and for invalid dates or unsupported locale/time-zone options. Keep the original offset in <code>datetime</code>. The optional <code>time-zone</code> attribute controls calendar-day boundaries; without it, the viewer's local time zone is used. Relative labels refresh on a shared minute-aligned timer that stops when all instances are removed.</p>
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <script type="module" src="/dist/copy-button.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+    <title>Copy button – Reference – Live Wires</title>
+  </head>
+  <body class="scheme-default">
+    <html-include src="/_includes/header.html"></html-include>
+    <main class="main center" id="main">
+      <article class="prose">
+        <h1>Copy button</h1>
+        <p>The button reports success only after the browser confirms a clipboard write. The read-only text remains visible and selectable if permission is denied or clipboard access is unavailable.</p>
+        <lw-copy>
+          <label for="share-address">Share address</label>
+          <textarea id="share-address" data-copy-source rows="2" readonly>https://example.test/meeting/annual-planning</textarea>
+          <button type="button" data-copy-button>Copy address</button>
+          <p data-copy-status role="status" aria-live="polite" aria-atomic="true"></p>
+        </lw-copy>
+        <h2>Markup contract</h2>
+        <pre><code>&lt;script type="module" src="/dist/copy-button.js"&gt;&lt;/script&gt;
+
+&lt;lw-copy&gt;
+  &lt;label for="share-address"&gt;Share address&lt;/label&gt;
+  &lt;textarea id="share-address" data-copy-source rows="2" readonly&gt;https://example.test/meeting/annual-planning&lt;/textarea&gt;
+  &lt;button type="button" data-copy-button&gt;Copy address&lt;/button&gt;
+  &lt;p data-copy-status role="status" aria-live="polite" aria-atomic="true"&gt;&lt;/p&gt;
+&lt;/lw-copy&gt;</code></pre>
+        <p>Each instance owns its source, button, and live status. On failure, focus stays on the button and the message tells people to select the text field and use their device's copy command. No default runtime or server clipboard policy is changed.</p>
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
