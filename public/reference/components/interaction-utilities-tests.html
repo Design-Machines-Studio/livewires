@@ -148,7 +148,7 @@
           secondButton.click();
           await waitForUpdate();
           check(second.querySelector('[data-copy-status]').textContent.toLowerCase().includes('select the text'), 'reinserted copy control remains connected once');
-          check(passed === 20, `${passed} lifecycle and interaction checks passed`);
+          check(passed === 21, `${passed} lifecycle and interaction checks passed`);
         } catch (error) {
           const item = document.createElement('li');
           item.textContent = `FAIL — ${error.message}`;
