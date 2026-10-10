@@ -124,6 +124,11 @@ export async function runToastChecks() {
     assert(document.activeElement === review, 'review control could not receive focus');
     f.region.dismiss('action'); assert(!older.hidden, 'waiting occurrence not admitted');
     f.region.refresh(); assert(review.textContent === 'No more messages' && !review.hidden, 'focused empty review removed');
+    assert(review.getAttribute('aria-expanded') === 'false', 'empty backlog stayed expanded');
+    f.root.querySelector('[data-toast-focus-return]').focus(); await flush();
+    assert(review.hidden, 'empty review stayed visible after focus left');
+    const next = f.add('next'); await flush();
+    assert(next.hidden && review.getAttribute('aria-expanded') === 'false', 'new backlog opened without a request');
   });
   await check('a preceding nested region cannot capture the parent list or focus return', async () => {
     const f = setup(); const childRoot = document.createElement('section'); f.root.prepend(childRoot);
@@ -184,6 +189,18 @@ export async function runToastChecks() {
     const shadow = host.attachShadow({ mode: 'open' }); const root = document.createElement('section'); shadow.append(root);
     const s = setup({ root }); s.add('shadow'); await flush(); host.remove(); await flush();
     assert(s.region.state.disposed && s.clock.pending === 0, 'shadow host removal leaked');
+  });
+  await check('focused shadow-region feedback keeps its pause through patches and recovers focus on dismissal', async () => {
+    const host = document.createElement('div'); document.querySelector('#check-fixtures').append(host);
+    const shadow = host.attachShadow({ mode: 'open' }); const root = document.createElement('section'); shadow.append(root);
+    const f = setup({ root }); const node = f.add('focused'); await flush(); f.clock.advance(400);
+    const close = node.querySelector('[data-toast-dismiss]'); close.focus();
+    assert(shadow.activeElement === close && document.activeElement === host, 'shadow focus setup failed');
+    f.add('other', { duration: null }); await flush(); f.clock.advance(5000);
+    assert(!node.hidden && f.state('focused').paused && f.state('focused').remaining === 600, 'shadow patch cleared focused pause');
+    f.region.dismiss('focused');
+    assert(shadow.activeElement === f.list.querySelector('[data-toast-id="other"] [data-toast-dismiss]'), 'shadow dismissal stranded focus');
+    host.remove(); await flush(); assert(f.region.state.disposed && f.clock.pending === 0, 'shadow cleanup leaked');
   });
   await check('required-target removal releases resources instead of guessing a new boundary', async () => {
     const f = setup(); f.add('same'); await flush(); f.list.remove(); await flush();

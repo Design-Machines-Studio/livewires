@@ -11,6 +11,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
   }
   if (owners.has(root)) throw new Error('This toast region already has a controller.');
   const doc = root.ownerDocument;
+  const activeElement = () => root.getRootNode().activeElement ?? doc.activeElement;
   const view = doc.defaultView;
   const Observer = view.MutationObserver;
   if (!Observer) throw new Error('MutationObserver is required for toast lifecycle cleanup.');
@@ -72,6 +73,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
     if (disposed) return;
     const queue = state.messages.filter((message) => message.queued);
     const errors = queue.filter((message) => isError(nodes.get(message.id))).length;
+    if (queue.length === 0) reviewing = false;
     for (const message of state.messages) {
       const node = nodes.get(message.id);
       if (!node) continue;
@@ -83,7 +85,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
       `Show ${queue.length} more ${queue.length === 1 ? 'message' : 'messages'}${errors ? ` (${errors} ${errors === 1 ? 'error' : 'errors'})` : ''}`;
     if (review.textContent !== label) review.textContent = label;
     // Do not remove a control while a person is using it.
-    attr(review, 'hidden', queue.length === 0 && doc.activeElement !== review ? '' : null);
+    attr(review, 'hidden', queue.length === 0 && activeElement() !== review ? '' : null);
     attr(review, 'aria-expanded', String(reviewing));
     attr(list, 'data-toast-reviewing', reviewing ? '' : null);
   }
@@ -129,13 +131,13 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
     // Establish pause state before sync can start a replacement's timer.
     for (const message of local.state.messages) {
       const node = nodes.get(message.id);
-      local.pause(message.id, 'focus', Boolean(node?.contains(doc.activeElement)));
+      local.pause(message.id, 'focus', Boolean(node?.contains(activeElement())));
       local.pause(message.id, 'hover', Boolean(node?.matches(':hover')));
     }
     local.sync(descriptions);
     for (const message of descriptions) {
       const node = nodes.get(message.id);
-      local.pause(message.id, 'focus', node.contains(doc.activeElement));
+      local.pause(message.id, 'focus', node.contains(activeElement()));
       local.pause(message.id, 'hover', node.matches(':hover'));
     }
     for (const priority of ['polite', 'assertive']) {
@@ -159,7 +161,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
   }
   function dismissNode(node, reason) {
     const id = node.getAttribute('data-toast-id');
-    const focused = node.contains(doc.activeElement);
+    const focused = node.contains(activeElement());
     if (!local.dismiss(id)) return false;
     if (focused) {
       const next = [...nodes.values()].find((candidate) => !candidate.hidden && candidate !== node);
@@ -189,6 +191,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
     if (node && dismissNode(node, 'escape')) { event.preventDefault(); event.stopPropagation(); }
   }
   function interaction(event) {
+    if (event.target === review && event.type === 'focusout') { render(local.state); return; }
     const node = toastFor(event.target);
     if (!node) return;
     const focus = event.type.startsWith('focus');

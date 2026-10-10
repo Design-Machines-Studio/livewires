@@ -37,7 +37,8 @@ function add(root, kind, text, { duration, action, id } = {}) {
 }
 let pending;
 document.querySelector('[data-demo="pending"]').addEventListener('click', () => {
-  if (pending?.isConnected) return;
+  if (pending?.isConnected && !pending.hidden) return;
+  pending?.remove();
   pending = add(primary, 'pending', 'Request pending. Changes are not confirmed.');
 });
 document.querySelector('[data-demo="ended"]').addEventListener('click', () => {
