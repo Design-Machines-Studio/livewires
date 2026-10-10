@@ -37,7 +37,7 @@ function add(root, kind, text, { duration, action, id } = {}) {
 }
 let pending;
 document.querySelector('[data-demo="pending"]').addEventListener('click', () => {
-  if (pending?.isConnected && !pending.hidden) return;
+  if (pending?.isConnected && pending.dataset.toastState !== 'dismissed') return;
   pending?.remove();
   pending = add(primary, 'pending', 'Request pending. Changes are not confirmed.');
 });
@@ -80,6 +80,7 @@ document.querySelector('[data-demo="patch"]').addEventListener('click', () => {
       replacement.removeAttribute('hidden');
       replacement.removeAttribute('data-toast-state');
       toast.replaceWith(replacement);
+      if (pending === toast) pending = replacement;
     }
   }
   document.querySelector('#patch-count').textContent = String(Number(document.querySelector('#patch-count').textContent) + 1);

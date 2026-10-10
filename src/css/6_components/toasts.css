@@ -50,11 +50,12 @@
       font-size: 1.25em;
       line-height: 1;
       cursor: pointer;
-      color: color-mix(in srgb, currentColor 65%, transparent);
+      color: color-mix(in srgb, currentColor 75%, transparent);
       min-block-size: var(--touch-target-min);
       min-inline-size: var(--touch-target-min);
 
-      &:hover {
+      &:hover,
+      &:focus-visible {
         color: inherit;
       }
     }
