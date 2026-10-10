@@ -14,14 +14,8 @@ class LWRelativeTime extends HTMLElement {
 
     this._observer = new MutationObserver((records) => {
       if (records.some((record) => record.target === this._time)) this.refresh();
-      if (records.some((record) => this._fallback.contains(record.target))) {
-        this._fallbackText = this._fallback.textContent.trim();
-        this.refresh();
-      }
     });
     this._observer.observe(this._time, { attributes: true, attributeFilter: ['datetime'] });
-    this._observer.observe(this._fallback, { childList: true, characterData: true, subtree: true });
-    this._fallbackText = this._fallback.textContent.trim();
     this._release = scheduler.add(this);
   }
 
@@ -47,17 +41,15 @@ class LWRelativeTime extends HTMLElement {
 
     this._output.textContent = label;
     this._output.hidden = false;
-    this._fallback.hidden = true;
-    this._time.title = this._fallbackText;
-    this._time.setAttribute('aria-label', `${label}; ${this._fallbackText}`);
+    this._fallback.hidden = false;
+    this._fallback.classList.add('visually-hidden');
   }
 
   _restoreFallback() {
     if (!this._fallback || !this._output) return;
     this._fallback.hidden = false;
+    this._fallback.classList.remove('visually-hidden');
     this._output.hidden = true;
-    this._time?.removeAttribute('aria-label');
-    this._time?.removeAttribute('title');
   }
 }
 

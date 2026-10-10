@@ -70,7 +70,7 @@ test('instances share one aligned timer and release it after the last removal', 
   scheduler.add(second);
 
   assert.equal(timers.size, 1);
-  assert.equal(timers.get(firstTimer).delay, 47_655);
+  assert.equal(timers.get(firstTimer).delay, 655);
   assert.deepEqual(refreshed, [first, second]);
 
   timers.get(firstTimer).callback();

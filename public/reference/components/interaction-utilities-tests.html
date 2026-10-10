@@ -55,6 +55,7 @@
           const output = relative.querySelector('[data-relative-time-output]');
           check(fallback.textContent === 'Absolute fallback', 'semantic time retains its absolute fallback in markup');
           check(!output.hidden && output.textContent.length > 0, 'valid timestamp receives a relative label');
+          check(!fallback.hidden && fallback.classList.contains('visually-hidden'), 'enhancement keeps the absolute date available to assistive technology');
 
           time.dateTime = new Date(Date.now() + 60_000).toISOString();
           await waitForUpdate();
@@ -67,7 +68,7 @@
           time.dateTime = new Date(Date.now() + 86_400_000).toISOString();
           await waitForUpdate();
           relative.remove();
-          check(fallback.hidden === false, 'removal restores fallback content and disconnects the instance');
+          check(fallback.hidden === false && !fallback.classList.contains('visually-hidden'), 'removal restores fallback content and disconnects the instance');
           fixtures.append(relative);
           await waitForUpdate();
           check(!output.hidden, 'reinsertion reconnects and enhances the instance once');
@@ -94,6 +95,7 @@
           firstSource.value = 'updated text';
           firstButton.focus();
           firstButton.click();
+          check(first.querySelector('[data-copy-status]').textContent === 'Copying…', 'copy attempt announces progress before awaiting the clipboard');
           await waitForUpdate();
           check(first.querySelector('[data-copy-status]').textContent === 'Copied.', 'success is announced after clipboard completion');
           check(copied[0] === 'updated text' && firstSource.value === 'updated text', 'copy uses the current visible source value and preserves it');
@@ -113,7 +115,7 @@
           secondButton.click();
           await waitForUpdate();
           check(second.querySelector('[data-copy-status]').textContent.toLowerCase().includes('select the text'), 'reinserted copy control remains connected once');
-          check(passed === 13, `${passed} lifecycle and interaction checks passed`);
+          check(passed === 15, `${passed} lifecycle and interaction checks passed`);
         } catch (error) {
           const item = document.createElement('li');
           item.textContent = `FAIL — ${error.message}`;

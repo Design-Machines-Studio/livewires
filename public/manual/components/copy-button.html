@@ -31,7 +31,7 @@
         <section class="section">
           <h2>Use it</h2>
           <p>Load <code>/dist/copy-button.js</code> on pages that use <code>&lt;lw-copy&gt;</code>. Keep the source in a visible, read-only field so it remains selectable. Each instance reads its current field value when clicked and updates only its own polite status message.</p>
-          <p>The success message appears only after <code>navigator.clipboard.writeText()</code> resolves. If access is missing or denied, focus stays on the button and the message tells people to select the field and use their device's copy command. The component does not add a legacy clipboard fallback or alter a host application's clipboard policy.</p>
+          <p>The button announces “Copying…” while the request runs and reports success only after <code>navigator.clipboard.writeText()</code> resolves. If access is missing or denied, focus stays on the button and the message tells people to select the field and use their device's copy command. The component does not add a legacy clipboard fallback or alter a host application's clipboard policy.</p>
           <pre><code>&lt;lw-copy&gt;
   &lt;label for="meeting-address"&gt;Meeting address&lt;/label&gt;
   &lt;textarea id="meeting-address" data-copy-source rows="2" readonly&gt;https://example.test/meeting/annual-planning&lt;/textarea&gt;

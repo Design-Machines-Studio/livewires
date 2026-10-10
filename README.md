@@ -23,7 +23,7 @@ touch, and reduced motion separately.
 The dependency-free relative-time and copy enhancements are separate from the
 default runtime. Load `/dist/relative-time.js` or `/dist/copy-button.js` only
 on pages that use the matching markup. Relative time keeps a semantic `<time>`
-and its absolute fallback in the page, shares one minute-aligned scheduler,
+and its accessible absolute fallback in the page, shares one second-aligned scheduler,
 and stops it when the last instance is removed. Copy feedback reports success
 only after the browser clipboard promise resolves; the read-only text remains
 selectable for manual copying when access fails.

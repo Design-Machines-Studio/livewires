@@ -37,7 +37,7 @@
     &lt;span data-relative-time-output hidden&gt;&lt;/span&gt;
   &lt;/time&gt;
 &lt;/lw-relative-time&gt;</code></pre>
-        <p>The server-rendered absolute label remains visible without JavaScript and for invalid dates or unsupported locale/time-zone options. Keep the original offset in <code>datetime</code>. The optional <code>time-zone</code> attribute controls calendar-day boundaries; without it, the viewer's local time zone is used. Relative labels refresh on a shared minute-aligned timer that stops when all instances are removed.</p>
+        <p>The server-rendered absolute label remains visible without JavaScript and for invalid dates or unsupported locale/time-zone options. After enhancement it stays available to assistive technology while the relative label is shown. Keep the original offset in <code>datetime</code>. The optional <code>time-zone</code> attribute controls calendar-day boundaries; without it, the viewer's local time zone is used. Relative labels refresh on one shared second-aligned timer that stops when all instances are removed.</p>
       </article>
     </main>
     <html-include src="/_includes/footer.html"></html-include>

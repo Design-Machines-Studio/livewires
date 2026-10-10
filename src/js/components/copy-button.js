@@ -24,6 +24,8 @@ class LWCopy extends HTMLElement {
   _onCopy = async () => {
     const generation = this._generation;
     const value = 'value' in this._source ? this._source.value : this._source.textContent;
+    this.dataset.state = 'copying';
+    this._status.textContent = 'Copying…';
     const succeeded = await copyText(value);
     if (!this.isConnected || generation !== this._generation) return;
 

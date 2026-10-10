@@ -1,4 +1,5 @@
 const MINUTE = 60_000;
+const SECOND = 1_000;
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 
@@ -73,7 +74,7 @@ export function createSharedScheduler(refresh, {
   };
 
   const scheduleNext = () => {
-    const wait = MINUTE - (now() % MINUTE);
+    const wait = SECOND - (now() % SECOND);
     timer = schedule(tick, wait);
   };
 
