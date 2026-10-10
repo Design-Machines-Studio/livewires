@@ -35,10 +35,10 @@
         results.append(li);
         passed += 1;
       };
-      const make = (durations = {}) => {
+      const make = (durations = {}, parent = fixtures) => {
         const root = document.createElement('section');
         root.innerHTML = `<button type="button">Send</button><input aria-label="Unrelated input"><div data-content><div class="loading" data-indicator hidden><div class="skeleton skeleton--text"></div></div></div><p data-status role="status" aria-live="polite" aria-atomic="true"></p>`;
-        fixtures.append(root);
+        parent.append(root);
         const operation = createLoadingOperation({ root, content: '[data-content]', indicator: '[data-indicator]', status: '[data-status]', delay: 0, minDuration: 0, ...durations });
         owners.push(() => operation.dispose());
         return { root, operation, content: () => root.querySelector('[data-content]'), indicator: () => root.querySelector('[data-indicator]'), status: () => root.querySelector('[data-status]') };
@@ -109,6 +109,32 @@
         removedStatus.status().remove();
         await tick();
         check(removedStatus.operation.state.phase === 'disposed' && removedStatus.content().getAttribute('aria-busy') === null && removedStatus.indicator().hidden, 'replacement busy targets are cleared when the status target disappears');
+        const attributePatch = make();
+        attributePatch.operation.begin();
+        await tick();
+        const previousContent = attributePatch.content();
+        const replacement = document.createElement('div');
+        attributePatch.root.append(replacement);
+        await tick();
+        previousContent.removeAttribute('data-content');
+        replacement.setAttribute('data-content', '');
+        await tick();
+        check(previousContent.getAttribute('aria-busy') === null && replacement.getAttribute('aria-busy') === 'true', 'attribute-only selector changes rebind pending content');
+        attributePatch.status().removeAttribute('data-status');
+        await tick();
+        check(attributePatch.operation.state.phase === 'disposed' && replacement.getAttribute('aria-busy') === null && attributePatch.indicator().hidden, 'attribute-only target removal disposes and clears the indicator');
+        const shadowHost = document.createElement('div');
+        fixtures.append(shadowHost);
+        const outerShadow = shadowHost.attachShadow({ mode: 'open' });
+        const innerHost = document.createElement('div');
+        outerShadow.append(innerHost);
+        const nestedShadow = innerHost.attachShadow({ mode: 'open' });
+        const shadowOperation = make({}, nestedShadow);
+        const shadowToken = shadowOperation.operation.begin();
+        await tick();
+        shadowHost.remove();
+        await tick();
+        check(shadowOperation.operation.state.phase === 'disposed' && shadowToken.finish() === false && shadowOperation.indicator().hidden, 'removing an outer shadow host disposes nested pending operations');
         document.querySelector('#results').dataset.result = 'pass';
       } catch (error) {
         const li = document.createElement('li');

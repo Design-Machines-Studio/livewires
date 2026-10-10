@@ -60,7 +60,13 @@ export function createLoadingOperation({ root, content, indicator, status, delay
         nodes.indicator.getAttribute('aria-hidden') !== 'true' ||
         nodes.status.textContent !== messages[state.phase]) render(state);
   });
-  observer.observe(root.getRootNode?.() ?? root, { childList: true, subtree: true, attributes: true, attributeFilter: ['aria-busy', 'hidden', 'aria-hidden', 'data-loading-state'] });
+  // Arbitrary selectors may depend on any attribute. Also watch each outer
+  // tree: removing a shadow host does not mutate its own shadow root.
+  let tree = root.getRootNode?.() ?? root;
+  while (tree) {
+    observer.observe(tree, { childList: true, subtree: true, attributes: true });
+    tree = tree.host?.getRootNode?.();
+  }
 
   function dispose() {
     if (disposed) return;

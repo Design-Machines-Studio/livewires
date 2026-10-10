@@ -10,15 +10,16 @@ function fixture() {
   const targets = { content: element(), indicator: element(), status: element() };
   let update;
   let disconnected = false;
+  const observations = [];
   class Observer {
     constructor(callback) { update = callback; }
-    observe() {}
+    observe(target, options) { observations.push({ target, options }); }
     disconnect() { disconnected = true; }
   }
   const root = { isConnected: true, querySelector: (selector) => targets[selector] ?? null,
     ownerDocument: { defaultView: { MutationObserver: Observer } } };
   const start = () => createLoadingOperation({ root, content: 'content', indicator: 'indicator', status: 'status', delay: 0, minDuration: 0 });
-  return { targets, root, element, start, update: () => update(), get disconnected() { return disconnected; } };
+  return { targets, root, element, start, observations, update: () => update(), get disconnected() { return disconnected; } };
 }
 
 test('DOM patches rebind targets without acknowledging the pending operation', () => {
@@ -100,5 +101,37 @@ test('a patch that replaces busy targets but removes status clears both old and 
   assert.equal(old.content.getAttribute('aria-busy'), null);
   assert.equal(old.indicator.hidden, true);
   assert.equal(old.status.textContent, '');
+  assert.equal(token.finish(), false);
+});
+
+test('selector attributes are observed so losing a target releases abort subscriptions', () => {
+  const f = fixture();
+  const op = f.start();
+  const abort = new AbortController();
+  let removed = 0;
+  const remove = abort.signal.removeEventListener.bind(abort.signal);
+  abort.signal.removeEventListener = (...args) => { removed++; remove(...args); };
+  const token = op.begin({ signal: abort.signal });
+  assert.equal(f.observations[0].options.attributes, true);
+  assert.equal(f.observations[0].options.attributeFilter, undefined);
+  delete f.targets.content;
+  f.update();
+  assert.equal(op.state.phase, 'disposed');
+  assert.equal(removed, 1);
+  assert.equal(token.finish(), false);
+});
+
+test('nested shadow hosts are observed and all subscriptions stop on removal', () => {
+  const f = fixture();
+  const outer = { host: { getRootNode: () => f.root.ownerDocument } };
+  const inner = { host: { getRootNode: () => outer } };
+  f.root.getRootNode = () => inner;
+  const op = f.start();
+  assert.deepEqual(f.observations.map(({ target }) => target), [inner, outer, f.root.ownerDocument]);
+  const token = op.begin();
+  f.root.isConnected = false;
+  f.update();
+  assert.equal(op.state.phase, 'disposed');
+  assert.equal(f.disconnected, true);
   assert.equal(token.finish(), false);
 });
