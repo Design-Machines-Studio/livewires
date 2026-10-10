@@ -16,8 +16,9 @@ their browser components.
 - Keep the label current through one shared scheduler. Invalid input, an
   unsupported locale or time zone, and dates more than 30 calendar days away
   leave the absolute date as the visible fallback.
-- Place timestamps inline in the surrounding prose. Inherit the surrounding
-  text style; do not add widget typography, color, or component CSS.
+- Place timestamps inline in surrounding prose. Preserve Live Wires' existing
+  semantic `<time>` typography; do not add a local type override, color, or
+  component CSS.
 - Document this utility in Data display and show it as an optional Timeline
   composition around the styled semantic `<time class="date">` element. Do
   not make it a Timeline or default runtime dependency.
