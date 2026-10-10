@@ -14,7 +14,9 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
   const view = doc.defaultView;
   const Observer = view.MutationObserver;
   if (!Observer) throw new Error('MutationObserver is required for toast lifecycle cleanup.');
-  let list = root.querySelector('[data-toast-list]');
+  const inRegion = (node) => node?.closest?.('[data-toast-region]') === root;
+  const ownedTarget = (selector) => [...root.querySelectorAll(selector)].find(inRegion);
+  let list = ownedTarget('[data-toast-list]');
   if (!list) throw new TypeError('A data-toast-list target is required.');
   let disposed = false;
   let reviewing = false;
@@ -25,7 +27,6 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
   const owned = [];
   const listState = new Map();
   const originalTabIndex = root.getAttribute('tabindex');
-  const inRegion = (node) => node?.closest?.('[data-toast-region]') === root;
   const isError = (node) => node?.getAttribute('data-toast-kind') === 'error' || node?.classList.contains('toast--error');
   const emit = (name, detail) => root.dispatchEvent(new view.CustomEvent(name, { bubbles: true, detail }));
 
@@ -78,7 +79,8 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
       attr(node, 'hidden', visible ? null : '');
       attr(node, 'data-toast-state', message.dismissed ? 'dismissed' : message.expired ? 'expired' : message.queued ? 'queued' : 'visible');
     }
-    const label = reviewing ? 'Show fewer messages' : `Show ${queue.length} more messages${errors ? ` (${errors} ${errors === 1 ? 'error' : 'errors'})` : ''}`;
+    const label = queue.length === 0 ? 'No more messages' : reviewing ? 'Show fewer messages' :
+      `Show ${queue.length} more ${queue.length === 1 ? 'message' : 'messages'}${errors ? ` (${errors} ${errors === 1 ? 'error' : 'errors'})` : ''}`;
     if (review.textContent !== label) review.textContent = label;
     // Do not remove a control while a person is using it.
     attr(review, 'hidden', queue.length === 0 && doc.activeElement !== review ? '' : null);
@@ -89,7 +91,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
   function refresh() {
     if (disposed) return;
     if (!root.isConnected) { dispose(); return; }
-    const nextList = root.querySelector('[data-toast-list]');
+    const nextList = ownedTarget('[data-toast-list]');
     if (!nextList || !inRegion(nextList) || owned.some((node) => node.parentNode !== root)) { dispose(); return; }
     if (list !== nextList && listState.has(list)) {
       attr(list, 'data-toast-reviewing', listState.get(list));
@@ -161,7 +163,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
     if (!local.dismiss(id)) return false;
     if (focused) {
       const next = [...nodes.values()].find((candidate) => !candidate.hidden && candidate !== node);
-      const target = next?.querySelector('[data-toast-dismiss]') ?? root.querySelector('[data-toast-focus-return]');
+      const target = next?.querySelector('[data-toast-dismiss]') ?? ownedTarget('[data-toast-focus-return]');
       if (target) target.focus();
       else {
         if (root.getAttribute('tabindex') === null) attr(root, 'tabindex', '-1');

@@ -51,8 +51,8 @@
       line-height: 1;
       cursor: pointer;
       color: var(--color-muted);
-      min-block-size: var(--line-15);
-      min-inline-size: var(--line-15);
+      min-block-size: var(--touch-target-min);
+      min-inline-size: var(--touch-target-min);
 
       &:hover {
         color: var(--color-fg);

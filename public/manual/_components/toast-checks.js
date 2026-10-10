@@ -111,6 +111,31 @@ export async function runToastChecks() {
     review.click(); assert(!error.hidden && review.getAttribute('aria-expanded') === 'true', 'backlog inaccessible');
     assert(f.clock.pending === 0, 'queued error timed');
   });
+  await check('older-ID reinsertion queues behind a focused admitted action', async () => {
+    const f = setup({ maxVisible: 1 }); const older = f.add('older'); await flush();
+    f.clock.advance(300); older.remove(); await flush();
+    const node = f.add('action', { action: true }); await flush();
+    const action = node.querySelector('button:not([data-toast-dismiss])'); action.focus();
+    f.list.prepend(older); await flush(); f.clock.advance(5000);
+    assert(document.activeElement === action && !node.hidden && older.hidden, 'reinsertion displaced focused action');
+    assert(f.state('older').queued && f.state('older').remaining === 700, 'queued timer changed');
+    assert(f.root.querySelector('[data-toast-review]').textContent === 'Show 1 more message', 'singular backlog label');
+    f.region.dismiss('action'); assert(!older.hidden, 'waiting occurrence not admitted');
+    const review = f.root.querySelector('[data-toast-review]'); review.hidden = false; review.focus();
+    f.region.refresh(); assert(review.textContent === 'No more messages' && !review.hidden, 'focused empty review removed');
+  });
+  await check('a preceding nested region cannot capture the parent list or focus return', async () => {
+    const f = setup(); const childRoot = document.createElement('section'); f.root.prepend(childRoot);
+    const child = setup({ root: childRoot }); child.add('same', { duration: null });
+    const parent = f.add('same', { duration: null }); await flush();
+    assert(!f.region.state.disposed && !child.region.state.disposed, 'nested list disposed parent');
+    parent.querySelector('[data-toast-dismiss]').focus(); f.region.dismiss('same');
+    assert(document.activeElement === f.root.querySelector(':scope > [data-toast-focus-return]'), 'focus crossed into nested region');
+    assert(!child.state('same').dismissed, 'parent dismissal crossed region');
+    const controller = f.region; controller.dispose();
+    const next = createToastRegion({ root: f.root, clock: f.clock });
+    assert(!next.state.disposed && next.state.messages.length === 1, 'initial setup chose nested list'); next.dispose();
+  });
   await check('keyboard Escape dismisses only the focused region and recovers focus', async () => {
     const f = setup(); const other = setup(); const node = f.add('same'); const second = other.add('same'); await flush();
     const close = node.querySelector('[data-toast-dismiss]'); close.focus();

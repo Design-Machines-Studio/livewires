@@ -105,6 +105,25 @@ test('two region scopes use the same ID independently', () => {
   assert.equal(message(right, 'same').expired, true);
 });
 
+test('older occurrence reinsertion never evicts an admitted focused action', () => {
+  const clock = fakeClock();
+  const region = createToastRegionState({ clock, maxVisible: 1 });
+  region.sync([timed('older')]);
+  clock.advance(300);
+  region.sync([{ id: 'action', sticky: true }]);
+  region.pause('action', 'focus', true);
+  region.sync([timed('older'), { id: 'action', sticky: true }]);
+  clock.advance(5000);
+  assert.equal(message(region, 'action').active, true);
+  assert.equal(message(region, 'older').queued, true);
+  assert.equal(message(region, 'older').remaining, 700);
+  region.dismiss('action');
+  assert.equal(message(region, 'older').active, true);
+  clock.advance(700);
+  assert.equal(message(region, 'older').expired, true);
+  region.dispose();
+});
+
 test('sticky messages never expire and discovering an action stops a timer', () => {
   const clock = fakeClock();
   const region = createToastRegionState({ clock });

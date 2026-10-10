@@ -5,6 +5,7 @@ export function createToastRegionState({ maxVisible = 3, onChange = () => {}, cl
   const schedule = clock.setTimeout ?? ((fn, ms) => setTimeout(fn, ms));
   const cancel = clock.clearTimeout ?? ((timer) => clearTimeout(timer));
   const records = new Map();
+  const active = new Set();
   let disposed = false;
 
   const remaining = (record) => record.deadline === null ? record.remaining : Math.max(0, record.deadline - now());
@@ -17,7 +18,6 @@ export function createToastRegionState({ maxVisible = 3, onChange = () => {}, cl
   }
   function snapshot() {
     const eligible = [...records.values()].filter((r) => r.present && !r.dismissed && !r.expired);
-    const active = new Set(eligible.slice(0, maxVisible));
     return {
       disposed,
       messages: [...records.values()].map((r) => ({
@@ -28,9 +28,17 @@ export function createToastRegionState({ maxVisible = 3, onChange = () => {}, cl
     };
   }
   function update() {
-    const active = new Set(snapshot().messages.filter((r) => r.active).map((r) => r.id));
+    // Retain admitted occurrences until they leave. An older ID returning
+    // cannot displace someone already reading or acting on a message.
+    for (const record of active) {
+      if (disposed || !record.present || record.dismissed || record.expired) active.delete(record);
+    }
+    if (!disposed) for (const record of records.values()) {
+      if (active.size === maxVisible) break;
+      if (record.present && !record.dismissed && !record.expired) active.add(record);
+    }
     for (const record of records.values()) {
-      const running = !disposed && active.has(record.id) && !record.sticky && record.pauses.size === 0;
+      const running = !disposed && active.has(record) && !record.sticky && record.pauses.size === 0;
       if (!running) stop(record);
       else if (record.deadline === null) {
         record.deadline = now() + record.remaining;
@@ -95,6 +103,7 @@ export function createToastRegionState({ maxVisible = 3, onChange = () => {}, cl
     const record = records.get(id);
     if (record.present) throw new Error('Remove the toast before forgetting its ID.');
     stop(record);
+    active.delete(record);
     records.delete(id);
     update();
     return true;
@@ -104,6 +113,7 @@ export function createToastRegionState({ maxVisible = 3, onChange = () => {}, cl
     disposed = true;
     for (const record of records.values()) stop(record);
     records.clear();
+    active.clear();
     onChange(snapshot());
   }
   return { sync, dismiss, pause, forget, dispose, get state() { return snapshot(); } };
