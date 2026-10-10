@@ -17,7 +17,7 @@ function dateNumber(date, timeZone) {
 
 function hasValidCalendarDate(value) {
   if (typeof value !== 'string') return true;
-  const match = /^(\d{4})-(\d{2})-(\d{2})(?:$|T)/.exec(value);
+  const match = /^(\d{4})-(\d{2})-(\d{2})(?:$|[T ])/.exec(value);
   if (!match) return true;
 
   const year = Number(match[1]);
