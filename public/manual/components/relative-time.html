@@ -5,6 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0">
     <script type="module" src="/dist/main.js"></script>
     <script type="module" src="/dist/relative-time.js"></script>
+    <script type="module" src="/reference/components/relative-time-demo.js"></script>
     <html-include src="/_includes/head.html"></html-include>
     <title>Relative time – Manual – Live Wires</title>
   </head>
@@ -38,15 +39,5 @@
       </article>
     </main>
     <html-include src="/_includes/footer.html"></html-include>
-    <script type="module">
-      const time = document.querySelector('[data-relative-time-demo]');
-      const date = new Date(Date.now() - 5 * 60_000);
-      time.dateTime = date.toISOString();
-      time.querySelector('[data-relative-time-fallback]').textContent = new Intl.DateTimeFormat('en', {
-        dateStyle: 'long',
-        timeStyle: 'short',
-        timeZone: 'America/New_York',
-      }).format(date);
-    </script>
   </body>
 </html>

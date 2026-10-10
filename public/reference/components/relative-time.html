@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="module" src="/dist/main.js"></script>
     <script type="module" src="/dist/relative-time.js"></script>
+    <script type="module" src="/reference/components/relative-time-demo.js"></script>
     <html-include src="/_includes/head.html"></html-include>
     <title>Relative time – Reference – Live Wires</title>
   </head>
@@ -16,7 +17,7 @@
         <p>Keep an absolute date in semantic time markup. The optional script enhances it with a localized relative label.</p>
         <h2>Example timestamp</h2>
         <p><lw-relative-time lang="en" time-zone="America/New_York">
-          <time datetime="2026-10-10T15:30:00-04:00">
+            <time datetime="2026-10-10T15:30:00-04:00" data-relative-time-demo>
             <span data-relative-time-fallback>October 10, 2026 at 3:30 PM EDT</span>
             <span data-relative-time-output hidden></span>
           </time>
