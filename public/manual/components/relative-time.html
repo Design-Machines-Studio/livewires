@@ -20,13 +20,7 @@
 
         <section class="section">
           <h2>Example</h2>
-          <p>Last updated
-            <lw-relative-time lang="en" time-zone="America/New_York">
-              <time datetime="2026-10-10T15:30:00-04:00">
-                <span data-relative-time-fallback>October 10, 2026 at 3:30 PM EDT</span>
-                <span data-relative-time-output hidden></span>
-              </time>
-            </lw-relative-time>.</p>
+          <p>Last updated <lw-relative-time lang="en" time-zone="America/New_York"><time datetime="2026-10-10T15:30:00-04:00" data-relative-time-demo><span data-relative-time-fallback>October 10, 2026 at 3:30 PM EDT</span><span data-relative-time-output hidden></span></time></lw-relative-time>.</p>
           <p>Without JavaScript, for dates over 30 days from today, or when the date, locale, or time-zone option is invalid, the absolute label stays visible. The original <code>datetime</code> value retains its offset and precise instant.</p>
         </section>
 
@@ -44,5 +38,15 @@
       </article>
     </main>
     <html-include src="/_includes/footer.html"></html-include>
+    <script type="module">
+      const time = document.querySelector('[data-relative-time-demo]');
+      const date = new Date(Date.now() - 5 * 60_000);
+      time.dateTime = date.toISOString();
+      time.querySelector('[data-relative-time-fallback]').textContent = new Intl.DateTimeFormat('en', {
+        dateStyle: 'long',
+        timeStyle: 'short',
+        timeZone: 'America/New_York',
+      }).format(date);
+    </script>
   </body>
 </html>
