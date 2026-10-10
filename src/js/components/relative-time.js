@@ -11,6 +11,7 @@ class LWRelativeTime extends HTMLElement {
     this._fallback = this._time.querySelector('[data-relative-time-fallback]');
     this._output = this._time.querySelector('[data-relative-time-output]');
     if (!this._fallback || !this._output) return;
+    this._separator ||= document.createTextNode(' ');
 
     this._observer = new MutationObserver((records) => {
       if (records.some((record) => record.target === this._time)) this.refresh();
@@ -43,6 +44,7 @@ class LWRelativeTime extends HTMLElement {
 
     this._output.textContent = label;
     this._output.hidden = false;
+    this._output.before(this._separator);
     this._fallback.hidden = false;
     this._fallback.classList.add('visually-hidden');
     this._time.title = this._fallback.textContent.trim();
@@ -53,6 +55,7 @@ class LWRelativeTime extends HTMLElement {
     this._fallback.hidden = false;
     this._fallback.classList.remove('visually-hidden');
     this._output.hidden = true;
+    this._separator?.remove();
     this._time?.removeAttribute('title');
   }
 }

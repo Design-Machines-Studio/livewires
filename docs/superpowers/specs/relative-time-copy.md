@@ -10,6 +10,8 @@ their browser components.
 - Without the optional entry script, keep the absolute date visible. With it,
   show a short relative label and keep the exact absolute date available to
   assistive technology and through the time element's title.
+- Add a text separator between the absolute and relative labels only after
+  enhancement, so fallback punctuation stays clean when JavaScript is absent.
 - Preserve the represented instant and explicit offset. A date-only value keeps
   its calendar-date meaning. `lang` selects the label language; optional
   `time-zone` selects its calendar-day boundary.
