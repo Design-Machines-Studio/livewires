@@ -18,6 +18,9 @@ their browser components.
   leave the absolute date as the visible fallback.
 - Place timestamps inline in the surrounding prose. Inherit the surrounding
   text style; do not add widget typography, color, or component CSS.
+- Document this utility in Data display and show it as an optional Timeline
+  composition around the styled semantic `<time class="date">` element. Do
+  not make it a Timeline or default runtime dependency.
 
 ## Copy
 

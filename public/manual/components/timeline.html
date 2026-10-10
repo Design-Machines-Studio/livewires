@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0">
     <script type="module" src="/dist/main.js"></script>
+    <script type="module" src="/dist/relative-time.js"></script>
+    <script type="module" src="/reference/components/relative-time-demo.js"></script>
     <html-include src="/_includes/head.html"></html-include>
   </head>
   <body class="scheme-default pg-components-timeline">
@@ -100,6 +102,49 @@
                 </li>
               </ol>
             </section>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="stack">
+            <header>
+              <h2>Relative event dates</h2>
+              <p>Use relative time for recent events, while keeping the exact date as the semantic and accessible value.</p>
+              <popup-dialog title="Timeline with relative time HTML">
+                <p><a href="#" class="text-sm" aria-label="Code for relative event dates">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;!-- Optional enhancement; include only on pages that use it --&gt;
+&lt;script type="module" src="/dist/relative-time.js"&gt;&lt;/script&gt;
+
+&lt;li&gt;
+  &lt;lw-relative-time lang="en"&gt;
+    &lt;time class="date" datetime="2026-10-10T15:25:00Z"&gt;
+      &lt;span data-relative-time-fallback&gt;October 10, 2026 at 3:25 PM UTC&lt;/span&gt;
+      &lt;span data-relative-time-output hidden&gt;&lt;/span&gt;
+    &lt;/time&gt;
+  &lt;/lw-relative-time&gt;
+  &lt;div class="content"&gt;
+    &lt;h3&gt;Project update&lt;/h3&gt;
+    &lt;p&gt;A recent event appears as a relative date.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/li&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <ol class="timeline">
+              <li>
+                <lw-relative-time lang="en">
+                  <time class="date" datetime="2026-10-10T15:25:00Z" data-relative-time-demo>
+                    <span data-relative-time-fallback>October 10, 2026 at 3:25 PM UTC</span>
+                    <span data-relative-time-output hidden></span>
+                  </time>
+                </lw-relative-time>
+                <div class="content">
+                  <h3>Project update</h3>
+                  <p>A recent event appears as a relative date.</p>
+                </div>
+              </li>
+            </ol>
           </div>
         </section>
 
