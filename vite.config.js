@@ -40,6 +40,7 @@ export default defineConfig({
       '/dist/sortable-list.js': resolve(__dirname, 'src/js/sortable-list.entry.js'),
       '/dist/relative-time.js': resolve(__dirname, 'src/js/relative-time.entry.js'),
       '/dist/copy-button.js': resolve(__dirname, 'src/js/copy-button.entry.js'),
+      '/dist/loading.js': resolve(__dirname, 'src/js/loading.entry.js'),
       '/dist/sortable-list.css': resolve(__dirname, 'src/css/6_components/sortable-list.css')
     }
   },
@@ -50,11 +51,14 @@ export default defineConfig({
     cssMinify: true,
     // Don't process HTML - just build CSS and JS
     rollupOptions: {
+      // Optional behavior entries expose functions to consumer modules.
+      preserveEntrySignatures: 'strict',
       input: {
         main: resolve(__dirname, 'src/js/main.js'),
         'sortable-list': resolve(__dirname, 'src/js/sortable-list.entry.js'),
         'relative-time': resolve(__dirname, 'src/js/relative-time.entry.js'),
-        'copy-button': resolve(__dirname, 'src/js/copy-button.entry.js')
+        'copy-button': resolve(__dirname, 'src/js/copy-button.entry.js'),
+        loading: resolve(__dirname, 'src/js/loading.entry.js')
       },
       output: {
         // Fixed filenames (no hash) for easy HTML referencing
