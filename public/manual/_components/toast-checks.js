@@ -163,6 +163,12 @@ export async function runToastChecks() {
     const f = setup(); f.add('same'); await flush(); f.list.remove(); await flush();
     assert(f.region.state.disposed && f.clock.pending === 0, 'missing list leaked');
   });
+  await check('losing message identity restores native visibility and suspends managed time', async () => {
+    const f = setup(); const node = f.add('same'); await flush(); f.region.dismiss('same');
+    node.removeAttribute('data-toast-id'); await flush();
+    assert(!node.hidden && !node.hasAttribute('data-toast-state'), 'native message remained hidden without its identity');
+    assert(!f.state('same').present && f.clock.pending === 0, 'removed identity retained a timer');
+  });
   await check('a second controller cannot acquire an owned root', async () => {
     const f = setup(); let rejected = false;
     try { createToastRegion({ root: f.root }); } catch { rejected = true; }

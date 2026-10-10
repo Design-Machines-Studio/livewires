@@ -98,6 +98,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
     if (!listState.has(nextList)) listState.set(nextList, nextList.getAttribute('data-toast-reviewing'));
     list = nextList;
     const nextNodes = new Map();
+    const managed = new Set();
     const descriptions = [];
     for (const node of list.querySelectorAll('[data-toast-id]')) {
       if (!inRegion(node)) continue;
@@ -107,6 +108,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
         continue; // Keep invalid native markup readable rather than silently drop it.
       }
       remember(node);
+      managed.add(node);
       // The owned live nodes announce text once; a patched toast must not also
       // become its own live region and replay the whole stack.
       attr(node, 'role', null);
@@ -120,7 +122,7 @@ export function createToastRegion({ root, maxVisible = 3, clock } = {}) {
       nextNodes.set(message.id, node);
       descriptions.push(message);
     }
-    for (const node of original.keys()) if (!list.contains(node)) restore(node);
+    for (const node of original.keys()) if (!managed.has(node)) restore(node);
     nodes = nextNodes;
     // Establish pause state before sync can start a replacement's timer.
     for (const message of local.state.messages) {
