@@ -26,9 +26,8 @@
                 <span data-relative-time-fallback>October 10, 2026 at 3:30 PM EDT</span>
                 <span data-relative-time-output hidden></span>
               </time>
-            </lw-relative-time>.
-          </p>
-          <p>Without JavaScript, or when the date or options are invalid, the absolute label stays visible. The original <code>datetime</code> value retains its offset and precise instant.</p>
+            </lw-relative-time>.</p>
+          <p>Without JavaScript, for dates over 30 days from today, or when the date, locale, or time-zone option is invalid, the absolute label stays visible. The original <code>datetime</code> value retains its offset and precise instant.</p>
         </section>
 
         <section class="section">
@@ -40,7 +39,7 @@
     &lt;span data-relative-time-output hidden&gt;&lt;/span&gt;
   &lt;/time&gt;
 &lt;/lw-relative-time&gt;</code></pre>
-          <p>The module uses <code>Intl.RelativeTimeFormat</code>, keeps the absolute date available to assistive technology, recalculates relative labels on one shared second-aligned timer, and clears that timer after the final instance disconnects.</p>
+          <p>The module uses <code>Intl.RelativeTimeFormat</code>, keeps the exact absolute date available to assistive technology and by mouse hover, recalculates relative labels on one shared second-aligned timer, and clears that timer after the final instance disconnects. Dates more than 30 calendar days away use the absolute label instead.</p>
         </section>
       </article>
     </main>

@@ -14,7 +14,7 @@
       <article class="prose">
         <h1>Copy button</h1>
         <p>The button reports success only after the browser confirms a clipboard write. The read-only text remains visible and selectable if permission is denied or clipboard access is unavailable.</p>
-        <lw-copy>
+        <lw-copy class="stack stack-compact">
           <label for="share-address">Share address</label>
           <textarea id="share-address" data-copy-source rows="2" readonly>https://example.test/meeting/annual-planning</textarea>
           <button type="button" data-copy-button>Copy address</button>
@@ -23,7 +23,7 @@
         <h2>Markup contract</h2>
         <pre><code>&lt;script type="module" src="/dist/copy-button.js"&gt;&lt;/script&gt;
 
-&lt;lw-copy&gt;
+&lt;lw-copy class="stack stack-compact"&gt;
   &lt;label for="share-address"&gt;Share address&lt;/label&gt;
   &lt;textarea id="share-address" data-copy-source rows="2" readonly&gt;https://example.test/meeting/annual-planning&lt;/textarea&gt;
   &lt;button type="button" data-copy-button&gt;Copy address&lt;/button&gt;

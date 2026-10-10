@@ -29,15 +29,31 @@ function hasValidCalendarDate(value) {
   return day >= 1 && day <= daysInMonth[month - 1];
 }
 
+function calendarDayNumber(year, month, day) {
+  const date = new Date(0);
+  date.setUTCFullYear(year, month - 1, day);
+  date.setUTCHours(0, 0, 0, 0);
+  return Math.floor(date.getTime() / DAY);
+}
+
 /** Return a localized relative label, or null when the timestamp cannot be enhanced safely. */
 export function formatRelativeTime(value, { now = Date.now(), locale, timeZone } = {}) {
   if (!hasValidCalendarDate(value)) return null;
+  const dateOnly = typeof value === 'string' && /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
   const timestamp = typeof value === 'number' ? value : Date.parse(value);
   if (!Number.isFinite(timestamp) || !Number.isFinite(now)) return null;
 
   try {
+    if (locale && Intl.RelativeTimeFormat.supportedLocalesOf(locale).length === 0) return null;
     const formatter = new Intl.RelativeTimeFormat(locale || undefined, { numeric: 'auto' });
     if (timeZone) new Intl.DateTimeFormat('en', { timeZone }).format(new Date(now));
+    if (dateOnly) {
+      const dayDifference = calendarDayNumber(Number(dateOnly[1]), Number(dateOnly[2]), Number(dateOnly[3]))
+        - dateNumber(new Date(now), timeZone);
+      if (Math.abs(dayDifference) > 30) return null;
+      return formatter.format(dayDifference, 'day');
+    }
+
     const difference = timestamp - now;
     const absoluteDifference = Math.abs(difference);
     let unit;
@@ -53,6 +69,7 @@ export function formatRelativeTime(value, { now = Date.now(), locale, timeZone }
       const dayDifference = dateNumber(new Date(timestamp), timeZone)
         - dateNumber(new Date(now), timeZone);
       if (dayDifference !== 0) {
+        if (Math.abs(dayDifference) > 30) return null;
         unit = 'day';
         amount = dayDifference;
       } else {

@@ -58,6 +58,11 @@
           check(!fallback.hidden && fallback.classList.contains('visually-hidden'), 'enhancement keeps the absolute date available to assistive technology');
           check(time.title === 'Absolute fallback', 'enhancement keeps the exact date available to sighted users');
 
+          relative.setAttribute('time-zone', 'UTC');
+          time.dateTime = new Date().toISOString().slice(0, 10);
+          await waitForUpdate();
+          check(output.textContent === 'today', 'date-only datetime keeps its calendar-day meaning');
+
           time.dateTime = new Date(Date.now() + 60_000).toISOString();
           await waitForUpdate();
           check(output.textContent.startsWith('in '), 'changing datetime refreshes the relative label');
@@ -131,7 +136,7 @@
           secondButton.click();
           await waitForUpdate();
           check(second.querySelector('[data-copy-status]').textContent.toLowerCase().includes('select the text'), 'reinserted copy control remains connected once');
-          check(passed === 18, `${passed} lifecycle and interaction checks passed`);
+          check(passed === 19, `${passed} lifecycle and interaction checks passed`);
         } catch (error) {
           const item = document.createElement('li');
           item.textContent = `FAIL — ${error.message}`;
