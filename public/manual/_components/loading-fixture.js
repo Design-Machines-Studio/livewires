@@ -6,28 +6,31 @@ for (const root of document.querySelectorAll('[data-loading-demo]')) {
   const controllers = new Set();
   const result = root.querySelector('[data-demo-result]');
   const listeners = new AbortController();
+  let rejected = false;
   const send = () => {
+    if (!operation.state.busy) rejected = false;
     const controller = new AbortController();
     controllers.add(controller);
     const request = operation.begin({ signal: controller.signal });
     const delay = Number(root.querySelector('[data-demo-delay]').value);
     const failure = root.querySelector('[data-demo-failure]').checked;
-    result.textContent = 'Save status unknown while the request is pending.';
+    if (!rejected) result.textContent = 'Save status unknown while the request is pending.';
     const timer = setTimeout(() => {
       controllers.delete(controller);
       controller.signal.removeEventListener('abort', abort);
       if (failure) {
+        rejected = true;
         request.finish('failed');
         result.textContent = 'Simulated server rejection. This change was not accepted.';
       } else {
         request.finish();
-        result.textContent = 'Simulated server confirmation for this request. This example stores nothing.';
+        if (!rejected) result.textContent = 'Simulated server confirmation for this request. This example stores nothing.';
       }
     }, delay);
     const abort = () => {
       clearTimeout(timer);
       controllers.delete(controller);
-      result.textContent = 'Request cancelled. The server result is unknown.';
+      if (!rejected) result.textContent = 'Request cancelled. The server result is unknown.';
     };
     controller.signal.addEventListener('abort', abort, { once: true });
   };
@@ -68,4 +71,9 @@ jobButton?.addEventListener('click', () => {
   job.querySelector('.loading').hidden = !pending;
   jobStatus.textContent = pending ? 'Server job pending. This simulated stream stays open until you finish the job.' : 'Server job ended by a separate simulated server update.';
 }, { signal: jobListener.signal });
-window.addEventListener('pagehide', () => { owners.forEach((dispose) => dispose()); jobListener.abort(); }, { once: true });
+window.addEventListener('pagehide', (event) => {
+  // Cached pages retain their owner and resume timers/listeners on Back.
+  if (event.persisted) return;
+  owners.forEach((dispose) => dispose());
+  jobListener.abort();
+});

@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<section class="section stack">
+<section class="stack">
   <header>
     <h2>Scoped requests</h2>
     <p>Send several requests to overlap them. The skeleton appears after 150 ms and stays visible for at least 300 ms. Cancellation and completion leave save status unknown. Only the separate simulated server response can confirm this example's result.</p>
@@ -50,7 +50,7 @@
       <option value="2000">2 seconds</option>
     </select>
   </label>
-  <label><input type="checkbox" data-demo-failure> Reject this request</label>
+  <label class="checkbox"><input type="checkbox" data-demo-failure> Reject this request</label>
   <div class="cluster" data-demo-controls>
     <button type="button" class="button--accent" data-demo-action="send">Send request</button>
     <button type="button" data-demo-action="cancel">Cancel requests</button>
@@ -77,7 +77,7 @@
       <option value="2000">2 seconds</option>
     </select>
   </label>
-  <label><input type="checkbox" data-demo-failure> Reject this request</label>
+  <label class="checkbox"><input type="checkbox" data-demo-failure> Reject this request</label>
   <div class="cluster" data-demo-controls>
     <button type="button" class="button--accent" data-demo-action="send">Send request</button>
     <button type="button" data-demo-action="cancel">Cancel requests</button>
@@ -97,7 +97,7 @@
   <p data-demo-result role="status" aria-live="polite" aria-atomic="true">Save status unknown. Nothing is persisted by this example.</p>
 </section></div>
 </section>
-<section class="section stack">
+<section class="stack">
   <h2>Server job state</h2>
   <p>A long-lived background stream does not belong to a finite request operation. This separate region simulates server-owned job state; it stays pending until a separate job update ends it.</p>
   <button type="button" data-demo-job-toggle>Start or finish server job</button>
