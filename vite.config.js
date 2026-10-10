@@ -38,6 +38,8 @@ export default defineConfig({
       '/dist/main.js': resolve(__dirname, 'src/js/main.js'),
       // Keep the optional interaction outside the default application entry.
       '/dist/sortable-list.js': resolve(__dirname, 'src/js/sortable-list.entry.js'),
+      '/dist/relative-time.js': resolve(__dirname, 'src/js/relative-time.entry.js'),
+      '/dist/copy-button.js': resolve(__dirname, 'src/js/copy-button.entry.js'),
       '/dist/sortable-list.css': resolve(__dirname, 'src/css/6_components/sortable-list.css')
     }
   },
@@ -50,7 +52,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'src/js/main.js'),
-        'sortable-list': resolve(__dirname, 'src/js/sortable-list.entry.js')
+        'sortable-list': resolve(__dirname, 'src/js/sortable-list.entry.js'),
+        'relative-time': resolve(__dirname, 'src/js/relative-time.entry.js'),
+        'copy-button': resolve(__dirname, 'src/js/copy-button.entry.js')
       },
       output: {
         // Fixed filenames (no hash) for easy HTML referencing

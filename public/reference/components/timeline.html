@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1.0">
   <script type="module" src="/dist/main.js"></script>
+  <script type="module" src="/dist/relative-time.js"></script>
+  <script type="module" src="/reference/components/relative-time-demo.js"></script>
   <html-include src="/_includes/head.html"></html-include>
   <title>Timeline – Components Reference – Live Wires</title>
 </head>
@@ -73,6 +75,21 @@
     <time class="date">November 2023</time>
     <div class="content">
       <h3>Planning complete</h3>
+    </div>
+  </li>
+</ol>
+<h2>Relative event dates</h2>
+<p>Relative time can enhance recent events. Keep the exact date in the semantic <code>&lt;time&gt;</code> element; the enhancement is optional and belongs only on pages that use it.</p>
+<ol class="timeline">
+  <li>
+    <lw-relative-time lang="en">
+      <time class="date" datetime="2026-10-10T15:25:00Z" data-relative-time-demo>
+        <span data-relative-time-fallback>October 10, 2026 at 3:25 PM UTC</span><span data-relative-time-output hidden></span>
+      </time>
+    </lw-relative-time>
+    <div class="content">
+      <h3>Project update</h3>
+      <p>A recent event appears as a relative date.</p>
     </div>
   </li>
 </ol>

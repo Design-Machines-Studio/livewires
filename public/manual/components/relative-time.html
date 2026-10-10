@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <script type="module" src="/dist/relative-time.js"></script>
+    <script type="module" src="/reference/components/relative-time-demo.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+    <title>Relative time – Manual – Live Wires</title>
+  </head>
+  <body class="scheme-default pg-relative-time">
+    <html-include src="../_includes/header.html"></html-include>
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Relative time</h1>
+          <p class="lead">Show when an event happened while keeping its exact date available.</p>
+        </header>
+
+        <section class="section">
+          <div class="stack">
+            <header>
+              <h2>Timestamp</h2>
+              <p>Use an offset timestamp for a precise moment. The relative label follows the chosen locale and calendar time zone.</p>
+              <popup-dialog title="Relative timestamp HTML">
+                <p><a href="#" class="text-sm" aria-label="Code for relative timestamp">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;!-- Load only on pages that use relative time --&gt;
+&lt;script type="module" src="/dist/relative-time.js"&gt;&lt;/script&gt;
+
+&lt;lw-relative-time lang="en" time-zone="America/New_York"&gt;
+  &lt;time datetime="2026-10-10T15:30:00-04:00"&gt;
+    &lt;span data-relative-time-fallback&gt;October 10, 2026 at 3:30 PM EDT&lt;/span&gt;&lt;span data-relative-time-output hidden&gt;&lt;/span&gt;
+  &lt;/time&gt;
+&lt;/lw-relative-time&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <p>Last updated <lw-relative-time lang="en" time-zone="America/New_York"><time datetime="2026-10-10T15:30:00-04:00" data-relative-time-demo><span data-relative-time-fallback>October 10, 2026 at 3:30 PM EDT</span><span data-relative-time-output hidden></span></time></lw-relative-time>.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="stack">
+            <header>
+              <h2>Date-only value</h2>
+              <p>Use a date without a time when the calendar day matters more than a precise instant.</p>
+              <popup-dialog title="Date-only relative time HTML">
+                <p><a href="#" class="text-sm" aria-label="Code for date-only relative time">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;lw-relative-time lang="en" time-zone="America/New_York"&gt;
+  &lt;time datetime="2026-10-09"&gt;
+    &lt;span data-relative-time-fallback&gt;October 9, 2026&lt;/span&gt;&lt;span data-relative-time-output hidden&gt;&lt;/span&gt;
+  &lt;/time&gt;
+&lt;/lw-relative-time&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+            <p>Meeting held <lw-relative-time lang="en" time-zone="America/New_York"><time datetime="2026-10-09" data-relative-time-demo="date-only"><span data-relative-time-fallback>October 9, 2026</span><span data-relative-time-output hidden></span></time></lw-relative-time>.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="stack">
+            <header>
+              <h2>Fallbacks and options</h2>
+              <p>The absolute label is the source of truth. JavaScript adds a relative label when the value and options are supported.</p>
+            </header>
+            <p>Keep the exact offset in timestamp values. Set <code>lang</code> to choose the relative wording; set <code>time-zone</code> when calendar-day boundaries should follow a specific place. If either option is omitted, the page locale and viewer's time zone apply.</p>
+            <p>Without JavaScript, for invalid dates or options, or for dates more than 30 calendar days away, the absolute label remains visible. After enhancement it remains available to assistive technology and by mouse hover. All instances share one second-aligned timer, which stops after the last instance is removed.</p>
+          </div>
+        </section>
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>

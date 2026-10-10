@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <script type="module" src="/dist/relative-time.js"></script>
+    <script type="module" src="/dist/copy-button.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+    <title>Interaction utility checks – Reference – Live Wires</title>
+  </head>
+  <body class="scheme-default">
+    <html-include src="/_includes/header.html"></html-include>
+    <main class="main center" id="main">
+      <article class="prose">
+        <h1>Interaction utility checks</h1>
+        <p>These checks use isolated temporary elements and a mocked clipboard. They do not contact a server or copy fixture values to the real clipboard.</p>
+        <button id="run" type="button">Run checks</button>
+        <ol id="results" aria-live="polite"></ol>
+        <div id="fixtures"></div>
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+    <script type="module">
+      const run = document.querySelector('#run');
+      const results = document.querySelector('#results');
+      const fixtures = document.querySelector('#fixtures');
+      const waitForUpdate = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      let originalClipboard;
+
+      run.addEventListener('click', async () => {
+        run.disabled = true;
+        results.replaceChildren();
+        let passed = 0;
+        const check = (condition, message) => {
+          if (!condition) throw new Error(message);
+          const item = document.createElement('li');
+          item.textContent = `PASS — ${message}`;
+          results.append(item);
+          passed += 1;
+        };
+        try {
+          await Promise.all([
+            customElements.whenDefined('lw-relative-time'),
+            customElements.whenDefined('lw-copy'),
+          ]);
+
+          const relative = document.createElement('lw-relative-time');
+          relative.lang = 'en';
+          relative.innerHTML = `<time datetime="${new Date(Date.now() - 60_000).toISOString()}"><span data-relative-time-fallback>Absolute fallback</span><span data-relative-time-output hidden></span></time>`;
+          fixtures.append(relative);
+          await waitForUpdate();
+          const time = relative.querySelector('time');
+          const fallback = relative.querySelector('[data-relative-time-fallback]');
+          const output = relative.querySelector('[data-relative-time-output]');
+          check(fallback.textContent === 'Absolute fallback', 'semantic time retains its absolute fallback in markup');
+          check(!output.hidden && output.textContent.length > 0, 'valid timestamp receives a relative label');
+          check(output.previousSibling?.nodeType === Node.TEXT_NODE && output.previousSibling.textContent === ' ', 'relative label has a word separator after the absolute date');
+          check(!fallback.hidden && fallback.classList.contains('visually-hidden'), 'enhancement keeps the absolute date available to assistive technology');
+          check(time.title === 'Absolute fallback', 'enhancement keeps the exact date available to sighted users');
+
+          const originalDateNow = Date.now;
+          try {
+            relative.setAttribute('time-zone', 'America/New_York');
+            Date.now = () => Date.parse('2026-03-10T04:30:00Z');
+            time.dateTime = '2026-03-10T03:30:00Z';
+            await waitForUpdate();
+            check(output.textContent === 'yesterday', 'timestamp crossing midnight uses the selected time-zone calendar date');
+          } finally {
+            Date.now = originalDateNow;
+          }
+
+          relative.setAttribute('time-zone', 'UTC');
+          time.dateTime = new Date().toISOString().slice(0, 10);
+          await waitForUpdate();
+          check(output.textContent === 'today', 'date-only datetime keeps its calendar-day meaning');
+
+          time.dateTime = new Date(Date.now() + 60_000).toISOString();
+          await waitForUpdate();
+          check(output.textContent.startsWith('in '), 'changing datetime refreshes the relative label');
+
+          time.dateTime = 'not-a-date';
+          await waitForUpdate();
+          check(fallback.hidden === false && output.hidden === true && !time.title && output.previousSibling === fallback, 'invalid updated date restores the absolute fallback');
+
+          time.dateTime = new Date(Date.now() + 86_400_000).toISOString();
+          await waitForUpdate();
+          relative.remove();
+          check(fallback.hidden === false && !fallback.classList.contains('visually-hidden'), 'removal restores fallback content and disconnects the instance');
+          fixtures.append(relative);
+          await waitForUpdate();
+          check(!output.hidden, 'reinsertion reconnects and enhances the instance once');
+
+          originalClipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+          const copied = [];
+          let slowWrites = 0;
+          let rejectSlowWrite;
+          Object.defineProperty(navigator, 'clipboard', {
+            configurable: true,
+            value: { writeText: async (value) => {
+              if (value === 'slow text') {
+                slowWrites += 1;
+                return new Promise((resolve, reject) => { rejectSlowWrite = reject; });
+              }
+              if (value === 'denied text') throw new Error('permission denied');
+              copied.push(value);
+            } },
+          });
+          const makeCopy = (id, value) => {
+            const component = document.createElement('lw-copy');
+            component.innerHTML = `<label for="${id}">Text ${id}</label><textarea id="${id}" data-copy-source readonly>${value}</textarea><button type="button" data-copy-button>Copy ${id}</button><p data-copy-status role="status" aria-live="polite" aria-atomic="true"></p>`;
+            fixtures.append(component);
+            return component;
+          };
+          const first = makeCopy('copy-a', 'first text');
+          const second = makeCopy('copy-b', 'denied text');
+          const firstButton = first.querySelector('button');
+          const firstSource = first.querySelector('textarea');
+          firstSource.value = 'updated text';
+          firstButton.focus();
+          firstButton.click();
+          check(first.querySelector('[data-copy-status]').textContent === 'Copying…', 'copy attempt announces progress before awaiting the clipboard');
+          await waitForUpdate();
+          check(first.querySelector('[data-copy-status]').textContent === 'Copied.', 'success is announced after clipboard completion');
+          check(copied[0] === 'updated text' && firstSource.value === 'updated text', 'copy uses the current visible source value and preserves it');
+          check(document.activeElement === firstButton, 'successful copy keeps keyboard focus on its button');
+
+          const slow = makeCopy('copy-slow', 'slow text');
+          const slowButton = slow.querySelector('button');
+          slowButton.click();
+          slowButton.click();
+          check(slowWrites === 1 && slow.querySelector('[data-copy-status]').textContent === 'Copying…', 'a pending copy ignores repeat activation without duplicating the request');
+          rejectSlowWrite(new Error('permission denied'));
+          await waitForUpdate();
+          check(slow.dataset.state === 'manual-copy', 'the single pending request reports its failure');
+
+          const secondButton = second.querySelector('button');
+          secondButton.focus();
+          secondButton.click();
+          await waitForUpdate();
+          check(second.querySelector('[data-copy-status]').textContent.toLowerCase().includes('select the text'), 'failure announces the manual copying path');
+          check(second.dataset.state === 'manual-copy' && first.dataset.state === 'copied', 'two instances keep feedback isolated');
+          check(document.activeElement === secondButton && second.querySelector('textarea').value === 'denied text', 'failure keeps focus and leaves source text selectable');
+
+          second.remove();
+          fixtures.append(second);
+          await waitForUpdate();
+          secondButton.click();
+          await waitForUpdate();
+          check(second.querySelector('[data-copy-status]').textContent.toLowerCase().includes('select the text'), 'reinserted copy control remains connected once');
+          check(passed === 21, `${passed} lifecycle and interaction checks passed`);
+        } catch (error) {
+          const item = document.createElement('li');
+          item.textContent = `FAIL — ${error.message}`;
+          results.append(item);
+        } finally {
+          fixtures.replaceChildren();
+          if (originalClipboard) Object.defineProperty(navigator, 'clipboard', originalClipboard);
+          else delete navigator.clipboard;
+          run.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

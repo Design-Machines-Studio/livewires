@@ -18,6 +18,25 @@ Run `node --test tests/sortable-list-state.test.js` for state checks. With
 **Run checks** for browser DOM and lifecycle checks. Verify physical dragging,
 touch, and reduced motion separately.
 
+### Optional relative time and copy
+
+The dependency-free relative-time and copy enhancements are separate from the
+default runtime. Load `/dist/relative-time.js` or `/dist/copy-button.js` only
+on pages that use the matching markup. Relative time keeps a semantic `<time>`
+and its accessible absolute fallback in the page, shares one second-aligned scheduler,
+and stops it when the last instance is removed. Copy feedback reports success
+only after the browser clipboard promise resolves; the read-only text remains
+selectable for manual copying when access fails.
+
+See the [relative-time manual](public/manual/components/relative-time.html),
+[copy-button manual](public/manual/components/copy-button.html), and the
+[reference examples](public/reference/components/relative-time.html) and
+[copy-button reference](public/reference/components/copy-button.html). Run
+`npm test` for focused date, scheduler, and clipboard checks. With
+`npm run dev`, open
+`http://localhost:3000/reference/components/interaction-utilities-tests.html`
+for DOM lifecycle and interaction checks.
+
 A prototyping-first design system for editorial websites. Built with modern CSS, rooted in timeless design principles.
 
 ## Philosophy
