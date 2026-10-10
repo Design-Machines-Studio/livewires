@@ -36,6 +36,9 @@ test('relative time uses calendar dates in the requested time zone', () => {
 
 test('invalid timestamps, locale, and time zone retain the absolute fallback', () => {
   assert.equal(formatRelativeTime('not a date', { now, locale: 'en' }), null);
+  assert.equal(formatRelativeTime('2026-02-30T12:00:00Z', { now, locale: 'en' }), null);
+  assert.equal(formatRelativeTime('2026-02-29', { now, locale: 'en' }), null);
+  assert.equal(formatRelativeTime('2024-02-29', { now, locale: 'en' }), '740 days ago');
   assert.equal(formatRelativeTime('2026-03-10T12:00:00Z', { now, locale: 'not a locale' }), null);
   assert.equal(formatRelativeTime('2026-03-10T12:00:00Z', { now, timeZone: 'Mars/Olympus' }), null);
 });

@@ -22,6 +22,7 @@ class LWCopy extends HTMLElement {
   }
 
   _onCopy = async () => {
+    if (this.dataset.state === 'copying') return;
     const generation = this._generation;
     const value = 'value' in this._source ? this._source.value : this._source.textContent;
     this.dataset.state = 'copying';

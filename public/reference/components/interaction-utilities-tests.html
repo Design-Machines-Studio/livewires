@@ -56,6 +56,7 @@
           check(fallback.textContent === 'Absolute fallback', 'semantic time retains its absolute fallback in markup');
           check(!output.hidden && output.textContent.length > 0, 'valid timestamp receives a relative label');
           check(!fallback.hidden && fallback.classList.contains('visually-hidden'), 'enhancement keeps the absolute date available to assistive technology');
+          check(time.title === 'Absolute fallback', 'enhancement keeps the exact date available to sighted users');
 
           time.dateTime = new Date(Date.now() + 60_000).toISOString();
           await waitForUpdate();
@@ -63,7 +64,7 @@
 
           time.dateTime = 'not-a-date';
           await waitForUpdate();
-          check(fallback.hidden === false && output.hidden === true, 'invalid updated date restores the absolute fallback');
+          check(fallback.hidden === false && output.hidden === true && !time.title, 'invalid updated date restores the absolute fallback');
 
           time.dateTime = new Date(Date.now() + 86_400_000).toISOString();
           await waitForUpdate();
@@ -75,9 +76,15 @@
 
           originalClipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
           const copied = [];
+          let slowWrites = 0;
+          let rejectSlowWrite;
           Object.defineProperty(navigator, 'clipboard', {
             configurable: true,
             value: { writeText: async (value) => {
+              if (value === 'slow text') {
+                slowWrites += 1;
+                return new Promise((resolve, reject) => { rejectSlowWrite = reject; });
+              }
               if (value === 'denied text') throw new Error('permission denied');
               copied.push(value);
             } },
@@ -101,6 +108,15 @@
           check(copied[0] === 'updated text' && firstSource.value === 'updated text', 'copy uses the current visible source value and preserves it');
           check(document.activeElement === firstButton, 'successful copy keeps keyboard focus on its button');
 
+          const slow = makeCopy('copy-slow', 'slow text');
+          const slowButton = slow.querySelector('button');
+          slowButton.click();
+          slowButton.click();
+          check(slowWrites === 1 && slow.querySelector('[data-copy-status]').textContent === 'Copying…', 'a pending copy ignores repeat activation without duplicating the request');
+          rejectSlowWrite(new Error('permission denied'));
+          await waitForUpdate();
+          check(slow.dataset.state === 'manual-copy', 'the single pending request reports its failure');
+
           const secondButton = second.querySelector('button');
           secondButton.focus();
           secondButton.click();
@@ -115,7 +131,7 @@
           secondButton.click();
           await waitForUpdate();
           check(second.querySelector('[data-copy-status]').textContent.toLowerCase().includes('select the text'), 'reinserted copy control remains connected once');
-          check(passed === 15, `${passed} lifecycle and interaction checks passed`);
+          check(passed === 18, `${passed} lifecycle and interaction checks passed`);
         } catch (error) {
           const item = document.createElement('li');
           item.textContent = `FAIL — ${error.message}`;
