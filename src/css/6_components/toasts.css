@@ -17,7 +17,7 @@
     align-items: flex-start;
     gap: var(--line-05);
     padding: var(--line-05) var(--line-075);
-    max-inline-size: calc(var(--line) * 16);
+    max-inline-size: min(calc(var(--line) * 16), 100%);
 
     background: var(--color-subtle);
     color: var(--color-fg);
@@ -26,11 +26,19 @@
     border-radius: var(--radius-normal);
     box-shadow: 0 4px 12px var(--overlay-shadow);
     font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
 
     animation: toast-in var(--duration-fast) var(--ease-out);
 
+    &[hidden] {
+      display: none;
+    }
+
     & .content {
       flex: 1;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
       margin: 0;
     }
 
@@ -43,7 +51,8 @@
       line-height: 1;
       cursor: pointer;
       color: var(--color-muted);
-      min-block-size: auto;
+      min-block-size: var(--line-15);
+      min-inline-size: var(--line-15);
 
       &:hover {
         color: var(--color-fg);
@@ -53,6 +62,24 @@
 
   .toast--dismissing {
     animation: toast-out var(--duration-fast) var(--ease-in) forwards;
+  }
+
+  [data-toast-region] [data-toast-list] {
+    max-block-size: min(calc(var(--line) * 18), 70dvb);
+    overflow-y: auto;
+    padding: var(--line-025);
+    overscroll-behavior: contain;
+  }
+
+  [data-toast-region] > [data-toast-review][hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast,
+    .toast--dismissing {
+      animation: none;
+    }
   }
 
   /* Semantic variants */

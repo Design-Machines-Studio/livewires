@@ -41,6 +41,7 @@ export default defineConfig({
       '/dist/relative-time.js': resolve(__dirname, 'src/js/relative-time.entry.js'),
       '/dist/copy-button.js': resolve(__dirname, 'src/js/copy-button.entry.js'),
       '/dist/loading.js': resolve(__dirname, 'src/js/loading.entry.js'),
+      '/dist/toast-region.js': resolve(__dirname, 'src/js/toast-region.entry.js'),
       '/dist/sortable-list.css': resolve(__dirname, 'src/css/6_components/sortable-list.css')
     }
   },
@@ -58,7 +59,8 @@ export default defineConfig({
         'sortable-list': resolve(__dirname, 'src/js/sortable-list.entry.js'),
         'relative-time': resolve(__dirname, 'src/js/relative-time.entry.js'),
         'copy-button': resolve(__dirname, 'src/js/copy-button.entry.js'),
-        loading: resolve(__dirname, 'src/js/loading.entry.js')
+        loading: resolve(__dirname, 'src/js/loading.entry.js'),
+        'toast-region': resolve(__dirname, 'src/js/toast-region.entry.js')
       },
       output: {
         // Fixed filenames (no hash) for easy HTML referencing

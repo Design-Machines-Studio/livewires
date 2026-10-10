@@ -5,7 +5,8 @@
     <meta name="viewport" content="initial-scale=1.0">
     <script type="module" src="/dist/main.js"></script>
     <html-include src="/_includes/head.html"></html-include>
-  </head>
+    <script type="module" src="/manual/_components/toast-fixture.js"></script>
+</head>
   <body class="scheme-default pg-components-toasts">
     <html-include src="../_includes/header.html"></html-include>
 
@@ -35,7 +36,7 @@
               </header>
               <div class="toast" style="position: relative;">
                 <p class="content">Something happened.</p>
-                <button class="close" aria-label="Dismiss">&times;</button>
+                <button class="close" type="button" aria-label="Dismiss">&times;</button>
               </div>
             </section>
 
@@ -56,19 +57,19 @@
               <div class="stack stack-compact">
                 <div class="toast toast--success" style="position: relative;">
                   <p class="content">Changes saved successfully.</p>
-                  <button class="close" aria-label="Dismiss">&times;</button>
+                  <button class="close" type="button" aria-label="Dismiss">&times;</button>
                 </div>
                 <div class="toast toast--error" style="position: relative;">
                   <p class="content">Something went wrong.</p>
-                  <button class="close" aria-label="Dismiss">&times;</button>
+                  <button class="close" type="button" aria-label="Dismiss">&times;</button>
                 </div>
                 <div class="toast toast--warning" style="position: relative;">
                   <p class="content">Please review before continuing.</p>
-                  <button class="close" aria-label="Dismiss">&times;</button>
+                  <button class="close" type="button" aria-label="Dismiss">&times;</button>
                 </div>
                 <div class="toast toast--info" style="position: relative;">
                   <p class="content">New version available.</p>
-                  <button class="close" aria-label="Dismiss">&times;</button>
+                  <button class="close" type="button" aria-label="Dismiss">&times;</button>
                 </div>
               </div>
             </section>
@@ -83,7 +84,52 @@
           </div>
         </section>
 
-      </article>
+
+<section class="section stack" id="optional-region">
+  <h2>Optional region behavior</h2>
+  <p>Choose an explicit application outcome. Request completion alone does not mean saved. Timed feedback pauses under hover or focus; errors, pending feedback and actions stay until dismissed.</p>
+  <div class="cluster">
+    <button data-demo="pending" type="button">Begin request</button>
+    <button data-demo="ended" type="button">End without confirmation</button>
+    <button data-demo="confirmed" type="button">Confirm saved result</button>
+    <button data-demo="failure" type="button">Reject change</button>
+    <button data-demo="stack" type="button">Add five messages</button>
+    <button data-demo="patch" type="button">Replace plain toast nodes</button>
+    <button data-demo="other" type="button">Message other region</button>
+    <button data-demo="dispose" type="button">Dispose behavior</button>
+  </div>
+  <p>Unrelated replacements: <span id="patch-count">0</span>. <span id="fixture-status">Two independent regions are active.</span></p>
+  <div class="grid">
+    <section class="stack" id="feedback" data-toast-region aria-label="Editor feedback">
+      <h3>Editor feedback</h3>
+      <div class="stack stack-compact" data-toast-list>
+        <div class="toast toast--info" data-toast-id="welcome" data-toast-kind="info">
+          <p class="content" data-toast-message>This is native feedback. Add messages to try the optional behavior.</p>
+          <button class="close" data-toast-dismiss type="button" aria-label="Dismiss welcome message">&times;</button>
+        </div>
+      </div>
+      <button data-toast-focus-return type="button">Return to editor</button>
+    </section>
+    <section class="stack" id="other-feedback" data-toast-region aria-label="Other view feedback">
+      <h3>Independent region</h3>
+      <div class="stack stack-compact" data-toast-list>
+        <div class="toast toast--info" data-toast-id="welcome" data-toast-kind="info">
+          <p class="content" data-toast-message>The same message ID has its own state here.</p>
+          <button class="close" data-toast-dismiss type="button" aria-label="Dismiss independent welcome message">&times;</button>
+        </div>
+      </div>
+      <button data-toast-focus-return type="button">Return to other view</button>
+    </section>
+  </div>
+  <section id="recovery" hidden>
+    <h3>Review the earlier version</h3>
+    <p>This fixture's application owns recovery. Use this button to simulate an explicit corrected-save confirmation.</p>
+    <button id="recovery-action" type="button">Confirm corrected save</button>
+  </section>
+  <p><a href="/reference/components/toasts-tests.html">Run deterministic browser lifecycle checks</a>. Read the <a href="https://github.com/Design-Machines-Studio/livewires/blob/feat/interaction-05-14/docs/toasts.md">toast-region contract</a>.</p>
+</section>
+
+</article>
     </main>
     <html-include src="/_includes/footer.html"></html-include>
   </body>

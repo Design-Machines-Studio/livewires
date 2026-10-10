@@ -37,6 +37,16 @@ See the [relative-time manual](public/manual/components/relative-time.html),
 `http://localhost:3000/reference/components/interaction-utilities-tests.html`
 for DOM lifecycle and interaction checks.
 
+### Optional toast regions
+
+Load `/dist/toast-region.js` only where needed. Stable message occurrence IDs
+keep local dismissal, announcements and remaining time through DOM patches.
+Pending feedback, errors and actions stay sticky. A bounded stack exposes queued
+feedback without evicting a focused action. Request completion never means saved.
+See the [contract](docs/toasts.md), [manual](public/manual/components/toasts.html)
+and [reference](public/reference/components/toasts.html). Run `npm test` and the
+[browser lifecycle checks](public/reference/components/toasts-tests.html).
+
 A prototyping-first design system for editorial websites. Built with modern CSS, rooted in timeless design principles.
 
 ## Philosophy
