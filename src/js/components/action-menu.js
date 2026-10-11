@@ -26,7 +26,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   const originals = new Map();
   const positionStyles = new Map();
   const unlisten = [];
-  const supported = typeof win.HTMLElement.prototype.showPopover === 'function';
+  const supported = typeof win.HTMLElement.prototype.showPopover === 'function' && !closedTree();
 
   function targets() {
     return { trigger: root.querySelector(':scope > [data-menu-trigger]'), menu: root.querySelector(':scope > [data-menu]') };
@@ -34,6 +34,10 @@ export function createActionMenu({ root, contextTarget = null }) {
 
   function menusIn(value) { return [value, ...value.querySelectorAll('[data-menu]')]; }
   function parent(node) { return node.assignedSlot ?? node.parentElement ?? node.getRootNode().host; }
+  function closedTree() {
+    for (let node = root; node; node = parent(node)) if (node.getRootNode().mode === 'closed') return true;
+    return false;
+  }
   function available(item) {
     if (!item?.isConnected || item.matches(':disabled, [aria-disabled="true"]')) return false;
     for (let node = item; node; node = parent(node)) {

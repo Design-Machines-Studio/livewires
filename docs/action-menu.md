@@ -80,6 +80,8 @@ In-place item updates refresh roles and available actions. If a focused item dis
 
 Availability follows composed ancestors, including assigned slots and shadow hosts. Hidden, inert or accessibility-hidden containers prevent opening and dismiss open levels. CSS-hidden actions are skipped during navigation; hidden triggers or menus preserve the native context menu. Relevant class/style updates and resize events refresh this state. Rendered visibility uses [native `checkVisibility`](https://developer.mozilla.org/en-US/docs/Web/API/Element/checkVisibility) when available, with a layout/style fallback.
 
+Menu roots inside closed shadow trees keep native fallback markup and context behavior; the adapter does not enhance them. Open shadow trees and their composed ancestors support enhancement.
+
 The adapter owns only the inline `left`, `top`, `max-width` and `max-height` placement declarations. Cleanup restores their original values and priorities while preserving later application changes to other declarations and custom properties.
 
 Item focus uses native scrolling to reveal actions inside constrained menus. Returning focus to the root trigger preserves the page's scroll position.

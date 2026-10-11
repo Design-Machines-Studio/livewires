@@ -39,6 +39,16 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['closed-shadow menus keep native fallback markup and context behavior', async () => {
+    const host = document.createElement('div'); fixtures.append(host);
+    const tree = host.attachShadow({ mode: 'closed' }); const f = fixture(tree);
+    try {
+      assert(!f.api.state.supported && !f.api.open() && !f.root.hasAttribute('data-menu-ready'), 'closed tree enhanced');
+      assert(!f.menu.hasAttribute('role') && !f.menu.hasAttribute('popover') && !f.trigger.hasAttribute('aria-expanded'), 'fallback semantics changed');
+      const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true }); f.context.querySelector('p').dispatchEvent(event);
+      assert(!event.defaultPrevented, 'closed-tree native context intercepted');
+    } finally { f.remove(); host.remove(); }
+  }],
   ['closed menus avoid DOM work on unrelated styles and resizes', async (f) => {
     const external = document.createElement('div'); fixtures.append(external); await settle();
     let reads = 0; const query = f.root.querySelector;
