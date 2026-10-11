@@ -45,8 +45,13 @@ const cases = [
     f.root.querySelector = function (...args) { reads++; return query.apply(this, args); };
     try {
       external.className = 'changed'; external.style.color = 'red'; window.dispatchEvent(new Event('resize')); await settle();
+      external.append(document.createElement('span')); await settle();
       assert(reads === 0 && !f.api.state.open, 'closed menu inspected unrelated changes');
     } finally { delete f.root.querySelector; external.remove(); }
+  }],
+  ['removing a closed root releases its controller', async (f) => {
+    f.context.remove(); await settle();
+    assert(f.api.state.disposed && !f.root.hasAttribute('data-menu-ready'), 'closed root retained controller');
   }],
   ['cleanup removes an empty style attribute created for placement', async (f) => {
     assert(!f.menu.hasAttribute('style'), 'fixture already styled'); assert(f.api.open(), 'fixture menu failed to open'); f.api.dispose();

@@ -331,7 +331,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
   function onResize() { if (levels.length) { reconcile(); schedulePosition(); } }
   function onMutation(records) {
-    if (levels.length || records.some((record) => record.type === 'childList' || root.contains(record.target))) reconcile();
+    if (levels.length || !root.isConnected || records.some((record) => root.contains(record.target) || (record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].some((node) => node.contains(root))))) reconcile();
   }
   function dispose() {
     if (disposed) return;
