@@ -72,6 +72,10 @@ export function createActionMenu({ root, contextTarget = null }) {
     const seen = new Set();
     for (const list of lists) {
       if (!list.matches('ul.menu') || !list.id || seen.has(list.id)) throw new TypeError('Menus need distinct IDs and ul.menu markup.');
+      if (list !== next.menu) {
+        const opener = list.parentElement.matches('li') ? list.parentElement.querySelector(':scope > button[data-menu-submenu]') : null;
+        if (childMenu(opener) !== list) throw new TypeError('Each submenu must belong to its sibling opener.');
+      }
       seen.add(list.id);
       for (const row of list.children) {
         if (!row.matches('li')) throw new TypeError('Menu children must be list items.');
@@ -90,21 +94,24 @@ export function createActionMenu({ root, contextTarget = null }) {
   function remember(node, name, value) {
     if (!originals.has(node)) originals.set(node, new Map());
     const values = originals.get(node);
-    if (!values.has(name)) values.set(name, node.getAttribute(name));
+    if (!values.has(name)) values.set(name, { original: node.getAttribute(name), applied: null });
+    values.get(name).applied = value === null ? null : String(value);
     if (value === null) node.removeAttribute(name);
     else if (node.getAttribute(name) !== String(value)) node.setAttribute(name, String(value));
   }
   function restoreAttribute(node, name) {
     const values = originals.get(node);
     if (!values?.has(name)) return;
-    const value = values.get(name);
-    if (value === null) node.removeAttribute(name); else node.setAttribute(name, value);
+    const saved = values.get(name);
+    if (node.getAttribute(name) === saved.applied) {
+      if (saved.original === null) node.removeAttribute(name); else node.setAttribute(name, saved.original);
+    }
     values.delete(name);
     if (!values.size) originals.delete(node);
   }
   function restore() {
     for (const [node, values] of originals) {
-      for (const [name, value] of values) {
+      for (const [name, { original: value }] of values) {
         if (value === null) node.removeAttribute(name);
         else node.setAttribute(name, value);
       }
@@ -169,7 +176,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       last = level.trigger;
       // Clear local state before native APIs: a morph may have stripped popover.
       if (level.menu.matches(':popover-open')) level.menu.hidePopover();
-      level.trigger?.setAttribute('aria-expanded', 'false');
+      if (level.trigger === trigger || level.trigger?.hasAttribute('data-menu-submenu')) remember(level.trigger, 'aria-expanded', 'false');
     }
     if (refocus) focus(last);
     if (observer && !disposed) observeMarkup(false);
@@ -213,7 +220,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (!rendered(list)) { list.hidePopover(); return false; }
     levels.push({ menu: list, trigger: opener });
     observeMarkup(false);
-    opener.setAttribute('aria-expanded', 'true');
+    remember(opener, 'aria-expanded', 'true');
     position();
     const items = itemsIn(list);
     focus(items[last ? items.length - 1 : 0] ?? list);
@@ -319,12 +326,12 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (supported) enhance();
       if (ownedFocus) focus(trigger);
     } else if (supported) {
-      const invalid = levels.findIndex((level) => !available(level.menu) || !rendered(level.menu) || !available(level.trigger) || !rendered(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger)));
+      const invalid = levels.findIndex((level) => !available(level.menu) || !rendered(level.menu) || !available(level.trigger) || !rendered(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && (childMenu(level.trigger) !== level.menu || !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger))));
       if (invalid >= 0) closeTo(invalid, true);
       // Refresh semantics on newly added rows without keeping removed nodes alive.
       for (const [node] of originals) {
         if (!root.contains(node)) {
-          for (const [name, value] of originals.get(node)) {
+          for (const [name, { original: value }] of originals.get(node)) {
             if (value === null) node.removeAttribute(name); else node.setAttribute(name, value);
           }
           originals.delete(node);
@@ -332,7 +339,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       }
       for (const node of positionStyles.keys()) if (!root.contains(node)) restorePosition(node);
       enhance();
-      for (const level of levels) level.trigger.setAttribute('aria-expanded', 'true');
+      for (const level of levels) remember(level.trigger, 'aria-expanded', 'true');
       if (levels.length) {
         const active = activeElement();
         const top = levels.at(-1).menu;

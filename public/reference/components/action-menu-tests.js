@@ -39,6 +39,32 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...[false, true].flatMap((open) => [false, true].map((wrapped) => [`uncontrolled ${wrapped ? 'wrapped' : 'sibling'} submenus reject ${open ? 'an open morph' : 'setup'}`, async (f) => {
+    if (open) { f.api.open(); f.sub.click(); await settle(); } else f.api.dispose();
+    const extra = document.createElement('ul'); extra.className = 'menu'; extra.dataset.menu = ''; extra.id = 'uncontrolled-submenu'; extra.innerHTML = '<li><button data-menu-action="extra">Extra</button></li>';
+    const insertion = wrapped ? document.createElement('div') : extra; if (wrapped) insertion.append(extra); f.sub.parentElement.append(insertion);
+    if (open) { await settle(); assert(f.api.state.disposed && !f.root.querySelector(':popover-open'), 'uncontrolled child retained overlay'); }
+    else { let rejected = false; try { createActionMenu({ root: f.root }); } catch (error) { rejected = error instanceof TypeError; } assert(rejected, 'uncontrolled submenu accepted'); }
+    assert(!f.root.hasAttribute('data-menu-ready') && !extra.hasAttribute('popover'), 'unowned submenu enhanced');
+  }])),
+  ...[false, true].map((open) => [`submenu conversion preserves new application ARIA ${open ? 'while open' : 'while closed'}`, async (f) => {
+    if (open) { f.api.open(); f.sub.click(); } await settle();
+    f.root.querySelector(`#${f.sub.getAttribute('aria-controls')}`).remove(); f.sub.removeAttribute('data-menu-submenu'); f.sub.removeAttribute('aria-controls'); f.sub.dataset.menuAction = 'dialog';
+    const expanded = open ? 'false' : 'true'; f.sub.setAttribute('aria-haspopup', 'dialog'); f.sub.setAttribute('aria-expanded', expanded); await settle();
+    assert(f.sub.getAttribute('aria-haspopup') === 'dialog' && f.sub.getAttribute('aria-expanded') === expanded, 'release overwrote new application ARIA');
+    f.api.dispose(); assert(f.sub.getAttribute('aria-haspopup') === 'dialog' && f.sub.getAttribute('aria-expanded') === expanded, 'dispose reverted released application ARIA');
+  }]),
+  ['retained child menus drop replaced opener ownership before releasing ARIA', async (f) => {
+    f.api.open(); f.sub.click(); await settle();
+    const child = f.root.querySelector(`#${f.sub.getAttribute('aria-controls')}`), row = f.sub.parentElement;
+    const next = document.createElement('button'); next.type = 'button'; next.dataset.menuSubmenu = ''; next.setAttribute('aria-controls', child.id); next.textContent = 'Updated export'; row.prepend(next);
+    const actionRow = document.createElement('li'); actionRow.append(f.sub); f.menu.append(actionRow); f.sub.removeAttribute('data-menu-submenu'); f.sub.removeAttribute('aria-controls'); f.sub.dataset.menuAction = 'converted'; await settle();
+    assert(f.api.state.depth === 1 && !child.matches(':popover-open') && document.activeElement === f.sub, 'child retained its former opener');
+    assert(!f.sub.hasAttribute('aria-expanded') && !f.sub.hasAttribute('aria-haspopup') && next.getAttribute('aria-expanded') === 'false', 'stale owner restored submenu ARIA');
+    next.click(); assert(f.api.state.depth === 2 && next.getAttribute('aria-expanded') === 'true', 'new opener cannot own child');
+    key(child.querySelector('[data-menu-action]'), 'Escape'); assert(document.activeElement === next && f.api.state.depth === 1, 'submenu returned to former opener');
+    f.api.dispose(); assert(!f.sub.hasAttribute('aria-expanded') && !next.hasAttribute('aria-expanded'), 'dispose left untracked expanded state');
+  }],
   ...[false, true].map((open) => [`wrapped menus outside the selected tree reject ${open ? 'an open morph' : 'initial setup'}`, async (f) => {
     if (open) { f.api.open(); f.sub.click(); await settle(); } else f.api.dispose();
     const wrapper = document.createElement('div'); wrapper.innerHTML = '<ul class="menu" id="wrapped-extra-menu" data-menu><li><button data-menu-action="extra" type="button">Extra</button></li></ul>'; f.root.append(wrapper);
