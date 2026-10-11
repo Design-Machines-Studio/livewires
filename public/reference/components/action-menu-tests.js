@@ -82,7 +82,7 @@ const cases = [
       if (change === 'manual slot') ready.assign(f.root);
       const api = createActionMenu({ root: f.root });
       try {
-        assert(api.open(), 'ready slot cannot open'); f.sub.click();
+        assert(api.open(), 'ready slot cannot open'); f.sub.click(); await settle();
         if (change === 'root slot') f.root.slot = 'blocked';
         else if (change === 'slot name') { ready.name = 'old'; blocked.name = 'ready'; }
         else blocked.assign(f.root);
