@@ -122,6 +122,12 @@ const cases = [
       tree.firstElementChild.removeAttribute('aria-hidden'); await settle(); assert(api.open(), 'slotted menu cannot recover');
     } finally { api.dispose(); host.remove(); }
   }],
+  ['keyboard focus scrolls clipped menu actions into view', async (f) => {
+    f.menu.style.height = '60px'; f.menu.style.overflow = 'auto';
+    f.api.open(); key(f.alpha, 'End'); await settle();
+    const item = f.zulu.getBoundingClientRect(), list = f.menu.getBoundingClientRect();
+    assert(document.activeElement === f.zulu && f.menu.scrollTop > 0 && item.top >= list.top && item.bottom <= list.bottom, 'focused action remained clipped');
+  }],
   ...[
     ['trigger', 'disabled'], ['trigger', 'hidden'], ['trigger', 'inert'],
     ['trigger', 'aria-disabled'], ['trigger', 'aria-hidden'],

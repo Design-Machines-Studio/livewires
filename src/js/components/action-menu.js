@@ -136,7 +136,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     }
   }
 
-  function focus(node) { if (available(node) && rendered(node)) node.focus({ preventScroll: true }); }
+  function focus(node) { if (available(node) && rendered(node)) node.focus({ preventScroll: node === trigger }); }
   function clearSearch() { search = ''; win.clearTimeout(searchTimer); }
   function closeTo(depth, refocus = false) {
     let last;
