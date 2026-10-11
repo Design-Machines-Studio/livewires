@@ -39,6 +39,42 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['input', 'button', 'a', 'div'].map((tag) => [
+    `shadow nested ${tag} keeps its native context menu`, async (f) => {
+      const host = document.createElement('div'); f.context.append(host);
+      const tree = host.attachShadow({ mode: 'open' }); const control = document.createElement(tag);
+      if (tag === 'a') control.href = '#';
+      if (tag === 'div') control.contentEditable = 'true';
+      tree.append(control);
+      const event = new MouseEvent('contextmenu', { bubbles: true, composed: true, cancelable: true }); control.dispatchEvent(event);
+      assert(!event.defaultPrevented && !f.api.state.open, 'shadow control context intercepted');
+    },
+  ]),
+  ...['hidden', 'inert', 'aria-hidden'].flatMap((attribute) => ['root slot', 'slot name', 'manual slot'].map((change) => [
+    `${change} reassignment into ${attribute} closes open levels and recovers`, async (f) => {
+      f.api.dispose(); const host = document.createElement('div'); fixtures.append(host);
+      const tree = host.attachShadow({ mode: 'open', slotAssignment: change === 'manual slot' ? 'manual' : 'named' });
+      tree.innerHTML = '<div><slot name="ready" data-ready></slot></div><div><slot name="blocked" data-blocked></slot></div>';
+      const ready = tree.querySelector('[data-ready]'), blocked = tree.querySelector('[data-blocked]');
+      blocked.parentElement.setAttribute(attribute, attribute === 'aria-hidden' ? 'true' : '');
+      f.root.slot = 'ready'; host.append(f.root);
+      if (change === 'manual slot') ready.assign(f.root);
+      const api = createActionMenu({ root: f.root });
+      try {
+        assert(api.open(), 'ready slot cannot open'); f.sub.click();
+        if (change === 'root slot') f.root.slot = 'blocked';
+        else if (change === 'slot name') { ready.name = 'old'; blocked.name = 'ready'; }
+        else blocked.assign(f.root);
+        await settle();
+        assert(!api.state.open && !f.root.querySelector(':popover-open') && f.trigger.getAttribute('aria-expanded') === 'false', 'slot reassignment retained levels or expansion');
+        assert(!api.open() && !f.root.contains(document.activeElement), 'unavailable slot retained focus or reopened');
+        if (change === 'root slot') f.root.slot = 'ready';
+        else if (change === 'slot name') { blocked.name = 'blocked'; ready.name = 'ready'; }
+        else ready.assign(f.root);
+        await settle(); assert(api.open(), 'available slot cannot recover');
+      } finally { api.dispose(); host.remove(); }
+    },
+  ])),
   ...[
     { root: 'ltr', menu: 'rtl', opener: null, forward: 'ArrowLeft', reverse: 'ArrowRight' },
     { root: 'rtl', menu: 'ltr', opener: null, forward: 'ArrowRight', reverse: 'ArrowLeft' },
