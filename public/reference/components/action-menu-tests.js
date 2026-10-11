@@ -39,6 +39,18 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['text-only server morphs keep an open popup aligned with its trigger', async (f) => {
+    f.context.style.cssText = 'position: fixed; left: 20px; top: 20px';
+    const paragraph = f.context.querySelector('p'); paragraph.style.cssText = 'white-space: pre; margin: 0';
+    f.api.open(); await settle();
+    const beforeTrigger = f.trigger.getBoundingClientRect(), beforeMenu = f.menu.getBoundingClientRect();
+    paragraph.firstChild.data = 'Context\nContext\nContext ';
+    await settle();
+    const afterTrigger = f.trigger.getBoundingClientRect(), afterMenu = f.menu.getBoundingClientRect();
+    assert(afterTrigger.bottom > beforeTrigger.bottom + 10, 'text morph did not move the fixture trigger');
+    assert(Math.abs((afterMenu.top - afterTrigger.bottom) - (beforeMenu.top - beforeTrigger.bottom)) < 1, 'popup stayed at stale text layout');
+    assert(f.api.state.open && document.activeElement === f.alpha, 'text update changed open state or focus');
+  }],
   ['action-driven trigger replacement returns focus to the resolved button', async (f) => {
     f.root.addEventListener('lw:menu-action', () => {
       f.root.innerHTML = `<button class="button trigger" data-menu-trigger type="button">Updated actions</button>${f.markup}`;

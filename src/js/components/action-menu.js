@@ -337,9 +337,9 @@ export function createActionMenu({ root, contextTarget = null }) {
     for (let node = root; node; node = parent(node)) trees.add(node.getRootNode());
     for (const tree of slotTrees) if (!trees.has(tree)) { tree.removeEventListener('slotchange', onSlotChange); slotTrees.delete(tree); }
     for (const tree of trees) if (!slotTrees.has(tree)) { tree.addEventListener('slotchange', onSlotChange); slotTrees.add(tree); }
-    const attributes = levels.length ? { attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style', 'slot', 'name', 'dir'] } : {};
+    const attributes = levels.length ? { attributes: true, characterData: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style', 'slot', 'name', 'dir'] } : {};
     for (const tree of trees) observer.observe(tree, { childList: true, subtree: true, ...attributes });
-    observer.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
+    observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
   }
   function onSlotChange() { if (levels.length) reconcile(); }
   function onResize() { if (levels.length) { reconcile(); schedulePosition(); } }
