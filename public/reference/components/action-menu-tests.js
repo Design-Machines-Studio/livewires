@@ -99,6 +99,28 @@ const cases = [
     f.api.open(); assert(f.api.state.open && document.activeElement.isConnected, 'synchronous replacement');
     assert(!f.menu.matches(':popover-open'), 'old menu remains open');
   }],
+  ...['hide trigger', 'replace with hidden trigger', 'make root inert'].map((change) => [
+    `context listeners cannot open an unavailable menu: ${change}`, async (f) => {
+      f.after.focus();
+      f.root.addEventListener('lw:menu-context', () => {
+        if (change === 'make root inert') f.root.inert = true;
+        else if (change === 'hide trigger') f.trigger.hidden = true;
+        else {
+          const next = f.trigger.cloneNode(true);
+          next.hidden = true;
+          f.trigger.replaceWith(next);
+        }
+      }, { once: true });
+      assert(!f.api.open(), 'unavailable menu reported success');
+      const actualTrigger = f.root.querySelector('[data-menu-trigger]');
+      assert(!f.api.state.open && !f.root.querySelector(':popover-open'), 'unavailable overlay opened');
+      assert(actualTrigger.getAttribute('aria-expanded') === 'false', 'unavailable trigger expanded');
+      assert(document.activeElement === f.after, 'unavailable menu stole focus');
+      const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true });
+      f.context.querySelector('p').dispatchEvent(event);
+      assert(!event.defaultPrevented, 'unavailable menu intercepted native context behavior');
+    },
+  ]),
   ['two instances do not share action or focus state', async (f) => {
     const other = fixture();
     try { f.api.open(); other.api.open(); assert(other.api.state.open && !f.api.state.open, 'instance dismissal');

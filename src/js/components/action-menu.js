@@ -171,7 +171,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (!emit('lw:menu-context', { trigger, contextTarget, contextId, source })) return false;
     if (disposed || !root.isConnected) return false;
     reconcile(); // Context listeners may replace authorized server markup synchronously.
-    if (disposed || !trigger.isConnected || trigger.disabled) return false;
+    if (disposed || !trigger.isConnected || trigger.disabled || root.inert || trigger.hidden) return false;
     point = at;
     show(menu, trigger, last);
     return true;
