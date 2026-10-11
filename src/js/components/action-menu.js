@@ -159,6 +159,8 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (observer && !disposed) observeMarkup(false);
   }
   function close(refocus = false) {
+    // Resolve synchronous server output while levels still identify owned focus.
+    if (refocus && levels.length && !disposed && !changing) reconcile();
     clearSearch();
     if (frame !== null) win.cancelAnimationFrame(frame);
     frame = null;

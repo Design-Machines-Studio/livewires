@@ -39,6 +39,27 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['action-driven trigger replacement returns focus to the resolved button', async (f) => {
+    f.root.addEventListener('lw:menu-action', () => {
+      f.root.innerHTML = `<button class="button trigger" data-menu-trigger type="button">Updated actions</button>${f.markup}`;
+    }, { once: true });
+    f.api.open(); f.alpha.click(); await settle();
+    const next = f.root.querySelector('[data-menu-trigger]');
+    assert(document.activeElement === next && next.isConnected && !f.api.state.open, 'action update lost focus return');
+    assert(next.getAttribute('aria-expanded') === 'false' && f.api.open(), 'updated trigger cannot reopen');
+  }],
+  ['API focus return resolves a synchronously replaced trigger', async (f) => {
+    f.api.open(); const next = document.createElement('button'); next.type = 'button'; next.dataset.menuTrigger = ''; next.textContent = 'Updated actions'; next.className = f.trigger.className;
+    f.trigger.replaceWith(next); f.api.close(true); await settle();
+    assert(document.activeElement === next && !f.api.state.open && next.getAttribute('aria-expanded') === 'false', 'API close lost current trigger');
+  }],
+  ['action updates preserve focus deliberately moved outside', async (f) => {
+    f.root.addEventListener('lw:menu-action', () => {
+      f.after.focus(); f.root.innerHTML = `<button class="button trigger" data-menu-trigger type="button">Updated actions</button>${f.markup}`;
+    }, { once: true });
+    f.api.open(); f.alpha.click(); await settle();
+    assert(document.activeElement === f.after && !f.api.state.open, 'action update stole external focus');
+  }],
   ['explicit context targets ignore protected ancestors outside their boundary', async (f) => {
     f.api.dispose(); f.context.contentEditable = 'false';
     const api = createActionMenu({ root: f.root, contextTarget: f.after });
