@@ -2,6 +2,8 @@
 
 Toast visuals work with native HTML. The optional region behavior adds local dismissal, timing and a bounded stack. Import `/dist/toast-region.js` only where needed. It does not load Rocket, Datastar or an application adapter, and is absent from `main.js`.
 
+The visual pattern uses `--line-05` padding on every side and centers the content beside the dismiss button. Semantic variants use colored backgrounds without a left accent border.
+
 ```html
 <section data-toast-region aria-label="Editor feedback">
   <div class="stack stack-compact" data-toast-list>
