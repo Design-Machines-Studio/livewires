@@ -39,6 +39,27 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['slot subscriptions follow new trees and release on disposal', async (f) => {
+    f.api.dispose();
+    const hosts = [document.createElement('div'), document.createElement('div')]; hosts.forEach((host) => fixtures.append(host));
+    const counts = [];
+    const trees = hosts.map((host) => {
+      const tree = host.attachShadow({ mode: 'open' }); tree.innerHTML = '<slot></slot>';
+      const count = { added: 0, removed: 0 }; counts.push(count);
+      const add = tree.addEventListener, remove = tree.removeEventListener;
+      tree.addEventListener = function (...args) { if (args[0] === 'slotchange') count.added++; return add.apply(this, args); };
+      tree.removeEventListener = function (...args) { if (args[0] === 'slotchange') count.removed++; return remove.apply(this, args); };
+      return tree;
+    });
+    hosts[0].append(f.root); const api = createActionMenu({ root: f.root });
+    try {
+      api.open(); hosts[1].append(f.root); await settle();
+      assert(counts[0].added === 1 && counts[0].removed === 1 && counts[1].added === 1, 'slot subscriptions retained an old tree');
+      api.dispose(); assert(counts[1].removed === 1, 'disposal retained slot subscription');
+    } finally {
+      api.dispose(); trees.forEach((tree) => { delete tree.addEventListener; delete tree.removeEventListener; }); hosts.forEach((host) => host.remove());
+    }
+  }],
   ...['input', 'button', 'a', 'div'].map((tag) => [
     `shadow nested ${tag} keeps its native context menu`, async (f) => {
       const host = document.createElement('div'); f.context.append(host);
