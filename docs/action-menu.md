@@ -78,7 +78,7 @@ Native popovers use the top layer, so a clipped parent does not crop the menu. P
 
 ## Lifecycle
 
-The application owns the stable root. Replacing live menu output closes old levels, restores their attributes and resolves the new connected nodes. Replacing a trigger closes and rebinds; removing a required trigger or introducing incompatible markup disposes the adapter. Removing the root, including its containing shadow host, releases listeners, observer, animation frame and typeahead timer. Call `dispose()` before unmount when possible. Reattachment needs a new controller.
+The application owns the stable root. Replacing live menu output closes old levels, restores their attributes and resolves the new connected nodes. Replacing a trigger closes and rebinds; removing the `data-action-menu` marker or a required trigger, duplicating a direct trigger/menu, or introducing incompatible markup disposes the adapter. Removing the root, including its containing shadow host, releases listeners, observer, animation frame and typeahead timer. Call `dispose()` before unmount when possible. Reattachment needs a new controller.
 
 In-place item updates refresh roles and available actions. If a focused item disappears or becomes unavailable while the menu owns focus, focus moves to an available item or the menu container. Removing popover state during a morph clears local open state before any native hide call. Cleanup never tries to focus a detached opener or leave a cloned overlay behind.
 

@@ -39,6 +39,30 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['trigger', 'menu'].map((kind) => [`duplicate direct ${kind} rejects initial enhancement`, async (f) => {
+    f.api.dispose(); const duplicate = (kind === 'trigger' ? f.trigger : f.menu).cloneNode(true); f.root.append(duplicate);
+    let rejected = false; try { createActionMenu({ root: f.root }); } catch (error) { rejected = error instanceof TypeError; }
+    assert(rejected && !f.root.hasAttribute('data-menu-ready'), 'duplicate direct markup enhanced');
+    assert(!f.trigger.hasAttribute('aria-expanded') && !f.menu.hasAttribute('popover') && !duplicate.hasAttribute('popover'), 'invalid setup changed native markup');
+  }]),
+  ...['trigger', 'menu'].map((kind) => [`duplicate direct ${kind} added while open disposes all levels`, async (f) => {
+    f.api.open(); f.sub.click(); await settle();
+    const duplicate = kind === 'trigger' ? document.createElement('button') : replacement(f);
+    if (kind === 'trigger') { duplicate.type = 'button'; duplicate.dataset.menuTrigger = ''; duplicate.textContent = 'Duplicate actions'; }
+    f.root.append(duplicate); await settle();
+    assert(f.api.state.disposed && !f.api.state.open && !f.root.querySelector(':popover-open'), 'duplicate morph left active overlay');
+    assert(!f.root.hasAttribute('data-menu-ready') && !f.trigger.hasAttribute('aria-expanded') && !f.api.open(), 'duplicate morph retained enhancement');
+    f.trigger.click(); assert(!f.root.querySelector(':popover-open'), 'duplicate morph retained trigger listener');
+  }]),
+  ...[false, true].map((open) => [`removing the root marker ${open ? 'while open' : 'while closed'} disposes enhancement`, async (f) => {
+    if (open) { f.api.open(); f.sub.click(); } await settle();
+    f.root.removeAttribute('data-action-menu'); await settle();
+    assert(f.api.state.disposed && !f.api.state.open && !f.root.querySelector(':popover-open'), 'marker removal retained overlay');
+    assert(!f.root.hasAttribute('data-menu-ready') && !f.trigger.hasAttribute('aria-expanded') && !f.menu.hasAttribute('popover'), 'marker removal retained semantics');
+    f.trigger.click(); assert(!f.api.open() && !f.root.querySelector(':popover-open'), 'marker removal retained listener');
+    f.root.dataset.actionMenu = ''; const next = createActionMenu({ root: f.root });
+    try { assert(next.open(), 'marker restoration cannot attach a new controller'); } finally { next.dispose(); }
+  }]),
   ['text-only server morphs keep an open popup aligned with its trigger', async (f) => {
     f.context.style.cssText = 'position: fixed; left: 20px; top: 20px';
     const paragraph = f.context.querySelector('p'); paragraph.style.cssText = 'white-space: pre; margin: 0';

@@ -30,7 +30,9 @@ export function createActionMenu({ root, contextTarget = null }) {
   const supported = typeof win.HTMLElement.prototype.showPopover === 'function' && !closedTree();
 
   function targets() {
-    return { trigger: root.querySelector(':scope > [data-menu-trigger]'), menu: root.querySelector(':scope > [data-menu]') };
+    const triggers = root.querySelectorAll(':scope > [data-menu-trigger]');
+    const menus = root.querySelectorAll(':scope > [data-menu]');
+    return { trigger: triggers.length === 1 ? triggers[0] : null, menu: menus.length === 1 ? menus[0] : null };
   }
 
   function menusIn(value) { return [value, ...value.querySelectorAll('[data-menu]')]; }
@@ -62,7 +64,8 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
 
   function validate(next) {
-    if (!next.trigger?.matches('button') || !next.menu?.matches('ul.menu') || !next.menu.id) throw new TypeError('Use a direct native button trigger and an identified ul.menu[data-menu].');
+    if (!root.matches('[data-action-menu]')) throw new TypeError('A data-action-menu root is required.');
+    if (!next.trigger?.matches('button') || !next.menu?.matches('ul.menu') || !next.menu.id) throw new TypeError('Use exactly one direct native button trigger and one identified ul.menu[data-menu].');
     if (root.closest('details, dialog') || root.matches('nav, form') || next.menu.querySelector(`${editable}, form, nav, details, dialog`)) throw new TypeError('Action menus cannot contain form fields, navigation, details or dialogs.');
     const seen = new Set();
     for (const list of menusIn(next.menu)) {
@@ -339,7 +342,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     for (const tree of trees) if (!slotTrees.has(tree)) { tree.addEventListener('slotchange', onSlotChange); slotTrees.add(tree); }
     const attributes = levels.length ? { attributes: true, characterData: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style', 'slot', 'name', 'dir'] } : {};
     for (const tree of trees) observer.observe(tree, { childList: true, subtree: true, ...attributes });
-    observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
+    observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-action-menu', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
   }
   function onSlotChange() { if (levels.length) reconcile(); }
   function onResize() { if (levels.length) { reconcile(); schedulePosition(); } }
