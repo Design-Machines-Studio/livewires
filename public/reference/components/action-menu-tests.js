@@ -39,6 +39,39 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['removed actions preserve new application ARIA during detached cleanup', async (f) => {
+    f.api.open(); await settle(); f.sub.setAttribute('aria-haspopup', 'dialog'); f.sub.removeAttribute('data-menu-submenu'); f.sub.dataset.menuAction = 'dialog';
+    const row = f.sub.parentElement; row.remove(); await settle();
+    assert(f.sub.getAttribute('aria-haspopup') === 'dialog' && !f.sub.hasAttribute('role'), 'detached cleanup overwrote application ARIA or kept semantics');
+    f.api.dispose(); assert(f.sub.getAttribute('aria-haspopup') === 'dialog', 'dispose revisited released detached node');
+  }],
+  ['child levels moved outside the root lose adapter ownership', async (f) => {
+    f.api.open(); f.sub.click(); await settle(); const child = f.root.querySelector(`#${f.sub.getAttribute('aria-controls')}`), row = f.sub.parentElement;
+    const external = document.createElement('ul'); external.className = 'menu'; external.dataset.menu = ''; fixtures.append(external); const externalRow = document.createElement('li'); external.append(externalRow); externalRow.append(f.sub, child);
+    const replacement = document.createElement('button'); replacement.type = 'button'; replacement.dataset.menuAction = 'new'; replacement.textContent = 'New action'; row.append(replacement);
+    child.style.opacity = '1'; child.style.visibility = 'visible'; child.showPopover(); await settle();
+    assert(f.api.state.depth === 1 && !child.matches(':popover-open'), 'outside child retained old adapter level');
+    assert(!f.sub.hasAttribute('aria-expanded') && !child.hasAttribute('popover'), 'outside child kept adapter semantics'); external.remove();
+  }],
+  ...[false, true].map((open) => [`unmarked lists cannot introduce child-menu owners ${open ? 'while open' : 'at setup'}`, async (f) => {
+    if (open) { f.api.open(); f.sub.click(); await settle(); } else f.api.dispose();
+    const plain = document.createElement('ul'); plain.innerHTML = '<li><button data-menu-submenu aria-controls="unmarked-owner-child">Other export</button><ul class="menu" id="unmarked-owner-child" data-menu><li><button data-menu-action="extra">Extra</button></li></ul></li>'; f.sub.parentElement.append(plain);
+    if (open) { await settle(); assert(f.api.state.disposed && !f.root.querySelector(':popover-open'), 'unmarked owner retained active controller'); }
+    else { let rejected = false; try { createActionMenu({ root: f.root }); } catch (error) { rejected = error instanceof TypeError; } assert(rejected, 'unmarked owner accepted'); }
+    assert(!f.root.hasAttribute('data-menu-ready'), 'unmarked owner retained enhancement');
+  }]),
+  ...['dispose', 'trigger replacement'].map((mode) => [`same-task action conversion preserves application ARIA on ${mode}`, async (f) => {
+    f.api.open(); f.sub.click(); await settle();
+    f.root.querySelector(`#${f.sub.getAttribute('aria-controls')}`).remove(); f.sub.removeAttribute('data-menu-submenu'); f.sub.removeAttribute('aria-controls'); f.sub.dataset.menuAction = 'dialog'; f.sub.setAttribute('aria-haspopup', 'dialog'); f.sub.setAttribute('aria-expanded', 'false');
+    if (mode === 'dispose') f.api.dispose();
+    else { const next = document.createElement('button'); next.type = 'button'; next.dataset.menuTrigger = ''; next.textContent = 'Updated actions'; f.trigger.replaceWith(next); }
+    await settle(); assert(f.sub.getAttribute('aria-haspopup') === 'dialog' && f.sub.getAttribute('aria-expanded') === 'false', 'full restore lost new application ARIA');
+    assert(!f.root.querySelector(':popover-open'), 'cleanup retained overlay');
+  }]),
+  ['dispose clears its runtime ready hook even if its value was changed', async (f) => {
+    f.root.setAttribute('data-menu-ready', 'true'); f.api.dispose();
+    assert(!f.root.hasAttribute('data-menu-ready') && !f.menu.hasAttribute('popover'), 'dispose retained runtime enhancement hook');
+  }],
   ...[false, true].flatMap((open) => [false, true].map((wrapped) => [`uncontrolled ${wrapped ? 'wrapped' : 'sibling'} submenus reject ${open ? 'an open morph' : 'setup'}`, async (f) => {
     if (open) { f.api.open(); f.sub.click(); await settle(); } else f.api.dispose();
     const extra = document.createElement('ul'); extra.className = 'menu'; extra.dataset.menu = ''; extra.id = 'uncontrolled-submenu'; extra.innerHTML = '<li><button data-menu-action="extra">Extra</button></li>';

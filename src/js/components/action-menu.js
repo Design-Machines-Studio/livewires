@@ -73,7 +73,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     for (const list of lists) {
       if (!list.matches('ul.menu') || !list.id || seen.has(list.id)) throw new TypeError('Menus need distinct IDs and ul.menu markup.');
       if (list !== next.menu) {
-        const opener = list.parentElement.matches('li') ? list.parentElement.querySelector(':scope > button[data-menu-submenu]') : null;
+        const opener = list.parentElement.matches('li') && lists.includes(list.parentElement.parentElement) ? list.parentElement.querySelector(':scope > button[data-menu-submenu]') : null;
         if (childMenu(opener) !== list) throw new TypeError('Each submenu must belong to its sibling opener.');
       }
       seen.add(list.id);
@@ -103,7 +103,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     const values = originals.get(node);
     if (!values?.has(name)) return;
     const saved = values.get(name);
-    if (node.getAttribute(name) === saved.applied) {
+    if (name === 'data-menu-ready' || node.getAttribute(name) === saved.applied) {
       if (saved.original === null) node.removeAttribute(name); else node.setAttribute(name, saved.original);
     }
     values.delete(name);
@@ -111,10 +111,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
   function restore() {
     for (const [node, values] of originals) {
-      for (const [name, { original: value }] of values) {
-        if (value === null) node.removeAttribute(name);
-        else node.setAttribute(name, value);
-      }
+      for (const name of values.keys()) restoreAttribute(node, name);
     }
     originals.clear();
     for (const node of positionStyles.keys()) restorePosition(node);
@@ -326,14 +323,12 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (supported) enhance();
       if (ownedFocus) focus(trigger);
     } else if (supported) {
-      const invalid = levels.findIndex((level) => !available(level.menu) || !rendered(level.menu) || !available(level.trigger) || !rendered(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && (childMenu(level.trigger) !== level.menu || !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger))));
+      const invalid = levels.findIndex((level) => !root.contains(level.menu) || !root.contains(level.trigger) || !available(level.menu) || !rendered(level.menu) || !available(level.trigger) || !rendered(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && (childMenu(level.trigger) !== level.menu || !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger))));
       if (invalid >= 0) closeTo(invalid, true);
       // Refresh semantics on newly added rows without keeping removed nodes alive.
       for (const [node] of originals) {
         if (!root.contains(node)) {
-          for (const [name, { original: value }] of originals.get(node)) {
-            if (value === null) node.removeAttribute(name); else node.setAttribute(name, value);
-          }
+          for (const name of originals.get(node).keys()) restoreAttribute(node, name);
           originals.delete(node);
         }
       }
