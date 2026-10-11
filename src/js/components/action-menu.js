@@ -69,7 +69,8 @@ export function createActionMenu({ root, contextTarget = null }) {
   function validate(next) {
     if (!root.matches('[data-action-menu]')) throw new TypeError('A data-action-menu root is required.');
     if (!next.trigger?.matches('button') || !next.menu?.matches('ul.menu') || !next.menu.id) throw new TypeError('Use exactly one direct native button trigger and one identified ul.menu[data-menu].');
-    if (root.closest('details, dialog') || root.matches('nav, form') || next.menu.querySelector(`${editable}, form, nav, details, dialog`)) throw new TypeError('Action menus cannot contain form fields, navigation, details or dialogs.');
+    for (let node = root; node; node = parent(node)) if (node.matches('details, dialog')) throw new TypeError('Action menus cannot contain form fields, navigation, details or dialogs.');
+    if (root.matches('nav, form') || next.menu.querySelector(`${editable}, form, nav, details, dialog`)) throw new TypeError('Action menus cannot contain form fields, navigation, details or dialogs.');
     const lists = menusIn(next.menu);
     const managed = new Set([root, next.trigger]);
     if (root.querySelectorAll('[data-menu]').length !== lists.length) throw new TypeError('All menus must belong to the direct menu tree.');

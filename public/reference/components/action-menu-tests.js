@@ -39,6 +39,23 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['details', 'dialog'].flatMap((tag) => ['shadow', 'nested', 'slot'].map((shape) => [`native ${tag} composed ${shape} ancestors reject enhancement without changing markup`, async (f) => {
+    f.api.dispose(); const host = document.createElement('div'); fixtures.append(host); const tree = host.attachShadow({ mode: 'open' }); const native = document.createElement(tag);
+    if (tag === 'details') { native.open = true; const summary = document.createElement('summary'); summary.textContent = 'Native disclosure'; native.append(summary); }
+    if (shape === 'slot') { tree.append(native); const slot = document.createElement('slot'); native.append(slot); host.append(f.root); }
+    else { host.replaceWith(native); native.append(host); if (shape === 'nested') { const inner = document.createElement('div'); tree.append(inner); inner.attachShadow({ mode: 'open' }).append(f.root); } else tree.append(f.root); }
+    if (tag === 'dialog') native.show(); const authored = f.root.outerHTML; let api; let rejected = false;
+    try { try { api = createActionMenu({ root: f.root }); } catch { rejected = true; }
+      assert(rejected && f.root.outerHTML === authored && !f.root.hasAttribute('data-menu-ready'), 'native composed container was enhanced or authored markup changed');
+    } finally { api?.dispose(); if (tag === 'dialog') native.close(); native.remove(); host.remove(); }
+  }])),
+  ...['details', 'dialog'].map((tag) => [`moving an open shadow menu into native ${tag} disposes its enhancement`, async (f) => {
+    f.api.dispose(); const host = document.createElement('div'); fixtures.append(host); host.attachShadow({ mode: 'open' }).append(f.root); const api = createActionMenu({ root: f.root }); const native = document.createElement(tag); fixtures.append(native);
+    if (tag === 'details') { native.open = true; const summary = document.createElement('summary'); summary.textContent = 'Native disclosure'; native.append(summary); } else native.show();
+    try { api.open(); assert(api.state.open, 'control did not open before move'); native.append(host); await settle();
+      assert(api.state.disposed && !f.root.hasAttribute('data-menu-ready') && !f.menu.matches(':popover-open'), 'native composed move retained enhancement');
+    } finally { api.dispose(); if (tag === 'dialog') native.close(); native.remove(); host.remove(); }
+  }]),
   ...['keyboard', 'pointer'].flatMap((activation) => ['Escape', 'ArrowLeft'].map((back) => [`typeahead resets on ${activation} submenu entry and ${back} return`, async (f) => {
     const child = f.root.querySelector('[data-menu] [data-menu]');
     const row = document.createElement('li'); row.innerHTML = '<button data-menu-action="csv" type="button">CSV</button>'; child.prepend(row); await settle();
