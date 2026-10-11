@@ -13,7 +13,7 @@ Inline editing adds an optional interaction around a native text form. Import `/
       <input id="title-input" name="title" type="text" value="Working title" data-inline-edit-input>
       <p id="title-error" data-inline-edit-error role="alert"></p>
       <div class="cluster">
-        <button type="submit" data-inline-edit-save>Save title</button>
+        <button class="button button--accent" type="submit" data-inline-edit-save>Save title</button>
         <button type="button" data-inline-edit-cancel>Cancel editing</button>
       </div>
     </form>
@@ -63,7 +63,7 @@ Events bubble and are composed. They are commands handed to the application, not
 - Pending and unknown keep the field visible and read-only; Save is disabled. Cancel remains available. Unknown has no automatic timeout or retry. Rejection allows editing and an explicit new attempt.
 - Save confirmation and cancel return focus to Edit only if focus is still in that editor's form/trigger. A delayed result does not steal focus from another control. Rejection leaves focus and selection where the user put them.
 
-The phases are `confirmed`, `editing`, `pending`, `rejected`, `unknown` and `disposed`. Confirmed means the component holds an application-confirmed value, including its initial server-rendered value. After cancellation, it displays the last known confirmed value; it does not claim a cancelled in-flight save failed. Status text, error text, the input's error description, read-only state and Save disabled state belong to the controller.
+The phases are `confirmed`, `editing`, `pending`, `rejected`, `unknown` and `disposed`. Confirmed means the component holds an application-confirmed value, including its initial server-rendered value. After cancellation, it displays the last known confirmed value; it does not claim a cancelled in-flight save failed. Its status says “Stopped waiting. The save may still have applied.” after pending/unknown cancellation. Status text, error text, the input's error description, read-only state and Save disabled state belong to the controller.
 
 ## Stable DOM boundary and lifecycle
 

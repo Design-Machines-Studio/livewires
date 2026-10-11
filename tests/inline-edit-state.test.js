@@ -57,6 +57,7 @@ test('two editor lifetimes cannot accept foreign, cancelled or stale responses',
   assert.equal(b.editor.applyResult(old), false);
   a.editor.cancel('escape');
   assert.equal(a.events.at(-1).uncertain, true);
+  assert.match(a.editor.state.message, /may still have applied/);
   a.editor.request(); a.editor.setDraft('New'); a.editor.commit();
   assert.equal(a.editor.applyResult(old), false);
   assert.equal(b.editor.state.phase, 'pending');

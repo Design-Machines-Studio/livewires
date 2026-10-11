@@ -56,7 +56,7 @@ export function createInlineEditor({ root, contextId = root?.getAttribute('data-
     if (nodes.value.textContent !== state.confirmed) nodes.value.textContent = state.confirmed;
     const error = state.phase === 'rejected' ? state.message : '';
     if (nodes.error.textContent !== error) nodes.error.textContent = error;
-    const status = { confirmed: 'Confirmed value.', editing: 'Editing. Save explicitly; leaving the field keeps your draft.',
+    const status = state.message && state.phase === 'confirmed' ? state.message : { confirmed: 'Confirmed value.', editing: 'Editing. Save explicitly; leaving the field keeps your draft.',
       pending: 'Save requested. Waiting for application confirmation.', rejected: 'Value rejected. Edit your draft and save again.',
       unknown: 'Save result is uncertain. Check with the application before trying again.' }[state.phase];
     if (nodes.status.textContent !== status) nodes.status.textContent = status;

@@ -31,7 +31,7 @@ export function createInlineEditState({ contextId, value = '', onChange = () => 
     phase = 'confirmed';
     draft = confirmed;
     editId = requestId = null;
-    message = '';
+    message = event.uncertain ? 'Stopped waiting. The save may still have applied.' : 'Editing cancelled.';
     publish();
     onEvent('cancel', event);
     return true;

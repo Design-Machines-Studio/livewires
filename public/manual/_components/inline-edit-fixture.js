@@ -34,15 +34,15 @@ export function attachInlineEditExample(root = document) {
     button.addEventListener('click', callback);
     listeners.push(() => button.removeEventListener('click', callback));
   }
-  action('[data-example-release]', () => { if (attempts.length) deliver(attempts.at(-1)); });
-  action('[data-example-confirm]', () => { if (attempts.length) deliver(attempts.at(-1), 'confirmed'); });
-  action('[data-example-reject]', () => { if (attempts.length) deliver(attempts.at(-1), 'rejected'); });
-  action('[data-example-stale]', () => { if (attempts.length) deliver(attempts[0], 'confirmed'); });
+  action('[data-example-release]', () => { if (attempts.length) deliver(attempts.at(-1)); else write('No save request yet.'); });
+  action('[data-example-confirm]', () => { if (attempts.length) deliver(attempts.at(-1), 'confirmed'); else write('No save request yet.'); });
+  action('[data-example-reject]', () => { if (attempts.length) deliver(attempts.at(-1), 'rejected'); else write('No save request yet.'); });
+  action('[data-example-stale]', () => { if (attempts.length) deliver(attempts[0], 'confirmed'); else write('No save request yet.'); });
   action('[data-example-update]', () => {
     const [host, editor] = controllers.entries().next().value;
     host.querySelector('[data-example-sibling]').textContent = 'An unrelated update arrived.';
-    editor.updateConfirmed('Application update');
-    write('The confirmed value updated. An active draft stays in place.');
+    const applied = editor.updateConfirmed('Application update');
+    write(applied ? 'The confirmed value updated. An active draft stays in place.' : 'The editor was removed. No value was updated.');
   });
   action('[data-example-remove]', () => { [...controllers.keys()][0].remove(); write('First editor removed. Its late responses will be ignored. Reload to restore it.'); });
   action('[data-example-reset]', () => location.reload());
