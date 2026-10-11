@@ -246,8 +246,13 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
   function show(list, opener, last = false) {
     if (!available(list)) return false;
-    list.showPopover();
-    if (!rendered(list)) { list.hidePopover(); return false; }
+    try { list.showPopover(); }
+    catch (error) { if (!['InvalidStateError', 'NotSupportedError'].includes(error.name)) throw error; reconcile(); return false; }
+    reconcile(); // Native beforetoggle handlers can cancel, dispose or morph markup.
+    if (disposed || !root.contains(list) || !root.contains(opener) || !available(list) || !available(opener) || !rendered(list) || !rendered(opener) || !list.matches(':popover-open') || (list === menu ? opener !== trigger : childMenu(opener) !== list)) {
+      if (list.matches(':popover-open')) list.hidePopover();
+      return false;
+    }
     clearSearch();
     levels.push({ menu: list, trigger: opener });
     observeMarkup(false);

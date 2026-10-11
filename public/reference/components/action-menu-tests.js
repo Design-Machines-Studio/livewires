@@ -39,6 +39,32 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['root', 'submenu'].flatMap((scope) => ['inert', 'aria-hidden', 'disable opener', 'remove trigger', 'replace menu', 'dispose', 'remove root', 'strip popover', 'cancel'].map((change) => [`${scope} beforetoggle ${change} never commits an unusable open level`, async (f) => {
+    const list = scope === 'root' ? f.menu : f.root.querySelector('[data-menu] [data-menu]'); const opener = scope === 'root' ? f.trigger : f.sub;
+    if (scope === 'submenu') f.api.open();
+    list.addEventListener('beforetoggle', (event) => {
+      if (event.newState !== 'open') return;
+      if (change === 'inert') f.root.inert = true;
+      else if (change === 'aria-hidden') f.root.setAttribute('aria-hidden', 'true');
+      else if (change === 'disable opener') opener.disabled = true;
+      else if (change === 'remove trigger') f.trigger.remove();
+      else if (change === 'replace menu') f.menu.replaceWith(replacement(f));
+      else if (change === 'dispose') f.api.dispose();
+      else if (change === 'remove root') f.root.remove();
+      else if (change === 'strip popover') list.removeAttribute('popover');
+      else event.preventDefault();
+    }, { once: true });
+    if (scope === 'root') assert(!f.api.open({ activation: 'context', at: { x: 120, y: 120 } }), 'unusable root opening returned success');
+    else f.sub.click();
+    assert(!list.matches(':popover-open') && f.api.state.depth < (scope === 'root' ? 1 : 2), 'unusable native popup or level survived synchronously');
+    assert(opener.getAttribute('aria-expanded') !== 'true', 'unusable opener remained expanded');
+    await settle(); assert(!list.matches(':popover-open'), 'deferred cleanup reopened stale popup');
+  }])),
+  ...['inert', 'aria-hidden'].map((change) => [`beforetoggle ${change} keeps native context activation available`, async (f) => {
+    f.menu.addEventListener('beforetoggle', () => { if (change === 'inert') f.root.inert = true; else f.root.setAttribute('aria-hidden', 'true'); }, { once: true });
+    const event = new MouseEvent('contextmenu', { bubbles: true, composed: true, cancelable: true }); f.context.querySelector('p').dispatchEvent(event);
+    assert(!event.defaultPrevented && !f.api.state.open && !f.menu.matches(':popover-open'), 'unusable transition suppressed native context behavior');
+  }]),
   ...['details', 'dialog'].flatMap((tag) => ['shadow', 'nested', 'slot'].map((shape) => [`native ${tag} composed ${shape} ancestors reject enhancement without changing markup`, async (f) => {
     f.api.dispose(); const host = document.createElement('div'); fixtures.append(host); const tree = host.attachShadow({ mode: 'open' }); const native = document.createElement(tag);
     if (tag === 'details') { native.open = true; const summary = document.createElement('summary'); summary.textContent = 'Native disclosure'; native.append(summary); }
