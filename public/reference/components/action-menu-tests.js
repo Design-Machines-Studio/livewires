@@ -39,6 +39,89 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['hidden', 'inert', 'aria-hidden'].map((attribute) => [
+    `unavailable application ancestor ${attribute} preserves external context and closes open levels`, async (f) => {
+      f.api.dispose();
+      const external = document.createElement('p'); external.textContent = 'External context'; fixtures.append(external);
+      const api = createActionMenu({ root: f.root, contextTarget: external });
+      try {
+        f.context.setAttribute(attribute, attribute === 'aria-hidden' ? 'true' : '');
+        const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true }); external.dispatchEvent(event);
+        assert(!event.defaultPrevented && !api.state.open, 'unavailable ancestor intercepted context');
+        f.context.removeAttribute(attribute); await settle(); assert(api.open(), 'available ancestor cannot open');
+        f.sub.click(); f.context.setAttribute(attribute, attribute === 'aria-hidden' ? 'true' : ''); await settle();
+        assert(!api.state.open && !f.root.querySelector(':popover-open'), 'ancestor update left overlays');
+        assert(!f.root.contains(document.activeElement), 'focus stayed in unavailable ancestor');
+      } finally { api.dispose(); external.remove(); f.context.removeAttribute(attribute); }
+    },
+  ]),
+  ...['hidden', 'inert', 'aria-hidden'].map((attribute) => [
+    `unavailable composed shadow host ${attribute} prevents opening and closes levels`, async () => {
+      const host = document.createElement('div'); fixtures.append(host);
+      const tree = host.attachShadow({ mode: 'open' }); const f = fixture(tree);
+      try {
+        host.setAttribute(attribute, attribute === 'aria-hidden' ? 'true' : ''); assert(!f.api.open(), 'unavailable host opened');
+        host.removeAttribute(attribute); await settle(); assert(f.api.open(), 'available host cannot open');
+        host.setAttribute(attribute, attribute === 'aria-hidden' ? 'true' : ''); await settle();
+        assert(!f.api.state.open && !f.root.querySelector(':popover-open'), 'host update left overlays');
+      } finally { f.remove(); host.remove(); }
+    },
+  ]),
+  ...['display: none', 'visibility: hidden', 'opacity: 0'].map((declaration) => [
+    `CSS-hidden action ${declaration} is skipped without trapping navigation`, async (f) => {
+      const style = document.createElement('style'); const name = `css-hidden-${count}`;
+      style.textContent = `.${name} { ${declaration}; }`; fixtures.append(style);
+      try {
+        f.sub.classList.add(name); f.api.open(); key(f.alpha, 'ArrowDown');
+        assert(document.activeElement === f.zulu, 'CSS-hidden action trapped navigation');
+        f.sub.classList.remove(name); f.alpha.style.visibility = 'hidden'; await settle();
+        key(f.zulu, 'Home'); assert(document.activeElement === f.sub, 'inline-hidden action not skipped');
+      } finally { style.remove(); }
+    },
+  ]),
+  ['a CSS-hidden visible-button path preserves external native context', async (f) => {
+    f.trigger.style.display = 'none';
+    const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true }); f.context.querySelector('p').dispatchEvent(event);
+    assert(!event.defaultPrevented && !f.api.state.open, 'CSS-hidden trigger intercepted context');
+  }],
+  ['a CSS-hidden menu preserves external native context and remains closed', async (f) => {
+    f.menu.style.setProperty('display', 'none', 'important');
+    const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true }); f.context.querySelector('p').dispatchEvent(event);
+    assert(!event.defaultPrevented && !f.api.state.open && !f.menu.matches(':popover-open'), 'CSS-hidden menu intercepted context');
+    assert(f.trigger.getAttribute('aria-expanded') === 'false', 'CSS-hidden menu expanded trigger');
+  }],
+  ['cleanup restores only positioning declarations and preserves server style updates', async (f) => {
+    f.menu.style.setProperty('left', '3px', 'important'); f.menu.style.color = 'red';
+    f.api.open(); f.menu.style.color = 'blue'; f.menu.style.width = '260px'; f.menu.style.setProperty('--server-token', 'green'); await settle();
+    f.api.dispose();
+    assert(f.menu.style.color === 'blue' && f.menu.style.width === '260px' && f.menu.style.getPropertyValue('--server-token') === 'green', 'server styles discarded');
+    assert(f.menu.style.left === '3px' && f.menu.style.getPropertyPriority('left') === 'important', 'original positioning lost');
+    assert(!f.menu.style.top && !f.menu.style.maxWidth && !f.menu.style.maxHeight, 'owned placement remained');
+  }],
+  ['positioning style updates settle without an observer feedback loop', async (f) => {
+    f.root.style.position = 'fixed'; f.root.style.left = '12.3456789px';
+    f.api.open(); await settle();
+    let changes = 0; const observer = new MutationObserver((records) => changes += records.length);
+    observer.observe(f.menu, { attributes: true, attributeFilter: ['style'] });
+    try { await settle(); await settle(); assert(changes === 0, 'positioning continued mutating its own styles'); }
+    finally { observer.disconnect(); }
+  }],
+  ['visibility fallback skips transparent actions without checkVisibility', async (f) => {
+    Object.defineProperty(f.sub, 'checkVisibility', { value: undefined, configurable: true });
+    f.sub.style.opacity = '0'; f.api.open(); key(f.alpha, 'ArrowDown');
+    assert(document.activeElement === f.zulu, 'fallback included a transparent action');
+    delete f.sub.checkVisibility;
+  }],
+  ['slotted action roots observe availability changes inside composed ancestors', async (f) => {
+    f.api.dispose(); const host = document.createElement('div'); f.context.append(host);
+    const tree = host.attachShadow({ mode: 'open' }); tree.innerHTML = '<div><slot></slot></div>'; host.append(f.root);
+    const api = createActionMenu({ root: f.root });
+    try {
+      assert(api.open(), 'slotted menu cannot open'); tree.firstElementChild.setAttribute('aria-hidden', 'true'); await settle();
+      assert(!api.state.open && !f.root.querySelector(':popover-open') && !api.open(), 'slotted ancestor ignored');
+      tree.firstElementChild.removeAttribute('aria-hidden'); await settle(); assert(api.open(), 'slotted menu cannot recover');
+    } finally { api.dispose(); host.remove(); }
+  }],
   ...[
     ['trigger', 'disabled'], ['trigger', 'hidden'], ['trigger', 'inert'],
     ['trigger', 'aria-disabled'], ['trigger', 'aria-hidden'],

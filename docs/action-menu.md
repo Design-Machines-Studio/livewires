@@ -78,10 +78,14 @@ The application owns the stable root. Replacing live menu output closes old leve
 
 In-place item updates refresh roles and available actions. If a focused item disappears or becomes unavailable while the menu owns focus, focus moves to an available item or the menu container. Removing popover state during a morph clears local open state before any native hide call. Cleanup never tries to focus a detached opener or leave a cloned overlay behind.
 
+Availability follows composed ancestors, including assigned slots and shadow hosts. Hidden, inert or accessibility-hidden containers prevent opening and dismiss open levels. CSS-hidden actions are skipped during navigation; hidden triggers or menus preserve the native context menu. Relevant class/style updates and resize events refresh this state. Rendered visibility uses [native `checkVisibility`](https://developer.mozilla.org/en-US/docs/Web/API/Element/checkVisibility) when available, with a layout/style fallback.
+
+The adapter owns only the inline `left`, `top`, `max-width` and `max-height` placement declarations. Cleanup restores their original values and priorities while preserving later application changes to other declarations and custom properties.
+
 Load the optional CSS even when enhancement is unavailable if these lists would otherwise inherit closed-dropdown styling. Before setup, without JavaScript, after disposal, or without Popover API, this CSS shows a readable inline list. Native application links and external-form buttons can provide executable fallback. A bare data-action button needs application code. There is no automatic initialization after later insertion: the application attaches and disposes controllers at its own update boundary.
 
 ## References and limits
 
 This implementation is independently written. No Rocket or PD Rockets runtime/code was copied. Behavioral research reviewed Starbase at `c7ed1e76f8e7c867d32351d7045d6b66bf760b34`, especially [patches 0050, 0051, 0056, 0057 and 0058](https://github.com/zweiundeins/starbase/tree/c7ed1e76f8e7c867d32351d7045d6b66bf760b34/patches/pd-rockets): morph cleanup, actual item focus, Tab dismissal, button-only expanded state and semantic events. Any later copied code requires its original notices.
 
-The source/reference base is Live Wires `6e0ff82c222c644fdda687a46bcd24816b7f7dc1`, with sortable producer merged at `059957aec14209abe25a85b43ccbc7ef11fe0750`. Relative-time, copy, loading and toast contracts and their fixtures are unchanged for Templ issue 10. The no-Rocket-adoption decision remains in force. No Baseplate or Templ implementation, tag or release is included.
+The source/reference base is Live Wires `6e0ff82c222c644fdda687a46bcd24816b7f7dc1`, with sortable producer merged at `059957aec14209abe25a85b43ccbc7ef11fe0750`. Relative-time, copy, loading and toast contracts and their fixtures are unchanged for Templ issue 10. The no-Rocket-adoption decision remains in force. No Baseplate or Templ implementation is included.

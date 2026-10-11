@@ -24,6 +24,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   let contextId = '';
   let changing = false;
   const originals = new Map();
+  const positionStyles = new Map();
   const unlisten = [];
   const supported = typeof win.HTMLElement.prototype.showPopover === 'function';
 
@@ -32,15 +33,24 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
 
   function menusIn(value) { return [value, ...value.querySelectorAll('[data-menu]')]; }
+  function parent(node) { return node.assignedSlot ?? node.parentElement ?? node.getRootNode().host; }
   function available(item) {
     if (!item?.isConnected || item.matches(':disabled, [aria-disabled="true"]')) return false;
-    for (let node = item; node; node = node.parentElement) {
-      if (node.hidden || node.inert || node.getAttribute('aria-hidden') === 'true') return false;
-      if (node === root) break;
+    for (let node = item; node; node = parent(node)) {
+      if (node.hidden || node.inert || node.matches('[aria-hidden="true"], [aria-disabled="true"]')) return false;
     }
     return true;
   }
-  function itemsIn(value) { return [...value.querySelectorAll(controls)].filter(available); }
+  function rendered(node) {
+    if (node.checkVisibility) return node.checkVisibility({ visibilityProperty: true, opacityProperty: true });
+    if (!node.getClientRects().length || win.getComputedStyle(node).visibility !== 'visible') return false;
+    for (let current = node; current; current = parent(current)) {
+      const style = win.getComputedStyle(current);
+      if (style.opacity === '0' || style.contentVisibility === 'hidden') return false;
+    }
+    return true;
+  }
+  function itemsIn(value) { return [...value.querySelectorAll(controls)].filter((item) => available(item) && rendered(item)); }
   function childMenu(item) {
     if (!item?.hasAttribute('data-menu-submenu')) return null;
     return [...item.parentElement.children].find((node) => node.matches('[data-menu]') && node.id === item.getAttribute('aria-controls')) ?? null;
@@ -82,6 +92,25 @@ export function createActionMenu({ root, contextTarget = null }) {
       }
     }
     originals.clear();
+    for (const node of positionStyles.keys()) restorePosition(node);
+  }
+  function positionStyle(node, name, value) {
+    if (!positionStyles.has(node)) positionStyles.set(node, new Map());
+    const values = positionStyles.get(node);
+    if (!values.has(name)) values.set(name, { value: node.style.getPropertyValue(name), priority: node.style.getPropertyPriority(name) });
+    const original = values.get(name);
+    if (original.requested !== value || original.applied !== node.style.getPropertyValue(name) || node.style.getPropertyPriority(name)) {
+      node.style.setProperty(name, value);
+      original.requested = value;
+      original.applied = node.style.getPropertyValue(name);
+    }
+  }
+  function restorePosition(node) {
+    for (const [name, original] of positionStyles.get(node) ?? []) {
+      if (original.value) node.style.setProperty(name, original.value, original.priority);
+      else node.style.removeProperty(name);
+    }
+    positionStyles.delete(node);
   }
   function enhance() {
     remember(root, 'data-menu-ready', '');
@@ -107,7 +136,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     }
   }
 
-  function focus(node) { if (available(node)) node.focus({ preventScroll: true }); }
+  function focus(node) { if (available(node) && rendered(node)) node.focus({ preventScroll: true }); }
   function clearSearch() { search = ''; win.clearTimeout(searchTimer); }
   function closeTo(depth, refocus = false) {
     let last;
@@ -139,15 +168,13 @@ export function createActionMenu({ root, contextTarget = null }) {
     const gap = parseFloat(win.getComputedStyle(root).getPropertyValue('--line-025')) || 4;
     levels.forEach((level, index) => {
       if (!level.menu.isConnected || !level.trigger?.isConnected) return;
-      const style = level.menu.style;
-      remember(level.menu, 'style', level.menu.getAttribute('style'));
       const bounds = index === 0 && point ? { left: point.x, right: point.x, top: point.y, bottom: point.y } : level.trigger.getBoundingClientRect();
-      style.maxWidth = `${Math.max(0, view.width - gap * 2)}px`;
-      style.maxHeight = `${Math.max(0, view.height - gap * 2)}px`;
+      positionStyle(level.menu, 'max-width', `${Math.max(0, view.width - gap * 2)}px`);
+      positionStyle(level.menu, 'max-height', `${Math.max(0, view.height - gap * 2)}px`);
       const rect = level.menu.getBoundingClientRect();
       const location = placeMenu(bounds, rect, view, index > 0, win.getComputedStyle(root).direction === 'rtl', gap);
-      style.left = `${location.x}px`;
-      style.top = `${location.y}px`;
+      positionStyle(level.menu, 'left', `${location.x}px`);
+      positionStyle(level.menu, 'top', `${location.y}px`);
     });
   }
   function schedulePosition() {
@@ -155,27 +182,28 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
   function show(list, opener, last = false) {
     list.showPopover();
+    if (!rendered(list)) { list.hidePopover(); return false; }
     levels.push({ menu: list, trigger: opener });
     opener.setAttribute('aria-expanded', 'true');
     position();
     const items = itemsIn(list);
     focus(items[last ? items.length - 1 : 0] ?? list);
+    return true;
   }
   function emit(name, detail) {
     return root.dispatchEvent(new win.CustomEvent(name, { bubbles: true, composed: true, cancelable: true, detail }));
   }
   function open({ last = false, at = null, activation = 'button' } = {}) {
-    if (disposed || !supported || !available(trigger) || !available(menu)) return false;
+    if (disposed || !supported || !available(trigger) || !rendered(trigger) || !available(menu)) return false;
     if (levels.length) { focus(itemsIn(levels[0].menu)[0] ?? menu); return true; }
     contextId = (activation === 'context' ? contextTarget?.dataset.contextId : null) ?? root.dataset.contextId ?? '';
     source = activation;
     if (!emit('lw:menu-context', { trigger, contextTarget, contextId, source })) return false;
     if (disposed || !root.isConnected) return false;
     reconcile(); // Context listeners may replace authorized server markup synchronously.
-    if (disposed || !available(trigger) || !available(menu)) return false;
+    if (disposed || !available(trigger) || !rendered(trigger) || !available(menu)) return false;
     point = at;
-    show(menu, trigger, last);
-    return true;
+    return show(menu, trigger, last);
   }
   function openSubmenu(item, last = false) {
     const child = childMenu(item);
@@ -251,6 +279,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     const next = targets();
     try { validate(next); } catch { dispose(); return; }
     changing = true;
+    observeMarkup();
     const replaced = next.trigger !== trigger || next.menu !== menu;
     if (replaced) {
       const active = activeElement();
@@ -260,7 +289,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (supported) enhance();
       if (ownedFocus) focus(trigger);
     } else if (supported) {
-      const invalid = levels.findIndex((level) => !available(level.menu) || !available(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger)));
+      const invalid = levels.findIndex((level) => !available(level.menu) || !rendered(level.menu) || !available(level.trigger) || !rendered(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger)));
       if (invalid >= 0) closeTo(invalid, true);
       // Refresh semantics on newly added rows without keeping removed nodes alive.
       for (const [node] of originals) {
@@ -271,6 +300,7 @@ export function createActionMenu({ root, contextTarget = null }) {
           originals.delete(node);
         }
       }
+      for (const node of positionStyles.keys()) if (!root.contains(node)) restorePosition(node);
       enhance();
       for (const level of levels) level.trigger.setAttribute('aria-expanded', 'true');
       if (levels.length) {
@@ -286,12 +316,21 @@ export function createActionMenu({ root, contextTarget = null }) {
     target.addEventListener(type, handler, options);
     unlisten.push(() => target.removeEventListener(type, handler, options));
   }
+  function observeMarkup() {
+    observer.disconnect();
+    const trees = new Set();
+    for (let node = root; node; node = parent(node)) trees.add(node.getRootNode());
+    for (const tree of trees) observer.observe(tree, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style'] });
+    observer.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style'] });
+  }
+  function onResize() { reconcile(); schedulePosition(); }
   function dispose() {
     if (disposed) return;
     disposed = true;
     close();
     observer?.disconnect();
     unlisten.forEach((remove) => remove());
+    unlisten.length = 0;
     restore();
     instances.delete(root);
     trigger = null;
@@ -316,10 +355,10 @@ export function createActionMenu({ root, contextTarget = null }) {
     listen(doc, 'focusin', (event) => {
       if (levels.length && !event.composedPath().includes(root)) close();
     });
-    listen(win, 'resize', schedulePosition);
+    listen(win, 'resize', onResize);
     listen(doc, 'scroll', schedulePosition, true);
     if (win.visualViewport) {
-      listen(win.visualViewport, 'resize', schedulePosition);
+      listen(win.visualViewport, 'resize', onResize);
       listen(win.visualViewport, 'scroll', schedulePosition);
     }
     if (contextTarget) listen(contextTarget, 'contextmenu', (event) => {
@@ -328,12 +367,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (open({ activation: 'context', at: { x: event.clientX, y: event.clientY } })) event.preventDefault();
     });
     observer = new win.MutationObserver(reconcile);
-    let tree = root.getRootNode();
-    while (tree) {
-      observer.observe(tree, { childList: true, subtree: true });
-      tree = tree.host?.getRootNode();
-    }
-    observer.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu'] });
+    observeMarkup();
   }
   const api = { open, close, dispose, get state() { return { open: levels.length > 0, depth: levels.length, disposed, supported }; } };
   instances.set(root, api);
