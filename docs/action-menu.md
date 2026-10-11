@@ -88,7 +88,7 @@ The application owns the stable root. Replacing live menu output closes old leve
 
 Automatic cleanup applies to supported, enhanced menus. Unsupported controllers attach no observers or listeners and keep native markup unchanged; the application must call `dispose()` before reattaching or unmounting them.
 
-Mutation observation follows the root subtree and its actual composed ancestors. Open menus also watch ancestor text and nearby element sizes for placement changes. Unrelated descendant mutations do not fan out to every menu. Closing releases size subscriptions; movement refreshes ancestor ownership, and disposal releases every subscription.
+Mutation observation follows the root subtree and its actual composed ancestors. While open, an animation frame checks each menu anchor's position; placement recalculates when an anchor moves or a relevant update occurs. This also covers inline and shadow siblings without watching their subtrees. Unrelated descendant mutations do not fan out to every menu. Closing cancels tracking, movement refreshes ancestor ownership, and disposal releases every subscription.
 
 In-place item updates refresh roles and available actions. If a focused item disappears or becomes unavailable while the menu owns focus, focus moves to an available item or the menu container. Removing popover state during a morph clears local open state before any native hide call. Cleanup never tries to focus a detached opener or leave a cloned overlay behind.
 

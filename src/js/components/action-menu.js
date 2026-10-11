@@ -17,6 +17,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   let disposed = false;
   let levels = [];
   let frame = null;
+  let trackingFrame = null;
   let search = '';
   let searchTimer;
   let point = null;
@@ -28,6 +29,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   const unlisten = [];
   const slotTrees = new Set();
   const observedAncestors = new Set();
+  const anchors = new Map();
   const supported = typeof win.HTMLElement.prototype.showPopover === 'function' && !closedTree();
 
   function targets() {
@@ -178,12 +180,19 @@ export function createActionMenu({ root, contextTarget = null }) {
     let last;
     while (levels.length > depth) {
       const level = levels.pop();
+      anchors.delete(level.menu);
       last = level.trigger;
       // Clear local state before native APIs: a morph may have stripped popover.
       if (level.menu.matches(':popover-open')) level.menu.hidePopover();
       if (!disposed && root.matches('[data-action-menu]') && root.contains(level.trigger) && (level.trigger === trigger ? level.trigger.hasAttribute('data-menu-trigger') : level.trigger.hasAttribute('data-menu-submenu'))) remember(level.trigger, 'aria-expanded', 'false');
     }
     if (refocus) focus(last);
+    if (!levels.length) {
+      if (trackingFrame !== null) win.cancelAnimationFrame(trackingFrame);
+      trackingFrame = null;
+      if (frame !== null) win.cancelAnimationFrame(frame);
+      frame = null;
+    }
     if (observer && !disposed) observeMarkup(false);
   }
   function close(refocus = false) {
@@ -201,6 +210,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     return { left: visual?.offsetLeft ?? 0, top: visual?.offsetTop ?? 0, width: visual?.width ?? win.innerWidth, height: visual?.height ?? win.innerHeight };
   }
   function position() {
+    if (frame !== null) win.cancelAnimationFrame(frame);
     frame = null;
     if (disposed) return;
     const view = viewport();
@@ -208,6 +218,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     levels.forEach((level, index) => {
       if (!level.menu.isConnected || !level.trigger?.isConnected) return;
       const bounds = index === 0 && point ? { left: point.x, right: point.x, top: point.y, bottom: point.y } : level.trigger.getBoundingClientRect();
+      anchors.set(level.menu, { left: bounds.left, right: bounds.right, top: bounds.top, bottom: bounds.bottom });
       positionStyle(level.menu, 'max-width', `${Math.max(0, view.width - gap * 2)}px`);
       positionStyle(level.menu, 'max-height', `${Math.max(0, view.height - gap * 2)}px`);
       const rect = level.menu.getBoundingClientRect();
@@ -215,6 +226,18 @@ export function createActionMenu({ root, contextTarget = null }) {
       positionStyle(level.menu, 'left', `${location.x}px`);
       positionStyle(level.menu, 'top', `${location.y}px`);
     });
+  }
+  function trackPosition() {
+    trackingFrame = null;
+    if (disposed || !levels.length) return;
+    const moved = levels.some((level, index) => {
+      if ((index === 0 && point) || !level.trigger.isConnected) return false;
+      const rect = level.trigger.getBoundingClientRect();
+      const old = anchors.get(level.menu);
+      return !old || ['left', 'right', 'top', 'bottom'].some((edge) => rect[edge] !== old[edge]);
+    });
+    if (moved) position();
+    trackingFrame = win.requestAnimationFrame(trackPosition);
   }
   function schedulePosition() {
     if (levels.length && frame === null) frame = win.requestAnimationFrame(position);
@@ -227,6 +250,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     observeMarkup(false);
     remember(opener, 'aria-expanded', 'true');
     position();
+    if (trackingFrame === null) trackingFrame = win.requestAnimationFrame(trackPosition);
     const items = itemsIn(list);
     focus(items[last ? items.length - 1 : 0] ?? list);
     return true;
@@ -363,7 +387,6 @@ export function createActionMenu({ root, contextTarget = null }) {
   function observeMarkup(reset = true) {
     // Opening and closing change options without discarding application updates.
     if (reset) observer.disconnect();
-    if (reset || !levels.length) resizeObserver?.disconnect();
     const trees = new Set();
     const ancestors = new Set();
     for (let node = root; node; node = parent(node)) {
@@ -378,15 +401,6 @@ export function createActionMenu({ root, contextTarget = null }) {
     // Watch boundary removal and actual ancestors without unrelated subtrees.
     for (const tree of trees) observer.observe(tree, { childList: true });
     for (const node of ancestors) observer.observe(node, { childList: true, ...attributes });
-    // Ancestor size changes can move the trigger without changing menu markup.
-    if (levels.length) {
-      const layoutNodes = new Set([root, ...ancestors]);
-      for (const ancestor of ancestors) for (const child of ancestor.childNodes) {
-        if (child.nodeType === 1) layoutNodes.add(child);
-        else if (child.nodeType === 3) observer.observe(child, { characterData: true });
-      }
-      for (const node of layoutNodes) resizeObserver?.observe(node);
-    }
     observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-action-menu', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
   }
   function onSlotChange() { if (levels.length) reconcile(); }
@@ -396,14 +410,13 @@ export function createActionMenu({ root, contextTarget = null }) {
   function onResize() { if (levels.length) { reconcile(); schedulePosition(); } }
   function onMutation(records) {
     const containsAncestor = (node) => node.contains(root) || [...observedAncestors].some((ancestor) => node.contains(ancestor));
-    if (!root.isConnected || records.some((record) => root.contains(record.target) || (levels.length && (record.type !== 'childList' || containsAncestor(record.target))) || (record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].some(containsAncestor)))) reconcile();
+    if (!root.isConnected || records.some((record) => root.contains(record.target) || (levels.length && record.type === 'attributes') || (record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].some(containsAncestor)))) reconcile();
   }
   function dispose() {
     if (disposed) return;
     disposed = true;
     close();
     observer?.disconnect();
-    resizeObserver?.disconnect();
     for (const tree of slotTrees) { tree.removeEventListener('slotchange', onSlotChange); tree.removeEventListener('focusin', onOutside); }
     slotTrees.clear();
     observedAncestors.clear();
@@ -419,7 +432,6 @@ export function createActionMenu({ root, contextTarget = null }) {
   ({ trigger, menu } = targets());
   validate({ trigger, menu });
   let observer;
-  let resizeObserver;
   if (supported) {
     enhance();
     listen(root, 'click', onClick);
@@ -443,7 +455,6 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (open({ activation: 'context', at: { x: event.clientX, y: event.clientY } })) event.preventDefault();
     });
     observer = new win.MutationObserver(onMutation);
-    if (win.ResizeObserver) resizeObserver = new win.ResizeObserver(schedulePosition);
     observeMarkup();
   }
   const api = { open, close, dispose, get state() { return { open: levels.length > 0, depth: levels.length, disposed, supported }; } };

@@ -39,6 +39,32 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['inline', 'padding'].map((shape) => [`placement follows ${shape} sibling changes without ancestor resizing`, async (f) => {
+    f.context.style.cssText = 'position:fixed;left:20px;top:20px;width:800px;height:300px';
+    const paragraph = f.context.querySelector('p'); let sibling;
+    if (shape === 'inline') { paragraph.replaceChildren(); sibling = document.createElement('strong'); sibling.textContent = 'Ann '; paragraph.append(sibling, f.root); f.root.style.display = 'inline-block'; }
+    else sibling = paragraph;
+    f.api.open(); for (let frame = 0; frame < 4; frame++) await settle();
+    const before = f.trigger.getBoundingClientRect(), old = f.menu.getBoundingClientRect();
+    if (shape === 'inline') sibling.firstChild.data = 'A member with a much longer name '; else sibling.style.paddingBottom = '48px';
+    await settle(); const after = f.trigger.getBoundingClientRect(), popup = f.menu.getBoundingClientRect(); const axis = shape === 'inline' ? 'left' : 'bottom'; const menuAxis = shape === 'inline' ? 'left' : 'top';
+    assert(after[axis] > before[axis] + 10, 'sibling change did not move trigger');
+    assert(Math.abs((popup[menuAxis] - after[axis]) - (old[menuAxis] - before[axis])) < 1, 'sibling placement stayed stale');
+  }]),
+  ['placement follows direct shadow-root sibling text inside a fixed-size host', async (f) => {
+    f.api.dispose(); const host = document.createElement('div'); host.style.cssText = 'position:fixed;left:20px;top:20px;width:400px;height:200px'; fixtures.append(host); const tree = host.attachShadow({ mode: 'open' }); const paragraph = document.createElement('p'); paragraph.style.cssText = 'white-space:pre;margin:0'; paragraph.textContent = 'Text'; f.menu.style.cssText = 'margin:0;inset:auto'; tree.append(paragraph, f.root); const api = createActionMenu({ root: f.root });
+    try {
+      api.open(); for (let frame = 0; frame < 4; frame++) await settle(); const before = f.trigger.getBoundingClientRect(), old = f.menu.getBoundingClientRect();
+      paragraph.firstChild.data = 'Text\nText\nText'; await settle(); const after = f.trigger.getBoundingClientRect(), popup = f.menu.getBoundingClientRect();
+      assert(after.bottom > before.bottom + 10, 'shadow sibling did not move trigger');
+      assert(Math.abs((popup.top - after.bottom) - (old.top - before.bottom)) < 1, 'shadow sibling placement stayed stale');
+    } finally { api.dispose(); host.remove(); }
+  }],
+  ['placement follows an inserted ancestor sibling and its later resize', async (f) => {
+    f.context.style.cssText = 'position:fixed;left:20px;top:20px;width:800px;height:300px'; f.api.open(); for (let frame = 0; frame < 4; frame++) await settle();
+    const gap = f.menu.getBoundingClientRect().top - f.trigger.getBoundingClientRect().bottom; const sibling = document.createElement('div'); sibling.style.height = '20px'; f.root.before(sibling); await settle();
+    for (const height of [20, 80]) { sibling.style.height = `${height}px`; await settle(); assert(Math.abs(f.menu.getBoundingClientRect().top - f.trigger.getBoundingClientRect().bottom - gap) < 1, 'new sibling placement stale'); }
+  }],
   ['closed menus follow moved open-shadow hosts and dispose after removal', async (f) => {
     f.api.dispose(); const a = document.createElement('section'), b = document.createElement('section'), host = document.createElement('div'); fixtures.append(a, b); a.append(host); host.attachShadow({ mode: 'open' }).append(f.root);
     const api = createActionMenu({ root: f.root });
@@ -63,18 +89,17 @@ const cases = [
       assert(!event.defaultPrevented && f.api.state.open, 'own menu surface started enclosing context intent');
     }
   }],
-  ['size subscriptions track open ancestors and release on close, move and dispose', async (f) => {
-    f.api.dispose(); const NativeResize = window.ResizeObserver; const watched = new Set();
-    window.ResizeObserver = class extends NativeResize { observe(node, options) { watched.add(node); super.observe(node, options); } disconnect() { watched.clear(); super.disconnect(); } };
-    const api = createActionMenu({ root: f.root }); window.ResizeObserver = NativeResize; const next = document.createElement('section'); fixtures.append(next);
+  ['anchor tracking releases its frame on close, native move and dispose', async (f) => {
+    f.api.dispose(); const nativeFrame = window.requestAnimationFrame, nativeCancel = window.cancelAnimationFrame, pending = new Set();
+    window.requestAnimationFrame = (callback) => { const id = nativeFrame((time) => { pending.delete(id); callback(time); }); pending.add(id); return id; };
+    window.cancelAnimationFrame = (id) => { pending.delete(id); nativeCancel(id); };
+    const api = createActionMenu({ root: f.root }); const next = document.createElement('section'); fixtures.append(next);
     try {
-      assert(watched.size === 0, 'closed menu retained size subscriptions');
-      api.open(); assert(watched.has(f.context) && watched.has(f.root), 'open ancestor sizing missing');
-      api.close(); assert(watched.size === 0, 'close retained sizing');
-      api.open(); next.append(f.root); await settle(); assert(!watched.has(f.context), 'movement retained old ancestor');
-      if (!api.state.open) api.open(); assert(watched.has(next), 'reopened menu did not track new ancestor');
-      api.dispose(); assert(watched.size === 0, 'dispose retained sizing');
-    } finally { window.ResizeObserver = NativeResize; api.dispose(); next.remove(); }
+      assert(pending.size === 0, 'closed menu retained tracking'); api.open(); assert(pending.size > 0, 'open menu did not track its anchor');
+      api.close(); assert(pending.size === 0, 'close retained tracking');
+      api.open(); next.append(f.root); await new Promise((resolve) => nativeFrame(() => nativeFrame(resolve))); assert(!api.state.open && pending.size === 0, 'native move retained tracking');
+      api.open(); assert(pending.size > 0, 'reopened menu did not resume tracking'); api.dispose(); assert(pending.size === 0, 'dispose retained tracking');
+    } finally { api.dispose(); window.requestAnimationFrame = nativeFrame; window.cancelAnimationFrame = nativeCancel; next.remove(); }
   }],
   ['repeated context gestures refresh intent, authorized markup and position', async (f) => {
     f.api.open(); f.sub.click(); const child = f.root.querySelector('[data-menu]:popover-open [data-menu]:popover-open');
@@ -97,6 +122,7 @@ const cases = [
   }],
   ['unrelated subtree updates do not notify menu observers', async (f) => {
     f.api.dispose(); const unrelated = document.createElement('div'); fixtures.append(unrelated);
+    const ancestorText = document.createTextNode(''); f.context.prepend(ancestorText);
     const NativeObserver = window.MutationObserver; let deliveries = 0;
     window.MutationObserver = class extends NativeObserver { constructor(callback) { super((records, observer) => { deliveries++; callback(records, observer); }); } };
     const api = createActionMenu({ root: f.root, contextTarget: f.context }); window.MutationObserver = NativeObserver;
@@ -107,6 +133,7 @@ const cases = [
         await settle(); assert(deliveries === 0, 'unrelated mutations fanned out');
       }
       f.context.inert = true; await settle(); assert(deliveries > 0 && !api.state.open, 'relevant ancestor update was missed');
+      deliveries = 0; ancestorText.data = ' '; await settle(); assert(deliveries === 0, 'closed menu retained ancestor text observation');
     } finally { window.MutationObserver = NativeObserver; api.dispose(); unrelated.remove(); }
   }],
   ['focus inside the same open shadow tree dismisses on ordinary controls', async (f) => {
