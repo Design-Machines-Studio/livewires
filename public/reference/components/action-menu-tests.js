@@ -49,6 +49,7 @@ const cases = [
       const node = f[target]; node.setAttribute(attribute, attribute.startsWith('aria-') ? 'true' : ''); await settle();
       assert(!f.api.state.open && !f.root.querySelector(':popover-open'), 'unavailable overlay remained open');
       assert(f.trigger.getAttribute('aria-expanded') === 'false' && f.sub.getAttribute('aria-expanded') === 'false', 'unavailable expansion remained');
+      assert(target === 'menu' ? document.activeElement === f.trigger : !f.root.contains(document.activeElement), 'focus returned to an unavailable control');
       assert(!f.api.open(), 'unavailable menu reopened');
       node.removeAttribute(attribute); await settle(); assert(f.api.open(), 'available menu cannot recover');
     },
