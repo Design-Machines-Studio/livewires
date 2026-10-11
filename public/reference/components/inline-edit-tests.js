@@ -59,7 +59,7 @@ run.addEventListener('click', async () => {
     a.input.focus(); a.key('Escape'); await tick();
     check(a.editor.state.phase === 'confirmed' && document.activeElement === a.trigger && a.events.filter(e => e.type === 'commit').length === 0, 'Escape returns focus without a blur save');
     a.editor.request(); a.key('Enter');
-    check(a.events.at(-1).type === 'cancel' && a.events.at(-1).reason === 'unchanged', 'unchanged Enter emits cancel and no commit');
+    check(a.events.at(-1).type === 'cancel' && a.events.at(-1).reason === 'unchanged' && a.editor.state.message === 'No changes to save.', 'unchanged Enter emits cancel and no commit');
     a.editor.request(); a.type('Entered');
     a.input.dispatchEvent(new CompositionEvent('compositionstart', { bubbles: true }));
     a.key('Enter', { isComposing: true });

@@ -13,7 +13,7 @@ Inline editing adds an optional interaction around a native text form. Import `/
       <input id="title-input" name="title" type="text" value="Working title" data-inline-edit-input>
       <p id="title-error" data-inline-edit-error role="alert"></p>
       <div class="cluster">
-        <button class="button button--accent" type="submit" data-inline-edit-save>Save title</button>
+        <button class="button" type="submit" data-inline-edit-save>Save title</button>
         <button type="button" data-inline-edit-cancel>Cancel editing</button>
       </div>
     </form>

@@ -17,6 +17,7 @@ test('request and unchanged commit count once; no save event for unchanged value
   assert.equal(editor.commit(), false);
   assert.deepEqual(events.map(e => e.type), ['request', 'cancel']);
   assert.equal(events[1].reason, 'unchanged');
+  assert.equal(editor.state.message, 'No changes to save.');
   assert.equal(events[0].editId, events[1].editId);
 });
 
