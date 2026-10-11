@@ -39,6 +39,14 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['explicit context targets ignore protected ancestors outside their boundary', async (f) => {
+    f.api.dispose(); f.context.contentEditable = 'false';
+    const api = createActionMenu({ root: f.root, contextTarget: f.after });
+    try {
+      const event = new MouseEvent('contextmenu', { bubbles: true, composed: true, cancelable: true }); f.after.dispatchEvent(event);
+      assert(event.defaultPrevented && api.state.open, 'external ancestor blocked the explicit context target');
+    } finally { api.dispose(); f.context.removeAttribute('contenteditable'); }
+  }],
   ['slot subscriptions follow new trees and release on disposal', async (f) => {
     f.api.dispose();
     const hosts = [document.createElement('div'), document.createElement('div')]; hosts.forEach((host) => fixtures.append(host));

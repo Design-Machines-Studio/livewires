@@ -384,7 +384,8 @@ export function createActionMenu({ root, contextTarget = null }) {
       listen(win.visualViewport, 'scroll', schedulePosition);
     }
     if (contextTarget) listen(contextTarget, 'contextmenu', (event) => {
-      const nested = event.composedPath().some((node) => node !== contextTarget && node.matches?.('button, a, input, select, textarea, summary, [contenteditable]'));
+      const path = event.composedPath();
+      const nested = path.slice(0, path.indexOf(contextTarget)).some((node) => node.matches?.('button, a, input, select, textarea, summary, [contenteditable]'));
       if (nested) return;
       if (open({ activation: 'context', at: { x: event.clientX, y: event.clientY } })) event.preventDefault();
     });
