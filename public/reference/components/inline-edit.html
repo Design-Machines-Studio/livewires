@@ -1,26 +1,53 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Inline editing — Live Wires</title><link rel="stylesheet" href="/dist/main.css"><link rel="stylesheet" href="/dist/inline-edit.css"><script type="module" src="/dist/main.js"></script></head><body class="scheme-default"><a href="#main">Skip to content</a><main id="main" class="section stack"><h1>Inline editing</h1><p class="lead">Edit a title, keep your draft, and wait for the application to confirm the change.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inline editing – Components Reference – Live Wires</title>
+  <link rel="stylesheet" href="/dist/main.css"><link rel="stylesheet" href="/dist/inline-edit.css">
+  <script type="module" src="/dist/main.js"></script>
+</head>
+<body class="scheme-default">
+<a href="#main">Skip to content</a>
+<main id="main" class="section stack">
+<h1>Inline editing</h1>
+<p class="lead">Edit a value in place and keep your draft until the application confirms it.</p>
 <p>Use Edit, Enter, Space or F2 to begin. Save or Enter submits the draft. Escape or Cancel ends editing. Leaving the field keeps your draft and never saves.</p>
-<p>This page simulates application results. Without JavaScript, the native form reloads this example; it does not save anything.</p>
+<p>This page simulates application results. Without JavaScript, compact editing shows a native form; the disclosure opens one. Submitting reloads this example and saves nothing.</p>
+<h2>Compact editing</h2>
+<section data-inline-edit="compact" data-context-id="title-a" class="stack">
+  <div class="cluster">
+    <span data-inline-edit-value>Community gathering</span>
+    <a href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
+    <div id="title-a-panel" data-inline-edit-panel>
+      <form data-inline-edit-form action="" method="get" class="cluster">
+        <label class="visually-hidden" for="title-a-input">First title</label>
+        <input id="title-a-input" name="title-a" type="text" value="Community gathering" data-inline-edit-input>
+        <button class="button button--small" type="submit" data-inline-edit-save>Save</button>
+        <button class="button button--small" type="button" data-inline-edit-cancel>Cancel</button>
+        <p id="title-a-error" data-inline-edit-error role="alert"></p>
+      </form>
+    </div>
+  </div>
+  <p data-inline-edit-status role="status" aria-live="polite" aria-atomic="true"></p>
+  <p data-example-sibling>Updates elsewhere do not replace this field.</p>
+</section>
+<h2>Disclosure editing</h2>
+<section data-inline-edit data-context-id="title-b" class="stack">
+<h2 data-inline-edit-value>Shared workspace</h2><p data-example-sibling>Updates elsewhere do not replace this field.</p>
+<details data-inline-edit-panel><summary data-inline-edit-trigger>Edit second title</summary>
+<form data-inline-edit-form action="" method="get" class="stack"><label for="title-b-input">Second title</label>
+<input id="title-b-input" name="title-b" type="text" value="Shared workspace" data-inline-edit-input>
+<p id="title-b-error" data-inline-edit-error role="alert"></p>
+<div class="cluster"><button class="button" type="submit" data-inline-edit-save>Save second title</button><button class="button" type="button" data-inline-edit-cancel>Cancel editing</button></div></form></details>
+<p data-inline-edit-status role="status" aria-live="polite" aria-atomic="true"></p></section>
 <section data-example-controls hidden class="stack"><h2>Try application results</h2>
 <div class="cluster"><label>Response delay <select data-example-delay><option value="1000">1 second</option><option value="0">Immediate</option><option value="hold">Hold until released</option></select></label>
 <label>Response <select data-example-outcome><option value="confirmed">Confirm value</option><option value="rejected">Reject value</option><option value="unknown">Uncertain result</option></select></label></div>
 <div class="cluster"><button type="button" data-example-release>Deliver held response</button><button type="button" data-example-confirm>Confirm latest request</button><button type="button" data-example-reject>Reject latest request</button><button type="button" data-example-stale>Replay first response</button></div>
 <div class="cluster"><button type="button" data-example-update>Update elsewhere</button><button type="button" data-example-remove>Remove first editor</button><button type="button" data-example-reset>Reload example</button></div>
 <p data-example-log role="status" aria-live="polite" aria-atomic="true">Ready to edit.</p></section>
-<div class="grid"><section data-inline-edit data-context-id="title-a" class="stack">
-<h2 data-inline-edit-value>Community gathering</h2><p data-example-sibling>Updates elsewhere do not replace this field.</p>
-<details data-inline-edit-panel><summary data-inline-edit-trigger>Edit first title</summary>
-<form data-inline-edit-form action="" method="get" class="stack"><label for="title-a-input">First title</label>
-<input id="title-a-input" name="title-a" type="text" value="Community gathering" data-inline-edit-input>
-<p id="title-a-error" data-inline-edit-error role="alert"></p>
-<div class="cluster"><button class="button" type="submit" data-inline-edit-save>Save first title</button><button type="button" data-inline-edit-cancel>Cancel editing</button></div></form></details>
-<p data-inline-edit-status role="status" aria-live="polite" aria-atomic="true"></p></section><section data-inline-edit data-context-id="title-b" class="stack">
-<h2 data-inline-edit-value>Shared workspace</h2><p data-example-sibling>Updates elsewhere do not replace this field.</p>
-<details data-inline-edit-panel><summary data-inline-edit-trigger>Edit second title</summary>
-<form data-inline-edit-form action="" method="get" class="stack"><label for="title-b-input">Second title</label>
-<input id="title-b-input" name="title-b" type="text" value="Shared workspace" data-inline-edit-input>
-<p id="title-b-error" data-inline-edit-error role="alert"></p>
-<div class="cluster"><button class="button" type="submit" data-inline-edit-save>Save second title</button><button type="button" data-inline-edit-cancel>Cancel editing</button></div></form></details>
-<p data-inline-edit-status role="status" aria-live="polite" aria-atomic="true"></p></section></div>
-<p>Pending and uncertain drafts stay visible and read-only. A rejection restores editing. Confirm an uncertain request explicitly, or reject it and then save a corrected draft. Cancellation does not roll back an application save.</p>
-<p><a href="/reference/components/inline-edit-tests.html">Run DOM lifecycle checks</a></p></main><script type="module">import { attachInlineEditExample } from '/manual/_components/inline-edit-fixture.js'; window.inlineEditExample = attachInlineEditExample();</script></body></html>
+<p>Pending and uncertain drafts stay visible and read-only. Rejection restores editing. Cancel stops local editing; it cannot undo an application save.</p>
+<p><a href="/manual/components/inline-edit.html">Component documentation</a> · <a href="/reference/components/inline-edit-tests.html">Run lifecycle checks</a></p>
+</main>
+<script type="module">import { attachInlineEditExample } from '/manual/_components/inline-edit-fixture.js'; window.inlineEditExample = attachInlineEditExample();</script>
+</body></html>

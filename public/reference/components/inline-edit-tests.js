@@ -5,7 +5,7 @@ const run = document.querySelector('#run');
 const results = document.querySelector('#results');
 const fixtures = document.querySelector('#fixtures');
 let serial = 0;
-function make(parent = fixtures) {
+function make(parent = fixtures, compact = false) {
   const id = `check-${++serial}`;
   const root = document.createElement('section');
   root.dataset.inlineEdit = '';
@@ -17,10 +17,20 @@ function make(parent = fixtures) {
     <p id="${id}-hint">Hint</p><p id="${id}-error" data-inline-edit-error role="alert"></p>
     <button data-inline-edit-save type="submit">Save</button><button data-inline-edit-cancel type="button">Cancel</button>
     </form></details><p data-inline-edit-status role="status" aria-live="polite" aria-atomic="true"></p>`;
+  if (compact) {
+    root.dataset.inlineEdit = 'compact';
+    const panel = root.querySelector('details');
+    const form = root.querySelector('form');
+    const replacement = document.createElement('div');
+    replacement.id = `${id}-panel`; replacement.dataset.inlineEditPanel = '';
+    const link = document.createElement('a');
+    link.href = `#${replacement.id}`; link.dataset.inlineEditTrigger = ''; link.textContent = 'Edit title';
+    replacement.append(form); panel.replaceWith(link, replacement);
+  }
   parent.append(root);
   const editor = createInlineEditor({ root });
   const input = root.querySelector('input');
-  const trigger = root.querySelector('summary');
+  const trigger = root.querySelector('[data-inline-edit-trigger]');
   const events = [];
   for (const type of ['request', 'commit', 'cancel']) root.addEventListener(`lw-inline-edit-${type}`, e => events.push({ type, ...e.detail }));
   return { root, editor, input, trigger, events,
@@ -35,7 +45,7 @@ run.addEventListener('click', async () => {
   fixtures.replaceChildren();
   const owners = [];
   let passed = 0;
-  const add = (parent) => { const f = make(parent); owners.push(f.editor); return f; };
+  const add = (parent, compact) => { const f = make(parent, compact); owners.push(f.editor); return f; };
   function check(condition, label) {
     if (!condition) throw new Error(label);
     const li = document.createElement('li'); li.textContent = `PASS — ${label}`; results.append(li); passed++;
@@ -104,6 +114,27 @@ run.addEventListener('click', async () => {
     const shadow = shadowHost.attachShadow({ mode: 'open' }); const nested = add(shadow);
     nested.editor.request(); shadowHost.remove(); await tick();
     check(nested.editor.state.phase === 'disposed', 'removing a containing shadow host cleans lifecycle listeners');
+    const compact = add(fixtures, true); const compactB = add(fixtures, true);
+    compact.trigger.focus(); compact.trigger.click();
+    check(compact.editor.state.phase === 'editing' && compact.trigger.hidden && compact.root.querySelector('[data-inline-edit-value]').hidden && !compact.root.querySelector('[data-inline-edit-panel]').hidden && document.activeElement === compact.input, 'compact pointer entry replaces value and link with the focused field');
+    compact.type('Compact draft'); compact.input.setSelectionRange(2, 8, 'backward');
+    compact.editor.updateConfirmed('External'); await tick();
+    check(compact.input.value === 'Compact draft' && compact.input.selectionStart === 2 && compact.input.selectionEnd === 8 && compact.input.selectionDirection === 'backward', 'compact external update retains draft and selection');
+    compactB.trigger.focus(); compactB.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'F2', bubbles: true, cancelable: true }));
+    check(compactB.editor.state.phase === 'editing' && compact.editor.state.phase === 'editing', 'compact keyboard entry and blur keep independent drafts');
+    compact.input.focus(); compact.key('Enter'); compact.editor.applyResult(compact.result('rejected', { message: 'Try again.' }));
+    check(compact.input.value === 'Compact draft' && compact.input.getAttribute('aria-invalid') === 'true', 'compact rejection retains the draft and accessible error');
+    compact.type('Recovered'); compact.key('Enter'); const compactLate = compact.result('confirmed', { value: 'Recovered' });
+    compact.editor.applyResult(compactLate);
+    check(compact.editor.state.phase === 'confirmed' && !compact.trigger.hidden && compact.root.querySelector('[data-inline-edit-panel]').hidden && document.activeElement === compact.trigger, 'compact confirmation restores value and link before returning focus');
+    compact.trigger.click(); compact.key('Enter');
+    check(compact.events.at(-1).reason === 'unchanged' && document.activeElement === compact.trigger, 'compact unchanged save restores link focus without a request');
+    compact.trigger.click(); compact.type('Cancelled'); compact.key('Escape');
+    check(compact.editor.state.phase === 'confirmed' && document.activeElement === compact.trigger && !compact.editor.applyResult(compactLate), 'compact Escape restores link focus and ignores a late response');
+    compactB.type('Pending'); compactB.editor.commit(); const compactRemoved = compactB.result('confirmed', { value: 'Late' }); compactB.root.remove();
+    check(!compactB.editor.applyResult(compactRemoved) && compactB.editor.state.phase === 'disposed', 'compact removal while pending rejects responses');
+    compact.editor.dispose();
+    check(!compact.root.querySelector('[data-inline-edit-panel]').hidden && !compact.trigger.hasAttribute('aria-expanded'), 'compact disposal restores visible native form and trigger attributes');
     window.inlineEditCheckResult = { passed, failed: 0, composition: 'simulated' };
   } catch (error) {
     const li = document.createElement('li'); li.textContent = `FAIL — ${error.message}`; results.append(li);

@@ -11,7 +11,18 @@
     & [data-inline-edit-cancel] {
       --button-bg: transparent;
       --button-fg: var(--color-fg);
-      border: var(--line-1px) solid currentColor;
+      border: none;
+    }
+    &[data-inline-edit="compact"] {
+      & [hidden] { display: none; }
+      & [data-inline-edit-input] {
+        inline-size: min(24ch, 100%);
+        min-block-size: var(--line-15);
+        padding: var(--line-025);
+        font-size: var(--text-sm);
+      }
+      & [data-inline-edit-trigger] { min-block-size: var(--line-15); align-content: center; }
+      & [data-inline-edit-error] { flex-basis: 100%; }
     }
     & [data-inline-edit-status] { font-style: italic; }
   }

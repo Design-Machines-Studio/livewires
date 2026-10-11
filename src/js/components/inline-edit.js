@@ -11,11 +11,15 @@ const selectors = {
 export function createInlineEditor({ root, contextId = root?.getAttribute('data-context-id') } = {}) {
   if (!root?.isConnected || owners.has(root)) throw new Error('Use a connected, unowned inline editor root.');
   const nodes = Object.fromEntries(Object.entries(selectors).map(([key, selector]) => [key, root.querySelector(selector)]));
-  if (Object.values(nodes).some(node => !node) || nodes.panel.tagName !== 'DETAILS' || nodes.trigger.tagName !== 'SUMMARY' ||
+  const compact = root.getAttribute('data-inline-edit') === 'compact';
+  const validPanel = compact
+    ? nodes.panel?.tagName === 'DIV' && nodes.trigger?.tagName === 'A' && nodes.panel.id && nodes.trigger.getAttribute('href') === `#${nodes.panel.id}`
+    : nodes.panel?.tagName === 'DETAILS' && nodes.trigger?.tagName === 'SUMMARY' && nodes.panel.querySelector('summary') === nodes.trigger;
+  if (Object.values(nodes).some(node => !node) || !validPanel ||
       nodes.form.tagName !== 'FORM' || nodes.input.tagName !== 'INPUT' || nodes.input.type !== 'text' ||
       !nodes.error.id || !nodes.input.labels?.length || !nodes.panel.contains(nodes.form) ||
-      !nodes.form.contains(nodes.input) || nodes.panel.querySelector('summary') !== nodes.trigger) {
-    throw new Error('Inline editing requires labeled native details/summary, a text form and an identified error node.');
+      !nodes.form.contains(nodes.input)) {
+    throw new Error('Inline editing requires a labeled text form, an identified error and a details/summary or compact link/panel pair.');
   }
   const Observer = root.ownerDocument.defaultView.MutationObserver;
   const Event = root.ownerDocument.defaultView.CustomEvent;
@@ -31,17 +35,23 @@ export function createInlineEditor({ root, contextId = root?.getAttribute('data-
   let compositionTail = false;
   let tailTimer = null;
   const win = root.ownerDocument.defaultView;
-  function returnFocus() {
+  function ownsFocus() {
     // Do not steal focus from another editor/control while a delayed result arrives.
     const active = nodes.input.getRootNode().activeElement;
-    if (active && (nodes.form.contains(active) || active === nodes.trigger)) nodes.trigger.focus();
+    return active && (nodes.form.contains(active) || active === nodes.trigger);
   }
   function render(state) {
     if (disposed || state.phase === 'disposed') return;
     const opened = state.phase !== 'confirmed';
     own(root, 'data-inline-edit-state', state.phase);
     own(root, 'data-inline-edit-enhanced', '');
-    own(nodes.panel, 'open', opened ? '' : null);
+    if (compact) {
+      own(nodes.value, 'hidden', opened ? '' : null);
+      own(nodes.trigger, 'hidden', opened ? '' : null);
+      own(nodes.panel, 'hidden', opened ? null : '');
+      own(nodes.trigger, 'aria-controls', nodes.panel.id);
+      own(nodes.trigger, 'aria-expanded', opened ? 'true' : 'false');
+    } else own(nodes.panel, 'open', opened ? '' : null);
     own(nodes.input, 'readonly', ['pending', 'unknown'].includes(state.phase) ? '' : null);
     own(nodes.save, 'disabled', ['pending', 'unknown'].includes(state.phase) ? '' : null);
     own(nodes.input, 'aria-invalid', state.phase === 'rejected' ? 'true' : null);
@@ -84,13 +94,17 @@ export function createInlineEditor({ root, contextId = root?.getAttribute('data-
   function commit() {
     if (!live() || composing || compositionTail) return false;
     local.setDraft(nodes.input.value);
-    if (local.state.draft === local.state.original) returnFocus();
-    return local.commit();
+    const restore = local.state.draft === local.state.original && ownsFocus();
+    const acted = local.commit();
+    if (acted && restore) nodes.trigger.focus();
+    return acted;
   }
   function cancel(reason = 'cancel') {
     if (!live()) return false;
-    returnFocus();
-    return local.cancel(reason);
+    const restore = ownsFocus();
+    const acted = local.cancel(reason);
+    if (acted && restore) nodes.trigger.focus();
+    return acted;
   }
   function keydown(event) {
     if (event.defaultPrevented || composing || event.isComposing || event.keyCode === 229 || compositionTail) return;
@@ -154,8 +168,10 @@ export function createInlineEditor({ root, contextId = root?.getAttribute('data-
       // Confirm while focus is still in the form, before details closes.
       const matches = ['pending', 'unknown'].includes(local.state.phase) && result?.contextId === local.state.contextId &&
         result.editId === local.state.editId && result.requestId === local.state.requestId;
-      if (matches && result.outcome === 'confirmed' && typeof result.value === 'string') returnFocus();
-      return local.applyResult(result);
+      const restore = matches && result.outcome === 'confirmed' && typeof result.value === 'string' && ownsFocus();
+      const acted = local.applyResult(result);
+      if (acted && restore) nodes.trigger.focus();
+      return acted;
     },
     refresh() { if (!live()) return false; render(local.state); return true; },
   };
