@@ -32,7 +32,7 @@
   .button--ghost:disabled,
   .button--ghost.button--disabled {
     background-color: transparent;
-    color: var(--button-fg);
+    color: var(--color-muted);
   }
 
   .button--ghost.button--accent {
