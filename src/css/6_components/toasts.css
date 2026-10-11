@@ -42,6 +42,7 @@
     }
 
     & .close {
+      --touch-target-min: 24px; /* WCAG 2.2 AA target-size minimum. */
       flex-shrink: 0;
       padding: 0;
       background: none;

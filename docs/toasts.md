@@ -2,7 +2,7 @@
 
 Toast visuals work with native HTML. The optional region behavior adds local dismissal, timing and a bounded stack. Import `/dist/toast-region.js` only where needed. It does not load Rocket, Datastar or an application adapter, and is absent from `main.js`.
 
-The visual pattern uses `--line-05` padding on every side and centers the content beside the dismiss button. Semantic variants use colored backgrounds without a left accent border.
+The visual pattern uses `--line-05` padding on every side and centers the content beside the dismiss button. Semantic variants use colored backgrounds without a left accent border. Dismiss buttons have a 24 by 24 CSS pixel minimum target, matching [WCAG 2.2 AA target size](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
 
 ```html
 <section data-toast-region aria-label="Editor feedback">
