@@ -217,13 +217,15 @@ const cases = [
   }],
   ['closed menus avoid DOM work on unrelated styles and resizes', async (f) => {
     const external = document.createElement('div'); fixtures.append(external); await settle();
-    let reads = 0; const query = f.root.querySelector;
-    f.root.querySelector = function (...args) { reads++; return query.apply(this, args); };
+    let reads = 0; const query = f.root.querySelectorAll;
+    f.root.querySelectorAll = function (...args) { reads++; return query.apply(this, args); };
     try {
+      f.api.open(); await settle(); f.api.close(); await settle();
+      assert(reads > 0, 'DOM-work spy did not observe active reconciliation'); reads = 0;
       external.className = 'changed'; external.style.color = 'red'; window.dispatchEvent(new Event('resize')); await settle();
       external.append(document.createElement('span')); await settle();
       assert(reads === 0 && !f.api.state.open, 'closed menu inspected unrelated changes');
-    } finally { delete f.root.querySelector; external.remove(); }
+    } finally { delete f.root.querySelectorAll; external.remove(); }
   }],
   ['removing a closed root releases its controller', async (f) => {
     f.context.remove(); await settle();
