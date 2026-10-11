@@ -39,6 +39,28 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...[false, true].map((marked) => [`nested ${marked ? 'marked' : 'unmarked'} controls cannot bypass menu rows`, async (f) => {
+    f.api.dispose(); const list = document.createElement('ul'); list.innerHTML = `<li><a ${marked ? 'data-menu-action="extra"' : ''} href="#">Extra</a></li>`; f.alpha.parentElement.append(list);
+    let rejected = false; try { createActionMenu({ root: f.root }); } catch (error) { rejected = error instanceof TypeError; }
+    assert(rejected && !f.root.hasAttribute('data-menu-ready'), 'nested action escaped row validation');
+  }]),
+  ['rows that become ordinary root content release menu semantics', async (f) => {
+    f.api.open(); await settle(); const outside = document.createElement('div'); f.root.append(outside); const row = f.zulu.parentElement; f.zulu.removeAttribute('data-menu-action'); outside.append(row); await settle();
+    assert(!f.api.state.disposed && !row.hasAttribute('role') && !f.zulu.hasAttribute('role') && !f.zulu.hasAttribute('tabindex'), 'departed row kept menu semantics');
+    f.api.dispose(); assert(!f.zulu.hasAttribute('role'), 'dispose re-owned departed action');
+  }],
+  ['ordinary controls inside the stable root keep native focus and dismiss the menu', async (f) => {
+    const input = document.createElement('input'); input.setAttribute('aria-label', 'Other root field'); f.root.append(input); await settle(); f.api.open(); input.focus();
+    assert(document.activeElement === input && !f.api.state.open && !input.hasAttribute('role'), 'ordinary control focus intercepted or menu retained');
+  }],
+  ['immediate root cleanup preserves new application expanded state', async (f) => {
+    f.api.open(); f.trigger.setAttribute('aria-haspopup', 'dialog'); f.trigger.setAttribute('aria-expanded', 'false'); f.api.dispose();
+    assert(f.trigger.getAttribute('aria-haspopup') === 'dialog' && f.trigger.getAttribute('aria-expanded') === 'false', 'root cleanup overwrote new application ARIA');
+  }],
+  ['initial runtime ready hooks are cleared when ownership ends', async (f) => {
+    f.api.dispose(); f.root.dataset.menuReady = 'true'; const api = createActionMenu({ root: f.root }); api.dispose();
+    assert(!f.root.hasAttribute('data-menu-ready'), 'initial runtime hook survived disposal');
+  }],
   ['removed actions preserve new application ARIA during detached cleanup', async (f) => {
     f.api.open(); await settle(); f.sub.setAttribute('aria-haspopup', 'dialog'); f.sub.removeAttribute('data-menu-submenu'); f.sub.dataset.menuAction = 'dialog';
     const row = f.sub.parentElement; row.remove(); await settle();
@@ -50,7 +72,7 @@ const cases = [
     const external = document.createElement('ul'); external.className = 'menu'; external.dataset.menu = ''; external.style.cssText = 'display:block;opacity:1;visibility:visible;position:static;transform:none'; fixtures.append(external); const externalRow = document.createElement('li'); external.append(externalRow); externalRow.append(f.sub, child);
     const replacement = document.createElement('button'); replacement.type = 'button'; replacement.dataset.menuAction = 'new'; replacement.textContent = 'New action'; row.append(replacement);
     child.style.opacity = '1'; child.style.visibility = 'visible'; child.showPopover(); await settle();
-    assert(f.api.state.depth <= 1 && !child.matches(':popover-open'), 'outside child retained old adapter level');
+    assert(f.api.state.depth === 1 && !child.matches(':popover-open') && document.activeElement === f.alpha, 'outside cleanup moved retained focus or kept a child');
     assert(!f.sub.hasAttribute('aria-expanded') && !child.hasAttribute('popover'), 'outside child kept adapter semantics'); external.remove();
   }],
   ...[false, true].map((open) => [`unmarked lists cannot introduce child-menu owners ${open ? 'while open' : 'at setup'}`, async (f) => {

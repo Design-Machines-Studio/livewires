@@ -68,6 +68,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (!next.trigger?.matches('button') || !next.menu?.matches('ul.menu') || !next.menu.id) throw new TypeError('Use exactly one direct native button trigger and one identified ul.menu[data-menu].');
     if (root.closest('details, dialog') || root.matches('nav, form') || next.menu.querySelector(`${editable}, form, nav, details, dialog`)) throw new TypeError('Action menus cannot contain form fields, navigation, details or dialogs.');
     const lists = menusIn(next.menu);
+    const managed = new Set([root, next.trigger]);
     if (root.querySelectorAll('[data-menu]').length !== lists.length) throw new TypeError('All menus must belong to the direct menu tree.');
     const seen = new Set();
     for (const list of lists) {
@@ -77,18 +78,23 @@ export function createActionMenu({ root, contextTarget = null }) {
         if (childMenu(opener) !== list) throw new TypeError('Each submenu must belong to its sibling opener.');
       }
       seen.add(list.id);
+      managed.add(list);
       for (const row of list.children) {
         if (!row.matches('li')) throw new TypeError('Menu children must be list items.');
+        managed.add(row);
         const actions = [...row.children].filter((node) => node.matches('button, a'));
         if (!actions.length && row.children.length === 1 && row.firstElementChild.matches('hr')) continue;
         if (actions.length !== 1) throw new TypeError('Each action row needs one native button or link.');
         const item = actions[0];
+        managed.add(item);
         if (item.querySelector('button, a, input, select, textarea, [contenteditable]')) throw new TypeError('Do not nest controls inside an action.');
         if (item.hasAttribute('data-menu-submenu')) {
           if (!item.matches('button') || !childMenu(item)) throw new TypeError('Submenu buttons must control their sibling menu.');
         } else if (!item.getAttribute('data-menu-action') || row.querySelector('[data-menu]')) throw new TypeError('Actions need a data-menu-action value.');
       }
     }
+    if ([...next.menu.querySelectorAll('button, a'), ...root.querySelectorAll('[data-menu-action], [data-menu-submenu]')].some((node) => !managed.has(node))) throw new TypeError('Menu controls must be direct actions in the validated menu tree.');
+    return managed;
   }
 
   function remember(node, name, value) {
@@ -103,7 +109,8 @@ export function createActionMenu({ root, contextTarget = null }) {
     const values = originals.get(node);
     if (!values?.has(name)) return;
     const saved = values.get(name);
-    if (name === 'data-menu-ready' || node.getAttribute(name) === saved.applied) {
+    if (name === 'data-menu-ready') node.removeAttribute(name);
+    else if (node.getAttribute(name) === saved.applied) {
       if (saved.original === null) node.removeAttribute(name); else node.setAttribute(name, saved.original);
     }
     values.delete(name);
@@ -164,7 +171,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     }
   }
 
-  function focus(node) { if (available(node) && rendered(node)) node.focus({ preventScroll: node === trigger }); }
+  function focus(node) { if (root.contains(node) && available(node) && rendered(node)) node.focus({ preventScroll: node === trigger }); }
   function clearSearch() { search = ''; win.clearTimeout(searchTimer); }
   function closeTo(depth, refocus = false) {
     let last;
@@ -173,7 +180,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       last = level.trigger;
       // Clear local state before native APIs: a morph may have stripped popover.
       if (level.menu.matches(':popover-open')) level.menu.hidePopover();
-      if (level.trigger === trigger || level.trigger?.hasAttribute('data-menu-submenu')) remember(level.trigger, 'aria-expanded', 'false');
+      if (!disposed && root.matches('[data-action-menu]') && root.contains(level.trigger) && (level.trigger === trigger ? level.trigger.hasAttribute('data-menu-trigger') : level.trigger.hasAttribute('data-menu-submenu'))) remember(level.trigger, 'aria-expanded', 'false');
     }
     if (refocus) focus(last);
     if (observer && !disposed) observeMarkup(false);
@@ -311,7 +318,8 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (disposed || changing) return;
     if (!root.isConnected) { dispose(); return; }
     const next = targets();
-    try { validate(next); } catch { dispose(); return; }
+    let managed;
+    try { managed = validate(next); } catch { dispose(); return; }
     changing = true;
     observeMarkup();
     const replaced = next.trigger !== trigger || next.menu !== menu;
@@ -323,16 +331,16 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (supported) enhance();
       if (ownedFocus) focus(trigger);
     } else if (supported) {
-      const invalid = levels.findIndex((level) => !root.contains(level.menu) || !root.contains(level.trigger) || !available(level.menu) || !rendered(level.menu) || !available(level.trigger) || !rendered(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && (childMenu(level.trigger) !== level.menu || !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger))));
-      if (invalid >= 0) closeTo(invalid, true);
+      const invalid = levels.findIndex((level) => !managed.has(level.menu) || !managed.has(level.trigger) || !available(level.menu) || !rendered(level.menu) || !available(level.trigger) || !rendered(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && (childMenu(level.trigger) !== level.menu || !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger))));
+      if (invalid >= 0) closeTo(invalid, managed.has(levels[invalid].trigger));
       // Refresh semantics on newly added rows without keeping removed nodes alive.
       for (const [node] of originals) {
-        if (!root.contains(node)) {
+        if (!managed.has(node)) {
           for (const name of originals.get(node).keys()) restoreAttribute(node, name);
           originals.delete(node);
         }
       }
-      for (const node of positionStyles.keys()) if (!root.contains(node)) restorePosition(node);
+      for (const node of positionStyles.keys()) if (!managed.has(node)) restorePosition(node);
       enhance();
       for (const level of levels) remember(level.trigger, 'aria-expanded', 'true');
       if (levels.length) {
@@ -392,10 +400,10 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (depth >= 0 && !event.target.matches(':popover-open')) closeTo(depth);
     }, true);
     listen(doc, 'pointerdown', (event) => {
-      if (levels.length && !event.composedPath().includes(root)) close();
+      if (levels.length && !event.composedPath().some((node) => node === trigger || levels.some((level) => level.menu === node))) close();
     }, true);
     listen(doc, 'focusin', (event) => {
-      if (levels.length && !event.composedPath().includes(root)) close();
+      if (levels.length && !event.composedPath().some((node) => node === trigger || levels.some((level) => level.menu === node))) close();
     });
     listen(win, 'resize', onResize);
     listen(doc, 'scroll', schedulePosition, true);

@@ -41,6 +41,8 @@ The stable root owns one direct trigger and one direct `ul.menu[data-menu]`. Men
 
 Every descendant `data-menu` must belong to that direct menu's tree, and each child menu needs its controlling sibling button in a direct row of a validated menu; unrelated or uncontrolled menus are invalid. Attribute release and full cleanup restore authored values while preserving new values that differ from the adapter's last write. Applications own authored ARIA values and must keep them appropriate for their action. The `data-menu-ready` runtime hook remains adapter-owned and is cleared on disposal.
 
+Buttons and links within menus must belong to validated action rows; nested controls and menu markers outside that tree are rejected. Controls that leave the tree release their adapter semantics. Ordinary controls elsewhere in the stable root keep native behavior and dismiss the menu when focused.
+
 The adapter adds `role=menu`, item roles, local focus stops, manual popover state, and expanded state on actual opener buttons. It restores the original attributes on disposal. These are live server-rendered lists, not cloned portals or HTML-template hosts. A server may replace the list with new template output. Keep template output free of runtime attributes copied from an already-enhanced DOM.
 
 Do not attach this adapter to form filters, navigation panels, details or dialogs. Fields, editable content and nested controls within action buttons are rejected before setup. Keep native details disclosure, native dialog focus and navigation link tab order where they already solve the need. An ordinary native link can be an action-menu item; a navigation panel containing arbitrary links is a different component.
