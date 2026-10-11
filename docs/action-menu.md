@@ -58,6 +58,8 @@ Both events bubble, are composed, and are cancelable. They report intent, never 
 
 The context ID comes from the stable root's `data-context-id`, or the optional context target's ID data for context activation. It is captured at opening. Action detail comes from the activated item's `data-menu-action`. Treat all values as client input. Recheck authorization at the application's action boundary.
 
+Each context activation refreshes intent, authorized markup and pointer placement, including when the menu is already open. Cancelling that refresh closes the previous stack and preserves the native context gesture. Context gestures on the menu's own padding or separators keep native behavior.
+
 ```js
 root.addEventListener('lw:menu-action', (event) => {
   event.preventDefault();
@@ -85,6 +87,8 @@ Native popovers use the top layer, so a clipped parent does not crop the menu. P
 The application owns the stable root. Replacing live menu output closes old levels, restores their attributes and resolves the new connected nodes. Replacing a trigger closes and rebinds; removing the `data-action-menu` marker or a required trigger, duplicating a direct trigger/menu, or introducing incompatible markup disposes the adapter. Removing the root, including its containing shadow host, releases listeners, observer, animation frame and typeahead timer. Call `dispose()` before unmount when possible. Reattachment needs a new controller.
 
 Automatic cleanup applies to supported, enhanced menus. Unsupported controllers attach no observers or listeners and keep native markup unchanged; the application must call `dispose()` before reattaching or unmounting them.
+
+Mutation observation follows the root subtree and its actual composed ancestors. Open menus also watch ancestor text and nearby element sizes for placement changes. Unrelated descendant mutations do not fan out to every menu. Closing releases size subscriptions; movement refreshes ancestor ownership, and disposal releases every subscription.
 
 In-place item updates refresh roles and available actions. If a focused item disappears or becomes unavailable while the menu owns focus, focus moves to an available item or the menu container. Removing popover state during a morph clears local open state before any native hide call. Cleanup never tries to focus a detached opener or leave a cloned overlay behind.
 

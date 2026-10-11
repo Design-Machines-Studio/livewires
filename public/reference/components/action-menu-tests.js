@@ -39,6 +39,30 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['closed menus follow moved open-shadow hosts and dispose after removal', async (f) => {
+    f.api.dispose(); const a = document.createElement('section'), b = document.createElement('section'), host = document.createElement('div'); fixtures.append(a, b); a.append(host); host.attachShadow({ mode: 'open' }).append(f.root);
+    const api = createActionMenu({ root: f.root });
+    try {
+      b.append(host); await settle(); host.remove(); await settle();
+      assert(api.state.disposed && !f.root.hasAttribute('data-menu-ready'), 'moved host removal retained controller');
+      b.append(host); const again = createActionMenu({ root: f.root }); again.dispose();
+    } finally { api.dispose(); a.remove(); b.remove(); }
+  }],
+  ...['slot', 'wrapper'].map((removed) => [`removing the assigned ${removed} dismisses a slotted open menu`, async (f) => {
+    f.api.dispose(); const host = document.createElement('div'); fixtures.append(host); const tree = host.attachShadow({ mode: 'open' }); tree.innerHTML = '<div><slot></slot></div>'; host.append(f.root); const api = createActionMenu({ root: f.root });
+    try {
+      api.open(); await settle(); assert(api.state.open, 'slotted menu did not open');
+      tree.querySelector(removed === 'slot' ? 'slot' : 'div').remove(); await settle();
+      assert(!api.state.open && !f.menu.matches(':popover-open') && f.trigger.getAttribute('aria-expanded') === 'false', 'removed composed ancestor retained overlay');
+    } finally { api.dispose(); host.remove(); }
+  }]),
+  ['menu padding and separators retain native context behavior', async (f) => {
+    const row = document.createElement('li'); row.innerHTML = '<hr>'; f.menu.append(row); await settle(); f.api.open();
+    for (const node of [row.firstElementChild, f.menu]) {
+      const event = new MouseEvent('contextmenu', { bubbles: true, composed: true, cancelable: true }); node.dispatchEvent(event);
+      assert(!event.defaultPrevented && f.api.state.open, 'own menu surface started enclosing context intent');
+    }
+  }],
   ['size subscriptions track open ancestors and release on close, move and dispose', async (f) => {
     f.api.dispose(); const NativeResize = window.ResizeObserver; const watched = new Set();
     window.ResizeObserver = class extends NativeResize { observe(node, options) { watched.add(node); super.observe(node, options); } disconnect() { watched.clear(); super.disconnect(); } };
@@ -47,7 +71,8 @@ const cases = [
       assert(watched.size === 0, 'closed menu retained size subscriptions');
       api.open(); assert(watched.has(f.context) && watched.has(f.root), 'open ancestor sizing missing');
       api.close(); assert(watched.size === 0, 'close retained sizing');
-      api.open(); next.append(f.root); await settle(); assert(watched.has(next) && !watched.has(f.context), 'movement retained old ancestor');
+      api.open(); next.append(f.root); await settle(); assert(!watched.has(f.context), 'movement retained old ancestor');
+      if (!api.state.open) api.open(); assert(watched.has(next), 'reopened menu did not track new ancestor');
       api.dispose(); assert(watched.size === 0, 'dispose retained sizing');
     } finally { window.ResizeObserver = NativeResize; api.dispose(); next.remove(); }
   }],
@@ -233,10 +258,10 @@ const cases = [
     f.root.dataset.actionMenu = ''; const next = createActionMenu({ root: f.root });
     try { assert(next.open(), 'marker restoration cannot attach a new controller'); } finally { next.dispose(); }
   }]),
-  ['text-only server morphs keep an open popup aligned with its trigger', async (f) => {
-    f.context.style.cssText = 'position: fixed; left: 20px; top: 20px';
+  ...[false, true].map((fixed) => [`text-only server morphs keep an open popup aligned inside ${fixed ? 'fixed' : 'growing'} ancestors`, async (f) => {
+    f.context.style.cssText = `position: fixed; left: 20px; top: 20px; ${fixed ? 'width:400px;height:200px' : ''}`;
     const paragraph = f.context.querySelector('p'); paragraph.style.cssText = 'white-space: pre; margin: 0';
-    f.api.open(); await settle();
+    f.api.open(); for (let frame = 0; frame < 4; frame++) await settle();
     const beforeTrigger = f.trigger.getBoundingClientRect(), beforeMenu = f.menu.getBoundingClientRect();
     paragraph.firstChild.data = 'Context\nContext\nContext ';
     await settle();
@@ -244,7 +269,7 @@ const cases = [
     assert(afterTrigger.bottom > beforeTrigger.bottom + 10, 'text morph did not move the fixture trigger');
     assert(Math.abs((afterMenu.top - afterTrigger.bottom) - (beforeMenu.top - beforeTrigger.bottom)) < 1, 'popup stayed at stale text layout');
     assert(f.api.state.open && document.activeElement === f.alpha, 'text update changed open state or focus');
-  }],
+  }]),
   ['action-driven trigger replacement returns focus to the resolved button', async (f) => {
     f.root.addEventListener('lw:menu-action', () => {
       f.root.innerHTML = `<button class="button trigger" data-menu-trigger type="button">Updated actions</button>${f.markup}`;

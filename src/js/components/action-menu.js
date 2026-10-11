@@ -27,6 +27,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   const positionStyles = new Map();
   const unlisten = [];
   const slotTrees = new Set();
+  const observedAncestors = new Set();
   const supported = typeof win.HTMLElement.prototype.showPopover === 'function' && !closedTree();
 
   function targets() {
@@ -369,6 +370,8 @@ export function createActionMenu({ root, contextTarget = null }) {
       trees.add(node.getRootNode());
       if (node !== root) ancestors.add(node);
     }
+    observedAncestors.clear();
+    for (const node of ancestors) observedAncestors.add(node);
     for (const tree of slotTrees) if (!trees.has(tree)) { tree.removeEventListener('slotchange', onSlotChange); tree.removeEventListener('focusin', onOutside); slotTrees.delete(tree); }
     for (const tree of trees) if (!slotTrees.has(tree)) { tree.addEventListener('slotchange', onSlotChange); tree.addEventListener('focusin', onOutside); slotTrees.add(tree); }
     const attributes = levels.length ? { attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style', 'slot', 'name', 'dir'] } : {};
@@ -376,7 +379,14 @@ export function createActionMenu({ root, contextTarget = null }) {
     for (const tree of trees) observer.observe(tree, { childList: true });
     for (const node of ancestors) observer.observe(node, { childList: true, ...attributes });
     // Ancestor size changes can move the trigger without changing menu markup.
-    if (levels.length) for (const node of [root, ...ancestors]) resizeObserver?.observe(node);
+    if (levels.length) {
+      const layoutNodes = new Set([root, ...ancestors]);
+      for (const ancestor of ancestors) for (const child of ancestor.childNodes) {
+        if (child.nodeType === 1) layoutNodes.add(child);
+        else if (child.nodeType === 3) observer.observe(child, { characterData: true });
+      }
+      for (const node of layoutNodes) resizeObserver?.observe(node);
+    }
     observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-action-menu', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
   }
   function onSlotChange() { if (levels.length) reconcile(); }
@@ -385,7 +395,8 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
   function onResize() { if (levels.length) { reconcile(); schedulePosition(); } }
   function onMutation(records) {
-    if (!root.isConnected || records.some((record) => root.contains(record.target) || (levels.length && record.type === 'attributes') || (record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].some((node) => node.contains(root))))) reconcile();
+    const containsAncestor = (node) => node.contains(root) || [...observedAncestors].some((ancestor) => node.contains(ancestor));
+    if (!root.isConnected || records.some((record) => root.contains(record.target) || (levels.length && (record.type !== 'childList' || containsAncestor(record.target))) || (record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].some(containsAncestor)))) reconcile();
   }
   function dispose() {
     if (disposed) return;
@@ -395,6 +406,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     resizeObserver?.disconnect();
     for (const tree of slotTrees) { tree.removeEventListener('slotchange', onSlotChange); tree.removeEventListener('focusin', onOutside); }
     slotTrees.clear();
+    observedAncestors.clear();
     unlisten.forEach((remove) => remove());
     unlisten.length = 0;
     restore();
@@ -425,6 +437,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     }
     if (contextTarget) listen(contextTarget, 'contextmenu', (event) => {
       const path = event.composedPath();
+      if (path.some((node) => node.matches?.('[data-menu]') && root.contains(node))) return;
       const nested = path.slice(0, path.indexOf(contextTarget)).some((node) => node.matches?.('button, a, input, select, textarea, summary, [contenteditable]'));
       if (nested) return;
       if (open({ activation: 'context', at: { x: event.clientX, y: event.clientY } })) event.preventDefault();
