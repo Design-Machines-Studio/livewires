@@ -39,6 +39,17 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['hidden', 'inert', 'aria-hidden'].map((attribute) => [
+    `unavailable submenu ${attribute} stays closed and can recover`, async (f) => {
+      const child = f.root.querySelector(`#${f.sub.getAttribute('aria-controls')}`);
+      child.setAttribute(attribute, attribute === 'aria-hidden' ? 'true' : '');
+      f.api.open(); key(f.alpha, 'ArrowDown'); key(f.sub, 'ArrowRight');
+      assert(f.api.state.depth === 1 && !child.matches(':popover-open'), 'unavailable submenu opened');
+      assert(f.sub.getAttribute('aria-expanded') === 'false' && document.activeElement === f.sub, 'unavailable submenu changed focus or expanded state');
+      child.removeAttribute(attribute); await settle(); key(f.sub, 'ArrowRight');
+      assert(f.api.state.depth === 2 && child.matches(':popover-open') && document.activeElement === child.querySelector('[data-menu-action]'), 'available submenu did not recover');
+    },
+  ]),
   ['synchronous action removal disposes the detached controller', async (f) => {
     f.root.addEventListener('lw:menu-action', () => f.context.remove(), { once: true });
     f.api.open(); f.alpha.click(); await settle();

@@ -189,6 +189,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (levels.length && frame === null) frame = win.requestAnimationFrame(position);
   }
   function show(list, opener, last = false) {
+    if (!available(list)) return false;
     list.showPopover();
     if (!rendered(list)) { list.hidePopover(); return false; }
     levels.push({ menu: list, trigger: opener });
