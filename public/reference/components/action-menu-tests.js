@@ -39,6 +39,18 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['focus inside the same open shadow tree dismisses on ordinary controls', async (f) => {
+    f.api.dispose(); const host = document.createElement('div'); fixtures.append(host); const tree = host.attachShadow({ mode: 'open' }); tree.append(f.root); const input = document.createElement('input'); input.setAttribute('aria-label', 'Other shadow field'); f.root.append(input); const api = createActionMenu({ root: f.root });
+    try { api.open(); assert(tree.activeElement === f.alpha, 'shadow action did not focus'); input.focus(); assert(!api.state.open && tree.activeElement === input, 'same-tree focus failed to dismiss or was stolen'); }
+    finally { api.dispose(); host.remove(); }
+  }],
+  ['pointer boundaries preserve menu and trigger events and dismiss other controls', async (f) => {
+    const input = document.createElement('input'); f.root.append(input); await settle();
+    const pointer = (node) => { const event = new PointerEvent('pointerdown', { bubbles: true, composed: true, cancelable: true }); node.dispatchEvent(event); assert(!event.defaultPrevented, 'pointer default intercepted'); };
+    f.api.open(); pointer(f.alpha); assert(f.api.state.open, 'menu pointer dismissed'); pointer(f.trigger); assert(f.api.state.open, 'trigger pointer dismissed before click');
+    pointer(input); assert(!f.api.state.open && !input.hasAttribute('role'), 'in-root ordinary pointer failed to dismiss');
+    f.api.open(); pointer(f.after); assert(!f.api.state.open, 'outside pointer failed to dismiss');
+  }],
   ...[false, true].map((marked) => [`nested ${marked ? 'marked' : 'unmarked'} controls cannot bypass menu rows`, async (f) => {
     f.api.dispose(); const list = document.createElement('ul'); list.innerHTML = `<li><a ${marked ? 'data-menu-action="extra"' : ''} href="#">Extra</a></li>`; f.alpha.parentElement.append(list);
     let rejected = false; try { createActionMenu({ root: f.root }); } catch (error) { rejected = error instanceof TypeError; }

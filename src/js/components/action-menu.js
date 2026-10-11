@@ -361,13 +361,16 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (reset) observer.disconnect();
     const trees = new Set();
     for (let node = root; node; node = parent(node)) trees.add(node.getRootNode());
-    for (const tree of slotTrees) if (!trees.has(tree)) { tree.removeEventListener('slotchange', onSlotChange); slotTrees.delete(tree); }
-    for (const tree of trees) if (!slotTrees.has(tree)) { tree.addEventListener('slotchange', onSlotChange); slotTrees.add(tree); }
+    for (const tree of slotTrees) if (!trees.has(tree)) { tree.removeEventListener('slotchange', onSlotChange); tree.removeEventListener('focusin', onOutside); slotTrees.delete(tree); }
+    for (const tree of trees) if (!slotTrees.has(tree)) { tree.addEventListener('slotchange', onSlotChange); tree.addEventListener('focusin', onOutside); slotTrees.add(tree); }
     const attributes = levels.length ? { attributes: true, characterData: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style', 'slot', 'name', 'dir'] } : {};
     for (const tree of trees) observer.observe(tree, { childList: true, subtree: true, ...attributes });
     observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-action-menu', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
   }
   function onSlotChange() { if (levels.length) reconcile(); }
+  function onOutside(event) {
+    if (levels.length && !event.composedPath().some((node) => node === trigger || levels.some((level) => level.menu === node))) close();
+  }
   function onResize() { if (levels.length) { reconcile(); schedulePosition(); } }
   function onMutation(records) {
     if (levels.length || !root.isConnected || records.some((record) => root.contains(record.target) || (record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].some((node) => node.contains(root))))) reconcile();
@@ -377,7 +380,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     disposed = true;
     close();
     observer?.disconnect();
-    for (const tree of slotTrees) tree.removeEventListener('slotchange', onSlotChange);
+    for (const tree of slotTrees) { tree.removeEventListener('slotchange', onSlotChange); tree.removeEventListener('focusin', onOutside); }
     slotTrees.clear();
     unlisten.forEach((remove) => remove());
     unlisten.length = 0;
@@ -399,12 +402,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       const depth = levels.findIndex((level) => level.menu === event.target);
       if (depth >= 0 && !event.target.matches(':popover-open')) closeTo(depth);
     }, true);
-    listen(doc, 'pointerdown', (event) => {
-      if (levels.length && !event.composedPath().some((node) => node === trigger || levels.some((level) => level.menu === node))) close();
-    }, true);
-    listen(doc, 'focusin', (event) => {
-      if (levels.length && !event.composedPath().some((node) => node === trigger || levels.some((level) => level.menu === node))) close();
-    });
+    listen(doc, 'pointerdown', onOutside, true);
     listen(win, 'resize', onResize);
     listen(doc, 'scroll', schedulePosition, true);
     if (win.visualViewport) {
