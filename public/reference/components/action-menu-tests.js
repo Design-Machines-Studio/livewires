@@ -39,6 +39,26 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['keyboard', 'pointer'].flatMap((activation) => ['Escape', 'ArrowLeft'].map((back) => [`typeahead resets on ${activation} submenu entry and ${back} return`, async (f) => {
+    const child = f.root.querySelector('[data-menu] [data-menu]');
+    const row = document.createElement('li'); row.innerHTML = '<button data-menu-action="csv" type="button">CSV</button>'; child.prepend(row); await settle();
+    f.api.open(); key(f.alpha, 'e'); assert(document.activeElement === f.sub, 'parent typeahead did not select opener');
+    if (activation === 'keyboard') key(f.sub, 'ArrowRight'); else f.sub.click();
+    assert(document.activeElement === row.firstElementChild, 'child entry did not establish a distinct starting item');
+    key(row.firstElementChild, 'p'); assert(document.activeElement.dataset.menuAction === 'pdf', 'parent query leaked into child');
+    key(document.activeElement, back); assert(document.activeElement === f.sub, 'submenu did not return to opener');
+    key(f.sub, 'z'); assert(document.activeElement === f.zulu, 'child query leaked into parent');
+  }])),
+  ...[2, 3].flatMap((depth) => ['item', 'template'].map((change) => [`${depth} open shadow boundaries recover focus after ${change} replacement`, async (f) => {
+    f.api.dispose(); const host = document.createElement('div'); fixtures.append(host); let tree = host.attachShadow({ mode: 'open' });
+    for (let level = 1; level < depth; level++) { const inner = document.createElement('div'); tree.append(inner); tree = inner.attachShadow({ mode: 'open' }); }
+    tree.append(f.root); const api = createActionMenu({ root: f.root });
+    try {
+      api.open(); assert(tree.activeElement === f.alpha, 'nested initial focus');
+      if (change === 'item') { f.alpha.parentElement.remove(); await settle(); assert(tree.activeElement === f.sub && api.state.open, 'nested item removal lost owned focus'); }
+      else { f.menu.replaceWith(replacement(f)); await settle(); assert(tree.activeElement === f.trigger && !api.state.open, 'nested template replacement lost focus return'); }
+    } finally { api.dispose(); host.remove(); }
+  }])),
   ...['button', 'context'].map((activation) => [`idle ${activation} menus avoid repeated placement work with a live measurement control`, async (f) => {
     f.api.open({ activation, at: activation === 'context' ? { x: 180, y: 140 } : null }); for (let frame = 0; frame < 4; frame++) await settle();
     const native = f.menu.getBoundingClientRect; const owned = Object.hasOwn(f.menu, 'getBoundingClientRect'); let measurements = 0;

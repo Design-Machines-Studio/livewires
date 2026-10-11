@@ -178,6 +178,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   function clearSearch() { search = ''; win.clearTimeout(searchTimer); }
   function closeTo(depth, refocus = false) {
     let last;
+    if (levels.length > depth) clearSearch();
     while (levels.length > depth) {
       const level = levels.pop();
       anchors.delete(level.menu);
@@ -246,6 +247,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (!available(list)) return false;
     list.showPopover();
     if (!rendered(list)) { list.hidePopover(); return false; }
+    clearSearch();
     levels.push({ menu: list, trigger: opener });
     observeMarkup(false);
     remember(opener, 'aria-expanded', 'true');
