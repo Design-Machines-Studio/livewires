@@ -24,8 +24,14 @@ function fixture() {
   const root = context.querySelector('[data-action-menu]');
   const trigger = root.querySelector('[data-menu-trigger]');
   const menu = root.querySelector('[data-menu]');
+  const markup = menu.outerHTML;
   const api = createActionMenu({ root, contextTarget: context });
-  return { root, context, trigger, menu, api, alpha: root.querySelector('[data-menu-action="alpha"]'), sub: root.querySelector('[data-menu-submenu]'), zulu: root.querySelector('[data-menu-action="zulu"]'), after: context.querySelector('[data-after]'), remove() { api.dispose(); context.remove(); } };
+  return { root, context, trigger, menu, markup, api, alpha: root.querySelector('[data-menu-action="alpha"]'), sub: root.querySelector('[data-menu-submenu]'), zulu: root.querySelector('[data-menu-action="zulu"]'), after: context.querySelector('[data-after]'), remove() { api.dispose(); context.remove(); } };
+}
+function replacement(f) {
+  const template = document.createElement('template');
+  template.innerHTML = f.markup;
+  return template.content.firstElementChild;
 }
 function key(target, value, options = {}) {
   const event = new KeyboardEvent('keydown', { key: value, bubbles: true, cancelable: true, ...options });
@@ -89,7 +95,7 @@ const cases = [
     assert(!event.defaultPrevented && !f.api.state.open, 'cancelled context');
   }],
   ['context listeners may replace authorized markup before opening', async (f) => {
-    f.root.addEventListener('lw:menu-context', () => f.menu.replaceWith(f.menu.cloneNode(true)), { once: true });
+    f.root.addEventListener('lw:menu-context', () => f.menu.replaceWith(replacement(f)), { once: true });
     f.api.open(); assert(f.api.state.open && document.activeElement.isConnected, 'synchronous replacement');
     assert(!f.menu.matches(':popover-open'), 'old menu remains open');
   }],
@@ -103,9 +109,11 @@ const cases = [
     f.api.open(); f.after.focus(); assert(!f.api.state.open && document.activeElement === f.after, 'outside focus');
   }],
   ['server template output replacement closes old overlays', async (f) => {
-    f.api.open(); const replacement = f.menu.cloneNode(true); f.menu.replaceWith(replacement); await settle();
+    f.api.open(); const next = replacement(f); f.menu.replaceWith(next); await settle();
     assert(!f.api.state.open && !f.menu.matches(':popover-open') && document.activeElement === f.trigger, 'replacement cleanup');
-    assert(f.api.open() && replacement.matches(':popover-open'), 'replacement cannot reopen');
+    assert(f.api.open() && next.matches(':popover-open'), 'replacement cannot reopen');
+    f.api.dispose();
+    assert(!next.hasAttribute('popover') && !next.hasAttribute('role') && !next.querySelector('button').hasAttribute('tabindex'), 'replacement fallback attributes');
   }],
   ['removing an open trigger disposes subscriptions and overlays', async (f) => {
     f.api.open(); f.trigger.remove(); await settle();

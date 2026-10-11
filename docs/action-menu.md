@@ -70,7 +70,7 @@ Click/tap, Enter and Space open through the visible button. Up/Down opens at the
 
 Context activation is optional. Nested inputs, links, buttons and editable controls on the context target retain their native context menu. Mobile users use the visible button; no long-press recognizer is installed. Outside pointer activation or focus dismisses without stealing focus from the new control. Two instances have separate events, state and teardown.
 
-Native popovers use the top layer, so a clipped parent does not crop the menu. Placement flips/clamps against the visual viewport, including its zoom offset; menus constrain size and scroll. Resize, scroll and relevant DOM changes refresh placement while open. Optional styles reuse `.dropdown` and `.menu`, stop movement transitions and keep a visible focus outline in forced colors.
+Native popovers use the top layer, so a clipped parent does not crop the menu. Placement flips/clamps against the visual viewport, including its zoom offset; menus constrain size and scroll. The adapter owns placement; `.dropdown--end` and `.dropdown--up` do not set enhanced-menu alignment. Resize, scroll and relevant DOM changes refresh placement while open. Optional styles reuse `.dropdown` and `.menu`, stop movement transitions and keep a visible focus outline in forced colors. A decorative, direction-aware chevron identifies submenu openers without adding a spoken arrow to their label.
 
 ## Lifecycle
 

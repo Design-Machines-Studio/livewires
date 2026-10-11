@@ -31,7 +31,20 @@
         &[aria-disabled="true"] {
           opacity: 0.5;
           cursor: default;
+          &:hover { background: transparent; }
         }
+
+        &[data-menu-submenu]::after {
+          content: '';
+          display: inline-block;
+          inline-size: var(--line-025);
+          block-size: var(--line-025);
+          margin-inline-start: var(--line-05);
+          border-block-end: var(--line-1px) solid currentColor;
+          border-inline-end: var(--line-1px) solid currentColor;
+          rotate: -45deg;
+        }
+        &[data-menu-submenu]:dir(rtl)::after { rotate: 45deg; }
 
         &:focus-visible {
           outline: calc(var(--line-1px) * 2) solid var(--color-fg);
