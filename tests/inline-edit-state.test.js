@@ -102,3 +102,18 @@ test('invalid matching outcomes cannot silently confirm saves', () => {
   assert.throws(() => editor.applyResult(result('confirmed', { value: undefined })), /value/);
   assert.equal(editor.state.phase, 'pending');
 });
+
+test('opaque identities work without secure-context randomUUID', () => {
+  const original = Object.getOwnPropertyDescriptor(globalThis, 'crypto');
+  const random = globalThis.crypto.getRandomValues.bind(globalThis.crypto);
+  try {
+    Object.defineProperty(globalThis, 'crypto', { configurable: true, value: { getRandomValues: random } });
+    const { editor, events } = make();
+    editor.request(); editor.setDraft('HTTP draft'); editor.commit();
+    assert.match(events[0].editId, /^[0-9a-f]{32}$/);
+    assert.match(events[1].requestId, /^[0-9a-f]{32}$/);
+    assert.notEqual(events[0].editId, events[1].requestId);
+  } finally {
+    Object.defineProperty(globalThis, 'crypto', original);
+  }
+});

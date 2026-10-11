@@ -1,6 +1,6 @@
 # Inline editing
 
-Inline editing adds an optional interaction around a native text form. Import `/dist/inline-edit.js` only where needed; it is absent from `main.js`. It adds no Rocket, Datastar or persistence adapter. Applications own validation, authorization, durable saving, conflict resolution and retry policy.
+Inline editing adds an optional interaction around a native text form. Link `/dist/inline-edit.css` alongside `/dist/main.css`, then import `/dist/inline-edit.js` only where needed; both optional assets are absent from the default bundle. It adds no Rocket, Datastar or persistence adapter. Applications own validation, authorization, durable saving, conflict resolution and retry policy.
 
 ```html
 <section data-inline-edit data-context-id="opaque-record-key" class="stack">
@@ -50,7 +50,7 @@ Events bubble and are composed. They are commands handed to the application, not
 | `lw-inline-edit-commit` | `{ contextId, editId, requestId, value, original }` | Validate/save this exact attempted text against the value at edit entry. |
 | `lw-inline-edit-cancel` | `{ contextId, editId, requestId, value, reason, uncertain }` | End local editing/observation. `reason` is cancel, escape or unchanged. Pending/unknown cancellation reports `uncertain: true`; it never guarantees rollback. |
 
-`contextId` is an application-supplied nonempty opaque string. It is never parsed into an endpoint or permission. `editId` and `requestId` are fresh opaque UUIDs for the edit lifetime and attempt. Every application result must match all three IDs. Foreign, duplicate-terminal, old-attempt, cancelled and disposed results return false without changing state. Remounting creates a new lifetime even for the same context. The application must also reject stale persistence writes; local response filtering cannot enforce server ordering or resolve conflicts.
+`contextId` is an application-supplied nonempty opaque string. Keep it immutable for one controller lifetime; dispose and recreate the controller when changing records. It is never parsed into an endpoint or permission. `editId` and `requestId` are fresh opaque random IDs for the edit lifetime and attempt. They use `crypto.getRandomValues`, including on ordinary HTTP development hosts, and are not authorization or CSRF tokens. Every application result must match all three IDs. Foreign, duplicate-terminal, old-attempt, cancelled and disposed results return false without changing state. Remounting creates a new lifetime even for the same context. The application must also reject stale persistence writes; local response filtering cannot enforce server ordering or resolve conflicts.
 
 `applyResult(result)` accepts only matching pending/unknown results. It requires an explicit string value for confirmation, allowing application normalization. Rejection retains the exact entered value and restores editing. It does not trim or apply validation rules. `updateConfirmed(text)` applies an application-owned external value while retaining an active draft and its original precondition. It does not settle pending work. Use this method for external updates; do not patch the displayed value or active input directly.
 

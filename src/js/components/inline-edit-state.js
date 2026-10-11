@@ -1,6 +1,14 @@
+// getRandomValues also works on ordinary HTTP development hosts. IDs identify
+// local attempts; they are not authorization or CSRF tokens.
+function createOpaqueId() {
+  const bytes = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(bytes);
+  return Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
 /** Local edit state. Only an explicit matching application result confirms a save. */
 export function createInlineEditState({ contextId, value = '', onChange = () => {}, onEvent = () => {},
-  createId = () => globalThis.crypto.randomUUID() } = {}) {
+  createId = createOpaqueId } = {}) {
   if (typeof contextId !== 'string' || !contextId) throw new TypeError('A nonempty opaque contextId is required.');
   let phase = 'confirmed';
   let confirmed = String(value);
