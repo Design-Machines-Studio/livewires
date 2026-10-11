@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Action menus — Live Wires manual</title>
+  <link rel="stylesheet" href="/dist/main.css">
+  <script type="module" src="/dist/main.js"></script>
+</head>
+<body class="scheme-default">
+  <main class="section prose" id="main">
+    <h1>Action menus</h1>
+    <p class="lead">Small menus for actions on a document or another application record. Keep a visible button, even when you offer a right-click shortcut.</p>
+    <p><a href="/reference/components/action-menu.html">Try two menus and a submenu</a> &middot; <a href="/reference/components/action-menu-tests.html">Run interaction and cleanup checks</a></p>
+    <h2>Load only when needed</h2>
+    <pre><code>&lt;link rel="stylesheet" href="/dist/action-menu.css"&gt;
+import { createActionMenu } from '/dist/action-menu.js';
+const menu = createActionMenu({ root: document.querySelector('[data-action-menu]') });
+// When the owner unmounts:
+menu.dispose();</code></pre>
+    <p>Keep the regular Live Wires stylesheet. The optional entry does not change the default JavaScript bundle. Without enhancement, the scoped stylesheet leaves native actions visible as an inline list.</p>
+    <h2>Server markup</h2>
+    <pre><code>&lt;div class="dropdown" data-action-menu data-context-id="document-42"&gt;
+  &lt;button class="button trigger" data-menu-trigger type="button"&gt;Actions&lt;/button&gt;
+  &lt;ul class="menu" id="document-menu" data-menu aria-label="Document actions"&gt;
+    &lt;li&gt;&lt;button data-menu-action="duplicate" type="button"&gt;Duplicate&lt;/button&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+    <p>Render only actions the current user may receive. A disabled or hidden item does not enforce permissions. The application must authorize every request.</p>
+    <p>Use unique menu IDs. A submenu opener is a button with <code>data-menu-submenu</code> and <code>aria-controls</code> pointing to its sibling <code>ul.menu[data-menu]</code>. Lists contain one native button or link per row; separators use a list item with an <code>hr</code>. Form inputs, navigation panels, details and dialogs keep their own native behavior.</p>
+    <h2>Keys and focus</h2>
+    <p>Enter, Space or a tap opens the menu. Up/Down opens at the last/first available item; arrows, Home/End and typing move focus. Forward arrow opens a submenu. Reverse arrow or Escape returns to its opener. Escape at the root returns to the visible button. Tab closes and lets the browser continue from that button. Clicking or focusing outside closes without taking focus back.</p>
+    <h2>Intent belongs to the application</h2>
+    <p><code>lw:menu-context</code> fires before opening. Its detail contains the trigger, optional context target, context ID and activation source. A handler may replace authorized items synchronously. Cancel it to skip opening and preserve a native context menu.</p>
+    <p><code>lw:menu-action</code> reports the action, context ID, trigger and chosen item, then dismisses. Cancel it when application code owns execution; cancellation also prevents a link or form button's native default. Neither event claims a save, deletion or successful response.</p>
+    <h2>Updates and fallback</h2>
+    <p>The application keeps the stable root and owns its server-rendered children. Replacing the menu closes the old levels. Removing the trigger or root disposes the adapter. Added, disabled and hidden items refresh while open. Call <code>dispose()</code> before unmount when possible; repeated cleanup is safe. A detached menu never remains as an overlay.</p>
+    <p>These are live lists, not cloned HTML templates. Replace the list with newly rendered template output. No Rocket, Datastar adapter, endpoint binding or global command framework is installed. Without the optional module or Popover API, native forms and links can still execute application-supplied fallback actions; a data-action button alone needs an application handler.</p>
+  </main>
+</body>
+</html>

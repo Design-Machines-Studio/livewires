@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Action-menu deterministic checks — Live Wires</title>
+  <link rel="stylesheet" href="/dist/main.css">
+  <link rel="stylesheet" href="/dist/action-menu.css">
+  <script type="module" src="/dist/main.js"></script>
+  <script type="module" src="/reference/components/action-menu-tests.js"></script>
+</head>
+<body class="scheme-default">
+  <main class="section stack">
+    <h1>Action-menu deterministic checks</h1>
+    <p>These real-DOM checks use synthetic activation to make lifecycle regressions repeatable. They supplement keyboard, touch and visual browser evidence.</p>
+    <button id="run-tests" type="button">Run checks</button>
+    <p id="test-status" role="status">Not run.</p>
+    <ol id="test-results"></ol>
+    <div id="fixtures"></div>
+  </main>
+</body>
+</html>

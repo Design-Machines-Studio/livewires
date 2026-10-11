@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Action menu — Live Wires reference</title>
+  <link rel="stylesheet" href="/dist/main.css">
+  <link rel="stylesheet" href="/dist/action-menu.css">
+  <script type="module" src="/dist/main.js"></script>
+  <script type="module" src="/manual/_components/action-menu-fixture.js"></script>
+</head>
+<body class="scheme-default">
+  <main class="section stack" id="main">
+    <h1>Action menu</h1>
+    <p>Use the visible buttons with a mouse, keyboard or touch. Right-clicking the document is an optional shortcut. This example reports intent without executing server actions.</p>
+    <section class="stack box" data-context-for="document-actions" data-context-id="document-42" aria-label="Document context">
+      <h2>Meeting notes</h2>
+      <p>Right-click this text to open the same document actions. <a href="#native-controls">This nested link keeps its native context menu.</a></p>
+      <div class="dropdown" id="document-actions" data-action-menu data-context-id="document-42">
+        <button class="button trigger" data-menu-trigger type="button">Document actions</button>
+        <ul class="menu" id="document-menu" data-menu aria-label="Document actions">
+          <li><button data-menu-action="duplicate" type="button">Duplicate</button></li>
+          <li><button data-menu-submenu type="button" aria-controls="export-menu">Export &rarr;</button>
+            <ul class="menu" id="export-menu" data-menu aria-label="Export format">
+              <li><button data-menu-action="export-text" type="button">Plain text</button></li>
+              <li><button data-menu-action="export-pdf" type="button">PDF</button></li>
+            </ul>
+          </li>
+          <li><hr></li>
+          <li><button data-menu-action="archive" type="button" disabled>Archive (unavailable)</button></li>
+          <li><button data-menu-action="download" type="button">Download a copy with a longer label</button></li>
+        </ul>
+      </div>
+    </section>
+    <div class="cluster">
+      <div class="dropdown dropdown--end" id="other-actions" data-action-menu data-context-id="document-99">
+        <button class="button trigger" data-menu-trigger type="button">Second menu</button>
+        <ul class="menu" id="other-menu" data-menu aria-label="Other document actions">
+          <li><button data-menu-action="rename" type="button">Rename</button></li>
+          <li><a data-menu-action="view" href="#native-controls">View document</a></li>
+        </ul>
+      </div>
+      <button data-demo-replace type="button">Replace first menu markup</button>
+      <button data-demo-remove type="button">Remove first menu</button>
+    </div>
+    <p data-demo-status role="status">No action requested.</p>
+    <section class="stack" id="native-controls">
+      <h2>Keep native controls native</h2>
+      <details class="dropdown dropdown--panel">
+        <summary class="trigger button">Filter documents</summary>
+        <form class="menu" method="get">
+          <div class="body"><label><input type="checkbox" name="archived"> Include archived documents</label></div>
+          <footer><button type="submit">Apply filter</button></footer>
+        </form>
+      </details>
+      <p>Filters contain form controls and keep their details disclosure. They do not use action-menu roles or keyboard behavior.</p>
+      <a href="/reference/components/action-menu-tests.html">Run deterministic browser checks</a>
+      <a href="/manual/components/action-menu.html">Read the action-menu manual</a>
+    </section>
+  </main>
+</body>
+</html>
