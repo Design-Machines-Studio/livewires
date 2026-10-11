@@ -60,7 +60,7 @@ Use `data-inline-edit="compact"` for a value and Edit link on one row. The contr
 
 ```html
 <section data-inline-edit="compact" data-context-id="title-a" class="stack">
-  <div class="cluster cluster-compact">
+  <div class="cluster cluster-compact items-baseline">
     <span data-inline-edit-value>Community gathering</span>
     <a class="button button--small button--ghost button--accent" href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
     <div id="title-a-panel" data-inline-edit-panel>
@@ -77,7 +77,7 @@ Use `data-inline-edit="compact"` for a value and Edit link on one row. The contr
 </section>
 ```
 
-Keep the panel ID and Edit link target matched. Keep the value and Edit link outside the panel. The labeled field uses the existing `visually-hidden` utility; Save and Cancel use `button--small`. Use the shared `button--ghost` variant for Cancel. Add `button--accent` to a ghost button for accent text, as on Edit; accent text is mixed toward the scheme foreground to maintain contrast. Hidden state belongs to the controller, and the input remains the same node through every edit. Do not add initial `hidden` attributes: without JavaScript the Edit link jumps to the visible native form. Supply an application cancel/back link for native cancellation. The compact link receives enhanced `aria-controls` and `aria-expanded` attributes. Its confirmed value and trigger return before focus is restored.
+Use `items-baseline` on the value/Edit cluster to align their text baselines despite different font sizes. Keep the panel ID and Edit link target matched. Keep the value and Edit link outside the panel. The labeled field uses the existing `visually-hidden` utility; Save and Cancel use `button--small`. Use the shared `button--ghost` variant for Cancel. Add `button--accent` to a ghost button for accent text, as on Edit; accent text is mixed toward the scheme foreground to maintain contrast. Hidden state belongs to the controller, and the input remains the same node through every edit. Do not add initial `hidden` attributes: without JavaScript the Edit link jumps to the visible native form. Supply an application cancel/back link for native cancellation. The compact link receives enhanced `aria-controls` and `aria-expanded` attributes. Its confirmed value and trigger return before focus is restored.
 
 ## Keys, blur and focus
 
