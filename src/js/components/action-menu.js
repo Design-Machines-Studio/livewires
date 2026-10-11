@@ -37,12 +37,12 @@ export function createActionMenu({ root, contextTarget = null }) {
   function available(item) {
     if (!item?.isConnected || item.matches(':disabled, [aria-disabled="true"]')) return false;
     for (let node = item; node; node = parent(node)) {
-      if (node.hidden || node.inert || node.matches('[aria-hidden="true"], [aria-disabled="true"]')) return false;
+      if (node.hidden || node.inert || node.getAttribute('aria-hidden') === 'true') return false;
     }
     return true;
   }
   function rendered(node) {
-    if (node.checkVisibility) return node.checkVisibility({ visibilityProperty: true, opacityProperty: true });
+    if (node.checkVisibility) return node.checkVisibility({ checkVisibilityCSS: true, checkOpacity: true, visibilityProperty: true, opacityProperty: true });
     if (!node.getClientRects().length || win.getComputedStyle(node).visibility !== 'visible') return false;
     for (let current = node; current; current = parent(current)) {
       const style = win.getComputedStyle(current);
@@ -95,8 +95,8 @@ export function createActionMenu({ root, contextTarget = null }) {
     for (const node of positionStyles.keys()) restorePosition(node);
   }
   function positionStyle(node, name, value) {
-    if (!positionStyles.has(node)) positionStyles.set(node, new Map());
-    const values = positionStyles.get(node);
+    if (!positionStyles.has(node)) positionStyles.set(node, { hadStyle: node.hasAttribute('style'), properties: new Map() });
+    const values = positionStyles.get(node).properties;
     if (!values.has(name)) values.set(name, { value: node.style.getPropertyValue(name), priority: node.style.getPropertyPriority(name) });
     const original = values.get(name);
     if (original.requested !== value || original.applied !== node.style.getPropertyValue(name) || node.style.getPropertyPriority(name)) {
@@ -106,10 +106,13 @@ export function createActionMenu({ root, contextTarget = null }) {
     }
   }
   function restorePosition(node) {
-    for (const [name, original] of positionStyles.get(node) ?? []) {
+    const saved = positionStyles.get(node);
+    if (!saved) return;
+    for (const [name, original] of saved.properties) {
       if (original.value) node.style.setProperty(name, original.value, original.priority);
       else node.style.removeProperty(name);
     }
+    if (!saved.hadStyle && node.getAttribute('style') === '') node.removeAttribute('style');
     positionStyles.delete(node);
   }
   function enhance() {
@@ -148,6 +151,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       level.trigger?.setAttribute('aria-expanded', 'false');
     }
     if (refocus) focus(last);
+    if (observer && !disposed) observeMarkup();
   }
   function close(refocus = false) {
     clearSearch();
@@ -184,6 +188,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     list.showPopover();
     if (!rendered(list)) { list.hidePopover(); return false; }
     levels.push({ menu: list, trigger: opener });
+    observeMarkup();
     opener.setAttribute('aria-expanded', 'true');
     position();
     const items = itemsIn(list);
@@ -320,10 +325,14 @@ export function createActionMenu({ root, contextTarget = null }) {
     observer.disconnect();
     const trees = new Set();
     for (let node = root; node; node = parent(node)) trees.add(node.getRootNode());
-    for (const tree of trees) observer.observe(tree, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style'] });
+    const attributes = levels.length ? { attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style'] } : {};
+    for (const tree of trees) observer.observe(tree, { childList: true, subtree: true, ...attributes });
     observer.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style'] });
   }
-  function onResize() { reconcile(); schedulePosition(); }
+  function onResize() { if (levels.length) { reconcile(); schedulePosition(); } }
+  function onMutation(records) {
+    if (levels.length || records.some((record) => record.type === 'childList' || root.contains(record.target))) reconcile();
+  }
   function dispose() {
     if (disposed) return;
     disposed = true;
@@ -366,7 +375,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (nested && nested !== contextTarget) return;
       if (open({ activation: 'context', at: { x: event.clientX, y: event.clientY } })) event.preventDefault();
     });
-    observer = new win.MutationObserver(reconcile);
+    observer = new win.MutationObserver(onMutation);
     observeMarkup();
   }
   const api = { open, close, dispose, get state() { return { open: levels.length > 0, depth: levels.length, disposed, supported }; } };

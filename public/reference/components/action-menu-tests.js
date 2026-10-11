@@ -39,6 +39,29 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['closed menus avoid DOM work on unrelated styles and resizes', async (f) => {
+    const external = document.createElement('div'); fixtures.append(external); await settle();
+    let reads = 0; const query = f.root.querySelector;
+    f.root.querySelector = function (...args) { reads++; return query.apply(this, args); };
+    try {
+      external.className = 'changed'; external.style.color = 'red'; window.dispatchEvent(new Event('resize')); await settle();
+      assert(reads === 0 && !f.api.state.open, 'closed menu inspected unrelated changes');
+    } finally { delete f.root.querySelector; external.remove(); }
+  }],
+  ['cleanup removes an empty style attribute created for placement', async (f) => {
+    assert(!f.menu.hasAttribute('style'), 'fixture already styled'); assert(f.api.open(), 'fixture menu failed to open'); f.api.dispose();
+    assert(!f.menu.hasAttribute('style'), `adapter-created style attribute remained: ${f.menu.getAttribute('style')}`);
+  }],
+  ['legacy visibility options skip hidden actions', async (f) => {
+    Object.defineProperty(f.sub, 'checkVisibility', { configurable: true, value({ checkOpacity = false, checkVisibilityCSS = false } = {}) {
+      const style = getComputedStyle(this);
+      return this.getClientRects().length > 0 && (!checkOpacity || style.opacity !== '0') && (!checkVisibilityCSS || style.visibility === 'visible');
+    } });
+    try {
+      f.sub.style.visibility = 'hidden'; f.api.open(); key(f.alpha, 'ArrowDown');
+      assert(document.activeElement === f.zulu, 'legacy visibility options included hidden action');
+    } finally { delete f.sub.checkVisibility; }
+  }],
   ...['hidden', 'inert', 'aria-hidden'].map((attribute) => [
     `unavailable application ancestor ${attribute} preserves external context and closes open levels`, async (f) => {
       f.api.dispose();
