@@ -23,11 +23,11 @@
             <popup-dialog title="Compact Inline Editing HTML">
               <p><a href="#" class="text-sm">Code</a></p>
               <div slot="body"><pre><code>&lt;section data-inline-edit=&quot;compact&quot; data-context-id=&quot;title-a&quot; class=&quot;stack&quot;&gt;
-  &lt;div class=&quot;cluster&quot;&gt;
+  &lt;div class=&quot;cluster cluster-compact&quot;&gt;
     &lt;span data-inline-edit-value&gt;Community gathering&lt;/span&gt;
     &lt;a href=&quot;#title-a-panel&quot; data-inline-edit-trigger aria-label=&quot;Edit first title&quot;&gt;Edit&lt;/a&gt;
     &lt;div id=&quot;title-a-panel&quot; data-inline-edit-panel&gt;
-      &lt;form data-inline-edit-form action=&quot;&quot; method=&quot;get&quot; class=&quot;cluster&quot;&gt;
+      &lt;form data-inline-edit-form action=&quot;&quot; method=&quot;get&quot; class=&quot;cluster cluster-compact&quot;&gt;
         &lt;label class=&quot;visually-hidden&quot; for=&quot;title-a-input&quot;&gt;First title&lt;/label&gt;
         &lt;input id=&quot;title-a-input&quot; name=&quot;title-a&quot; type=&quot;text&quot; value=&quot;Community gathering&quot; data-inline-edit-input&gt;
         &lt;button class=&quot;button button--small&quot; type=&quot;submit&quot; data-inline-edit-save&gt;Save&lt;/button&gt;
@@ -42,11 +42,11 @@
             </popup-dialog>
           </header>
 <section data-inline-edit="compact" data-context-id="title-a" class="stack">
-  <div class="cluster">
+  <div class="cluster cluster-compact">
     <span data-inline-edit-value>Community gathering</span>
     <a href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
     <div id="title-a-panel" data-inline-edit-panel>
-      <form data-inline-edit-form action="" method="get" class="cluster">
+      <form data-inline-edit-form action="" method="get" class="cluster cluster-compact">
         <label class="visually-hidden" for="title-a-input">First title</label>
         <input id="title-a-input" name="title-a" type="text" value="Community gathering" data-inline-edit-input>
         <button class="button button--small" type="submit" data-inline-edit-save>Save</button>
@@ -70,7 +70,7 @@
 &lt;form data-inline-edit-form action=&quot;&quot; method=&quot;get&quot; class=&quot;stack&quot;&gt;&lt;label for=&quot;title-b-input&quot;&gt;Second title&lt;/label&gt;
 &lt;input id=&quot;title-b-input&quot; name=&quot;title-b&quot; type=&quot;text&quot; value=&quot;Shared workspace&quot; data-inline-edit-input&gt;
 &lt;p id=&quot;title-b-error&quot; data-inline-edit-error role=&quot;alert&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;cluster&quot;&gt;&lt;button class=&quot;button&quot; type=&quot;submit&quot; data-inline-edit-save&gt;Save second title&lt;/button&gt;&lt;button class=&quot;button&quot; type=&quot;button&quot; data-inline-edit-cancel&gt;Cancel editing&lt;/button&gt;&lt;/div&gt;&lt;/form&gt;&lt;/details&gt;
+&lt;div class=&quot;cluster cluster-compact&quot;&gt;&lt;button class=&quot;button&quot; type=&quot;submit&quot; data-inline-edit-save&gt;Save second title&lt;/button&gt;&lt;button class=&quot;button&quot; type=&quot;button&quot; data-inline-edit-cancel&gt;Cancel editing&lt;/button&gt;&lt;/div&gt;&lt;/form&gt;&lt;/details&gt;
 &lt;p data-inline-edit-status role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt;&lt;/p&gt;&lt;/section&gt;</code></pre></div>
             </popup-dialog>
           </header>

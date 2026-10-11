@@ -60,11 +60,11 @@ Use `data-inline-edit="compact"` for a value and Edit link on one row. The contr
 
 ```html
 <section data-inline-edit="compact" data-context-id="title-a" class="stack">
-  <div class="cluster">
+  <div class="cluster cluster-compact">
     <span data-inline-edit-value>Community gathering</span>
     <a href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
     <div id="title-a-panel" data-inline-edit-panel>
-      <form data-inline-edit-form action="/records/42/title" method="post" class="cluster">
+      <form data-inline-edit-form action="/records/42/title" method="post" class="cluster cluster-compact">
         <label class="visually-hidden" for="title-a-input">First title</label>
         <input id="title-a-input" name="title-a" type="text" value="Community gathering" data-inline-edit-input>
         <button class="button button--small" type="submit" data-inline-edit-save>Save</button>

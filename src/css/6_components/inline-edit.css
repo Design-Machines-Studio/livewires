@@ -15,9 +15,11 @@
     }
     &[data-inline-edit="compact"] {
       & [hidden] { display: none; }
+      & [data-inline-edit-panel] { inline-size: 100%; }
       & [data-inline-edit-input] {
         inline-size: min(24ch, 100%);
-        min-block-size: var(--line-15);
+        min-block-size: var(--line-1);
+        line-height: var(--line-height-none);
         padding: var(--line-025);
         font-size: var(--text-sm);
       }
