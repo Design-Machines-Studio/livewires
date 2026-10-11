@@ -29,9 +29,15 @@
     }
   }
 
+  .button--ghost:disabled,
+  .button--ghost.button--disabled {
+    background-color: transparent;
+    color: var(--button-fg);
+  }
+
   .button--ghost.button--accent {
     /* Bring accent text toward foreground for contrast in light/dark schemes. */
-    --button-fg: color-mix(in srgb, var(--color-accent) 75%, var(--color-fg));
+    --button-fg: color-mix(in srgb, var(--color-accent) 45%, var(--color-fg));
   }
 
   /* Size variants */

@@ -15,7 +15,7 @@ function make(parent = fixtures, compact = false) {
     <form data-inline-edit-form><label for="${id}">Title</label>
     <input id="${id}" data-inline-edit-input type="text" value="Original" aria-describedby="${id}-hint">
     <p id="${id}-hint">Hint</p><p id="${id}-error" data-inline-edit-error role="alert"></p>
-    <button data-inline-edit-save type="submit">Save</button><button data-inline-edit-cancel type="button">Cancel</button>
+    <button data-inline-edit-save type="submit">Save</button><button class="button button--ghost" data-inline-edit-cancel type="button">Cancel</button>
     </form></details><p data-inline-edit-status role="status" aria-live="polite" aria-atomic="true"></p>`;
   if (compact) {
     root.dataset.inlineEdit = 'compact';
@@ -24,6 +24,7 @@ function make(parent = fixtures, compact = false) {
     const replacement = document.createElement('div');
     replacement.id = `${id}-panel`; replacement.dataset.inlineEditPanel = '';
     const link = document.createElement('a');
+    link.className = 'button button--small button--ghost button--accent';
     link.href = `#${replacement.id}`; link.dataset.inlineEditTrigger = ''; link.textContent = 'Edit title';
     replacement.append(form); panel.replaceWith(link, replacement);
   }
