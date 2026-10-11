@@ -4,7 +4,7 @@ const fixtures = document.querySelector('#fixtures');
 let count = 0;
 const settle = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 const assert = (ok, message) => { if (!ok) throw new Error(message); };
-function fixture() {
+function fixture(container = fixtures) {
   const id = `test-${++count}`;
   const context = document.createElement('section');
   context.dataset.contextId = id;
@@ -20,7 +20,7 @@ function fixture() {
         <li><button data-menu-action="zulu" type="button">Zulu</button></li>
       </ul>
     </div><button data-after type="button">After menu</button>`;
-  fixtures.append(context);
+  container.append(context);
   const root = context.querySelector('[data-action-menu]');
   const trigger = root.querySelector('[data-menu-trigger]');
   const menu = root.querySelector('[data-menu]');
@@ -39,6 +39,35 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['shadow-root keyboard navigation, typeahead, submenus and dismissal use local focus', async () => {
+    const host = document.createElement('div'); fixtures.append(host);
+    const tree = host.attachShadow({ mode: 'open' }); const f = fixture(tree);
+    try {
+      f.api.open(); assert(tree.activeElement === f.alpha, 'shadow initial focus');
+      key(f.alpha, 'ArrowDown'); assert(tree.activeElement === f.sub, 'shadow next item');
+      key(f.sub, 'End'); assert(tree.activeElement === f.zulu, 'shadow End');
+      key(f.zulu, 'ArrowDown'); assert(tree.activeElement === f.alpha, 'shadow wrap');
+      key(f.alpha, 'z'); assert(tree.activeElement === f.zulu, 'shadow typeahead');
+      key(f.zulu, 'Home'); key(f.alpha, 'ArrowDown'); key(f.sub, 'ArrowRight');
+      assert(tree.activeElement.dataset.menuAction === 'pdf', 'shadow submenu');
+      key(tree.activeElement, 'Escape'); assert(tree.activeElement === f.sub, 'shadow submenu return');
+      key(f.sub, 'Escape'); assert(tree.activeElement === f.trigger && !f.api.state.open, 'shadow Escape');
+      f.api.open(); const event = key(f.alpha, 'Tab');
+      assert(!event.defaultPrevented && tree.activeElement === f.trigger && !f.api.state.open, 'shadow Tab');
+    } finally { f.remove(); host.remove(); }
+  }],
+  ['shadow-root updates recover focus and host removal cleans up open menus', async () => {
+    const host = document.createElement('div'); fixtures.append(host);
+    const tree = host.attachShadow({ mode: 'open' }); const f = fixture(tree);
+    try {
+      f.api.open(); f.alpha.disabled = true; await settle(); assert(tree.activeElement === f.sub, 'shadow disabled recovery');
+      f.sub.parentElement.remove(); await settle(); assert(tree.activeElement === f.zulu, 'shadow removal recovery');
+      const next = replacement(f); f.menu.replaceWith(next); await settle();
+      assert(!f.api.state.open && tree.activeElement === f.trigger, 'shadow template focus return');
+      assert(f.api.open(), 'shadow replacement reopen'); host.remove(); await settle();
+      assert(f.api.state.disposed && !next.matches(':popover-open'), 'shadow host removal cleanup');
+    } finally { f.remove(); host.remove(); }
+  }],
   ['open focuses the first action without executing it', async (f) => {
     let actions = 0; f.root.addEventListener('lw:menu-action', () => actions++);
     f.trigger.click(); assert(document.activeElement === f.alpha && actions === 0, 'first item focus or unwanted action');

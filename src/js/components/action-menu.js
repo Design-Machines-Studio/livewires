@@ -10,6 +10,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   if (instances.has(root)) throw new TypeError('This action menu is already attached.');
   const doc = root.ownerDocument;
   const win = doc.defaultView;
+  const activeElement = () => root.getRootNode().activeElement ?? doc.activeElement;
   if (contextTarget && (contextTarget.ownerDocument !== doc || !contextTarget.isConnected)) throw new TypeError('Context target must be connected in the same document.');
   let trigger;
   let menu;
@@ -226,7 +227,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       event.preventDefault(); closeTo(depth, true); return;
     }
     const items = itemsIn(scope);
-    const current = items.indexOf(doc.activeElement);
+    const current = items.indexOf(activeElement());
     if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
       event.preventDefault();
       closeTo(depth + 1);
@@ -252,7 +253,8 @@ export function createActionMenu({ root, contextTarget = null }) {
     changing = true;
     const replaced = next.trigger !== trigger || next.menu !== menu;
     if (replaced) {
-      const ownedFocus = levels.some((level) => level.menu.contains(doc.activeElement)) || (levels.length && doc.activeElement === doc.body);
+      const active = activeElement();
+      const ownedFocus = levels.some((level) => level.menu.contains(active)) || (levels.length && (active === doc.body || active === root.getRootNode().host));
       close(); restore();
       ({ trigger, menu } = next);
       if (supported) enhance();
@@ -272,9 +274,9 @@ export function createActionMenu({ root, contextTarget = null }) {
       enhance();
       for (const level of levels) level.trigger.setAttribute('aria-expanded', 'true');
       if (levels.length) {
-        const active = doc.activeElement;
+        const active = activeElement();
         const top = levels.at(-1).menu;
-        if ((active === doc.body || top.contains(active)) && !itemsIn(top).includes(active)) focus(itemsIn(top)[0] ?? top);
+        if ((active === doc.body || active === root.getRootNode().host || top.contains(active)) && !itemsIn(top).includes(active)) focus(itemsIn(top)[0] ?? top);
         schedulePosition();
       }
     }
