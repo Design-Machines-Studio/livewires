@@ -66,7 +66,7 @@ The application supplies the authorized items, executes commands and owns persis
 
 ## Keyboard and pointer
 
-Click/tap, Enter and Space open through the visible button. Up/Down opens at the last/first available item. Up/Down wraps among enabled visible items; Home/End and typeahead move focus. Forward arrow opens a submenu; reverse arrow or Escape returns to its opener. Directions follow RTL when needed. Escape at the root returns to its button. Tab/Shift+Tab closes synchronously, focuses that button and allows native traversal. Opening never activates the first action implicitly.
+Click/tap, Enter and Space open through the visible button. Up/Down opens at the last/first available item. Up/Down wraps among enabled visible items; Home/End and typeahead move focus. Forward arrow opens a submenu; reverse arrow or Escape returns to its opener. The forward key and preferred submenu side follow the opener's computed direction; the reverse key follows the active child menu's direction. Local direction overrides work independently of the root. Escape at the root returns to its button. Tab/Shift+Tab closes synchronously, focuses that button and allows native traversal. Opening never activates the first action implicitly.
 
 Context activation is optional. Nested inputs, links, buttons and editable controls on the context target retain their native context menu. Mobile users use the visible button; no long-press recognizer is installed. Outside pointer activation or focus dismisses without stealing focus from the new control. Two instances have separate events, state and teardown.
 

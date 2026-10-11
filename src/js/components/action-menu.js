@@ -180,7 +180,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       positionStyle(level.menu, 'max-width', `${Math.max(0, view.width - gap * 2)}px`);
       positionStyle(level.menu, 'max-height', `${Math.max(0, view.height - gap * 2)}px`);
       const rect = level.menu.getBoundingClientRect();
-      const location = placeMenu(bounds, rect, view, index > 0, win.getComputedStyle(root).direction === 'rtl', gap);
+      const location = placeMenu(bounds, rect, view, index > 0, win.getComputedStyle(index > 0 ? level.trigger : root).direction === 'rtl', gap);
       positionStyle(level.menu, 'left', `${location.x}px`);
       positionStyle(level.menu, 'top', `${location.y}px`);
     });
@@ -256,12 +256,13 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (depth > 0) closeTo(depth, true); else close(true);
       return;
     }
-    const rtl = win.getComputedStyle(root).direction === 'rtl';
     const item = event.target.closest('button, a');
+    const rtl = win.getComputedStyle(item ?? scope).direction === 'rtl';
     if (event.key === (rtl ? 'ArrowLeft' : 'ArrowRight') && childMenu(item)) {
       event.preventDefault(); openSubmenu(item); return;
     }
-    if (event.key === (rtl ? 'ArrowRight' : 'ArrowLeft') && depth > 0) {
+    const scopeRtl = win.getComputedStyle(scope).direction === 'rtl';
+    if (event.key === (scopeRtl ? 'ArrowRight' : 'ArrowLeft') && depth > 0) {
       event.preventDefault(); closeTo(depth, true); return;
     }
     const items = itemsIn(scope);

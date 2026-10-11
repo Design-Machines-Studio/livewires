@@ -39,6 +39,22 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...[
+    { root: 'ltr', menu: 'rtl', opener: null, forward: 'ArrowLeft', reverse: 'ArrowRight' },
+    { root: 'rtl', menu: 'ltr', opener: null, forward: 'ArrowRight', reverse: 'ArrowLeft' },
+    { root: 'ltr', menu: 'ltr', opener: 'rtl', forward: 'ArrowLeft', reverse: 'ArrowLeft' },
+    { root: 'rtl', menu: 'rtl', opener: 'ltr', forward: 'ArrowRight', reverse: 'ArrowRight' },
+  ].map((direction) => [
+    `submenu directions use local menu ${direction.menu} and opener ${direction.opener ?? 'inherited'} inside ${direction.root}`, async (f) => {
+      f.root.dir = direction.root; f.menu.dir = direction.menu;
+      if (direction.opener) f.sub.dir = direction.opener;
+      f.api.open(); key(f.alpha, 'ArrowDown'); key(f.sub, direction.forward);
+      const child = f.root.querySelector(`#${f.sub.getAttribute('aria-controls')}`);
+      assert(f.api.state.depth === 2 && child.contains(document.activeElement), 'local forward direction did not open child');
+      key(document.activeElement, direction.reverse);
+      assert(f.api.state.depth === 1 && document.activeElement === f.sub, 'local reverse direction did not return focus');
+    },
+  ]),
   ...['hidden', 'inert', 'aria-hidden'].map((attribute) => [
     `unavailable submenu ${attribute} stays closed and can recover`, async (f) => {
       const child = f.root.querySelector(`#${f.sub.getAttribute('aria-controls')}`);
