@@ -40,6 +40,8 @@ function key(target, value, options = {}) {
 }
 const cases = [
   ...['root', 'submenu'].flatMap((scope) => ['inert', 'aria-hidden', 'disable opener', 'remove trigger', 'replace menu', 'dispose', 'remove root', 'strip popover', 'cancel'].map((change) => [`${scope} beforetoggle ${change} never commits an unusable open level`, async (f) => {
+    const errors = []; const onError = (event) => errors.push(event.message); window.addEventListener('error', onError);
+    try {
     const list = scope === 'root' ? f.menu : f.root.querySelector('[data-menu] [data-menu]'); const opener = scope === 'root' ? f.trigger : f.sub;
     if (scope === 'submenu') f.api.open();
     list.addEventListener('beforetoggle', (event) => {
@@ -59,7 +61,26 @@ const cases = [
     assert(!list.matches(':popover-open') && f.api.state.depth < (scope === 'root' ? 1 : 2), 'unusable native popup or level survived synchronously');
     assert(opener.getAttribute('aria-expanded') !== 'true', 'unusable opener remained expanded');
     await settle(); assert(!list.matches(':popover-open'), 'deferred cleanup reopened stale popup');
+    assert(errors.length === 0, `native DOM handler error: ${errors.join('; ')}`);
+    } finally { window.removeEventListener('error', onError); }
   }])),
+  ...['root', 'submenu'].map((scope) => [`closing ${scope} beforetoggle disposal preserves application focus without throwing`, async (f) => {
+    f.api.open(); if (scope === 'submenu') f.sub.click(); const list = scope === 'root' ? f.menu : f.root.querySelector('[data-menu] [data-menu]');
+    list.addEventListener('beforetoggle', () => { f.api.dispose(); f.after.focus(); }, { once: true });
+    f.api.close(true); assert(f.api.state.disposed && !f.root.querySelector(':popover-open'), 'closing disposal retained overlay/state');
+    assert(document.activeElement === f.after && !f.root.hasAttribute('data-menu-ready'), 'disposed controller stole application focus');
+  }]),
+  ...['root', 'submenu'].map((scope) => [`closing ${scope} beforetoggle opener replacement returns to its current owner`, async (f) => {
+    f.api.open(); if (scope === 'submenu') f.sub.click(); const list = scope === 'root' ? f.menu : f.root.querySelector('[data-menu] [data-menu]'); let next;
+    list.addEventListener('beforetoggle', () => {
+      next = document.createElement('button'); next.type = 'button'; next.textContent = scope === 'root' ? 'Actions' : 'Export';
+      if (scope === 'root') { next.dataset.menuTrigger = ''; f.trigger.replaceWith(next); }
+      else { next.dataset.menuSubmenu = ''; next.setAttribute('aria-controls', list.id); f.sub.replaceWith(next); }
+    }, { once: true });
+    if (scope === 'root') f.api.close(true); else key(list.querySelector('button'), 'Escape');
+    assert(document.activeElement === next && next.getAttribute('aria-expanded') === 'false', 'closing morph returned to stale opener');
+    await settle(); assert(document.activeElement === next && f.api.state.depth === (scope === 'root' ? 0 : 1), 'closing morph lost focus or kept wrong levels');
+  }]),
   ...['inert', 'aria-hidden'].map((change) => [`beforetoggle ${change} keeps native context activation available`, async (f) => {
     f.menu.addEventListener('beforetoggle', () => { if (change === 'inert') f.root.inert = true; else f.root.setAttribute('aria-hidden', 'true'); }, { once: true });
     const event = new MouseEvent('contextmenu', { bubbles: true, composed: true, cancelable: true }); f.context.querySelector('p').dispatchEvent(event);

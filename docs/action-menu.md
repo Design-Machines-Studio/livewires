@@ -16,7 +16,7 @@ menu.close(true); // Explicit focus return to a connected opener.
 menu.dispose();  // Safe to repeat. Call before the application unmounts.
 ```
 
-`contextTarget` is optional and must be a connected element in the same document. `state` reports `{ open, depth, disposed, supported }`. Duplicate attachment to the same root is rejected. `open()` returns false after disposal, for an unavailable trigger, on cancelled context intent, or without Popover API support. `close()` defaults to no focus return, so external dismissal does not steal focus.
+`contextTarget` is optional and must be a connected element in the same document. `state` reports `{ open, depth, disposed, supported }`. Duplicate attachment to the same root is rejected. `open()` returns false after disposal, for an unavailable trigger, on cancelled context intent, without Popover API support, or when a native `beforetoggle` handler cancels or invalidates opening. The adapter revalidates server markup after native opening callbacks; a failed opening preserves the native context-menu default. Expected native errors caused by disposal or markup changes during opening or closing do not commit stale state; unexpected errors propagate. `close()` defaults to no focus return, so external dismissal does not steal focus. Requested focus return resolves the current trigger or submenu owner after native closing callbacks. Disposal during closing leaves subsequent focus management to the application.
 
 ## Server-owned markup
 
@@ -77,6 +77,8 @@ Click/tap, Enter and Space open through the visible button. Up/Down opens at the
 Optional context activation checks the exposed composed event path, preserving native context menus for nested controls in open shadow trees. A component hiding controls inside a closed tree must stop its native context event before it reaches the adapter, or cancel `lw:menu-context`. Closed boundaries do not expose those controls to this adapter.
 
 While open, named-slot changes, slot reassignment and native `slotchange` events refresh composed-ancestor availability. Moving into an unavailable slot closes all levels; moving back permits a later opening. Slot listeners follow the exposed composed trees and are removed on disposal.
+
+Some ancestor-slot changes while closed defer cleanup until the next interaction. No overlay remains open; the next opening emits one context event, revalidates ownership, disposes an incompatible controller and returns false. Call `dispose()` before changing native ownership through slots while closed.
 
 Context activation is optional. Nested inputs, links, buttons and editable controls on the context target retain their native context menu. Mobile users use the visible button; no long-press recognizer is installed. Outside pointer activation or focus dismisses without stealing focus from the new control. Two instances have separate events, state and teardown.
 

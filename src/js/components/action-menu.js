@@ -177,18 +177,29 @@ export function createActionMenu({ root, contextTarget = null }) {
 
   function focus(node) { if (root.contains(node) && available(node) && rendered(node)) node.focus({ preventScroll: node === trigger }); }
   function clearSearch() { search = ''; win.clearTimeout(searchTimer); }
+  function hide(list) {
+    try { list.hidePopover(); }
+    catch (error) { if (!['InvalidStateError', 'NotSupportedError'].includes(error.name)) throw error; }
+  }
   function closeTo(depth, refocus = false) {
     let last;
+    let lastMenuId;
     if (levels.length > depth) clearSearch();
     while (levels.length > depth) {
       const level = levels.pop();
       anchors.delete(level.menu);
       last = level.trigger;
+      lastMenuId = level.menu.id;
       // Clear local state before native APIs: a morph may have stripped popover.
-      if (level.menu.matches(':popover-open')) level.menu.hidePopover();
+      if (level.menu.matches(':popover-open')) hide(level.menu);
       if (!disposed && root.matches('[data-action-menu]') && root.contains(level.trigger) && (level.trigger === trigger ? level.trigger.hasAttribute('data-menu-trigger') : level.trigger.hasAttribute('data-menu-submenu'))) remember(level.trigger, 'aria-expanded', 'false');
     }
-    if (refocus) focus(last);
+    if (refocus && !disposed && last) {
+      reconcile(false);
+      const parentMenu = levels.at(-1)?.menu;
+      const parentItems = parentMenu ? itemsIn(parentMenu) : [];
+      focus(depth === 0 ? trigger : parentItems.includes(last) ? last : parentItems.find((item) => childMenu(item)?.id === lastMenuId) ?? parentItems[0] ?? parentMenu ?? trigger);
+    }
     if (!levels.length) {
       if (trackingFrame !== null) win.cancelAnimationFrame(trackingFrame);
       trackingFrame = null;
@@ -250,7 +261,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     catch (error) { if (!['InvalidStateError', 'NotSupportedError'].includes(error.name)) throw error; reconcile(); return false; }
     reconcile(); // Native beforetoggle handlers can cancel, dispose or morph markup.
     if (disposed || !root.contains(list) || !root.contains(opener) || !available(list) || !available(opener) || !rendered(list) || !rendered(opener) || !list.matches(':popover-open') || (list === menu ? opener !== trigger : childMenu(opener) !== list)) {
-      if (list.matches(':popover-open')) list.hidePopover();
+      if (list.matches(':popover-open')) hide(list);
       return false;
     }
     clearSearch();
@@ -350,7 +361,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     }
   }
 
-  function reconcile() {
+  function reconcile(recoverFocus = true) {
     if (disposed || changing) return;
     if (!root.isConnected) { dispose(); return; }
     const next = targets();
@@ -365,7 +376,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       close(); restore();
       ({ trigger, menu } = next);
       if (supported) enhance();
-      if (ownedFocus) focus(trigger);
+      if (ownedFocus && recoverFocus) focus(trigger);
     } else if (supported) {
       const invalid = levels.findIndex((level) => !managed.has(level.menu) || !managed.has(level.trigger) || !available(level.menu) || !rendered(level.menu) || !available(level.trigger) || !rendered(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && (childMenu(level.trigger) !== level.menu || !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger))));
       if (invalid >= 0) closeTo(invalid, managed.has(levels[invalid].trigger));
@@ -382,7 +393,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (levels.length) {
         const active = activeElement();
         const top = levels.at(-1).menu;
-        if ((active === doc.body || active === root.getRootNode().host || top.contains(active)) && !itemsIn(top).includes(active)) focus(itemsIn(top)[0] ?? top);
+        if (recoverFocus && (active === doc.body || active === root.getRootNode().host || top.contains(active)) && !itemsIn(top).includes(active)) focus(itemsIn(top)[0] ?? top);
         schedulePosition();
       }
     }
