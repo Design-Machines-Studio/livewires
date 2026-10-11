@@ -82,6 +82,8 @@ Availability follows composed ancestors, including assigned slots and shadow hos
 
 The adapter owns only the inline `left`, `top`, `max-width` and `max-height` placement declarations. Cleanup restores their original values and priorities while preserving later application changes to other declarations and custom properties.
 
+Item focus uses native scrolling to reveal actions inside constrained menus. Returning focus to the root trigger preserves the page's scroll position.
+
 Load the optional CSS even when enhancement is unavailable if these lists would otherwise inherit closed-dropdown styling. Before setup, without JavaScript, after disposal, or without Popover API, this CSS shows a readable inline list. Native application links and external-form buttons can provide executable fallback. A bare data-action button needs application code. There is no automatic initialization after later insertion: the application attaches and disposes controllers at its own update boundary.
 
 ## References and limits
