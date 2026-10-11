@@ -13,7 +13,8 @@ export function createInlineEditor({ root, contextId = root?.getAttribute('data-
   const nodes = Object.fromEntries(Object.entries(selectors).map(([key, selector]) => [key, root.querySelector(selector)]));
   const compact = root.getAttribute('data-inline-edit') === 'compact';
   const validPanel = compact
-    ? nodes.panel?.tagName === 'DIV' && nodes.trigger?.tagName === 'A' && nodes.panel.id && nodes.trigger.getAttribute('href') === `#${nodes.panel.id}`
+    ? nodes.panel?.tagName === 'DIV' && nodes.trigger?.tagName === 'A' && nodes.panel.id && nodes.trigger.getAttribute('href') === `#${nodes.panel.id}` &&
+      !nodes.panel.contains(nodes.trigger) && !nodes.panel.contains(nodes.value)
     : nodes.panel?.tagName === 'DETAILS' && nodes.trigger?.tagName === 'SUMMARY' && nodes.panel.querySelector('summary') === nodes.trigger;
   if (Object.values(nodes).some(node => !node) || !validPanel ||
       nodes.form.tagName !== 'FORM' || nodes.input.tagName !== 'INPUT' || nodes.input.type !== 'text' ||

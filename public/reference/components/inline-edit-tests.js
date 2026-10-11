@@ -135,6 +135,12 @@ run.addEventListener('click', async () => {
     check(!compactB.editor.applyResult(compactRemoved) && compactB.editor.state.phase === 'disposed', 'compact removal while pending rejects responses');
     compact.editor.dispose();
     check(!compact.root.querySelector('[data-inline-edit-panel]').hidden && !compact.trigger.hasAttribute('aria-expanded'), 'compact disposal restores visible native form and trigger attributes');
+    const invalid = document.createElement('section'); invalid.dataset.inlineEdit = 'compact';
+    invalid.innerHTML = compact.root.innerHTML;
+    invalid.querySelector('[data-inline-edit-panel]').append(invalid.querySelector('[data-inline-edit-trigger]'));
+    fixtures.append(invalid); let rejectedBoundary = false;
+    try { createInlineEditor({ root: invalid, contextId: 'invalid' }); } catch { rejectedBoundary = true; }
+    check(rejectedBoundary, 'compact setup rejects a trigger hidden inside the panel');
     window.inlineEditCheckResult = { passed, failed: 0, composition: 'simulated' };
   } catch (error) {
     const li = document.createElement('li'); li.textContent = `FAIL — ${error.message}`; results.append(li);

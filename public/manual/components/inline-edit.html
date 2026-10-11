@@ -37,7 +37,6 @@
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;p data-inline-edit-status role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt;&lt;/p&gt;
-  &lt;p data-example-sibling&gt;Updates elsewhere do not replace this field.&lt;/p&gt;
 &lt;/section&gt;</code></pre></div>
             </popup-dialog>
           </header>
@@ -65,17 +64,25 @@
             <popup-dialog title="Disclosure Inline Editing HTML">
               <p><a href="#" class="text-sm">Code</a></p>
               <div slot="body"><pre><code>&lt;section data-inline-edit data-context-id=&quot;title-b&quot; class=&quot;stack&quot;&gt;
-&lt;h2 data-inline-edit-value&gt;Shared workspace&lt;/h2&gt;&lt;p data-example-sibling&gt;Updates elsewhere do not replace this field.&lt;/p&gt;
-&lt;details data-inline-edit-panel&gt;&lt;summary data-inline-edit-trigger&gt;Edit second title&lt;/summary&gt;
-&lt;form data-inline-edit-form action=&quot;&quot; method=&quot;get&quot; class=&quot;stack&quot;&gt;&lt;label for=&quot;title-b-input&quot;&gt;Second title&lt;/label&gt;
-&lt;input id=&quot;title-b-input&quot; name=&quot;title-b&quot; type=&quot;text&quot; value=&quot;Shared workspace&quot; data-inline-edit-input&gt;
-&lt;p id=&quot;title-b-error&quot; data-inline-edit-error role=&quot;alert&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;cluster cluster-compact&quot;&gt;&lt;button class=&quot;button&quot; type=&quot;submit&quot; data-inline-edit-save&gt;Save second title&lt;/button&gt;&lt;button class=&quot;button&quot; type=&quot;button&quot; data-inline-edit-cancel&gt;Cancel editing&lt;/button&gt;&lt;/div&gt;&lt;/form&gt;&lt;/details&gt;
-&lt;p data-inline-edit-status role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt;&lt;/p&gt;&lt;/section&gt;</code></pre></div>
+  &lt;h3 data-inline-edit-value&gt;Shared workspace&lt;/h3&gt;
+  &lt;details data-inline-edit-panel&gt;
+    &lt;summary data-inline-edit-trigger&gt;Edit second title&lt;/summary&gt;
+    &lt;form data-inline-edit-form action=&quot;&quot; method=&quot;get&quot; class=&quot;stack&quot;&gt;
+      &lt;label for=&quot;title-b-input&quot;&gt;Second title&lt;/label&gt;
+      &lt;input id=&quot;title-b-input&quot; name=&quot;title-b&quot; type=&quot;text&quot; value=&quot;Shared workspace&quot; data-inline-edit-input&gt;
+      &lt;p id=&quot;title-b-error&quot; data-inline-edit-error role=&quot;alert&quot;&gt;&lt;/p&gt;
+      &lt;div class=&quot;cluster&quot;&gt;
+        &lt;button class=&quot;button&quot; type=&quot;submit&quot; data-inline-edit-save&gt;Save second title&lt;/button&gt;
+        &lt;button class=&quot;button&quot; type=&quot;button&quot; data-inline-edit-cancel&gt;Cancel editing&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/details&gt;
+  &lt;p data-inline-edit-status role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt;&lt;/p&gt;
+&lt;/section&gt;</code></pre></div>
             </popup-dialog>
           </header>
 <section data-inline-edit data-context-id="title-b" class="stack">
-<h2 data-inline-edit-value>Shared workspace</h2><p data-example-sibling>Updates elsewhere do not replace this field.</p>
+<h3 data-inline-edit-value>Shared workspace</h3><p data-example-sibling>Updates elsewhere do not replace this field.</p>
 <details data-inline-edit-panel><summary data-inline-edit-trigger>Edit second title</summary>
 <form data-inline-edit-form action="" method="get" class="stack"><label for="title-b-input">Second title</label>
 <input id="title-b-input" name="title-b" type="text" value="Shared workspace" data-inline-edit-input>
@@ -87,8 +94,8 @@
           <h2>Keyboard, drafts and application results</h2>
 <p>Use Edit, Enter, Space or F2 to begin. Save or Enter submits the draft. Escape or Cancel ends editing. Leaving the field keeps your draft and never saves.</p>
 <p>This page simulates application results. Without JavaScript, compact editing shows a native form; the disclosure opens one. Submitting reloads this example and saves nothing.</p>
-          <p>Rejection keeps the entered value and associates the error with its label. Pending and uncertain values remain visible and read-only. Cancel is always a ghost action and does not promise to undo a pending save.</p>
-<section data-example-controls hidden class="stack"><h2>Try application results</h2>
+          <p>Rejection keeps the entered value and associates the error with the field. Pending and uncertain values remain visible and read-only. Cancel is always a ghost action and does not promise to undo a pending save.</p>
+<section data-example-controls hidden class="stack"><h3>Try application results</h3>
 <div class="cluster"><label>Response delay <select data-example-delay><option value="1000">1 second</option><option value="0">Immediate</option><option value="hold">Hold until released</option></select></label>
 <label>Response <select data-example-outcome><option value="confirmed">Confirm value</option><option value="rejected">Reject value</option><option value="unknown">Uncertain result</option></select></label></div>
 <div class="cluster"><button type="button" data-example-release>Deliver held response</button><button type="button" data-example-confirm>Confirm latest request</button><button type="button" data-example-reject>Reject latest request</button><button type="button" data-example-stale>Replay first response</button></div>
@@ -101,13 +108,19 @@
           <p>Link <code>/dist/inline-edit.css</code> after <code>/dist/main.css</code>, import <code>createInlineEditor</code> from <code>/dist/inline-edit.js</code>, and attach it to each stable editor root.</p>
           <pre><code>import { createInlineEditor } from '/dist/inline-edit.js';
 const editor = createInlineEditor({ root });
-root.addEventListener('lw-inline-edit-commit', ({ detail }) =&gt; {
-  // Validate and save in your application, then supply a matching result.
-  applicationSave(detail).then(result =&gt; editor.applyResult({ ...detail, ...result }));
+root.addEventListener('lw-inline-edit-commit', async ({ detail }) =&gt; {
+  const { contextId, editId, requestId, value, original } = detail;
+  // The application returns an authoritative value only after confirmed saving.
+  try {
+    const result = await applicationSave({ contextId, value, original });
+    editor.applyResult({ contextId, editId, requestId, ...result });
+  } catch {
+    editor.applyResult({ contextId, editId, requestId, outcome: 'unknown' });
+  }
 });</code></pre>
           <p><code>applicationSave</code> is your application code. Map transport uncertainty to <code>unknown</code>; request completion alone never means saved. Results must match the context, edit and request IDs.</p>
           <p>Preserve the root, field and other required nodes during unrelated updates. The controller preserves draft and selection; your application must preserve the focused input during its own DOM updates.</p>
-          <p><a href="/reference/components/inline-edit.html">Raw reference examples</a> · <a href="/reference/components/inline-edit-tests.html">Run lifecycle checks</a> · <a href="https://github.com/Design-Machines-Studio/livewires/blob/feat/interaction-08-16/docs/inline-edit.md">Events and lifecycle contract</a></p>
+          <p><a href="/reference/components/inline-edit.html">Raw reference examples</a> · <a href="/reference/components/inline-edit-tests.html">Run lifecycle checks</a> · <a href="https://github.com/Design-Machines-Studio/livewires/blob/main/docs/inline-edit.md">Events and lifecycle contract</a></p>
         </section>
       </article>
     </main>

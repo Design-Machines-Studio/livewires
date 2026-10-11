@@ -11,7 +11,7 @@
     & [data-inline-edit-cancel] {
       --button-bg: transparent;
       --button-fg: var(--color-fg);
-      border: none;
+      border: var(--line-1px) solid transparent;
     }
     &[data-inline-edit="compact"] {
       & [hidden] { display: none; }

@@ -14,7 +14,7 @@ Inline editing adds an optional interaction around a native text form. Link `/di
       <p id="title-error" data-inline-edit-error role="alert"></p>
       <div class="cluster">
         <button class="button" type="submit" data-inline-edit-save>Save title</button>
-        <button type="button" data-inline-edit-cancel>Cancel editing</button>
+        <button class="button" type="button" data-inline-edit-cancel>Cancel editing</button>
       </div>
     </form>
   </details>
@@ -74,7 +74,6 @@ Use `data-inline-edit="compact"` for a value and Edit link on one row. The contr
     </div>
   </div>
   <p data-inline-edit-status role="status" aria-live="polite" aria-atomic="true"></p>
-  <p data-example-sibling>Updates elsewhere do not replace this field.</p>
 </section>
 ```
 
