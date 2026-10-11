@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toast lifecycle checks — Live Wires</title>
+  <script type="module" src="/dist/main.js"></script>
+  <script type="module" src="/manual/_components/toast-checks.js"></script>
+</head>
+<body class="scheme-default">
+  <main class="section stack" id="main">
+    <h1>Toast lifecycle checks</h1>
+    <p>Deterministic fake time with native DOM, focus, events and MutationObserver. These checks do not prove screen-reader speech, application persistence or real transport behavior.</p>
+    <button id="run-checks" type="button">Run checks</button>
+    <pre id="check-results" role="status" aria-live="polite">Not run.</pre>
+    <div id="check-fixtures"></div>
+  </main>
+</body>
+</html>

@@ -14,27 +14,35 @@
 @layer components {
   .toast {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--line-05);
-    padding: var(--line-05) var(--line-075);
-    max-inline-size: calc(var(--line) * 16);
+    padding: var(--line-05);
+    max-inline-size: min(calc(var(--line) * 16), 100%);
 
     background: var(--color-subtle);
     color: var(--color-fg);
     border: var(--line-1px) solid var(--color-border);
-    border-inline-start: calc(var(--line-1px) * 3) solid var(--color-accent);
     border-radius: var(--radius-normal);
     box-shadow: 0 4px 12px var(--overlay-shadow);
     font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
 
     animation: toast-in var(--duration-fast) var(--ease-out);
 
+    &[hidden] {
+      display: none;
+    }
+
     & .content {
       flex: 1;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
       margin: 0;
     }
 
     & .close {
+      --touch-target-min: 24px; /* WCAG 2.2 AA target-size minimum. */
       flex-shrink: 0;
       padding: 0;
       background: none;
@@ -42,11 +50,13 @@
       font-size: 1.25em;
       line-height: 1;
       cursor: pointer;
-      color: var(--color-muted);
-      min-block-size: auto;
+      color: color-mix(in srgb, currentColor 75%, transparent);
+      min-block-size: var(--touch-target-min);
+      min-inline-size: var(--touch-target-min);
 
-      &:hover {
-        color: var(--color-fg);
+      &:hover,
+      &:focus-visible {
+        color: inherit;
       }
     }
   }
@@ -55,33 +65,47 @@
     animation: toast-out var(--duration-fast) var(--ease-in) forwards;
   }
 
+  [data-toast-region] [data-toast-list] {
+    max-block-size: min(calc(var(--line) * 18), 70dvb);
+    overflow-y: auto;
+    padding: var(--line-025);
+    overscroll-behavior: contain;
+  }
+
+  [data-toast-region] > [data-toast-review][hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toast,
+    .toast--dismissing {
+      animation: none;
+    }
+  }
+
   /* Semantic variants */
   .toast--success {
     background: var(--color-green-100);
     color: var(--color-green-900);
     border-color: var(--color-green-200);
-    border-inline-start-color: var(--color-success);
   }
 
   .toast--error {
     background: var(--color-red-100);
     color: var(--color-red-900);
     border-color: var(--color-red-200);
-    border-inline-start-color: var(--color-error);
   }
 
   .toast--warning {
     background: var(--color-gold-100);
     color: var(--color-gold-900);
     border-color: var(--color-gold-200);
-    border-inline-start-color: var(--color-warning);
   }
 
   .toast--info {
     background: var(--color-blue-100);
     color: var(--color-blue-900);
     border-color: var(--color-blue-200);
-    border-inline-start-color: var(--color-accent);
   }
 
   @keyframes toast-in {
