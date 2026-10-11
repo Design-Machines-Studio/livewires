@@ -39,6 +39,15 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['button', 'context'].map((activation) => [`idle ${activation} menus avoid repeated placement work with a live measurement control`, async (f) => {
+    f.api.open({ activation, at: activation === 'context' ? { x: 180, y: 140 } : null }); for (let frame = 0; frame < 4; frame++) await settle();
+    const native = f.menu.getBoundingClientRect; const owned = Object.hasOwn(f.menu, 'getBoundingClientRect'); let measurements = 0;
+    f.menu.getBoundingClientRect = function () { measurements++; return native.call(this); };
+    try {
+      for (let frame = 0; frame < 4; frame++) await settle(); assert(measurements === 0, 'idle placement recalculated');
+      window.dispatchEvent(new Event('resize')); await settle(); assert(measurements > 0, 'measurement control did not observe actual placement');
+    } finally { if (owned) f.menu.getBoundingClientRect = native; else delete f.menu.getBoundingClientRect; }
+  }]),
   ...['inline', 'padding'].map((shape) => [`placement follows ${shape} sibling changes without ancestor resizing`, async (f) => {
     f.context.style.cssText = 'position:fixed;left:20px;top:20px;width:800px;height:300px';
     const paragraph = f.context.querySelector('p'); let sibling;
