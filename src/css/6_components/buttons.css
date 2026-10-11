@@ -16,6 +16,30 @@
     --button-fg: var(--color-bg);
   }
 
+  /* Ghost actions keep a button's target and focus treatment without a fill. */
+  .button--ghost {
+    --button-bg: transparent;
+    --button-fg: var(--color-fg);
+    border: var(--line-1px) solid transparent;
+
+    &:hover,
+    &:active {
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
+
+  .button--ghost:disabled,
+  .button--ghost.button--disabled {
+    background-color: transparent;
+    color: var(--color-muted);
+  }
+
+  .button--ghost.button--accent {
+    /* Bring accent text toward foreground for contrast in light/dark schemes. */
+    --button-fg: color-mix(in srgb, var(--color-accent) 45%, var(--color-fg));
+  }
+
   /* Size variants */
   .button--small {
     --button-h-space: var(--line-025);
