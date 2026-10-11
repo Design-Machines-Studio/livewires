@@ -14,7 +14,7 @@ Inline editing adds an optional interaction around a native text form. Link `/di
       <p id="title-error" data-inline-edit-error role="alert"></p>
       <div class="cluster">
         <button class="button" type="submit" data-inline-edit-save>Save title</button>
-        <button class="button" type="button" data-inline-edit-cancel>Cancel editing</button>
+        <button class="button button--ghost" type="button" data-inline-edit-cancel>Cancel editing</button>
       </div>
     </form>
   </details>
@@ -62,13 +62,13 @@ Use `data-inline-edit="compact"` for a value and Edit link on one row. The contr
 <section data-inline-edit="compact" data-context-id="title-a" class="stack">
   <div class="cluster cluster-compact">
     <span data-inline-edit-value>Community gathering</span>
-    <a href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
+    <a class="button button--small button--ghost button--accent" href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
     <div id="title-a-panel" data-inline-edit-panel>
       <form data-inline-edit-form action="/records/42/title" method="post" class="cluster cluster-compact">
         <label class="visually-hidden" for="title-a-input">First title</label>
         <input id="title-a-input" name="title-a" type="text" value="Community gathering" data-inline-edit-input>
         <button class="button button--small" type="submit" data-inline-edit-save>Save</button>
-        <button class="button button--small" type="button" data-inline-edit-cancel>Cancel</button>
+        <button class="button button--small button--ghost" type="button" data-inline-edit-cancel>Cancel</button>
         <p id="title-a-error" data-inline-edit-error role="alert"></p>
       </form>
     </div>
@@ -77,7 +77,7 @@ Use `data-inline-edit="compact"` for a value and Edit link on one row. The contr
 </section>
 ```
 
-Keep the panel ID and Edit link target matched. Keep the value and Edit link outside the panel. The labeled field uses the existing `visually-hidden` utility; Save and Cancel use `button--small`. Cancel is styled as a ghost action by the optional component stylesheet. Hidden state belongs to the controller, and the input remains the same node through every edit. Do not add initial `hidden` attributes: without JavaScript the Edit link jumps to the visible native form. Supply an application cancel/back link for native cancellation. The compact link receives enhanced `aria-controls` and `aria-expanded` attributes. Its confirmed value and trigger return before focus is restored.
+Keep the panel ID and Edit link target matched. Keep the value and Edit link outside the panel. The labeled field uses the existing `visually-hidden` utility; Save and Cancel use `button--small`. Use the shared `button--ghost` variant for Cancel. Add `button--accent` to a ghost button for accent text, as on Edit; accent text is mixed toward the scheme foreground to maintain contrast. Hidden state belongs to the controller, and the input remains the same node through every edit. Do not add initial `hidden` attributes: without JavaScript the Edit link jumps to the visible native form. Supply an application cancel/back link for native cancellation. The compact link receives enhanced `aria-controls` and `aria-expanded` attributes. Its confirmed value and trigger return before focus is restored.
 
 ## Keys, blur and focus
 

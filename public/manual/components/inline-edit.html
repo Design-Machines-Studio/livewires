@@ -19,19 +19,19 @@
         </header>
         <section class="section stack">
           <header><h2>Compact editing</h2>
-            <p>The value and Edit link share a row. Edit replaces them with a small field, Save and ghost Cancel. The field stays in place while you type or wait for a response.</p>
+            <p>The value and small accent ghost Edit control share a row. Edit replaces them with a small field, Save and ghost Cancel. The field stays in place while you type or wait for a response.</p>
             <popup-dialog title="Compact Inline Editing HTML">
               <p><a href="#" class="text-sm">Code</a></p>
               <div slot="body"><pre><code>&lt;section data-inline-edit=&quot;compact&quot; data-context-id=&quot;title-a&quot; class=&quot;stack&quot;&gt;
   &lt;div class=&quot;cluster cluster-compact&quot;&gt;
     &lt;span data-inline-edit-value&gt;Community gathering&lt;/span&gt;
-    &lt;a href=&quot;#title-a-panel&quot; data-inline-edit-trigger aria-label=&quot;Edit first title&quot;&gt;Edit&lt;/a&gt;
+    &lt;a class=&quot;button button--small button--ghost button--accent&quot; href=&quot;#title-a-panel&quot; data-inline-edit-trigger aria-label=&quot;Edit first title&quot;&gt;Edit&lt;/a&gt;
     &lt;div id=&quot;title-a-panel&quot; data-inline-edit-panel&gt;
       &lt;form data-inline-edit-form action=&quot;&quot; method=&quot;get&quot; class=&quot;cluster cluster-compact&quot;&gt;
         &lt;label class=&quot;visually-hidden&quot; for=&quot;title-a-input&quot;&gt;First title&lt;/label&gt;
         &lt;input id=&quot;title-a-input&quot; name=&quot;title-a&quot; type=&quot;text&quot; value=&quot;Community gathering&quot; data-inline-edit-input&gt;
         &lt;button class=&quot;button button--small&quot; type=&quot;submit&quot; data-inline-edit-save&gt;Save&lt;/button&gt;
-        &lt;button class=&quot;button button--small&quot; type=&quot;button&quot; data-inline-edit-cancel&gt;Cancel&lt;/button&gt;
+        &lt;button class=&quot;button button--small button--ghost&quot; type=&quot;button&quot; data-inline-edit-cancel&gt;Cancel&lt;/button&gt;
         &lt;p id=&quot;title-a-error&quot; data-inline-edit-error role=&quot;alert&quot;&gt;&lt;/p&gt;
       &lt;/form&gt;
     &lt;/div&gt;
@@ -43,13 +43,13 @@
 <section data-inline-edit="compact" data-context-id="title-a" class="stack">
   <div class="cluster cluster-compact">
     <span data-inline-edit-value>Community gathering</span>
-    <a href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
+    <a class="button button--small button--ghost button--accent" href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
     <div id="title-a-panel" data-inline-edit-panel>
       <form data-inline-edit-form action="" method="get" class="cluster cluster-compact">
         <label class="visually-hidden" for="title-a-input">First title</label>
         <input id="title-a-input" name="title-a" type="text" value="Community gathering" data-inline-edit-input>
         <button class="button button--small" type="submit" data-inline-edit-save>Save</button>
-        <button class="button button--small" type="button" data-inline-edit-cancel>Cancel</button>
+        <button class="button button--small button--ghost" type="button" data-inline-edit-cancel>Cancel</button>
         <p id="title-a-error" data-inline-edit-error role="alert"></p>
       </form>
     </div>
@@ -73,7 +73,7 @@
       &lt;p id=&quot;title-b-error&quot; data-inline-edit-error role=&quot;alert&quot;&gt;&lt;/p&gt;
       &lt;div class=&quot;cluster&quot;&gt;
         &lt;button class=&quot;button&quot; type=&quot;submit&quot; data-inline-edit-save&gt;Save second title&lt;/button&gt;
-        &lt;button class=&quot;button&quot; type=&quot;button&quot; data-inline-edit-cancel&gt;Cancel editing&lt;/button&gt;
+        &lt;button class=&quot;button button--ghost&quot; type=&quot;button&quot; data-inline-edit-cancel&gt;Cancel editing&lt;/button&gt;
       &lt;/div&gt;
     &lt;/form&gt;
   &lt;/details&gt;
@@ -87,7 +87,7 @@
 <form data-inline-edit-form action="" method="get" class="stack"><label for="title-b-input">Second title</label>
 <input id="title-b-input" name="title-b" type="text" value="Shared workspace" data-inline-edit-input>
 <p id="title-b-error" data-inline-edit-error role="alert"></p>
-<div class="cluster"><button class="button" type="submit" data-inline-edit-save>Save second title</button><button class="button" type="button" data-inline-edit-cancel>Cancel editing</button></div></form></details>
+<div class="cluster"><button class="button" type="submit" data-inline-edit-save>Save second title</button><button class="button button--ghost" type="button" data-inline-edit-cancel>Cancel editing</button></div></form></details>
 <p data-inline-edit-status role="status" aria-live="polite" aria-atomic="true"></p></section>
         </section>
         <section class="section stack">

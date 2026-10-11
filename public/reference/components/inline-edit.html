@@ -17,13 +17,13 @@
 <section data-inline-edit="compact" data-context-id="title-a" class="stack">
   <div class="cluster cluster-compact">
     <span data-inline-edit-value>Community gathering</span>
-    <a href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
+    <a class="button button--small button--ghost button--accent" href="#title-a-panel" data-inline-edit-trigger aria-label="Edit first title">Edit</a>
     <div id="title-a-panel" data-inline-edit-panel>
       <form data-inline-edit-form action="" method="get" class="cluster cluster-compact">
         <label class="visually-hidden" for="title-a-input">First title</label>
         <input id="title-a-input" name="title-a" type="text" value="Community gathering" data-inline-edit-input>
         <button class="button button--small" type="submit" data-inline-edit-save>Save</button>
-        <button class="button button--small" type="button" data-inline-edit-cancel>Cancel</button>
+        <button class="button button--small button--ghost" type="button" data-inline-edit-cancel>Cancel</button>
         <p id="title-a-error" data-inline-edit-error role="alert"></p>
       </form>
     </div>
@@ -38,7 +38,7 @@
 <form data-inline-edit-form action="" method="get" class="stack"><label for="title-b-input">Second title</label>
 <input id="title-b-input" name="title-b" type="text" value="Shared workspace" data-inline-edit-input>
 <p id="title-b-error" data-inline-edit-error role="alert"></p>
-<div class="cluster"><button class="button" type="submit" data-inline-edit-save>Save second title</button><button class="button" type="button" data-inline-edit-cancel>Cancel editing</button></div></form></details>
+<div class="cluster"><button class="button" type="submit" data-inline-edit-save>Save second title</button><button class="button button--ghost" type="button" data-inline-edit-cancel>Cancel editing</button></div></form></details>
 <p data-inline-edit-status role="status" aria-live="polite" aria-atomic="true"></p></section>
 <section data-example-controls hidden class="stack"><h2>Try application results</h2>
 <div class="cluster"><label>Response delay <select data-example-delay><option value="1000">1 second</option><option value="0">Immediate</option><option value="hold">Hold until released</option></select></label>
