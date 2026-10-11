@@ -39,6 +39,23 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['synchronous action removal disposes the detached controller', async (f) => {
+    f.root.addEventListener('lw:menu-action', () => f.context.remove(), { once: true });
+    f.api.open(); f.alpha.click(); await settle();
+    assert(f.api.state.disposed && !f.root.hasAttribute('data-menu-ready'), 'action removal retained controller');
+    assert(!f.menu.matches(':popover-open'), 'action removal retained overlay');
+  }],
+  ['synchronous action replacement enhances the new menu after closing', async (f) => {
+    const next = replacement(f);
+    f.root.addEventListener('lw:menu-action', () => f.menu.replaceWith(next), { once: true });
+    f.api.open(); f.alpha.click(); await settle();
+    assert(next.getAttribute('popover') === 'manual' && next.getAttribute('role') === 'menu', 'action replacement lost enhancement');
+    assert(f.api.open() && next.matches(':popover-open'), 'replacement menu cannot open');
+  }],
+  ['API close preserves a queued menu replacement', async (f) => {
+    f.api.open(); const next = replacement(f); f.menu.replaceWith(next); f.api.close(); await settle();
+    assert(f.api.open() && next.matches(':popover-open'), 'API close lost queued replacement');
+  }],
   ['closed-shadow menus keep native fallback markup and context behavior', async () => {
     const host = document.createElement('div'); fixtures.append(host);
     const tree = host.attachShadow({ mode: 'closed' }); const f = fixture(tree);

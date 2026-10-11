@@ -155,7 +155,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       level.trigger?.setAttribute('aria-expanded', 'false');
     }
     if (refocus) focus(last);
-    if (observer && !disposed) observeMarkup();
+    if (observer && !disposed) observeMarkup(false);
   }
   function close(refocus = false) {
     clearSearch();
@@ -192,7 +192,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     list.showPopover();
     if (!rendered(list)) { list.hidePopover(); return false; }
     levels.push({ menu: list, trigger: opener });
-    observeMarkup();
+    observeMarkup(false);
     opener.setAttribute('aria-expanded', 'true');
     position();
     const items = itemsIn(list);
@@ -325,8 +325,9 @@ export function createActionMenu({ root, contextTarget = null }) {
     target.addEventListener(type, handler, options);
     unlisten.push(() => target.removeEventListener(type, handler, options));
   }
-  function observeMarkup() {
-    observer.disconnect();
+  function observeMarkup(reset = true) {
+    // Opening and closing change options without discarding application updates.
+    if (reset) observer.disconnect();
     const trees = new Set();
     for (let node = root; node; node = parent(node)) trees.add(node.getRootNode());
     const attributes = levels.length ? { attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style'] } : {};
