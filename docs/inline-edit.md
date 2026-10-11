@@ -77,7 +77,7 @@ Use `data-inline-edit="compact"` for a value and Edit link on one row. The contr
 </section>
 ```
 
-Keep the panel ID and Edit link target matched. The labeled field uses the existing `visually-hidden` utility; Save and Cancel use `button--small`. Cancel is styled as a ghost action by the optional component stylesheet. Hidden state belongs to the controller, and the input remains the same node through every edit. Do not add initial `hidden` attributes: without JavaScript the Edit link jumps to the visible native form. Supply an application cancel/back link for native cancellation. The compact link receives enhanced `aria-controls` and `aria-expanded` attributes. Its confirmed value and trigger return before focus is restored.
+Keep the panel ID and Edit link target matched. Keep the value and Edit link outside the panel. The labeled field uses the existing `visually-hidden` utility; Save and Cancel use `button--small`. Cancel is styled as a ghost action by the optional component stylesheet. Hidden state belongs to the controller, and the input remains the same node through every edit. Do not add initial `hidden` attributes: without JavaScript the Edit link jumps to the visible native form. Supply an application cancel/back link for native cancellation. The compact link receives enhanced `aria-controls` and `aria-expanded` attributes. Its confirmed value and trigger return before focus is restored.
 
 ## Keys, blur and focus
 
