@@ -39,6 +39,8 @@ menu.dispose();  // Safe to repeat. Call before the application unmounts.
 
 The stable root owns one direct trigger and one direct `ul.menu[data-menu]`. Menus need distinct stable IDs. Each list row holds one native action or submenu button. The submenu list is that button's sibling and matches `aria-controls`. Separators use an `hr` in a list item. Give every menu an accessible name.
 
+Every descendant `data-menu` must belong to that direct menu's tree; unrelated wrapped menus are invalid. Converting a submenu button into an action releases the adapter's submenu ARIA to its authored values. Applications own any original ARIA values and must keep them appropriate for their action.
+
 The adapter adds `role=menu`, item roles, local focus stops, manual popover state, and expanded state on actual opener buttons. It restores the original attributes on disposal. These are live server-rendered lists, not cloned portals or HTML-template hosts. A server may replace the list with new template output. Keep template output free of runtime attributes copied from an already-enhanced DOM.
 
 Do not attach this adapter to form filters, navigation panels, details or dialogs. Fields, editable content and nested controls within action buttons are rejected before setup. Keep native details disclosure, native dialog focus and navigation link tab order where they already solve the need. An ordinary native link can be an action-menu item; a navigation panel containing arbitrary links is a different component.

@@ -39,6 +39,38 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...[false, true].map((open) => [`wrapped menus outside the selected tree reject ${open ? 'an open morph' : 'initial setup'}`, async (f) => {
+    if (open) { f.api.open(); f.sub.click(); await settle(); } else f.api.dispose();
+    const wrapper = document.createElement('div'); wrapper.innerHTML = '<ul class="menu" id="wrapped-extra-menu" data-menu><li><button data-menu-action="extra" type="button">Extra</button></li></ul>'; f.root.append(wrapper);
+    if (open) {
+      await settle(); assert(f.api.state.disposed && !f.root.querySelector(':popover-open'), 'wrapped morph retained active overlays');
+    } else {
+      let rejected = false; try { createActionMenu({ root: f.root }); } catch (error) { rejected = error instanceof TypeError; }
+      assert(rejected, 'wrapped menu accepted at setup');
+    }
+    assert(!f.root.hasAttribute('data-menu-ready') && !wrapper.firstElementChild.hasAttribute('popover'), 'unowned wrapped menu enhanced');
+  }]),
+  ...[false, true].map((open) => [`submenu-to-action updates release submenu ARIA ${open ? 'while open' : 'while closed'}`, async (f) => {
+    if (open) { f.api.open(); f.sub.click(); } await settle();
+    f.root.querySelector(`#${f.sub.getAttribute('aria-controls')}`).remove();
+    f.sub.removeAttribute('data-menu-submenu'); f.sub.removeAttribute('aria-controls'); f.sub.dataset.menuAction = 'converted'; await settle();
+    assert(!f.sub.hasAttribute('aria-haspopup') && !f.sub.hasAttribute('aria-expanded'), 'action kept adapter submenu ARIA');
+    assert(!f.api.state.disposed && f.api.state.depth === (open ? 1 : 0), 'valid conversion disposed or retained child');
+    if (!open) f.api.open(); f.sub.focus(); key(f.sub, 'ArrowRight'); assert(f.api.state.depth === 1, 'converted action opens stale submenu');
+    let action; f.root.addEventListener('lw:menu-action', (event) => { action = event.detail.action; }, { once: true }); f.sub.click();
+    assert(action === 'converted' && !f.api.state.open, 'converted action did not execute intent');
+  }]),
+  ['submenu attribute release preserves authored values across role changes', async (f) => {
+    f.api.dispose(); f.sub.setAttribute('aria-haspopup', 'false'); f.sub.setAttribute('aria-expanded', 'false');
+    const api = createActionMenu({ root: f.root });
+    try {
+      const child = f.root.querySelector(`#${f.sub.getAttribute('aria-controls')}`); child.remove(); f.sub.removeAttribute('data-menu-submenu'); f.sub.dataset.menuAction = 'converted'; await settle();
+      assert(f.sub.getAttribute('aria-haspopup') === 'false' && f.sub.getAttribute('aria-expanded') === 'false', 'authored ARIA overwritten during release');
+      delete f.sub.dataset.menuAction; f.sub.dataset.menuSubmenu = ''; f.sub.parentElement.append(child); await settle();
+      assert(f.sub.getAttribute('aria-haspopup') === 'menu' && f.sub.getAttribute('aria-expanded') === 'false', 'submenu restoration lost enhancement');
+    } finally { api.dispose(); }
+    assert(f.sub.getAttribute('aria-haspopup') === 'false' && f.sub.getAttribute('aria-expanded') === 'false', 'reattached submenu lost authored values on dispose');
+  }],
   ...['trigger', 'menu'].map((kind) => [`duplicate direct ${kind} rejects initial enhancement`, async (f) => {
     f.api.dispose(); const duplicate = (kind === 'trigger' ? f.trigger : f.menu).cloneNode(true); f.root.append(duplicate);
     let rejected = false; try { createActionMenu({ root: f.root }); } catch (error) { rejected = error instanceof TypeError; }

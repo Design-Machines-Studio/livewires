@@ -67,8 +67,10 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (!root.matches('[data-action-menu]')) throw new TypeError('A data-action-menu root is required.');
     if (!next.trigger?.matches('button') || !next.menu?.matches('ul.menu') || !next.menu.id) throw new TypeError('Use exactly one direct native button trigger and one identified ul.menu[data-menu].');
     if (root.closest('details, dialog') || root.matches('nav, form') || next.menu.querySelector(`${editable}, form, nav, details, dialog`)) throw new TypeError('Action menus cannot contain form fields, navigation, details or dialogs.');
+    const lists = menusIn(next.menu);
+    if (root.querySelectorAll('[data-menu]').length !== lists.length) throw new TypeError('All menus must belong to the direct menu tree.');
     const seen = new Set();
-    for (const list of menusIn(next.menu)) {
+    for (const list of lists) {
       if (!list.matches('ul.menu') || !list.id || seen.has(list.id)) throw new TypeError('Menus need distinct IDs and ul.menu markup.');
       seen.add(list.id);
       for (const row of list.children) {
@@ -91,6 +93,14 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (!values.has(name)) values.set(name, node.getAttribute(name));
     if (value === null) node.removeAttribute(name);
     else if (node.getAttribute(name) !== String(value)) node.setAttribute(name, String(value));
+  }
+  function restoreAttribute(node, name) {
+    const values = originals.get(node);
+    if (!values?.has(name)) return;
+    const value = values.get(name);
+    if (value === null) node.removeAttribute(name); else node.setAttribute(name, value);
+    values.delete(name);
+    if (!values.size) originals.delete(node);
   }
   function restore() {
     for (const [node, values] of originals) {
@@ -141,6 +151,9 @@ export function createActionMenu({ root, contextTarget = null }) {
           if (item.hasAttribute('data-menu-submenu')) {
             remember(item, 'aria-haspopup', 'menu');
             remember(item, 'aria-expanded', 'false');
+          } else {
+            restoreAttribute(item, 'aria-haspopup');
+            restoreAttribute(item, 'aria-expanded');
           }
         }
       }
