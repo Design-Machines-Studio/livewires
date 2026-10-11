@@ -32,15 +32,15 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
 
   function menusIn(value) { return [value, ...value.querySelectorAll('[data-menu]')]; }
-  function itemsIn(value) {
-    return [...value.querySelectorAll(controls)].filter((item) => {
-      if (!item.isConnected || item.matches(':disabled, [aria-disabled="true"]')) return false;
-      for (let node = item; node && node !== value; node = node.parentElement) {
-        if (node.hidden || node.inert || node.getAttribute('aria-hidden') === 'true') return false;
-      }
-      return true;
-    });
+  function available(item) {
+    if (!item?.isConnected || item.matches(':disabled, [aria-disabled="true"]')) return false;
+    for (let node = item; node; node = node.parentElement) {
+      if (node.hidden || node.inert || node.getAttribute('aria-hidden') === 'true') return false;
+      if (node === root) break;
+    }
+    return true;
   }
+  function itemsIn(value) { return [...value.querySelectorAll(controls)].filter(available); }
   function childMenu(item) {
     if (!item?.hasAttribute('data-menu-submenu')) return null;
     return [...item.parentElement.children].find((node) => node.matches('[data-menu]') && node.id === item.getAttribute('aria-controls')) ?? null;
@@ -107,7 +107,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     }
   }
 
-  function focus(node) { if (node?.isConnected && !node.matches(':disabled, [hidden], [inert]')) node.focus({ preventScroll: true }); }
+  function focus(node) { if (available(node)) node.focus({ preventScroll: true }); }
   function clearSearch() { search = ''; win.clearTimeout(searchTimer); }
   function closeTo(depth, refocus = false) {
     let last;
@@ -165,14 +165,14 @@ export function createActionMenu({ root, contextTarget = null }) {
     return root.dispatchEvent(new win.CustomEvent(name, { bubbles: true, composed: true, cancelable: true, detail }));
   }
   function open({ last = false, at = null, activation = 'button' } = {}) {
-    if (disposed || !supported || !trigger.isConnected || trigger.disabled || root.inert || trigger.hidden) return false;
+    if (disposed || !supported || !available(trigger) || !available(menu)) return false;
     if (levels.length) { focus(itemsIn(levels[0].menu)[0] ?? menu); return true; }
     contextId = (activation === 'context' ? contextTarget?.dataset.contextId : null) ?? root.dataset.contextId ?? '';
     source = activation;
     if (!emit('lw:menu-context', { trigger, contextTarget, contextId, source })) return false;
     if (disposed || !root.isConnected) return false;
     reconcile(); // Context listeners may replace authorized server markup synchronously.
-    if (disposed || !trigger.isConnected || trigger.disabled || root.inert || trigger.hidden) return false;
+    if (disposed || !available(trigger) || !available(menu)) return false;
     point = at;
     show(menu, trigger, last);
     return true;
@@ -260,7 +260,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (supported) enhance();
       if (ownedFocus) focus(trigger);
     } else if (supported) {
-      const invalid = levels.findIndex((level) => !level.menu.isConnected || !level.trigger.isConnected || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger)));
+      const invalid = levels.findIndex((level) => !available(level.menu) || !available(level.trigger) || level.menu.getAttribute('popover') !== 'manual' || (level.trigger !== trigger && !itemsIn(level.trigger.closest('[data-menu]')).includes(level.trigger)));
       if (invalid >= 0) closeTo(invalid, true);
       // Refresh semantics on newly added rows without keeping removed nodes alive.
       for (const [node] of originals) {

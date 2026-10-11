@@ -39,6 +39,20 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...[
+    ['trigger', 'disabled'], ['trigger', 'hidden'], ['trigger', 'inert'],
+    ['trigger', 'aria-disabled'], ['trigger', 'aria-hidden'],
+    ['root', 'hidden'], ['root', 'inert'], ['root', 'aria-hidden'], ['menu', 'hidden'],
+  ].map(([target, attribute]) => [
+    `unavailable open ${target} ${attribute} closes every level and can recover`, async (f) => {
+      f.api.open(); f.sub.click(); assert(f.api.state.depth === 2, 'submenu not open');
+      const node = f[target]; node.setAttribute(attribute, attribute.startsWith('aria-') ? 'true' : ''); await settle();
+      assert(!f.api.state.open && !f.root.querySelector(':popover-open'), 'unavailable overlay remained open');
+      assert(f.trigger.getAttribute('aria-expanded') === 'false' && f.sub.getAttribute('aria-expanded') === 'false', 'unavailable expansion remained');
+      assert(!f.api.open(), 'unavailable menu reopened');
+      node.removeAttribute(attribute); await settle(); assert(f.api.open(), 'available menu cannot recover');
+    },
+  ]),
   ['shadow-root keyboard navigation, typeahead, submenus and dismissal use local focus', async () => {
     const host = document.createElement('div'); fixtures.append(host);
     const tree = host.attachShadow({ mode: 'open' }); const f = fixture(tree);
