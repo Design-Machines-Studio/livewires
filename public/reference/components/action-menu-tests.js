@@ -39,6 +39,51 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ['size subscriptions track open ancestors and release on close, move and dispose', async (f) => {
+    f.api.dispose(); const NativeResize = window.ResizeObserver; const watched = new Set();
+    window.ResizeObserver = class extends NativeResize { observe(node, options) { watched.add(node); super.observe(node, options); } disconnect() { watched.clear(); super.disconnect(); } };
+    const api = createActionMenu({ root: f.root }); window.ResizeObserver = NativeResize; const next = document.createElement('section'); fixtures.append(next);
+    try {
+      assert(watched.size === 0, 'closed menu retained size subscriptions');
+      api.open(); assert(watched.has(f.context) && watched.has(f.root), 'open ancestor sizing missing');
+      api.close(); assert(watched.size === 0, 'close retained sizing');
+      api.open(); next.append(f.root); await settle(); assert(watched.has(next) && !watched.has(f.context), 'movement retained old ancestor');
+      api.dispose(); assert(watched.size === 0, 'dispose retained sizing');
+    } finally { window.ResizeObserver = NativeResize; api.dispose(); next.remove(); }
+  }],
+  ['repeated context gestures refresh intent, authorized markup and position', async (f) => {
+    f.api.open(); f.sub.click(); const child = f.root.querySelector('[data-menu]:popover-open [data-menu]:popover-open');
+    let detail, action;
+    f.context.dataset.contextId = 'fresh-context';
+    f.root.addEventListener('lw:menu-context', (event) => { detail = event.detail; f.menu.replaceWith(replacement(f)); }, { once: true });
+    f.root.addEventListener('lw:menu-action', (event) => { action = event.detail; event.preventDefault(); });
+    const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 180, clientY: 140 });
+    f.context.querySelector('p').dispatchEvent(event);
+    const next = f.root.querySelector('[data-menu]'), rect = next.getBoundingClientRect();
+    assert(event.defaultPrevented && detail?.source === 'context' && detail.contextId === 'fresh-context', 'stale context intent');
+    assert(f.api.state.depth === 1 && !f.menu.matches(':popover-open') && !child.matches(':popover-open'), 'prior overlays survived');
+    assert(rect.left >= 175 && rect.left <= 185 && rect.top >= 140 && rect.top <= 155, 'context coordinates not refreshed');
+    next.querySelector('[data-menu-action]').click(); assert(action.contextId === 'fresh-context', 'stale action context');
+  }],
+  ['cancelled repeated context restores native behavior and closes prior overlays', async (f) => {
+    f.api.open(); f.root.addEventListener('lw:menu-context', (event) => event.preventDefault(), { once: true });
+    const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true }); f.context.querySelector('p').dispatchEvent(event);
+    assert(!event.defaultPrevented && !f.api.state.open && !f.menu.matches(':popover-open'), 'cancelled refresh kept stale menu');
+  }],
+  ['unrelated subtree updates do not notify menu observers', async (f) => {
+    f.api.dispose(); const unrelated = document.createElement('div'); fixtures.append(unrelated);
+    const NativeObserver = window.MutationObserver; let deliveries = 0;
+    window.MutationObserver = class extends NativeObserver { constructor(callback) { super((records, observer) => { deliveries++; callback(records, observer); }); } };
+    const api = createActionMenu({ root: f.root, contextTarget: f.context }); window.MutationObserver = NativeObserver;
+    try {
+      for (const open of [false, true]) {
+        if (open) api.open(); await settle(); deliveries = 0;
+        unrelated.innerHTML = '<span>Update</span>'; unrelated.firstElementChild.className = 'new'; unrelated.firstElementChild.firstChild.data = 'Changed';
+        await settle(); assert(deliveries === 0, 'unrelated mutations fanned out');
+      }
+      f.context.inert = true; await settle(); assert(deliveries > 0 && !api.state.open, 'relevant ancestor update was missed');
+    } finally { window.MutationObserver = NativeObserver; api.dispose(); unrelated.remove(); }
+  }],
   ['focus inside the same open shadow tree dismisses on ordinary controls', async (f) => {
     f.api.dispose(); const host = document.createElement('div'); fixtures.append(host); const tree = host.attachShadow({ mode: 'open' }); tree.append(f.root); const input = document.createElement('input'); input.setAttribute('aria-label', 'Other shadow field'); f.root.append(input); const api = createActionMenu({ root: f.root });
     try { api.open(); assert(tree.activeElement === f.alpha, 'shadow action did not focus'); input.focus(); assert(!api.state.open && tree.activeElement === input, 'same-tree focus failed to dismiss or was stolen'); }

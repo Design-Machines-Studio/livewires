@@ -235,7 +235,10 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
   function open({ last = false, at = null, activation = 'button' } = {}) {
     if (disposed || !supported || !available(trigger) || !rendered(trigger) || !available(menu)) return false;
-    if (levels.length) { focus(itemsIn(levels[0].menu)[0] ?? menu); return true; }
+    if (levels.length) {
+      if (activation !== 'context') { focus(itemsIn(levels[0].menu)[0] ?? menu); return true; }
+      close(); // A repeated context gesture is fresh intent, including cancellation.
+    }
     contextId = (activation === 'context' ? contextTarget?.dataset.contextId : null) ?? root.dataset.contextId ?? '';
     source = activation;
     if (!emit('lw:menu-context', { trigger, contextTarget, contextId, source })) return false;
@@ -359,12 +362,21 @@ export function createActionMenu({ root, contextTarget = null }) {
   function observeMarkup(reset = true) {
     // Opening and closing change options without discarding application updates.
     if (reset) observer.disconnect();
+    if (reset || !levels.length) resizeObserver?.disconnect();
     const trees = new Set();
-    for (let node = root; node; node = parent(node)) trees.add(node.getRootNode());
+    const ancestors = new Set();
+    for (let node = root; node; node = parent(node)) {
+      trees.add(node.getRootNode());
+      if (node !== root) ancestors.add(node);
+    }
     for (const tree of slotTrees) if (!trees.has(tree)) { tree.removeEventListener('slotchange', onSlotChange); tree.removeEventListener('focusin', onOutside); slotTrees.delete(tree); }
     for (const tree of trees) if (!slotTrees.has(tree)) { tree.addEventListener('slotchange', onSlotChange); tree.addEventListener('focusin', onOutside); slotTrees.add(tree); }
-    const attributes = levels.length ? { attributes: true, characterData: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style', 'slot', 'name', 'dir'] } : {};
-    for (const tree of trees) observer.observe(tree, { childList: true, subtree: true, ...attributes });
+    const attributes = levels.length ? { attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'class', 'style', 'slot', 'name', 'dir'] } : {};
+    // Watch boundary removal and actual ancestors without unrelated subtrees.
+    for (const tree of trees) observer.observe(tree, { childList: true });
+    for (const node of ancestors) observer.observe(node, { childList: true, ...attributes });
+    // Ancestor size changes can move the trigger without changing menu markup.
+    if (levels.length) for (const node of [root, ...ancestors]) resizeObserver?.observe(node);
     observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-action-menu', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
   }
   function onSlotChange() { if (levels.length) reconcile(); }
@@ -373,13 +385,14 @@ export function createActionMenu({ root, contextTarget = null }) {
   }
   function onResize() { if (levels.length) { reconcile(); schedulePosition(); } }
   function onMutation(records) {
-    if (levels.length || !root.isConnected || records.some((record) => root.contains(record.target) || (record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].some((node) => node.contains(root))))) reconcile();
+    if (!root.isConnected || records.some((record) => root.contains(record.target) || (levels.length && record.type === 'attributes') || (record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].some((node) => node.contains(root))))) reconcile();
   }
   function dispose() {
     if (disposed) return;
     disposed = true;
     close();
     observer?.disconnect();
+    resizeObserver?.disconnect();
     for (const tree of slotTrees) { tree.removeEventListener('slotchange', onSlotChange); tree.removeEventListener('focusin', onOutside); }
     slotTrees.clear();
     unlisten.forEach((remove) => remove());
@@ -394,6 +407,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   ({ trigger, menu } = targets());
   validate({ trigger, menu });
   let observer;
+  let resizeObserver;
   if (supported) {
     enhance();
     listen(root, 'click', onClick);
@@ -416,6 +430,7 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (open({ activation: 'context', at: { x: event.clientX, y: event.clientY } })) event.preventDefault();
     });
     observer = new win.MutationObserver(onMutation);
+    if (win.ResizeObserver) resizeObserver = new win.ResizeObserver(schedulePosition);
     observeMarkup();
   }
   const api = { open, close, dispose, get state() { return { open: levels.length > 0, depth: levels.length, disposed, supported }; } };
