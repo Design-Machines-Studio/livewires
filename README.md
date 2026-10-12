@@ -333,3 +333,9 @@ Travis Gertz - [travisgertz.com](https://travisgertz.com)
 - [GitHub Repository](https://github.com/design-machines-studio/livewires)
 - [Original Live Wires Article](https://travisgertz.com/work/live-wires/)
 - [Design Machines Studio](https://design-machines.studio)
+
+### Widget references
+
+Use semantic `widget-*` content slots for a heading, flexible content and an optional bottom-aligned footer. Unboxed definition-list metrics use value-only `font-metric` plus optional `--widget-metric-size`, `--widget-metric-weight` and `--widget-metric-width` hooks. Width means glyph width through `font-stretch`, never grid columns; static fonts remain readable. Quiet messages and non-numeric metric states keep ordinary typography.
+
+[Manual](public/manual/components/widgets.html), [narrow/wide reference cases](public/reference/components/widgets.html), and [source comparisons and CSS contract](docs/widget-references.md). Placement, data formatting, entry limits, video/embed settings, editor controls and saved overrides remain application-owned.

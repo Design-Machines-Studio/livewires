@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Widgets – Live Wires manual</title>
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+</head>
+<body class="scheme-default pg-components-widgets">
+  <html-include src="../_includes/header.html"></html-include>
+  <main class="main sidebar" id="main">
+    <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+    <article class="prose">
+      <header class="section scheme-dark"><h1>Widgets</h1><p class="lead">A shared content frame, unboxed values and quiet states. Your application owns placement, data and configuration.</p></header>
+      <section class="section stack">
+        <h2>Heading, content and footer</h2>
+        <p>Use a real heading and a unique accessible name. Description, header action and footer are optional. A host may choose a scheme and stretch its cell; the body keeps its footer at the bottom.</p>
+        <div class="scheme-subtle" style="max-inline-size: 24rem;">
+          <section class="widget" aria-labelledby="manual-membership">
+            <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="manual-membership">Membership at a glance</h3><p class="widget-description">Demonstration values; labels retain ordinary typography.</p></div></header>
+            <div class="widget-content"><dl class="widget-metrics"><div class="widget-metric"><dt>Active</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">42</dd></div><div class="widget-metric"><dt>Probationary</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">0</dd></div></dl></div>
+            <footer class="widget-footer"><a class="more" href="/reference/components/widgets.html">Member directory</a></footer>
+          </section>
+        </div>
+        <pre><code>&lt;section class="widget" aria-labelledby="membership"&gt;
+  &lt;header class="widget-header"&gt;
+    &lt;div class="widget-heading"&gt;
+      &lt;h2 id="membership" class="widget-title"&gt;Membership at a glance&lt;/h2&gt;
+      &lt;p class="widget-description"&gt;Optional description&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;a class="widget-action" href="/members"&gt;Optional action&lt;/a&gt;
+  &lt;/header&gt;
+  &lt;div class="widget-content"&gt;Caller content&lt;/div&gt;
+  &lt;footer class="widget-footer"&gt;
+    &lt;a class="more" href="/members"&gt;Member directory&lt;/a&gt;
+  &lt;/footer&gt;
+&lt;/section&gt;</code></pre>
+        <p><code>widget--plain-header</code> removes the header divider. <code>--widget-padding</code> and <code>--widget-border-color</code> provide deliberate presentation choices. Text links inherit the scheme foreground; anchor buttons retain their button colors and focus treatment. Components emit no placement/editor wrapper or layout utility classes.</p>
+      </section>
+      <section class="section stack">
+        <h2>Unboxed metrics</h2>
+        <p>A standalone metric is a definition list. Groups use <code>dl.widget-metrics</code> with <code>div.widget-metric</code> groups, each containing its own <code>dt</code> and <code>dd</code>. Numeric values appear above labels visually, while terms remain first in the semantic DOM.</p>
+        <pre><code>&lt;dl class="widget-metric"&gt;
+  &lt;dt&gt;Active&lt;/dt&gt;
+  &lt;dd class="widget-metric-value widget-metric-value--short font-metric tnum"
+      style="--widget-metric-size: var(--text-4xl);
+             --widget-metric-weight: 650;
+             --widget-metric-width: 80%;"&gt;42&lt;/dd&gt;
+  &lt;dd class="widget-metric-detail"&gt;Optional units or detail&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+        <table class="table--lined"><caption>Value-only typography hooks</caption><thead><tr><th scope="col">Hook</th><th scope="col">Property</th><th scope="col">Unset</th></tr></thead><tbody><tr><th scope="row"><code>--font-metric</code></th><td data-th="Property">font-family via <code>.font-metric</code></td><td data-th="Unset">Body font</td></tr><tr><th scope="row"><code>--font-metric-size</code></th><td data-th="Property">Initial font-size via <code>.font-metric</code></td><td data-th="Unset">Underlying value style</td></tr><tr><th scope="row"><code>--font-metric-width</code></th><td data-th="Property">Initial font-stretch via <code>.font-metric</code></td><td data-th="Unset">Underlying value style</td></tr><tr><th scope="row"><code>--widget-metric-size</code></th><td data-th="Property">font-size</td><td data-th="Unset">text-2xl, or the short/long variation</td></tr><tr><th scope="row"><code>--widget-metric-weight</code></th><td data-th="Property">font-weight</td><td data-th="Unset">Existing bold weight</td></tr><tr><th scope="row"><code>--widget-metric-width</code></th><td data-th="Property">font-stretch</td><td data-th="Unset">Inherited stretch</td></tr></tbody></table>
+        <p>Choose <code>widget-metric-value--short</code> for tall short values (text-4xl) or <code>widget-metric-value--long</code> for compact long values (text-lg). The default is text-2xl. Callers choose after formatting; CSS does not count digits or guarantee a single-line fit. Explicit hooks override these defaults. Size hooks do not change leading or tracking; pair token-sized overrides with the matching short/long variation, or set the matching line-height and letter-spacing locally on the value.</p>
+        <p>Width means glyph width when the font supports its registered width axis, never widget columns. Static fonts remain readable. Long values wrap without clipping or hiding digits. No font is selected or downloaded.</p>
+        <p><code>.font-metric</code> keeps the family expression matching Baseplate's <code>var(--font-metric, var(--font-body, sans-serif)), sans-serif</code> contract. Its optional <code>--font-metric-size</code> and <code>--font-metric-width</code> hooks provide initial value settings; widget-specific size/width hooks take precedence. Unset settings preserve the underlying styles through <code>revert-layer</code>. Labels, units, descriptions and ordinary numbers keep their typography. Callers supply locale, formatted values and units.</p>
+        <p>Keep size/weight utilities off hook-controlled values: the utilities layer intentionally wins over component hooks. <code>.font-metric</code> and <code>.tnum</code> remain compatible.</p>
+        <p>Use <code>dd.widget-metric-status</code> for missing, denied or unavailable values; omit the prominent-value and font classes. A known zero stays <code>0</code>.</p>
+      </section>
+      <section class="section stack">
+        <h2>Quiet inline messages</h2>
+        <div class="scheme-subtle box"><div class="widget-message"><span class="widget-message-icon" aria-hidden="true">✓</span><div class="widget-message-content"><p>You're all caught up.</p><p class="widget-message-detail">Optional supporting detail.</p></div></div></div>
+        <pre><code>&lt;div class="widget-message"&gt;
+  &lt;span class="widget-message-icon" aria-hidden="true"&gt;Optional icon&lt;/span&gt;
+  &lt;div class="widget-message-content"&gt;
+    &lt;p&gt;Temporarily unavailable&lt;/p&gt;
+    &lt;p class="widget-message-detail"&gt;Try again later or open the full page.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <p>Omit the icon and detail when unnecessary. The message adds no card or forced live region; the host chooses dynamic feedback semantics. Reuse Timeline, StatusIndicator and ProgressBar inside content slots, and give charts an equivalent table independent of the renderer.</p>
+      </section>
+      <section class="section stack">
+        <h2>Chart data, progress and video</h2>
+        <p><code>table.widget-table</code> keeps compact native columns, ordinary type and single quiet row separators at narrow sizes. Keep captions and header scopes; replace <code>table--lined</code> on chart fallback tables.</p>
+        <p>Use the existing progress height hook for thin card progress: <code>style="--progress-height: var(--line-025)"</code>. The default is line-05; <code>progress-bar--thick</code> uses line-1. Fill/background, status and timeline variations remain caller choices.</p>
+        <p>A video uses the existing <code>.embed</code> inside the content slot. Use a descriptive iframe title and a direct-video link when embedding is unavailable. The <a href="/reference/components/widgets.html#media">YouTube examples</a> show narrow/wide output with autoplay disabled. YouTube needs at least 200px in both dimensions; narrower hosts should show the direct-link state.</p>
+        <pre><code>&lt;div class="widget-content"&gt;
+  &lt;div class="embed" style="min-block-size: 200px;"&gt;
+    &lt;iframe class="block border-0"
+      src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0"
+      title="YouTube embedded-player demonstration" loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="encrypted-media; picture-in-picture" allowfullscreen
+      style="min-block-size: 200px;"&gt;&lt;/iframe&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;footer class="widget-footer"&gt;
+  &lt;a href="https://www.youtube.com/watch?v=M7lc1UVf-VE"&gt;Watch on YouTube&lt;/a&gt;
+&lt;/footer&gt;</code></pre>
+        <p>Baseplate owns flips and controls on the back: permissions, draft state, saved configuration and reset/Save behavior. Either face can use this frame; the shared references demonstrate output.</p>
+      </section>
+      <section id="library-coverage" class="section stack">
+        <h2>Design Machines library coverage</h2>
+        <p>The final read-only comparison inspected 34 admitted widgets: 29 in the library and 5 already placed on the board. The examples cover shared compositions rather than copying domain renderers. The install displayed v1.0.0-beta.2; its exact source SHA was unavailable. Populated Atlas states absent from the live install were compared against the pinned producer templates.</p>
+        <p>Additional references cover incomplete profile progress and next steps, runtime/backup facts, metric-plus-summary tables, ranked category/place/date lists, populated notifications/activity, sharing-aware metrics and map data fallback. Multi-column data retains every column in a labelled, keyboard-focusable scroll region at narrow sizes.</p>
+        <table class="table--lined"><caption>Every observed board/library widget mapped to a reference composition</caption><thead><tr><th scope="col">Observed widget</th><th scope="col">Location</th><th scope="col">Composition</th><th scope="col">Example</th></tr></thead><tbody>
+<tr><th scope="row">Organization activity</th><td data-th="Location">Board</td><td data-th="Composition">Activity timeline</td><td data-th="Example"><a href="/reference/components/widgets.html#activity-heading">View example</a></td></tr>
+<tr><th scope="row">Network map</th><td data-th="Location">Board</td><td data-th="Composition">Empty map + four-column city fallback; no map runtime</td><td data-th="Example"><a href="/reference/components/widgets.html#map-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Open proposals</th><td data-th="Location">Board</td><td data-th="Composition">Proposal list + caller footer</td><td data-th="Example"><a href="/reference/components/widgets.html#list-heading">View example</a></td></tr>
+<tr><th scope="row">Needs my input</th><td data-th="Location">Board</td><td data-th="Composition">Proposal/deadline list</td><td data-th="Example"><a href="/reference/components/widgets.html#list-heading">View example</a></td></tr>
+<tr><th scope="row">Drafts I'm working on</th><td data-th="Location">Board</td><td data-th="Composition">Caller-filtered proposal list</td><td data-th="Example"><a href="/reference/components/widgets.html#list-heading">View example</a></td></tr>
+<tr><th scope="row">Unread notifications</th><td data-th="Location">Library</td><td data-th="Composition">Populated notification list + empty state</td><td data-th="Example"><a href="/reference/components/widgets.html#notification-list-heading">View example</a></td></tr>
+<tr><th scope="row">Profile completion</th><td data-th="Location">Library</td><td data-th="Composition">Thin progress + remaining next actions; optional footer</td><td data-th="Example"><a href="/reference/components/widgets.html#completion-heading">View example</a></td></tr>
+<tr><th scope="row">Linked organizations</th><td data-th="Location">Library</td><td data-th="Composition">Identity/link list</td><td data-th="Example"><a href="/reference/components/widgets.html#identity-list-heading">View example</a></td></tr>
+<tr><th scope="row">Membership at a glance</th><td data-th="Location">Library</td><td data-th="Composition">Grouped metrics</td><td data-th="Example"><a href="/reference/components/widgets.html#membership-heading">View example</a></td></tr>
+<tr><th scope="row">Membership requirements</th><td data-th="Location">Library</td><td data-th="Composition">Metric + requirements table; empty/unavailable states</td><td data-th="Example"><a href="/reference/components/widgets.html#requirements-heading">View example</a></td></tr>
+<tr><th scope="row">Circles</th><td data-th="Location">Library</td><td data-th="Composition">Metric + kind/count table</td><td data-th="Example"><a href="/reference/components/widgets.html#requirements-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Connection requests</th><td data-th="Location">Library</td><td data-th="Composition">Quiet empty message + caller action/footer</td><td data-th="Example"><a href="/reference/components/widgets.html#empty-heading">View example</a></td></tr>
+<tr><th scope="row">Connected organizations</th><td data-th="Location">Library</td><td data-th="Composition">Metric + identity list</td><td data-th="Example"><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Assembly health</th><td data-th="Location">Library</td><td data-th="Composition">Ordinary facts + status + per-fact action</td><td data-th="Example"><a href="/reference/components/widgets.html#health-facts-heading">View example</a></td></tr>
+<tr><th scope="row">Assembly</th><td data-th="Location">Library</td><td data-th="Composition">Ordinary runtime fact table; optional footer</td><td data-th="Example"><a href="/reference/components/widgets.html#facts-heading">View example</a></td></tr>
+<tr><th scope="row">Updates</th><td data-th="Location">Library</td><td data-th="Composition">Ordinary status/message + action</td><td data-th="Example"><a href="/reference/components/widgets.html#health-facts-heading">View example</a></td></tr>
+<tr><th scope="row">Backups</th><td data-th="Location">Library</td><td data-th="Composition">Destination/status table</td><td data-th="Example"><a href="/reference/components/widgets.html#facts-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Organizations in the network</th><td data-th="Location">Library</td><td data-th="Composition">Standalone count metric</td><td data-th="Example"><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">People in the network*</th><td data-th="Location">Library</td><td data-th="Composition">Sharing-aware unavailable metric and detail</td><td data-th="Example"><a href="/reference/components/widgets.html#sharing-heading">View example</a></td></tr>
+<tr><th scope="row">Network over time</th><td data-th="Location">Library</td><td data-th="Composition">Static illustration + independent data table</td><td data-th="Example"><a href="/reference/components/widgets.html#chart-heading">View example</a></td></tr>
+<tr><th scope="row">Sectors</th><td data-th="Location">Library</td><td data-th="Composition">Ranked labels/counts + decorative bars + full table</td><td data-th="Example"><a href="/reference/components/widgets.html#breakdown-heading">View example</a></td></tr>
+<tr><th scope="row">Average organization size</th><td data-th="Location">Library</td><td data-th="Composition">Formatted decimal metric + denominator detail</td><td data-th="Example"><a href="/reference/components/widgets.html#average-heading">View example</a></td></tr>
+<tr><th scope="row">Cities in the network</th><td data-th="Location">Library</td><td data-th="Composition">Standalone metric + ordinary detail</td><td data-th="Example"><a href="/reference/components/widgets.html#average-heading">View example</a></td></tr>
+<tr><th scope="row">Countries in the network</th><td data-th="Location">Library</td><td data-th="Composition">Standalone count metric</td><td data-th="Example"><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">People over time</th><td data-th="Location">Library</td><td data-th="Composition">Four-column membership-position fallback + provisional observation</td><td data-th="Example"><a href="/reference/components/widgets.html#chart-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Organization types</th><td data-th="Location">Library</td><td data-th="Composition">Ranked breakdown with wrapping labels</td><td data-th="Example"><a href="/reference/components/widgets.html#breakdown-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Places in the network</th><td data-th="Location">Library</td><td data-th="Composition">Place label/count list + shown-count note</td><td data-th="Example"><a href="/reference/components/widgets.html#places-heading">View example</a></td></tr>
+<tr><th scope="row">Recently joined</th><td data-th="Location">Library</td><td data-th="Composition">Link/date list</td><td data-th="Example"><a href="/reference/components/widgets.html#joined-heading">View example</a></td></tr>
+<tr><th scope="row">Respond by</th><td data-th="Location">Library</td><td data-th="Composition">Proposal/deadline list</td><td data-th="Example"><a href="/reference/components/widgets.html#list-heading">View example</a></td></tr>
+<tr><th scope="row">Recent decisions</th><td data-th="Location">Library</td><td data-th="Composition">Decision timeline</td><td data-th="Example"><a href="/reference/components/widgets.html#list-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Governance at a glance</th><td data-th="Location">Library</td><td data-th="Composition">Grouped metrics + year detail</td><td data-th="Example"><a href="/reference/components/widgets.html#governance-heading">View example</a></td></tr>
+<tr><th scope="row">Open proposal count</th><td data-th="Location">Library</td><td data-th="Composition">Standalone prominent value + label/detail</td><td data-th="Example"><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Needs my input count</th><td data-th="Location">Library</td><td data-th="Composition">Standalone prominent value + label/detail</td><td data-th="Example"><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Decisions this year</th><td data-th="Location">Library</td><td data-th="Composition">Known zero metric</td><td data-th="Example"><a href="/reference/components/widgets.html#default-values-heading">View example</a></td></tr>
+        </tbody></table>
+        <p>Back-face controls currently expose Columns, Rows and Colour scheme. Baseplate owns their flip, validation and Save behavior. No production board or configuration was changed.</p>
+      </section>
+      <section class="section stack">
+        <h2>Sources and ownership</h2>
+        <p>Extracted from Baseplate <code>1821a8dd</code>, Governance <code>d995f68d</code> and Atlas <code>03b03b90</code>. Baseplate font-metric producer <code>257acac4</code> is merged on trusted main. The source comparison records original labels, deliberate variations and omitted route/editor exceptions.</p>
+        <p>Baseplate owns validated theme configuration, saved metric overrides, reset and dashboard editor behavior. Entry limits, sort/filter settings and video/embed configuration belong to the owning Go widgets; Live Wires only styles their output. Templ emits semantic slots without bundling CSS. These references do not retest application persistence or migrate consumers.</p>
+        <p><a class="button button--outline" href="/reference/components/widgets.html">Open narrow/wide references</a> <a href="https://github.com/Design-Machines-Studio/livewires/blob/main/docs/widget-references.md">Exact sources and full contract</a></p>
+      </section>
+    </article>
+  </main>
+  <html-include src="/_includes/footer.html"></html-include>
+</body>
+</html>

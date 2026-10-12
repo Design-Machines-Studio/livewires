@@ -6,6 +6,13 @@
  */
 
 @layer utilities {
+  /* Optional value defaults preserve lower-layer styles when unset. */
+  .font-metric {
+    font-family: var(--font-metric, var(--font-body, sans-serif)), sans-serif;
+    font-size: var(--widget-metric-size, var(--font-metric-size, revert-layer));
+    font-stretch: var(--widget-metric-width, var(--font-metric-width, revert-layer));
+  }
+
   /* ===============================================
      COMPLETE TYPE PACKAGES
      Single class applies size + leading + tracking
