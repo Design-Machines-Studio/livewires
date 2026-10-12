@@ -58,8 +58,9 @@ try {
       const status = root.querySelector('[role=status]'), input = root.querySelector('input');
       const probe = document.createElement('span'); probe.style.color = 'var(--color-error)'; status.append(probe);
       const errorColor = getComputedStyle(probe).color; probe.remove();
+      const text = status.textContent, statusColor = getComputedStyle(status).color;
       input.blur(); const borderColor = getComputedStyle(input).borderColor; input.focus();
-      return { text: status.textContent, statusColor: getComputedStyle(status).color, borderColor, errorColor };
+      return { text, statusColor, borderColor, errorColor };
     });
     assert.ok(validation.text.includes('No results.')); assert.ok(validation.text.includes('Please select'));
     assert.equal(validation.statusColor, validation.errorColor); assert.equal(validation.borderColor, validation.errorColor);
