@@ -226,10 +226,12 @@ try {
     const hovered = page.locator('#local-choice [role=option]').nth(1);
     await page.waitForTimeout(150); await hovered.hover();
     await page.waitForFunction(() => document.querySelectorAll('#local-choice [role=option]')[1].matches(':hover'));
+    await hovered.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
     const forcedHover = await hovered.evaluate(row => {
+      const actual = { active: row.hasAttribute('data-active'), background: getComputedStyle(row).backgroundColor, color: getComputedStyle(row).color };
       const probe = document.createElement('span'); probe.style.cssText = 'position:fixed;top:-9999px;background:Highlight;color:HighlightText;forced-color-adjust:none'; document.body.append(probe);
       const expected = { background: getComputedStyle(probe).backgroundColor, color: getComputedStyle(probe).color }; probe.remove();
-      return { active: row.hasAttribute('data-active'), background: getComputedStyle(row).backgroundColor, color: getComputedStyle(row).color, expected };
+      return { ...actual, expected };
     });
     assert.equal(forcedHover.active, false); assert.deepEqual({ background: forcedHover.background, color: forcedHover.color }, forcedHover.expected);
     await page.emulateMedia({ forcedColors: 'none', reducedMotion: 'no-preference' }); return geometry;
