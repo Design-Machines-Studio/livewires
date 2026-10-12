@@ -143,7 +143,8 @@
       vertical-align: top;
     }
     & td { font-weight: inherit; }
-    & :is(th, td):last-child { text-align: end; }
+    & :is(th, td):last-child,
+    & .numeric { text-align: end; }
     & td[data-th]::before { content: none; }
     & tbody > tr {
       border-block-start: var(--line-1px) solid
