@@ -17,7 +17,7 @@ const devCssPlugin = () => ({
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
       const pathname = req.url?.split('?')[0];
-      if (pathname === '/dist/main.css' || pathname === '/dist/sortable-list.css' || pathname === '/dist/action-menu.css' || pathname === '/dist/inline-edit.css') {
+      if (pathname === '/dist/main.css' || pathname === '/dist/sortable-list.css' || pathname === '/dist/action-menu.css' || pathname === '/dist/inline-edit.css' || pathname === '/dist/combobox.css') {
         res.setHeader('Content-Type', 'text/css');
         res.setHeader('Cache-Control', 'no-store');
         res.end('/* CSS loaded via JS in dev mode */');
@@ -44,6 +44,7 @@ export default defineConfig({
       '/dist/toast-region.js': resolve(__dirname, 'src/js/toast-region.entry.js'),
       '/dist/action-menu.js': resolve(__dirname, 'src/js/action-menu.entry.js'),
       '/dist/inline-edit.js': resolve(__dirname, 'src/js/inline-edit.entry.js'),
+      '/dist/combobox.js': resolve(__dirname, 'src/js/combobox.entry.js'),
       '/dist/sortable-list.css': resolve(__dirname, 'src/css/6_components/sortable-list.css')
     }
   },
@@ -64,11 +65,13 @@ export default defineConfig({
         loading: resolve(__dirname, 'src/js/loading.entry.js'),
         'toast-region': resolve(__dirname, 'src/js/toast-region.entry.js'),
         'action-menu': resolve(__dirname, 'src/js/action-menu.entry.js'),
-        'inline-edit': resolve(__dirname, 'src/js/inline-edit.entry.js')
+        'inline-edit': resolve(__dirname, 'src/js/inline-edit.entry.js'),
+        combobox: resolve(__dirname, 'src/js/combobox.entry.js')
       },
       output: {
         // Fixed filenames (no hash) for easy HTML referencing
         assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.includes('combobox')) return 'combobox.css';
           if (assetInfo.name?.includes('inline-edit')) return 'inline-edit.css';
           // Name CSS file 'main.css' to match entry point
           if (assetInfo.name?.includes('action-menu')) return 'action-menu.css';
