@@ -211,3 +211,11 @@ Live Wires uses native CSS only — no preprocessors. Key features: cascade laye
 - Component modifiers: **double-dash** (`button--red`, `badge--success`)
 - Spacing tokens: `--line-*` pattern
 - Typography: Tailwind-style (`text-xs`, `text-sm`, `text-lg`, `text-2xl`, etc.)
+
+## Shared widget references
+
+Framework-owned widget extraction uses semantic `widget`, `widget-header`, `widget-heading`, `widget-title`, `widget-description`, `widget-action`, `widget-content` and `widget-footer` hooks. Host placement/editor wrappers and schemes remain separate. `widget--plain-header` omits the decorative divider. Use valid definition lists (`dl.widget-metric`, or `dl.widget-metrics` containing `div.widget-metric` groups), with `dt` before `dd`. Prominent values use `widget-metric-value font-metric tnum`; ordinary state definitions use `widget-metric-status`.
+
+`--font-metric` defaults to `var(--font-body)` and its utility sets only `font-family: var(--font-metric, var(--font-body, sans-serif)), sans-serif`. Optional value hooks map `--widget-metric-size` to font-size, `--widget-metric-weight` to font-weight and `--widget-metric-width` to percentage font-stretch. Unset defaults are the existing text-3xl scale, bold weight and inherited stretch. Width is glyph width, not widget columns. Do not put competing size/weight utilities on hook-controlled values; utilities intentionally override components. No new font, transform scaling or truncation.
+
+`widget-message` composes optional decorative `widget-message-icon`, `widget-message-content` and `widget-message-detail` without another card or forced live region. Callers own formatted values, units, locale, state meaning, entry limits, embed configuration and persistence. See `docs/widget-references.md` and `/reference/components/widgets.html`.
