@@ -212,6 +212,7 @@ try {
     }), true);
     await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
     await local().press('ArrowDown');
+    await page.locator('#local-choice').evaluate(root => root.scrollIntoView({ block: 'start', behavior: 'instant' }));
     const forcedActive = await page.locator('#local-choice [role=option][data-active]').evaluate(row => {
       const probe = document.createElement('span'); probe.style.cssText = 'color:HighlightText;background:Highlight;forced-color-adjust:none'; row.append(probe);
       const expected = { color: getComputedStyle(probe).color, background: getComputedStyle(probe).backgroundColor }; probe.remove();
@@ -221,12 +222,15 @@ try {
     assert.equal(forcedActive.adjustment, 'none');
     await page.screenshot({ path: resolve(evidence, 'forced-colors.png') });
     assert.equal(await page.evaluate(() => matchMedia('(forced-colors: active)').matches), true);
-    const hovered = page.locator('#local-choice [role=option]').nth(1); await hovered.hover();
-    assert.equal(await hovered.evaluate(row => {
-      if (row.hasAttribute('data-active')) return false;
-      const probe = document.createElement('span'); probe.style.backgroundColor = 'Highlight'; row.append(probe);
-      const expected = getComputedStyle(probe).backgroundColor; probe.remove(); return getComputedStyle(row).backgroundColor === expected;
-    }), true);
+    const hovered = page.locator('#local-choice [role=option]').nth(1);
+    await page.waitForTimeout(150); await hovered.hover();
+    await page.waitForFunction(() => document.querySelectorAll('#local-choice [role=option]')[1].matches(':hover'));
+    const forcedHover = await hovered.evaluate(row => {
+      const probe = document.createElement('span'); probe.style.cssText = 'position:fixed;top:-9999px;background:Highlight;color:HighlightText;forced-color-adjust:none'; document.body.append(probe);
+      const expected = { background: getComputedStyle(probe).backgroundColor, color: getComputedStyle(probe).color }; probe.remove();
+      return { active: row.hasAttribute('data-active'), background: getComputedStyle(row).backgroundColor, color: getComputedStyle(row).color, expected };
+    });
+    assert.equal(forcedHover.active, false); assert.deepEqual({ background: forcedHover.background, color: forcedHover.color }, forcedHover.expected);
     await page.emulateMedia({ forcedColors: 'none', reducedMotion: 'no-preference' }); return geometry;
   });
   await check('N1 no-JavaScript fallback supports actual native submission', async () => {
