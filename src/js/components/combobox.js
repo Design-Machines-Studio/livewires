@@ -145,11 +145,13 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
     const invalid = !select.validity.valid;
     const showError = invalid && (showValidation || select.validity.customError);
     if (showError) input.setAttribute('aria-invalid', 'true');
-    input.classList.toggle('error', showError || select.getAttribute('aria-invalid') === 'true');
-    status.classList.toggle('error', showError || state.phase === 'error');
+    if (showError || select.getAttribute('aria-invalid') === 'true') input.dataset.state = 'error';
+    else delete input.dataset.state;
+    if (showError || state.phase === 'error') status.dataset.state = 'error';
+    else delete status.dataset.state;
     let message = !enabled() ? '' : state.phase === 'loading' ? 'Searching…' : state.phase === 'short' ? `Type at least ${minLength} characters to search.`
       : state.phase === 'error' ? `Search failed. ${state.error}` : open && state.phase === 'results' ? rows.length ? `${rows.length} result${rows.length === 1 ? '' : 's'}.${state.truncated ? ' Showing the first results; refine your search.' : ''}` : 'No results.' : '';
-    if (showError) message = select.validationMessage;
+    if (showError) message = [select.validationMessage, message].filter(Boolean).join(' ');
     if (status.textContent !== message) status.textContent = message;
     if (!open && !composing) input.value = selected?.label || '';
   }

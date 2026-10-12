@@ -51,8 +51,18 @@ try {
     assert.equal(await page.locator('#required-choice input').evaluate(input => input === document.activeElement), true);
     assert.equal(await page.locator('#required-choice').evaluate(root => {
       const status = root.querySelector('[role=status]'), list = root.querySelector('[role=listbox]');
-      return !!status.textContent && status.classList.contains('error') && status.getBoundingClientRect().bottom <= list.getBoundingClientRect().top;
+      return !!status.textContent && status.dataset.state === 'error' && status.getBoundingClientRect().bottom <= list.getBoundingClientRect().top;
     }), true);
+    await page.locator('#required-choice input').fill('zz');
+    const validation = await page.locator('#required-choice').evaluate(root => {
+      const status = root.querySelector('[role=status]'), input = root.querySelector('input');
+      const probe = document.createElement('span'); probe.style.color = 'var(--color-error)'; status.append(probe);
+      const errorColor = getComputedStyle(probe).color; probe.remove();
+      input.blur(); const borderColor = getComputedStyle(input).borderColor; input.focus();
+      return { text: status.textContent, statusColor: getComputedStyle(status).color, borderColor, errorColor };
+    });
+    assert.ok(validation.text.includes('No results.')); assert.ok(validation.text.includes('Please select'));
+    assert.equal(validation.statusColor, validation.errorColor); assert.equal(validation.borderColor, validation.errorColor);
     await page.locator('#required-choice input').fill('Makassar');
     await page.locator('#required-choice input').press('ArrowDown'); await page.locator('#required-choice input').press('Enter');
     assert.equal(await page.locator('#required-zone').evaluate(select => select.checkValidity()), true);
@@ -194,9 +204,19 @@ try {
     await page.evaluate(() => document.documentElement.style.removeProperty('--ui-scale'));
     await page.locator('#local-zone').evaluate(select => { for (const option of select.options) if (option.value) new Intl.DateTimeFormat('en', { timeZone: option.value }); });
     await page.locator('#remote-zone').evaluate(select => { for (const option of select.options) if (option.value) new Intl.DateTimeFormat('en', { timeZone: option.value }); });
+    const option = page.locator('#local-choice [role=option]').first(); await option.hover();
+    assert.equal(await option.evaluate(row => {
+      const probe = document.createElement('span'); probe.style.backgroundColor = 'var(--color-subtle)'; row.append(probe);
+      const expected = getComputedStyle(probe).backgroundColor; probe.remove(); return getComputedStyle(row).backgroundColor === expected;
+    }), true);
     await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
     await local().press('ArrowDown'); await page.screenshot({ path: resolve(evidence, 'forced-colors.png') });
     assert.equal(await page.evaluate(() => matchMedia('(forced-colors: active)').matches), true);
+    await option.hover();
+    assert.equal(await option.evaluate(row => {
+      const probe = document.createElement('span'); probe.style.backgroundColor = 'Highlight'; row.append(probe);
+      const expected = getComputedStyle(probe).backgroundColor; probe.remove(); return getComputedStyle(row).backgroundColor === expected;
+    }), true);
     await page.emulateMedia({ forcedColors: 'none', reducedMotion: 'no-preference' }); return geometry;
   });
   await check('N1 no-JavaScript fallback supports actual native submission', async () => {

@@ -25,8 +25,8 @@ for (const root of document.querySelectorAll('[data-combobox]')) {
 document.addEventListener('click', event => {
   const action = event.target.closest('[data-demo]')?.dataset.demo;
   const select = document.querySelector('#local-zone');
-  if (action === 'reject') { select.setCustomValidity('The example application rejected this saved value. Choose another value or clear the error.'); controllers.get('local-choice').refresh(); log.textContent = action === 'reject' ? 'The local timezone has a saved-value error.' : 'The local timezone error was cleared.'; }
-  if (action === 'clear-error') { select.setCustomValidity(''); controllers.get('local-choice').refresh(); log.textContent = action === 'reject' ? 'The local timezone has a saved-value error.' : 'The local timezone error was cleared.'; }
+  if (action === 'reject') { select.setCustomValidity('The example application rejected this saved value. Choose another value or clear the error.'); controllers.get('local-choice').refresh(); log.textContent = 'The local timezone has a saved-value error.'; }
+  if (action === 'clear-error') { select.setCustomValidity(''); controllers.get('local-choice').refresh(); log.textContent = 'The local timezone error was cleared.'; }
   if (action === 'patch') {
     const option = new Option('São Tomé — example display label', 'Africa/Sao_Tome'); select.add(option); controllers.get('local-choice').refresh();
     event.target.disabled = true; log.textContent = 'Added São Tomé to the local timezone choices.';

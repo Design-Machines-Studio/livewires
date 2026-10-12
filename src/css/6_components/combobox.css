@@ -1,7 +1,10 @@
 @layer components {
   [data-combobox] {
     & [data-combobox-ui] { position: relative; min-inline-size: 0; }
-    & input { inline-size: 100%; min-inline-size: 0; }
+    & input {
+      inline-size: 100%; min-inline-size: 0;
+      &[data-state="error"] { --color-border: var(--color-error); }
+    }
     & [role="listbox"] {
       position: absolute;
       inset-inline: 0;
@@ -26,7 +29,10 @@
       }
     }
     & [hidden] { display: none; }
-    & [role="status"] { min-block-size: var(--line-1); overflow-wrap: anywhere; }
+    & [role="status"] {
+      min-block-size: var(--line-1); overflow-wrap: anywhere;
+      &[data-state="error"] { color: var(--color-error); }
+    }
   }
   @media (forced-colors: active) {
     [data-combobox] [role="listbox"] {
