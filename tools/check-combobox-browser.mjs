@@ -60,9 +60,9 @@ try {
       const errorColor = getComputedStyle(probe).color; probe.remove();
       const text = status.textContent, statusColor = getComputedStyle(status).color;
       input.blur(); const borderColor = getComputedStyle(input).borderColor; input.focus();
-      return { text, statusColor, borderColor, errorColor };
+      return { text, statusColor, borderColor, errorColor, validationMessage: root.querySelector('select').validationMessage };
     });
-    assert.ok(validation.text.includes('No results.')); assert.ok(validation.text.includes('Please select'));
+    assert.ok(validation.text.includes('No results.')); assert.ok(validation.text.includes(validation.validationMessage));
     assert.equal(validation.statusColor, validation.errorColor); assert.equal(validation.borderColor, validation.errorColor);
     await page.locator('#required-choice input').fill('Makassar');
     await page.locator('#required-choice input').press('ArrowDown'); await page.locator('#required-choice input').press('Enter');
@@ -211,10 +211,19 @@ try {
       const expected = getComputedStyle(probe).backgroundColor; probe.remove(); return getComputedStyle(row).backgroundColor === expected;
     }), true);
     await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
-    await local().press('ArrowDown'); await page.screenshot({ path: resolve(evidence, 'forced-colors.png') });
+    await local().press('ArrowDown');
+    const forcedActive = await page.locator('#local-choice [role=option][data-active]').evaluate(row => {
+      const probe = document.createElement('span'); probe.style.cssText = 'color:HighlightText;background:Highlight;forced-color-adjust:none'; row.append(probe);
+      const expected = { color: getComputedStyle(probe).color, background: getComputedStyle(probe).backgroundColor }; probe.remove();
+      return { color: getComputedStyle(row).color, background: getComputedStyle(row).backgroundColor, adjustment: getComputedStyle(row).forcedColorAdjust, expected };
+    });
+    assert.equal(forcedActive.color, forcedActive.expected.color); assert.equal(forcedActive.background, forcedActive.expected.background);
+    assert.equal(forcedActive.adjustment, 'none');
+    await page.screenshot({ path: resolve(evidence, 'forced-colors.png') });
     assert.equal(await page.evaluate(() => matchMedia('(forced-colors: active)').matches), true);
-    await option.hover();
-    assert.equal(await option.evaluate(row => {
+    const hovered = page.locator('#local-choice [role=option]').nth(1); await hovered.hover();
+    assert.equal(await hovered.evaluate(row => {
+      if (row.hasAttribute('data-active')) return false;
       const probe = document.createElement('span'); probe.style.backgroundColor = 'Highlight'; row.append(probe);
       const expected = getComputedStyle(probe).backgroundColor; probe.remove(); return getComputedStyle(row).backgroundColor === expected;
     }), true);
