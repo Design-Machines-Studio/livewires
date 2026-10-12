@@ -339,3 +339,12 @@ Travis Gertz - [travisgertz.com](https://travisgertz.com)
 Use semantic `widget-*` content slots for a heading, flexible content and an optional bottom-aligned footer. Unboxed definition-list metrics use value-only `font-metric` plus optional `--widget-metric-size`, `--widget-metric-weight` and `--widget-metric-width` hooks. Width means glyph width through `font-stretch`, never grid columns; static fonts remain readable. Quiet messages and non-numeric metric states keep ordinary typography.
 
 [Manual](public/manual/components/widgets.html), [narrow/wide reference cases](public/reference/components/widgets.html), and [source comparisons and CSS contract](docs/widget-references.md). Placement, data formatting, entry limits, video/embed settings, editor controls and saved overrides remain application-owned.
+
+### Optional searchable choice controls
+
+Use native selects for short lists. The optional [combobox](docs/combobox.md)
+adds local or application-fed remote search to a single native select, preserving
+form submission, required validation, disabled fieldsets, reset and HTML fallback.
+Load separate `combobox.js`/`combobox.css` assets; fetching and save validation stay
+application-owned. See the maintained [manual](public/manual/components/combobox.html)
+and [form reference](public/reference/forms/combobox.html).

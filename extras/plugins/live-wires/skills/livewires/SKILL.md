@@ -223,3 +223,15 @@ Framework-owned widget extraction uses semantic `widget`, `widget-header`, `widg
 Chart fallback data may use `widget-table` for compact native columns instead of the general mobile stack and table--lined borders. Card progress can use the existing inline height hook at line-025; keep ordinary nested component variations explicit. Video output reuses embed with titled lazy iframes and a direct link; the YouTube reference honors its minimum dimensions. Flip/editor/persistence behavior belongs to Baseplate.
 
 The observed Design Machines board/library coverage matrix is in the widget contract/manual. Composition references include profile next actions, ordinary runtime/status tables, categorized and plain ranked/date lists, sharing-aware values and multi-column data fallbacks. Keep arbitrary caller data and visibility policy with the module. Wide tables may use a labelled focusable overflow region; numeric columns retain their numeric alignment.
+
+## Optional combobox
+
+Native selects remain the default for short lists. `createCombobox` from the
+separate `/dist/combobox.js` entry enhances one labelled select inside
+`[data-combobox]`, with separate `/dist/combobox.css`. Local/remote single selection
+only. The native select owns form props and submitted value; query text has no
+name. Applications answer correlated `combobox-query` through `combobox-results`
+or `applyResults`, and own fetching/authorization/save rejection. Use
+`refresh` for in-place markup and `dispose` before whole-root replacement.
+See `docs/combobox.md`, `/manual/components/combobox.html` and
+`/reference/forms/combobox.html` for the maintained contract and examples.
