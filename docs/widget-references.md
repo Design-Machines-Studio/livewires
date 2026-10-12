@@ -164,7 +164,7 @@ Additional exact producer reads at the recorded commits: Baseplate `internal/bas
 | Baseplate | Assembly | `assembly` | Ordinary runtime fact table; optional footer | [Reference](/reference/components/widgets.html#facts-heading) |
 | Baseplate | Updates | `updates` | Ordinary status/message + action | [Reference](/reference/components/widgets.html#health-facts-heading) |
 | Baseplate | Backups | `backups` | Destination/status table | [Reference](/reference/components/widgets.html#facts-wide-heading) |
-| Atlas | Organizations in the network | `atl.network_summary` | Standalone count metric, including known zero | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
+| Atlas | Organizations in the network | `atl.network_summary` | Standalone count metric | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
 | Atlas | People in the network* | `atl.membership_summary` | Sharing-aware unavailable metric and detail | [Reference](/reference/components/widgets.html#sharing-heading) |
 | Atlas | Network over time | `atl.network_over_time` | Static illustration + independent data table | [Reference](/reference/components/widgets.html#chart-heading) |
 | Atlas | Sectors | `atl.sectors` | Ranked labels/counts + decorative bars + full table | [Reference](/reference/components/widgets.html#breakdown-heading) |
@@ -176,8 +176,8 @@ Additional exact producer reads at the recorded commits: Baseplate `internal/bas
 | Atlas | Places in the network | `atl.places` | Place label/count list + shown-count note | [Reference](/reference/components/widgets.html#places-heading) |
 | Atlas | Recently joined | `atl.recently_joined` | Link/date list | [Reference](/reference/components/widgets.html#joined-heading) |
 | Governance | Respond by | `gov.respond_by` | Proposal/deadline list | [Reference](/reference/components/widgets.html#list-heading) |
-| Governance | Recent decisions | `gov.recent_decisions` | Decision timeline + empty state | [Reference](/reference/components/widgets.html#list-wide-heading) |
+| Governance | Recent decisions | `gov.recent_decisions` | Decision timeline | [Reference](/reference/components/widgets.html#list-wide-heading) |
 | Governance | Governance at a glance | `gov.overview` | Grouped metrics + year detail | [Reference](/reference/components/widgets.html#governance-heading) |
 | Governance | Open proposal count | `gov.open_proposal_count` | Standalone prominent value + label/detail | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
 | Governance | Needs my input count | `gov.needs_my_input_count` | Standalone prominent value + label/detail | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
-| Governance | Decisions this year | `gov.decisions_this_year` | Known zero + ordinary year detail | [Reference](/reference/components/widgets.html#default-values-heading) |
+| Governance | Decisions this year | `gov.decisions_this_year` | Known zero metric | [Reference](/reference/components/widgets.html#default-values-heading) |
