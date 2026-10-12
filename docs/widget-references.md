@@ -54,7 +54,7 @@ The caller supplies formatted strings, locale, currency symbols, signs, units, p
 | `--widget-metric-weight` | `font-weight` on the value | Existing `--font-bold` weight |
 | `--widget-metric-width` | `font-stretch` on the value | Inherited font stretch |
 
-The token and utility exactly match merged Baseplate PR #1162:
+The token default and family expression match merged Baseplate PR #1162. Live Wires extends the utility with optional size/width declarations; Baseplate's current family-only utility needs these declarations before its consumers can use the new generic hooks:
 
 ```css
 --font-metric: var(--font-body);
