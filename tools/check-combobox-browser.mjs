@@ -137,12 +137,12 @@ try {
     assert.equal(await local().inputValue(), 'sao'); assert.deepEqual(await local().evaluate(input => [input.selectionStart, input.selectionEnd]), [1, 2]);
     assert.equal(await local().evaluate(input => input === document.activeElement), true);
     assert.equal(await page.locator('[role=combobox]').count(), 3);
-    await local().press('Escape');
-    await page.locator('#local-zone').evaluate(select => { select.options[0].label = 'Updated organization default'; });
-    await page.waitForFunction(() => document.querySelector('#local-choice input').value === 'Updated organization default');
     await page.evaluate(() => { const select = document.querySelector('#local-zone'); select.replaceWith(select.cloneNode(true)); });
     await page.waitForTimeout(30); assert.equal(await local().inputValue(), 'sao');
     assert.equal(await page.locator('[role=combobox]').count(), 3);
+    await local().press('Escape');
+    await page.locator('#local-zone').evaluate(select => { select.options[0].label = 'Updated organization default'; });
+    await page.waitForFunction(() => document.querySelector('#local-choice input').value === 'Updated organization default');
   });
   await check('L2 disposal/reinsertion, malformed replacement and late replies', async () => {
     const proof = await page.evaluate(async () => {
