@@ -3,6 +3,7 @@ import { placeMenu, nextMenuIndex, matchingMenuIndex } from './action-menu-state
 const instances = new WeakMap();
 const controls = ':scope > li > button, :scope > li > a';
 const editable = 'input, select, textarea, [contenteditable]:not([contenteditable="false"])';
+const rowControls = `${editable}, button, a, [tabindex], iframe, object, embed, summary, audio[controls], video[controls], [role=button], [role=link], [role=checkbox], [role=radio], [role=switch], [role=textbox], [role=combobox], [role=slider], [role=spinbutton], [role=tab], [role=treeitem], [role=option], [role^=menuitem]`;
 
 /** Explicit action-only enhancement. The application owns actions and authorization. */
 export function createActionMenu({ root, contextTarget = null }) {
@@ -97,6 +98,7 @@ export function createActionMenu({ root, contextTarget = null }) {
         } else if (!item.getAttribute('data-menu-action') || row.querySelector('[data-menu]')) throw new TypeError('Actions need a data-menu-action value.');
       }
     }
+    if ([...next.menu.querySelectorAll(rowControls)].some((node) => !lists.includes(node) && !(node.matches('button, a') && managed.has(node)))) throw new TypeError('Each action row must contain only its managed native control.');
     if ([...next.menu.querySelectorAll('button, a'), ...root.querySelectorAll('[data-menu-action], [data-menu-submenu]')].some((node) => !managed.has(node))) throw new TypeError('Menu controls must be direct actions in the validated menu tree.');
     return managed;
   }
@@ -155,7 +157,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     remember(trigger, 'type', 'button');
     remember(trigger, 'aria-haspopup', 'menu');
     remember(trigger, 'aria-controls', menu.id);
-    remember(trigger, 'aria-expanded', 'false');
+    remember(trigger, 'aria-expanded', String(levels.some((level) => level.trigger === trigger)));
     for (const list of menusIn(menu)) {
       remember(list, 'popover', 'manual');
       remember(list, 'role', 'menu');
@@ -167,7 +169,7 @@ export function createActionMenu({ root, contextTarget = null }) {
           remember(item, 'tabindex', '-1');
           if (item.hasAttribute('data-menu-submenu')) {
             remember(item, 'aria-haspopup', 'menu');
-            remember(item, 'aria-expanded', 'false');
+            remember(item, 'aria-expanded', String(levels.some((level) => level.trigger === item)));
           } else {
             restoreAttribute(item, 'aria-haspopup');
             restoreAttribute(item, 'aria-expanded');
@@ -425,7 +427,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     // Watch boundary removal and actual ancestors without unrelated subtrees.
     for (const tree of trees) observer.observe(tree, { childList: true });
     for (const node of ancestors) observer.observe(node, { childList: true, ...attributes });
-    observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'id', 'data-action-menu', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
+    observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'aria-expanded', 'aria-haspopup', 'role', 'tabindex', 'type', 'data-menu-ready', 'id', 'data-action-menu', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
   }
   function onSlotChange() { if (levels.length) reconcile(); }
   function onOutside(event) {

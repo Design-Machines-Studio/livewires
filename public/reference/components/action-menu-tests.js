@@ -39,6 +39,33 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...[false, true].flatMap((open) => ['aria-expanded', 'aria-haspopup', 'role', 'tabindex', 'data-menu-ready', 'type'].map((name) => [`attribute-only ${name} updates reconcile while ${open ? 'open' : 'closed'}`, async (f) => {
+    if (open) { f.api.open(); await settle(); }
+    const node = name === 'role' ? f.menu : name === 'tabindex' ? f.alpha : name === 'data-menu-ready' ? f.root : f.trigger;
+    const authored = { 'aria-expanded': String(!open), 'aria-haspopup': 'dialog', role: 'list', tabindex: '0', type: 'submit' }[name];
+    if (name === 'data-menu-ready') node.removeAttribute(name); else node.setAttribute(name, authored);
+    await settle();
+    const expected = { 'aria-expanded': String(open), 'aria-haspopup': 'menu', role: 'menu', tabindex: '-1', type: 'button', 'data-menu-ready': '' }[name];
+    assert(node.getAttribute(name) === expected && f.api.state.open === open, 'attribute-only patch left live semantics stale');
+    let changes = 0; const observer = new MutationObserver((records) => { changes += records.length; }); observer.observe(f.root, { attributes: true, subtree: true });
+    await settle(); await settle(); observer.disconnect();
+    assert(changes === 0, 'semantic observation generated repeated own mutations');
+    f.api.dispose(); assert(node.getAttribute(name) === (name === 'data-menu-ready' ? null : authored), 'attribute-only author update lost on cleanup');
+  }])),
+  ...['sibling tabindex', 'nested tabindex', 'iframe', 'ARIA button'].flatMap((kind) => [false, true].map((morph) => [`${kind} control rejects ${morph ? 'open morph' : 'setup'} enhancement`, async (f) => {
+    if (morph) f.api.open(); else f.api.dispose();
+    const extra = document.createElement(kind === 'iframe' ? 'iframe' : 'span');
+    if (kind.includes('tabindex')) extra.tabIndex = 0;
+    if (kind === 'ARIA button') extra.setAttribute('role', 'button');
+    extra.textContent = 'Extra control';
+    (kind === 'nested tabindex' ? f.alpha : f.alpha.parentElement).append(extra);
+    if (morph) { await settle(); assert(f.api.state.disposed && !f.root.querySelector(':popover-open') && !f.root.hasAttribute('data-menu-ready'), 'morphed extra control remained enhanced'); }
+    else { let rejected = false; try { createActionMenu({ root: f.root }); } catch { rejected = true; } assert(rejected && !f.root.hasAttribute('data-menu-ready'), 'extra control accepted'); }
+  }])),
+  ['decorative action content remains valid', async (f) => {
+    const label = document.createElement('span'); label.textContent = ' decorative label'; const image = document.createElement('span'); image.setAttribute('role', 'img'); image.setAttribute('aria-label', 'Document'); f.alpha.append(label, image);
+    await settle(); assert(!f.api.state.disposed && f.api.open() && document.activeElement === f.alpha, 'decorative content rejected');
+  }],
   ...[false, true].map((open) => [`retained server attributes survive semantic refresh while ${open ? 'open' : 'closed'}`, async (f) => {
     if (open) f.api.open();
     const id = f.menu.id + '-authored'; const expanded = open ? 'false' : 'true';
