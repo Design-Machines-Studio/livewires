@@ -182,13 +182,14 @@ try {
         await page.setViewportSize({ width, height: 900 }); await load(route); await local().fill('America');
         const value = await local().evaluate(input => ({ height: input.getBoundingClientRect().height, overflow: document.documentElement.scrollWidth > innerWidth }));
         assert.equal(value.overflow, false); assert.ok(value.height >= 44); geometry.push({ route, width, ...value });
-        await page.locator('#local-choice').evaluate(root => root.scrollIntoView({ block: 'start' }));
+        await page.locator('#local-choice').evaluate(root => root.scrollIntoView({ block: 'start', behavior: 'instant' }));
         await page.screenshot({ path: resolve(evidence, `${route.includes('manual') ? 'manual' : 'reference'}-${width}.png`) });
       }
     }
     await page.evaluate(() => document.documentElement.style.setProperty('--ui-scale', '2'));
     await local().fill('America');
     assert.equal(await page.locator('#local-choice').evaluate(root => root.querySelector('input').getBoundingClientRect().bottom <= root.querySelector('[role=listbox]').getBoundingClientRect().top), true);
+    await page.locator('#local-choice').evaluate(root => root.scrollIntoView({ block: 'start', behavior: 'instant' }));
     await page.screenshot({ path: resolve(evidence, 'enlarged-typography.png') });
     await page.evaluate(() => document.documentElement.style.removeProperty('--ui-scale'));
     await page.locator('#local-zone').evaluate(select => { for (const option of select.options) if (option.value) new Intl.DateTimeFormat('en', { timeZone: option.value }); });
