@@ -74,7 +74,9 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
     const field = fields[0];
     // Also validates duplicate values before changing fallback markup.
     local.setOptions(optionsOf(field));
-    if (![...field.labels].length && !field.getAttribute('aria-label') && !field.getAttribute('aria-labelledby')) {
+    const transferredLabel = [...restored].some(([node, attrs]) => node.matches('label') &&
+      attrs.get('for')?.original === field.id && node.htmlFor === input.id);
+    if (![...field.labels].length && !transferredLabel && !field.getAttribute('aria-label') && !field.getAttribute('aria-labelledby')) {
       throw new TypeError('The native select needs an accessible label.');
     }
     return field;
@@ -150,8 +152,9 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
   }
   function search(value = input.value) {
     if (!live() || !enabled()) return;
-    win.clearTimeout(timer);
+    const previousRequest = local.state.request;
     const request = local.setQuery(value, { composing });
+    if (request || local.state.request !== previousRequest) win.clearTimeout(timer);
     active = -1;
     open = true;
     render();
@@ -214,12 +217,12 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
     return true;
   }
   function reset(event) {
-    win.queueMicrotask(() => {
+    win.setTimeout(() => {
       if (!live() || event.defaultPrevented) return;
       selected = choice(select);
       composing = compositionTail = false;
       close();
-    });
+    }, 0);
   }
   function applyResults(result) {
     if (!live() || !enabled()) return false;
@@ -249,6 +252,7 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
   refresh();
   listen(input, 'input', () => search());
   listen(input, 'focus', () => { if (enabled()) { input.value = ''; search(''); } });
+  listen(input, 'click', () => { if (!open && enabled()) { input.value = ''; search(''); } });
   listen(input, 'blur', () => { if (!composing) close(); });
   listen(input, 'keydown', event => {
     if (event.defaultPrevented || !live() || !enabled() || composing || compositionTail || event.isComposing || event.keyCode === 229) return;
@@ -259,7 +263,7 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
     if (!open) { input.value = ''; search(''); }
     const rows = local.state.items;
     const direction = event.key === 'ArrowDown' ? 1 : -1;
-    let index = active;
+    let index = active < 0 ? direction > 0 ? -1 : 0 : active;
     for (let steps = 0; steps < rows.length; steps++) {
       index = (index + direction + rows.length) % rows.length;
       if (!rows[index].disabled) { active = index; break; }
@@ -274,7 +278,7 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
     search();
     tailTimer = win.setTimeout(() => { compositionTail = false; }, 0);
   });
-  listen(list, 'pointerdown', event => { if (event.pointerType !== 'touch') event.preventDefault(); });
+  listen(list, 'pointerdown', event => event.preventDefault());
   listen(list, 'click', event => {
     const row = event.target.closest('[data-combobox-index]');
     if (row?.parentElement === list) pick(Number(row.dataset.comboboxIndex));
@@ -291,8 +295,11 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
   observer = new win.MutationObserver(records => {
     if (updating || disposed) return;
     if (!root.isConnected) { dispose(); return; }
-    if (records.some(record => !ui.contains(record.target) && record.target !== ui &&
-        !(record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].every(node => ui.contains(node))))) {
+    // Observing the document is needed for external labels/forms and removal,
+    // but another instance's generated UI must never trigger our refresh.
+    if (records.some(record => record.target === root || record.target === select || select.contains(record.target) ||
+        (record.type === 'attributes' && record.target.contains?.(root) && ['disabled', 'inert'].includes(record.attributeName)) ||
+        (record.target.matches?.('label') && [select.id, input.id].includes(record.target.htmlFor)))) {
       try { refresh(); } catch { /* Invalid replacement restores the native fallback. */ }
     }
   });
