@@ -328,3 +328,12 @@ Cell states on `<td>`: `.outside`, `.today`, `.selected`, `.range-start`, `.in-r
 ```
 
 The panel sizes to its content. Under a 40em container the sidebar wraps and presets fall into an inline row above the calendars. Use `type="datetime-local"` for times.
+
+## Ghost buttons
+
+Use `.button.button--ghost` for an unfilled action. Combine with `.button--small` for compact controls and `.button--accent` for accent text resembling a link. The accent ghost foreground mixes the accent and foreground tokens for contrast; it retains native focus treatment. Use a native button for actions and an anchor for navigation or a progressive form link.
+
+```html
+<button class="button button--small button--ghost" type="button">Cancel</button>
+<a class="button button--small button--ghost button--accent" href="/edit">Edit</a>
+```

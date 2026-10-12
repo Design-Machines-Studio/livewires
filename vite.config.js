@@ -17,7 +17,7 @@ const devCssPlugin = () => ({
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
       const pathname = req.url?.split('?')[0];
-      if (pathname === '/dist/main.css' || pathname === '/dist/sortable-list.css' || pathname === '/dist/action-menu.css') {
+      if (pathname === '/dist/main.css' || pathname === '/dist/sortable-list.css' || pathname === '/dist/action-menu.css' || pathname === '/dist/inline-edit.css') {
         res.setHeader('Content-Type', 'text/css');
         res.setHeader('Cache-Control', 'no-store');
         res.end('/* CSS loaded via JS in dev mode */');
@@ -43,6 +43,7 @@ export default defineConfig({
       '/dist/loading.js': resolve(__dirname, 'src/js/loading.entry.js'),
       '/dist/toast-region.js': resolve(__dirname, 'src/js/toast-region.entry.js'),
       '/dist/action-menu.js': resolve(__dirname, 'src/js/action-menu.entry.js'),
+      '/dist/inline-edit.js': resolve(__dirname, 'src/js/inline-edit.entry.js'),
       '/dist/sortable-list.css': resolve(__dirname, 'src/css/6_components/sortable-list.css')
     }
   },
@@ -62,11 +63,13 @@ export default defineConfig({
         'copy-button': resolve(__dirname, 'src/js/copy-button.entry.js'),
         loading: resolve(__dirname, 'src/js/loading.entry.js'),
         'toast-region': resolve(__dirname, 'src/js/toast-region.entry.js'),
-        'action-menu': resolve(__dirname, 'src/js/action-menu.entry.js')
+        'action-menu': resolve(__dirname, 'src/js/action-menu.entry.js'),
+        'inline-edit': resolve(__dirname, 'src/js/inline-edit.entry.js')
       },
       output: {
         // Fixed filenames (no hash) for easy HTML referencing
         assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.includes('inline-edit')) return 'inline-edit.css';
           // Name CSS file 'main.css' to match entry point
           if (assetInfo.name?.includes('action-menu')) return 'action-menu.css';
           if (assetInfo.name?.includes('sortable-list')) {

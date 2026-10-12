@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inline edit lifecycle checks — Live Wires</title>
+  <link rel="stylesheet" href="/dist/main.css"><link rel="stylesheet" href="/dist/inline-edit.css">
+  <script type="module" src="/dist/main.js"></script>
+</head>
+<body class="scheme-default">
+  <main id="main" class="section stack">
+    <h1>Inline edit lifecycle checks</h1>
+    <p>Real DOM checks with simulated application results and composition events. These do not prove real IME or durable saving.</p>
+    <button type="button" id="run">Run checks</button>
+    <ol id="results" aria-live="polite"></ol>
+    <div id="fixtures" class="stack"></div>
+  </main>
+  <script type="module" src="./inline-edit-tests.js"></script>
+</body>
+</html>

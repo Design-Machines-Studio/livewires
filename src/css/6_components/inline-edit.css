@@ -1,0 +1,25 @@
+@layer components {
+  [data-inline-edit] {
+    & summary {
+      inline-size: fit-content;
+      min-block-size: var(--line-1);
+      cursor: pointer;
+    }
+    & input { inline-size: 100%; min-inline-size: 0; }
+    & [data-inline-edit-error]:empty { display: none; }
+    & [readonly] { border-style: dashed; }
+    &[data-inline-edit="compact"] {
+      & [hidden] { display: none; }
+      & [data-inline-edit-panel] { inline-size: 100%; }
+      & [data-inline-edit-input] {
+        inline-size: min(24ch, 100%);
+        min-block-size: var(--line-1);
+        line-height: var(--line-height-none);
+        padding: var(--line-025);
+        font-size: var(--text-sm);
+      }
+      & [data-inline-edit-error] { flex-basis: 100%; }
+    }
+    & [data-inline-edit-status] { font-style: italic; }
+  }
+}

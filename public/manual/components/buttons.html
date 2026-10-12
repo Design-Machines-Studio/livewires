@@ -40,6 +40,26 @@
 
             <section class="stack">
               <header>
+                <h2>Ghost buttons</h2>
+                <p>Use <code>.button--ghost</code> for a quiet action without a fill. Add <code>.button--accent</code> for accent text that looks like a link, with the same button padding and focus outline. Accent text is mixed toward the scheme foreground for contrast.</p>
+                <popup-dialog title="Ghost Buttons HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;button class="button button--small button--ghost" type="button"&gt;Cancel&lt;/button&gt;
+&lt;a class="button button--small button--ghost button--accent" href="/manual/components/inline-edit.html"&gt;Edit&lt;/a&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="cluster cluster-compact">
+                <button class="button button--small button--ghost" type="button">Cancel</button>
+                <a class="button button--small button--ghost button--accent" href="/manual/components/inline-edit.html">Edit</a>
+                <button class="button button--small button--ghost" type="button" disabled>Disabled</button>
+              </div>
+              <p class="text-sm">Keep native semantics: buttons perform actions and links navigate. Compact inline Edit progressively enhances its native form link.</p>
+            </section>
+
+            <section class="stack">
+              <header>
                 <h2>Sizes</h2>
                 <p>Use <code>.button--small</code> or <code>.button--large</code> to adjust scale.</p>
                 <popup-dialog title="Button Sizes HTML">
