@@ -28,7 +28,7 @@ Put schemes on the frame or an ancestor. Background and foreground use inherited
 <dl class="widget-metrics">
   <div class="widget-metric">
     <dt>Active</dt>
-    <dd class="widget-metric-value font-metric tnum"
+    <dd class="widget-metric-value widget-metric-value--short font-metric tnum"
         style="--widget-metric-size: var(--text-4xl);
                --widget-metric-weight: 650;
                --widget-metric-width: 80%;">42</dd>
@@ -69,7 +69,7 @@ Width means glyph width (`wdth`), not widget columns. Percentage `font-stretch` 
 
 Do not add `text-*` or `font-*` size/weight utilities to hook-controlled values. Utilities intentionally win over components; adding one opts into that art direction instead of the corresponding hook. `.font-metric` and `.tnum` are compatible; the metric utility respects widget-specific size/width hooks before its optional generic initial settings. With both unset, `revert-layer` restores the underlying presentation. Keep generic initial size/width hooks unset on `:root` unless the caller deliberately configures them. Apply hooks directly to a value or to its owning widget; neither changes label/description styles.
 
-Choose `widget-metric-value--short` for a deliberately tall short value (text-4xl) and `widget-metric-value--long` for a compact long value (text-lg). The default is text-2xl. Each package includes its matching unitless line-height and tracking. Callers choose after formatting; these classes do not count digits, query data, squeeze text or guarantee one-line fit. Explicit size settings override these presentation defaults. Use the value-specific hook to refine a long amount while retaining an initial size for other metrics:
+Choose `widget-metric-value--short` for a deliberately tall short value (text-4xl) and `widget-metric-value--long` for a compact long value (text-lg). The default is text-2xl. Each package includes its matching unitless line-height and tracking. Callers choose after formatting; these classes do not count digits, query data, squeeze text or guarantee one-line fit. Explicit size settings override these presentation defaults. Size hooks change only font-size, keeping the selected package’s leading and tracking. Pair token-sized overrides with the matching short/long variation, or set matching line-height and letter-spacing locally on the value. Use the value-specific hook to refine a long amount while retaining an initial size for other metrics:
 
 ```html
 <dl class="widget-metrics" style="--font-metric-width: 75%;">
