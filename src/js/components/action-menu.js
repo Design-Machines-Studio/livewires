@@ -195,10 +195,13 @@ export function createActionMenu({ root, contextTarget = null }) {
       if (!disposed && root.matches('[data-action-menu]') && root.contains(level.trigger) && (level.trigger === trigger ? level.trigger.hasAttribute('data-menu-trigger') : level.trigger.hasAttribute('data-menu-submenu'))) remember(level.trigger, 'aria-expanded', 'false');
     }
     if (refocus && !disposed && last) {
+      const active = activeElement();
+      if (depth === 0 || levels.length || active === doc.body || active === root.getRootNode().host || active === trigger || menu.contains(active)) {
       reconcile(false);
       const parentMenu = levels.at(-1)?.menu;
       const parentItems = parentMenu ? itemsIn(parentMenu) : [];
       focus(depth === 0 ? trigger : parentItems.includes(last) ? last : parentItems.find((item) => childMenu(item)?.id === lastMenuId) ?? parentItems[0] ?? parentMenu ?? trigger);
+      }
     }
     if (!levels.length) {
       if (trackingFrame !== null) win.cancelAnimationFrame(trackingFrame);

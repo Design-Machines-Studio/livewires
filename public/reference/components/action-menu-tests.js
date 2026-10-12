@@ -39,6 +39,14 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['external', 'inside root'].map((location) => [`closing submenu keeps application focus on a ${location} control`, async (f) => {
+    const target = location === 'external' ? f.after : document.createElement('input');
+    if (location === 'inside root') { target.setAttribute('aria-label', 'Ordinary root control'); f.root.append(target); await settle(); }
+    f.api.open(); f.sub.click(); const child = f.root.querySelector('[data-menu] [data-menu]');
+    child.addEventListener('beforetoggle', () => target.focus(), { once: true }); key(child.querySelector('button'), 'Escape');
+    assert(document.activeElement === target && !f.api.state.open, 'closing fallback stole application focus');
+    await settle(); assert(document.activeElement === target && !f.root.querySelector(':popover-open'), 'closing cleanup reclaimed focus or retained an overlay');
+  }]),
   ...['root', 'submenu'].flatMap((scope) => ['inert', 'aria-hidden', 'disable opener', 'remove trigger', 'replace menu', 'dispose', 'remove root', 'strip popover', 'cancel'].map((change) => [`${scope} beforetoggle ${change} never commits an unusable open level`, async (f) => {
     const errors = []; const onError = (event) => errors.push(event.message); window.addEventListener('error', onError);
     try {
