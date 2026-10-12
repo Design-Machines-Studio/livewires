@@ -217,10 +217,10 @@ try {
     const forcedActive = await page.locator('#local-choice [role=option][data-active]').evaluate(row => {
       const probe = document.createElement('span'); probe.style.cssText = 'color:HighlightText;background:Highlight;forced-color-adjust:none'; row.append(probe);
       const expected = { color: getComputedStyle(probe).color, background: getComputedStyle(probe).backgroundColor }; probe.remove();
-      return { hovered: row.matches(':hover'), color: getComputedStyle(row).color, background: getComputedStyle(row).backgroundColor, adjustment: getComputedStyle(row).forcedColorAdjust, expected };
+      return { hovered: row.matches(':hover'), color: getComputedStyle(row).color, background: getComputedStyle(row).backgroundColor, adjustment: getComputedStyle(row).forcedColorAdjust, outline: getComputedStyle(row).outlineColor, expected };
     });
     assert.equal(forcedActive.color, forcedActive.expected.color); assert.equal(forcedActive.background, forcedActive.expected.background);
-    assert.equal(forcedActive.adjustment, 'none'); assert.equal(forcedActive.hovered, false);
+    assert.equal(forcedActive.adjustment, 'none'); assert.equal(forcedActive.hovered, false); assert.equal(forcedActive.outline, forcedActive.expected.color);
     await page.screenshot({ path: resolve(evidence, 'forced-colors.png') });
     assert.equal(await page.evaluate(() => matchMedia('(forced-colors: active)').matches), true);
     const hovered = page.locator('#local-choice [role=option]').nth(1);
@@ -234,6 +234,17 @@ try {
       return { ...actual, expected };
     });
     assert.equal(forcedHover.active, false); assert.deepEqual({ background: forcedHover.background, color: forcedHover.color }, forcedHover.expected);
+    await page.locator('#local-zone').evaluate(select => {
+      [...select.options].find(option => option.value === 'America/Argentina/Buenos_Aires').disabled = true;
+    });
+    const disabledOption = page.locator('#local-choice [role=option][aria-disabled=true]'); await disabledOption.waitFor();
+    const disabledColor = await disabledOption.evaluate(row => {
+      const actual = getComputedStyle(row).color;
+      const probe = document.createElement('span'); probe.style.cssText = 'position:fixed;top:-9999px;color:GrayText;forced-color-adjust:none'; document.body.append(probe);
+      const expected = getComputedStyle(probe).color; probe.remove(); return { actual, expected };
+    });
+    assert.equal(disabledColor.actual, disabledColor.expected);
+    await page.screenshot({ path: resolve(evidence, 'forced-colors-disabled.png') });
     await page.emulateMedia({ forcedColors: 'none', reducedMotion: 'no-preference' }); return geometry;
   });
   await check('N1 no-JavaScript fallback supports actual native submission', async () => {

@@ -40,9 +40,9 @@
       background: Canvas;
       color: CanvasText;
       border-color: CanvasText;
-      & [role="option"][data-active] { background: Highlight; color: HighlightText; outline-color: Highlight; }
+      & [role="option"][data-active] { background: Highlight; color: HighlightText; }
       & [role="option"]:hover:not([aria-disabled="true"]) { background: Highlight; color: HighlightText; }
-      & [aria-disabled="true"] { color: GrayText; }
+      & [role="option"][aria-disabled="true"] { color: GrayText; }
     }
   }
 }
