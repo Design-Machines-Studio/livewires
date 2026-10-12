@@ -20,7 +20,7 @@ Live Wires supplies semantic content anatomy. Baseplate owns placement, permissi
 
 Heading level and unique IDs belong to the caller. Omit description, action, header or footer when unnecessary. A headingless section needs its own accessible name; a non-landmark body can use `div`. Header actions wrap beneath long headings. The footer sits at the bottom when the host stretches its cell; height and grid placement remain host choices.
 
-Put schemes on the frame or an ancestor. Background and foreground use inherited scheme tokens; links inherit the foreground and keep their normal underline/`.more` cue and visible focus. The header's decorative divider defaults to Baseplate's 40% foreground mix. `--widget-border-color` deliberately changes it. `.widget--plain-header` removes the divider and its padding, replacing the producer's route-specific exception without copying `/super/updates` selectors. `--widget-padding` adjusts internal padding. No host editor, drag, grid-column or viewport-grid rules are emitted.
+Put schemes on the frame or an ancestor. Background and foreground use inherited scheme tokens; text links inherit the foreground and keep their normal underline/`.more` cue and visible focus. Anchor buttons retain their existing button colors and focus treatment. The header's decorative divider defaults to Baseplate's 40% foreground mix. `--widget-border-color` deliberately changes it. `.widget--plain-header` removes the divider and its padding, replacing the producer's route-specific exception without copying `/super/updates` selectors. `--widget-padding` adjusts internal padding. No host editor, drag, grid-column or viewport-grid rules are emitted.
 
 ## Unboxed metric
 

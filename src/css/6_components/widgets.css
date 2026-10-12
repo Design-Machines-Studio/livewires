@@ -20,9 +20,8 @@
     letter-spacing: var(--tracking-sm);
 
     & > * { min-inline-size: 0; margin: 0; }
-    & a { color: inherit; }
-    & :where(a:not(.button)) { text-decoration: underline; }
-    & a:focus-visible { outline-color: currentColor; }
+    & :where(a:not(.button)) { color: inherit; text-decoration: underline; }
+    & :where(a:not(.button)):focus-visible { outline-color: currentColor; }
   }
 
   .widget-header {
@@ -44,7 +43,11 @@
     line-height: var(--line-height-lg);
     letter-spacing: var(--tracking-lg);
   }
-  .widget-description { margin: var(--line-025) 0 0; color: var(--color-muted); }
+  .widget-description {
+    margin-block: var(--line-025) 0;
+    margin-inline: 0;
+    color: var(--color-muted);
+  }
   .widget-action { flex: 0 1 auto; }
 
   /* An explicit presentation choice replaces Baseplate's route exception. */
