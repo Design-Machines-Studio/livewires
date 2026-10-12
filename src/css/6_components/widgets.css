@@ -1,0 +1,117 @@
+/**
+ * Widget content anatomy extracted from Baseplate, Governance and Atlas.
+ * Placement, schemes, editor controls and formatted content belong to callers.
+ */
+@layer components {
+  .widget {
+    display: flex;
+    flex-direction: column;
+    gap: var(--line-1);
+    min-inline-size: 0;
+    block-size: 100%;
+    padding: var(--widget-padding, var(--line-1));
+    border-radius: var(--radius-normal);
+    container-type: inline-size;
+    overflow-wrap: anywhere;
+    color: var(--color-fg);
+    background: var(--color-bg);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
+
+    & > * { min-inline-size: 0; margin: 0; }
+    & a { color: inherit; }
+    & a:focus-visible { outline-color: currentColor; }
+  }
+
+  .widget-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    gap: var(--line-05) var(--line-1);
+    padding-block-end: var(--line-05);
+    border-block-end: var(--line-1px) solid
+      var(--widget-border-color, color-mix(in srgb, var(--color-fg) 40%, transparent));
+
+    & > * { min-inline-size: 0; }
+  }
+
+  .widget-heading { flex: 1 1 12ch; }
+  .widget-title {
+    margin: 0;
+    font-size: var(--text-lg);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--tracking-lg);
+  }
+  .widget-description { margin: var(--line-025) 0 0; color: var(--color-muted); }
+  .widget-action { flex: 0 1 auto; }
+
+  /* An explicit presentation choice replaces Baseplate's route exception. */
+  .widget--plain-header > .widget-header { border: 0; padding-block-end: 0; }
+
+  .widget-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--line-05);
+    flex: 1;
+    min-inline-size: 0;
+
+    & > * { min-inline-size: 0; margin: 0; }
+  }
+  .widget-footer { margin-block-start: auto; padding-block-start: var(--line-05); }
+
+  /* The grouping responds to its own width, including inside a desktop grid. */
+  .widget-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 8em), 1fr));
+    gap: var(--line-05) var(--line-1);
+    margin: 0;
+  }
+  .widget-metric {
+    display: flex;
+    flex-direction: column;
+    gap: var(--line-025);
+    min-inline-size: 0;
+    margin: 0;
+
+    & > :is(dt, dd) { margin: 0; max-inline-size: none; }
+    & > dt { font-weight: inherit; color: var(--color-muted); }
+  }
+  .widget-metric-value {
+    order: -1;
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+    font-size: var(--widget-metric-size, var(--text-3xl));
+    font-weight: var(--widget-metric-weight, var(--font-bold));
+    font-stretch: var(--widget-metric-width, inherit);
+    line-height: var(--line-height-3xl);
+    letter-spacing: var(--tracking-3xl);
+  }
+  .widget-metric-detail { color: var(--color-muted); }
+  /* State copy is deliberately not a large metric or a fabricated zero. */
+  .widget-metric-status { color: var(--color-muted); }
+
+  .widget-message {
+    display: flex;
+    align-items: start;
+    gap: var(--line-025);
+    min-inline-size: 0;
+  }
+  .widget-message-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 1em;
+    block-size: 1lh;
+  }
+  .widget-message-content {
+    min-inline-size: 0;
+    & > * { margin: 0; }
+    & > * + * { margin-block-start: var(--line-025); }
+  }
+  .widget-message-detail { color: var(--color-muted); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .widget :is(.progress-bar > .fill, .stacked-bar > .segment) { transition: none; }
+  }
+}

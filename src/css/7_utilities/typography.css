@@ -6,6 +6,11 @@
  */
 
 @layer utilities {
+  /* Prominent values choose a family independently of labels. */
+  .font-metric {
+    font-family: var(--font-metric, var(--font-body, sans-serif)), sans-serif;
+  }
+
   /* ===============================================
      COMPLETE TYPE PACKAGES
      Single class applies size + leading + tracking
