@@ -105,7 +105,9 @@ export function createActionMenu({ root, contextTarget = null }) {
     if (!originals.has(node)) originals.set(node, new Map());
     const values = originals.get(node);
     if (!values.has(name)) values.set(name, { original: node.getAttribute(name), applied: null });
-    values.get(name).applied = value === null ? null : String(value);
+    const saved = values.get(name);
+    if (node.getAttribute(name) !== saved.applied) saved.original = node.getAttribute(name);
+    saved.applied = value === null ? null : String(value);
     if (value === null) node.removeAttribute(name);
     else if (node.getAttribute(name) !== String(value)) node.setAttribute(name, String(value));
   }

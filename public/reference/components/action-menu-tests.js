@@ -39,6 +39,21 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...[false, true].map((open) => [`retained server attributes survive semantic refresh while ${open ? 'open' : 'closed'}`, async (f) => {
+    if (open) f.api.open();
+    const id = f.menu.id + '-authored'; const expanded = open ? 'false' : 'true';
+    f.menu.id = id; f.trigger.setAttribute('aria-controls', id);
+    f.trigger.setAttribute('type', 'submit'); f.trigger.setAttribute('aria-haspopup', 'dialog'); f.trigger.setAttribute('aria-expanded', expanded);
+    f.menu.setAttribute('role', 'list'); f.menu.setAttribute('tabindex', '3');
+    f.alpha.setAttribute('role', 'button'); f.alpha.setAttribute('tabindex', '0');
+    f.sub.setAttribute('aria-haspopup', 'tree'); f.sub.setAttribute('aria-expanded', 'true');
+    await settle();
+    assert(f.trigger.getAttribute('type') === 'button' && f.trigger.getAttribute('aria-haspopup') === 'menu' && f.menu.getAttribute('role') === 'menu' && f.alpha.getAttribute('tabindex') === '-1', 'live semantics were not reapplied');
+    f.api.dispose();
+    assert(f.trigger.getAttribute('aria-controls') === id && f.trigger.getAttribute('type') === 'submit' && f.trigger.getAttribute('aria-haspopup') === 'dialog' && f.trigger.getAttribute('aria-expanded') === expanded, 'retained trigger authored attributes lost');
+    assert(f.menu.getAttribute('role') === 'list' && f.menu.getAttribute('tabindex') === '3' && f.alpha.getAttribute('role') === 'button' && f.alpha.getAttribute('tabindex') === '0', 'retained list/item authored attributes lost');
+    assert(f.sub.getAttribute('aria-haspopup') === 'tree' && f.sub.getAttribute('aria-expanded') === 'true' && !f.root.hasAttribute('data-menu-ready') && !f.root.querySelector(':popover-open'), 'retained submenu authorship or overlay cleanup lost');
+  }]),
   ...['external', 'inside root'].map((location) => [`closing submenu keeps application focus on a ${location} control`, async (f) => {
     const target = location === 'external' ? f.after : document.createElement('input');
     if (location === 'inside root') { target.setAttribute('aria-label', 'Ordinary root control'); f.root.append(target); await settle(); }
