@@ -49,6 +49,10 @@ try {
     assert.equal(new URL(page.url()).search, '');
     assert.equal(await page.locator('#required-zone').evaluate(select => select.validity.valueMissing), true);
     assert.equal(await page.locator('#required-choice input').evaluate(input => input === document.activeElement), true);
+    assert.equal(await page.locator('#required-choice').evaluate(root => {
+      const status = root.querySelector('[role=status]'), list = root.querySelector('[role=listbox]');
+      return !!status.textContent && status.classList.contains('error') && status.getBoundingClientRect().bottom <= list.getBoundingClientRect().top;
+    }), true);
     await page.locator('#required-choice input').fill('Makassar');
     await page.locator('#required-choice input').press('ArrowDown'); await page.locator('#required-choice input').press('Enter');
     assert.equal(await page.locator('#required-zone').evaluate(select => select.checkValidity()), true);
@@ -133,6 +137,9 @@ try {
     assert.equal(await local().inputValue(), 'sao'); assert.deepEqual(await local().evaluate(input => [input.selectionStart, input.selectionEnd]), [1, 2]);
     assert.equal(await local().evaluate(input => input === document.activeElement), true);
     assert.equal(await page.locator('[role=combobox]').count(), 3);
+    await local().press('Escape');
+    await page.locator('#local-zone').evaluate(select => { select.options[0].label = 'Updated organization default'; });
+    await page.waitForFunction(() => document.querySelector('#local-choice input').value === 'Updated organization default');
     await page.evaluate(() => { const select = document.querySelector('#local-zone'); select.replaceWith(select.cloneNode(true)); });
     await page.waitForTimeout(30); assert.equal(await local().inputValue(), 'sao');
     assert.equal(await page.locator('[role=combobox]').count(), 3);
@@ -175,10 +182,17 @@ try {
         await page.setViewportSize({ width, height: 900 }); await load(route); await local().fill('America');
         const value = await local().evaluate(input => ({ height: input.getBoundingClientRect().height, overflow: document.documentElement.scrollWidth > innerWidth }));
         assert.equal(value.overflow, false); assert.ok(value.height >= 44); geometry.push({ route, width, ...value });
-        await page.locator('#local-choice').scrollIntoViewIfNeeded();
+        await page.locator('#local-choice').evaluate(root => root.scrollIntoView({ block: 'start' }));
         await page.screenshot({ path: resolve(evidence, `${route.includes('manual') ? 'manual' : 'reference'}-${width}.png`) });
       }
     }
+    await page.evaluate(() => document.documentElement.style.setProperty('--ui-scale', '2'));
+    await local().fill('America');
+    assert.equal(await page.locator('#local-choice').evaluate(root => root.querySelector('input').getBoundingClientRect().bottom <= root.querySelector('[role=listbox]').getBoundingClientRect().top), true);
+    await page.screenshot({ path: resolve(evidence, 'enlarged-typography.png') });
+    await page.evaluate(() => document.documentElement.style.removeProperty('--ui-scale'));
+    await page.locator('#local-zone').evaluate(select => { for (const option of select.options) if (option.value) new Intl.DateTimeFormat('en', { timeZone: option.value }); });
+    await page.locator('#remote-zone').evaluate(select => { for (const option of select.options) if (option.value) new Intl.DateTimeFormat('en', { timeZone: option.value }); });
     await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
     await local().press('ArrowDown'); await page.screenshot({ path: resolve(evidence, 'forced-colors.png') });
     assert.equal(await page.evaluate(() => matchMedia('(forced-colors: active)').matches), true);

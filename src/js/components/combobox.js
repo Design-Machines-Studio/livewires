@@ -222,6 +222,7 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
       if (!live() || event.defaultPrevented) return;
       selected = choice(select);
       composing = compositionTail = false;
+      showValidation = false;
       close();
     }, 0);
   }
