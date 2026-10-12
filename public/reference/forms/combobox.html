@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Combobox — Live Wires</title><script type="module" src="/dist/main.js"></script><html-include src="/_includes/head.html"></html-include><link rel="stylesheet" href="/dist/combobox.css"></head><body class="scheme-default"><html-include src="/_includes/header.html"></html-include><main id="main"><article class="prose"><header class="section scheme-dark"><h1>Combobox</h1><p class="lead">Search longer choice lists while keeping native form behavior.</p></header><section class="section stack">
+<h2>Local search</h2><p>Timezone override, based on Baseplate’s account settings field. Search does not submit your typed text. Leave the empty value selected to use the organization default.</p>
+<form id="choice-form" action="" method="get" class="stack">
+<div class="field" data-combobox id="local-choice"><label for="local-zone">Timezone override</label><select id="local-zone" name="interface_timezone" aria-describedby="local-help"><option value="" selected>Use organization default (UTC)</option>
+<option value="UTC">UTC</option>
+<option value="Africa/Cairo">Africa/Cairo</option>
+<option value="Africa/Johannesburg">Africa/Johannesburg</option>
+<option value="Africa/Lagos">Africa/Lagos</option>
+<option value="Africa/Nairobi">Africa/Nairobi</option>
+<option value="America/Anchorage">America/Anchorage</option>
+<option value="America/Argentina/Buenos_Aires">America/Argentina/Buenos Aires</option>
+<option value="America/Bogota">America/Bogota</option>
+<option value="America/Chicago">America/Chicago</option>
+<option value="America/Denver">America/Denver</option>
+<option value="America/Detroit">America/Detroit</option>
+<option value="America/Edmonton">America/Edmonton</option>
+<option value="America/Halifax">America/Halifax</option>
+<option value="America/Los_Angeles">America/Los Angeles</option>
+<option value="America/Mexico_City">America/Mexico City</option>
+<option value="America/New_York">America/New York</option>
+<option value="America/Phoenix">America/Phoenix</option>
+<option value="America/Sao_Paulo">America/Sao Paulo</option>
+<option value="America/St_Johns">America/St Johns</option>
+<option value="America/Toronto">America/Toronto</option>
+<option value="America/Vancouver">America/Vancouver</option>
+<option value="America/Winnipeg">America/Winnipeg</option>
+<option value="Asia/Bangkok">Asia/Bangkok</option>
+<option value="Asia/Dhaka">Asia/Dhaka</option>
+<option value="Asia/Dubai">Asia/Dubai</option>
+<option value="Asia/Hong_Kong">Asia/Hong Kong</option>
+<option value="Asia/Jakarta">Asia/Jakarta</option>
+<option value="Asia/Karachi">Asia/Karachi</option>
+<option value="Asia/Kathmandu">Asia/Kathmandu</option>
+<option value="Asia/Kolkata">Asia/Kolkata</option>
+<option value="Asia/Kuala_Lumpur">Asia/Kuala Lumpur</option>
+<option value="Asia/Makassar">Asia/Makassar</option>
+<option value="Asia/Manila">Asia/Manila</option>
+<option value="Asia/Seoul">Asia/Seoul</option>
+<option value="Asia/Shanghai">Asia/Shanghai</option>
+<option value="Asia/Singapore">Asia/Singapore</option>
+<option value="Asia/Taipei">Asia/Taipei</option>
+<option value="Asia/Tokyo">Asia/Tokyo</option>
+<option value="Asia/Yangon">Asia/Yangon</option>
+<option value="Australia/Adelaide">Australia/Adelaide</option>
+<option value="Australia/Brisbane">Australia/Brisbane</option>
+<option value="Australia/Darwin">Australia/Darwin</option>
+<option value="Australia/Melbourne">Australia/Melbourne</option>
+<option value="Australia/Perth">Australia/Perth</option>
+<option value="Australia/Sydney">Australia/Sydney</option>
+<option value="Europe/Amsterdam">Europe/Amsterdam</option>
+<option value="Europe/Athens">Europe/Athens</option>
+<option value="Europe/Berlin">Europe/Berlin</option>
+<option value="Europe/Brussels">Europe/Brussels</option>
+<option value="Europe/Dublin">Europe/Dublin</option>
+<option value="Europe/Helsinki">Europe/Helsinki</option>
+<option value="Europe/Istanbul">Europe/Istanbul</option>
+<option value="Europe/Lisbon">Europe/Lisbon</option>
+<option value="Europe/London">Europe/London</option>
+<option value="Europe/Madrid">Europe/Madrid</option>
+<option value="Europe/Paris">Europe/Paris</option>
+<option value="Europe/Rome">Europe/Rome</option>
+<option value="Europe/Stockholm">Europe/Stockholm</option>
+<option value="Europe/Vienna">Europe/Vienna</option>
+<option value="Europe/Warsaw">Europe/Warsaw</option>
+<option value="Pacific/Auckland">Pacific/Auckland</option>
+<option value="Pacific/Chatham">Pacific/Chatham</option>
+<option value="Pacific/Fiji">Pacific/Fiji</option>
+<option value="Pacific/Honolulu">Pacific/Honolulu</option></select><p id="local-help" class="hint">Use the organization default unless you work in another timezone.</p></div>
+<div class="cluster"><button class="button" type="submit">Submit choices</button><button class="button button--ghost" type="reset">Reset choices</button></div>
+</form>
+</section>
+<section class="section stack">
+<h2>Remote search</h2><p>The application answers a query event. This portable example simulates a remote window over public timezone choices; Baseplate has no new search endpoint or rollout here. This second control submits to the same form through its native <code>form</code> attribute.</p>
+<div class="field" data-combobox data-search="remote" id="remote-choice"><label for="remote-zone">Second timezone</label><select id="remote-zone" name="second_timezone" form="choice-form" aria-describedby="remote-help"><option value="" selected>Use organization default (UTC)</option>
+<option value="UTC">UTC</option>
+<option value="Africa/Cairo">Africa/Cairo</option>
+<option value="Africa/Johannesburg">Africa/Johannesburg</option>
+<option value="Africa/Lagos">Africa/Lagos</option>
+<option value="Africa/Nairobi">Africa/Nairobi</option>
+<option value="America/Anchorage">America/Anchorage</option>
+<option value="America/Argentina/Buenos_Aires">America/Argentina/Buenos Aires</option>
+<option value="America/Bogota">America/Bogota</option>
+<option value="America/Chicago">America/Chicago</option>
+<option value="America/Denver">America/Denver</option>
+<option value="America/Detroit">America/Detroit</option>
+<option value="America/Edmonton">America/Edmonton</option>
+<option value="America/Halifax">America/Halifax</option>
+<option value="America/Los_Angeles">America/Los Angeles</option>
+<option value="America/Mexico_City">America/Mexico City</option>
+<option value="America/New_York">America/New York</option>
+<option value="America/Phoenix">America/Phoenix</option>
+<option value="America/Sao_Paulo">America/Sao Paulo</option>
+<option value="America/St_Johns">America/St Johns</option>
+<option value="America/Toronto">America/Toronto</option>
+<option value="America/Vancouver">America/Vancouver</option>
+<option value="America/Winnipeg">America/Winnipeg</option>
+<option value="Asia/Bangkok">Asia/Bangkok</option>
+<option value="Asia/Dhaka">Asia/Dhaka</option>
+<option value="Asia/Dubai">Asia/Dubai</option>
+<option value="Asia/Hong_Kong">Asia/Hong Kong</option>
+<option value="Asia/Jakarta">Asia/Jakarta</option>
+<option value="Asia/Karachi">Asia/Karachi</option>
+<option value="Asia/Kathmandu">Asia/Kathmandu</option>
+<option value="Asia/Kolkata">Asia/Kolkata</option>
+<option value="Asia/Kuala_Lumpur">Asia/Kuala Lumpur</option>
+<option value="Asia/Makassar">Asia/Makassar</option>
+<option value="Asia/Manila">Asia/Manila</option>
+<option value="Asia/Seoul">Asia/Seoul</option>
+<option value="Asia/Shanghai">Asia/Shanghai</option>
+<option value="Asia/Singapore">Asia/Singapore</option>
+<option value="Asia/Taipei">Asia/Taipei</option>
+<option value="Asia/Tokyo">Asia/Tokyo</option>
+<option value="Asia/Yangon">Asia/Yangon</option>
+<option value="Australia/Adelaide">Australia/Adelaide</option>
+<option value="Australia/Brisbane">Australia/Brisbane</option>
+<option value="Australia/Darwin">Australia/Darwin</option>
+<option value="Australia/Melbourne">Australia/Melbourne</option>
+<option value="Australia/Perth">Australia/Perth</option>
+<option value="Australia/Sydney">Australia/Sydney</option>
+<option value="Europe/Amsterdam">Europe/Amsterdam</option>
+<option value="Europe/Athens">Europe/Athens</option>
+<option value="Europe/Berlin">Europe/Berlin</option>
+<option value="Europe/Brussels">Europe/Brussels</option>
+<option value="Europe/Dublin">Europe/Dublin</option>
+<option value="Europe/Helsinki">Europe/Helsinki</option>
+<option value="Europe/Istanbul">Europe/Istanbul</option>
+<option value="Europe/Lisbon">Europe/Lisbon</option>
+<option value="Europe/London">Europe/London</option>
+<option value="Europe/Madrid">Europe/Madrid</option>
+<option value="Europe/Paris">Europe/Paris</option>
+<option value="Europe/Rome">Europe/Rome</option>
+<option value="Europe/Stockholm">Europe/Stockholm</option>
+<option value="Europe/Vienna">Europe/Vienna</option>
+<option value="Europe/Warsaw">Europe/Warsaw</option>
+<option value="Pacific/Auckland">Pacific/Auckland</option>
+<option value="Pacific/Chatham">Pacific/Chatham</option>
+<option value="Pacific/Fiji">Pacific/Fiji</option>
+<option value="Pacific/Honolulu">Pacific/Honolulu</option></select><p id="remote-help" class="hint">Type two characters. “pa” takes 900ms; “par” takes 100ms. Type “fail” for a failed search or “zz” for no results.</p></div>
+<details><summary>Try failure and update cases</summary><div class="stack">
+<p>These controls belong to this demonstration, not the reusable combobox.</p>
+<div class="cluster"><button class="button button--small" type="button" data-demo="reject">Reject saved local timezone</button><button class="button button--small button--ghost" type="button" data-demo="clear-error">Clear local timezone error</button><button class="button button--small button--ghost" type="button" data-demo="patch">Patch local timezone choices</button><button class="button button--small button--ghost" type="button" data-demo="disable">Toggle required fieldset</button></div>
+<p class="hint" data-demo-log role="status" aria-atomic="true"></p>
+</div></details>
+</section>
+<section class="section stack">
+<h2>Required choice</h2><p>This separate example uses an empty placeholder. Unlike the optional organization-default value above, it must be replaced before submission.</p>
+<form id="required-form" action="" method="get" class="stack"><fieldset id="required-fieldset"><legend>Required timezone</legend><div class="field" data-combobox id="required-choice"><label for="required-zone">Required timezone choice</label><select id="required-zone" name="required_timezone" required><option value="" selected>Choose a timezone</option><option value="UTC">UTC</option><option value="Asia/Makassar">Asia/Makassar</option></select></div></fieldset><div class="cluster"><button class="button" type="submit">Submit required choice</button><button class="button button--ghost" type="reset">Reset required choice</button></div></form>
+</section>
+<section class="section stack"><h2>Native select for short lists</h2><div class="field"><label for="short-choice">Date style</label><select id="short-choice"><option>Organization default</option><option>ISO</option><option>Long</option></select></div><p>Short lists stay native. Without JavaScript, every example above is also an ordinary labelled native select.</p><p>Real GET submission returns to this page with the chosen values in the URL. Query text has no submitted name.</p><output id="submitted-choices"></output></section><section class="section stack"><h2>Optional module contract</h2><popup-dialog title="Combobox HTML and JavaScript"><p><a href="#" class="text-sm">Code</a></p><div slot="body"><pre><code>&lt;div class="field" data-combobox&gt;
+  &lt;label for="zone"&gt;Timezone override&lt;/label&gt;
+  &lt;select id="zone" name="interface_timezone"&gt;
+    &lt;option value="" selected&gt;Use organization default&lt;/option&gt;
+    &lt;option value="Asia/Makassar"&gt;Asia/Makassar&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;
+
+import { createCombobox } from '/dist/combobox.js';
+const control = createCombobox({ root, mode: 'remote' });
+root.addEventListener('combobox-query', ({ detail }) =&gt; {
+  // Application owns fetching, authorization and filtering.
+  // Answer with the same contextId, requestId and query.
+  control.applyResults({ ...detail, items: [{ value: 'UTC', label: 'UTC' }] });
+});
+// Or dispatch combobox-results on root with the same result detail.
+// A rejected saved value is a native form validation error:
+select.setCustomValidity('The application rejected this value.');
+control.refresh();
+// Dispose before replacing the whole root; in-place options can refresh.
+control.dispose();</code></pre></div></popup-dialog><dl><dt>Local defaults</dt><dd>No minimum, no debounce; accent-insensitive matching of labels/values.</dd><dt>Remote defaults</dt><dd>Two trimmed Unicode code points, 250ms debounce; trimmed Unicode query, not case- or accent-folded.</dd><dt>Results</dt><dd><code>combobox-results</code> detail: <code>{contextId, requestId, query, items, error?}</code>. Items: unique string <code>value</code>, string <code>label</code>, optional boolean <code>disabled</code>. At most 50 displayed by default.</dd><dt>Selection</dt><dd>Arrow navigation highlights; Enter or a tap commits. Escape restores the selected label. Native select <code>input</code>/<code>change</code> events are emitted on commitment; <code>combobox-change</code> carries <code>{name,value,label}</code>. Search results never confirm a save.</dd><dt>Form guarantees</dt><dd>One native select owns the submitted name/value, required/custom validity, disabled fieldsets, form association and reset default. The editable input has no name. No formdata shim or hidden input is used.</dd></dl><p><a href="/manual/components/combobox.html">Manual</a> · <a href="https://github.com/Design-Machines-Studio/livewires/blob/main/docs/combobox.md">Wrapper and lifecycle contract</a></p><p>Source candidate: Baseplate account <code>interface_timezone</code>, at <code>6accb8a</code>; owner: Baseplate account/settings and timezone code. These examples do not migrate it.</p></section></article></main><html-include src="/_includes/footer.html"></html-include><script type="module" src="/manual/_components/combobox-fixture.js"></script></body></html>
