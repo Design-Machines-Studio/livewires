@@ -88,6 +88,48 @@
 &lt;/footer&gt;</code></pre>
         <p>Baseplate owns flips and controls on the back: permissions, draft state, saved configuration and reset/Save behavior. Either face can use this frame; the shared references demonstrate output.</p>
       </section>
+      <section id="library-coverage" class="section stack">
+        <h2>Design Machines library coverage</h2>
+        <p>The final read-only comparison inspected 34 admitted widgets: 29 in the library and 5 already placed on the board. The examples cover shared compositions rather than copying domain renderers. The install displayed v1.0.0-beta.2; its exact source SHA was unavailable. Populated Atlas states absent from the live install were compared against the pinned producer templates.</p>
+        <p>Additional references cover incomplete profile progress and next steps, runtime/backup facts, metric-plus-summary tables, ranked category/place/date lists, populated notifications/activity, sharing-aware metrics and map data fallback. Multi-column data retains every column in a labelled, keyboard-focusable scroll region at narrow sizes.</p>
+        <table class="table--lined"><caption>Every observed board/library widget mapped to a reference composition</caption><thead><tr><th scope="col">Observed widget</th><th scope="col">Location</th><th scope="col">Composition</th><th scope="col">Example</th></tr></thead><tbody>
+<tr><th scope="row">Organization activity</th><td>Board</td><td>Activity timeline</td><td><a href="/reference/components/widgets.html#activity-heading">View example</a></td></tr>
+<tr><th scope="row">Network map</th><td>Board</td><td>Empty map + four-column city fallback; no map runtime</td><td><a href="/reference/components/widgets.html#map-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Open proposals</th><td>Board</td><td>Proposal list + caller footer</td><td><a href="/reference/components/widgets.html#list-heading">View example</a></td></tr>
+<tr><th scope="row">Needs my input</th><td>Board</td><td>Proposal/deadline list</td><td><a href="/reference/components/widgets.html#list-heading">View example</a></td></tr>
+<tr><th scope="row">Drafts I'm working on</th><td>Board</td><td>Caller-filtered proposal list</td><td><a href="/reference/components/widgets.html#list-heading">View example</a></td></tr>
+<tr><th scope="row">Unread notifications</th><td>Library</td><td>Populated notification list + empty state</td><td><a href="/reference/components/widgets.html#notification-list-heading">View example</a></td></tr>
+<tr><th scope="row">Profile completion</th><td>Library</td><td>Thin progress + remaining next actions; optional footer</td><td><a href="/reference/components/widgets.html#completion-heading">View example</a></td></tr>
+<tr><th scope="row">Linked organizations</th><td>Library</td><td>Identity/link list</td><td><a href="/reference/components/widgets.html#identity-list-heading">View example</a></td></tr>
+<tr><th scope="row">Membership at a glance</th><td>Library</td><td>Grouped metrics</td><td><a href="/reference/components/widgets.html#membership-heading">View example</a></td></tr>
+<tr><th scope="row">Membership requirements</th><td>Library</td><td>Metric + requirements table; empty/unavailable states</td><td><a href="/reference/components/widgets.html#requirements-heading">View example</a></td></tr>
+<tr><th scope="row">Circles</th><td>Library</td><td>Metric + kind/count table</td><td><a href="/reference/components/widgets.html#requirements-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Connection requests</th><td>Library</td><td>Quiet empty message + caller action/footer</td><td><a href="/reference/components/widgets.html#empty-heading">View example</a></td></tr>
+<tr><th scope="row">Connected organizations</th><td>Library</td><td>Metric + identity list</td><td><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Assembly health</th><td>Library</td><td>Ordinary facts + status + per-fact action</td><td><a href="/reference/components/widgets.html#health-facts-heading">View example</a></td></tr>
+<tr><th scope="row">Assembly</th><td>Library</td><td>Ordinary runtime fact table; optional footer</td><td><a href="/reference/components/widgets.html#facts-heading">View example</a></td></tr>
+<tr><th scope="row">Updates</th><td>Library</td><td>Ordinary status/message + action</td><td><a href="/reference/components/widgets.html#health-facts-heading">View example</a></td></tr>
+<tr><th scope="row">Backups</th><td>Library</td><td>Destination/status table</td><td><a href="/reference/components/widgets.html#facts-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Organizations in the network</th><td>Library</td><td>Standalone count metric, including known zero</td><td><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">People in the network*</th><td>Library</td><td>Sharing-aware unavailable metric and detail</td><td><a href="/reference/components/widgets.html#sharing-heading">View example</a></td></tr>
+<tr><th scope="row">Network over time</th><td>Library</td><td>Static illustration + independent data table</td><td><a href="/reference/components/widgets.html#chart-heading">View example</a></td></tr>
+<tr><th scope="row">Sectors</th><td>Library</td><td>Ranked labels/counts + decorative bars + full table</td><td><a href="/reference/components/widgets.html#breakdown-heading">View example</a></td></tr>
+<tr><th scope="row">Average organization size</th><td>Library</td><td>Formatted decimal metric + denominator detail</td><td><a href="/reference/components/widgets.html#average-heading">View example</a></td></tr>
+<tr><th scope="row">Cities in the network</th><td>Library</td><td>Standalone metric + ordinary detail</td><td><a href="/reference/components/widgets.html#average-heading">View example</a></td></tr>
+<tr><th scope="row">Countries in the network</th><td>Library</td><td>Standalone count metric</td><td><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">People over time</th><td>Library</td><td>Four-column membership-position fallback + provisional observation</td><td><a href="/reference/components/widgets.html#chart-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Organization types</th><td>Library</td><td>Ranked breakdown with wrapping labels</td><td><a href="/reference/components/widgets.html#breakdown-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Places in the network</th><td>Library</td><td>Place label/count list + shown-count note</td><td><a href="/reference/components/widgets.html#places-heading">View example</a></td></tr>
+<tr><th scope="row">Recently joined</th><td>Library</td><td>Link/date list</td><td><a href="/reference/components/widgets.html#joined-heading">View example</a></td></tr>
+<tr><th scope="row">Respond by</th><td>Library</td><td>Proposal/deadline list</td><td><a href="/reference/components/widgets.html#list-heading">View example</a></td></tr>
+<tr><th scope="row">Recent decisions</th><td>Library</td><td>Decision timeline + empty state</td><td><a href="/reference/components/widgets.html#timeline-heading">View example</a></td></tr>
+<tr><th scope="row">Governance at a glance</th><td>Library</td><td>Grouped metrics + year detail</td><td><a href="/reference/components/widgets.html#governance-heading">View example</a></td></tr>
+<tr><th scope="row">Open proposal count</th><td>Library</td><td>Standalone prominent value + label/detail</td><td><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Needs my input count</th><td>Library</td><td>Standalone prominent value + label/detail</td><td><a href="/reference/components/widgets.html#mixed-wide-heading">View example</a></td></tr>
+<tr><th scope="row">Decisions this year</th><td>Library</td><td>Known zero + ordinary year detail</td><td><a href="/reference/components/widgets.html#default-values-heading">View example</a></td></tr>
+        </tbody></table>
+        <p>Back-face controls currently expose Columns, Rows and Colour scheme. Baseplate owns their flip, validation and Save behavior. No production board or configuration was changed.</p>
+      </section>
       <section class="section stack">
         <h2>Sources and ownership</h2>
         <p>Extracted from Baseplate <code>1821a8dd</code>, Governance <code>d995f68d</code> and Atlas <code>03b03b90</code>. Baseplate font-metric producer <code>257acac4</code> is merged on trusted main. The source comparison records original labels, deliberate variations and omitted route/editor exceptions.</p>

@@ -102,7 +102,7 @@ Icon and detail are optional. There is no extra card, surface, border, forced li
 
 ## Compact chart data and composition variations
 
-Use `table.widget-table` for compact two-column chart fallback data. Keep its caption and column/row scopes. This explicit variation retains native table columns at narrow container widths, inherits ordinary widget typography and uses one quiet separator per body row. Do not combine it with `table--lined`: the general mobile row stack and extra header rules are deliberately replaced here.
+Use `table.widget-table` for compact chart fallback data. Keep its caption and column/row scopes. This explicit variation retains native table columns at narrow container widths, inherits ordinary widget typography and uses one quiet separator per body row. For tables with more columns, a caller can provide a labelled, focusable horizontal scroll region and an explicit table minimum width; every column remains present. The `numeric` class still aligns numeric columns. Do not combine it with `table--lined`: the general mobile row stack and extra header rules are deliberately replaced here.
 
 Card progress reuses `progress-bar` with `--progress-height: var(--line-025)` on that bar; the component's default is line-05 and `progress-bar--thick` uses line-1. Existing fill/background hooks and StatusIndicator/Timeline variations remain caller choices. The widget does not silently rewrite every nested component.
 
@@ -133,3 +133,51 @@ Existing stat-number examples in the Cards manual/reference also emit `.font-met
 ## Verification surface
 
 `/reference/components/widgets.html` contains metric, list, empty/unavailable, chart-with-table and mixed examples, each in a narrow subtle host and a wide dark host. It also contains narrow/wide YouTube output, deliberate short/default/long metric variations, thin card progress, formatted long currency, percentages, counts, negative/zero values, custom value hooks and ordinary missing/denied/unavailable definitions. `/manual/components/widgets.html` documents the emitted markup and ownership contract. Final browser observations and precise coverage gaps belong to the task receipt, not declarations-only tests.
+
+
+## Final Design Machines library comparison
+
+The read-only comparison at [the Design Machines dashboard](https://assembly.designmachines.studio/dashboard?edit=1) on 2026-10-12 found **34 distinct admitted widgets: 29 in the library and 5 already on the board** (13 Baseplate, 12 Atlas, 9 Governance). All back faces exposed Columns, Rows and Colour scheme. No add/remove/reorder, reset, draft/Save, or configuration action was performed.
+
+The install displayed Assembly version `v1.0.0-beta.2`; it did not expose an exact source SHA. This observed installation is separate from the pinned producer commits above and from the Live Wires feature preview. Most Atlas populated lists/charts were empty or unavailable in this install; their populated markup was inspected in the pinned producer templates. Admission, sharing policy and hidden conditional widgets remain owner-controlled. This is coverage of the observed board/library, not a claim that every possible role-dependent registry entry appeared.
+
+The final pass added profile next-step progress, runtime/backup status tables, metric-plus-summary tables, categorized bars with full table data, four-column membership/map fallbacks, populated notifications/activity, sharing-aware metrics, identity lists and plain ranked/date lists. Values are demonstration strings; private board records were not copied into these references. Existing approved primitives style these compositions. Map/chart runtime, widget registry and editor behavior remain with their owners.
+
+Additional exact producer reads at the recorded commits: Baseplate `internal/baseplate/account/pages/overview_shared.templ`, `internal/components/profile_completion.templ`, `internal/baseplate/admin/pages/index.templ`, `internal/baseplate/admin/pages/configure_assembly.templ`, and their overview handlers; Atlas `pages/workspace/network/shared_breakdowns.templ` plus complete dashboard collection/network templates. Profile examples retain incomplete-only next actions; runtime version strings and ordinary table/list counts keep ordinary typography. People-history data retains reported positions, reporting organizations and provisional observation meaning.
+
+| Owner | Observed label | Source kind | Shared composition covered | Example |
+| --- | --- | --- | --- | --- |
+| Baseplate | Organization activity | `recent-activity` | Activity timeline | [Reference](/reference/components/widgets.html#activity-heading) |
+| Atlas | Network map | `atl.network_map` | Empty map + four-column city fallback; no map runtime | [Reference](/reference/components/widgets.html#map-wide-heading) |
+| Governance | Open proposals | `gov.open_proposals` | Proposal list + caller footer | [Reference](/reference/components/widgets.html#list-heading) |
+| Governance | Needs my input | `gov.needs_my_input` | Proposal/deadline list | [Reference](/reference/components/widgets.html#list-heading) |
+| Governance | Drafts I'm working on | `gov.my_drafts` | Caller-filtered proposal list | [Reference](/reference/components/widgets.html#list-heading) |
+| Baseplate | Unread notifications | `notifications` | Populated notification list + empty state | [Reference](/reference/components/widgets.html#notification-list-heading) |
+| Baseplate | Profile completion | `profile-completion` | Thin progress + remaining next actions; optional footer | [Reference](/reference/components/widgets.html#completion-heading) |
+| Baseplate | Linked organizations | `linked-organizations` | Identity/link list | [Reference](/reference/components/widgets.html#identity-list-heading) |
+| Baseplate | Membership at a glance | `membership-overview` | Grouped metrics | [Reference](/reference/components/widgets.html#membership-heading) |
+| Baseplate | Membership requirements | `membership-requirements` | Metric + requirements table; empty/unavailable states | [Reference](/reference/components/widgets.html#requirements-heading) |
+| Baseplate | Circles | `circles` | Metric + kind/count table | [Reference](/reference/components/widgets.html#requirements-wide-heading) |
+| Baseplate | Connection requests | `federation-requests` | Quiet empty message + caller action/footer | [Reference](/reference/components/widgets.html#empty-heading) |
+| Baseplate | Connected organizations | `connected-organizations` | Metric + identity list | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
+| Baseplate | Assembly health | `assembly-health` | Ordinary facts + status + per-fact action | [Reference](/reference/components/widgets.html#health-facts-heading) |
+| Baseplate | Assembly | `assembly` | Ordinary runtime fact table; optional footer | [Reference](/reference/components/widgets.html#facts-heading) |
+| Baseplate | Updates | `updates` | Ordinary status/message + action | [Reference](/reference/components/widgets.html#health-facts-heading) |
+| Baseplate | Backups | `backups` | Destination/status table | [Reference](/reference/components/widgets.html#facts-wide-heading) |
+| Atlas | Organizations in the network | `atl.network_summary` | Standalone count metric, including known zero | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
+| Atlas | People in the network* | `atl.membership_summary` | Sharing-aware unavailable metric and detail | [Reference](/reference/components/widgets.html#sharing-heading) |
+| Atlas | Network over time | `atl.network_over_time` | Static illustration + independent data table | [Reference](/reference/components/widgets.html#chart-heading) |
+| Atlas | Sectors | `atl.sectors` | Ranked labels/counts + decorative bars + full table | [Reference](/reference/components/widgets.html#breakdown-heading) |
+| Atlas | Average organization size | `atl.average_size` | Formatted decimal metric + denominator detail | [Reference](/reference/components/widgets.html#average-heading) |
+| Atlas | Cities in the network | `atl.cities` | Standalone metric + ordinary detail | [Reference](/reference/components/widgets.html#average-heading) |
+| Atlas | Countries in the network | `atl.countries` | Standalone count metric | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
+| Atlas | People over time | `atl.people_over_time` | Four-column membership-position fallback + provisional observation | [Reference](/reference/components/widgets.html#chart-wide-heading) |
+| Atlas | Organization types | `atl.organization_types` | Ranked breakdown with wrapping labels | [Reference](/reference/components/widgets.html#breakdown-wide-heading) |
+| Atlas | Places in the network | `atl.places` | Place label/count list + shown-count note | [Reference](/reference/components/widgets.html#places-heading) |
+| Atlas | Recently joined | `atl.recently_joined` | Link/date list | [Reference](/reference/components/widgets.html#joined-heading) |
+| Governance | Respond by | `gov.respond_by` | Proposal/deadline list | [Reference](/reference/components/widgets.html#list-heading) |
+| Governance | Recent decisions | `gov.recent_decisions` | Decision timeline + empty state | [Reference](/reference/components/widgets.html#timeline-heading) |
+| Governance | Governance at a glance | `gov.overview` | Grouped metrics + year detail | [Reference](/reference/components/widgets.html#governance-heading) |
+| Governance | Open proposal count | `gov.open_proposal_count` | Standalone prominent value + label/detail | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
+| Governance | Needs my input count | `gov.needs_my_input_count` | Standalone prominent value + label/detail | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
+| Governance | Decisions this year | `gov.decisions_this_year` | Known zero + ordinary year detail | [Reference](/reference/components/widgets.html#default-values-heading) |
