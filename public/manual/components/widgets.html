@@ -19,7 +19,7 @@
         <div class="scheme-subtle" style="max-inline-size: 24rem;">
           <section class="widget" aria-labelledby="manual-membership">
             <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="manual-membership">Membership at a glance</h3><p class="widget-description">Demonstration values; labels retain ordinary typography.</p></div></header>
-            <div class="widget-content"><dl class="widget-metrics"><div class="widget-metric"><dt>Active</dt><dd class="widget-metric-value font-metric tnum">42</dd></div><div class="widget-metric"><dt>Probationary</dt><dd class="widget-metric-value font-metric tnum">0</dd></div></dl></div>
+            <div class="widget-content"><dl class="widget-metrics"><div class="widget-metric"><dt>Active</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">42</dd></div><div class="widget-metric"><dt>Probationary</dt><dd class="widget-metric-value font-metric tnum">0</dd></div></dl></div>
             <footer class="widget-footer"><a class="more" href="/reference/components/widgets.html">Member directory</a></footer>
           </section>
         </div>
@@ -49,9 +49,10 @@
              --widget-metric-width: 80%;"&gt;42&lt;/dd&gt;
   &lt;dd class="widget-metric-detail"&gt;Optional units or detail&lt;/dd&gt;
 &lt;/dl&gt;</code></pre>
-        <table class="table--lined"><caption>Value-only typography hooks</caption><thead><tr><th scope="col">Hook</th><th scope="col">Property</th><th scope="col">Unset</th></tr></thead><tbody><tr><th scope="row"><code>--font-metric</code></th><td>font-family via <code>.font-metric</code></td><td>Body font</td></tr><tr><th scope="row"><code>--widget-metric-size</code></th><td>font-size</td><td>Existing text-3xl scale</td></tr><tr><th scope="row"><code>--widget-metric-weight</code></th><td>font-weight</td><td>Existing bold weight</td></tr><tr><th scope="row"><code>--widget-metric-width</code></th><td>font-stretch</td><td>Inherited stretch</td></tr></tbody></table>
+        <table class="table--lined"><caption>Value-only typography hooks</caption><thead><tr><th scope="col">Hook</th><th scope="col">Property</th><th scope="col">Unset</th></tr></thead><tbody><tr><th scope="row"><code>--font-metric</code></th><td>font-family via <code>.font-metric</code></td><td>Body font</td></tr><tr><th scope="row"><code>--widget-metric-size</code></th><td>font-size</td><td>text-2xl, or the short/long variation</td></tr><tr><th scope="row"><code>--widget-metric-weight</code></th><td>font-weight</td><td>Existing bold weight</td></tr><tr><th scope="row"><code>--widget-metric-width</code></th><td>font-stretch</td><td>Inherited stretch</td></tr></tbody></table>
+        <p>Choose <code>widget-metric-value--short</code> for tall short values (text-4xl) or <code>widget-metric-value--long</code> for compact long values (text-lg). The default is text-2xl. Callers choose after formatting; CSS does not count digits or guarantee a single-line fit. Explicit hooks override these defaults.</p>
         <p>Width means glyph width when the font supports its registered width axis, never widget columns. Static fonts remain readable. Long values wrap without clipping or hiding digits. No font is selected or downloaded.</p>
-        <p><code>.font-metric</code> changes only the value's family, matching Baseplate's <code>var(--font-metric, var(--font-body, sans-serif)), sans-serif</code> contract. Labels, units, descriptions and ordinary numbers keep their typography. Callers supply locale, formatted values and units.</p>
+        <p><code>.font-metric</code> keeps the family expression matching Baseplate's <code>var(--font-metric, var(--font-body, sans-serif)), sans-serif</code> contract. Its optional <code>--font-metric-size</code> and <code>--font-metric-width</code> hooks provide initial value settings; widget-specific size/width hooks take precedence. Unset settings preserve the underlying styles through <code>revert-layer</code>. Labels, units, descriptions and ordinary numbers keep their typography. Callers supply locale, formatted values and units.</p>
         <p>Keep size/weight utilities off hook-controlled values: the utilities layer intentionally wins over component hooks. <code>.font-metric</code> and <code>.tnum</code> remain compatible.</p>
         <p>Use <code>dd.widget-metric-status</code> for missing, denied or unavailable values; omit the prominent-value and font classes. A known zero stays <code>0</code>.</p>
       </section>
@@ -66,6 +67,26 @@
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
         <p>Omit the icon and detail when unnecessary. The message adds no card or forced live region; the host chooses dynamic feedback semantics. Reuse Timeline, StatusIndicator and ProgressBar inside content slots, and give charts an equivalent table independent of the renderer.</p>
+      </section>
+      <section class="section stack">
+        <h2>Chart data, progress and video</h2>
+        <p><code>table.widget-table</code> keeps compact native columns, ordinary type and single quiet row separators at narrow sizes. Keep captions and header scopes; replace <code>table--lined</code> on chart fallback tables.</p>
+        <p>Use the existing progress height hook for thin card progress: <code>style="--progress-height: var(--line-025)"</code>. The default is line-05; <code>progress-bar--thick</code> uses line-1. Fill/background, status and timeline variations remain caller choices.</p>
+        <p>A video uses the existing <code>.embed</code> inside the content slot. Use a descriptive iframe title and a direct-video link when embedding is unavailable. The <a href="/reference/components/widgets.html#media">YouTube examples</a> show narrow/wide output with autoplay disabled. YouTube needs at least 200px in both dimensions; narrower hosts should show the direct-link state.</p>
+        <pre><code>&lt;div class="widget-content"&gt;
+  &lt;div class="embed" style="min-block-size: 200px;"&gt;
+    &lt;iframe class="block border-0"
+      src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0"
+      title="YouTube embedded-player demonstration" loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="encrypted-media; picture-in-picture" allowfullscreen
+      style="min-block-size: 200px;"&gt;&lt;/iframe&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;footer class="widget-footer"&gt;
+  &lt;a href="https://www.youtube.com/watch?v=M7lc1UVf-VE"&gt;Watch on YouTube&lt;/a&gt;
+&lt;/footer&gt;</code></pre>
+        <p>Baseplate owns flips and controls on the back: permissions, draft state, saved configuration and reset/Save behavior. Either face can use this frame; the shared references demonstrate output.</p>
       </section>
       <section class="section stack">
         <h2>Sources and ownership</h2>

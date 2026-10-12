@@ -47,8 +47,10 @@ The caller supplies formatted strings, locale, currency symbols, signs, units, p
 
 | Hook | Standard property | Unset behavior |
 | --- | --- | --- |
-| `--font-metric` | `.font-metric` family only | `var(--font-body)` |
-| `--widget-metric-size` | `font-size` on the value | Existing `--text-3xl` scale |
+| `--font-metric` | `.font-metric` family | `var(--font-body)` |
+| `--font-metric-size` | Optional initial `font-size` via `.font-metric` | Underlying component/element size |
+| `--font-metric-width` | Optional `font-stretch` via `.font-metric` | Underlying component/element stretch |
+| `--widget-metric-size` | `font-size` on the value, before the initial metric setting | `--text-2xl`, or the selected short/long variation |
 | `--widget-metric-weight` | `font-weight` on the value | Existing `--font-bold` weight |
 | `--widget-metric-width` | `font-stretch` on the value | Inherited font stretch |
 
@@ -58,12 +60,29 @@ The token and utility exactly match merged Baseplate PR #1162:
 --font-metric: var(--font-body);
 .font-metric {
   font-family: var(--font-metric, var(--font-body, sans-serif)), sans-serif;
+  font-size: var(--widget-metric-size, var(--font-metric-size, revert-layer));
+  font-stretch: var(--widget-metric-width, var(--font-metric-width, revert-layer));
 }
 ```
 
 Width means glyph width (`wdth`), not widget columns. Percentage `font-stretch` and numeric `font-weight` map registered axes through standard CSS properties. Static fonts remain readable when a width axis is absent; a computed stretch value alone does not prove that a font actually varied. No `font-variation-settings`, transform scaling, truncation or shrink-to-fit loop is used. Long values wrap as a last resort and retain every digit. No font is selected or downloaded by the component.
 
-Do not add `text-*` or `font-*` size/weight utilities to hook-controlled values. Utilities intentionally win over components; adding one opts into that art direction instead of the corresponding hook. `.font-metric` and `.tnum` are compatible because they control family and numeral features only. Apply hooks directly to a value or to its owning widget; neither changes label/description styles.
+Do not add `text-*` or `font-*` size/weight utilities to hook-controlled values. Utilities intentionally win over components; adding one opts into that art direction instead of the corresponding hook. `.font-metric` and `.tnum` are compatible; the metric utility respects widget-specific size/width hooks before its optional generic initial settings. With both unset, `revert-layer` restores the underlying presentation. Keep generic initial size/width hooks unset on `:root` unless the caller deliberately configures them. Apply hooks directly to a value or to its owning widget; neither changes label/description styles.
+
+Choose `widget-metric-value--short` for a deliberately tall short value (text-4xl) and `widget-metric-value--long` for a compact long value (text-lg). The default is text-2xl. Each package includes its matching unitless line-height and tracking. Callers choose after formatting; these classes do not count digits, query data, squeeze text or guarantee one-line fit. Explicit size settings override these presentation defaults. Use the value-specific hook to refine a long amount while retaining an initial size for other metrics:
+
+```html
+<dl class="widget-metrics" style="--font-metric-width: 75%;">
+  <div class="widget-metric">
+    <dt>Active</dt>
+    <dd class="widget-metric-value widget-metric-value--short font-metric tnum">42</dd>
+  </div>
+  <div class="widget-metric">
+    <dt>Balance</dt>
+    <dd class="widget-metric-value widget-metric-value--long font-metric tnum">€ 9.876.543.210.987,65</dd>
+  </div>
+</dl>
+```
 
 Baseplate #1161 owns validation, saved per-widget overrides, reset and editor draft/Save behavior. Entry count, sorting, filters and video/embed configuration also belong to the owning Go widgets and validated host configuration. They are not CSS settings or part of this extraction.
 
@@ -80,6 +99,18 @@ Baseplate #1161 owns validation, saved per-widget overrides, reset and editor dr
 ```
 
 Icon and detail are optional. There is no extra card, surface, border, forced live region or fabricated value. The host decides whether a dynamic update needs `role="status"`. Reuse existing Timeline, StatusIndicator and ProgressBar inside content slots. A chart slot may contain an existing caller renderer, a static reference illustration or an unavailable message; an equivalent semantic table remains available independently of that renderer. These references add no chart/map runtime.
+
+## Compact chart data and composition variations
+
+Use `table.widget-table` for compact two-column chart fallback data. Keep its caption and column/row scopes. This explicit variation retains native table columns at narrow container widths, inherits ordinary widget typography and uses one quiet separator per body row. Do not combine it with `table--lined`: the general mobile row stack and extra header rules are deliberately replaced here.
+
+Card progress reuses `progress-bar` with `--progress-height: var(--line-025)` on that bar; the component's default is line-05 and `progress-bar--thick` uses line-1. Existing fill/background hooks and StatusIndicator/Timeline variations remain caller choices. The widget does not silently rewrite every nested component.
+
+## Video output and flip ownership
+
+The YouTube examples compose the existing `embed` inside `widget-content`, with a titled, lazy iframe, autoplay disabled, a 200px minimum player height and a direct-video footer link. They use YouTube's documented sample video; no player API or new client runtime is added to Live Wires. The direct link remains usable when embedding is denied or unavailable. YouTube requires both dimensions to be at least 200px; callers with narrower content should use the direct-link state instead of forcing overflow. See [YouTube's player requirements](https://developers.google.com/youtube/player_parameters).
+
+Flip interactions and rear-face controls remain Baseplate-owned because they depend on permissions, editor drafts, saved configuration and reset/Save behavior. Either face can reuse the shared frame; this task adds only output references. URL/embed input, provider validation and persisted player options belong to the owning application.
 
 ## Exact source comparison
 
@@ -101,4 +132,4 @@ Existing stat-number examples in the Cards manual/reference also emit `.font-met
 
 ## Verification surface
 
-`/reference/components/widgets.html` contains metric, list, empty/unavailable, chart-with-table and mixed examples, each in a narrow subtle host and a wide dark host. It also contains formatted long currency, percentages, counts, negative/zero values, custom value hooks and ordinary missing/denied/unavailable definitions. `/manual/components/widgets.html` documents the emitted markup and ownership contract. Final browser observations and precise coverage gaps belong to the task receipt, not declarations-only tests.
+`/reference/components/widgets.html` contains metric, list, empty/unavailable, chart-with-table and mixed examples, each in a narrow subtle host and a wide dark host. It also contains narrow/wide YouTube output, deliberate short/default/long metric variations, thin card progress, formatted long currency, percentages, counts, negative/zero values, custom value hooks and ordinary missing/denied/unavailable definitions. `/manual/components/widgets.html` documents the emitted markup and ownership contract. Final browser observations and precise coverage gaps belong to the task receipt, not declarations-only tests.
