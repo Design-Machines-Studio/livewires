@@ -176,7 +176,7 @@ Additional exact producer reads at the recorded commits: Baseplate `internal/bas
 | Atlas | Places in the network | `atl.places` | Place label/count list + shown-count note | [Reference](/reference/components/widgets.html#places-heading) |
 | Atlas | Recently joined | `atl.recently_joined` | Link/date list | [Reference](/reference/components/widgets.html#joined-heading) |
 | Governance | Respond by | `gov.respond_by` | Proposal/deadline list | [Reference](/reference/components/widgets.html#list-heading) |
-| Governance | Recent decisions | `gov.recent_decisions` | Decision timeline + empty state | [Reference](/reference/components/widgets.html#timeline-heading) |
+| Governance | Recent decisions | `gov.recent_decisions` | Decision timeline + empty state | [Reference](/reference/components/widgets.html#list-wide-heading) |
 | Governance | Governance at a glance | `gov.overview` | Grouped metrics + year detail | [Reference](/reference/components/widgets.html#governance-heading) |
 | Governance | Open proposal count | `gov.open_proposal_count` | Standalone prominent value + label/detail | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
 | Governance | Needs my input count | `gov.needs_my_input_count` | Standalone prominent value + label/detail | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
