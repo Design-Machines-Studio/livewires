@@ -198,7 +198,7 @@ try {
   await check('N2 missing optional module preserves visible native selects', async () => {
     const fallback = await context.newPage();
     try {
-      await fallback.route('**/manual/_components/combobox-fixture.js', route => route.abort());
+      await fallback.route('**/*combobox-fixture.js*', route => route.abort());
       await fallback.goto(target + '/reference/forms/combobox.html');
       assert.equal(await fallback.locator('[role=combobox]').count(), 0);
       assert.equal(await fallback.locator('#local-zone').isVisible(), true);

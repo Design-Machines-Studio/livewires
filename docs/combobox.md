@@ -165,14 +165,14 @@ work copies upstream code, retain that revision's applicable notices.
 
 Run `npm test`, `npm run build` and the focused state suite:
 `node --test tests/combobox-state.test.js`.
-The maintained host browser harness is `tools/test-combobox-browser.mjs`.
+The maintained host browser harness is `tools/check-combobox-browser.mjs`.
 Supply an already installed Playwright module and an owned preview:
 
 ```sh
 LW_PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
 LW_COMBOBOX_URL=http://localhost:3006 \
 LW_COMBOBOX_EVIDENCE=/absolute/owned/evidence/path \
-node tools/test-combobox-browser.mjs
+node tools/check-combobox-browser.mjs
 ```
 
 The harness launches installed Chrome by default; set `LW_COMBOBOX_ENGINE=firefox`
