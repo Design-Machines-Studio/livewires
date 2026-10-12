@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Widgets – Live Wires manual</title>
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+</head>
+<body class="scheme-default pg-components-widgets">
+  <html-include src="../_includes/header.html"></html-include>
+  <main class="main sidebar" id="main">
+    <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+    <article class="prose">
+      <header class="section scheme-dark"><h1>Widgets</h1><p class="lead">A shared content frame, unboxed values and quiet states. Your application owns placement, data and configuration.</p></header>
+      <section class="section stack">
+        <h2>Heading, content and footer</h2>
+        <p>Use a real heading and a unique accessible name. Description, header action and footer are optional. A host may choose a scheme and stretch its cell; the body keeps its footer at the bottom.</p>
+        <div class="scheme-subtle" style="max-inline-size: 24rem;">
+          <section class="widget" aria-labelledby="manual-membership">
+            <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="manual-membership">Membership at a glance</h3><p class="widget-description">Demonstration values; labels retain ordinary typography.</p></div></header>
+            <div class="widget-content"><dl class="widget-metrics"><div class="widget-metric"><dt>Active</dt><dd class="widget-metric-value font-metric tnum">42</dd></div><div class="widget-metric"><dt>Probationary</dt><dd class="widget-metric-value font-metric tnum">0</dd></div></dl></div>
+            <footer class="widget-footer"><a class="more" href="/reference/components/widgets.html">Member directory</a></footer>
+          </section>
+        </div>
+        <pre><code>&lt;section class="widget" aria-labelledby="membership"&gt;
+  &lt;header class="widget-header"&gt;
+    &lt;div class="widget-heading"&gt;
+      &lt;h2 id="membership" class="widget-title"&gt;Membership at a glance&lt;/h2&gt;
+      &lt;p class="widget-description"&gt;Optional description&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;a class="widget-action" href="/members"&gt;Optional action&lt;/a&gt;
+  &lt;/header&gt;
+  &lt;div class="widget-content"&gt;Caller content&lt;/div&gt;
+  &lt;footer class="widget-footer"&gt;
+    &lt;a class="more" href="/members"&gt;Member directory&lt;/a&gt;
+  &lt;/footer&gt;
+&lt;/section&gt;</code></pre>
+        <p><code>widget--plain-header</code> removes the header divider. <code>--widget-padding</code> and <code>--widget-border-color</code> provide deliberate presentation choices. Components emit no placement/editor wrapper or layout utility classes.</p>
+      </section>
+      <section class="section stack">
+        <h2>Unboxed metrics</h2>
+        <p>A standalone metric is a definition list. Groups use <code>dl.widget-metrics</code> with <code>div.widget-metric</code> groups, each containing its own <code>dt</code> and <code>dd</code>. Numeric values appear above labels visually, while terms remain first in the semantic DOM.</p>
+        <pre><code>&lt;dl class="widget-metric"&gt;
+  &lt;dt&gt;Active&lt;/dt&gt;
+  &lt;dd class="widget-metric-value font-metric tnum"
+      style="--widget-metric-size: var(--text-4xl);
+             --widget-metric-weight: 650;
+             --widget-metric-width: 80%;"&gt;42&lt;/dd&gt;
+  &lt;dd class="widget-metric-detail"&gt;Optional units or detail&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+        <table class="table--lined"><caption>Value-only typography hooks</caption><thead><tr><th scope="col">Hook</th><th scope="col">Property</th><th scope="col">Unset</th></tr></thead><tbody><tr><th scope="row"><code>--font-metric</code></th><td>font-family via <code>.font-metric</code></td><td>Body font</td></tr><tr><th scope="row"><code>--widget-metric-size</code></th><td>font-size</td><td>Existing text-3xl scale</td></tr><tr><th scope="row"><code>--widget-metric-weight</code></th><td>font-weight</td><td>Existing bold weight</td></tr><tr><th scope="row"><code>--widget-metric-width</code></th><td>font-stretch</td><td>Inherited stretch</td></tr></tbody></table>
+        <p>Width means glyph width when the font supports its registered width axis, never widget columns. Static fonts remain readable. Long values wrap without clipping or hiding digits. No font is selected or downloaded.</p>
+        <p><code>.font-metric</code> changes only the value's family, matching Baseplate's <code>var(--font-metric, var(--font-body, sans-serif)), sans-serif</code> contract. Labels, units, descriptions and ordinary numbers keep their typography. Callers supply locale, formatted values and units.</p>
+        <p>Keep size/weight utilities off hook-controlled values: the utilities layer intentionally wins over component hooks. <code>.font-metric</code> and <code>.tnum</code> remain compatible.</p>
+        <p>Use <code>dd.widget-metric-status</code> for missing, denied or unavailable values; omit the prominent-value and font classes. A known zero stays <code>0</code>.</p>
+      </section>
+      <section class="section stack">
+        <h2>Quiet inline messages</h2>
+        <div class="scheme-subtle box"><div class="widget-message"><span class="widget-message-icon" aria-hidden="true">✓</span><div class="widget-message-content"><p>You're all caught up.</p><p class="widget-message-detail">Optional supporting detail.</p></div></div></div>
+        <pre><code>&lt;div class="widget-message"&gt;
+  &lt;span class="widget-message-icon" aria-hidden="true"&gt;Optional icon&lt;/span&gt;
+  &lt;div class="widget-message-content"&gt;
+    &lt;p&gt;Temporarily unavailable&lt;/p&gt;
+    &lt;p class="widget-message-detail"&gt;Try again later or open the full page.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <p>Omit the icon and detail when unnecessary. The message adds no card or forced live region; the host chooses dynamic feedback semantics. Reuse Timeline, StatusIndicator and ProgressBar inside content slots, and give charts an equivalent table independent of the renderer.</p>
+      </section>
+      <section class="section stack">
+        <h2>Sources and ownership</h2>
+        <p>Extracted from Baseplate <code>1821a8dd</code>, Governance <code>d995f68d</code> and Atlas <code>03b03b90</code>. Baseplate font-metric producer <code>257acac4</code> is merged on trusted main. The source comparison records original labels, deliberate variations and omitted route/editor exceptions.</p>
+        <p>Baseplate owns validated theme configuration, saved metric overrides, reset and dashboard editor behavior. Entry limits, sort/filter settings and video/embed configuration belong to the owning Go widgets; Live Wires only styles their output. Templ emits semantic slots without bundling CSS. These references do not retest application persistence or migrate consumers.</p>
+        <p><a class="button button--outline" href="/reference/components/widgets.html">Open narrow/wide references</a> <a href="https://github.com/Design-Machines-Studio/livewires/blob/feat/widget-references-23/docs/widget-references.md">Exact sources and full contract</a></p>
+      </section>
+    </article>
+  </main>
+  <html-include src="/_includes/footer.html"></html-include>
+</body>
+</html>
