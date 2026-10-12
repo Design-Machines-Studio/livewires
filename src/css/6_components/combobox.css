@@ -5,7 +5,6 @@
     & [role="listbox"] {
       position: absolute;
       inset-inline: 0;
-      inset-block-start: calc(var(--touch-target-min) + var(--line-025));
       z-index: var(--z-dropdown, 100);
       margin: 0;
       padding: var(--line-025);
@@ -21,6 +20,7 @@
         overflow-wrap: anywhere;
         cursor: pointer;
         &[data-active] { outline: var(--line-1px) solid currentColor; outline-offset: calc(-1 * var(--line-1px)); background: var(--color-subtle); }
+        &:hover:not([aria-disabled="true"]) { background: var(--color-subtle); }
         &[data-selected] { font-weight: var(--font-bold); }
         &[aria-disabled="true"] { color: var(--color-muted); cursor: default; }
       }
@@ -34,6 +34,7 @@
       color: CanvasText;
       border-color: CanvasText;
       & [data-active] { background: Highlight; color: HighlightText; outline-color: Highlight; }
+      & [role="option"]:hover:not([aria-disabled="true"]) { background: Highlight; color: HighlightText; }
       & [aria-disabled="true"] { color: GrayText; }
     }
   }

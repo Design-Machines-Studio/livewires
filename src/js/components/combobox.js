@@ -33,10 +33,10 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
   status.className = 'hint';
   status.setAttribute('role', 'status');
   status.setAttribute('aria-atomic', 'true');
-  ui.append(input, list, status);
+  ui.append(input, status, list);
   let select, selected = null, resetDefault = null, open = false, active = -1;
   let disposed = false, composing = false, compositionTail = false, timer, tailTimer, boundForm;
-  let updating = false;
+  let showValidation = false;
   const restored = new Map();
   const subscriptions = [];
   function listen(node, type, handler, options) {
@@ -143,10 +143,13 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
     if (open && active >= 0 && !list.hidden) input.setAttribute('aria-activedescendant', `${prefix}-option-${active}`);
     else input.removeAttribute('aria-activedescendant');
     const invalid = !select.validity.valid;
-    if (invalid && select.validity.customError) input.setAttribute('aria-invalid', 'true');
+    const showError = invalid && (showValidation || select.validity.customError);
+    if (showError) input.setAttribute('aria-invalid', 'true');
+    input.classList.toggle('error', showError || select.getAttribute('aria-invalid') === 'true');
+    status.classList.toggle('error', showError || state.phase === 'error');
     let message = !enabled() ? '' : state.phase === 'loading' ? 'Searching…' : state.phase === 'short' ? `Type at least ${minLength} characters to search.`
       : state.phase === 'error' ? `Search failed. ${state.error}` : open && state.phase === 'results' ? rows.length ? `${rows.length} result${rows.length === 1 ? '' : 's'}.${state.truncated ? ' Showing the first results; refine your search.' : ''}` : 'No results.' : '';
-    if (select.validity.customError) message = select.validationMessage;
+    if (showError) message = select.validationMessage;
     if (status.textContent !== message) status.textContent = message;
     if (!open && !composing) input.value = selected?.label || '';
   }
@@ -169,7 +172,6 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
     if (!live() || !enabled() || composing || compositionTail) return false;
     const item = local.state.items[index];
     if (!item || item.disabled) return false;
-    updating = true;
     const option = keepChoice(item);
     option.label = item.label;
     option.selected = true;
@@ -177,7 +179,6 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
     for (const retained of select.querySelectorAll('option[data-combobox-retained]')) {
       if (retained !== option && retained.value !== resetDefault?.value) retained.remove();
     }
-    updating = false;
     close();
     select.dispatchEvent(new win.Event('input', { bubbles: true }));
     select.dispatchEvent(new win.Event('change', { bubbles: true }));
@@ -188,7 +189,6 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
   }
   function refresh() {
     if (!live()) return false;
-    updating = true;
     try {
       const next = validate();
       if (select !== next) {
@@ -200,6 +200,8 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
           resetDefault = defaultOption ? { value: defaultOption.value, label: defaultOption.label } : null;
         } else if ([...select.options].some(option => option.defaultSelected)) selected = choice(select);
       } else if (choice(select)?.value !== selected?.value && !open) selected = choice(select);
+      const currentOption = selected && [...select.options].find(option => option.value === selected.value);
+      if (currentOption) selected = { value: currentOption.value, label: currentOption.label };
       keepChoice(resetDefault, true);
       if (selected) keepChoice(selected).selected = true;
       remember(select, 'hidden', '');
@@ -213,7 +215,6 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
       if (!enabled()) { cancelQuery(); open = false; }
       render();
     } catch (error) { dispose(); throw error; }
-    finally { updating = false; }
     return true;
   }
   function reset(event) {
@@ -245,7 +246,7 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
   }
   let observer;
   try { select = validate(); } catch (error) { local.dispose(); throw error; }
-  root.append(ui);
+  select.after(ui);
   instances.set(root, true);
   // refresh initializes the original default/selection on this first attachment.
   select = undefined;
@@ -286,14 +287,14 @@ export function createCombobox({ root, mode = 'local', minLength = mode === 'rem
   listen(root, 'invalid', event => {
     if (event.target !== select || !live() || !enabled()) return;
     event.preventDefault();
+    showValidation = true;
     input.focus();
-    input.setAttribute('aria-invalid', 'true');
-    status.textContent = select.validationMessage;
+    render();
   }, true);
   listen(root, 'change', event => { if (event.target === select) { selected = choice(select); render(); } });
   listen(root, 'combobox-results', event => { if (event.target === root) applyResults(event.detail); });
   observer = new win.MutationObserver(records => {
-    if (updating || disposed) return;
+    if (disposed) return;
     if (!root.isConnected) { dispose(); return; }
     // Observing the document is needed for external labels/forms and removal,
     // but another instance's generated UI must never trigger our refresh.
