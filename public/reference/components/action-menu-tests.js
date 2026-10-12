@@ -56,9 +56,11 @@ const cases = [
       if (mode === 'context') f.context.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: innerWidth - 10, clientY: innerHeight - 10 }));
       else f.api.open();
       if (mode === 'submenu') f.sub.click(); await settle();
+      assert(growing.matches(':popover-open'), 'growing menu never opened');
       const before = f.trigger.getBoundingClientRect();
       style.sheet.cssRules[0].style.width = '280px'; style.sheet.cssRules[0].style.height = '250px';
       await settle(); await settle();
+      const grown = growing.getBoundingClientRect(); assert(growing.matches(':popover-open') && grown.width >= 279 && grown.height >= 249, 'growing menu stayed closed or did not resize');
       const after = f.trigger.getBoundingClientRect(); assert(before.left === after.left && before.top === after.top, 'opener moved');
       for (const menu of f.root.querySelectorAll(':popover-open')) { const r = menu.getBoundingClientRect(); assert((menu !== growing || (r.width >= 279 && r.height >= 249)) && r.left >= 0 && r.top >= 0 && r.right <= innerWidth + 1 && r.bottom <= innerHeight + 1, 'size growth escaped viewport'); }
       assert(f.api.state.open, 'size test never opened');
