@@ -39,6 +39,31 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['root', 'menu', 'row', 'ancestor'].map((target) => [`inherited aria-disabled ${target} blocks activation and recovers`, async (f) => {
+    const node = { root: f.root, menu: f.menu, row: f.alpha.parentElement, ancestor: f.context }[target];
+    let actions = 0; f.root.addEventListener('lw:menu-action', () => actions++);
+    node.setAttribute('aria-disabled', 'true'); await settle();
+    if (target === 'row') { assert(f.api.open() && document.activeElement === f.sub, 'disabled row received initial focus'); f.alpha.click(); assert(actions === 0, 'disabled row emitted action'); }
+    else assert(!f.api.open(), 'disabled ancestor opened');
+    node.removeAttribute('aria-disabled'); await settle(); f.api.close();
+    assert(f.api.open() && document.activeElement === f.alpha, 'reenabled ancestry did not recover');
+  }]),
+  ...['root', 'context', 'submenu'].map((mode) => [`late intrinsic ${mode} menu growth stays inside viewport`, async (f) => {
+    const growing = mode === 'submenu' ? f.root.querySelector('ul ul') : f.menu;
+    const style = document.createElement('style'); style.textContent = `#${growing.id} { width: 130px !important; height: 70px !important; }`; document.head.append(style);
+    try {
+      f.root.style.cssText = 'position:fixed;right:0;bottom:0';
+      if (mode === 'context') f.context.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: innerWidth - 10, clientY: innerHeight - 10 }));
+      else f.api.open();
+      if (mode === 'submenu') f.sub.click(); await settle();
+      const before = f.trigger.getBoundingClientRect();
+      style.sheet.cssRules[0].style.width = '280px'; style.sheet.cssRules[0].style.height = '250px';
+      await settle(); await settle();
+      const after = f.trigger.getBoundingClientRect(); assert(before.left === after.left && before.top === after.top, 'opener moved');
+      for (const menu of f.root.querySelectorAll(':popover-open')) { const r = menu.getBoundingClientRect(); assert((menu !== growing || (r.width >= 279 && r.height >= 249)) && r.left >= 0 && r.top >= 0 && r.right <= innerWidth + 1 && r.bottom <= innerHeight + 1, 'size growth escaped viewport'); }
+      assert(f.api.state.open, 'size test never opened');
+    } finally { style.remove(); }
+  }]),
   ...['button link', ' button ', 'not-a-role button'].flatMap((role) => [false, true].map((morph) => [`widget role tokens ${role} reject ${morph ? 'open morph' : 'setup'}`, async (f) => {
     if (morph) { f.api.open(); await settle(); } else f.api.dispose();
     const extra = document.createElement('span'); extra.setAttribute('role', role); extra.textContent = 'Unowned widget'; f.alpha.parentElement.append(extra);
@@ -188,12 +213,13 @@ const cases = [
   }])),
   ...['button', 'context'].map((activation) => [`idle ${activation} menus avoid repeated placement work with a live measurement control`, async (f) => {
     f.api.open({ activation, at: activation === 'context' ? { x: 180, y: 140 } : null }); for (let frame = 0; frame < 4; frame++) await settle();
-    const native = f.menu.getBoundingClientRect; const owned = Object.hasOwn(f.menu, 'getBoundingClientRect'); let measurements = 0;
-    f.menu.getBoundingClientRect = function () { measurements++; return native.call(this); };
+    const native = f.menu.style.setProperty; const owned = Object.hasOwn(f.menu.style, 'setProperty'); let writes = 0;
+    const computed = window.getComputedStyle; let placements = 0; window.getComputedStyle = function (node, ...args) { if (node === f.root) placements++; return computed.call(this, node, ...args); };
+    f.menu.style.setProperty = function (...args) { writes++; return native.apply(this, args); };
     try {
-      for (let frame = 0; frame < 4; frame++) await settle(); assert(measurements === 0, 'idle placement recalculated');
-      window.dispatchEvent(new Event('resize')); await settle(); assert(measurements > 0, 'measurement control did not observe actual placement');
-    } finally { if (owned) f.menu.getBoundingClientRect = native; else delete f.menu.getBoundingClientRect; }
+      for (let frame = 0; frame < 4; frame++) await settle(); assert(writes === 0 && placements === 0, 'idle placement recalculated');
+      f.menu.style.left = '-100px'; window.dispatchEvent(new Event('resize')); await settle(); assert(writes > 0 && placements > 0 && f.menu.getBoundingClientRect().left >= 0, 'write control did not observe actual placement');
+    } finally { window.getComputedStyle = computed; if (owned) f.menu.style.setProperty = native; else delete f.menu.style.setProperty; }
   }]),
   ...['inline', 'padding'].map((shape) => [`placement follows ${shape} sibling changes without ancestor resizing`, async (f) => {
     f.context.style.cssText = 'position:fixed;left:20px;top:20px;width:800px;height:300px';

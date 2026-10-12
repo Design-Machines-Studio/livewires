@@ -48,7 +48,7 @@ export function createActionMenu({ root, contextTarget = null }) {
   function available(item) {
     if (!item?.isConnected || item.matches(':disabled, [aria-disabled="true"]')) return false;
     for (let node = item; node; node = parent(node)) {
-      if (node.hidden || node.inert || node.getAttribute('aria-hidden') === 'true') return false;
+      if (node.hidden || node.inert || node.getAttribute('aria-hidden') === 'true' || node.getAttribute('aria-disabled') === 'true') return false;
     }
     return true;
   }
@@ -238,23 +238,27 @@ export function createActionMenu({ root, contextTarget = null }) {
     levels.forEach((level, index) => {
       if (!level.menu.isConnected || !level.trigger?.isConnected) return;
       const bounds = index === 0 && point ? { left: point.x, right: point.x, top: point.y, bottom: point.y } : level.trigger.getBoundingClientRect();
-      anchors.set(level.menu, { left: bounds.left, right: bounds.right, top: bounds.top, bottom: bounds.bottom });
       positionStyle(level.menu, 'max-width', `${Math.max(0, view.width - gap * 2)}px`);
       positionStyle(level.menu, 'max-height', `${Math.max(0, view.height - gap * 2)}px`);
       const rect = level.menu.getBoundingClientRect();
       const location = placeMenu(bounds, rect, view, index > 0, win.getComputedStyle(index > 0 ? level.trigger : root).direction === 'rtl', gap);
       positionStyle(level.menu, 'left', `${location.x}px`);
       positionStyle(level.menu, 'top', `${location.y}px`);
+      const placed = level.menu.getBoundingClientRect();
+      anchors.set(level.menu, { left: bounds.left, right: bounds.right, top: bounds.top, bottom: bounds.bottom, width: placed.width, height: placed.height });
     });
   }
   function trackPosition() {
     trackingFrame = null;
     if (disposed || !levels.length) return;
     const moved = levels.some((level, index) => {
-      if ((index === 0 && point) || !level.trigger.isConnected) return false;
-      const rect = level.trigger.getBoundingClientRect();
+      if (!level.menu.isConnected || !level.trigger.isConnected) return false;
       const old = anchors.get(level.menu);
-      return !old || ['left', 'right', 'top', 'bottom'].some((edge) => rect[edge] !== old[edge]);
+      const size = level.menu.getBoundingClientRect();
+      if (!old || size.width !== old.width || size.height !== old.height) return true;
+      if (index === 0 && point) return false;
+      const rect = level.trigger.getBoundingClientRect();
+      return ['left', 'right', 'top', 'bottom'].some((edge) => rect[edge] !== old[edge]);
     });
     if (moved) position();
     trackingFrame = win.requestAnimationFrame(trackPosition);
