@@ -13,7 +13,7 @@
     <header class="stack stack-compact">
       <h1>Widgets</h1>
       <p>Shared content anatomy extracted from Baseplate, Governance and Atlas. The surrounding page owns placement and schemes.</p>
-      <p><a href="/manual/components/widgets.html">Markup and CSS contract</a> · <a href="#stress">Typography stress fixtures</a></p>
+      <p><a href="/manual/components/widgets.html">Markup and CSS contract</a> · <a href="#media">YouTube examples</a> · <a href="#stress">Typography stress fixtures</a></p>
     </header>
 
     <section aria-labelledby="source-examples" class="stack">
@@ -25,9 +25,9 @@
             <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="membership-heading">Membership at a glance</h3></div></header>
             <div class="widget-content">
               <dl class="widget-metrics">
-                <div class="widget-metric"><dt>Active</dt><dd class="widget-metric-value font-metric tnum">42</dd></div>
-                <div class="widget-metric"><dt>Probationary</dt><dd class="widget-metric-value font-metric tnum">0</dd></div>
-                <div class="widget-metric"><dt>Joined in the last 30 days</dt><dd class="widget-metric-value font-metric tnum">3</dd></div>
+                <div class="widget-metric"><dt>Active</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">42</dd></div>
+                <div class="widget-metric"><dt>Probationary</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">0</dd></div>
+                <div class="widget-metric"><dt>Joined in the last 30 days</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">3</dd></div>
               </dl>
             </div>
             <footer class="widget-footer"><a class="more" href="#source-notes">Member directory</a></footer>
@@ -39,9 +39,9 @@
             <div class="widget-content">
               <p class="text-muted">Decisions recorded in 2026</p>
               <dl class="widget-metrics">
-                <div class="widget-metric"><dt>Visible drafts</dt><dd class="widget-metric-value font-metric tnum">35</dd></div>
-                <div class="widget-metric"><dt>Open for input</dt><dd class="widget-metric-value font-metric tnum">6</dd></div>
-                <div class="widget-metric"><dt>Decisions</dt><dd class="widget-metric-value font-metric tnum">0</dd></div>
+                <div class="widget-metric"><dt>Visible drafts</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">35</dd></div>
+                <div class="widget-metric"><dt>Open for input</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">6</dd></div>
+                <div class="widget-metric"><dt>Decisions</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">0</dd></div>
               </dl>
             </div>
             <footer class="widget-footer"><a class="more" href="#source-notes">View proposals</a></footer>
@@ -94,7 +94,7 @@
             <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="chart-heading">Network over time</h3><p class="widget-description">Demonstration organizations counted by recorded network join date.</p></div></header>
             <div class="widget-content">
               <figure><svg viewBox="0 0 300 130" role="img" aria-labelledby="chart-title chart-desc"><title id="chart-title">Network over time</title><desc id="chart-desc">July: 18 organizations. August: 21. September: 24. The same observations appear in the table.</desc><path d="M30 100H280" fill="none" stroke="currentColor"/><polyline points="30,90 150,60 270,30" fill="none" stroke="currentColor" stroke-width="3"/><g fill="currentColor"><circle cx="30" cy="90" r="4"/><circle cx="150" cy="60" r="4"/><circle cx="270" cy="30" r="4"/></g></svg><figcaption class="text-muted">Static illustration; no chart runtime.</figcaption></figure>
-              <details class="disclosure"><summary>View chart data</summary><table class="table--lined tnum"><caption>Demonstration network observations</caption><thead><tr><th scope="col">Month</th><th scope="col">Organizations</th></tr></thead><tbody><tr><th scope="row">July</th><td>18</td></tr><tr><th scope="row">August</th><td>21</td></tr><tr><th scope="row">September</th><td>24</td></tr></tbody></table></details>
+              <details class="disclosure"><summary>View chart data</summary><table class="widget-table tnum"><caption>Demonstration network observations</caption><thead><tr><th scope="col">Month</th><th scope="col">Organizations</th></tr></thead><tbody><tr><th scope="row">July</th><td>18</td></tr><tr><th scope="row">August</th><td>21</td></tr><tr><th scope="row">September</th><td>24</td></tr></tbody></table></details>
             </div>
             <footer class="widget-footer"><a class="more" href="#source-notes">View network</a></footer>
           </section>
@@ -102,7 +102,7 @@
         <div class="scheme-dark">
           <section class="widget" aria-labelledby="chart-wide-heading" data-example="chart-wide">
             <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="chart-wide-heading">People over time</h3></div></header>
-            <div class="widget-content"><div class="widget-message"><div class="widget-message-content"><p>Membership history unavailable.</p><p class="widget-message-detail">The table remains the caller's fallback when chart assets are unavailable.</p></div></div><details class="disclosure" open><summary>View chart data</summary><table class="table--lined tnum"><caption>Demonstration membership positions by calendar month</caption><thead><tr><th scope="col">Month</th><th scope="col">Reported positions</th></tr></thead><tbody><tr><th scope="row">July</th><td>42</td></tr><tr><th scope="row">August</th><td>46</td></tr><tr><th scope="row">September</th><td>48</td></tr></tbody></table></details></div>
+            <div class="widget-content"><div class="widget-message"><div class="widget-message-content"><p>Membership history unavailable.</p><p class="widget-message-detail">The table remains the caller's fallback when chart assets are unavailable.</p></div></div><details class="disclosure" open><summary>View chart data</summary><table class="widget-table tnum"><caption>Demonstration membership positions by calendar month</caption><thead><tr><th scope="col">Month</th><th scope="col">Reported positions</th></tr></thead><tbody><tr><th scope="row">July</th><td>42</td></tr><tr><th scope="row">August</th><td>46</td></tr><tr><th scope="row">September</th><td>48</td></tr></tbody></table></details></div>
             <footer class="widget-footer"><a class="more" href="#source-notes">View network</a></footer>
           </section>
         </div>
@@ -112,15 +112,46 @@
         <div class="scheme-subtle" style="inline-size: min(100%, 18rem);">
           <section class="widget" aria-labelledby="mixed-heading" data-example="mixed">
             <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="mixed-heading">Assembly health</h3></div></header>
-            <div class="widget-content"><p><span class="status-indicator status-indicator--success">Running</span></p><p>Demonstration backup progress: 65%.</p><div class="progress-bar" style="--progress-fill: var(--color-fg);" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Backup progress"><div class="fill" style="width: 65%;"></div></div><ul class="timeline"><li data-status="success"><time class="date" datetime="2026-10-10">10 October</time><div class="content"><p>Demonstration update installed.</p></div></li></ul></div>
+            <div class="widget-content"><p><span class="status-indicator status-indicator--success">Running</span></p><p>Demonstration backup progress: 65%.</p><div class="progress-bar" style="--progress-fill: var(--color-fg); --progress-height: var(--line-025);" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Backup progress"><div class="fill" style="width: 65%;"></div></div><ul class="timeline"><li data-status="success"><time class="date" datetime="2026-10-10">10 October</time><div class="content"><p>Demonstration update installed.</p></div></li></ul></div>
             <footer class="widget-footer"><a class="more" href="#source-notes">Configure Assembly</a></footer>
           </section>
         </div>
         <div class="scheme-dark">
           <section class="widget" aria-labelledby="mixed-wide-heading" data-example="mixed-wide">
             <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="mixed-wide-heading">Connected organizations</h3></div></header>
-            <div class="widget-content"><dl class="widget-metric"><dt>connected organizations</dt><dd class="widget-metric-value font-metric tnum">2</dd></dl><ul class="list-none"><li class="py-05">Demonstration workshop</li><li class="py-05">Demonstration press</li></ul><p><span class="status-indicator status-indicator--success">Running</span></p></div>
+            <div class="widget-content"><dl class="widget-metric"><dt>connected organizations</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">2</dd></dl><ul class="list-none"><li class="py-05">Demonstration workshop</li><li class="py-05">Demonstration press</li></ul><p><span class="status-indicator status-indicator--success">Running</span></p></div>
             <footer class="widget-footer"><a class="more" href="#source-notes">View connections</a></footer>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="media" aria-labelledby="media-heading" class="stack">
+      <h2 id="media-heading">Video widgets</h2>
+      <p>Caller-supplied video output uses the existing responsive embed. Configuration and flip controls belong to the application.</p>
+      <div class="grid" style="--min-column-width: 18rem;">
+        <div class="scheme-subtle" style="inline-size: min(100%, 18rem);">
+          <section class="widget" aria-labelledby="video-heading" data-example="video">
+            <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="video-heading">YouTube video</h3><p class="widget-description">YouTube's embedded-player demonstration; playback starts when you choose.</p></div></header>
+            <div class="widget-content">
+              <div class="embed" style="min-block-size: 200px;">
+                <iframe class="block border-0" src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0" title="YouTube embedded-player demonstration (narrow widget)" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen style="min-block-size: 200px;"></iframe>
+              </div>
+              <p class="widget-message-detail">If the player is unavailable, use the direct video link below.</p>
+            </div>
+            <footer class="widget-footer"><a class="more" href="https://www.youtube.com/watch?v=M7lc1UVf-VE">Watch on YouTube</a></footer>
+          </section>
+        </div>
+        <div class="scheme-dark">
+          <section class="widget" aria-labelledby="video-wide-heading" data-example="video-wide">
+            <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="video-wide-heading">YouTube video</h3><p class="widget-description">YouTube's embedded-player demonstration; playback starts when you choose.</p></div></header>
+            <div class="widget-content">
+              <div class="embed" style="min-block-size: 200px;">
+                <iframe class="block border-0" src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0" title="YouTube embedded-player demonstration (wide widget)" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen style="min-block-size: 200px;"></iframe>
+              </div>
+              <p class="widget-message-detail">If the player is unavailable, use the direct video link below.</p>
+            </div>
+            <footer class="widget-footer"><a class="more" href="https://www.youtube.com/watch?v=M7lc1UVf-VE">Watch on YouTube</a></footer>
           </section>
         </div>
       </div>
@@ -131,22 +162,22 @@
       <p>Formatted demonstration strings. Currency, locale and units belong to the caller. Width adjusts glyphs only when the selected font supports it; it never changes widget columns.</p>
       <div class="grid" style="--min-column-width: 18rem;">
         <section class="widget scheme-subtle" aria-labelledby="default-values-heading" data-example="stress-default">
-          <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="default-values-heading">Existing defaults</h3></div></header>
+          <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="default-values-heading">Short, default and long values</h3></div></header>
           <div class="widget-content"><dl class="widget-metrics">
-            <div class="widget-metric"><dt>Long currency amount</dt><dd class="widget-metric-value font-metric tnum">Rp 9.876.543.210.987,65</dd><dd class="widget-metric-detail">Caller-formatted Indonesian rupiah</dd></div>
+            <div class="widget-metric"><dt>Long currency amount</dt><dd class="widget-metric-value widget-metric-value--long font-metric tnum">Rp 9.876.543.210.987,65</dd><dd class="widget-metric-detail">Caller-formatted Indonesian rupiah</dd></div>
             <div class="widget-metric"><dt>Percentage</dt><dd class="widget-metric-value font-metric tnum">99.95%</dd></div>
-            <div class="widget-metric"><dt>Count</dt><dd class="widget-metric-value font-metric tnum">1,234,567,890</dd></div>
-            <div class="widget-metric"><dt>Negative amount</dt><dd class="widget-metric-value font-metric tnum">−$1,234,567.89</dd></div>
-            <div class="widget-metric"><dt>Zero</dt><dd class="widget-metric-value font-metric tnum">0</dd><dd class="widget-metric-detail">A known numeric value</dd></div>
+            <div class="widget-metric"><dt>Count</dt><dd class="widget-metric-value widget-metric-value--long font-metric tnum">1,234,567,890</dd></div>
+            <div class="widget-metric"><dt>Negative amount</dt><dd class="widget-metric-value widget-metric-value--long font-metric tnum">−$1,234,567.89</dd></div>
+            <div class="widget-metric"><dt>Zero</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">0</dd><dd class="widget-metric-detail">A known numeric value</dd></div>
           </dl></div>
         </section>
-        <section class="widget scheme-dark" aria-labelledby="custom-values-heading" data-example="stress-custom">
+        <section class="widget scheme-dark" aria-labelledby="custom-values-heading" data-example="stress-custom" style="--font-metric-size: var(--text-xl); --font-metric-width: 75%;">
           <header class="widget-header"><div class="widget-heading"><h3 class="widget-title" id="custom-values-heading">Value-only overrides</h3><p class="widget-description">Size, weight and glyph width do not affect this description.</p></div></header>
           <div class="widget-content"><dl class="widget-metrics">
-            <div class="widget-metric"><dt>Long currency amount</dt><dd class="widget-metric-value font-metric tnum" style="--widget-metric-size: var(--text-4xl); --widget-metric-weight: 650; --widget-metric-width: 80%;">€ 9.876.543.210.987,65</dd></div>
-            <div class="widget-metric"><dt>Percentage</dt><dd class="widget-metric-value font-metric tnum" style="--widget-metric-size: var(--text-4xl); --widget-metric-weight: 650; --widget-metric-width: 80%;">−12.50%</dd></div>
-            <div class="widget-metric"><dt>Count</dt><dd class="widget-metric-value font-metric tnum" style="--widget-metric-size: var(--text-4xl); --widget-metric-weight: 650; --widget-metric-width: 80%;">1,234,567,890</dd></div>
-            <div class="widget-metric"><dt>Zero</dt><dd class="widget-metric-value font-metric tnum" style="--widget-metric-size: var(--text-4xl); --widget-metric-weight: 650; --widget-metric-width: 80%;">0</dd></div>
+            <div class="widget-metric"><dt>Long currency amount</dt><dd class="widget-metric-value widget-metric-value--long font-metric tnum" style="--widget-metric-weight: 650;">€ 9.876.543.210.987,65</dd></div>
+            <div class="widget-metric"><dt>Percentage</dt><dd class="widget-metric-value font-metric tnum" style="--widget-metric-weight: 650;">−12.50%</dd></div>
+            <div class="widget-metric"><dt>Count</dt><dd class="widget-metric-value widget-metric-value--long font-metric tnum" style="--widget-metric-weight: 650;">1,234,567,890</dd></div>
+            <div class="widget-metric"><dt>Zero</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum" style="--widget-metric-size: var(--text-4xl); --widget-metric-weight: 650;">0</dd></div>
           </dl></div>
         </section>
         <section class="widget scheme-subtle" aria-labelledby="missing-values-heading" data-example="states">
@@ -155,7 +186,7 @@
             <div class="widget-metric"><dt>Missing</dt><dd class="widget-metric-status">No member counts recorded.</dd></div>
             <div class="widget-metric"><dt>Unavailable</dt><dd class="widget-metric-status">Member counts unavailable.</dd></div>
             <div class="widget-metric"><dt>Denied</dt><dd class="widget-metric-status">You do not have access to this value.</dd><dd class="widget-metric-detail">Demonstration permission copy; callers own their actual message.</dd></div>
-            <div class="widget-metric"><dt>Reported count</dt><dd class="widget-metric-value font-metric tnum">0</dd></div>
+            <div class="widget-metric"><dt>Reported count</dt><dd class="widget-metric-value widget-metric-value--short font-metric tnum">0</dd></div>
           </dl></div>
         </section>
       </div>

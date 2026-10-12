@@ -39,9 +39,9 @@
   .widget-heading { flex: 1 1 12ch; }
   .widget-title {
     margin: 0;
-    font-size: var(--text-lg);
-    line-height: var(--line-height-lg);
-    letter-spacing: var(--tracking-lg);
+    font-size: var(--text-base);
+    line-height: var(--line-height-base);
+    letter-spacing: var(--tracking-base);
   }
   .widget-description {
     margin-block: var(--line-025) 0;
@@ -85,12 +85,72 @@
     order: -1;
     min-inline-size: 0;
     overflow-wrap: anywhere;
-    font-size: var(--widget-metric-size, var(--text-3xl));
+    font-size: var(--widget-metric-size, var(--text-2xl));
     font-weight: var(--widget-metric-weight, var(--font-bold));
     font-stretch: var(--widget-metric-width, inherit);
-    line-height: var(--line-height-3xl);
-    letter-spacing: var(--tracking-3xl);
+    line-height: var(--line-height-2xl);
+    letter-spacing: var(--tracking-2xl);
   }
+  /* Callers select presentation after formatting; these do not inspect data. */
+  .widget-metric-value--short {
+    font-size: var(--widget-metric-size, var(--text-4xl));
+    line-height: var(--line-height-4xl);
+    letter-spacing: var(--tracking-4xl);
+  }
+  .widget-metric-value--long {
+    font-size: var(--widget-metric-size, var(--text-lg));
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--tracking-lg);
+  }
+
+  /* Compact chart data keeps native columns instead of the general row stack. */
+  .widget-table {
+    display: table;
+    table-layout: fixed;
+    margin-block: var(--line-025) 0;
+
+    & caption {
+      display: table-caption;
+      inline-size: auto;
+      margin-block-end: var(--line-025);
+      font-size: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+    }
+    & thead {
+      display: table-header-group;
+      position: static;
+      inline-size: auto;
+      block-size: auto;
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+      clip: auto;
+      border: 0;
+    }
+    & tbody { display: table-row-group; }
+    & tfoot { display: table-footer-group; }
+    & tr { display: table-row; padding: 0; border: 0; }
+    & :is(th, td) {
+      display: table-cell;
+      padding: var(--line-025);
+      border: 0;
+      background: transparent;
+      font-size: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      text-align: start;
+      vertical-align: top;
+    }
+    & td { font-weight: inherit; }
+    & :is(th, td):last-child { text-align: end; }
+    & td[data-th]::before { content: none; }
+    & tbody > tr {
+      border-block-start: var(--line-1px) solid
+        var(--widget-border-color, color-mix(in srgb, var(--color-fg) 20%, transparent));
+    }
+  }
+
   .widget-metric-detail { color: var(--color-muted); }
   /* State copy is deliberately not a large metric or a fabricated zero. */
   .widget-metric-status { color: var(--color-muted); }
