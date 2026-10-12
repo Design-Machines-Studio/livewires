@@ -97,6 +97,8 @@ The generic extraction omits Baseplate account-notification/result-row overrides
 
 Before screenshots are retained in the task's ignored evidence area, separately from product code. The running consumers have their own serving/source context: Baseplate's maintained checkout was `7e99c69b4483ec9659a19da7044c9c88df1a03d2`; Governance's was `172ec73b151f3244b66b2b26eddf5853aff9e990` with recorded Baseplate producer `793a09fec90a8c97710cf1392327fc5aaddda767`; Atlas's was the trusted Atlas source above with unrelated dirty work and recorded Baseplate producer `2129d0438001764f4ec0cdc120d2073c376525ca`. The screenshots show observed before UI, not a claim that those applications were rebuilt at the newer trusted-main inventory. No application typography persistence, theme save/reload or editor configuration is retested by this CSS task.
 
+Existing stat-number examples in the Cards manual/reference also emit `.font-metric`; their sizes, weights, labels and ordinary descriptive numbers remain unchanged.
+
 ## Verification surface
 
 `/reference/components/widgets.html` contains metric, list, empty/unavailable, chart-with-table and mixed examples, each in a narrow subtle host and a wide dark host. It also contains formatted long currency, percentages, counts, negative/zero values, custom value hooks and ordinary missing/denied/unavailable definitions. `/manual/components/widgets.html` documents the emitted markup and ownership contract. Final browser observations and precise coverage gaps belong to the task receipt, not declarations-only tests.
