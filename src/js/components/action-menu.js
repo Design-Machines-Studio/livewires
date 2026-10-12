@@ -3,7 +3,7 @@ import { placeMenu, nextMenuIndex, matchingMenuIndex } from './action-menu-state
 const instances = new WeakMap();
 const controls = ':scope > li > button, :scope > li > a';
 const editable = 'input, select, textarea, [contenteditable]:not([contenteditable="false"])';
-const rowControls = `${editable}, button, a, [tabindex], iframe, object, embed, summary, audio[controls], video[controls], [role=button], [role=link], [role=checkbox], [role=radio], [role=switch], [role=textbox], [role=combobox], [role=slider], [role=spinbutton], [role=tab], [role=treeitem], [role=option], [role^=menuitem]`;
+const rowControls = `${editable}, button, a, [tabindex], iframe, object, embed, summary, audio[controls], video[controls], [role~=button], [role~=link], [role~=checkbox], [role~=radio], [role~=switch], [role~=textbox], [role~=combobox], [role~=slider], [role~=spinbutton], [role~=tab], [role~=treeitem], [role~=option], [role~=menuitem], [role~=menuitemcheckbox], [role~=menuitemradio]`;
 
 /** Explicit action-only enhancement. The application owns actions and authorization. */
 export function createActionMenu({ root, contextTarget = null }) {
@@ -427,7 +427,7 @@ export function createActionMenu({ root, contextTarget = null }) {
     // Watch boundary removal and actual ancestors without unrelated subtrees.
     for (const tree of trees) observer.observe(tree, { childList: true });
     for (const node of ancestors) observer.observe(node, { childList: true, ...attributes });
-    observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'aria-expanded', 'aria-haspopup', 'role', 'tabindex', 'type', 'data-menu-ready', 'id', 'data-action-menu', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
+    observer.observe(root, { childList: true, subtree: true, characterData: levels.length > 0, attributes: true, attributeFilter: ['disabled', 'aria-disabled', 'hidden', 'inert', 'aria-hidden', 'popover', 'aria-controls', 'aria-expanded', 'aria-haspopup', 'role', 'tabindex', 'type', 'data-menu-ready', 'controls', 'contenteditable', 'id', 'data-action-menu', 'data-menu', 'data-menu-trigger', 'data-menu-action', 'data-menu-submenu', 'class', 'style', 'slot', 'dir'] });
   }
   function onSlotChange() { if (levels.length) reconcile(); }
   function onOutside(event) {

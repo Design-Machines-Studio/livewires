@@ -39,6 +39,19 @@ function key(target, value, options = {}) {
   return event;
 }
 const cases = [
+  ...['button link', ' button ', 'not-a-role button'].flatMap((role) => [false, true].map((morph) => [`widget role tokens ${role} reject ${morph ? 'open morph' : 'setup'}`, async (f) => {
+    if (morph) { f.api.open(); await settle(); } else f.api.dispose();
+    const extra = document.createElement('span'); extra.setAttribute('role', role); extra.textContent = 'Unowned widget'; f.alpha.parentElement.append(extra);
+    if (morph) { await settle(); assert(f.api.state.disposed && !f.root.querySelector(':popover-open'), 'widget role token morph accepted'); }
+    else { let rejected = false; try { createActionMenu({ root: f.root }); } catch { rejected = true; } assert(rejected && !f.root.hasAttribute('data-menu-ready'), 'widget role token setup accepted'); }
+  }])),
+  ...['audio', 'video', 'editable'].flatMap((kind) => [false, true].map((open) => [`attribute-only ${kind} control change disposes while ${open ? 'open' : 'closed'}`, async (f) => {
+    const extra = document.createElement(kind === 'editable' ? 'span' : kind); extra.style.cssText = 'display:block;width:12px;height:12px'; f.alpha.parentElement.append(extra); await settle();
+    assert(!f.api.state.disposed, 'inactive decorative element rejected');
+    if (open) { f.api.open(); await settle(); }
+    if (kind === 'editable') extra.setAttribute('contenteditable', 'true'); else extra.setAttribute('controls', '');
+    await settle(); assert(f.api.state.disposed && !f.root.querySelector(':popover-open') && !f.root.hasAttribute('data-menu-ready'), 'attribute-only control conversion remained enhanced');
+  }])),
   ...[false, true].flatMap((open) => ['aria-expanded', 'aria-haspopup', 'role', 'tabindex', 'data-menu-ready', 'type'].map((name) => [`attribute-only ${name} updates reconcile while ${open ? 'open' : 'closed'}`, async (f) => {
     if (open) { f.api.open(); await settle(); }
     const node = name === 'role' ? f.menu : name === 'tabindex' ? f.alpha : name === 'data-menu-ready' ? f.root : f.trigger;
