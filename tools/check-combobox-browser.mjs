@@ -211,15 +211,16 @@ try {
       const expected = getComputedStyle(probe).backgroundColor; probe.remove(); return getComputedStyle(row).backgroundColor === expected;
     }), true);
     await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
+    await page.mouse.move(0, 0);
     await local().press('ArrowDown');
     await page.locator('#local-choice').evaluate(root => root.scrollIntoView({ block: 'start', behavior: 'instant' }));
     const forcedActive = await page.locator('#local-choice [role=option][data-active]').evaluate(row => {
       const probe = document.createElement('span'); probe.style.cssText = 'color:HighlightText;background:Highlight;forced-color-adjust:none'; row.append(probe);
       const expected = { color: getComputedStyle(probe).color, background: getComputedStyle(probe).backgroundColor }; probe.remove();
-      return { color: getComputedStyle(row).color, background: getComputedStyle(row).backgroundColor, adjustment: getComputedStyle(row).forcedColorAdjust, expected };
+      return { hovered: row.matches(':hover'), color: getComputedStyle(row).color, background: getComputedStyle(row).backgroundColor, adjustment: getComputedStyle(row).forcedColorAdjust, expected };
     });
     assert.equal(forcedActive.color, forcedActive.expected.color); assert.equal(forcedActive.background, forcedActive.expected.background);
-    assert.equal(forcedActive.adjustment, 'none');
+    assert.equal(forcedActive.adjustment, 'none'); assert.equal(forcedActive.hovered, false);
     await page.screenshot({ path: resolve(evidence, 'forced-colors.png') });
     assert.equal(await page.evaluate(() => matchMedia('(forced-colors: active)').matches), true);
     const hovered = page.locator('#local-choice [role=option]').nth(1);
