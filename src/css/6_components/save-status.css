@@ -1,0 +1,48 @@
+/**
+ * Save status
+ *
+ * Text-only state presentation. The host supplies both data-save-state and
+ * the visible label; this stylesheet does not infer save behavior.
+ * The consumer chooses the status location beside its editing controls.
+ */
+@layer components {
+  .save-status {
+    color: var(--color-fg);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .save-status[data-save-state="ready"] {
+    color: var(--color-muted);
+  }
+
+  @supports (color: color-mix(in srgb, black, white)) {
+    .save-status[data-save-state="dirty"] {
+      color: color-mix(in srgb, var(--color-fg) 65%, var(--color-warning));
+    }
+
+    .save-status[data-save-state="saving"] {
+      color: color-mix(in srgb, var(--color-fg) 65%, var(--color-accent));
+    }
+
+    .save-status[data-save-state="saved"] {
+      color: color-mix(in srgb, var(--color-fg) 65%, var(--color-success));
+    }
+
+    .save-status[data-save-state="failed"] {
+      color: color-mix(in srgb, var(--color-fg) 65%, var(--color-error));
+    }
+
+    .save-status[data-save-state="unknown"] {
+      color: color-mix(in srgb, var(--color-fg) 65%, var(--color-warning));
+    }
+  }
+
+  @media (forced-colors: active) {
+    .save-status,
+    .save-status[data-save-state] {
+      color: CanvasText;
+    }
+  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+  <title>Save status — Live Wires</title>
+</head>
+<body class="scheme-default pg-components">
+  <html-include src="../_includes/header.html"></html-include>
+  <main class="main sidebar" id="main">
+    <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+    <article class="prose">
+      <header class="section scheme-dark">
+        <h1>Save status</h1>
+        <p class="lead">A text-only presentation for state the host already knows.</p>
+      </header>
+      <section class="section stack">
+        <h2>State and label contract</h2>
+        <p>Use <code>.save-status[data-save-state]</code> for a stable text line beside an editor’s controls. The host owns the state and visible wording. The CSS hook never observes an input, request, fetch result or clock.</p>
+        <table>
+          <thead><tr><th scope="col">Host state</th><th scope="col">Default label</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><code>ready</code></th><td>Ready</td><td>No claim of a newly confirmed save.</td></tr>
+            <tr><th scope="row"><code>dirty</code></th><td>Unsaved changes</td><td>Current edits are not confirmed saved.</td></tr>
+            <tr><th scope="row"><code>saving</code></th><td>Saving…</td><td>The host says a save is pending.</td></tr>
+            <tr><th scope="row"><code>saved</code></th><td>Draft saved</td><td>The host confirmed the stated save scope.</td></tr>
+            <tr><th scope="row"><code>failed</code></th><td>Couldn’t save draft</td><td>The host reported a rejection or failure.</td></tr>
+            <tr><th scope="row"><code>unknown</code></th><td>Save not confirmed</td><td>The host cannot confirm the save outcome.</td></tr>
+          </tbody>
+        </table>
+        <p>Use the exact scope in a success label. For example, if text saved but rules or collaborators remain pending, show <strong>Text saved</strong> and put <strong>Rules and collaborators still need saving.</strong> in a separate supporting element. Do not claim the whole draft is saved.</p>
+      </section>
+      <section class="section stack">
+        <h2>Markup</h2>
+        <pre><code>&lt;div class="cluster"&gt;
+  &lt;button
+    type="button"
+  &gt;
+    Done editing
+  &lt;/button&gt;
+  &lt;p
+    class="save-status"
+    data-save-status
+    data-save-state="saved"
+    role="status"
+    aria-atomic="true"
+  &gt;
+    Draft saved
+  &lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;
+  Publishing and editing
+  completion are separate
+  actions.
+&lt;/p&gt;</code></pre>
+        <p>The component supplies no layout. The host places the text line beside its own controls. <code>role="status"</code> supplies a polite status region; retain one region for each independent editor and do not mirror the same event in a second live region.</p>
+      </section>
+      <section class="section stack">
+        <h2>State and announcement ownership</h2>
+        <ul>
+          <li>Update the state and visible label together from the host’s explicit result. Never derive state from the label text, fetch completion or a timeout.</li>
+          <li>Keep the status element at a stable DOM location. Do not move focus to it.</li>
+          <li>Announce meaningful state transitions, not every keystroke. The host should set dirty once when the editor first becomes dirty, not on each input event.</li>
+          <li>Color reinforces the words. The labels remain meaningful when colors are unavailable or overridden in forced-colors mode.</li>
+          <li>Keep retry, reload, recovery instructions, publish and Done editing outside the short status line.</li>
+          <li>A saved draft is neither published nor necessarily finished being edited.</li>
+        </ul>
+      </section>
+      <section class="section stack">
+        <h2>Downstream ownership</h2>
+        <p><a href="https://github.com/Design-Machines-Studio/livewires-templ/issues/21">Templ #21</a> may adopt this text and state hook in a later change; its component markup should not bake in layout primitives. <a href="https://github.com/Design-Machines-Studio/assembly-baseplate/issues/1203">Baseplate #1203</a> remains responsible for autosave protocol, request identity, races, persistence, errors and scope. Live Wires does not duplicate those responsibilities. This manual and its reference simulation are presentation examples, not a production save implementation.</p>
+      </section>
+      <section class="section stack">
+        <h2>Reference simulation</h2>
+        <p><a href="/reference/components/save-status.html">Open the Save Status reference</a> to inspect all states and deterministic simulated scenarios in inherited, light and dark color schemes.</p>
+      </section>
+    </article>
+  </main>
+  <html-include src="/_includes/footer.html"></html-include>
+</body>
+</html>
