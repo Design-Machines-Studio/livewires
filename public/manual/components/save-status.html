@@ -42,15 +42,15 @@
   &lt;/button&gt;
   &lt;div role="status"
        aria-atomic="true"&gt;
-  &lt;p
-    class="save-status"
-    data-save-status
-    data-save-state="saved"
-  &gt;
-    Text saved
-  &lt;/p&gt;
-  &lt;p&gt;Rules and collaborators
-    still need saving.&lt;/p&gt;
+    &lt;p
+      class="save-status"
+      data-save-status
+      data-save-state="saved"
+    &gt;
+      Text saved
+    &lt;/p&gt;
+    &lt;p&gt;Rules and collaborators
+      still need saving.&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
@@ -67,7 +67,7 @@
           <li>Keep the status element at a stable DOM location. Do not move focus to it.</li>
           <li>Announce meaningful state transitions, not every keystroke. The host should set dirty once when the editor first becomes dirty, not on each input event.</li>
           <li>Color reinforces the words. The labels remain meaningful when colors are unavailable or overridden in forced-colors mode.</li>
-          <li>Keep retry, reload, recovery instructions, publish and Done editing outside the short status line.</li>
+          <li>Keep recovery instructions outside the short status line. Keep retry, reload, publish and Done editing controls outside the status region.</li>
           <li>A saved draft is neither published nor necessarily finished being edited.</li>
         </ul>
       </section>

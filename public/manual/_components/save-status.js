@@ -32,7 +32,7 @@ document.querySelectorAll('[data-demo-scheme]').forEach((button) => {
     document.querySelectorAll('[data-demo-scheme]').forEach((control) => {
       const active = control.dataset.demoScheme === selected;
       control.setAttribute('aria-pressed', String(active));
-      control.classList.toggle('button--accent', active);
+      control.classList.toggle('underline', active);
     });
   });
 });
