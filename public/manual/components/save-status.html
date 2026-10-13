@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="module" src="/dist/main.js"></script>
-  <html-include src="/_includes/head.html"></html-include>
   <title>Save status — Live Wires</title>
+  <html-include src="/_includes/head.html"></html-include>
 </head>
-<body class="scheme-default pg-components">
+<body class="scheme-default pg-components pg-components-save-status">
   <html-include src="../_includes/header.html"></html-include>
   <main class="main sidebar" id="main">
     <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
@@ -30,7 +30,7 @@
             <tr><th scope="row"><code>unknown</code></th><td>Save not confirmed</td><td>The host cannot confirm the save outcome.</td></tr>
           </tbody>
         </table>
-        <p>Use the exact scope in a success label. For example, if text saved but rules or collaborators remain pending, show <strong>Text saved</strong> and put <strong>Rules and collaborators still need saving.</strong> in a separate supporting element. Do not claim the whole draft is saved.</p>
+        <p>Use the exact scope in a success label. For example, if text saved but rules or collaborators remain pending, show <strong>Text saved</strong> and put <strong>Rules and collaborators still need saving.</strong> in a separate supporting element inside the same status region so both messages are announced together. Do not claim the whole draft is saved.</p>
       </section>
       <section class="section stack">
         <h2>Markup</h2>
@@ -40,22 +40,25 @@
   &gt;
     Done editing
   &lt;/button&gt;
+  &lt;div role="status"
+       aria-atomic="true"&gt;
   &lt;p
     class="save-status"
     data-save-status
     data-save-state="saved"
-    role="status"
-    aria-atomic="true"
   &gt;
-    Draft saved
+    Text saved
   &lt;/p&gt;
+  &lt;p&gt;Rules and collaborators
+    still need saving.&lt;/p&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;
   Publishing and editing
   completion are separate
   actions.
 &lt;/p&gt;</code></pre>
-        <p>The component supplies no layout. The host places the text line beside its own controls. Add <code>items-baseline</code> to a flex parent such as <code>cluster</code> when the status should share a text baseline with adjacent buttons or text. <code>role="status"</code> supplies a polite status region; retain one region for each independent editor and do not mirror the same event in a second live region.</p>
+        <p>The component supplies no layout. The host places the text line beside its own controls. Add <code>items-baseline</code> to a flex parent such as <code>cluster</code> when the status should share a text baseline with adjacent buttons or text. <code>role="status"</code> supplies a polite status region containing the short label and essential supporting feedback; retain one region for each independent editor and do not mirror the same event in a second live region.</p>
       </section>
       <section class="section stack">
         <h2>State and announcement ownership</h2>

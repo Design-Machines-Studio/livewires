@@ -9,8 +9,10 @@ Keep one status region at a stable location beside the editor controls:
 ```html
 <div class="cluster items-baseline">
   <button type="button">Done editing</button>
-  <p class="save-status" data-save-status data-save-state="saved"
-     role="status" aria-atomic="true">Draft saved</p>
+  <div role="status" aria-atomic="true">
+    <p class="save-status" data-save-status data-save-state="saved">Text saved</p>
+    <p>Rules and collaborators still need saving.</p>
+  </div>
 </div>
 ```
 
@@ -29,9 +31,9 @@ The host updates the state attribute and visible label together when its explici
 
 ## Scope and action labels
 
-“Draft saved” is valid only when the host confirms the whole scope represented by that phrase. If only text is confirmed, use “Text saved” and keep pending scope in a separate supporting instruction such as “Rules and collaborators still need saving.” Do not place instructions or recovery actions in the short status line.
+“Draft saved” is valid only when the host confirms the whole scope represented by that phrase. If only text is confirmed, use “Text saved” and keep pending scope in a separate supporting instruction such as “Rules and collaborators still need saving.” Put essential supporting save feedback inside the same status region so it is announced with the label. Keep that feedback short because the atomic region announces both messages together. Do not place instructions or recovery actions in the short status line.
 
-Saved does not mean published or editing-finished. Keep publish, Done editing, retry, reload and recovery controls distinct and unchanged.
+Saved does not mean published or editing-finished. Keep publish, Done editing, retry, reload and recovery controls outside the status region.
 
 ## Accessibility and visual behavior
 

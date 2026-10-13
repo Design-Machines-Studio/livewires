@@ -10,14 +10,15 @@
     color: var(--color-fg);
     font-size: var(--text-sm);
     line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
     overflow-wrap: anywhere;
   }
 
-  .save-status[data-save-state="ready"] {
-    color: var(--color-muted);
-  }
-
   @supports (color: color-mix(in srgb, black, white)) {
+    .save-status[data-save-state="ready"] {
+      color: color-mix(in srgb, var(--color-fg) 65%, var(--color-muted));
+    }
+
     .save-status[data-save-state="dirty"] {
       color: color-mix(in srgb, var(--color-fg) 65%, var(--color-warning));
     }

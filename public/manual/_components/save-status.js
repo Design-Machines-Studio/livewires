@@ -29,5 +29,10 @@ document.querySelectorAll('[data-demo-scheme]').forEach((button) => {
 
     document.body.classList.remove(...demoSchemes);
     document.body.classList.add(selected);
+    document.querySelectorAll('[data-demo-scheme]').forEach((control) => {
+      const active = control.dataset.demoScheme === selected;
+      control.setAttribute('aria-pressed', String(active));
+      control.classList.toggle('button--accent', active);
+    });
   });
 });

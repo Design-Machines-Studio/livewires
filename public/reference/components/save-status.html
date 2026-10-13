@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="module" src="/dist/main.js"></script>
+  <title>Save Status – Components Reference – Live Wires</title>
   <html-include src="/_includes/head.html"></html-include>
   <script type="module" src="/manual/_components/save-status.js"></script>
-  <title>Save Status – Components Reference – Live Wires</title>
 </head>
 <body class="scheme-default">
   <html-include src="/_includes/header.html"></html-include>
@@ -19,21 +19,25 @@
         <h2 id="scheme-heading">Color scheme</h2>
         <p>Inherited follows the browser’s color scheme. Light and dark set a local example scheme.</p>
         <div class="cluster" aria-label="Color scheme simulation controls">
-          <button type="button" data-demo-scheme="scheme-default">Inherited</button>
-          <button type="button" data-demo-scheme="light-mode">Light</button>
-          <button type="button" data-demo-scheme="scheme-dark">Dark</button>
+          <button type="button" class="button--accent" aria-pressed="true" data-demo-scheme="scheme-default">Inherited</button>
+          <button type="button" aria-pressed="false" data-demo-scheme="light-mode">Light</button>
+          <button type="button" aria-pressed="false" data-demo-scheme="scheme-dark">Dark</button>
         </div>
       </section>
 
-      <section class="section stack" aria-labelledby="proposal-heading" data-demo-editor="proposal-text">
+      <section class="section section-full-bleed stack" aria-labelledby="proposal-heading" data-demo-editor="proposal-text">
         <h2 id="proposal-heading">Proposal text editor simulation</h2>
-        <label for="proposal-text">Proposal text</label>
-        <textarea id="proposal-text" rows="4">A draft paragraph shown for save-status placement.</textarea>
+        <div class="stack stack-compact">
+          <label for="proposal-text">Proposal text</label>
+          <textarea id="proposal-text" rows="4">A draft paragraph shown for save-status placement.</textarea>
+        </div>
         <div class="cluster items-baseline">
           <button type="button">Done editing</button>
-          <p class="save-status" id="proposal-text-status" data-save-status data-save-state="ready" role="status" aria-atomic="true">Ready</p>
+          <div class="flex-1" role="status" aria-atomic="true">
+            <p class="save-status" id="proposal-text-status" data-save-status data-save-state="ready">Ready</p>
+            <p id="proposal-text-support">No new save has been confirmed.</p>
+          </div>
         </div>
-        <p id="proposal-text-support">No new save has been confirmed.</p>
 
         <h3>Explicit scenario controls</h3>
         <p>Each control supplies a state, label and separate supporting instruction directly. No scenario waits for a request or timeout.</p>
@@ -49,32 +53,38 @@
         </div>
       </section>
 
-      <section class="section stack" aria-labelledby="second-heading" data-demo-editor="second-editor">
+      <section class="section section-full-bleed stack" aria-labelledby="second-heading" data-demo-editor="second-editor">
         <h2 id="second-heading">Second independent editor simulation</h2>
-        <label for="second-editor-text">Meeting note</label>
-        <textarea id="second-editor-text" rows="3">A separate editor with its own status region.</textarea>
+        <div class="stack stack-compact">
+          <label for="second-editor-text">Meeting note</label>
+          <textarea id="second-editor-text" rows="3">A separate editor with its own status region.</textarea>
+        </div>
         <div class="cluster items-baseline">
           <button type="button">Done editing</button>
-          <p class="save-status" id="second-editor-status" data-save-status data-save-state="saving" role="status" aria-atomic="true">Saving…</p>
+          <div class="flex-1" role="status" aria-atomic="true">
+            <p class="save-status" id="second-editor-status" data-save-status data-save-state="saving">Saving…</p>
+            <p id="second-editor-support">Its state is independent of the proposal editor.</p>
+          </div>
         </div>
-        <p id="second-editor-support">Its state is independent of the proposal editor.</p>
         <div class="cluster">
           <button type="button" data-demo-target="second-editor" data-demo-state="saved" data-demo-label="Draft saved" data-demo-support="Only the second editor is confirmed saved. Simulation only.">Confirm second editor</button>
           <button type="button" data-demo-target="second-editor" data-demo-state="dirty" data-demo-label="Unsaved changes" data-demo-support="Only the second editor has unsaved changes. Simulation only.">Dirty second editor</button>
         </div>
       </section>
 
-      <section class="section stack" aria-labelledby="contract-heading">
+      <section class="section section-full-bleed stack" aria-labelledby="contract-heading">
         <h2 id="contract-heading">Markup contract</h2>
-        <pre><code>&lt;p class="save-status"
-   data-save-status
-   data-save-state=
-     "saved"
-   role="status"
-   aria-atomic="true"&gt;
-  Draft saved
-&lt;/p&gt;</code></pre>
-        <p>The host updates the state attribute and visible label together when its own save result changes. Keep the node in place. A scope-specific label such as “Text saved” can use the same saved state; put “Rules and collaborators still need saving” in a separate supporting element. Keep publish and Done editing controls separate.</p>
+        <pre><code>&lt;div role="status"
+     aria-atomic="true"&gt;
+  &lt;p class="save-status"
+     data-save-status
+     data-save-state="saved"&gt;
+    Text saved
+  &lt;/p&gt;
+  &lt;p&gt;Rules and collaborators
+    still need saving.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        <p>The host updates the state attribute and visible label together when its own save result changes. Keep the node in place. A scope-specific label such as “Text saved” can use the same saved state; put “Rules and collaborators still need saving” in a separate supporting element inside the same status region so both messages are announced together. Keep publish and Done editing controls separate.</p>
       </section>
     </article>
   </main>
