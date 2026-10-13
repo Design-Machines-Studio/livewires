@@ -34,7 +34,7 @@
       </section>
       <section class="section stack">
         <h2>Markup</h2>
-        <pre><code>&lt;div class="cluster"&gt;
+        <pre><code>&lt;div class="cluster items-baseline"&gt;
   &lt;button
     type="button"
   &gt;
@@ -55,7 +55,7 @@
   completion are separate
   actions.
 &lt;/p&gt;</code></pre>
-        <p>The component supplies no layout. The host places the text line beside its own controls. <code>role="status"</code> supplies a polite status region; retain one region for each independent editor and do not mirror the same event in a second live region.</p>
+        <p>The component supplies no layout. The host places the text line beside its own controls. Add <code>items-baseline</code> to a flex parent such as <code>cluster</code> when the status should share a text baseline with adjacent buttons or text. <code>role="status"</code> supplies a polite status region; retain one region for each independent editor and do not mirror the same event in a second live region.</p>
       </section>
       <section class="section stack">
         <h2>State and announcement ownership</h2>

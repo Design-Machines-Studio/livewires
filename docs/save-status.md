@@ -7,8 +7,11 @@ Live Wires provides the text styling and semantic hooks. Each consuming editor o
 Keep one status region at a stable location beside the editor controls:
 
 ```html
-<p class="save-status" data-save-status data-save-state="saved"
-   role="status" aria-atomic="true">Draft saved</p>
+<div class="cluster items-baseline">
+  <button type="button">Done editing</button>
+  <p class="save-status" data-save-status data-save-state="saved"
+     role="status" aria-atomic="true">Draft saved</p>
+</div>
 ```
 
 Supported `data-save-state` values and default text:
@@ -36,7 +39,7 @@ Saved does not mean published or editing-finished. Keep publish, Done editing, r
 - Keep the node at a stable DOM location and never move focus to it.
 - Hosts should expose meaningful state transitions, not announce every keystroke. A dirty transition should not be written again for every input event.
 - Keep visible words so meaning does not depend on color. State color uses semantic theme tokens; forced-colors falls back to `CanvasText`.
-- The host controls surrounding layout. Keep layout primitives out of the component markup so Templ #21 and other adopters can choose their own placement.
+- The host controls surrounding layout. Put `items-baseline` on a flex parent such as `cluster` when the status should share a baseline with adjacent buttons or text. Keep layout primitives out of the component markup so Templ #21 and other adopters can choose their own placement.
 
 ## Ownership
 
