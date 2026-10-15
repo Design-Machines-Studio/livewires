@@ -20,6 +20,8 @@ function inspectDocument(doc, expectedWidth) {
   const imagesWithoutAlt = [...doc.querySelectorAll(".comment-body img")]
     .filter((img) => !img.hasAttribute("alt")).length;
   const badNesting = doc.querySelectorAll(".comment--layout a a, .comment--layout a button, .comment--layout button a, .comment--layout button button").length;
+  const permalinkNamesMismatch = [...doc.querySelectorAll("article.comment--layout .comment-permalink[aria-label]")]
+    .some((link) => !link.getAttribute("aria-label").trim().startsWith(link.querySelector("time")?.textContent.trim() || ""));
   const missingPermalinks = [...doc.querySelectorAll(".comment-permalink[href^='#']")]
     .filter((link) => !doc.getElementById(decodeURIComponent(link.hash.slice(1)))).length;
   const liveComments = comments.filter((comment) => comment.closest("[aria-live], [role=log], [role=status]")).length;
@@ -69,6 +71,7 @@ function inspectDocument(doc, expectedWidth) {
     ["linked avatar names and decorative avatar images", unnamedAvatarLinks === 0 && nondecorativeAvatars === 0],
     ["rich images have alt attributes", imagesWithoutAlt === 0],
     ["valid nesting and permalink targets", badNesting === 0 && missingPermalinks === 0],
+    ["permalink names include their visible time text", !permalinkNamesMismatch],
     ["actions stay in the separate footer", actionsOutsideFooter === 0],
     ["no automatic comment live regions", liveComments === 0],
     [`no page or comment overflow at ${expectedWidth}px`, pageWidth <= viewportWidth + 1 && overflowingComments.length === 0],

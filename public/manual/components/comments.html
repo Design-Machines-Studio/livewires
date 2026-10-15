@@ -32,7 +32,7 @@
         &lt;a class="author font-bold text-fg underline" href="/profiles/jane"&gt;Jane Doe&lt;/a&gt;
       &lt;/span&gt;
       &lt;a class="comment-permalink" href="#comment-42"
-         aria-label="March 15, link to comment"&gt;
+         aria-label="Mar 15, link to comment 42"&gt;
       &lt;time class="comment-timestamp" datetime="2026-03-15T09:30:00-07:00"&gt;Mar 15&lt;/time&gt;
       &lt;/a&gt;
     &lt;/header&gt;
@@ -70,7 +70,7 @@
 
         <section class="section stack">
           <h2>Time, links, and avatars</h2>
-          <p>Supply a machine-readable <code>datetime</code> and the visible time text inside <code>.comment-timestamp</code>. The caller chooses the date format. An optional <code>.comment-permalink</code> may wrap the time; its accessible name should identify the destination, for example “March 15, link to comment 42.” Keep action controls in the footer, outside that link.</p>
+          <p>Supply a machine-readable <code>datetime</code> and the visible time text inside <code>.comment-timestamp</code>. The caller chooses the date format. An optional <code>.comment-permalink</code> may wrap the time; if it has an <code>aria-label</code>, start it with the exact visible time text, then identify the destination, for example “Mar 15, link to comment 42.” Keep action controls in the footer, outside that link.</p>
           <p>When a visible author name already identifies the person, treat the avatar image as decorative with an empty alt. If the avatar links to a profile, name the link, such as “Jane Doe's profile.” An unlinked avatar remains decorative. A missing avatar is valid.</p>
         </section>
 
