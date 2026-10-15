@@ -19,7 +19,7 @@
 
         <section class="section stack">
           <h2>The HTML contract</h2>
-          <p>Use an <code>article.comment.comment--layout</code> as the stable outer item. Give it a unique, caller-owned <code>id</code>. The optional <code>.comment-avatar</code> comes first. Put the author, time, rich body, edited note, and footer inside <code>.comment-content</code>, in that reading order. Keep typography choices such as <code>text-sm</code> and color choices such as <code>text-fg</code> with the caller.</p>
+          <p>Use an <code>article.comment.comment--layout</code> as the stable outer item. Give it a unique, caller-owned <code>id</code>. The optional <code>.comment-avatar</code> comes first. Put the author, time, rich body, edited note, and footer inside <code>.comment-content</code>, in that reading order. Keep typography choices such as <code>text-sm</code> and author-link styling such as <code>font-bold text-fg underline</code> with the caller when matching an existing consumer.</p>
           <pre><code>&lt;article class="comment comment--layout text-sm text-fg" id="comment-42"&gt;
   &lt;a class="comment-avatar" href="/profiles/jane"
      aria-label="Jane Doe's profile"&gt;
@@ -29,7 +29,7 @@
   &lt;div class="comment-content"&gt;
     &lt;header class="comment-meta"&gt;
       &lt;span class="comment-author"&gt;
-        &lt;a class="author" href="/profiles/jane"&gt;Jane Doe&lt;/a&gt;
+        &lt;a class="author font-bold text-fg underline" href="/profiles/jane"&gt;Jane Doe&lt;/a&gt;
       &lt;/span&gt;
       &lt;a class="comment-permalink" href="#comment-42"
          aria-label="March 15, link to comment"&gt;

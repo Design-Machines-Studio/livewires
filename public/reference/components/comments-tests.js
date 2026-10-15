@@ -2,6 +2,11 @@ const button = document.querySelector("#run-checks");
 const frame = document.querySelector("#comment-examples");
 const results = document.querySelector("#check-results");
 
+button.disabled = !frame.contentDocument?.querySelector("article.comment--layout");
+frame.addEventListener("load", () => {
+  button.disabled = !frame.contentDocument?.querySelector("article.comment--layout");
+}, { once: true });
+
 function inspectDocument(doc, expectedWidth) {
   const comments = [...doc.querySelectorAll("article.comment--layout")];
   const ids = comments.map((comment) => comment.id);
@@ -37,6 +42,21 @@ function inspectDocument(doc, expectedWidth) {
     Math.abs(doc.querySelector("#proposal-comment-source").getBoundingClientRect().height - doc.querySelector("#proposal-comment-42").getBoundingClientRect().height) <= 1 &&
     Math.abs(doc.querySelector("#post-815-source").getBoundingClientRect().height - doc.querySelector("#post-815").getBoundingClientRect().height) <= 1
   );
+  const sourceAuthor = doc.querySelector("#proposal-comment-source .font-bold.text-fg.underline");
+  const sharedAuthor = doc.querySelector("#proposal-comment-42 .author");
+  const sourceAuthorStyle = sourceAuthor && getComputedStyle(sourceAuthor);
+  const sharedAuthorStyle = sharedAuthor && getComputedStyle(sharedAuthor);
+  const authorStylesMatch = expectedWidth !== 1280 || (
+    sourceAuthorStyle && sharedAuthorStyle &&
+    sourceAuthorStyle.color === sharedAuthorStyle.color &&
+    sourceAuthorStyle.fontWeight === sharedAuthorStyle.fontWeight &&
+    sourceAuthorStyle.textDecorationLine === sharedAuthorStyle.textDecorationLine
+  );
+  const actions = doc.querySelector("#chat-reply-816 .comment-actions");
+  const actionsStyle = actions && getComputedStyle(actions);
+  const actionsReset = actionsStyle && actionsStyle.listStyleType === "none" &&
+    actionsStyle.marginBlockStart === "0px" && actionsStyle.marginBlockEnd === "0px" &&
+    actionsStyle.paddingInlineStart === "0px" && actionsStyle.paddingInlineEnd === "0px";
   const inheritedScheme = doc.querySelector("#comment-inherited-scheme");
   const inheritsParentScheme = expectedWidth !== 1280 || (
     getComputedStyle(inheritedScheme).color === getComputedStyle(inheritedScheme.parentElement).color &&
@@ -56,23 +76,33 @@ function inspectDocument(doc, expectedWidth) {
     [`media stays within comment bodies at ${expectedWidth}px`, mediaOverflow === 0],
     [`code scrolls inside its own area at 320px`, longCodeContained],
     [`consumer source and shared examples match at desktop`, sourcePairsMatch],
+    [`author link appearance matches its consumer source`, authorStylesMatch],
+    [`action lists reset prose bullets and spacing`, actionsReset],
     [`comment inherits its surrounding scheme`, inheritsParentScheme],
   ];
 }
 
 button.addEventListener("click", async () => {
   button.disabled = true;
+  const initialFrameWidth = frame.style.width;
   const report = [];
-  for (const width of [1280, 640, 375, 320]) {
-    frame.style.width = `${width}px`;
-    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-    const checks = inspectDocument(frame.contentDocument, width);
-    report.push({ width, checks: checks.map(([name, passed]) => ({ name, result: passed ? "PASS" : "FAIL" })) });
+  try {
+    const doc = frame.contentDocument;
+    if (!doc || doc.readyState !== "complete") throw new Error("The comment examples have not finished loading.");
+    for (const width of [1280, 640, 375, 320]) {
+      frame.style.width = `${width}px`;
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const checks = inspectDocument(frame.contentDocument, width);
+      report.push({ width, checks: checks.map(([name, passed]) => ({ name, result: passed ? "PASS" : "FAIL" })) });
+    }
+    const failures = report.flatMap((entry) => entry.checks.filter((check) => check.result === "FAIL").map((check) => `${entry.width}px: ${check.name}`));
+    results.textContent = failures.length
+      ? `Checks found ${failures.length} issue(s):\n${failures.map((item) => `- ${item}`).join("\n")}`
+      : report.map((entry) => `${entry.width}px: ${entry.checks.length} checks passed`).join("\n");
+  } catch (error) {
+    results.textContent = `Checks could not run: ${error instanceof Error ? error.message : "The comment examples are unavailable."}`;
+  } finally {
+    frame.style.width = initialFrameWidth;
+    button.disabled = false;
   }
-  frame.style.width = "100%";
-  const failures = report.flatMap((entry) => entry.checks.filter((check) => check.result === "FAIL").map((check) => `${entry.width}px: ${check.name}`));
-  results.textContent = failures.length
-    ? `Checks found ${failures.length} issue(s):\n${failures.map((item) => `- ${item}`).join("\n")}`
-    : report.map((entry) => `${entry.width}px: ${entry.checks.length} checks passed`).join("\n");
-  button.disabled = false;
 });
