@@ -8,18 +8,18 @@
  * current output.
  *
  * @example
- * <article class="comment comment--layout text-sm text-fg" id="comment-42">
+ * <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="comment-42">
  *   <a class="comment-avatar" href="/profiles/jane" aria-label="Jane Doe's profile">
  *     <img class="avatar avatar--lg avatar--square" src="/jane.jpg" alt="">
  *   </a>
  *   <div class="comment-content">
  *     <header class="comment-meta">
  *       <span class="comment-author"><a class="author font-bold text-fg underline" href="/profiles/jane">Jane Doe</a></span>
- *       <a class="comment-permalink" href="#comment-42" aria-label="Mar 15, link to comment 42">
+ *       <a class="comment-permalink text-muted text-xs" href="#comment-42" aria-label="Mar 15, link to comment 42">
  *         <time class="comment-timestamp" datetime="2026-03-15">Mar 15</time>
  *       </a>
  *     </header>
- *     <div class="comment-body prose"><p>Comment text</p></div>
+ *     <div class="comment-body prose text-base mt-075"><p>Comment text</p></div>
  *     <footer class="comment-footer">...</footer>
  *   </div>
  * </article>

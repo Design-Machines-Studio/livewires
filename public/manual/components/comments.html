@@ -19,8 +19,8 @@
 
         <section class="section stack">
           <h2>The HTML contract</h2>
-          <p>Use an <code>article.comment.comment--layout</code> as the stable outer item. Give it a unique, caller-owned <code>id</code>. The optional <code>.comment-avatar</code> comes first. Put the author, time, rich body, edited note, and footer inside <code>.comment-content</code>, in that reading order. Keep typography choices such as <code>text-sm</code> and author-link styling such as <code>font-bold text-fg underline</code> with the caller when matching an existing consumer.</p>
-          <pre><code>&lt;article class="comment comment--layout text-sm text-fg" id="comment-42"&gt;
+          <p>Use an <code>article.comment.comment--layout</code> as the stable outer item. Give it a unique, caller-owned <code>id</code>. The optional <code>.comment-avatar</code> comes first. Put the author, time, rich body, edited note, and footer inside <code>.comment-content</code>, in that reading order. Keep presentation utilities with the caller: use <code>text-sm text-fg border-t pt-075 pb-2</code> on the outer item, <code>text-muted text-xs</code> for the timestamp, and <code>text-base mt-075</code> for the body when matching these existing examples. Preserve author-link styling such as <code>font-bold text-fg underline</code> too.</p>
+          <pre><code>&lt;article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="comment-42"&gt;
   &lt;a class="comment-avatar" href="/profiles/jane"
      aria-label="Jane Doe's profile"&gt;
     &lt;img class="avatar avatar--lg avatar--square"
@@ -31,12 +31,12 @@
       &lt;span class="comment-author"&gt;
         &lt;a class="author font-bold text-fg underline" href="/profiles/jane"&gt;Jane Doe&lt;/a&gt;
       &lt;/span&gt;
-      &lt;a class="comment-permalink" href="#comment-42"
+      &lt;a class="comment-permalink text-muted text-xs" href="#comment-42"
          aria-label="Mar 15, link to comment 42"&gt;
         &lt;time class="comment-timestamp" datetime="2026-03-15T09:30:00-07:00"&gt;Mar 15&lt;/time&gt;
       &lt;/a&gt;
     &lt;/header&gt;
-    &lt;div class="comment-body prose"&gt;
+    &lt;div class="comment-body prose text-base mt-075"&gt;
       &lt;p&gt;Caller-rendered trusted rich content goes here.&lt;/p&gt;
     &lt;/div&gt;
     &lt;p class="comment-edited"&gt;Edited
