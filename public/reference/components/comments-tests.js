@@ -44,6 +44,13 @@ function inspectDocument(doc, expectedWidth) {
     Math.abs(doc.querySelector("#proposal-comment-source").getBoundingClientRect().height - doc.querySelector("#proposal-comment-42").getBoundingClientRect().height) <= 1 &&
     Math.abs(doc.querySelector("#post-815-source").getBoundingClientRect().height - doc.querySelector("#post-815").getBoundingClientRect().height) <= 1
   );
+  const timeLinkTreatmentMatches = expectedWidth !== 1280 || [
+    ["#proposal-comment-source", "#proposal-comment-42"],
+    ["#post-815-source", "#post-815"],
+  ].every(([sourceID, sharedID]) => {
+    const hasLinkedTime = (id) => [...doc.querySelectorAll(`${id} header a`)].some((link) => !!link.querySelector("time"));
+    return hasLinkedTime(sourceID) === hasLinkedTime(sharedID);
+  });
   const sourceAuthor = doc.querySelector("#proposal-comment-source .font-bold.text-fg.underline");
   const sharedAuthor = doc.querySelector("#proposal-comment-42 .author");
   const sourceAuthorStyle = sourceAuthor && getComputedStyle(sourceAuthor);
@@ -79,6 +86,7 @@ function inspectDocument(doc, expectedWidth) {
     [`media stays within comment bodies at ${expectedWidth}px`, mediaOverflow === 0],
     [`code scrolls inside its own area at 320px`, longCodeContained],
     [`consumer source and shared examples match at desktop`, sourcePairsMatch],
+    [`consumer and shared examples use the same time link treatment`, timeLinkTreatmentMatches],
     [`author link appearance matches its consumer source`, authorStylesMatch],
     [`action lists reset prose bullets and spacing`, actionsReset],
     [`comment inherits its surrounding scheme`, inheritsParentScheme],
