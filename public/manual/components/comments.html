@@ -19,7 +19,7 @@
 
         <section class="section stack">
           <h2>The HTML contract</h2>
-          <p>Use an <code>article.comment.comment--layout</code> as the stable outer item. Give it a unique, caller-owned <code>id</code>. The optional <code>.comment-avatar</code> comes first. Put the author, time, rich body, edited note, and footer inside <code>.comment-content</code>, in that reading order. Keep presentation utilities with the caller: use <code>text-sm text-fg border-t pt-075 pb-2</code> on the outer item, <code>text-muted text-xs</code> for the timestamp, and <code>text-base mt-075</code> for the body when matching these existing examples. Preserve author-link styling such as <code>font-bold text-fg underline</code> too.</p>
+          <p>Use an <code>article.comment.comment--layout</code> as the stable outer item. Give it a unique, caller-owned <code>id</code>. The optional <code>.comment-avatar</code> comes first. Put the author, time, rich body, edited note, and footer inside <code>.comment-content</code>, in that reading order. Keep presentation utilities with the caller: use <code>text-sm text-fg border-t pt-075 pb-2</code> on the outer item, <code>text-muted text-xs</code> for the timestamp and permalink, <code>text-base mt-075</code> for the body, <code>text-xs text-muted</code> for edited metadata, and <code>button button--small</code> for action buttons when matching these existing examples. Preserve author-link styling such as <code>font-bold text-fg underline</code> too.</p>
           <pre><code>&lt;article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="comment-42"&gt;
   &lt;a class="comment-avatar" href="/profiles/jane"
      aria-label="Jane Doe's profile"&gt;
@@ -39,12 +39,12 @@
     &lt;div class="comment-body prose text-base mt-075"&gt;
       &lt;p&gt;Caller-rendered trusted rich content goes here.&lt;/p&gt;
     &lt;/div&gt;
-    &lt;p class="comment-edited"&gt;Edited
+    &lt;p class="comment-edited text-xs text-muted"&gt;Edited
       &lt;time datetime="2026-03-15T09:40:00-07:00"&gt;Mar 15 at 9:40&lt;/time&gt;
     &lt;/p&gt;
     &lt;footer class="comment-footer"&gt;
       &lt;ul class="comment-actions" aria-label="Comment actions"&gt;
-        &lt;li&gt;&lt;button type="button"&gt;Reply&lt;/button&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;button class="button button--small" type="button"&gt;Reply&lt;/button&gt;&lt;/li&gt;
       &lt;/ul&gt;
     &lt;/footer&gt;
   &lt;/div&gt;
