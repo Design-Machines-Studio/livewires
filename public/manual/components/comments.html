@@ -33,7 +33,7 @@
       &lt;/span&gt;
       &lt;a class="comment-permalink" href="#comment-42"
          aria-label="Mar 15, link to comment 42"&gt;
-         &lt;time class="comment-timestamp" datetime="2026-03-15T09:30:00-07:00"&gt;Mar 15&lt;/time&gt;
+        &lt;time class="comment-timestamp" datetime="2026-03-15T09:30:00-07:00"&gt;Mar 15&lt;/time&gt;
       &lt;/a&gt;
     &lt;/header&gt;
     &lt;div class="comment-body prose"&gt;
@@ -82,14 +82,16 @@
 
         <section class="section stack">
           <h2>Mapping the consumers</h2>
-          <table>
-            <thead><tr><th scope="col">Current source</th><th scope="col">Shared hooks</th><th scope="col">Retained by the domain owner</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Governance ordinary <code>DiscussionComment</code>: <code>.comment</code> wrapper, avatar/profile branch, author and time row, rich body</th><td><code>.comment--layout</code>, optional <code>.comment-avatar</code>, <code>.comment-content</code>, <code>.comment-meta</code>, <code>.comment-author</code>, <code>.comment-timestamp</code>, optional <code>.comment-permalink</code>, <code>.comment-body</code></td><td>Position labels/history, removed positions, outcome colors, explanatory text and edit permissions. Decision notes remain their existing specialized composition.</td></tr>
-              <tr><th scope="row">Chat <code>PostArticle</code>: anchored article, accessible linked avatar, author/profile link, message permalink/time, rich body</th><td>The same shared hooks, with the existing <code>post-ID</code> as its stable outer anchor</td><td>Conversation order, pagination, reading position, moderation and permitted actions. Chat page header and reply composer remain unchanged.</td></tr>
-              <tr><th scope="row">Live Wires Templ <code>CommentComponent</code></th><td>New rich composition can target this documented DOM/CSS contract.</td><td>Keep <code>Comment</code> and <code>CommentComponent</code> output and behavior compatible: escaped plain body, existing DateShort formatting, avatar, badge, size/alignment classes and attributes.</td></tr>
-            </tbody>
-          </table>
+          <div class="reel" role="region" aria-label="Comment consumer mapping table" tabindex="0">
+            <table class="flex-none">
+              <thead><tr><th scope="col">Current source</th><th scope="col">Shared hooks</th><th scope="col">Retained by the domain owner</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Governance ordinary <code>DiscussionComment</code>: <code>.comment</code> wrapper, avatar/profile branch, author and time row, rich body</th><td><code>.comment--layout</code>, optional <code>.comment-avatar</code>, <code>.comment-content</code>, <code>.comment-meta</code>, <code>.comment-author</code>, <code>.comment-timestamp</code>, optional <code>.comment-permalink</code>, <code>.comment-body</code></td><td>Position labels/history, removed positions, outcome colors, explanatory text and edit permissions. Decision notes remain their existing specialized composition.</td></tr>
+                <tr><th scope="row">Chat <code>PostArticle</code>: anchored article, accessible linked avatar, author/profile link, message permalink/time, rich body</th><td>The same shared hooks, with the existing <code>post-ID</code> as its stable outer anchor</td><td>Conversation order, pagination, reading position, moderation and permitted actions. Chat page header and reply composer remain unchanged.</td></tr>
+                <tr><th scope="row">Live Wires Templ <code>CommentComponent</code></th><td>New rich composition can target this documented DOM/CSS contract.</td><td>Keep <code>Comment</code> and <code>CommentComponent</code> output and behavior compatible: escaped plain body, existing DateShort formatting, avatar, badge, size/alignment classes and attributes.</td></tr>
+              </tbody>
+            </table>
+          </div>
           <p>This is a producer contract for Templ issue #24. It does not implement that component or migrate either consumer.</p>
           <p>For that Templ component, emit this structure from the caller's supplied values and slots. Render rich body, edited metadata, and action/footer content as Templ components; keep plain strings escaped. Do not add a raw-HTML escape hatch, Markdown parser, route or permission check.</p>
         </section>
