@@ -1,27 +1,106 @@
 /**
  * Comments
  *
- * Comment thread component with avatar, author name, timestamp, and body.
- * Structural layout (flex alignment) is handled by utility classes in markup.
- * Font-weight is defined here for project customization.
+ * Comment presentation.
+ *
+ * .comment remains the legacy hook. New compositions opt in to the structural
+ * rules with .comment--layout so existing utility-composed comments keep their
+ * current output.
  *
  * @example
- * <div class="comment cluster items-start text-sm">
- *   <div class="avatar">...</div>
- *   <div class="comment-body flex-1 stack stack-compact">
- *     <div class="cluster cluster-between">
- *       <span class="author">Jane Doe</span>
- *       <time>Mar 15</time>
- *     </div>
- *     <div class="prose"><p>Comment text</p></div>
+ * <article class="comment comment--layout text-sm text-fg" id="comment-42">
+ *   <a class="comment-avatar" href="/profiles/jane" aria-label="Jane Doe's profile">
+ *     <img class="avatar avatar--lg avatar--square" src="/jane.jpg" alt="">
+ *   </a>
+ *   <div class="comment-content">
+ *     <header class="comment-meta">
+ *       <span class="comment-author"><a class="author" href="/profiles/jane">Jane Doe</a></span>
+ *       <a class="comment-permalink" href="#comment-42" aria-label="March 15, link to comment">
+ *         <time class="comment-timestamp" datetime="2026-03-15">Mar 15</time>
+ *       </a>
+ *     </header>
+ *     <div class="comment-body prose"><p>Comment text</p></div>
+ *     <footer class="comment-footer">...</footer>
  *   </div>
- * </div>
+ * </article>
  */
 
 @layer components {
   .comment {
     & .author {
       font-weight: var(--font-bold);
+    }
+  }
+
+  .comment--layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--line-1);
+    min-inline-size: 0;
+
+    & .comment-avatar {
+      flex: none;
+    }
+
+    & .comment-content {
+      flex: 1 1 0%;
+      min-inline-size: 0;
+    }
+
+    & .comment-meta {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--line-05);
+      min-inline-size: 0;
+    }
+
+    & .comment-author {
+      flex: 1 1 12ch;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
+    }
+
+    & :where(.comment-permalink, .comment-timestamp) {
+      flex: 0 1 auto;
+      max-inline-size: 100%;
+      overflow-wrap: anywhere;
+      text-align: end;
+    }
+
+    & .comment-body {
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
+
+      & :where(a, code) {
+        overflow-wrap: anywhere;
+      }
+
+      & pre {
+        max-inline-size: 100%;
+        overflow: auto;
+        overscroll-behavior-inline: contain;
+      }
+
+      & :where(img, video) {
+        block-size: auto;
+        max-inline-size: 100%;
+      }
+    }
+
+    & .comment-edited,
+    & .comment-footer {
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
+    }
+
+    & .comment-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--line-05);
+      min-inline-size: 0;
     }
   }
 }

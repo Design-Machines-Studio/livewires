@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+  <title>Comments &ndash; Components Reference &ndash; Live Wires</title>
+</head>
+<body class="scheme-default">
+  <html-include src="/_includes/header.html"></html-include>
+  <main id="main">
+    <article class="section prose">
+      <h1>Comments</h1>
+      <p>One ordinary comment shape can serve a proposal discussion and a Chat reply. The caller supplies meaning and content. Live Wires supplies the shared presentation hooks.</p>
+      <p>The first example in each pair reproduces the current consumer structure from its inspected template. The second uses the shared hooks with the same content for a direct visual comparison.</p>
+
+      <h2>Proposal comment &mdash; current source visual reference</h2>
+      <div class="comment pb-2 pt-075 border-t" id="proposal-comment-source">
+        <div class="cluster items-start text-sm text-fg">
+          <a href="#jane-profile" aria-label="Jane Doe's profile"><img class="avatar avatar--lg avatar--square" src="/img/guide/ludd-avatar.jpg" alt=""></a>
+          <div class="flex-1 min-w-0">
+            <header class="flex justify-between items-start gap-05">
+              <span class="flex-1 min-w-0"><a class="font-bold text-fg underline" href="#jane-profile">Jane Doe</a></span>
+              <time class="flex-none text-right text-muted text-xs" datetime="2026-03-15T09:30:00-07:00">Mar 15 at 9:30</time>
+            </header>
+            <div class="prose text-base mt-075"><p>I support the proposal. The repair schedule gives the crew a clear first step, and the budget keeps the work inside the amount we agreed to spend.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Same proposal comment &mdash; shared hooks</h3>
+      <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="proposal-comment-42">
+        <a class="comment-avatar" href="#jane-profile" aria-label="Jane Doe's profile">
+          <img class="avatar avatar--lg avatar--square" src="/img/guide/ludd-avatar.jpg" alt="">
+        </a>
+        <div class="comment-content">
+          <header class="comment-meta">
+            <span class="comment-author"><a class="author" href="#jane-profile">Jane Doe</a></span>
+            <a class="comment-permalink text-muted text-xs" href="#proposal-comment-42" aria-label="March 15, 2026 at 9:30, link to comment">
+              <time class="comment-timestamp" datetime="2026-03-15T09:30:00-07:00">Mar 15 at 9:30</time>
+            </a>
+          </header>
+          <div class="comment-body prose text-base mt-075">
+            <p>I support the proposal. The repair schedule gives the crew a clear first step, and the budget keeps the work inside the amount we agreed to spend.</p>
+          </div>
+        </div>
+      </article>
+
+      <h2>Chat reply &mdash; current source visual reference</h2>
+      <article class="comment pb-2 pt-075 border-t" id="post-815-source">
+        <div class="cluster items-start text-sm text-fg">
+          <a href="#sam-profile" aria-label="Sam Rivera's profile"><img class="avatar avatar--lg avatar--square" src="/img/guide/ludd-avatar.jpg" alt=""></a>
+          <div class="flex-1 min-w-0">
+            <header class="flex justify-between items-start gap-05">
+              <span class="flex-1 min-w-0"><a class="font-bold text-fg underline" href="#sam-profile">Sam Rivera</a></span>
+              <a class="flex-none text-right text-muted text-xs" href="#post-815-source" aria-label="March 15 at 10:05, link to message 815"><time datetime="2026-03-15T10:05:00-07:00">Mar 15 at 10:05</time></a>
+            </header>
+            <div class="prose text-base mt-075"><p>I can take the first shift on Tuesday. I&rsquo;ll post the supply list here before the end of the day.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <h3>Same Chat reply &mdash; shared hooks</h3>
+      <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="post-815">
+        <a class="comment-avatar" href="#sam-profile" aria-label="Sam Rivera's profile">
+          <img class="avatar avatar--lg avatar--square" src="/img/guide/ludd-avatar.jpg" alt="">
+        </a>
+        <div class="comment-content">
+          <header class="comment-meta">
+            <span class="comment-author"><a class="author" href="#sam-profile">Sam Rivera</a></span>
+            <a class="comment-permalink text-muted text-xs" href="#post-815" aria-label="March 15, 2026 at 10:05, link to message 815">
+              <time class="comment-timestamp" datetime="2026-03-15T10:05:00-07:00">Mar 15 at 10:05</time>
+            </a>
+          </header>
+          <div class="comment-body prose text-base mt-075">
+            <p>I can take the first shift on Tuesday. I’ll post the supply list here before the end of the day.</p>
+          </div>
+        </div>
+      </article>
+
+      <h2>Unlinked author and no avatar</h2>
+      <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="proposal-comment-43">
+        <div class="comment-content">
+          <header class="comment-meta">
+            <span class="comment-author"><span class="author">Morgan Lee</span></span>
+            <time class="comment-timestamp text-muted text-xs" datetime="2026-03-15">Mar 15</time>
+          </header>
+          <div class="comment-body prose text-base mt-075">
+            <p>The author has no profile link or avatar. The comment still has a stable anchor and a semantic time.</p>
+          </div>
+        </div>
+      </article>
+
+      <h2>Unlinked author and avatar</h2>
+      <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="comment-unlinked-avatar">
+        <span class="comment-avatar"><img class="avatar avatar--lg avatar--square" src="/img/guide/ludd-avatar.jpg" alt=""></span>
+        <div class="comment-content">
+          <header class="comment-meta">
+            <span class="comment-author"><span class="author">Robin Patel</span></span>
+            <time class="comment-timestamp text-muted text-xs" datetime="2026-03-15">Mar 15</time>
+          </header>
+          <div class="comment-body prose text-base mt-075"><p>The avatar is decorative and unlinked. The visible author name identifies the person.</p></div>
+        </div>
+      </article>
+
+      <h2>Long names, timestamps, links, and code</h2>
+      <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="comment-long-values">
+        <a class="comment-avatar" href="#avery-profile" aria-label="Avery MacAllister-Sandoval's profile">
+          <img class="avatar avatar--lg avatar--square" src="/img/guide/ludd-avatar.jpg" alt="">
+        </a>
+        <div class="comment-content">
+          <header class="comment-meta">
+            <span class="comment-author"><a class="author" href="#avery-profile">Avery MacAllister-Sandoval, member of the north workshop crew</a></span>
+            <a class="comment-permalink text-muted text-xs" href="#comment-long-values" aria-label="September 30, 2026 at 11:48 PM UTC, link to comment">
+              <time class="comment-timestamp" datetime="2026-09-30T23:48:00Z">September 30, 2026 at 11:48 PM UTC</time>
+            </a>
+          </header>
+          <div class="comment-body prose text-base mt-075">
+            <p>Use <a href="https://example.test/a/very/long/path/that/keeps/going/so/the/link/can-wrap-without-pushing-the-page-out-of-view">this long reference link</a> to check wrapping. Inline code can contain a long identifier such as <code>proposal_response_history_entry_identifier_2026_09_30</code>.</p>
+            <pre><code>proposal_id = "north-workshop-repair-plan"
+decision_reference = "recorded-after-the-meeting-and-linked-from-the-minutes"</code></pre>
+          </div>
+        </div>
+      </article>
+
+      <h2>Rich body, edited metadata, and caller actions</h2>
+      <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="chat-reply-816">
+        <a class="comment-avatar" href="#riley-profile" aria-label="Riley Chen's profile">
+          <img class="avatar avatar--lg avatar--square" src="/img/guide/ludd-avatar.jpg" alt="">
+        </a>
+        <div class="comment-content">
+          <header class="comment-meta">
+            <span class="comment-author"><a class="author" href="#riley-profile">Riley Chen</a></span>
+            <a class="comment-permalink text-muted text-xs" href="#chat-reply-816" aria-label="March 15, 2026, link to message 816">
+              <time class="comment-timestamp" datetime="2026-03-15T11:15:00-07:00">Mar 15 at 11:15</time>
+            </a>
+          </header>
+          <div class="comment-body prose text-base mt-075">
+            <p>The crew shared the revised schedule and annotated the damaged stair:</p>
+            <ul>
+              <li>Replace the cracked tread.</li>
+              <li>Photograph the finished repair for the maintenance record.</li>
+            </ul>
+            <figure>
+              <img src="/img/guide/ludd-avatar.jpg" alt="A sample image used to check intrinsic media sizing">
+              <figcaption>The image stays within the comment body.</figcaption>
+            </figure>
+            <p>Keep the project notes at <a href="https://example.test/maintenance">the maintenance record</a>.</p>
+            <pre><code>repair.status = "complete"
+repair.reviewed_by = "the next shift"</code></pre>
+          </div>
+          <p class="comment-edited text-xs text-muted">Edited <time datetime="2026-03-15T11:22:00-07:00">Mar 15 at 11:22</time></p>
+          <footer class="comment-footer">
+            <ul class="comment-actions" aria-label="Comment actions">
+              <li><button class="button button--small" type="button">Reply</button></li>
+              <li><a class="button button--small" href="#comment-long-values">Copy link</a></li>
+            </ul>
+          </footer>
+        </div>
+      </article>
+
+      <h2>Inherit an enclosing scheme</h2>
+      <section class="section scheme-dark" aria-label="Comment inside an inherited dark scheme">
+        <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="comment-inherited-scheme">
+          <div class="comment-content">
+            <header class="comment-meta">
+              <span class="comment-author"><span class="author">Taylor Green</span></span>
+              <time class="comment-timestamp text-xs" datetime="2026-03-19">Mar 19</time>
+            </header>
+            <div class="comment-body prose text-base mt-075"><p>The comment sets no background or text color. It inherits the surrounding scheme.</p></div>
+          </div>
+        </article>
+      </section>
+
+      <h2>Separate comments, stable anchors, reading order</h2>
+      <div aria-label="Three comments in reading order">
+        <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="ordered-comment-1">
+          <div class="comment-content">
+            <header class="comment-meta"><span class="comment-author"><span class="author">First worker</span></span><a class="comment-permalink text-muted text-xs" href="#ordered-comment-1"><time class="comment-timestamp" datetime="2026-03-16">Mar 16</time></a></header>
+            <div class="comment-body prose"><p>First comment in the thread.</p></div>
+          </div>
+        </article>
+        <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="ordered-comment-2">
+          <div class="comment-content">
+            <header class="comment-meta"><span class="comment-author"><span class="author">Second worker</span></span><a class="comment-permalink text-muted text-xs" href="#ordered-comment-2"><time class="comment-timestamp" datetime="2026-03-17">Mar 17</time></a></header>
+            <div class="comment-body prose"><p>Second comment follows the first in DOM and reading order.</p></div>
+          </div>
+        </article>
+        <article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="ordered-comment-3">
+          <div class="comment-content">
+            <header class="comment-meta"><span class="comment-author"><span class="author">Third worker</span></span><a class="comment-permalink text-muted text-xs" href="#ordered-comment-3"><time class="comment-timestamp" datetime="2026-03-18">Mar 18</time></a></header>
+            <div class="comment-body prose"><p>Third comment follows the second in DOM and reading order.</p></div>
+          </div>
+        </article>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
