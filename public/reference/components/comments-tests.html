@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+  <title>Comments Checks &ndash; Components Reference &ndash; Live Wires</title>
+</head>
+<body class="scheme-default">
+  <html-include src="/_includes/header.html"></html-include>
+  <main id="main">
+    <article class="section prose">
+      <h1>Comment layout and semantic checks</h1>
+      <p>Run these checks against the rendered examples at desktop, 640px, 375px, and 320px. They check the page content and layout results, not CSS source declarations.</p>
+      <button id="run-checks" class="button button--accent" type="button" disabled>Run checks</button>
+      <pre id="check-results" role="status" tabindex="0" aria-label="Comment check results">Checks have not run.</pre>
+      <iframe id="comment-examples" title="Rendered comment examples" src="/reference/components/comments.html" style="inline-size: 100%; max-inline-size: 80rem; block-size: 1200px; border: var(--line-1px) solid var(--color-border);"></iframe>
+    </article>
+  </main>
+  <script type="module" src="/reference/components/comments-tests.js"></script>
+</body>
+</html>

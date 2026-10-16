@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <html-include src="/_includes/head.html"></html-include>
+    <title>Comments &ndash; Components &ndash; Live Wires</title>
+  </head>
+  <body class="scheme-default pg-components-comments">
+    <html-include src="/_includes/header.html"></html-include>
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Comments</h1>
+          <p class="lead">A shared presentation for ordinary proposal discussion and Chat replies.</p>
+        </header>
+
+        <section class="section stack">
+          <h2>The HTML contract</h2>
+          <p>Use an <code>article.comment.comment--layout</code> as the stable outer item. Give it a unique, caller-owned <code>id</code>. The optional <code>.comment-avatar</code> comes first. Put the author, time, rich body, edited note, and footer inside <code>.comment-content</code>, in that reading order. Keep presentation utilities with the caller: use <code>text-sm text-fg border-t pt-075 pb-2</code> on the outer item, <code>text-muted text-xs</code> for the timestamp and permalink, <code>text-base mt-075</code> for the body, <code>text-xs text-muted</code> for edited metadata, and <code>button button--small</code> for action buttons when matching these existing examples. Preserve author-link styling such as <code>font-bold text-fg underline</code> too.</p>
+          <pre><code>&lt;article class="comment comment--layout text-sm text-fg border-t pt-075 pb-2" id="comment-42"&gt;
+  &lt;a class="comment-avatar" href="/profiles/jane"
+     aria-label="Jane Doe's profile"&gt;
+    &lt;img class="avatar avatar--lg avatar--square"
+         src="/jane.jpg" alt=""&gt;
+  &lt;/a&gt;
+  &lt;div class="comment-content"&gt;
+    &lt;header class="comment-meta"&gt;
+      &lt;span class="comment-author"&gt;
+        &lt;a class="author font-bold text-fg underline" href="/profiles/jane"&gt;Jane Doe&lt;/a&gt;
+      &lt;/span&gt;
+      &lt;a class="comment-permalink text-muted text-xs" href="#comment-42"
+         aria-label="Mar 15, link to comment 42"&gt;
+        &lt;time class="comment-timestamp" datetime="2026-03-15T09:30:00-07:00"&gt;Mar 15&lt;/time&gt;
+      &lt;/a&gt;
+    &lt;/header&gt;
+    &lt;div class="comment-body prose text-base mt-075"&gt;
+      &lt;p&gt;Caller-rendered trusted rich content goes here.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p class="comment-edited text-xs text-muted"&gt;Edited
+      &lt;time datetime="2026-03-15T09:40:00-07:00"&gt;Mar 15 at 9:40&lt;/time&gt;
+    &lt;/p&gt;
+    &lt;footer class="comment-footer"&gt;
+      &lt;ul class="comment-actions" aria-label="Comment actions"&gt;
+        &lt;li&gt;&lt;button class="button button--small" type="button"&gt;Reply&lt;/button&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+        </section>
+
+        <section class="section stack">
+          <h2>Hook reference</h2>
+          <dl class="stack stack-compact">
+            <div><dt><code>.comment</code></dt><dd>Legacy selector retained. It does not gain new structural layout rules.</dd></div>
+            <div><dt><code>.comment--layout</code></dt><dd>Opt-in flex row for avatar and content. It owns the evidenced comment structure, not a chat bubble or card.</dd></div>
+            <div><dt><code>.comment-avatar</code></dt><dd>Optional avatar link or image wrapper. Use <code>alt=""</code> when the visible author already names the person. A linked avatar needs an accessible link name.</dd></div>
+            <div><dt><code>.comment-content</code></dt><dd>Flexible, shrinkable column containing metadata, body, edited text, and footer.</dd></div>
+            <div><dt><code>.comment-meta</code></dt><dd>Author and time row. Long values wrap instead of widening the page.</dd></div>
+            <div><dt><code>.comment-author</code></dt><dd>Visible author text, linked or unlinked. Keep profile links here separate from actions.</dd></div>
+            <div><dt><code>.comment-timestamp</code></dt><dd>Semantic <code>&lt;time datetime&gt;</code> with caller-formatted visible text, whether or not it links. No locale or relative-time policy is imposed.</dd></div>
+            <div><dt><code>.comment-permalink</code></dt><dd>Optional link to the comment's stable ID. It may wrap the timestamp; keep the link name meaningful and separate from action controls.</dd></div>
+            <div><dt><code>.comment-body</code></dt><dd>Caller-rendered paragraphs, lists, links, code, and media. Long links and inline code wrap; preformatted code scrolls within its own width; images and video stay within the body.</dd></div>
+            <div><dt><code>.comment-edited</code></dt><dd>Optional caller-owned edited text/time. The presentation does not infer edit eligibility, audit rules, or timestamps.</dd></div>
+            <div><dt><code>.comment-footer</code> / <code>.comment-actions</code></dt><dd>Optional caller-owned controls, separate from profile and permalink links. Use native links and buttons; the framework's normal visible focus remains active.</dd></div>
+          </dl>
+        </section>
+
+        <section class="section stack">
+          <h2>Time, links, and avatars</h2>
+          <p>Supply a machine-readable <code>datetime</code> and the visible time text inside <code>.comment-timestamp</code>. The caller chooses the date format. An optional <code>.comment-permalink</code> may wrap the time; if it has an <code>aria-label</code>, start it with the exact visible time text, then identify the destination, for example “Mar 15, link to comment 42.” Keep action controls in the footer, outside that link.</p>
+          <p>When a visible author name already identifies the person, treat the avatar image as decorative with an empty alt. If the avatar links to a profile, name the link, such as “Jane Doe's profile.” An unlinked avatar remains decorative. A missing avatar is valid.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Rich content and ownership</h2>
+          <p>The caller renders the body through its trusted content pipeline. The body may contain paragraphs, lists, links, code, figures, and images. Sanitization, allowed URL rules, protected-media authorization, and image alt text stay with that caller. This presentation never accepts raw HTML as a shortcut.</p>
+          <p>Do not add <code>aria-live</code> to a comment or its container. Chat owns arrival announcements and reading position; Governance owns proposal positions, removals, recorded decisions, outcome colors, history, and edit permissions.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Mapping the consumers</h2>
+          <div class="reel" role="region" aria-label="Comment consumer mapping table" tabindex="0">
+            <table class="flex-none">
+              <thead><tr><th scope="col">Current source</th><th scope="col">Shared hooks</th><th scope="col">Retained by the domain owner</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Governance ordinary <code>DiscussionComment</code>: <code>.comment</code> wrapper, avatar/profile branch, author and time row, rich body</th><td><code>.comment--layout</code>, optional <code>.comment-avatar</code>, <code>.comment-content</code>, <code>.comment-meta</code>, <code>.comment-author</code>, <code>.comment-timestamp</code>, optional <code>.comment-permalink</code>, <code>.comment-body</code></td><td>Position labels/history, removed positions, outcome colors, explanatory text and edit permissions. Decision notes remain their existing specialized composition.</td></tr>
+                <tr><th scope="row">Chat <code>PostArticle</code>: anchored article, accessible linked avatar, author/profile link, message permalink/time, rich body</th><td>The same shared hooks, with the existing <code>post-ID</code> as its stable outer anchor</td><td>Conversation order, pagination, reading position, moderation and permitted actions. Chat page header and reply composer remain unchanged.</td></tr>
+                <tr><th scope="row">Live Wires Templ <code>CommentComponent</code></th><td>New rich composition can target this documented DOM/CSS contract.</td><td>Keep <code>Comment</code> and <code>CommentComponent</code> output and behavior compatible: escaped plain body, existing DateShort formatting, avatar, badge, size/alignment classes and attributes.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>This is a producer contract for Templ issue #24. It does not implement that component or migrate either consumer.</p>
+          <p>For that Templ component, emit this structure from the caller's supplied values and slots. Render rich body, edited metadata, and action/footer content as Templ components; keep plain strings escaped. Do not add a raw-HTML escape hatch, Markdown parser, route or permission check.</p>
+        </section>
+
+        <section class="section stack">
+          <h2>Examples and checks</h2>
+          <p><a href="/reference/components/comments.html">Open the rendered comment examples</a> for the ordinary proposal and Chat cases, long values, optional avatar/profile link, rich content, actions, edited metadata, and multiple anchors.</p>
+          <p><a href="/reference/components/comments-tests.html">Run the browser layout and semantic checks</a> at desktop, 640px, 375px, and 320px.</p>
+          <p>Check the page at desktop width and at 375px and 320px. Use a 640px CSS viewport to check the reflow expected at 200% zoom from a 1280px baseline. Also check light and dark appearance, an inherited scheme, keyboard focus, no-JavaScript rendering, rich-content overflow, and media bounds. The DOM can verify semantic time, unique IDs, empty avatar alt text, named linked avatars, and that timestamp permalinks target existing IDs. Those checks do not replace testing with an actual screen reader.</p>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>
