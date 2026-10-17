@@ -17,14 +17,30 @@ for (const demo of document.querySelectorAll('[data-torque-demo]')) {
 // The page-overlay preview has only hardware visible. It never reports a save.
 const overlay = document.querySelector('[data-loader-overlay]');
 let overlayTimer;
+let overlayInert = [];
+let overlayReturnFocus = null;
 function hideOverlay() {
-  if (overlay) overlay.hidden = true;
   clearTimeout(overlayTimer);
+  if (!overlay || overlay.hidden) return;
+  overlay.hidden = true;
+  for (const element of overlayInert) element.inert = false;
+  overlayInert = [];
+  if (overlayReturnFocus?.isConnected) overlayReturnFocus.focus({ preventScroll: true });
+  overlayReturnFocus = null;
 }
 for (const button of document.querySelectorAll('[data-show-loader-overlay]')) {
   button.addEventListener('click', () => {
     clearTimeout(overlayTimer);
-    overlay.hidden = false;
+    if (overlay.hidden) {
+      overlayReturnFocus = document.activeElement;
+      for (const element of document.body.children) {
+        if (element === overlay.parentElement || element.inert) continue;
+        element.inert = true;
+        overlayInert.push(element);
+      }
+      overlay.hidden = false;
+      overlay.querySelector('[data-loader-overlay-label]').focus({ preventScroll: true });
+    }
     overlayTimer = setTimeout(hideOverlay, 2000);
   });
 }

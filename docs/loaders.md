@@ -26,12 +26,14 @@ The Templ library provides `LoaderIconComponent` for composition, `LoaderCompone
 
 `.loader-panel` centers Driver Line within a component, fills a sized parent's height, and has a six-line minimum height. Both surfaces honor `hidden` and show only hardware; `.visually-hidden` preserves the accessible loading label.
 
-Templ exports `LoaderOverlayComponent(LoaderOverlayProps)` / `LoaderOverlay(label)` and `LoaderPanelComponent(LoaderPanelProps)` / `LoaderPanel(label)`. `Loader(label, "line")` also renders a panel. The application owns visibility and busy state; for a blocking page operation it also owns inert background content. Keep the status surface outside any busy/inert subtree. A panel used as an optional LoadingRegion indicator uses `Indicator: LoaderIcon("line"), IndicatorClass: "loader-panel"`, retaining the existing controller's separate announcement. Do not nest the standalone live surface inside that indicator.
+Templ exports `LoaderOverlayComponent(LoaderOverlayProps)` / `LoaderOverlay(label)` and `LoaderPanelComponent(LoaderPanelProps)` / `LoaderPanel(label)`. `Loader(label, "line")` also renders a panel. The application owns visibility and busy state; for a blocking page operation it also owns inert background content and focus restoration. Keep one status wrapper mounted and visible outside any busy/inert subtree, and toggle `hidden` on the visual overlay inside it. The preview focuses its hidden label while open and restores the previous focus when it closes. A panel used as an optional LoadingRegion indicator uses `Indicator: LoaderIcon("line"), IndicatorClass: "loader-panel"`, retaining the existing controller's separate announcement. Do not nest the standalone live surface inside that indicator.
 
 ```html
-<div class="loader-overlay" hidden role="status" aria-atomic="true">
-  <!-- Full .loader--line SVG from the canonical reference -->
-  <span class="visually-hidden">Loading page</span>
+<div role="status" aria-atomic="true">
+  <div class="loader-overlay" hidden>
+    <!-- Full .loader--line SVG from the canonical reference -->
+    <span class="visually-hidden" tabindex="-1">Loading page</span>
+  </div>
 </div>
 <div class="loader-panel" role="status" aria-atomic="true">
   <!-- Full .loader--line SVG from the canonical reference -->
