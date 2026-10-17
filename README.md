@@ -348,3 +348,5 @@ form submission, required validation, disabled fieldsets, reset and HTML fallbac
 Load separate `combobox.js`/`combobox.css` assets; fetching and save validation stay
 application-owned. See the maintained [manual](public/manual/components/combobox.html)
 and [form reference](public/reference/forms/combobox.html).
+
+Hardware loaders: [Ratchet, Driver Line, and Torque](docs/loaders.md) work inline in buttons, loading/save regions, or as standalone status/progress indicators.

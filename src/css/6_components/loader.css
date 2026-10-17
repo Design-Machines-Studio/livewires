@@ -1,0 +1,153 @@
+/*
+ * Loader
+ * Loading and progress indicators drawn from the DM hardware set
+ * (Figma: DM Design System › Graphics › Hardware). Source proof: DM-005 motion proof 02.
+ *
+ *   .loader--ratchet   One Phillips head: pressed, turned 90° with an overshoot, released.
+ *   .loader--line      Four heads pressed and turned in sequence. Phillips-only or mixed.
+ *   .loader--torque    Determinate. Washer is the track, paint fills it, the head turns.
+ *
+ * Hardware is drawn in currentColor and sized in em, so a loader takes the colour
+ * and size of the text it sits in. Every duration multiplies --loader-speed.
+ * Torque reads --p (0 to 1) and plays a final click on data-state="complete".
+ *
+ * Import in src/css/main.css alongside the other 6_components files.
+ */
+
+@layer components {
+  .loader {
+
+    display: inline-block;
+    flex-shrink: 0;
+    block-size: 1em;
+    inline-size: auto;
+    vertical-align: -0.125em;
+    overflow: visible;
+    fill: currentColor;
+
+    &[hidden] { display: none; }
+
+    & [class] {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+  }
+
+  /* Driver line: slot heads set --deg: 180deg inline; Phillips and Robertson use 90deg. */
+  .loader--line .head { --deg: 90deg; }
+
+  /* Torque: track and paint are theming hooks. Inside a button the track tints back
+     and the paint takes the label colour, so progress reads on any button colour. */
+  .loader--torque {
+    --loader-track: currentColor;
+    --loader-paint: var(--color-accent);
+
+    & .track { fill: var(--loader-track); }
+
+    & .fill {
+      fill: none;
+      stroke: var(--loader-paint);
+      stroke-dasharray: 1021.02;
+      stroke-dashoffset: calc(1021.02px * (1 - clamp(0, var(--p, 0), 1)));
+    }
+
+    & .head { transform: rotate(calc(clamp(0, var(--p, 0), 1) * 540deg)); }
+  }
+
+  :is(button, .button) .loader--torque {
+    --loader-track: color-mix(in srgb, currentColor 30%, transparent);
+    --loader-paint: currentColor;
+  }
+
+  /* Inline spacing also works for native buttons without a .button class. */
+  :is(button, .button, .save-status) > .loader {
+    margin-inline-end: var(--line-025);
+  }
+
+  .save-status:not([data-save-state="saving"]) > .loader { display: none; }
+
+  @media (forced-colors: active) {
+    .loader--torque {
+      --loader-track: GrayText;
+      --loader-paint: CanvasText;
+    }
+
+    :is(button, .button) .loader--torque {
+      --loader-track: GrayText;
+      --loader-paint: ButtonText;
+    }
+  }
+
+  /* Driver Line is a standalone loading surface, never a button icon. */
+  :is(button, .button) .loader--line { display: none; }
+
+  .loader-panel,
+  .loader-overlay {
+    display: grid;
+    place-items: center;
+
+    &[hidden] { display: none; }
+  }
+
+  .loader-panel {
+    block-size: 100%;
+    min-block-size: var(--line-6);
+  }
+
+  .loader-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    /* Opacity belongs to the background; the hardware stays fully opaque. */
+    background: color-mix(in srgb, var(--color-bg) 80%, transparent);
+  }
+
+  @keyframes loader-ratchet {
+    0%        { transform: rotate(0deg) scale(1);     animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1); }
+    9%        { transform: rotate(0deg) scale(0.88);  animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1.9); }
+    48%       { transform: rotate(90deg) scale(0.88); animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1.5); }
+    58%, 100% { transform: rotate(90deg) scale(1); }
+  }
+
+  @keyframes loader-drive {
+    0%        { transform: rotate(0deg) scale(1);           animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1); }
+    7%        { transform: rotate(0deg) scale(0.86);        animation-timing-function: cubic-bezier(0.6, 0, 0.3, 1.2); }
+    30%       { transform: rotate(var(--deg)) scale(0.86);  animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1.6); }
+    38%, 100% { transform: rotate(var(--deg)) scale(1); }
+  }
+
+  @keyframes loader-torque {
+    0%   { transform: rotate(0deg) scale(1); }
+    30%  { transform: rotate(-4deg) scale(0.95); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+
+  /* Motion only when the reader hasn't asked for less. With reduced motion the hardware
+     holds still, the text beside the loader carries the state, and Torque's paint still
+     steps to the current --p. */
+  @media (prefers-reduced-motion: no-preference) {
+    /* Ratchet: Phillips is symmetric at 90°, so one quarter turn loops forever. */
+    .loader--ratchet .head {
+      animation: loader-ratchet calc(var(--loader-speed, 1) * 0.85s) infinite;
+    }
+
+    .loader--line .head {
+      animation: loader-drive calc(var(--loader-speed, 1) * 1.6s) infinite;
+      animation-delay: calc(var(--loader-speed, 1) * var(--i, 0) * 0.2s);
+    }
+
+    .loader--torque {
+      & .fill { transition: stroke-dashoffset calc(var(--loader-speed, 1) * 0.3s) cubic-bezier(0.3, 0, 0.15, 1); }
+      & .head { transition: transform calc(var(--loader-speed, 1) * 0.3s) cubic-bezier(0.3, 0, 0.15, 1.3); }
+
+      &[data-state="complete"] {
+        animation: loader-torque calc(var(--loader-speed, 1) * 0.26s) calc(var(--loader-speed, 1) * 0.2s) both;
+      }
+
+      &[data-state="reset"] :is(.fill, .head) {
+        transition-duration: calc(var(--loader-speed, 1) * 0.7s);
+        transition-timing-function: cubic-bezier(0.5, 0, 0.3, 1);
+      }
+    }
+  }
+}
