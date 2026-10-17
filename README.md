@@ -349,4 +349,4 @@ Load separate `combobox.js`/`combobox.css` assets; fetching and save validation 
 application-owned. See the maintained [manual](public/manual/components/combobox.html)
 and [form reference](public/reference/forms/combobox.html).
 
-Hardware loaders: [Ratchet, Driver Line, and Torque](docs/loaders.md) work inline in buttons, loading/save regions, or as standalone status/progress indicators.
+Hardware loaders: [Ratchet and Torque](docs/loaders.md) work in buttons and loading/save regions. Driver Line is always standalone, centered in a container panel or full-page overlay.
