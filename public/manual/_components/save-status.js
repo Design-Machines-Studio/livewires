@@ -16,7 +16,7 @@ document.querySelectorAll('[data-demo-target]').forEach((button) => {
     if (!editor?.status || !editor.support) return;
 
     editor.status.dataset.saveState = button.dataset.demoState;
-    editor.status.textContent = button.dataset.demoLabel;
+    (editor.status.querySelector('[data-save-label]') ?? editor.status).textContent = button.dataset.demoLabel;
     editor.support.textContent = button.dataset.demoSupport;
   });
 });

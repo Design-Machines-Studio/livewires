@@ -348,3 +348,5 @@ form submission, required validation, disabled fieldsets, reset and HTML fallbac
 Load separate `combobox.js`/`combobox.css` assets; fetching and save validation stay
 application-owned. See the maintained [manual](public/manual/components/combobox.html)
 and [form reference](public/reference/forms/combobox.html).
+
+Hardware loaders: [Ratchet and Torque](docs/loaders.md) work in buttons and loading/save regions. Driver Line is always standalone, centered in a container panel or full-page overlay.

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loaders – Live Wires</title>
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+</head>
+<body class="scheme-default pg-components pg-components-loaders">
+<html-include src="../_includes/header.html"></html-include>
+<main class="main sidebar" id="main">
+  <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+  <article class="prose">
+    <header class="section scheme-dark"><h1>Loaders</h1><p class="lead">Hardware motion for buttons, loading regions, and measured progress.</p></header>
+<section class="section stack">
+  <h2>Ratchet</h2>
+  <p>One Phillips head for inline waits and buttons. Size and color follow the surrounding text.</p>
+  <p role="status" aria-atomic="true"><svg class="loader loader--ratchet" viewBox="-230 -230 460 460" aria-hidden="true" focusable="false">
+    <path class="head" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/>
+  </svg> Loading proposals</p>
+  <div class="cluster">
+    <button class="button--accent" type="button" aria-busy="true" disabled><svg class="loader loader--ratchet" viewBox="-230 -230 460 460" aria-hidden="true" focusable="false">
+    <path class="head" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/>
+  </svg> Saving</button>
+    <button class="button button--small" type="button" aria-busy="true" disabled><svg class="loader loader--ratchet" viewBox="-230 -230 460 460" aria-hidden="true" focusable="false">
+    <path class="head" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/>
+  </svg> Saving</button>
+    <button class="button button--large" type="button" aria-busy="true" disabled><svg class="loader loader--ratchet" viewBox="-230 -230 460 460" aria-hidden="true" focusable="false">
+    <path class="head" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/>
+  </svg> Saving</button>
+  </div>
+</section>
+<section class="section stack">
+  <h2>Driver Line</h2>
+  <p>Four heads turn in sequence. Always shown on their own, centered in a loading panel or a page overlay. Choose Phillips or mixed hardware.</p>
+  <div class="loader-panel" role="status" aria-atomic="true"><svg class="loader loader--line" viewBox="-230 -230 1960 460" aria-hidden="true" focusable="false">
+    <g transform="translate(0 0)"><path class="head" style="--i: 0" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+    <g transform="translate(500 0)"><path class="head" style="--i: 1" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+    <g transform="translate(1000 0)"><path class="head" style="--i: 2" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+    <g transform="translate(1500 0)"><path class="head" style="--i: 3" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+  </svg><span class="visually-hidden">Syncing members</span></div>
+  <div class="loader-panel" role="status" aria-atomic="true"><svg class="loader loader--line" viewBox="-230 -230 1960 460" aria-hidden="true" focusable="false">
+    <g transform="translate(0 0)"><path class="head" style="--i: 0" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+    <g transform="translate(500 0)"><path class="head" style="--i: 1; --deg: 180deg" d="M-208.95 -21A210 210 0 0 1 208.95 -21ZM208.95 21A210 210 0 0 1 -208.95 21Z"/></g>
+    <g transform="translate(1000 0)"><path class="head" style="--i: 2" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-76 -88H76Q88 -88 88 -76V76Q88 88 76 88H-76Q-88 88 -88 76V-76Q-88 -88 -76 -88Z"/></g>
+    <g transform="translate(1500 0)"><path class="head" style="--i: 3" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+  </svg><span class="visually-hidden">Preparing files</span></div>
+
+</section>
+<section class="section stack">
+  <h2>Page overlay</h2>
+  <p>The overlay covers the viewport with the current background color at 80% opacity. Only Driver Line is visible, centered. This presentation preview closes after two seconds or Escape.</p>
+  <button type="button" data-show-loader-overlay>Preview page overlay</button>
+</section>
+<section class="section stack">
+  <h2>Container loading</h2>
+  <p>Place the panel inside a component to center Driver Line while content is loading. The loading panel fills a sized container and has a six-line minimum height.</p>
+  <div class="box bg-subtle h-line-8">
+    <div class="loader-panel" role="status" aria-atomic="true"><svg class="loader loader--line" viewBox="-230 -230 1960 460" aria-hidden="true" focusable="false">
+    <g transform="translate(0 0)"><path class="head" style="--i: 0" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+    <g transform="translate(500 0)"><path class="head" style="--i: 1; --deg: 180deg" d="M-208.95 -21A210 210 0 0 1 208.95 -21ZM208.95 21A210 210 0 0 1 -208.95 21Z"/></g>
+    <g transform="translate(1000 0)"><path class="head" style="--i: 2" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-76 -88H76Q88 -88 88 -76V76Q88 88 76 88H-76Q-88 88 -88 76V-76Q-88 -88 -76 -88Z"/></g>
+    <g transform="translate(1500 0)"><path class="head" style="--i: 3" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+  </svg><span class="visually-hidden">Loading content</span></div>
+  </div>
+</section>
+<section class="section stack" data-torque-demo>
+  <h2>Torque</h2>
+  <p>Measured progress, from zero to one. Update the visual, percentage, and progressbar value together from the same job state.</p>
+  <label>Export progress <input type="range" min="0" max="100" value="40" data-loader-progress></label>
+  <div role="progressbar" aria-label="Export progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" data-loader-meter>
+    <svg class="loader loader--torque" style="--p: 0.4;" data-state="pending" viewBox="-240 -240 480 480" aria-hidden="true" focusable="false">
+    <path class="track" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM115 0A115 115 0 1 0 -115 0A115 115 0 1 0 115 0Z"/>
+    <circle class="fill" r="162.5" stroke-width="95" transform="rotate(-90)"/>
+    <path class="head" fill-rule="evenodd" d="M98 0A98 98 0 1 0 -98 0A98 98 0 1 0 98 0ZM-9.8 -58.8L9.8 -58.8L9.8 -9.8L58.8 -9.8L58.8 9.8L9.8 9.8L9.8 58.8L-9.8 58.8L-9.8 9.8L-58.8 9.8L-58.8 -9.8L-9.8 -9.8Z"/>
+  </svg> <span data-loader-percentage>40%</span>
+  </div>
+  <button type="button" aria-busy="true" disabled><svg class="loader loader--torque" style="--p: 0.4;" data-state="pending" viewBox="-240 -240 480 480" aria-hidden="true" focusable="false">
+    <path class="track" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM115 0A115 115 0 1 0 -115 0A115 115 0 1 0 115 0Z"/>
+    <circle class="fill" r="162.5" stroke-width="95" transform="rotate(-90)"/>
+    <path class="head" fill-rule="evenodd" d="M98 0A98 98 0 1 0 -98 0A98 98 0 1 0 98 0ZM-9.8 -58.8L9.8 -58.8L9.8 -9.8L58.8 -9.8L58.8 9.8L9.8 9.8L9.8 58.8L-9.8 58.8L-9.8 9.8L-58.8 9.8L-58.8 -9.8L-9.8 -9.8Z"/>
+  </svg> <span data-loader-percentage>Exporting 40%</span></button>
+  <p>Completing progress does not confirm a save. The application supplies the result separately.</p>
+</section>
+<section class="section stack scheme-dark">
+  <h2>Inherited color and scale</h2>
+  <p class="text-3xl"><svg class="loader loader--ratchet" viewBox="-230 -230 460 460" aria-hidden="true" focusable="false">
+    <path class="head" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/>
+  </svg></p><div class="loader-panel text-3xl" role="status" aria-atomic="true"><svg class="loader loader--line" viewBox="-230 -230 1960 460" aria-hidden="true" focusable="false">
+    <g transform="translate(0 0)"><path class="head" style="--i: 0" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+    <g transform="translate(500 0)"><path class="head" style="--i: 1; --deg: 180deg" d="M-208.95 -21A210 210 0 0 1 208.95 -21ZM208.95 21A210 210 0 0 1 -208.95 21Z"/></g>
+    <g transform="translate(1000 0)"><path class="head" style="--i: 2" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-76 -88H76Q88 -88 88 -76V76Q88 88 76 88H-76Q-88 88 -88 76V-76Q-88 -88 -76 -88Z"/></g>
+    <g transform="translate(1500 0)"><path class="head" style="--i: 3" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+  </svg><span class="visually-hidden">Loading content</span></div>
+  <p>With reduced motion, the heads stay still and Torque still shows the current progress.</p>
+</section>
+<section class="section stack">
+  <h2>Loading and save regions</h2>
+  <p>Use the SVG as the decorative indicator in <a href="/manual/components/loading.html">LoadingRegion</a> or while <a href="/manual/components/save-status.html">SaveStatus</a> is saving. Keep the region's existing announcement and request ownership.</p>
+  <div role="status" aria-atomic="true"><p class="save-status" data-save-status data-save-state="saving"><svg class="loader loader--ratchet" viewBox="-230 -230 460 460" aria-hidden="true" focusable="false">
+    <path class="head" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/>
+  </svg><span data-save-label>Saving…</span></p></div>
+</section><section class="section stack"><h2>Use the reference markup</h2><p><a href="/reference/components/loaders.html">Canonical SVG examples</a> provide the complete paths. SVGs use <code>aria-hidden="true" focusable="false"</code>; the host supplies readable status text. Put standalone indeterminate loaders in a persistent <code>role="status"</code> region. For measured progress, use <code>role="progressbar"</code> with an accessible name and matching numeric values.</p><pre><code>&lt;svg class="loader loader--ratchet" viewBox="-230 -230 460 460"
+     aria-hidden="true" focusable="false"&gt;…&lt;/svg&gt;
+
+&lt;svg class="loader loader--torque" style="--p: 0.4;" data-state="pending"
+     viewBox="-240 -240 480 480" aria-hidden="true" focusable="false"&gt;…&lt;/svg&gt;</code></pre><p>Adjust <code>--loader-speed</code> on the SVG or an ancestor (1 is the proofed speed). Torque accepts <code>--loader-track</code> and <code>--loader-paint</code> color hooks. Set <code>data-state="complete"</code> for the final click, or <code>data-state="reset"</code> with <code>--p: 0</code> to rewind.</p><p>Button busy state, disabling, focus, and request lifecycle remain host-controlled. Keep result announcements outside busy content.</p></section>
+  </article>
+</main>
+<div role="status" aria-atomic="true">
+<div class="loader-overlay" data-loader-overlay hidden>
+  <svg class="loader loader--line" viewBox="-230 -230 1960 460" aria-hidden="true" focusable="false">
+    <g transform="translate(0 0)"><path class="head" style="--i: 0" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+    <g transform="translate(500 0)"><path class="head" style="--i: 1; --deg: 180deg" d="M-208.95 -21A210 210 0 0 1 208.95 -21ZM208.95 21A210 210 0 0 1 -208.95 21Z"/></g>
+    <g transform="translate(1000 0)"><path class="head" style="--i: 2" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-76 -88H76Q88 -88 88 -76V76Q88 88 76 88H-76Q-88 88 -88 76V-76Q-88 -88 -76 -88Z"/></g>
+    <g transform="translate(1500 0)"><path class="head" style="--i: 3" fill-rule="evenodd" d="M210 0A210 210 0 1 0 -210 0A210 210 0 1 0 210 0ZM-21 -126L21 -126L21 -21L126 -21L126 21L21 21L21 126L-21 126L-21 21L-126 21L-126 -21L-21 -21Z"/></g>
+  </svg>
+  <span class="visually-hidden" data-loader-overlay-label tabindex="-1">Loading page</span>
+</div>
+</div>
+  <html-include src="/_includes/footer.html"></html-include>
+  <script type="module" src="/manual/_components/loaders.js"></script>
+</body>
+</html>

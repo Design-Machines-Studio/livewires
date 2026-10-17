@@ -89,3 +89,7 @@ The normalized phases are `started`, `finished`, `failed` and `cancelled`. Dupli
 Datastar currently documents fetch lifecycle notifications and request cancellation/retry options in its [actions reference](https://data-star.dev/reference/actions). That page does not establish a universal per-invocation identity contract. Verify the installed edition's event detail and terminal delivery, including detached initiators, before writing the host mapping. This bridge deliberately requires that mapping rather than guessing from an element or raw global events. The reference checks use normalized synthetic events; they are not real Datastar/Go transport or durable save proof.
 
 Examples: `/reference/components/loading.html` and `/manual/components/loading.html`. DOM checks: `/reference/components/loading-tests.html`. Node checks: `npm test`. Browser cases need the maintained source-bound preview; opening the check page is separate from proving its result.
+
+## Hardware indicators
+
+Replace the skeleton with a hidden HTML indicator wrapper containing a decorative `.loader` SVG. Keep the indicator selector and `hidden aria-hidden="true"` on that wrapper. The same controller handles visibility and timing. `LoadingRegionProps.Indicator` accepts `LoaderIcon("ratchet")` or `LoaderIcon("line")`; omit it to keep skeletons. See [loaders](loaders.md).

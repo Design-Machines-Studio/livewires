@@ -48,3 +48,7 @@ Saved does not mean published or editing-finished. Keep publish, Done editing, r
 Templ #21 owns its future markup and placement and may consume the `.save-status` / `data-save-state` presentation contract. It must not treat the CSS hook as a save engine or bake in layout primitives.
 
 Baseplate #1203 owns autosave request identity, persistence, race resolution, retry/recovery, accepted/rejected/uncertain outcomes and saved scope. Its host code supplies a truthful state and label. The Governance proposal editor is outside this change. The reference page's buttons are deterministic presentation simulations only; they do not send requests or persist edits.
+
+## Optional saving indicator
+
+A decorative `.loader` SVG can precede a `span data-save-label` inside `.save-status`. It is visible only while `data-save-state="saving"`. Update the label span without replacing the SVG or stable outer status region. In Templ, supply `SaveStatusProps.Indicator: LoaderIcon("ratchet")`; the component emits it only while saving. See [loaders](loaders.md).
