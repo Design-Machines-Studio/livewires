@@ -50,8 +50,10 @@ document.querySelectorAll('[data-demo-picker]').forEach((picker) => {
         if (organizer.checked) reasons.push('Organizer');
         reasons.push(...groups.map((button) => button.textContent.trim()));
       }
-      detail.textContent = reasons.join(', ');
-      if (detail.hasAttribute('title')) detail.title = detail.textContent;
+      if (detail) {
+        detail.textContent = reasons.join(', ');
+        if (detail.hasAttribute('title')) detail.title = detail.textContent;
+      }
     });
     const count = rows.filter(({ selection }) => selection.checked).length;
     const status = picker.querySelector('[role="status"]');

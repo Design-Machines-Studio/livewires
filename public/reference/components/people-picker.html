@@ -147,6 +147,136 @@
         </fieldset>
       </div>
 
+      <h2 id="without-details">Circles and organizers, without details</h2>
+      <p>Keep the circle filters and organizer switches, with just a name and avatar in each row.</p>
+      <div class="box scheme-subtle">
+        <fieldset class="people-picker" data-demo-picker="space">
+          <legend>Members</legend>
+          <div class="people-picker-groups cluster gap-025" role="group" aria-label="Circles">
+            <button type="button" class="button button--small" aria-pressed="false" data-demo-group="all" disabled>All</button>
+            <button type="button" class="button button--small" aria-pressed="true" data-demo-group="board" disabled>Board</button>
+            <button type="button" class="button button--small" aria-pressed="false" data-demo-group="officers" disabled>Officers</button>
+            <button type="button" class="button button--small" aria-pressed="false" disabled>Members</button>
+          </div>
+          <p class="people-picker-description">The Members circle is unavailable because it has too many people to list here.</p>
+          <table class="people-picker-table table--lined">
+            <thead>
+              <tr>
+                <th scope="col"><span class="visually-hidden">Select</span></th>
+                <th scope="col">Member</th>
+                <th scope="col">Organizer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="people-picker-select">
+                  <label class="checkbox checkbox--icon">
+                    <input type="checkbox" id="plain-ada" name="member_ids" value="ada" checked aria-labelledby="plain-ada-label">
+                    <span class="visually-hidden" id="plain-ada-label">Select Ada Okafor</span>
+                  </label>
+                </td>
+                <td>
+                  <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="plain-ada">
+                    <span class="avatar avatar--sm"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
+                    <span class="people-picker-name">Ada Okafor</span>
+                  </label>
+                </td>
+                <td class="people-picker-trailing" data-th="Organizer">
+                  <label class="switch switch--small">
+                    <input type="checkbox" role="switch" name="organizer_ids" value="ada" aria-label="Make Ada Okafor an organizer" checked>
+                    <span></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td class="people-picker-select">
+                  <label class="checkbox checkbox--icon">
+                    <input type="checkbox" id="plain-bo" name="member_ids" value="bo" checked aria-labelledby="plain-bo-label">
+                    <span class="visually-hidden" id="plain-bo-label">Select Bo Lindqvist</span>
+                  </label>
+                </td>
+                <td>
+                  <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="plain-bo">
+                    <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">B</span></span>
+                    <span class="people-picker-name">Bo Lindqvist</span>
+                  </label>
+                </td>
+                <td class="people-picker-trailing" data-th="Organizer">
+                  <label class="switch switch--small">
+                    <input type="checkbox" role="switch" name="organizer_ids" value="bo" aria-label="Make Bo Lindqvist an organizer">
+                    <span></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td class="people-picker-select">
+                  <label class="checkbox checkbox--icon">
+                    <input type="checkbox" id="plain-cy" name="member_ids" value="cy" aria-labelledby="plain-cy-label">
+                    <span class="visually-hidden" id="plain-cy-label">Select Cy Moreno</span>
+                  </label>
+                </td>
+                <td>
+                  <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="plain-cy">
+                    <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">C</span></span>
+                    <span class="people-picker-name">Cy Moreno</span>
+                  </label>
+                </td>
+                <td class="people-picker-trailing" data-th="Organizer">
+                  <label class="switch switch--small">
+                    <input type="checkbox" role="switch" name="organizer_ids" value="cy" aria-label="Make Cy Moreno an organizer" disabled>
+                    <span></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td class="people-picker-select">
+                  <label class="checkbox checkbox--icon">
+                    <input type="checkbox" id="plain-di" name="member_ids" value="di" checked disabled aria-labelledby="plain-di-label">
+                    <span class="visually-hidden" id="plain-di-label">Select Di Ng</span>
+                  </label>
+                </td>
+                <td>
+                  <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="plain-di">
+                    <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">D</span></span>
+                    <span class="people-picker-name">Di Ng</span>
+                  </label>
+                </td>
+                <td class="people-picker-trailing" data-th="Organizer">
+                  <label class="switch switch--small">
+                    <input type="checkbox" role="switch" name="organizer_ids" value="di" aria-label="Make Di Ng an organizer" disabled>
+                    <span></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td class="people-picker-select">
+                  <label class="checkbox checkbox--icon">
+                    <input type="checkbox" id="plain-ed" name="member_ids" value="ed" aria-labelledby="plain-ed-label">
+                    <span class="visually-hidden" id="plain-ed-label">Select Ed Sato</span>
+                  </label>
+                </td>
+                <td>
+                  <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="plain-ed">
+                    <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">E</span></span>
+                    <span class="people-picker-name">Ed Sato</span>
+                  </label>
+                </td>
+                <td class="people-picker-trailing" data-th="Organizer">
+                  <label class="switch switch--small">
+                    <input type="checkbox" role="switch" name="organizer_ids" value="ed" aria-label="Make Ed Sato an organizer" disabled>
+                    <span></span>
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="people-picker-status text-sm text-muted" role="status" aria-atomic="true"></p>
+          <div class="people-picker-actions cluster cluster-compact">
+            <button type="button" class="button button--small button--ghost" name="picker_action" value="clear" disabled>Clear selection</button>
+          </div>
+        </fieldset>
+      </div>
+
       <h2>Collaborators, without groups or a trailing column</h2>
       <div class="box scheme-subtle">
         <fieldset class="people-picker">
