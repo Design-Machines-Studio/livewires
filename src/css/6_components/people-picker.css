@@ -75,6 +75,7 @@
     min-inline-size: 0;
 
     & .button {
+      max-inline-size: min(100%, 22ch);
       --button-radius: calc(var(--line) * 2);
       --button-bg: transparent;
       --button-fg: var(--color-fg);
