@@ -349,8 +349,8 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
     <tbody><tr>
       <td class="people-picker-select">
         <label class="checkbox checkbox--icon">
-          <input type="checkbox" id="pick-ada" name="member_ids" value="ada" aria-describedby="pick-ada-detail" checked>
-          <span class="visually-hidden">Select Ada Okafor</span>
+          <input type="checkbox" id="pick-ada" name="member_ids" value="ada" aria-describedby="pick-ada-detail" checked aria-labelledby="pick-ada-label">
+          <span class="visually-hidden" id="pick-ada-label">Select Ada Okafor</span>
         </label>
       </td>
       <td><label class="people-picker-person" for="pick-ada">
@@ -358,7 +358,7 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
         <span class="people-picker-name">Ada Okafor
           <span class="people-picker-detail" id="pick-ada-detail">Organizer, Board</span></span>
       </label></td>
-      <td class="people-picker-trailing">
+      <td class="people-picker-trailing" data-th="Organizer">
         <label class="switch switch--small">
           <input type="checkbox" role="switch" name="organizer_ids" value="ada" aria-label="Make Ada Okafor an organizer" checked><span></span>
         </label>
@@ -372,7 +372,7 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
 </fieldset>
 ```
 
-The avatar is the ordinary avatar component and is decorative here: image `alt=""`, no `role="img"` on initials. The detail line says why a person is included or "Removed"; point the checkbox's `aria-describedby` at it. Disable a locked row's controls and keep its state on the server, because disabled inputs are not submitted. Under a 30em container each row stays on one line. Keep access rules on the server: toggles and Clear are named submit buttons, and with Datastar each change posts the form and the server patches the fieldset back.
+The avatar is the ordinary avatar component and is decorative here: image `alt=""`, no `role="img"` on initials. The detail line says why a person is included or "Removed"; point the checkbox's `aria-describedby` at it. Disable a locked row's controls and keep its state on the server, because disabled inputs are not submitted. Under a 30em container each row keeps the checkbox, member and trailing control side by side. Repeat the trailing column header in its cell’s `data-th` attribute; it appears above the control when the table header is hidden. Give the hidden selection label a unique id and reference it with `aria-labelledby`, keeping the detail in `aria-describedby` so neither is announced twice. Keep access rules on the server: toggles and Clear are named submit buttons, and with Datastar each change posts the form and the server patches the fieldset back.
 
 ## Ghost buttons
 

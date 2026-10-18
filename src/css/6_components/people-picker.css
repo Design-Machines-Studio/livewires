@@ -13,7 +13,7 @@
  * <fieldset class="people-picker">
  *   <legend>Members</legend>
  *   <div class="people-picker-groups" role="group" aria-label="Circles">
- *     <button type="button" class="button button--small" aria-pressed="true">Board</button>
+ *     <button type="submit" class="button button--small" name="picker_action" value="circle:board" aria-pressed="true" formnovalidate>Board</button>
  *   </div>
  *   <table class="people-picker-table table--lined">
  *     <thead><tr>
@@ -24,8 +24,8 @@
  *     <tbody><tr>
  *       <td class="people-picker-select">
  *         <label class="checkbox checkbox--icon">
- *           <input type="checkbox" id="pick-ada" name="member_ids" value="ada" aria-describedby="pick-ada-detail" checked>
- *           <span class="visually-hidden">Select Ada Okafor</span>
+ *           <input type="checkbox" id="pick-ada" name="member_ids" value="ada" aria-describedby="pick-ada-detail" checked aria-labelledby="pick-ada-label">
+ *           <span class="visually-hidden" id="pick-ada-label">Select Ada Okafor</span>
  *         </label>
  *       </td>
  *       <td><label class="people-picker-person" for="pick-ada">
@@ -33,7 +33,7 @@
  *         <span class="people-picker-name">Ada Okafor
  *           <span class="people-picker-detail" id="pick-ada-detail">Board</span></span>
  *       </label></td>
- *       <td class="people-picker-trailing">
+ *       <td class="people-picker-trailing" data-th="Organizer">
  *         <label class="switch switch--small">
  *           <input type="checkbox" role="switch" name="organizer_ids" value="ada" aria-label="Make Ada Okafor an organizer">
  *           <span></span>
@@ -41,8 +41,8 @@
  *       </td>
  *     </tr></tbody>
  *   </table>
- *   <p class="people-picker-status visually-hidden" role="status"></p>
- *   <div class="people-picker-actions"><button type="button" class="button button--small">Clear selection</button></div>
+ *   <p class="people-picker-status visually-hidden" role="status" aria-atomic="true"></p>
+ *   <div class="people-picker-actions"><button type="submit" class="button button--small" name="picker_action" value="clear" formnovalidate>Clear selection</button></div>
  * </fieldset>
  */
 
@@ -86,7 +86,7 @@
 
     & .button[aria-pressed="true"] {
       --button-bg: var(--color-accent);
-      --button-fg: var(--color-bg);
+      --button-fg: var(--color-white);
       border-color: var(--color-accent);
     }
 
@@ -158,6 +158,16 @@
       & > td.people-picker-trailing {
         flex: none;
         inline-size: auto;
+
+        /* Keep the column label visible above its control without widening
+         * the row. The base table styles supply the data-th content. */
+        &::before {
+          display: block;
+          white-space: normal;
+          font-size: var(--text-xs);
+          line-height: var(--line-height-xs);
+          letter-spacing: var(--tracking-xs);
+        }
 
         & :where(input:not([type="checkbox"]), select, textarea) {
           inline-size: 10ch;

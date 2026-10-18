@@ -25,11 +25,12 @@
 
         <section class="section stack">
           <h2>The HTML contract</h2>
-          <p>A <code>fieldset.people-picker</code> holds the whole control. Inside it, in reading order: the <code>legend</code>, an optional description, optional group toggles, the table of people, a status line and optional actions. Each row has three cells: the selection checkbox, the member, and an optional trailing control.</p>
-          <pre><code>&lt;fieldset class="people-picker"&gt;
+          <p>A <code>fieldset.people-picker</code> holds the whole control. Inside it, in reading order: the <code>legend</code>, an optional description, optional group toggles, the table of people, a status line and optional actions. Each row has a selection cell and a member cell, plus an optional trailing control cell.</p>
+          <pre><code>&lt;fieldset class="people-picker" id="members-picker"&gt;
   &lt;legend&gt;Members&lt;/legend&gt;
   &lt;div class="people-picker-groups" role="group" aria-label="Circles"&gt;
-    &lt;button type="button" class="button button--small" aria-pressed="true"&gt;Board&lt;/button&gt;
+    &lt;button type="submit" class="button button--small" name="picker_action"
+            value="circle:board" aria-pressed="true" formnovalidate&gt;Board&lt;/button&gt;
   &lt;/div&gt;
   &lt;table class="people-picker-table table--lined"&gt;
     &lt;thead&gt;&lt;tr&gt;
@@ -42,8 +43,8 @@
         &lt;td class="people-picker-select"&gt;
           &lt;label class="checkbox checkbox--icon"&gt;
             &lt;input type="checkbox" id="pick-ada" name="member_ids" value="ada"
-                   aria-describedby="pick-ada-detail" checked&gt;
-            &lt;span class="visually-hidden"&gt;Select Ada Okafor&lt;/span&gt;
+                   aria-describedby="pick-ada-detail" checked aria-labelledby="pick-ada-label"&gt;
+            &lt;span class="visually-hidden" id="pick-ada-label"&gt;Select Ada Okafor&lt;/span&gt;
           &lt;/label&gt;
         &lt;/td&gt;
         &lt;td&gt;
@@ -54,7 +55,7 @@
             &lt;/span&gt;
           &lt;/label&gt;
         &lt;/td&gt;
-        &lt;td class="people-picker-trailing"&gt;
+        &lt;td class="people-picker-trailing" data-th="Organizer"&gt;
           &lt;label class="switch switch--small"&gt;
             &lt;input type="checkbox" role="switch" name="organizer_ids" value="ada"
                    aria-label="Make Ada Okafor an organizer" checked&gt;
@@ -84,7 +85,7 @@
             <div><dt><code>.avatar</code></dt><dd>Optional. Use the <a href="/manual/components/avatars.html">avatar component</a> as documented, usually <code>avatar--sm</code> with one initial. The visible name already identifies the person, so the avatar is decorative: give an image <code>alt=""</code>, and leave out the <code>role="img"</code> and <code>aria-label</code> an initials avatar uses elsewhere.</dd></div>
             <div><dt><code>.people-picker-name</code></dt><dd>The person's name. Long names wrap instead of widening the table.</dd></div>
             <div><dt><code>.people-picker-detail</code></dt><dd>Optional muted line under the name: why the person is included, such as "Organizer, Board", or "Removed". Point the checkbox's <code>aria-describedby</code> at it.</dd></div>
-            <div><dt><code>.people-picker-trailing</code></dt><dd>Optional end cell for one control per person, such as a small switch or a role field. Its column header names the control.</dd></div>
+            <div><dt><code>.people-picker-trailing</code></dt><dd>Optional end cell for one control per person, such as a small switch or a role field. Its column header names the control. Repeat that text in the cell’s <code>data-th</code> attribute so the label stays visible when narrow tables hide their headers.</dd></div>
             <div><dt><code>.people-picker-status</code></dt><dd>A <code>role="status"</code> line for changes that affect many rows, such as "Selection cleared". Keep it in the page from the start and change its text; usually also <code>visually-hidden</code>.</dd></div>
             <div><dt><code>.people-picker-actions</code></dt><dd>Optional row for buttons such as Clear selection or More people.</dd></div>
           </dl>
@@ -96,7 +97,7 @@
             <li><strong>Selected.</strong> A checked row checkbox. Show the reason in the detail line.</li>
             <li><strong>Selected group.</strong> A toggle with <code>aria-pressed="true"</code>. Selecting a group should check its members; whatever applies that rule also updates the rows.</li>
             <li><strong>Removed.</strong> A person a group would include but who was taken out. Leave the checkbox unchecked and say "Removed" in the detail line.</li>
-            <li><strong>Locked.</strong> Someone who cannot be changed here, such as the creator or a super admin. Disable their checkbox or switch and say why in the detail line. A disabled control is not submitted, so whatever processes the form must keep that person's state.</li>
+            <li><strong>Locked.</strong> Someone who cannot be changed here, such as the creator or a super admin. Disable the controls that cannot change and say why in the detail line. A disabled control is not submitted, so whatever processes the form must keep that person's state.</li>
             <li><strong>Unavailable group.</strong> A disabled toggle, with a sentence after the group row explaining why.</li>
             <li><strong>Empty.</strong> No table. Use a <code>.people-picker-description</code> that says no people are available.</li>
           </ul>
@@ -106,7 +107,7 @@
           <h2>Accessibility</h2>
           <ul>
             <li>The <code>legend</code> names the whole control. Give the group row an <code>aria-label</code>, such as "Circles".</li>
-            <li>Each checkbox gets its name twice over: a visually hidden "Select Ada Okafor" inside its own label, and the member cell's <code>label for</code>. The detail line is its description.</li>
+            <li>Give the hidden “Select Ada Okafor” span a unique id and point the checkbox’s <code>aria-labelledby</code> at it. The member cell’s <code>label for</code> keeps the name and avatar clickable without repeating them in the accessible name. Use <code>aria-describedby</code> for the separate detail line.</li>
             <li>The select column header is visually hidden text, not empty, so the column still has a name.</li>
             <li>A switch or field in the trailing column needs its own name, for example <code>aria-label="Make Ada Okafor an organizer"</code> or a visually hidden <code>label for</code>.</li>
             <li>Announce changes to many rows through the status line, not by moving focus.</li>
@@ -125,7 +126,8 @@
         </section>
 
         <section class="section stack">
-          <h2>Where it is used</h2>
+          <h2>Consumer mapping</h2>
+          <p>These consumers have their own pickers today. The shared Templ component and consumer migrations are separate work.</p>
           <div class="reel" role="region" aria-label="People picker consumer mapping table" tabindex="0">
             <table class="flex-none">
               <thead><tr><th scope="col">Consumer</th><th scope="col">Parts used</th><th scope="col">Kept by the consumer</th></tr></thead>
@@ -141,10 +143,12 @@
 
         <section class="section stack">
           <h2>Examples</h2>
+          <p>The reference examples show presentation only. Native checkboxes, switches and role fields work locally. Group changes, Clear selection, More people and saving need handlers supplied by the consuming application. The reference action buttons use <code>type="button"</code> to avoid posting to an unavailable endpoint.</p>
           <p><a href="/reference/components/people-picker.html">Open the rendered examples</a>: space members with circles and organizer switches, collaborators without groups, a role field, long values in a narrow container and the empty state.</p>
           <p>Check them at desktop width, 640px, 375px and 320px, in light and dark appearance, with the keyboard, and with JavaScript off.</p>
         </section>
       </article>
     </main>
+    <html-include src="/_includes/footer.html"></html-include>
   </body>
 </html>
