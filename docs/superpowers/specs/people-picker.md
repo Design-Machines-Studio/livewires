@@ -7,7 +7,9 @@ reference pages are the shared HTML contract for future consumer work.
 ## Existing patterns
 
 Use the existing fieldset and legend, lined table, icon checkbox, small avatar,
-small switch and button components. Keep the manual's sidebar, prose, section
+small switch and button components. Follow the Avatars, Toggles, Tables and
+Sortable List manuals: short descriptions, live examples and Code popup dialogs.
+Keep the manual's sidebar, prose, section
 header and shared footer, as on the other component pages. The footer also
 provides the design panel. Import the picker through the main CSS entry point. The prototyping stylesheet
 highlights its manual navigation link.
@@ -42,7 +44,7 @@ named submit actions with `formnovalidate`; consumers validate the final result
 on the server and preserve disabled values there. The status region remains
 mounted and uses `role="status"` with `aria-atomic="true"`.
 
-Reference examples use a page-only fixture script following the existing save-status
+Manual and reference examples use a page-only fixture script following the existing save-status
 pattern. Circle toggles, exclusions, organizer state and Clear selection update
 locally. Clear preserves the locked person. Organizer switches are off and disabled
 for unchecked people. No action posts or saves. Without JavaScript the circle and

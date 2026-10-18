@@ -1,4 +1,4 @@
-// Local fixtures for the reference page. Applications own their access rules
+// Local fixtures for the manual and reference pages. Applications own their access rules
 // and persistence; this script is not part of the framework bundle.
 const fixtures = {
   space: {
