@@ -24,9 +24,10 @@ through `aria-describedby`. Avatars are decorative in these labelled rows.
 - Group buttons use `aria-pressed` as their selected state. Selected buttons
   use `--color-accent` with `--color-white` text so inherited light and dark
   schemes keep readable contrast.
-- Under a 30em container, keep the checkbox, member and trailing control beside
-  one another. Long names wrap within the member cell.
-- Repeat the trailing header in `data-th`. Show that text above the control
+- Under a 30em container, use the sortable list’s two-column grid: checkbox
+  beside identity, trailing control below identity. Let names wrap at words
+  and hyphens before breaking an overlong word.
+- Repeat the trailing header in `data-th`. Show that text beside the control
   when the table header is visually hidden. A role label and field must fit
   without widening the page at 320px.
 - A disabled group has an explanatory sentence after the group row. The
@@ -41,9 +42,18 @@ named submit actions with `formnovalidate`; consumers validate the final result
 on the server and preserve disabled values there. The status region remains
 mounted and uses `role="status"` with `aria-atomic="true"`.
 
-Reference examples are static. Their group and action buttons use `type="button"`
-and do not post or save. Native row controls remain usable with a keyboard and
-without JavaScript. The Templ component and consumer migrations are separate work.
+Reference examples use a page-only fixture script following the existing save-status
+pattern. Circle toggles, exclusions, organizer state and Clear selection update
+locally. Clear preserves the locked person. Organizer switches are off and disabled
+for unchecked people. No action posts or saves. Without JavaScript the circle and
+Clear buttons stay disabled; native row controls remain usable. The Templ component
+and consumer migrations are separate work.
+
+Use `cluster gap-025` for groups, `flex items-center gap-05 min-w-0` for
+person labels, and `cluster cluster-compact` for actions. Reuse `.avatar` with
+its existing size variants, image and initials markup. Do not restyle avatars
+inside the picker. Opus 5.5’s design consultation identified the forced single-row
+layout and inert examples as defects after the first mechanical review missed them.
 
 ## Verification cases
 

@@ -337,7 +337,7 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
   <legend>Members</legend>
   <p class="people-picker-description">Optional note, or the empty state.</p>
   <!-- Group toggles: aria-pressed="true" styles a selected group. -->
-  <div class="people-picker-groups" role="group" aria-label="Circles">
+  <div class="people-picker-groups cluster gap-025" role="group" aria-label="Circles">
     <button type="submit" class="button button--small" name="picker_action" value="circle:board" aria-pressed="true" formnovalidate>Board</button>
   </div>
   <table class="people-picker-table table--lined">
@@ -353,7 +353,7 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
           <span class="visually-hidden" id="pick-ada-label">Select Ada Okafor</span>
         </label>
       </td>
-      <td><label class="people-picker-person" for="pick-ada">
+      <td><label class="people-picker-person flex items-center gap-05 min-w-0" for="pick-ada">
         <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">A</span></span>
         <span class="people-picker-name">Ada Okafor
           <span class="people-picker-detail" id="pick-ada-detail">Organizer, Board</span></span>
@@ -366,13 +366,13 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
     </tr></tbody>
   </table>
   <p class="people-picker-status visually-hidden" role="status" aria-atomic="true"></p>
-  <div class="people-picker-actions">
+  <div class="people-picker-actions cluster cluster-compact">
     <button type="submit" class="button button--small" name="picker_action" value="clear" formnovalidate>Clear selection</button>
   </div>
 </fieldset>
 ```
 
-The avatar is the ordinary avatar component and is decorative here: image `alt=""`, no `role="img"` on initials. The detail line says why a person is included or "Removed"; point the checkbox's `aria-describedby` at it. Disable a locked row's controls and keep its state on the server, because disabled inputs are not submitted. Under a 30em container each row keeps the checkbox, member and trailing control side by side. Repeat the trailing column header in its cell’s `data-th` attribute; it appears above the control when the table header is hidden. Give the hidden selection label a unique id and reference it with `aria-labelledby`, keeping the detail in `aria-describedby` so neither is announced twice. Keep access rules on the server: toggles and Clear are named submit buttons, and with Datastar each change posts the form and the server patches the fieldset back.
+The avatar is the ordinary avatar component and is decorative here: image `alt=""`, no `role="img"` on initials. The detail line says why a person is included or "Removed"; point the checkbox's `aria-describedby` at it. Disable a locked row's controls and keep its state on the server, because disabled inputs are not submitted. Compose group rows with `cluster gap-025`, person labels with `flex items-center gap-05 min-w-0`, and action rows with `cluster cluster-compact`. Under a 30em container, the checkbox sits beside the identity and the trailing control moves below the identity, using the same two-column grid as the sortable list. Repeat the trailing column header in its cell’s `data-th` attribute; it appears beside the control when the table header is hidden. Give the hidden selection label a unique id and reference it with `aria-labelledby`, keeping the detail in `aria-describedby` so neither is announced twice. Keep access rules on the server: toggles and Clear are named submit buttons, and with Datastar each change posts the form and the server patches the fieldset back.
 
 ## Ghost buttons
 

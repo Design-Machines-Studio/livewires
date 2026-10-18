@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="module" src="/dist/main.js"></script>
+  <noscript><link rel="stylesheet" href="/dist/main.css"></noscript>
     <html-include src="/_includes/head.html"></html-include>
     <title>People picker &ndash; Components &ndash; Live Wires</title>
   </head>
@@ -28,7 +29,7 @@
           <p>A <code>fieldset.people-picker</code> holds the whole control. Inside it, in reading order: the <code>legend</code>, an optional description, optional group toggles, the table of people, a status line and optional actions. Each row has a selection cell and a member cell, plus an optional trailing control cell.</p>
           <pre><code>&lt;fieldset class="people-picker" id="members-picker"&gt;
   &lt;legend&gt;Members&lt;/legend&gt;
-  &lt;div class="people-picker-groups" role="group" aria-label="Circles"&gt;
+  &lt;div class="people-picker-groups cluster gap-025" role="group" aria-label="Circles"&gt;
     &lt;button type="submit" class="button button--small" name="picker_action"
             value="circle:board" aria-pressed="true" formnovalidate&gt;Board&lt;/button&gt;
   &lt;/div&gt;
@@ -48,7 +49,7 @@
           &lt;/label&gt;
         &lt;/td&gt;
         &lt;td&gt;
-          &lt;label class="people-picker-person" for="pick-ada"&gt;
+          &lt;label class="people-picker-person flex items-center gap-05 min-w-0" for="pick-ada"&gt;
             &lt;span class="avatar avatar--sm"&gt;&lt;span class="initials" aria-hidden="true"&gt;A&lt;/span&gt;&lt;/span&gt;
             &lt;span class="people-picker-name"&gt;Ada Okafor
               &lt;span class="people-picker-detail" id="pick-ada-detail"&gt;Organizer, Board&lt;/span&gt;
@@ -66,7 +67,7 @@
     &lt;/tbody&gt;
   &lt;/table&gt;
   &lt;p class="people-picker-status visually-hidden" role="status" aria-atomic="true"&gt;&lt;/p&gt;
-  &lt;div class="people-picker-actions"&gt;
+  &lt;div class="people-picker-actions cluster cluster-compact"&gt;
     &lt;button type="submit" class="button button--small"
             name="picker_action" value="clear" formnovalidate&gt;Clear selection&lt;/button&gt;
   &lt;/div&gt;
@@ -78,16 +79,16 @@
           <dl class="stack stack-compact">
             <div><dt><code>.people-picker</code></dt><dd>The <code>fieldset</code>. It removes the default fieldset border and padding and spaces its parts. Put it inside your own box or panel.</dd></div>
             <div><dt><code>.people-picker-description</code></dt><dd>Optional short text under the legend, such as who can see the result. Also used for an empty state.</dd></div>
-            <div><dt><code>.people-picker-groups</code></dt><dd>A <code>role="group"</code> row of <code>button button--small</code> toggles. <code>aria-pressed="true"</code> marks a selected group and styles it as an accent button, so there is no second class to keep in sync. A disabled toggle stays visible.</dd></div>
+            <div><dt><code>.people-picker-groups</code></dt><dd>A <code>cluster gap-025</code> row of <code>button button--small</code> toggles with <code>role="group"</code>. <code>aria-pressed="true"</code> marks a selected group and styles it as an accent button, so there is no second class to keep in sync. A disabled toggle stays visible.</dd></div>
             <div><dt><code>.people-picker-table</code></dt><dd>Use with <code>table--lined</code>. The selection and trailing columns shrink to their controls; the member column takes the rest.</dd></div>
             <div><dt><code>.people-picker-select</code></dt><dd>The cell holding the row's <code>checkbox checkbox--icon</code>.</dd></div>
-            <div><dt><code>.people-picker-person</code></dt><dd>A <code>label</code> for the row's checkbox containing an optional avatar and the name. Clicking the avatar or name toggles the checkbox. It uses the regular weight that labels otherwise lose.</dd></div>
+            <div><dt><code>.people-picker-person</code></dt><dd>A <code>label</code> for the row's checkbox containing an optional avatar and the name. Clicking the avatar or name toggles the checkbox. Use <code>flex items-center gap-05 min-w-0</code> for its layout; the component restores regular label weight.</dd></div>
             <div><dt><code>.avatar</code></dt><dd>Optional. Use the <a href="/manual/components/avatars.html">avatar component</a> as documented, usually <code>avatar--sm</code> with one initial. The visible name already identifies the person, so the avatar is decorative: give an image <code>alt=""</code>, and leave out the <code>role="img"</code> and <code>aria-label</code> an initials avatar uses elsewhere.</dd></div>
             <div><dt><code>.people-picker-name</code></dt><dd>The person's name. Long names wrap instead of widening the table.</dd></div>
             <div><dt><code>.people-picker-detail</code></dt><dd>Optional muted line under the name: why the person is included, such as "Organizer, Board", or "Removed". Point the checkbox's <code>aria-describedby</code> at it.</dd></div>
-            <div><dt><code>.people-picker-trailing</code></dt><dd>Optional end cell for one control per person, such as a small switch or a role field. Its column header names the control. Repeat that text in the cell’s <code>data-th</code> attribute so the label stays visible when narrow tables hide their headers.</dd></div>
+            <div><dt><code>.people-picker-trailing</code></dt><dd>Optional end cell for one control per person, such as a small switch or a role field. Its column header names the control. Repeat that text in the cell’s <code>data-th</code> attribute so the label stays visible when narrow tables hide their headers. Below a 30em container width, this cell moves below the identity and shows its label beside the control.</dd></div>
             <div><dt><code>.people-picker-status</code></dt><dd>A <code>role="status"</code> line for changes that affect many rows, such as "Selection cleared". Keep it in the page from the start and change its text; usually also <code>visually-hidden</code>.</dd></div>
-            <div><dt><code>.people-picker-actions</code></dt><dd>Optional row for buttons such as Clear selection or More people.</dd></div>
+            <div><dt><code>.people-picker-actions</code></dt><dd>Optional <code>cluster cluster-compact</code> row for actions such as Clear selection.</dd></div>
           </dl>
         </section>
 
@@ -143,7 +144,7 @@
 
         <section class="section stack">
           <h2>Examples</h2>
-          <p>The reference examples show presentation only. Native checkboxes, switches and role fields work locally. Group changes, Clear selection, More people and saving need handlers supplied by the consuming application. The reference action buttons use <code>type="button"</code> to avoid posting to an unavailable endpoint.</p>
+          <p>The reference page simulates circle changes, individual exclusions, organizer switches and Clear selection locally. Selecting a circle includes its people; removing one person keeps that circle selected and shows “Removed.” An unchecked person’s organizer switch is off and disabled. Clear releases the circles and clears every unlocked row. Di Ng stays selected. Reloading resets the examples; nothing is saved. This fixture script belongs to the reference page and is not part of the framework bundle. Without JavaScript its circle and Clear buttons stay disabled, while native row controls remain usable.</p>
           <p><a href="/reference/components/people-picker.html">Open the rendered examples</a>: space members with circles and organizer switches, collaborators without groups, a role field, long values in a narrow container and the empty state.</p>
           <p>Check them at desktop width, 640px, 375px and 320px, in light and dark appearance, with the keyboard, and with JavaScript off.</p>
         </section>
