@@ -28,7 +28,7 @@
  *           <span class="visually-hidden" id="pick-ada-label">Select Ada Okafor</span>
  *         </label>
  *       </td>
- *       <td><label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="pick-ada">
+ *       <td><label class="people-picker-person flex gap-05 min-w-0" for="pick-ada">
  *         <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">A</span></span>
  *         <span class="people-picker-name">Ada Okafor
  *           <span class="people-picker-detail" id="pick-ada-detail">Board</span></span>
@@ -100,19 +100,7 @@
     inline-size: 100%;
     margin: 0;
 
-    & td { vertical-align: top; }
-
-    & tbody tr {
-      --people-picker-anchor: .5lh;
-
-      &:has(.people-picker-detail:not(:empty)) {
-        --people-picker-anchor: 1lh;
-      }
-    }
-
-    & tr:has(.checkbox--icon) > .people-picker-select {
-      padding-block-start: calc(var(--line-05) + var(--people-picker-anchor) - var(--line-075));
-    }
+    & td { vertical-align: middle; }
 
     /* The select and trailing columns shrink to their control. */
     & :where(.people-picker-select, .people-picker-trailing) {
@@ -124,12 +112,18 @@
       padding-inline-end: var(--line-05);
 
       & .checkbox {
+        display: flex;
         margin: 0;
       }
     }
 
     & .people-picker-trailing {
       text-align: end;
+
+      & > .switch {
+        display: flex;
+        justify-content: flex-end;
+      }
 
       & :where(input:not([type="checkbox"]), select, textarea) {
         inline-size: 14ch;
@@ -155,7 +149,7 @@
       display: grid;
       grid-template-columns: max-content minmax(0, 1fr);
       column-gap: var(--line-05);
-      align-items: start;
+      align-items: center;
 
       & > td { padding-inline: 0; }
 
@@ -176,7 +170,7 @@
       }
 
       & > td.people-picker-trailing {
-        grid-column: 2;
+        grid-column: 1 / -1;
         inline-size: auto;
         white-space: normal;
         align-items: center;
@@ -187,18 +181,23 @@
         }
       }
     }
+
+    .people-picker-table tr:has(.checkbox--icon):not(:has(.people-picker-name .truncate)) {
+      align-items: start;
+
+      & .people-picker-person {
+        align-items: flex-start;
+        padding-block-start: var(--line-025);
+      }
+    }
   }
 
-  /* Anchor both controls to the normal identity height, even when its text
-   * wraps. A detail line puts the anchor at the name/detail boundary;
-   * names without a detail use the center of their first line. */
+  /* Center complete identities in table rows. Narrow rows that allow
+   * wrapping align to the top instead; truncate is an existing utility. */
   .people-picker-person {
+    align-items: center;
     margin: 0;
     font-weight: var(--font-normal);
-
-    & > .avatar {
-      margin-block-start: calc(var(--people-picker-anchor) - var(--avatar-size) / 2);
-    }
   }
 
   .people-picker-name {

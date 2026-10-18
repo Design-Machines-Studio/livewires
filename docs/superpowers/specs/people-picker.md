@@ -27,10 +27,11 @@ through `aria-describedby`. Avatars are decorative in these labelled rows.
   use `--color-accent` with `--color-white` text so inherited light and dark
   schemes keep readable contrast.
 - Under a 30em container, use the sortable list’s two-column grid: checkbox
-  beside identity, trailing control below identity. Let names wrap at words
-  and hyphens before breaking an overlong word. Keep checkbox and avatar centers
-  anchored at the normal name/detail boundary as text wraps; rows without
-  details use the center of the first name line. Preserve the padded hit area.
+  beside identity, trailing control spanning the full row beneath. Let names wrap at words
+  and hyphens before breaking an overlong word. Vertically center all cells
+  in wide rows. In narrow rows, center the checkbox, avatar and truncated
+  identity together; without truncation align them at the top. Preserve the
+  padded checkbox hit area.
 - Narrow tables use the existing small typography triplet. Offer truncation
   through the existing `block truncate` utilities, preserving the full name
   in the DOM and accessible label. The narrow demo can switch between
@@ -57,7 +58,7 @@ for unchecked people. No action posts or saves. Without JavaScript the circle an
 Clear buttons stay disabled; native row controls remain usable. The Templ component
 and consumer migrations are separate work.
 
-Use `cluster gap-025` for groups, `flex items-start gap-05 min-w-0 pt-025` for
+Use `cluster gap-025` for groups, `flex gap-05 min-w-0` for
 person labels, and `cluster cluster-compact` for actions. Reuse `.avatar` with
 its existing size variants, image and initials markup. Do not restyle avatars
 inside the picker. Opus 5.5’s design consultation identified the forced single-row
