@@ -9,7 +9,8 @@ reference pages are the shared HTML contract for future consumer work.
 Use the existing fieldset and legend, lined table, icon checkbox, small avatar,
 small switch and button components. Keep the manual's sidebar, prose, section
 header and shared footer, as on the other component pages. The footer also
-provides the design panel. Import the picker through both CSS entry points.
+provides the design panel. Import the picker through the main CSS entry point. The prototyping stylesheet
+highlights its manual navigation link.
 
 Rows contain a selection checkbox and member label. An optional third cell
 contains an organizer switch or role field. The member label keeps the avatar

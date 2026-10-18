@@ -10,7 +10,7 @@
  * detail line says and what submitting does belong to the page or server.
  *
  * @example
- * <fieldset class="people-picker">
+ * <fieldset class="people-picker" id="members-picker">
  *   <legend>Members</legend>
  *   <div class="people-picker-groups" role="group" aria-label="Circles">
  *     <button type="submit" class="button button--small" name="picker_action" value="circle:board" aria-pressed="true" formnovalidate>Board</button>

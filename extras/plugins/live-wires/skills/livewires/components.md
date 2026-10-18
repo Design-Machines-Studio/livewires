@@ -333,7 +333,7 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
 
 ```html
 <!-- Choose members by circle and by person. The page or server owns the rules. -->
-<fieldset class="people-picker">
+<fieldset class="people-picker" id="members-picker">
   <legend>Members</legend>
   <p class="people-picker-description">Optional note, or the empty state.</p>
   <!-- Group toggles: aria-pressed="true" styles a selected group. -->

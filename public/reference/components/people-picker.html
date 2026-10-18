@@ -17,7 +17,7 @@
 
       <h2>Space members with circles and organizers</h2>
       <p>One circle is selected. Each detail line says why the person is included. The current super admin's row is locked.</p>
-      <form class="box scheme-subtle" action="#" method="post">
+      <div class="box scheme-subtle">
         <fieldset class="people-picker">
           <legend>Members</legend>
           <div class="people-picker-groups" role="group" aria-label="Circles">
@@ -140,13 +140,13 @@
           </table>
           <p class="people-picker-status visually-hidden" role="status" aria-atomic="true"></p>
           <div class="people-picker-actions">
-            <button type="button" class="button button--small" name="picker_action" value="clear" formnovalidate>Clear selection</button>
+            <button type="button" class="button button--small" name="picker_action" value="clear">Clear selection</button>
           </div>
         </fieldset>
-      </form>
+      </div>
 
       <h2>Collaborators, without groups or a trailing column</h2>
-      <form class="box scheme-subtle" action="#" method="post">
+      <div class="box scheme-subtle">
         <fieldset class="people-picker">
           <legend>Draft collaborators</legend>
           <p class="people-picker-description">Collaborators can read, discuss and edit this draft.</p>
@@ -179,13 +179,13 @@
             </tbody>
           </table>
           <div class="people-picker-actions">
-            <button type="button" class="button button--small" name="picker_action" value="more" formnovalidate>More people</button>
+            <button type="button" class="button button--small" name="picker_action" value="more">More people</button>
           </div>
         </fieldset>
-      </form>
+      </div>
 
       <h2>A role field in the trailing column</h2>
-      <form class="box scheme-subtle" action="#" method="post">
+      <div class="box scheme-subtle">
         <fieldset class="people-picker">
           <legend>Circle members</legend>
           <table class="people-picker-table table--lined">
@@ -213,10 +213,10 @@
             </tbody>
           </table>
         </fieldset>
-      </form>
+      </div>
 
       <h2>Long values in a narrow container</h2>
-      <div class="box scheme-subtle" style="max-inline-size: 20rem;">
+      <div class="box scheme-subtle max-w-xs">
         <fieldset class="people-picker">
           <legend>Members</legend>
           <div class="people-picker-groups" role="group" aria-label="Circles">
