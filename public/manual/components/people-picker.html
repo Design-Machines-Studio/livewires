@@ -49,7 +49,7 @@
           &lt;/label&gt;
         &lt;/td&gt;
         &lt;td&gt;
-          &lt;label class="people-picker-person flex items-center gap-05 min-w-0" for="pick-ada"&gt;
+          &lt;label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="pick-ada"&gt;
             &lt;span class="avatar avatar--sm"&gt;&lt;span class="initials" aria-hidden="true"&gt;A&lt;/span&gt;&lt;/span&gt;
             &lt;span class="people-picker-name"&gt;Ada Okafor
               &lt;span class="people-picker-detail" id="pick-ada-detail"&gt;Organizer, Board&lt;/span&gt;
@@ -102,7 +102,7 @@
                         </label>
                       </td>
                       <td>
-                        <label class="people-picker-person flex items-center gap-05 min-w-0" for="space-ada">
+                        <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="space-ada">
                           <span class="avatar avatar--sm"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
                           <span class="people-picker-name">Ada Okafor<span class="people-picker-detail" id="space-ada-detail">Organizer, Board</span></span>
                         </label>
@@ -122,7 +122,7 @@
                         </label>
                       </td>
                       <td>
-                        <label class="people-picker-person flex items-center gap-05 min-w-0" for="space-bo">
+                        <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="space-bo">
                           <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">B</span></span>
                           <span class="people-picker-name">Bo Lindqvist<span class="people-picker-detail" id="space-bo-detail">Board</span></span>
                         </label>
@@ -142,7 +142,7 @@
                         </label>
                       </td>
                       <td>
-                        <label class="people-picker-person flex items-center gap-05 min-w-0" for="space-cy">
+                        <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="space-cy">
                           <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">C</span></span>
                           <span class="people-picker-name">Cy Moreno<span class="people-picker-detail" id="space-cy-detail">Removed</span></span>
                         </label>
@@ -162,7 +162,7 @@
                         </label>
                       </td>
                       <td>
-                        <label class="people-picker-person flex items-center gap-05 min-w-0" for="space-di">
+                        <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="space-di">
                           <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">D</span></span>
                           <span class="people-picker-name">Di Ng<span class="people-picker-detail" id="space-di-detail">Super admin</span></span>
                         </label>
@@ -182,7 +182,7 @@
                         </label>
                       </td>
                       <td>
-                        <label class="people-picker-person flex items-center gap-05 min-w-0" for="space-ed">
+                        <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="space-ed">
                           <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">E</span></span>
                           <span class="people-picker-name">Ed Sato<span class="people-picker-detail" id="space-ed-detail"></span></span>
                         </label>
@@ -240,7 +240,7 @@
                           <span class="visually-hidden" id="draft-ada-label">Select Ada Okafor</span>
                         </label>
                       </td>
-                      <td><label class="people-picker-person flex items-center gap-05 min-w-0" for="draft-ada"><span class="people-picker-name">Ada Okafor</span></label></td>
+                      <td><label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="draft-ada"><span class="people-picker-name">Ada Okafor</span></label></td>
                     </tr>
                     <tr>
                       <td class="people-picker-select">
@@ -249,7 +249,7 @@
                           <span class="visually-hidden" id="draft-bo-label">Select Bo Lindqvist</span>
                         </label>
                       </td>
-                      <td><label class="people-picker-person flex items-center gap-05 min-w-0" for="draft-bo"><span class="people-picker-name">Bo Lindqvist</span></label></td>
+                      <td><label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="draft-bo"><span class="people-picker-name">Bo Lindqvist</span></label></td>
                     </tr>
                   </tbody>
                 </table>
@@ -290,7 +290,7 @@
                           <span class="visually-hidden" id="circle-ada-label">Select Ada Okafor</span>
                         </label>
                       </td>
-                      <td><label class="people-picker-person flex items-center gap-05 min-w-0" for="circle-ada"><span class="people-picker-name">Ada Okafor</span></label></td>
+                      <td><label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="circle-ada"><span class="people-picker-name">Ada Okafor</span></label></td>
                       <td class="people-picker-trailing" data-th="Role in this circle">
                         <label class="visually-hidden" for="circle-ada-role">Role in this circle for Ada Okafor</label>
                         <input type="text" id="circle-ada-role" name="role_ada" value="Chair" placeholder="Optional role">
@@ -305,21 +305,27 @@
           <section class="stack">
             <header>
               <h2>Narrow containers</h2>
-              <p>The extra control moves below the identity when the container is narrow.</p>
+              <p>Smaller text and top-aligned controls keep narrow rows compact. Turn truncation off to see the full text wrap.</p>
               <popup-dialog title="Narrow containers HTML">
                 <p><a href="#" class="text-sm">Code</a></p>
                 <div slot="body">
-                  <pre><code>&lt;div class="box scheme-subtle max-w-xs"&gt;
-  &lt;fieldset class="people-picker"&gt;
-    &lt;!-- The same picker markup; reflow follows the container width. --&gt;
-  &lt;/fieldset&gt;
-&lt;/div&gt;</code></pre>
+                  <pre><code>&lt;!-- Optional, inside the person label. Keep the full text. --&gt;
+&lt;span class="people-picker-name"&gt;
+  &lt;span class="block truncate" title="Maximiliana Featherstonehaugh-Abernathy"&gt;
+    Maximiliana Featherstonehaugh-Abernathy
+  &lt;/span&gt;
+  &lt;span class="people-picker-detail truncate"&gt;Organizer, Festival submissions working group&lt;/span&gt;
+&lt;/span&gt;</code></pre>
                 </div>
               </popup-dialog>
             </header>
             <div class="box scheme-subtle max-w-xs">
               <fieldset class="people-picker" data-demo-picker="narrow">
                 <legend>Members</legend>
+                <label class="checkbox">
+                  <input type="checkbox" data-demo-truncate checked disabled>
+                  Truncate long text
+                </label>
                 <div class="people-picker-groups cluster gap-025" role="group" aria-label="Circles">
                   <button type="button" class="button button--small" aria-pressed="true" data-demo-group="festival" disabled>Festival submissions working group</button>
                   <button type="button" class="button button--small" aria-pressed="false" data-demo-group="board" disabled>Board</button>
@@ -341,9 +347,9 @@
                         </label>
                       </td>
                       <td>
-                        <label class="people-picker-person flex items-center gap-05 min-w-0" for="narrow-long">
+                        <label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="narrow-long">
                           <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">M</span></span>
-                          <span class="people-picker-name">Maximiliana Featherstonehaugh-Abernathy<span class="people-picker-detail" id="narrow-long-detail">Organizer, Festival submissions working group</span></span>
+                          <span class="people-picker-name"><span class="block truncate" data-demo-truncate-text title="Maximiliana Featherstonehaugh-Abernathy">Maximiliana Featherstonehaugh-Abernathy</span><span class="people-picker-detail truncate" data-demo-truncate-text title="Organizer, Festival submissions working group" id="narrow-long-detail">Organizer, Festival submissions working group</span></span>
                         </label>
                       </td>
                       <td class="people-picker-trailing" data-th="Organizer">

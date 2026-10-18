@@ -28,7 +28,12 @@ through `aria-describedby`. Avatars are decorative in these labelled rows.
   schemes keep readable contrast.
 - Under a 30em container, use the sortable list’s two-column grid: checkbox
   beside identity, trailing control below identity. Let names wrap at words
-  and hyphens before breaking an overlong word.
+  and hyphens before breaking an overlong word. Align the checkbox indicator,
+  avatar and first text line at the top. Keep the padded checkbox hit area.
+- Narrow tables use the existing small typography triplet. Offer truncation
+  through the existing `block truncate` utilities, preserving the full name
+  in the DOM and accessible label. The narrow demo can switch between
+  truncation and wrapping.
 - Repeat the trailing header in `data-th`. Show that text beside the control
   when the table header is visually hidden. A role label and field must fit
   without widening the page at 320px.
@@ -51,7 +56,7 @@ for unchecked people. No action posts or saves. Without JavaScript the circle an
 Clear buttons stay disabled; native row controls remain usable. The Templ component
 and consumer migrations are separate work.
 
-Use `cluster gap-025` for groups, `flex items-center gap-05 min-w-0` for
+Use `cluster gap-025` for groups, `flex items-start gap-05 min-w-0 pt-025` for
 person labels, and `cluster cluster-compact` for actions. Reuse `.avatar` with
 its existing size variants, image and initials markup. Do not restyle avatars
 inside the picker. Opus 5.5’s design consultation identified the forced single-row

@@ -353,7 +353,7 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
           <span class="visually-hidden" id="pick-ada-label">Select Ada Okafor</span>
         </label>
       </td>
-      <td><label class="people-picker-person flex items-center gap-05 min-w-0" for="pick-ada">
+      <td><label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="pick-ada">
         <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">A</span></span>
         <span class="people-picker-name">Ada Okafor
           <span class="people-picker-detail" id="pick-ada-detail">Organizer, Board</span></span>
@@ -372,7 +372,17 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
 </fieldset>
 ```
 
-The avatar is the ordinary avatar component and is decorative here: image `alt=""`, no `role="img"` on initials. The detail line says why a person is included or "Removed"; point the checkbox's `aria-describedby` at it. Disable a locked row's controls and keep its state on the server, because disabled inputs are not submitted. Compose group rows with `cluster gap-025`, person labels with `flex items-center gap-05 min-w-0`, and action rows with `cluster cluster-compact`. Under a 30em container, the checkbox sits beside the identity and the trailing control moves below the identity, using the same two-column grid as the sortable list. Repeat the trailing column header in its cell’s `data-th` attribute; it appears beside the control when the table header is hidden. Give the hidden selection label a unique id and reference it with `aria-labelledby`, keeping the detail in `aria-describedby` so neither is announced twice. Keep access rules on the server: toggles and Clear are named submit buttons, and with Datastar each change posts the form and the server patches the fieldset back.
+The avatar is the ordinary avatar component and is decorative here: image `alt=""`, no `role="img"` on initials. The detail line says why a person is included or "Removed"; point the checkbox's `aria-describedby` at it. Disable a locked row's controls and keep its state on the server, because disabled inputs are not submitted. Compose group rows with `cluster gap-025`, person labels with `flex items-start gap-05 min-w-0 pt-025`, and action rows with `cluster cluster-compact`. Under a 30em container, the checkbox sits beside the identity and the trailing control moves below the identity, using the same two-column grid as the sortable list. Repeat the trailing column header in its cell’s `data-th` attribute; it appears beside the control when the table header is hidden. Give the hidden selection label a unique id and reference it with `aria-labelledby`, keeping the detail in `aria-describedby` so neither is announced twice. Keep access rules on the server: toggles and Clear are named submit buttons, and with Datastar each change posts the form and the server patches the fieldset back.
+
+
+Align identity content at the top when it wraps. `pt-025` matches the icon checkbox’s padded indicator inset without reducing its hit area. Below 30em the table uses the small typography triplet. Wrapping remains the default; optionally put the name in a `block truncate` span inside `.people-picker-name` and add `truncate` to the detail. Keep the full text in the DOM and the checkbox’s accessible label; a `title` can also expose it on hover. The manual’s narrow example lets you switch truncation on and off.
+
+```html
+<span class="people-picker-name">
+  <span class="block truncate" title="Maximiliana Featherstonehaugh-Abernathy">Maximiliana Featherstonehaugh-Abernathy</span>
+  <span class="people-picker-detail truncate" id="pick-long-detail">Organizer, Festival submissions working group</span>
+</span>
+```
 
 ## Ghost buttons
 

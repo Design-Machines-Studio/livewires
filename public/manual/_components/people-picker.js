@@ -16,6 +16,13 @@ const fixtures = {
 document.querySelectorAll('[data-demo-picker]').forEach((picker) => {
   const fixture = fixtures[picker.dataset.demoPicker];
   if (!fixture) return;
+  const truncate = picker.querySelector('[data-demo-truncate]');
+  if (truncate) {
+    truncate.disabled = false;
+    const updateTruncation = () => picker.querySelectorAll('[data-demo-truncate-text]').forEach((text) => text.classList.toggle('truncate', truncate.checked));
+    truncate.addEventListener('change', updateTruncation);
+    updateTruncation();
+  }
   const buttons = [...picker.querySelectorAll('[data-demo-group]')];
   const rows = [...picker.querySelectorAll('tbody tr')].map((row) => ({
     selection: row.querySelector('[name="member_ids"]'),
@@ -44,6 +51,7 @@ document.querySelectorAll('[data-demo-picker]').forEach((picker) => {
         reasons.push(...groups.map((button) => button.textContent.trim()));
       }
       detail.textContent = reasons.join(', ');
+      if (detail.hasAttribute('title')) detail.title = detail.textContent;
     });
     const count = rows.filter(({ selection }) => selection.checked).length;
     const status = picker.querySelector('[role="status"]');

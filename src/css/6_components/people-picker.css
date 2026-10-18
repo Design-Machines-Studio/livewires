@@ -28,7 +28,7 @@
  *           <span class="visually-hidden" id="pick-ada-label">Select Ada Okafor</span>
  *         </label>
  *       </td>
- *       <td><label class="people-picker-person flex items-center gap-05 min-w-0" for="pick-ada">
+ *       <td><label class="people-picker-person flex items-start gap-05 min-w-0 pt-025" for="pick-ada">
  *         <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">A</span></span>
  *         <span class="people-picker-name">Ada Okafor
  *           <span class="people-picker-detail" id="pick-ada-detail">Board</span></span>
@@ -99,6 +99,8 @@
     inline-size: 100%;
     margin: 0;
 
+    & td { vertical-align: top; }
+
     /* The select and trailing columns shrink to their control. */
     & :where(.people-picker-select, .people-picker-trailing) {
       inline-size: 1%;
@@ -130,11 +132,17 @@
   /* Preserve the identity row; move its optional control below it when
    * the table's existing container breakpoint stacks rows. */
   @container (width < 30em) {
+    .people-picker-table {
+      font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
+    }
+
     .people-picker-table tr:has(.checkbox--icon) {
       display: grid;
       grid-template-columns: max-content minmax(0, 1fr);
       column-gap: var(--line-05);
-      align-items: center;
+      align-items: start;
 
       & > td { padding-inline: 0; }
 
@@ -168,8 +176,9 @@
     }
   }
 
-  /* The member cell's label names the row's checkbox, so a click anywhere on
-   * the avatar or name toggles it. */
+  /* The member cell's label names the row's checkbox. items-start keeps
+   * the avatar beside the first line; pt-025 matches the checkbox indicator
+   * inset without reducing its padded hit area. */
   .people-picker-person {
     margin: 0;
     font-weight: var(--font-normal);
