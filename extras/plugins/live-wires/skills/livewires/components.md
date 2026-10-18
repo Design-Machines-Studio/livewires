@@ -367,7 +367,7 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
   </table>
   <p class="people-picker-status visually-hidden" role="status" aria-atomic="true"></p>
   <div class="people-picker-actions cluster cluster-compact">
-    <button type="submit" class="button button--small" name="picker_action" value="clear" formnovalidate>Clear selection</button>
+    <button type="submit" class="button button--small button--ghost" name="picker_action" value="clear" formnovalidate>Clear selection</button>
   </div>
 </fieldset>
 ```

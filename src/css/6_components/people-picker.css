@@ -42,7 +42,7 @@
  *     </tr></tbody>
  *   </table>
  *   <p class="people-picker-status visually-hidden" role="status" aria-atomic="true"></p>
- *   <div class="people-picker-actions cluster cluster-compact"><button type="submit" class="button button--small" name="picker_action" value="clear" formnovalidate>Clear selection</button></div>
+ *   <div class="people-picker-actions cluster cluster-compact"><button type="submit" class="button button--small button--ghost" name="picker_action" value="clear" formnovalidate>Clear selection</button></div>
  * </fieldset>
  */
 

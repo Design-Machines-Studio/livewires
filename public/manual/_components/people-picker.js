@@ -67,7 +67,7 @@ document.querySelectorAll('[data-demo-picker]').forEach((picker) => {
         if (!groupsFor(id).length) direct.add(id);
       } else {
         direct.delete(id);
-        excluded.add(id);
+        if (groupsFor(id).length) excluded.add(id);
       }
       render();
     });
