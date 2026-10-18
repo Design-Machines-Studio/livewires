@@ -188,6 +188,10 @@
       & .people-picker-person {
         align-items: flex-start;
         padding-block-start: var(--line-025);
+
+        & > .avatar {
+          margin-block-start: calc((var(--line-1) - var(--avatar-size)) / 2);
+        }
       }
     }
   }
