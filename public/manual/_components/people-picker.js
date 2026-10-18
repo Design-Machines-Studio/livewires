@@ -66,7 +66,7 @@ document.querySelectorAll('[data-demo-picker]').forEach((picker) => {
       const group = button.dataset.demoGroup;
       if (selectedGroups.has(group)) selectedGroups.delete(group);
       else selectedGroups.add(group);
-      render(`${button.textContent.trim()} ${selectedGroups.has(group) ? 'selected' : 'released'}.`);
+      render(`${button.textContent.trim()} ${selectedGroups.has(group) ? 'selected' : 'deselected'}.`);
     });
   });
   rows.forEach(({ selection, organizer }) => {

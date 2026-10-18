@@ -69,8 +69,8 @@
     }
   }
 
-  /* Whole-group toggles. aria-pressed is the selected state, so pressed
-   * toggles read as accent buttons without a second class to keep in sync. */
+  /* Whole-group toggles. Keep the accent hue while mixing toward the
+   * scheme foreground so small selected labels retain readable contrast. */
   .people-picker-groups {
     min-inline-size: 0;
 
@@ -83,9 +83,18 @@
     }
 
     & .button[aria-pressed="true"] {
-      --button-bg: var(--color-accent);
-      --button-fg: var(--color-white);
-      border-color: var(--color-accent);
+      --button-bg: color-mix(in srgb, var(--color-accent) 45%, var(--color-fg));
+      --button-fg: var(--color-bg);
+      border-color: var(--button-bg);
+    }
+
+    & .button:is(:hover, :active) {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    & .button:focus-visible {
+      outline-color: var(--color-fg);
     }
 
     /* An unavailable group stays readable and plainly inactive. */

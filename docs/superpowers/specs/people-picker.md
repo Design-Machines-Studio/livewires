@@ -24,8 +24,10 @@ through `aria-describedby`. Avatars are decorative in these labelled rows.
 
 - Use the existing `--line-*` spacing and typography triplets.
 - Group buttons use `aria-pressed` as their selected state. Selected buttons
-  use `--color-accent` with `--color-white` text so inherited light and dark
-  schemes keep readable contrast.
+  mix `--color-accent` at 45% with `--color-fg` and use `--color-bg` text.
+  This keeps small labels readable in light, dark and semantic schemes.
+  Hover and active states stay opaque and underline the label. Circle-button
+  focus outlines use `--color-fg` so they remain visible on dark surfaces.
 - Under a 30em container, use the sortable list’s two-column grid: checkbox
   beside identity, trailing control spanning the full row beneath. Let names wrap at words
   and hyphens before breaking an overlong word. Vertically center all cells
