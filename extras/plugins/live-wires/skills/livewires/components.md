@@ -329,6 +329,51 @@ Cell states on `<td>`: `.outside`, `.today`, `.selected`, `.range-start`, `.in-r
 
 The panel sizes to its content. Under a 40em container the sidebar wraps and presets fall into an inline row above the calendars. Use `type="datetime-local"` for times.
 
+## People Picker
+
+```html
+<!-- Choose members by circle and by person. The page or server owns the rules. -->
+<fieldset class="people-picker">
+  <legend>Members</legend>
+  <p class="people-picker-description">Optional note, or the empty state.</p>
+  <!-- Group toggles: aria-pressed="true" styles a selected group. -->
+  <div class="people-picker-groups" role="group" aria-label="Circles">
+    <button type="submit" class="button button--small" name="picker_action" value="circle:board" aria-pressed="true" formnovalidate>Board</button>
+  </div>
+  <table class="people-picker-table table--lined">
+    <thead><tr>
+      <th scope="col"><span class="visually-hidden">Select</span></th>
+      <th scope="col">Member</th>
+      <th scope="col">Organizer</th> <!-- optional trailing column -->
+    </tr></thead>
+    <tbody><tr>
+      <td class="people-picker-select">
+        <label class="checkbox checkbox--icon">
+          <input type="checkbox" id="pick-ada" name="member_ids" value="ada" aria-describedby="pick-ada-detail" checked>
+          <span class="visually-hidden">Select Ada Okafor</span>
+        </label>
+      </td>
+      <td><label class="people-picker-person" for="pick-ada">
+        <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">A</span></span>
+        <span class="people-picker-name">Ada Okafor
+          <span class="people-picker-detail" id="pick-ada-detail">Organizer, Board</span></span>
+      </label></td>
+      <td class="people-picker-trailing">
+        <label class="switch switch--small">
+          <input type="checkbox" role="switch" name="organizer_ids" value="ada" aria-label="Make Ada Okafor an organizer" checked><span></span>
+        </label>
+      </td>
+    </tr></tbody>
+  </table>
+  <p class="people-picker-status visually-hidden" role="status" aria-atomic="true"></p>
+  <div class="people-picker-actions">
+    <button type="submit" class="button button--small" name="picker_action" value="clear" formnovalidate>Clear selection</button>
+  </div>
+</fieldset>
+```
+
+The avatar is the ordinary avatar component and is decorative here: image `alt=""`, no `role="img"` on initials. The detail line says why a person is included or "Removed"; point the checkbox's `aria-describedby` at it. Disable a locked row's controls and keep its state on the server, because disabled inputs are not submitted. Under a 30em container each row stays on one line. Keep access rules on the server: toggles and Clear are named submit buttons, and with Datastar each change posts the form and the server patches the fieldset back.
+
 ## Ghost buttons
 
 Use `.button.button--ghost` for an unfilled action. Combine with `.button--small` for compact controls and `.button--accent` for accent text resembling a link. The accent ghost foreground mixes the accent and foreground tokens for contrast; it retains native focus treatment. Use a native button for actions and an anchor for navigation or a progressive form link.
