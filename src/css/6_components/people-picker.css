@@ -102,6 +102,18 @@
 
     & td { vertical-align: top; }
 
+    & tbody tr {
+      --people-picker-anchor: .5lh;
+
+      &:has(.people-picker-detail:not(:empty)) {
+        --people-picker-anchor: 1lh;
+      }
+    }
+
+    & tr:has(.checkbox--icon) > .people-picker-select {
+      padding-block-start: calc(var(--line-05) + var(--people-picker-anchor) - var(--line-075));
+    }
+
     /* The select and trailing columns shrink to their control. */
     & :where(.people-picker-select, .people-picker-trailing) {
       inline-size: 1%;
@@ -177,12 +189,16 @@
     }
   }
 
-  /* The member cell's label names the row's checkbox. items-start keeps
-   * the avatar beside the first line; pt-025 matches the checkbox indicator
-   * inset without reducing its padded hit area. */
+  /* Anchor both controls to the normal identity height, even when its text
+   * wraps. A detail line puts the anchor at the name/detail boundary;
+   * names without a detail use the center of their first line. */
   .people-picker-person {
     margin: 0;
     font-weight: var(--font-normal);
+
+    & > .avatar {
+      margin-block-start: calc(var(--people-picker-anchor) - var(--avatar-size) / 2);
+    }
   }
 
   .people-picker-name {

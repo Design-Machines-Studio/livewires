@@ -28,8 +28,9 @@ through `aria-describedby`. Avatars are decorative in these labelled rows.
   schemes keep readable contrast.
 - Under a 30em container, use the sortable list’s two-column grid: checkbox
   beside identity, trailing control below identity. Let names wrap at words
-  and hyphens before breaking an overlong word. Align the checkbox indicator,
-  avatar and first text line at the top. Keep the padded checkbox hit area.
+  and hyphens before breaking an overlong word. Keep checkbox and avatar centers
+  anchored at the normal name/detail boundary as text wraps; rows without
+  details use the center of the first name line. Preserve the padded hit area.
 - Narrow tables use the existing small typography triplet. Offer truncation
   through the existing `block truncate` utilities, preserving the full name
   in the DOM and accessible label. The narrow demo can switch between
