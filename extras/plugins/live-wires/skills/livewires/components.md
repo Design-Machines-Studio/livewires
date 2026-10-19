@@ -88,6 +88,15 @@ For an item one person owns, the footer shows the author instead: an avatar besi
 </footer>
 ```
 
+To add members, wrap the author in `cluster cluster-compact cluster-nowrap items-center min-w-0` and end the footer (`cluster-between cluster-nowrap`) with a Phosphor Bold icon (`users-three`; use `chats` for conversations), the count and visually hidden " members" in `inline-flex items-center gap-025 flex-shrink-0`. To mark an unseen item, put `<span class="badge badge--blue">New</span>` (or "Updated") after the heading, and wrap both in `cluster cluster-between cluster-nowrap items-start` with `min-w-0` on the heading:
+
+```html
+<div class="cluster cluster-between cluster-nowrap items-start">
+  <h3 class="card-heading min-w-0"><a href="/proposals/patronage">Revise the patronage formula</a></h3>
+  <span class="badge badge--blue">New</span>
+</div>
+```
+
 ## Dialogs and Modals
 
 ```html
