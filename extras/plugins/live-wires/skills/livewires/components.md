@@ -386,6 +386,61 @@ Cell states on `<td>`: `.outside`, `.today`, `.selected`, `.range-start`, `.in-r
 
 The panel sizes to its content. Under a 40em container the sidebar wraps and presets fall into an inline row above the calendars. Use `type="datetime-local"` for times.
 
+## People Picker
+
+```html
+<!-- Choose members by circle and by person. The page or server owns the rules. -->
+<fieldset class="people-picker" id="members-picker">
+  <legend>Members</legend>
+  <p class="people-picker-description">Optional note, or the empty state.</p>
+  <!-- Group toggles: aria-pressed="true" styles a selected group. -->
+  <div class="people-picker-groups cluster gap-025" role="group" aria-label="Circles">
+    <button type="submit" class="button button--small" name="picker_action" value="circle:board" aria-pressed="true" formnovalidate>Board</button>
+  </div>
+  <table class="people-picker-table table--lined">
+    <thead><tr>
+      <th scope="col"><span class="visually-hidden">Select</span></th>
+      <th scope="col">Member</th>
+      <th scope="col">Organizer</th> <!-- optional trailing column -->
+    </tr></thead>
+    <tbody><tr>
+      <td class="people-picker-select">
+        <label class="checkbox checkbox--icon">
+          <input type="checkbox" id="pick-ada" name="member_ids" value="ada" aria-describedby="pick-ada-detail" checked aria-labelledby="pick-ada-label">
+          <span class="visually-hidden" id="pick-ada-label">Select Ada Okafor</span>
+        </label>
+      </td>
+      <td><label class="people-picker-person flex gap-05 min-w-0" for="pick-ada">
+        <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">A</span></span>
+        <span class="people-picker-name">Ada Okafor
+          <span class="people-picker-detail" id="pick-ada-detail">Organizer, Board</span></span>
+      </label></td>
+      <td class="people-picker-trailing" data-th="Organizer">
+        <label class="switch switch--small">
+          <input type="checkbox" role="switch" name="organizer_ids" value="ada" aria-label="Make Ada Okafor an organizer" checked><span></span>
+        </label>
+      </td>
+    </tr></tbody>
+  </table>
+  <p class="people-picker-status visually-hidden" role="status" aria-atomic="true"></p>
+  <div class="people-picker-actions cluster cluster-compact">
+    <button type="submit" class="button button--small button--ghost" name="picker_action" value="clear" formnovalidate>Clear selection</button>
+  </div>
+</fieldset>
+```
+
+The avatar is the ordinary avatar component and is decorative here: image `alt=""`, no `role="img"` on initials. The optional detail line says why a person is included or "Removed"; point the checkbox's `aria-describedby` at it. To show only names and avatars, omit both the detail span and its `aria-describedby`; circle toggles and organizer switches still work. Disable a locked row's controls and keep its state on the server, because disabled inputs are not submitted. Compose group rows with `cluster gap-025`, person labels with `flex gap-05 min-w-0`, and action rows with `cluster cluster-compact`. Under a 30em container, the checkbox sits beside the identity and the trailing control spans the full row underneath, using the same two-column grid as the sortable list. Repeat the trailing column header in its cell’s `data-th` attribute; it appears beside the control when the table header is hidden. Give the hidden selection label a unique id and reference it with `aria-labelledby`, keeping the detail in `aria-describedby` so neither is announced twice. Keep access rules on the server: toggles and Clear are named submit buttons, and with Datastar each change posts the form and the server patches the fieldset back.
+
+
+Wide rows vertically center the checkbox, avatar, complete identity text and trailing control. Narrow rows center the checkbox, avatar and truncated identity together; without truncation they align at the top. The trailing label starts at the left edge of the full row, with its control at the right. The checkbox’s padded hit area stays intact. Below 30em the table uses the small typography triplet. Wrapping remains the default; optionally put the name in a `block truncate` span inside `.people-picker-name` and add `truncate` to the detail. Keep the full text in the DOM and the checkbox’s accessible label; a `title` can also expose it on hover. The manual’s narrow example lets you switch truncation on and off.
+
+```html
+<span class="people-picker-name">
+  <span class="block truncate" title="Maximiliana Featherstonehaugh-Abernathy">Maximiliana Featherstonehaugh-Abernathy</span>
+  <span class="people-picker-detail truncate" id="pick-long-detail">Organizer, Festival submissions working group</span>
+</span>
+```
+
 ## Ghost buttons
 
 Use `.button.button--ghost` for an unfilled action. Combine with `.button--small` for compact controls and `.button--accent` for accent text resembling a link. The accent ghost foreground mixes the accent and foreground tokens for contrast; it retains native focus treatment. Use a native button for actions and an anchor for navigation or a progressive form link.

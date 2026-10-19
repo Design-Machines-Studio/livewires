@@ -1,0 +1,238 @@
+/**
+ * People picker
+ *
+ * Choose who belongs to something: a space, a circle, a draft's
+ * collaborators. Group toggles add or remove whole circles, each row has a
+ * selection checkbox, and an optional trailing column holds a per-person
+ * control such as an organizer switch or a role field.
+ *
+ * The markup carries state only. Which people a toggle adds, what a row's
+ * detail line says and what submitting does belong to the page or server.
+ *
+ * @example
+ * <fieldset class="people-picker" id="members-picker">
+ *   <legend>Members</legend>
+ *   <div class="people-picker-groups cluster gap-025" role="group" aria-label="Circles">
+ *     <button type="submit" class="button button--small" name="picker_action" value="circle:board" aria-pressed="true" formnovalidate>Board</button>
+ *   </div>
+ *   <table class="people-picker-table table--lined">
+ *     <thead><tr>
+ *       <th scope="col"><span class="visually-hidden">Select</span></th>
+ *       <th scope="col">Member</th>
+ *       <th scope="col">Organizer</th>
+ *     </tr></thead>
+ *     <tbody><tr>
+ *       <td class="people-picker-select">
+ *         <label class="checkbox checkbox--icon">
+ *           <input type="checkbox" id="pick-ada" name="member_ids" value="ada" aria-describedby="pick-ada-detail" checked aria-labelledby="pick-ada-label">
+ *           <span class="visually-hidden" id="pick-ada-label">Select Ada Okafor</span>
+ *         </label>
+ *       </td>
+ *       <td><label class="people-picker-person flex gap-05 min-w-0" for="pick-ada">
+ *         <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">A</span></span>
+ *         <span class="people-picker-name">Ada Okafor
+ *           <span class="people-picker-detail" id="pick-ada-detail">Board</span></span>
+ *       </label></td>
+ *       <td class="people-picker-trailing" data-th="Organizer">
+ *         <label class="switch switch--small">
+ *           <input type="checkbox" role="switch" name="organizer_ids" value="ada" aria-label="Make Ada Okafor an organizer">
+ *           <span></span>
+ *         </label>
+ *       </td>
+ *     </tr></tbody>
+ *   </table>
+ *   <p class="people-picker-status visually-hidden" role="status" aria-atomic="true"></p>
+ *   <div class="people-picker-actions cluster cluster-compact"><button type="submit" class="button button--small button--ghost" name="picker_action" value="clear" formnovalidate>Clear selection</button></div>
+ * </fieldset>
+ */
+
+@layer components {
+  .people-picker {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--line-05);
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    & > legend {
+      padding-inline: 0;
+      margin-block-end: var(--line-025);
+    }
+
+    & .people-picker-description {
+      margin: 0;
+      font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
+    }
+  }
+
+  /* Whole-group toggles. aria-pressed is the selected state, so pressed
+   * toggles read as accent buttons without a second class to keep in sync. */
+  .people-picker-groups {
+    min-inline-size: 0;
+
+    & .button {
+      max-inline-size: min(100%, 22ch);
+      --button-radius: calc(var(--line) * 2);
+      --button-bg: transparent;
+      --button-fg: var(--color-fg);
+      border: var(--line-1px) solid var(--color-border-muted);
+    }
+
+    & .button[aria-pressed="true"] {
+      --button-bg: var(--color-accent);
+      --button-fg: var(--color-white);
+      border-color: var(--color-accent);
+    }
+
+    & .button:is(:hover, :active) {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    & .button:focus-visible {
+      outline-color: var(--color-fg);
+    }
+
+    /* An unavailable group stays readable and plainly inactive. */
+    & .button:disabled {
+      background-color: transparent;
+      color: var(--color-muted);
+      border-style: dashed;
+    }
+  }
+
+  .people-picker-table {
+    inline-size: 100%;
+    margin: 0;
+
+    & td { vertical-align: middle; }
+
+    /* The select and trailing columns shrink to their control. */
+    & :where(.people-picker-select, .people-picker-trailing) {
+      inline-size: 1%;
+      white-space: nowrap;
+    }
+
+    & .people-picker-select {
+      padding-inline-end: var(--line-05);
+
+      & .checkbox {
+        display: flex;
+        margin: 0;
+      }
+    }
+
+    & .people-picker-trailing {
+      text-align: end;
+
+      & > .switch {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      & :where(input:not([type="checkbox"]), select, textarea) {
+        inline-size: 14ch;
+      }
+    }
+
+    & thead th:last-child:not(:nth-child(2)) {
+      text-align: end;
+      white-space: nowrap;
+    }
+  }
+
+  /* Preserve the identity row; move its optional control below it when
+   * the table's existing container breakpoint stacks rows. */
+  @container (width < 30em) {
+    .people-picker-table {
+      font-size: var(--text-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--tracking-sm);
+    }
+
+    .people-picker-table tr:has(.checkbox--icon) {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      column-gap: var(--line-05);
+      align-items: center;
+
+      & > td { padding-inline: 0; }
+
+      & > td.people-picker-select {
+        grid-column: 1;
+        grid-row: 1;
+        display: flex;
+        inline-size: auto;
+      }
+
+      & > td:not(.people-picker-select, .people-picker-trailing) {
+        grid-column: 2;
+        grid-row: 1;
+        display: block;
+        min-inline-size: 0;
+        text-align: start;
+        font-weight: inherit;
+      }
+
+      & > td.people-picker-trailing {
+        grid-column: 1 / -1;
+        inline-size: auto;
+        white-space: normal;
+        align-items: center;
+        text-align: start;
+
+        &::before {
+          font-size: var(--text-xs);
+          line-height: var(--line-height-xs);
+          letter-spacing: var(--tracking-xs);
+        }
+
+        & :where(input:not([type="checkbox"]), select, textarea) {
+          max-inline-size: 100%;
+        }
+      }
+    }
+
+    .people-picker-table tr:has(.checkbox--icon):not(:has(.people-picker-name .truncate)) {
+      align-items: start;
+
+      & .people-picker-person {
+        align-items: flex-start;
+        padding-block-start: var(--line-025);
+
+        & > .avatar {
+          margin-block-start: calc((var(--line-1) - var(--avatar-size)) / 2);
+        }
+      }
+    }
+  }
+
+  /* Center complete identities in table rows. Narrow rows that allow
+   * wrapping align to the top instead; truncate is an existing utility. */
+  .people-picker-person {
+    align-items: center;
+    margin: 0;
+    font-weight: var(--font-normal);
+  }
+
+  .people-picker-name {
+    flex: 1 1 0%;
+    min-inline-size: 0;
+    overflow-wrap: break-word;
+  }
+
+  /* Why the person is included, or what selecting them changes. Link it to
+   * the checkbox with aria-describedby. */
+  .people-picker-detail {
+    display: block;
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-xs);
+    letter-spacing: var(--tracking-xs);
+  }
+
+}
