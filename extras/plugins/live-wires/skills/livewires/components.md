@@ -76,6 +76,18 @@ Sizes: `--xs` (0.5 lines), `--sm` (0.75 lines), default (1 line), `--lg` (1.5 li
 
 `card card--summary` is one item in a grid of items, such as a space or a proposal draft. Put the linked `.card-heading` and `.description` in a `header box stack`, and facts in a `footer box cluster cluster-between`: an avatar group of up to three people and "+N" at the start, counts or dates at the end. Cards in a row keep equal heights with aligned footers. Headings stop after `--card-heading-lines` (3) and descriptions after `--card-description-lines` (4). Hide decorative avatars with `aria-hidden` and give counts in `visually-hidden` text. Any card can use `.footer`; it is ruled off from what comes before it. See `/manual/components/cards.html`.
 
+For an item one person owns, the footer shows the author instead: an avatar beside their name and the date. `truncate` keeps long names to one line so footers stay the same height:
+
+```html
+<footer class="footer box cluster cluster-compact cluster-nowrap items-center text-sm">
+  <span class="avatar"><img src="ada.jpg" alt=""></span>
+  <div class="min-w-0">
+    <span class="block truncate"><span class="visually-hidden">By </span>Ada Okafor</span>
+    <span class="block text-muted">Edited 2 days ago</span>
+  </div>
+</footer>
+```
+
 ## Dialogs and Modals
 
 ```html

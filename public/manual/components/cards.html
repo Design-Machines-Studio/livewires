@@ -289,6 +289,71 @@
           </ul>
         </section>
 
+        <section class="section stack">
+          <header>
+            <h2>Summary card with an author</h2>
+            <p>For items one person owns, such as a proposal draft. Replace the footer&rsquo;s facts with the author: an avatar beside their name and the date. Long names stop at one line with an ellipsis, so footers in a row stay the same height. The avatar is decorative and has an empty <code>alt</code>. Visually hidden &ldquo;By&rdquo; tells screen reader users whose name it is.</p>
+            <popup-dialog title="Summary Card with Author HTML">
+              <p><a href="#" class="text-sm" aria-label="Code for summary card with an author">Code</a></p>
+              <div slot="body">
+                <pre><code>&lt;li class="card card--summary scheme-subtle rounded"&gt;
+  &lt;div class="header box stack"&gt;
+    &lt;h3 class="card-heading"&gt;&lt;a href="/proposals/patronage"&gt;Revise the patronage formula&lt;/a&gt;&lt;/h3&gt;
+    &lt;p class="description"&gt;Weights client and internal hours the same way.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;footer class="footer box cluster cluster-compact cluster-nowrap items-center text-sm"&gt;
+    &lt;span class="avatar"&gt;&lt;img src="ada.jpg" alt=""&gt;&lt;/span&gt;
+    &lt;div class="min-w-0"&gt;
+      &lt;span class="block truncate"&gt;&lt;span class="visually-hidden"&gt;By &lt;/span&gt;Ada Okafor&lt;/span&gt;
+      &lt;span class="block text-muted"&gt;Edited 2 days ago&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/footer&gt;
+&lt;/li&gt;</code></pre>
+              </div>
+            </popup-dialog>
+          </header>
+          <ul class="grid list-none">
+            <li class="card card--summary scheme-subtle rounded">
+              <div class="header box stack">
+                <h3 class="card-heading"><a href="#">Revise the patronage formula for project-based work</a></h3>
+                <p class="description">Weights hours on client projects and internal work the same way, and phases the change in over two allocation years.</p>
+              </div>
+              <footer class="footer box cluster cluster-compact cluster-nowrap items-center text-sm">
+                <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
+                <div class="min-w-0">
+                  <span class="block truncate"><span class="visually-hidden">By </span>Ada Okafor</span>
+                  <span class="block text-muted">Edited 2 days ago</span>
+                </div>
+              </footer>
+            </li>
+            <li class="card card--summary scheme-subtle rounded">
+              <div class="header box stack">
+                <h3 class="card-heading"><a href="#">Adopt a four-day week for the production team</a></h3>
+                <p class="description">Moves the production team to four eight-hour days from January, with a review at the spring general meeting.</p>
+              </div>
+              <footer class="footer box cluster cluster-compact cluster-nowrap items-center text-sm">
+                <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
+                <div class="min-w-0">
+                  <span class="block truncate"><span class="visually-hidden">By </span>Mateus Rodrigues</span>
+                  <span class="block text-muted">Edited yesterday</span>
+                </div>
+              </footer>
+            </li>
+            <li class="card card--summary scheme-subtle rounded">
+              <div class="header box stack">
+                <h3 class="card-heading"><a href="#">Set a member loan rate</a></h3>
+              </div>
+              <footer class="footer box cluster cluster-compact cluster-nowrap items-center text-sm">
+                <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
+                <div class="min-w-0">
+                  <span class="block truncate"><span class="visually-hidden">By </span>Wiremu Te Rangi-Hēnare-Whitehead</span>
+                  <span class="block text-muted">Edited 3 weeks ago</span>
+                </div>
+              </footer>
+            </li>
+          </ul>
+        </section>
+
       </article>
     </main>
     <html-include src="/_includes/footer.html"></html-include>
