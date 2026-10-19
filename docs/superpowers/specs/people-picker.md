@@ -24,8 +24,7 @@ through `aria-describedby`. Avatars are decorative in these labelled rows.
 
 - Use the existing `--line-*` spacing and typography triplets.
 - Group buttons use `aria-pressed` as their selected state. Selected buttons
-  mix `--color-accent` at 45% with `--color-fg` and use `--color-bg` text.
-  This keeps small labels readable in light, dark and semantic schemes.
+  use `--color-accent` with `--color-white` text, matching the original badge colors.
   Hover and active states stay opaque and underline the label. Circle-button
   focus outlines use `--color-fg` so they remain visible on dark surfaces.
 - Under a 30em container, use the sortable list’s two-column grid: checkbox
