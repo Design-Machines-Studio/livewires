@@ -49,6 +49,10 @@
 
 Sizes: `--xs` (0.5 lines), `--sm` (0.75 lines), default (1 line), `--lg` (1.5 lines), `--xl` (2 lines), `--2xl` (4 lines), `--3xl` (6 lines), `--4xl` (8 lines).
 
+## Summary cards
+
+`card card--summary` is one item in a grid of items, such as a space or a proposal draft. Put the linked `.card-heading` and `.description` in a `header box stack`, and facts in a `footer box cluster cluster-between`: an avatar group of up to three people and "+N" at the start, counts or dates at the end. Cards in a row keep equal heights with aligned footers. Headings stop after `--card-heading-lines` (3) and descriptions after `--card-description-lines` (4). Hide decorative avatars with `aria-hidden` and give counts in `visually-hidden` text. Any card can use `.footer`; it is ruled off from what comes before it. See `/manual/components/cards.html`.
+
 ## Dialogs and Modals
 
 ```html

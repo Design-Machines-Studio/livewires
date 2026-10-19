@@ -16,6 +16,14 @@
  *   <figure><img src="photo.jpg" alt="Description"></figure>
  *   <div class="box stack">...</div>
  * </div>
+ *
+ * <li class="card card--summary scheme-subtle rounded">
+ *   <div class="header box stack">
+ *     <h3 class="card-heading"><a href="/spaces/board">Board room</a></h3>
+ *     <p class="description">Preparation between meetings.</p>
+ *   </div>
+ *   <footer class="footer box cluster cluster-between items-center text-sm">...</footer>
+ * </li>
  */
 
 @layer components {
@@ -31,6 +39,16 @@
 
     & .header {
       border-block-end: var(--line-1px) solid var(--color-border);
+    }
+
+    /* A footer is ruled off from what comes before it. Directly after a
+       header, the footer's rule replaces the header's. */
+    & .footer {
+      border-block-start: var(--line-1px) solid var(--color-border);
+    }
+
+    & .header:has(+ .footer) {
+      border-block-end: 0;
     }
 
     & .card-heading {
@@ -83,6 +101,47 @@
 
     & .value {
       font-weight: var(--font-black);
+    }
+  }
+
+  /* Summary card - one item in a grid of items: a linked heading, a short
+     description and a footer of facts such as members and counts. Cards in a
+     row stretch to the same height and their footers line up. Long headings
+     and descriptions stop after a few lines with an ellipsis; the item's own
+     page shows them in full. Set --card-heading-lines or
+     --card-description-lines to change the limits. */
+  .card--summary {
+    --card-heading-lines: 3;
+    --card-description-lines: 4;
+
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+
+    & > .header {
+      border-block-end: 0;
+    }
+
+    & > .footer {
+      margin-block-start: auto;
+      border-block-start: var(--line-1px) solid var(--color-border-muted);
+    }
+
+    & :is(.card-heading, .description) {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+    }
+
+    & .card-heading {
+      -webkit-line-clamp: var(--card-heading-lines);
+      line-clamp: var(--card-heading-lines);
+    }
+
+    & .description {
+      -webkit-line-clamp: var(--card-description-lines);
+      line-clamp: var(--card-description-lines);
     }
   }
 
