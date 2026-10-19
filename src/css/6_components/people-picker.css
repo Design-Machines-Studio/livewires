@@ -185,6 +185,12 @@
         align-items: center;
         text-align: start;
 
+        &::before {
+          font-size: var(--text-xs);
+          line-height: var(--line-height-xs);
+          letter-spacing: var(--tracking-xs);
+        }
+
         & :where(input:not([type="checkbox"]), select, textarea) {
           max-inline-size: 100%;
         }

@@ -23,6 +23,7 @@ through `aria-describedby`. Avatars are decorative in these labelled rows.
 ## Appearance and responsive behavior
 
 - Use the existing `--line-*` spacing and typography triplets.
+- Narrow trailing-column labels use the extra-small typography tokens.
 - Group buttons use `aria-pressed` as their selected state. Selected buttons
   use `--color-accent` with `--color-white` text, matching the original badge colors.
   Hover and active states stay opaque and underline the label. Circle-button
