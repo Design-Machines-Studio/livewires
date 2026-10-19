@@ -137,6 +137,12 @@
     & .card-heading {
       -webkit-line-clamp: var(--card-heading-lines);
       line-clamp: var(--card-heading-lines);
+
+      /* The line limit hides overflow, so draw the link's focus ring inside
+         the text instead of outside it. */
+      & a:focus-visible {
+        outline-offset: -2px;
+      }
     }
 
     & .description {
