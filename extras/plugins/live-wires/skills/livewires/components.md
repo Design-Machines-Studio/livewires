@@ -83,7 +83,7 @@ For an item one person owns, the footer shows the author instead: an avatar besi
   <span class="avatar"><img src="ada.jpg" alt=""></span>
   <div class="min-w-0">
     <span class="block truncate"><span class="visually-hidden">By </span>Ada Okafor</span>
-    <span class="block text-muted">Edited 2 days ago</span>
+    <span class="block text-xs text-muted">Edited <time datetime="2026-10-17">2 days ago</time></span>
   </div>
 </footer>
 ```
@@ -93,7 +93,7 @@ To add members, wrap the author in `cluster cluster-compact cluster-nowrap items
 The date can be a sentence ("Edited 2 days ago") or, as in Chat, a Phosphor Bold `clock`, visually hidden "Last updated" and a short `<time>` label (time today, "Yesterday", or "Sep 28"):
 
 ```html
-<span class="flex items-center gap-025 text-muted">
+<span class="flex items-center gap-025 text-xs text-muted">
   <svg class="icon flex-none" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor">...</svg>
   <span class="visually-hidden">Last updated </span><time datetime="2026-09-28">Sep 28</time>
 </span>

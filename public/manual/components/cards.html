@@ -283,7 +283,7 @@
                   <div class="avatar-group" aria-hidden="true"><span class="avatar avatar--sm"><img src="/img/guide/ludd-avatar.jpg" alt=""></span><span class="avatar avatar--sm"><img src="/img/guide/ludd-avatar.jpg" alt=""></span></div>
                   <span class="visually-hidden">2 collaborators</span>
                 </div>
-                <span class="text-muted">Edited 2 days ago</span>
+                <span class="text-xs text-muted">Edited <time datetime="2026-10-17">2 days ago</time></span>
               </footer>
             </li>
           </ul>
@@ -292,7 +292,7 @@
         <section class="section stack">
           <header>
             <h2>Summary card with an author</h2>
-            <p>For items one person owns, such as a proposal draft. Replace the footer&rsquo;s facts with the author: an avatar beside their name and the date. Long names stop at one line with an ellipsis, so footers in a row stay the same height. The avatar is decorative and has an empty <code>alt</code>. Visually hidden &ldquo;By&rdquo; tells screen reader users whose name it is.</p>
+            <p>For items one person owns, such as a proposal draft. Replace the footer&rsquo;s facts with the author: an avatar beside their name and the date. Long names stop at one line with an ellipsis, so footers in a row stay the same height. The avatar is decorative and has an empty <code>alt</code>. Visually hidden &ldquo;By&rdquo; tells screen reader users whose name it is. Dates are <code>text-xs</code>, the default size for <code>&lt;time&gt;</code>.</p>
             <popup-dialog title="Summary Card with Author HTML">
               <p><a href="#" class="text-sm" aria-label="Code for summary card with an author">Code</a></p>
               <div slot="body">
@@ -305,7 +305,7 @@
     &lt;span class="avatar"&gt;&lt;img src="ada.jpg" alt=""&gt;&lt;/span&gt;
     &lt;div class="min-w-0"&gt;
       &lt;span class="block truncate"&gt;&lt;span class="visually-hidden"&gt;By &lt;/span&gt;Ada Okafor&lt;/span&gt;
-      &lt;span class="block text-muted"&gt;Edited 2 days ago&lt;/span&gt;
+      &lt;span class="block text-xs text-muted"&gt;Edited &lt;time datetime="2026-10-17"&gt;2 days ago&lt;/time&gt;&lt;/span&gt;
     &lt;/div&gt;
   &lt;/footer&gt;
 &lt;/li&gt;</code></pre>
@@ -322,7 +322,7 @@
                 <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
                 <div class="min-w-0">
                   <span class="block truncate"><span class="visually-hidden">By </span>Ada Okafor</span>
-                  <span class="block text-muted">Edited 2 days ago</span>
+                  <span class="block text-xs text-muted">Edited <time datetime="2026-10-17">2 days ago</time></span>
                 </div>
               </footer>
             </li>
@@ -335,7 +335,7 @@
                 <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
                 <div class="min-w-0">
                   <span class="block truncate"><span class="visually-hidden">By </span>Mateus Rodrigues</span>
-                  <span class="block text-muted">Edited yesterday</span>
+                  <span class="block text-xs text-muted">Edited <time datetime="2026-10-18">yesterday</time></span>
                 </div>
               </footer>
             </li>
@@ -347,7 +347,7 @@
                 <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
                 <div class="min-w-0">
                   <span class="block truncate"><span class="visually-hidden">By </span>Wiremu Te Rangi-Hēnare-Whitehead</span>
-                  <span class="block text-muted">Edited 3 weeks ago</span>
+                  <span class="block text-xs text-muted">Edited <time datetime="2026-09-28">3 weeks ago</time></span>
                 </div>
               </footer>
             </li>
@@ -375,7 +375,7 @@
       &lt;span class="avatar"&gt;&lt;img src="ada.jpg" alt=""&gt;&lt;/span&gt;
       &lt;div class="min-w-0 text-sm"&gt;
         &lt;span class="block truncate"&gt;&lt;span class="visually-hidden"&gt;By &lt;/span&gt;Ada Okafor&lt;/span&gt;
-        &lt;span class="flex items-center gap-025 text-muted"&gt;
+        &lt;span class="flex items-center gap-025 text-xs text-muted"&gt;
           &lt;svg class="icon flex-none" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"&gt;...&lt;/svg&gt; &lt;!-- Phosphor Bold clock --&gt;
           &lt;span class="visually-hidden"&gt;Last updated &lt;/span&gt;&lt;time datetime="2026-10-17"&gt;Oct 17&lt;/time&gt;
         &lt;/span&gt;
@@ -405,7 +405,7 @@
                   <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
                   <div class="min-w-0 text-sm">
                     <span class="block truncate"><span class="visually-hidden">By </span>Ada Okafor</span>
-                    <span class="flex items-center gap-025 text-muted"><svg class="icon flex-none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm68-84a12,12,0,0,1-12,12H128a12,12,0,0,1-12-12V72a12,12,0,0,1,24,0v44h44A12,12,0,0,1,196,128Z"></path></svg><span class="visually-hidden">Last updated </span><time datetime="2026-10-17">Oct 17</time></span>
+                    <span class="flex items-center gap-025 text-xs text-muted"><svg class="icon flex-none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm68-84a12,12,0,0,1-12,12H128a12,12,0,0,1-12-12V72a12,12,0,0,1,24,0v44h44A12,12,0,0,1,196,128Z"></path></svg><span class="visually-hidden">Last updated </span><time datetime="2026-10-17">Oct 17</time></span>
                   </div>
                 </div>
                 <span class="inline-flex items-center gap-025 flex-shrink-0"><svg class="icon flex-none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M164.38,181.1a52,52,0,1,0-72.76,0,75.89,75.89,0,0,0-30,28.89,12,12,0,0,0,20.78,12,53,53,0,0,1,91.22,0,12,12,0,1,0,20.78-12A75.89,75.89,0,0,0,164.38,181.1ZM100,144a28,28,0,1,1,28,28A28,28,0,0,1,100,144Zm147.21,9.59a12,12,0,0,1-16.81-2.39c-8.33-11.09-19.85-19.59-29.33-21.64a12,12,0,0,1-1.82-22.91,20,20,0,1,0-24.78-28.3,12,12,0,1,1-21-11.6,44,44,0,1,1,73.28,48.35,92.18,92.18,0,0,1,22.85,21.69A12,12,0,0,1,247.21,153.59Zm-192.28-24c-9.48,2.05-21,10.55-29.33,21.65A12,12,0,0,1,6.41,136.79,92.37,92.37,0,0,1,29.26,115.1a44,44,0,1,1,73.28-48.35,12,12,0,1,1-21,11.6,20,20,0,1,0-24.78,28.3,12,12,0,0,1-1.82,22.91Z"></path></svg><span>5</span><span class="visually-hidden"> members</span></span>
@@ -424,7 +424,7 @@
                   <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
                   <div class="min-w-0 text-sm">
                     <span class="block truncate"><span class="visually-hidden">By </span>Wiremu Te Rangi-Hēnare-Whitehead</span>
-                    <span class="flex items-center gap-025 text-muted"><svg class="icon flex-none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm68-84a12,12,0,0,1-12,12H128a12,12,0,0,1-12-12V72a12,12,0,0,1,24,0v44h44A12,12,0,0,1,196,128Z"></path></svg><span class="visually-hidden">Last updated </span><time datetime="2026-10-18">Yesterday</time></span>
+                    <span class="flex items-center gap-025 text-xs text-muted"><svg class="icon flex-none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm68-84a12,12,0,0,1-12,12H128a12,12,0,0,1-12-12V72a12,12,0,0,1,24,0v44h44A12,12,0,0,1,196,128Z"></path></svg><span class="visually-hidden">Last updated </span><time datetime="2026-10-18">Yesterday</time></span>
                   </div>
                 </div>
                 <span class="inline-flex items-center gap-025 flex-shrink-0"><svg class="icon flex-none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M164.38,181.1a52,52,0,1,0-72.76,0,75.89,75.89,0,0,0-30,28.89,12,12,0,0,0,20.78,12,53,53,0,0,1,91.22,0,12,12,0,1,0,20.78-12A75.89,75.89,0,0,0,164.38,181.1ZM100,144a28,28,0,1,1,28,28A28,28,0,0,1,100,144Zm147.21,9.59a12,12,0,0,1-16.81-2.39c-8.33-11.09-19.85-19.59-29.33-21.64a12,12,0,0,1-1.82-22.91,20,20,0,1,0-24.78-28.3,12,12,0,1,1-21-11.6,44,44,0,1,1,73.28,48.35,92.18,92.18,0,0,1,22.85,21.69A12,12,0,0,1,247.21,153.59Zm-192.28-24c-9.48,2.05-21,10.55-29.33,21.65A12,12,0,0,1,6.41,136.79,92.37,92.37,0,0,1,29.26,115.1a44,44,0,1,1,73.28-48.35,12,12,0,1,1-21,11.6,20,20,0,1,0-24.78,28.3,12,12,0,0,1-1.82,22.91Z"></path></svg><span>12</span><span class="visually-hidden"> members</span></span>
@@ -441,7 +441,7 @@
                   <span class="avatar"><img src="/img/guide/ludd-avatar.jpg" alt=""></span>
                   <div class="min-w-0 text-sm">
                     <span class="block truncate"><span class="visually-hidden">By </span>Mateus Rodrigues</span>
-                    <span class="flex items-center gap-025 text-muted"><svg class="icon flex-none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm68-84a12,12,0,0,1-12,12H128a12,12,0,0,1-12-12V72a12,12,0,0,1,24,0v44h44A12,12,0,0,1,196,128Z"></path></svg><span class="visually-hidden">Last updated </span><time datetime="2026-09-28">Sep 28</time></span>
+                    <span class="flex items-center gap-025 text-xs text-muted"><svg class="icon flex-none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm68-84a12,12,0,0,1-12,12H128a12,12,0,0,1-12-12V72a12,12,0,0,1,24,0v44h44A12,12,0,0,1,196,128Z"></path></svg><span class="visually-hidden">Last updated </span><time datetime="2026-09-28">Sep 28</time></span>
                   </div>
                 </div>
                 <span class="inline-flex items-center gap-025 flex-shrink-0"><svg class="icon flex-none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M164.38,181.1a52,52,0,1,0-72.76,0,75.89,75.89,0,0,0-30,28.89,12,12,0,0,0,20.78,12,53,53,0,0,1,91.22,0,12,12,0,1,0,20.78-12A75.89,75.89,0,0,0,164.38,181.1ZM100,144a28,28,0,1,1,28,28A28,28,0,0,1,100,144Zm147.21,9.59a12,12,0,0,1-16.81-2.39c-8.33-11.09-19.85-19.59-29.33-21.64a12,12,0,0,1-1.82-22.91,20,20,0,1,0-24.78-28.3,12,12,0,1,1-21-11.6,44,44,0,1,1,73.28,48.35,92.18,92.18,0,0,1,22.85,21.69A12,12,0,0,1,247.21,153.59Zm-192.28-24c-9.48,2.05-21,10.55-29.33,21.65A12,12,0,0,1,6.41,136.79,92.37,92.37,0,0,1,29.26,115.1a44,44,0,1,1,73.28-48.35,12,12,0,1,1-21,11.6,20,20,0,1,0-24.78,28.3,12,12,0,0,1-1.82,22.91Z"></path></svg><span>3</span><span class="visually-hidden"> members</span></span>
