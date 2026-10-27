@@ -139,7 +139,9 @@ trigger, or after the caret leaves and returns to a token (Baseplate owns token 
 **Pointer and touch.** The root cancels `mousedown` so the editor keeps focus and
 selection. Selection happens on `click`, which mouse, touch and pen all fire; a touch
 that scrolls the list fires no click. Hover is visual only (shaded background) and
-never moves the active row. The active row has an outline and the shaded background.
+never moves the active row. The active row uses the subtle scheme and tight rounding,
+without a border or outline. Forced colors use Highlight for the active row and
+Canvas for a hovered inactive row so they remain distinct.
 
 **Status.** Exactly one `role="status"` region with `aria-atomic="true"`, inside the
 root and mounted for the editor's lifetime. Write to it only when the message text
