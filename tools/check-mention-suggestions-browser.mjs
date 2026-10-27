@@ -137,6 +137,13 @@ try {
     const before = await page.locator('#mention-editor').getAttribute('aria-activedescendant');
     await page.locator('#mention-popup [role=option]').nth(2).hover();
     assert.equal(await page.locator('#mention-editor').getAttribute('aria-activedescendant'), before);
+    const colours = await page.evaluate(() => {
+      const rows = document.querySelectorAll('#mention-popup [role=option]');
+      const canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
+      const rgba = (row) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = getComputedStyle(row).backgroundColor; ctx.fillRect(0, 0, 1, 1); return [...ctx.getImageData(0, 0, 1, 1).data]; };
+      return { active: rgba(rows[0]), hover: rgba(rows[2]) };
+    });
+    assert.notDeepEqual(colours.active, colours.hover, 'hover looks like the keyboard-active row');
     await page.screenshot({ path: resolve(evidence, 'hover-vs-active-1280.png') });
     await page.locator('#mention-popup [role=option]').nth(2).click();
     assert.equal(await state(page), 'closed');

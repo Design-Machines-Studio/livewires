@@ -67,7 +67,7 @@ The popup uses `rounded scheme-default` with no border. The active option uses
 | `role="listbox"` `aria-label` `id` | List | One per root. Stable id |
 | `aria-busy="true"` | List | Stale rows retained while a new search loads |
 | `role="option"` `id` | Row | Unique, stable id built from the caller's person ID |
-| `data-active` + `aria-selected="true"` | Row | The active row. Others are `aria-selected="false"` |
+| `data-active` + `aria-selected="true"` + `rounded-sm scheme-subtle` | Row | The active row. Move both classes with `data-active`; others are `aria-selected="false"` without those classes |
 | `aria-disabled="true"` | Row | Shown but not selectable. Skipped by arrows |
 | `.avatar` `aria-hidden="true"` | Row | Optional decorative avatar (image `alt=""` or `.initials`), default size |
 | `data-mention-name` | Row | Person name. Add `truncate` to truncate |
@@ -139,7 +139,8 @@ trigger, or after the caret leaves and returns to a token (Baseplate owns token 
 **Pointer and touch.** The root cancels `mousedown` so the editor keeps focus and
 selection. Selection happens on `click`, which mouse, touch and pen all fire; a touch
 that scrolls the list fires no click. Hover is visual only (shaded background) and
-never moves the active row. The active row uses the subtle scheme and tight rounding,
+never moves the active row. Inactive hover uses a tint halfway between the root
+surface and its subtle colour. The active row uses the subtle scheme and tight rounding,
 without a border or outline. Forced colors use Highlight for the active row and
 Canvas for a hovered inactive row so they remain distinct.
 

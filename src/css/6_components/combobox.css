@@ -103,6 +103,9 @@
     & [role="listbox"] [role="option"] { padding-block: var(--line-025); }
     & [role="listbox"] [role="option"][data-active],
     & [role="listbox"] [role="option"][data-active]:hover { background: var(--color-bg); outline: none; }
+    & [role="listbox"] [role="option"]:hover:not([data-active], [aria-disabled="true"]) {
+      background: color-mix(in oklab, var(--color-bg), var(--color-subtle));
+    }
 
     & [data-mention-name],
     & [data-mention-detail] { display: block; min-inline-size: 0; }
