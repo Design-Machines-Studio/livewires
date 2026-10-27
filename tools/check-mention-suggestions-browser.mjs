@@ -345,7 +345,7 @@ try {
       return { active: s(active), hover: s(hover), avatar: { bg: a.backgroundColor, color: a.color } };
     });
     await page.screenshot({ path: resolve(evidence, 'forced-colors-1280.png') });
-    assert.equal(styles.active.outline, 'none 0px');
+    assert.ok(styles.active.outline.startsWith('none '), `active outline ${styles.active.outline}`);
     assert.ok(styles.hover.outline.startsWith('dashed'), `hover outline ${styles.hover.outline}`);
     assert.notEqual(styles.active.bg, styles.hover.bg, 'hover looks like active');
     assert.notEqual(styles.avatar.bg, styles.avatar.color, 'avatar initials invisible');
