@@ -192,7 +192,9 @@ try {
       await input.fill('a');
       await input.press('ArrowDown');
       await page.locator('#local-choice [role=option]').nth(3).hover();
-      const snapshot = () => page.evaluate(() => {
+      // Wait two frames so any reset transition settles before reading computed styles.
+      const snapshot = () => page.evaluate(async () => {
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         const props = ['color', 'background-color', 'outline-color', 'outline-style', 'outline-width', 'outline-offset', 'padding-top', 'padding-left', 'min-height', 'font-weight', 'cursor', 'overflow-wrap', 'position', 'max-height', 'overflow-y', 'border-top-color', 'border-top-width', 'z-index', 'display', 'forced-color-adjust', 'scroll-behavior', 'grid-template-columns'];
         const nodes = [...document.querySelectorAll('[data-combobox] input, [data-combobox] [role=listbox], [data-combobox] [role=option], [data-combobox] [role=status], [data-combobox] [data-combobox-ui]')];
         return nodes.map((node) => props.map((p) => getComputedStyle(node).getPropertyValue(p)).join('|'));
