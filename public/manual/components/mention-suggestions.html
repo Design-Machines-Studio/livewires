@@ -43,7 +43,7 @@
      style="--mention-suggestions-top: 212px; --mention-suggestions-left: 48px"&gt;
   &lt;ul role="listbox" id="mentions-list" aria-label="People"&gt;
     &lt;li role="option" id="mentions-list-ada" aria-selected="true" data-active&gt;
-      &lt;span class="avatar avatar--sm" aria-hidden="true"&gt;&lt;span class="initials"&gt;AO&lt;/span&gt;&lt;/span&gt;
+      &lt;span class="avatar" aria-hidden="true"&gt;&lt;span class="initials"&gt;AO&lt;/span&gt;&lt;/span&gt;
       &lt;span&gt;
         &lt;span data-mention-name&gt;Ada Okafor&lt;/span&gt;
         &lt;span data-mention-detail&gt;Finance circle&lt;/span&gt;
@@ -69,6 +69,7 @@
               <p id="mention-editor-label">Message</p>
               <div class="box border" id="mention-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="mention-editor-label" data-mention-demo="mention-popup"></div>
               <p><button class="button" type="submit">Send</button></p>
+              <!-- Demo log only. The component itself uses exactly one status region, inside the root. -->
               <p class="text-sm" data-mention-log role="status"></p>
             </form>
             <div data-mention-suggestions id="mention-popup" data-state="closed">
@@ -107,12 +108,12 @@
             <table class="table--lined">
               <thead><tr><th scope="col">While open</th><th scope="col">Result</th></tr></thead>
               <tbody>
-                <tr><td><kbd>ArrowDown</kbd>, <kbd>ArrowUp</kbd></td><td>Move the active person. Wraps at the ends and skips unavailable people.</td></tr>
-                <tr><td><kbd>Enter</kbd></td><td>Inserts the active person. With no active person it closes the list. It never sends or submits.</td></tr>
-                <tr><td><kbd>Tab</kbd></td><td>Inserts the active person. With no active person it closes the list and moves on as usual.</td></tr>
-                <tr><td><kbd>Escape</kbd></td><td>Closes the list. Typing continues as plain text until a new @.</td></tr>
-                <tr><td>Any other key</td><td>Goes to the editor.</td></tr>
-                <tr><td>Click or tap</td><td>Inserts that person. Focus stays in the editor. Hovering only highlights.</td></tr>
+                <tr><td><span><kbd>ArrowDown</kbd>, <kbd>ArrowUp</kbd></span></td><td><span>Move the active person. Wraps at the ends and skips unavailable people. With no people listed, the caret moves as usual.</span></td></tr>
+                <tr><td><span><kbd>Enter</kbd></span></td><td><span>Inserts the active person. With no active person, or with <kbd>Shift</kbd>, <kbd>Ctrl</kbd>, <kbd>Cmd</kbd> or <kbd>Alt</kbd> held, it closes the list. It never sends or submits.</span></td></tr>
+                <tr><td><span><kbd>Tab</kbd></span></td><td><span>Inserts the active person. With no active person it closes the list and moves on as usual. <kbd>Shift</kbd>+<kbd>Tab</kbd> closes the list and moves back.</span></td></tr>
+                <tr><td><span><kbd>Escape</kbd></span></td><td><span>Closes the list. Typing continues as plain text until a new @.</span></td></tr>
+                <tr><td><span>Any other key</span></td><td><span>Goes to the editor.</span></td></tr>
+                <tr><td><span>Click or tap</span></td><td><span>Inserts that person. Focus stays in the editor. Hovering only highlights.</span></td></tr>
               </tbody>
             </table>
             <p>The editor handles every key. The list never takes focus. The active row has an outline and a shaded background. A hovered row has only the background.</p>

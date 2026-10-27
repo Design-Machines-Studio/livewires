@@ -5,7 +5,7 @@
 ```html
 <!-- Size variants (smallest to largest) -->
 <span class="avatar avatar--xs"><img src="photo.jpg" alt="Name"></span>
-<span class="avatar avatar--sm"><img src="photo.jpg" alt="Name"></span>
+<span class="avatar"><img src="photo.jpg" alt="Name"></span>
 <span class="avatar"><img src="photo.jpg" alt="Name"></span>
 <span class="avatar avatar--lg"><img src="photo.jpg" alt="Name"></span>
 <span class="avatar avatar--xl"><img src="photo.jpg" alt="Name"></span>
@@ -29,13 +29,13 @@
 
 <!-- With name (cluster layout) -->
 <div class="cluster items-center">
-  <span class="avatar avatar--sm"><img src="photo.jpg" alt=""></span>
+  <span class="avatar"><img src="photo.jpg" alt=""></span>
   <span>Jane Doe</span>
 </div>
 
 <!-- As link -->
 <a href="/profile/jane" class="cluster items-center">
-  <span class="avatar avatar--sm"><img src="photo.jpg" alt=""></span>
+  <span class="avatar"><img src="photo.jpg" alt=""></span>
   Jane Doe
 </a>
 
@@ -61,9 +61,9 @@ Sizes: `--xs` (0.5 lines), `--sm` (0.75 lines), default (1 line), `--lg` (1.5 li
     <footer class="footer box cluster cluster-between items-center text-sm">
       <div class="cluster cluster-compact items-center">
         <div class="avatar-group" aria-hidden="true">
-          <span class="avatar avatar--sm"><img src="u1.jpg" alt=""></span>
-          <span class="avatar avatar--sm"><img src="u2.jpg" alt=""></span>
-          <span class="avatar avatar--sm"><img src="u3.jpg" alt=""></span>
+          <span class="avatar"><img src="u1.jpg" alt=""></span>
+          <span class="avatar"><img src="u2.jpg" alt=""></span>
+          <span class="avatar"><img src="u3.jpg" alt=""></span>
         </div>
         <span aria-hidden="true">+2</span>
         <span class="visually-hidden">5 members</span>
@@ -399,7 +399,7 @@ An inline people list for `@` in a rich text editor. It is a combobox variant: l
      style="--mention-suggestions-top: 212px; --mention-suggestions-left: 48px">
   <ul role="listbox" id="mentions-list" aria-label="People">
     <li role="option" id="mentions-list-ada" aria-selected="true" data-active>
-      <span class="avatar avatar--sm" aria-hidden="true"><span class="initials">AO</span></span>
+      <span class="avatar" aria-hidden="true"><span class="initials">AO</span></span>
       <span><span data-mention-name>Ada Okafor</span><span data-mention-detail>Finance circle</span></span>
     </li>
   </ul>
@@ -442,7 +442,7 @@ See `docs/superpowers/specs/mention-suggestions.md`, `/manual/components/mention
         </label>
       </td>
       <td><label class="people-picker-person flex gap-05 min-w-0" for="pick-ada">
-        <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">A</span></span>
+        <span class="avatar"><span class="initials" aria-hidden="true">A</span></span>
         <span class="people-picker-name">Ada Okafor
           <span class="people-picker-detail" id="pick-ada-detail">Organizer, Board</span></span>
       </label></td>

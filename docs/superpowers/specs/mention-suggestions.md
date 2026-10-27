@@ -41,7 +41,7 @@ DISC-004 in `assembly/tests/ux/tasks/discussions/mentions-references.md` at `db4
      style="--mention-suggestions-top: 212px; --mention-suggestions-left: 48px">
   <ul role="listbox" id="mentions-list" aria-label="People">
     <li role="option" id="mentions-list-ada" aria-selected="true" data-active>
-      <span class="avatar avatar--sm" aria-hidden="true"><span class="initials">AO</span></span>
+      <span class="avatar" aria-hidden="true"><span class="initials">AO</span></span>
       <span>
         <span data-mention-name>Ada Okafor</span>
         <span data-mention-detail>Finance circle</span>
@@ -66,7 +66,7 @@ DISC-004 in `assembly/tests/ux/tasks/discussions/mentions-references.md` at `db4
 | `role="option"` `id` | Row | Unique, stable id built from the caller's person ID |
 | `data-active` + `aria-selected="true"` | Row | The active row. Others are `aria-selected="false"` |
 | `aria-disabled="true"` | Row | Shown but not selectable. Skipped by arrows |
-| `.avatar .avatar--sm` `aria-hidden="true"` | Row | Optional decorative avatar (image `alt=""` or `.initials`) |
+| `.avatar` `aria-hidden="true"` | Row | Optional decorative avatar (image `alt=""` or `.initials`), default size |
 | `data-mention-name` | Row | Person name. Add `truncate` to truncate |
 | `data-mention-detail` | Row | Optional caller-supplied secondary identifier |
 | `role="status"` `aria-atomic="true"` | Root | The single polite live region |
@@ -76,7 +76,7 @@ DISC-004 in `assembly/tests/ux/tasks/discussions/mentions-references.md` at `db4
 | `data-state` | Listbox | Status (visible?) |
 | --- | --- | --- |
 | `closed` | `hidden`, no rows | Empty. Root is clipped out of sight but mounted |
-| `loading` | `hidden`, or retained stale rows with `aria-busy="true"` | “Searching people…” (visible) |
+| `loading` | `hidden`, or retained stale rows with `aria-busy="true"` | “Searching people…” (visible). Enter this state only when a reply takes longer than a short delay (about 400 ms) |
 | `ready` | Rows, first enabled row active | Count, e.g. “5 people found” (visually hidden) |
 | `empty` | `hidden` | “No matching people” (visible) |
 | `error` | `hidden` | Caller's retry message (visible, error colour) |
@@ -115,9 +115,11 @@ While composing (`event.isComposing`), all keys pass through.
 
 | Key while open | With an active row | Without one (loading, stale, empty, error) |
 | --- | --- | --- |
-| ArrowDown / ArrowUp | Move active, wrap, skip `aria-disabled`; consumed | Consumed, no change |
+| ArrowDown / ArrowUp | Move active, wrap, skip `aria-disabled`; consumed | Stale rows shown: consumed, no change. No rows shown: pass through (moving the caret off the token closes the list) |
 | Enter | Insert the person; consumed | Close; consumed |
+| Enter with Shift, Ctrl, Meta or Alt | Close without inserting; consumed | Same |
 | Tab | Insert the person; consumed | Close; not consumed (Tab proceeds) |
+| Shift+Tab | Close without inserting; not consumed (focus moves back) | Same |
 | Escape | Close; consumed; stay closed for this token | Same |
 | Anything else | Passes through to the editor | Same |
 
@@ -137,8 +139,11 @@ never moves the active row. The active row has an outline and the shaded backgro
 
 **Status.** Exactly one `role="status"` region with `aria-atomic="true"`, inside the
 root and mounted for the editor's lifetime. Write to it only when the message text
-changes: loading, result count, empty, error. Typing that keeps the same message
-writes nothing. Clear it on close.
+changes: loading, result count, empty, error. Write the loading message only after a
+short delay (about 400 ms) with no reply, so fast typing announces counts rather than
+“Searching” before every count. Typing that keeps the same message writes nothing.
+Clear it on close. While the first reply for a new token is pending and the delay has
+not passed, the root may stay `closed`.
 
 **Scroll to active.** When the active row changes, adjust only the list's
 `scrollTop` (nearest edge). Do not call `scrollIntoView`, which can scroll the page.
@@ -153,9 +158,10 @@ keeps the active row visible and wheel scrolling does not chain to the page.
 | Width `min(12 lines, 100vw − 1 line)` | Choose below or above: below when it fits or has more room |
 | Default max height 8 lines, internal scroll | Set `--mention-suggestions-top` (below) or `--mention-suggestions-bottom` (above) |
 | Row layout, wrap or truncate | Set `--mention-suggestions-max-block` to the space on that side |
-| Reduced motion: opacity fade only under `prefers-reduced-motion: no-preference` | Clamp `--mention-suggestions-left` inside the viewport and the editor's nearest scroll container |
+| Motion: opacity fade only under `prefers-reduced-motion: no-preference`; geometry never transitions, so measurements are current | Clamp `--mention-suggestions-left` inside the viewport and the editor's nearest scroll container |
 | | In RTL, align the root's right edge with the caret (`left = caret.right − width`) and set `dir` on the root |
 | | Reposition on scroll and resize while open |
+| | Always set `--mention-suggestions-left`; the CSS fallback is a left-edge default only |
 
 Mount the root outside the `contenteditable`, inside the same dialog or top-layer
 context as the editor, and outside any ancestor with `transform`, `filter`,
@@ -201,7 +207,7 @@ scope here; give that list its own `aria-label`.
 
 ```sh
 LW_PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs \
-LW_MENTION_URL=http://127.0.0.1:3016 \
+LW_MENTION_URL=http://localhost:3000 \
 LW_MENTION_EVIDENCE=/absolute/owned/evidence/path \
 node tools/check-mention-suggestions-browser.mjs
 ```

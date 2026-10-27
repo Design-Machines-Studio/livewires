@@ -13,7 +13,7 @@ const PEOPLE = [
 ];
 const MANY = Array.from({ length: 30 }, (_, i) => ({ id: `m${i}`, name: `Member ${i + 1}`, initials: 'M' }));
 
-function fixture() {
+function fixture(options = {}) {
   const id = `t${++count}`;
   const host = document.createElement('section');
   host.innerHTML = `<form id="${id}-form" action="#">
@@ -41,8 +41,11 @@ function fixture() {
   const api = attachMentionDemo({
     editor, root,
     search: (query) => new Promise((resolve, reject) => pending.push({ query, resolve, reject })),
-    onSelect: (person) => selected.push(person)
+    onSelect: (person) => selected.push(person),
+    loadingDelay: 0,
+    ...options
   });
+  editor.scrollIntoView({ block: 'center', behavior: 'instant' }); // Typing keeps the caret on screen.
   editor.focus();
   return {
     form, editor, root, list, status, pending, selected, api,
@@ -134,6 +137,22 @@ const cases = [
     event = f.key('Tab');
     assert(!event.defaultPrevented && f.root.dataset.state === 'closed', 'Tab without active was blocked or left popup open');
   }],
+  ['Shift+Tab and modified Enter close without inserting; Enter never submits', async (f) => {
+    f.type('@a'); await f.reply(PEOPLE);
+    let event = f.key('Tab', { shiftKey: true });
+    assert(!event.defaultPrevented && f.selected.length === 0 && f.root.dataset.state === 'closed', 'Shift+Tab inserted or was blocked');
+    for (const modifier of ['shiftKey', 'ctrlKey', 'metaKey', 'altKey']) {
+      f.type(`x @${modifier[0]}`); await f.reply(PEOPLE);
+      event = f.key('Enter', { [modifier]: true });
+      assert(event.defaultPrevented && f.selected.length === 0 && f.submits === 0 && f.root.dataset.state === 'closed', `${modifier}+Enter inserted, submitted or stayed open`);
+    }
+  }],
+  ['arrows pass through when no rows are shown', async (f) => {
+    f.type('@zz'); await f.reply([]);
+    assert(!f.key('ArrowDown').defaultPrevented && !f.key('ArrowUp').defaultPrevented, 'arrows blocked with no rows');
+    f.type('@zzz'); await f.fail('Nope');
+    assert(!f.key('ArrowDown').defaultPrevented, 'arrows blocked in error state');
+  }],
   ['Escape closes, is consumed, and keeps the current token closed', async (f) => {
     f.type('@a'); await f.reply(PEOPLE);
     const event = f.key('Escape');
@@ -174,6 +193,9 @@ const cases = [
     f.type('@zzz'); await f.fail('People could not be loaded.');
     assert(f.root.dataset.state === 'error' && f.status.textContent === 'People could not be loaded.', 'error state wrong');
     assert(f.root.querySelectorAll('[role="status"]').length === 1, 'more than one status region');
+    const probe = document.createElement('span'); probe.style.color = 'var(--color-error)'; f.root.append(probe);
+    const errorColor = getComputedStyle(probe).color; probe.remove();
+    assert(getComputedStyle(f.status).color === errorColor, 'error message not in the error colour');
   }],
   ['status is not rewritten when its message is unchanged', async (f) => {
     f.type('@a'); await settle();
@@ -183,6 +205,20 @@ const cases = [
     f.type('@ad'); await settle(); f.type('@ada'); await settle();
     observer.disconnect();
     assert(writes === 0, `loading status rewritten ${writes} times`);
+  }],
+  ['fast replies announce only the count; slow replies show loading after the delay', async () => {
+    const f = fixture({ loadingDelay: 80 });
+    try {
+      const writes = [];
+      new MutationObserver(() => writes.push(f.status.textContent)).observe(f.status, { childList: true, characterData: true, subtree: true });
+      f.type('@a'); await settle();
+      assert(f.root.dataset.state === 'closed', 'popup showed before the loading delay');
+      await f.reply(PEOPLE);
+      await new Promise((resolve) => setTimeout(resolve, 120));
+      assert(!writes.includes('Searching people…'), 'fast reply still announced loading');
+      f.type('@ad'); await new Promise((resolve) => setTimeout(resolve, 120));
+      assert(f.root.dataset.state === 'loading' && f.status.textContent === 'Searching people…', 'slow reply did not show loading');
+    } finally { f.remove(); }
   }],
   ['stale rows are marked busy and a late reply is ignored', async (f) => {
     f.type('@a'); await f.reply(PEOPLE);
@@ -219,18 +255,22 @@ const cases = [
       assert(!f.key(key).defaultPrevented, `${key} was intercepted`);
     }
   }],
-  ['position properties resolve against the viewport, also inside a stack', async (f) => {
-    f.type('@'); await f.reply(PEOPLE);
-    f.root.style.setProperty('--mention-suggestions-top', '40px');
-    f.root.style.removeProperty('--mention-suggestions-bottom');
-    f.root.style.setProperty('--mention-suggestions-left', '24px');
-    const rect = f.root.getBoundingClientRect();
-    assert(Math.abs(rect.top - 40) < 1 && Math.abs(rect.left - 24) < 1, `root at ${rect.left},${rect.top}`);
+  ['position properties resolve against the viewport, also inside a stack', async () => {
+    // A root without the demo attached, so no script repositions it.
+    const root = document.createElement('div');
+    root.dataset.mentionSuggestions = ''; root.dataset.state = 'ready';
+    root.innerHTML = '<ul role="listbox" aria-label="People"><li role="option">Ada</li></ul><p role="status"></p>';
+    root.style.cssText = '--mention-suggestions-top: 40px; --mention-suggestions-left: 24px';
+    document.querySelector('main.stack').append(root);
+    try {
+      const rect = root.getBoundingClientRect();
+      assert(Math.abs(rect.top - 40) < 1 && Math.abs(rect.left - 24) < 1, `root at ${rect.left},${rect.top}`);
+    } finally { root.remove(); }
   }],
   ['popup stays within the viewport', async (f) => {
     f.type('@'); await f.reply(MANY);
     const rect = f.root.getBoundingClientRect();
-    assert(rect.left >= 0 && rect.right <= document.documentElement.clientWidth && rect.top >= 0 && rect.bottom <= innerHeight, 'popup escaped the viewport');
+    assert(rect.left >= 0 && rect.right <= document.documentElement.clientWidth && rect.top >= 0 && rect.bottom <= innerHeight, `popup escaped the viewport: ${JSON.stringify(rect)} ${f.root.style.cssText} editor ${JSON.stringify(f.editor.getBoundingClientRect())} vh ${innerHeight}`);
   }]
 ];
 

@@ -35,12 +35,13 @@ function findToken(editor, trigger) {
   const node = range.startContainer;
   if (node.nodeType !== Node.TEXT_NODE || !editor.contains(node)) return null;
   const before = node.data.slice(0, range.startOffset);
-  const match = before.match(new RegExp(`(^|\\s)${trigger}([^\\s${trigger}]{0,40})$`, 'u'));
+  const t = trigger.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&');
+  const match = before.match(new RegExp(`(^|\\s)${t}([^\\s${t}]{0,40})$`));
   if (!match) return null;
-  return { node, start: range.startOffset - match[2].length - trigger.length, end: range.startOffset, query: match[2], range };
+  return { node, start: range.startOffset - match[2].length - trigger.length, end: range.startOffset, query: match[2] };
 }
 
-export function attachMentionDemo({ editor, root, search, onSelect = () => {}, trigger = '@' }) {
+export function attachMentionDemo({ editor, root, search, onSelect = () => {}, trigger = '@', loadingDelay = 400 }) {
   const doc = editor.ownerDocument;
   const list = root.querySelector('[role="listbox"]');
   const status = root.querySelector('[role="status"]');
@@ -57,6 +58,7 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
   let suppressed = null; // token start dismissed with Escape
   let request = 0;
   let open = false;
+  let loadingTimer;
 
   function say(message) {
     // Write only on change so typing does not repeat announcements.
@@ -89,13 +91,12 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
     else if (row.bottom > box.bottom) list.scrollTop += row.bottom - box.bottom;
   }
 
-  function enabled(index) { return index >= 0 && !items[index]?.disabled; }
   function move(step) {
     if (!items.length || list.getAttribute('aria-busy') === 'true') return;
     let next = active;
     for (let i = 0; i < items.length; i++) {
       next = (next + step + items.length) % items.length;
-      if (enabled(next)) return setActive(next);
+      if (!items[next]?.disabled) return setActive(next);
     }
   }
 
@@ -109,7 +110,7 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
       if (person.disabled) option.setAttribute('aria-disabled', 'true');
       if (person.avatar || person.initials) {
         const avatar = doc.createElement('span');
-        avatar.className = 'avatar avatar--sm';
+        avatar.className = 'avatar';
         avatar.setAttribute('aria-hidden', 'true');
         if (person.avatar) {
           const img = doc.createElement('img');
@@ -156,16 +157,17 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
     root.style.removeProperty('--mention-suggestions-max-block');
     const preferred = parseFloat(getComputedStyle(root).maxBlockSize) || 240;
     const width = root.offsetWidth;
-    const below = viewport.bottom - caret.bottom - GAP * 2;
-    const above = caret.top - viewport.top - GAP * 2;
+    const below = bounds.bottom - caret.bottom - GAP * 2;
+    const above = caret.top - bounds.top - GAP * 2;
     const needed = root.offsetHeight; // Natural height, capped by the default limit.
     if (below >= needed || below >= above) {
-      root.style.setProperty('--mention-suggestions-top', `${caret.bottom + GAP}px`);
+      // Clamp so an off-screen caret never pushes the list out of the viewport.
+      root.style.setProperty('--mention-suggestions-top', `${Math.max(GAP, Math.min(caret.bottom + GAP, viewport.bottom - GAP - needed))}px`);
       root.style.removeProperty('--mention-suggestions-bottom');
       root.style.setProperty('--mention-suggestions-max-block', `${Math.max(0, Math.min(preferred, below))}px`);
       root.dataset.placement = 'below';
     } else {
-      root.style.setProperty('--mention-suggestions-bottom', `${viewport.bottom - caret.top + GAP}px`);
+      root.style.setProperty('--mention-suggestions-bottom', `${Math.max(GAP, Math.min(viewport.bottom - caret.top + GAP, viewport.bottom - GAP - needed))}px`);
       root.style.removeProperty('--mention-suggestions-top');
       root.style.setProperty('--mention-suggestions-max-block', `${Math.max(0, Math.min(preferred, above))}px`);
       root.dataset.placement = 'above';
@@ -188,12 +190,15 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
       list.hidden = true;
     }
     setActive(-1);
-    setState('loading');
-    say('Searching people…');
-    position();
+    // Show and announce loading only when a reply is slow, so typing does not
+    // announce "Searching" before every count.
+    clearTimeout(loadingTimer);
+    const showLoading = () => { if (id === request && open) { setState('loading'); say('Searching people…'); position(); } };
+    if (loadingDelay > 0) loadingTimer = setTimeout(showLoading, loadingDelay); else showLoading();
     try {
       const people = await search(text);
       if (id !== request || !open) return; // Late reply for an older query.
+      clearTimeout(loadingTimer);
       list.removeAttribute('aria-busy');
       render(people);
       if (!people.length) {
@@ -209,6 +214,7 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
       }
     } catch (error) {
       if (id !== request || !open) return;
+      clearTimeout(loadingTimer);
       list.removeAttribute('aria-busy');
       render([]);
       list.hidden = true;
@@ -222,6 +228,7 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
     if (!open) return;
     open = false;
     request++;
+    clearTimeout(loadingTimer);
     token = null;
     setActive(-1);
     render([]);
@@ -259,21 +266,27 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
     suppressed = null;
     const changed = !token || token.query !== next.query || !open;
     token = next;
-    if (!open) { open = true; }
+    open = true;
     if (changed) query(next.query); else position();
   }
 
   function keydown(event) {
     if (!open || event.isComposing || event.keyCode === 229) return;
+    const modified = event.shiftKey || event.ctrlKey || event.metaKey || event.altKey;
     switch (event.key) {
-      case 'ArrowDown': event.preventDefault(); move(1); break;
-      case 'ArrowUp': event.preventDefault(); move(-1); break;
-      case 'Enter':
+      case 'ArrowDown':
+      case 'ArrowUp':
+        // With no rows on screen, arrows move the caret; leaving the token closes the list.
+        if (list.hidden || modified) return;
         event.preventDefault();
-        if (active >= 0) select(active); else close();
+        move(event.key === 'ArrowDown' ? 1 : -1);
+        break;
+      case 'Enter':
+        event.preventDefault(); // Never send or submit while open, even with modifiers.
+        if (active >= 0 && !modified) select(active); else close();
         break;
       case 'Tab':
-        if (active >= 0) { event.preventDefault(); select(active); } else close();
+        if (active >= 0 && !modified) { event.preventDefault(); select(active); } else close();
         break;
       case 'Escape':
         event.preventDefault();
@@ -287,8 +300,7 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
   const onMouseDown = (event) => event.preventDefault(); // Keep editor focus and selection.
   function onClick(event) {
     const option = event.target.closest?.('[role="option"]');
-    if (!option || option.getAttribute('aria-disabled') === 'true') return;
-    select(options().indexOf(option));
+    if (option) select(options().indexOf(option));
   }
   const onSelectionChange = () => { if (doc.activeElement === editor) update(); };
   const onFocusOut = () => close();

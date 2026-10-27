@@ -7,27 +7,33 @@ import { resolve } from 'node:path';
 // It never starts a server or downloads a browser.
 const playwright = await import(process.env.LW_PLAYWRIGHT_MODULE || 'playwright');
 const engine = process.env.LW_MENTION_ENGINE || 'chromium';
-const target = process.env.LW_MENTION_URL || 'http://127.0.0.1:3016';
+const target = process.env.LW_MENTION_URL || 'http://localhost:3000';
 const evidence = resolve(process.env.LW_MENTION_EVIDENCE || 'plans/mention-suggestions/browser');
 const baseRef = process.env.LW_MENTION_BASE_REF || 'origin/main';
 const axePath = process.env.LW_AXE_PATH;
 await mkdir(evidence, { recursive: true });
 const browser = await playwright[engine].launch({ headless: true });
 const results = [];
+let current; // Most recent page, for failure screenshots.
 const manual = '/manual/components/mention-suggestions.html';
 
 async function check(name, action) {
   try { results.push({ name, passed: true, detail: await action() }); }
-  catch (error) { results.push({ name, passed: false, error: error.message }); }
+  catch (error) {
+    results.push({ name, passed: false, error: error.message });
+    await current?.screenshot({ path: resolve(evidence, `failure-${results.length}.png`) }).catch(() => {});
+  }
   const last = results.at(-1);
   console.log(`${last.passed ? 'PASS' : 'FAIL'} ${name}${last.error ? ': ' + last.error : ''}`);
 }
 
 async function open(options = {}, route = manual) {
-  const context = await browser.newContext({ viewport: { width: 1280, height: 800 }, ...options });
+  // Reduced motion by default so captures never catch the opacity fade. H14 checks motion explicitly.
+  const context = await browser.newContext({ viewport: { width: 1280, height: 800 }, reducedMotion: 'reduce', ...options });
   const page = await context.newPage();
   page.errors = [];
   page.on('pageerror', (error) => page.errors.push(error.message));
+  current = page;
   await page.goto(target + route);
   await page.waitForLoadState('networkidle');
   return { context, page };
@@ -150,7 +156,7 @@ try {
     await page.locator('label:has(input[value=slow])').click();
     await page.locator('#mention-editor').click();
     await page.keyboard.type('@z');
-    assert.equal(await state(page), 'loading');
+    await page.waitForFunction(() => document.querySelector('#mention-popup').dataset.state === 'loading');
     assert.equal(await page.locator('#mention-popup [role=status]').textContent(), 'Searching people…');
     await page.screenshot({ path: resolve(evidence, 'loading-1280.png') });
     await page.locator('label:has(input[value=quick])').click();
@@ -163,9 +169,15 @@ try {
     await page.locator('#mention-editor').click();
     await page.keyboard.type('z');
     await page.waitForFunction(() => document.querySelector('#mention-popup').dataset.state === 'error');
-    const error = await page.locator('#mention-popup [role=status]').evaluate((el) => ({ text: el.textContent, visible: el.getBoundingClientRect().height > 1, color: getComputedStyle(el).color }));
+    const error = await page.locator('#mention-popup [role=status]').evaluate(async (el) => {
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const probe = document.createElement('span'); probe.style.color = 'var(--color-error)'; el.append(probe);
+      const expected = getComputedStyle(probe).color; probe.remove();
+      return { text: el.textContent, visible: el.getBoundingClientRect().height > 1, color: getComputedStyle(el).color, expected };
+    });
     assert.equal(error.text, 'People could not be loaded. Keep typing to try again.');
     assert.ok(error.visible);
+    assert.equal(error.color, error.expected, 'error message not in the error colour');
     await page.screenshot({ path: resolve(evidence, 'error-1280.png') });
     assert.equal(await page.locator('#mention-popup [role=status]').count(), 1);
     await context.close();
@@ -231,6 +243,7 @@ try {
             placement: root.dataset.placement
           };
         });
+        await page.waitForTimeout(250); // Let the opacity fade finish before capture.
         await page.screenshot({ path: resolve(evidence, `long-list-${vp}-${scheme}.png`) });
         assert.ok(geometry.inViewport, 'popup outside viewport');
         assert.ok(!geometry.pageOverflow, 'page overflows horizontally');
@@ -239,6 +252,7 @@ try {
         await page.keyboard.press('Escape');
         await page.keyboard.type(' @ma');
         await page.waitForFunction(() => document.querySelector('#mention-popup').dataset.state === 'ready');
+        await page.waitForTimeout(250);
         await page.screenshot({ path: resolve(evidence, `long-name-${vp}-${scheme}.png`) });
         const wrap = await page.evaluate(() => {
           const root = document.querySelector('#mention-popup'), r = root.getBoundingClientRect();
@@ -304,9 +318,9 @@ try {
     });
     await page.screenshot({ path: resolve(evidence, 'forced-colors-1280.png') });
     assert.equal(styles.active.outline, 'solid 2px');
-    assert.ok(styles.hover.outline.startsWith('none'));
+    assert.ok(styles.hover.outline.startsWith('dashed'), `hover outline ${styles.hover.outline}`);
+    assert.notEqual(styles.active.bg, styles.hover.bg, 'hover looks like active');
     assert.notEqual(styles.avatar.bg, styles.avatar.color, 'avatar initials invisible');
-    assert.equal(styles.active.bg, styles.hover.bg, 'both use Highlight');
     await context.close();
     return styles;
   });
@@ -346,6 +360,7 @@ try {
   await check('H15 accessibility tree and axe rules with the list open', async () => {
     const { context, page } = await open();
     await typeMention(page, '@sa');
+    await page.waitForTimeout(250); // Let the opacity fade finish so contrast is measured at rest.
     const snapshot = await page.locator('#mention-popup').ariaSnapshot();
     await writeFile(resolve(evidence, 'aria-snapshot-open.yml'), snapshot + '\n');
     assert.match(snapshot, /listbox "People"/);
