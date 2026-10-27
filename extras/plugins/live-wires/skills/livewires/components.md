@@ -395,10 +395,10 @@ An inline people list for `@` in a rich text editor. It is a combobox variant: l
      aria-autocomplete="list" aria-haspopup="listbox" aria-controls="mentions-list"
      aria-activedescendant="mentions-list-ada">…</div>
 
-<div data-mention-suggestions data-state="ready"
+<div class="rounded scheme-default" data-mention-suggestions data-state="ready"
      style="--mention-suggestions-top: 212px; --mention-suggestions-left: 48px">
   <ul role="listbox" id="mentions-list" aria-label="People">
-    <li role="option" id="mentions-list-ada" aria-selected="true" data-active>
+    <li class="rounded-sm scheme-subtle" role="option" id="mentions-list-ada" aria-selected="true" data-active>
       <span class="avatar" aria-hidden="true"><span class="initials">AO</span></span>
       <span><span data-mention-name>Ada Okafor</span><span data-mention-detail>Finance circle</span></span>
     </li>

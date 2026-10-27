@@ -39,10 +39,10 @@
      aria-activedescendant="mentions-list-ada"&gt;…&lt;/div&gt;
 
 &lt;!-- Mount once, outside the editor. Keep it mounted while the editor exists. --&gt;
-&lt;div data-mention-suggestions data-state="ready"
+&lt;div class="rounded scheme-default" data-mention-suggestions data-state="ready"
      style="--mention-suggestions-top: 212px; --mention-suggestions-left: 48px"&gt;
   &lt;ul role="listbox" id="mentions-list" aria-label="People"&gt;
-    &lt;li role="option" id="mentions-list-ada" aria-selected="true" data-active&gt;
+    &lt;li class="rounded-sm scheme-subtle" role="option" id="mentions-list-ada" aria-selected="true" data-active&gt;
       &lt;span class="avatar" aria-hidden="true"&gt;&lt;span class="initials"&gt;AO&lt;/span&gt;&lt;/span&gt;
       &lt;span&gt;
         &lt;span data-mention-name&gt;Ada Okafor&lt;/span&gt;
@@ -72,7 +72,7 @@
               <!-- Demo log only. The component itself uses exactly one status region, inside the root. -->
               <p class="text-sm" data-mention-log role="status"></p>
             </form>
-            <div data-mention-suggestions id="mention-popup" data-state="closed">
+            <div class="rounded scheme-default" data-mention-suggestions id="mention-popup" data-state="closed">
               <ul role="listbox" id="mention-popup-list" aria-label="People" hidden></ul>
               <p role="status" aria-atomic="true"></p>
             </div>
@@ -88,7 +88,7 @@
               <div class="box border" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="mention-rtl-label" data-mention-demo="mention-popup-rtl"></div>
               <p class="text-sm" data-mention-log role="status"></p>
             </form>
-            <div data-mention-suggestions id="mention-popup-rtl" data-state="closed">
+            <div class="rounded scheme-default" data-mention-suggestions id="mention-popup-rtl" data-state="closed">
               <ul role="listbox" id="mention-popup-rtl-list" aria-label="People" hidden></ul>
               <p role="status" aria-atomic="true"></p>
             </div>

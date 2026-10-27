@@ -353,7 +353,7 @@ try {
     return styles;
   });
 
-  await check('H13 inherited scheme: a root inside .scheme-dark takes its colours', async () => {
+  await check('H13 default scheme: a root inside .scheme-dark keeps its default surface', async () => {
     const { context, page } = await open({}, '/reference/components/mention-suggestions.html');
     await page.evaluate(CONTRAST);
     const result = await page.evaluate(() => {
@@ -365,10 +365,10 @@ try {
       wrap.append(ready);
       document.querySelector('article').prepend(wrap);
       const name = ready.querySelector('[data-mention-name]'), detail = ready.querySelector('[data-mention-detail]');
-      return { bg: getComputedStyle(ready).backgroundColor, wrapBg: getComputedStyle(wrap).backgroundColor, name: __contrast(name), detail: __contrast(detail) };
+      return { bg: getComputedStyle(ready).backgroundColor, defaultBg: getComputedStyle(document.querySelector('#r-ready')).backgroundColor, name: __contrast(name), detail: __contrast(detail) };
     });
     await page.locator('#r-inherited').screenshot({ path: resolve(evidence, 'inherited-scheme-dark.png') });
-    assert.equal(result.bg, result.wrapBg);
+    assert.equal(result.bg, result.defaultBg);
     assert.ok(result.name >= 4.5 && result.detail >= 4.5, JSON.stringify(result));
     await context.close();
     return result;

@@ -20,7 +20,7 @@ function fixture(options = {}) {
       <div id="${id}-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message" style="min-block-size:3em;border:1px solid"></div>
       <button type="submit">Send</button>
     </form>
-    <div data-mention-suggestions id="${id}-root" data-state="closed">
+    <div class="rounded scheme-default" data-mention-suggestions id="${id}-root" data-state="closed">
       <ul role="listbox" id="${id}-list" aria-label="People" hidden></ul>
       <p role="status" aria-atomic="true"></p>
     </div>`;

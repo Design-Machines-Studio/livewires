@@ -28,6 +28,9 @@ DISC-004 in `assembly/tests/ux/tasks/discussions/mentions-references.md` at `db4
 - **No controller in `/dist`.** The manual uses a page-only demonstration script.
   Live Wires ships CSS hooks and this written contract.
 
+The popup uses `rounded scheme-default` with no border. The active option uses
+`rounded-sm scheme-subtle`; move both classes with `data-active` when selection changes.
+
 ## Anatomy
 
 ```html
@@ -37,10 +40,10 @@ DISC-004 in `assembly/tests/ux/tasks/discussions/mentions-references.md` at `db4
      aria-activedescendant="mentions-list-ada">…</div>
 
 <!-- Suggestion root: mounted once, outside the editor, for the editor's lifetime. -->
-<div data-mention-suggestions data-state="ready" dir="ltr"
+<div class="rounded scheme-default" data-mention-suggestions data-state="ready" dir="ltr"
      style="--mention-suggestions-top: 212px; --mention-suggestions-left: 48px">
   <ul role="listbox" id="mentions-list" aria-label="People">
-    <li role="option" id="mentions-list-ada" aria-selected="true" data-active>
+    <li class="rounded-sm scheme-subtle" role="option" id="mentions-list-ada" aria-selected="true" data-active>
       <span class="avatar" aria-hidden="true"><span class="initials">AO</span></span>
       <span>
         <span data-mention-name>Ada Okafor</span>

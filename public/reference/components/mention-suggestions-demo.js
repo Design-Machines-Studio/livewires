@@ -72,6 +72,8 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
     all.forEach((option, i) => {
       const on = i === index;
       option.toggleAttribute('data-active', on);
+      option.classList.toggle('rounded-sm', on);
+      option.classList.toggle('scheme-subtle', on);
       option.setAttribute('aria-selected', on ? 'true' : 'false');
     });
     active = index;

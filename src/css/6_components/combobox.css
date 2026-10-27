@@ -59,8 +59,7 @@
     letter-spacing: var(--tracking-sm);
     background: var(--color-bg);
     color: var(--color-fg);
-    border: var(--line-1px) solid var(--color-border);
-    border-radius: var(--radius-normal);
+    border: 0;
     box-shadow: 0 4px 12px var(--overlay-shadow);
     /* The reduced-motion reset shortens every transition but keeps them all; geometry
        must update at once so the consumer measures the current size. */
@@ -102,6 +101,8 @@
     }
 
     & [role="listbox"] [role="option"] { padding-block: var(--line-025); }
+    & [role="listbox"] [role="option"][data-active],
+    & [role="listbox"] [role="option"][data-active]:hover { background: var(--color-bg); }
 
     & [data-mention-name],
     & [data-mention-detail] { display: block; min-inline-size: 0; }
@@ -144,6 +145,7 @@
     [data-mention-suggestions] {
       border-color: CanvasText;
       box-shadow: none;
+      & [role="listbox"] [role="option"][data-active]:hover { background: Highlight; color: HighlightText; }
       & [role="listbox"] [role="option"][data-active] { outline: calc(var(--line-1px) * 2) solid HighlightText; outline-offset: calc(-2 * var(--line-1px)); }
       & [role="listbox"] [role="option"]:hover:not([data-active], [aria-disabled="true"]) { background: Canvas; color: CanvasText; outline: var(--line-1px) dashed CanvasText; outline-offset: calc(-1 * var(--line-1px)); }
       & [role="option"] > .avatar { background: Canvas; color: CanvasText; }
