@@ -71,6 +71,32 @@ try {
 
   await check('H2 real keyboard: arrows, Enter inserts, editor keeps focus, Enter does not send while open', async () => {
     const { context, page } = await open();
+    // Exercise the actual manual form, including the ancestor Enter-to-send handler.
+    for (const phase of ['closed', 'delay', 'ready']) {
+      if (phase === 'delay') {
+        await page.locator('label:has(input[value=slow])').click();
+        await page.locator('#mention-editor').fill('@a');
+        assert.equal(await state(page), 'closed');
+      }
+      if (phase === 'ready') await page.waitForFunction(() => document.querySelector('#mention-popup').dataset.state === 'ready');
+      const outcome = await page.locator('#mention-editor').evaluate((editor) => {
+        const form = editor.closest('form');
+        let submits = 0;
+        const onSubmit = () => submits++;
+        form.addEventListener('submit', onSubmit);
+        const before = editor.textContent;
+        const events = [{ isComposing: true }, { keyCode: 229 }].map((options) => {
+          const event = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true, ...options });
+          editor.dispatchEvent(event);
+          return event.defaultPrevented;
+        });
+        form.removeEventListener('submit', onSubmit);
+        return { submits, events, unchanged: before === editor.textContent };
+      });
+      assert.deepEqual(outcome, { submits: 0, events: [false, false], unchanged: true }, `composition Enter at ${phase}`);
+    }
+    await page.reload();
+    await page.waitForLoadState('networkidle');
     await typeMention(page, 'Hi @sa');
     const options = page.locator('#mention-popup [role=option]');
     assert.equal(await options.count(), 2);

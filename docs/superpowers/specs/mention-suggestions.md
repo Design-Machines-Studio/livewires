@@ -127,7 +127,8 @@ While composing (`event.isComposing`), all keys pass through.
 returns `true`). **Enter never submits while the list is open.** A contenteditable
 never submits a form on its own; the risk is the consumer's Enter-to-send handler.
 Every send or submit handler (Chat Enter-to-send, a form keydown that calls
-`requestSubmit()`) must ignore Enter when `event.defaultPrevented` is true.
+`requestSubmit()`) must ignore Enter when `event.defaultPrevented` or
+`event.isComposing` is true, or `event.keyCode === 229` (legacy composition events).
 
 After Escape, typing continues as ordinary text. The list reopens only for a new
 trigger, or after the caret leaves and returns to a token (Baseplate owns token rules).

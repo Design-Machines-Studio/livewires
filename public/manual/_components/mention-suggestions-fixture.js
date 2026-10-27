@@ -48,8 +48,8 @@ for (const editor of document.querySelectorAll('[data-mention-demo]')) {
     }
   });
   form?.addEventListener('keydown', (event) => {
-    // Chat-style Enter to send. It ignores Enter the suggestion popup already handled.
-    if (event.key === 'Enter' && !event.shiftKey && !event.defaultPrevented && event.target === editor) {
+    // Composition confirmation belongs to the editor, as does Enter already handled by the popup.
+    if (event.key === 'Enter' && !event.shiftKey && !event.isComposing && event.keyCode !== 229 && !event.defaultPrevented && event.target === editor) {
       event.preventDefault();
       form.requestSubmit();
     }
