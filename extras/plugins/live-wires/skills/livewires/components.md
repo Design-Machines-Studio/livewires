@@ -409,6 +409,7 @@ An inline people list for `@` in a rich text editor. It is a combobox variant: l
 
 - `data-state`: `closed`, `loading`, `ready`, `empty`, `error`. Keep the root mounted while the editor exists; closed is clipped out of sight so the one status region stays available.
 - The editor keeps `role="textbox"`. No `aria-expanded` (not allowed on textbox). `aria-activedescendant` only while a row is active.
+- Use `rounded scheme-default` on the borderless root. Move `rounded-sm scheme-subtle` with `data-active` on the active row; it has no border or outline.
 - The editor's keydown handles ArrowUp/ArrowDown, Enter, Tab and Escape while open and calls `preventDefault()`. Enter-to-send handlers must ignore Enter when `event.defaultPrevented`, `event.isComposing`, or `event.keyCode === 229`.
 - Cancel `mousedown` on the root and select on `click`. Hover never moves the active row.
 - Stale rows: `aria-busy="true"` on the listbox, no active row. Discard replies for older queries.
