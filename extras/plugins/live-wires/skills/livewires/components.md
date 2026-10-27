@@ -386,6 +386,37 @@ Cell states on `<td>`: `.outside`, `.today`, `.selected`, `.range-start`, `.in-r
 
 The panel sizes to its content. Under a 40em container the sidebar wraps and presets fall into an inline row above the calendars. Use `type="datetime-local"` for times.
 
+## Mention Suggestions
+
+An inline people list for `@` in a rich text editor. It is a combobox variant: load `/dist/combobox.css` (in Vite development, import `/dist/combobox.js`). Live Wires ships hooks and a contract, not a controller. The editor keeps focus; the list is never focused.
+
+```html
+<div contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message"
+     aria-autocomplete="list" aria-haspopup="listbox" aria-controls="mentions-list"
+     aria-activedescendant="mentions-list-ada">…</div>
+
+<div data-mention-suggestions data-state="ready"
+     style="--mention-suggestions-top: 212px; --mention-suggestions-left: 48px">
+  <ul role="listbox" id="mentions-list" aria-label="People">
+    <li role="option" id="mentions-list-ada" aria-selected="true" data-active>
+      <span class="avatar avatar--sm" aria-hidden="true"><span class="initials">AO</span></span>
+      <span><span data-mention-name>Ada Okafor</span><span data-mention-detail>Finance circle</span></span>
+    </li>
+  </ul>
+  <p role="status" aria-atomic="true">1 person found</p>
+</div>
+```
+
+- `data-state`: `closed`, `loading`, `ready`, `empty`, `error`. Keep the root mounted while the editor exists; closed is clipped out of sight so the one status region stays available.
+- The editor keeps `role="textbox"`. No `aria-expanded` (not allowed on textbox). `aria-activedescendant` only while a row is active.
+- The editor's keydown handles ArrowUp/ArrowDown, Enter, Tab and Escape while open and calls `preventDefault()`. Enter-to-send handlers must ignore Enter when `event.defaultPrevented`.
+- Cancel `mousedown` on the root and select on `click`. Hover never moves the active row.
+- Stale rows: `aria-busy="true"` on the listbox, no active row. Discard replies for older queries.
+- The consumer sets `--mention-suggestions-top` or `--mention-suggestions-bottom`, `--mention-suggestions-left` and optionally `--mention-suggestions-max-block` from the caret rectangle. Scroll the list with `scrollTop`, never `scrollIntoView`.
+- `data-mention-detail` holds only a real identifier the caller supplies. Never derive handles from names.
+
+See `docs/superpowers/specs/mention-suggestions.md`, `/manual/components/mention-suggestions.html` and `/reference/components/mention-suggestions.html`.
+
 ## People Picker
 
 ```html

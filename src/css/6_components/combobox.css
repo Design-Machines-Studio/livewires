@@ -17,25 +17,115 @@
       background: var(--color-bg);
       color: var(--color-fg);
       border: var(--line-1px) solid currentColor;
-      & [role="option"] {
-        padding: var(--line-05) var(--line-075);
-        min-block-size: var(--touch-target-min);
-        overflow-wrap: anywhere;
-        cursor: pointer;
-        &[data-active] { outline: var(--line-1px) solid currentColor; outline-offset: calc(-1 * var(--line-1px)); background: var(--color-subtle); }
-        &:hover:not([aria-disabled="true"]) { background: var(--color-subtle); }
-        &[data-selected] { font-weight: var(--font-bold); }
-        &[aria-disabled="true"] { color: var(--color-muted); cursor: default; }
-      }
     }
     & [hidden] { display: none; }
+  }
+  /* Shared with the mention suggestions variant. Same specificity as the scoped rules. */
+  :is([data-combobox], [data-mention-suggestions]) {
+    & [role="listbox"] [role="option"] {
+      padding: var(--line-05) var(--line-075);
+      min-block-size: var(--touch-target-min);
+      overflow-wrap: anywhere;
+      cursor: pointer;
+      &[data-active] { outline: var(--line-1px) solid currentColor; outline-offset: calc(-1 * var(--line-1px)); background: var(--color-subtle); }
+      &:hover:not([aria-disabled="true"]) { background: var(--color-subtle); }
+      &[data-selected] { font-weight: var(--font-bold); }
+      &[aria-disabled="true"] { color: var(--color-muted); cursor: default; }
+    }
     & [role="status"] {
       min-block-size: var(--line-1); overflow-wrap: anywhere;
       &[data-state="error"] { color: var(--color-error); }
     }
   }
+
+  /* Mention suggestions: caret-anchored people list for rich text editors.
+     The consumer sets position custom properties; the editor keeps focus. */
+  [data-mention-suggestions] {
+    /* Physical on purpose: the consumer measures caret rectangles in viewport pixels. */
+    position: fixed;
+    top: var(--mention-suggestions-top, auto);
+    bottom: var(--mention-suggestions-bottom, auto);
+    left: var(--mention-suggestions-left, var(--line-05));
+    z-index: var(--z-dropdown, 100);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 0;
+    inline-size: min(calc(var(--line) * 12), calc(100vw - var(--line-1)));
+    max-block-size: var(--mention-suggestions-max-block, calc(var(--line) * 8));
+    padding: var(--line-025);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    border: var(--line-1px) solid var(--color-border);
+    border-radius: var(--radius-normal);
+    box-shadow: 0 4px 12px var(--overlay-shadow);
+
+    &[data-state="closed"] {
+      /* Visually clipped, not removed, so the empty status region stays mounted. */
+      clip-path: inset(50%);
+      inline-size: 1px;
+      block-size: 1px;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & [role="listbox"] {
+      flex: 1 1 auto;
+      min-block-size: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scroll-behavior: auto; /* Keep the active row visible at once during key repeat. */
+
+      &[aria-busy="true"] [role="option"] { color: var(--color-muted); }
+    }
+
+    & [role="option"] {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      column-gap: var(--line-05);
+
+      &:not(:has(> .avatar)) { grid-template-columns: minmax(0, 1fr); }
+      & > .avatar { overflow-wrap: normal; white-space: nowrap; } /* Keep initials on one line. */
+    }
+
+    & [data-mention-name],
+    & [data-mention-detail] { display: block; min-inline-size: 0; }
+    & [data-mention-detail] { color: var(--color-muted); font-size: var(--text-xs); line-height: var(--line-height-xs); letter-spacing: var(--tracking-xs); }
+    & [role="option"][aria-disabled="true"] [data-mention-detail] { color: inherit; }
+
+    & [role="status"] {
+      min-block-size: 0;
+      margin: 0;
+      padding: var(--line-025) var(--line-05);
+    }
+    &[data-state="ready"] [role="status"] {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    & [hidden] { display: none; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-mention-suggestions] { transition: opacity var(--duration-fast); }
+  }
+
   @media (forced-colors: active) {
-    [data-combobox] [role="listbox"] {
+    :is([data-combobox], [data-mention-suggestions]) [role="listbox"] {
       forced-color-adjust: none; /* Explicit system-color pairs avoid text backplates. */
       background: Canvas;
       color: CanvasText;
@@ -43,6 +133,15 @@
       & [role="option"][data-active] { background: Highlight; color: HighlightText; }
       & [role="option"]:hover:not([aria-disabled="true"]) { background: Highlight; color: HighlightText; }
       & [role="option"][aria-disabled="true"] { color: GrayText; }
+    }
+    [data-mention-suggestions] {
+      border-color: CanvasText;
+      box-shadow: none;
+      & [role="listbox"] [role="option"][data-active] { outline: calc(var(--line-1px) * 2) solid HighlightText; outline-offset: calc(-2 * var(--line-1px)); }
+      & [role="option"] > .avatar { background: Canvas; color: CanvasText; }
+      & [role="option"][data-active] [data-mention-detail],
+      & [role="option"]:hover:not([aria-disabled="true"]) [data-mention-detail] { color: inherit; }
+      & [role="listbox"][aria-busy="true"] [role="option"] { color: GrayText; }
     }
   }
 }
