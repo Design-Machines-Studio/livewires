@@ -271,7 +271,8 @@ export function attachMentionDemo({ editor, root, search, onSelect = () => {}, t
   }
 
   function keydown(event) {
-    if (!open || event.isComposing || event.keyCode === 229) return;
+    // Handle keys only while the list is on screen; during the loading delay it is not.
+    if (!open || root.dataset.state === 'closed' || event.isComposing || event.keyCode === 229) return;
     const modified = event.shiftKey || event.ctrlKey || event.metaKey || event.altKey;
     switch (event.key) {
       case 'ArrowDown':

@@ -213,6 +213,9 @@ const cases = [
       new MutationObserver(() => writes.push(f.status.textContent)).observe(f.status, { childList: true, characterData: true, subtree: true });
       f.type('@a'); await settle();
       assert(f.root.dataset.state === 'closed', 'popup showed before the loading delay');
+      const early = f.key('Enter');
+      assert(!early.defaultPrevented && f.submits === 1, 'Enter was swallowed while nothing was on screen');
+      f.type('@a'); await settle();
       await f.reply(PEOPLE);
       await new Promise((resolve) => setTimeout(resolve, 120));
       assert(!writes.includes('Searching people…'), 'fast reply still announced loading');

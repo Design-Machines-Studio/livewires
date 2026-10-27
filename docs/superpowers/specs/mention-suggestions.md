@@ -143,7 +143,8 @@ changes: loading, result count, empty, error. Write the loading message only aft
 short delay (about 400 ms) with no reply, so fast typing announces counts rather than
 “Searching” before every count. Typing that keeps the same message writes nothing.
 Clear it on close. While the first reply for a new token is pending and the delay has
-not passed, the root may stay `closed`.
+not passed, the root may stay `closed`; while it is `closed`, every key passes through
+to the editor as if no list existed.
 
 **Scroll to active.** When the active row changes, adjust only the list's
 `scrollTop` (nearest edge). Do not call `scrollIntoView`, which can scroll the page.
