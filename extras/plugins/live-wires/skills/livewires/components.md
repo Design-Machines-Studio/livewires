@@ -29,13 +29,13 @@
 
 <!-- With name (cluster layout) -->
 <div class="cluster items-center">
-  <span class="avatar avatar--sm"><img src="photo.jpg" alt=""></span>
+  <span class="avatar"><img src="photo.jpg" alt=""></span>
   <span>Jane Doe</span>
 </div>
 
 <!-- As link -->
 <a href="/profile/jane" class="cluster items-center">
-  <span class="avatar avatar--sm"><img src="photo.jpg" alt=""></span>
+  <span class="avatar"><img src="photo.jpg" alt=""></span>
   Jane Doe
 </a>
 
@@ -61,9 +61,9 @@ Sizes: `--xs` (0.5 lines), `--sm` (0.75 lines), default (1 line), `--lg` (1.5 li
     <footer class="footer box cluster cluster-between items-center text-sm">
       <div class="cluster cluster-compact items-center">
         <div class="avatar-group" aria-hidden="true">
-          <span class="avatar avatar--sm"><img src="u1.jpg" alt=""></span>
-          <span class="avatar avatar--sm"><img src="u2.jpg" alt=""></span>
-          <span class="avatar avatar--sm"><img src="u3.jpg" alt=""></span>
+          <span class="avatar"><img src="u1.jpg" alt=""></span>
+          <span class="avatar"><img src="u2.jpg" alt=""></span>
+          <span class="avatar"><img src="u3.jpg" alt=""></span>
         </div>
         <span aria-hidden="true">+2</span>
         <span class="visually-hidden">5 members</span>
@@ -386,6 +386,38 @@ Cell states on `<td>`: `.outside`, `.today`, `.selected`, `.range-start`, `.in-r
 
 The panel sizes to its content. Under a 40em container the sidebar wraps and presets fall into an inline row above the calendars. Use `type="datetime-local"` for times.
 
+## Mention Suggestions
+
+An inline people list for `@` in a rich text editor. It is a combobox variant: load `/dist/combobox.css` (in Vite development, import `/dist/combobox.js`). Live Wires ships hooks and a contract, not a controller. The editor keeps focus; the list is never focused.
+
+```html
+<div contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message"
+     aria-autocomplete="list" aria-haspopup="listbox" aria-controls="mentions-list"
+     aria-activedescendant="mentions-list-ada">…</div>
+
+<div class="rounded scheme-default" data-mention-suggestions data-state="ready"
+     style="--mention-suggestions-top: 212px; --mention-suggestions-left: 48px">
+  <ul role="listbox" id="mentions-list" aria-label="People">
+    <li class="rounded-sm scheme-subtle" role="option" id="mentions-list-ada" aria-selected="true" data-active>
+      <span class="avatar" aria-hidden="true"><span class="initials">AO</span></span>
+      <span><span data-mention-name>Ada Okafor</span><span data-mention-detail>Finance circle</span></span>
+    </li>
+  </ul>
+  <p role="status" aria-atomic="true">1 person found</p>
+</div>
+```
+
+- `data-state`: `closed`, `loading`, `ready`, `empty`, `error`. Keep the root mounted while the editor exists; closed is clipped out of sight so the one status region stays available.
+- The editor keeps `role="textbox"`. No `aria-expanded` (not allowed on textbox). `aria-activedescendant` only while a row is active.
+- Use `rounded scheme-default` on the borderless root. Move `rounded-sm scheme-subtle` with `data-active` on the active row; it has no border or outline.
+- The editor's keydown handles ArrowUp/ArrowDown, Enter, Tab and Escape while open and calls `preventDefault()`. Enter-to-send handlers must ignore Enter when `event.defaultPrevented`, `event.isComposing`, or `event.keyCode === 229`.
+- Cancel `mousedown` on the root and select on `click`. Hover never moves the active row.
+- Stale rows: `aria-busy="true"` on the listbox, no active row. Discard replies for older queries.
+- The consumer sets `--mention-suggestions-top` or `--mention-suggestions-bottom`, `--mention-suggestions-left` and optionally `--mention-suggestions-max-block` from the caret rectangle. Scroll the list with `scrollTop`, never `scrollIntoView`.
+- `data-mention-detail` holds only a real identifier the caller supplies. Never derive handles from names.
+
+See `docs/superpowers/specs/mention-suggestions.md`, `/manual/components/mention-suggestions.html` and `/reference/components/mention-suggestions.html`.
+
 ## People Picker
 
 ```html
@@ -411,7 +443,7 @@ The panel sizes to its content. Under a 40em container the sidebar wraps and pre
         </label>
       </td>
       <td><label class="people-picker-person flex gap-05 min-w-0" for="pick-ada">
-        <span class="avatar avatar--sm"><span class="initials" aria-hidden="true">A</span></span>
+        <span class="avatar"><span class="initials" aria-hidden="true">A</span></span>
         <span class="people-picker-name">Ada Okafor
           <span class="people-picker-detail" id="pick-ada-detail">Organizer, Board</span></span>
       </label></td>

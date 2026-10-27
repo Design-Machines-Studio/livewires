@@ -149,7 +149,7 @@ Connect your templates to your CMS or framework. Your prototype becomes the prod
 For detailed reference, see these files in the same directory:
 
 - **[layouts.md](layouts.md)** — Stack, Grid, Cluster, Sidebar, Center, Section, Cover, Box, Reel, Imposter
-- **[components.md](components.md)** — Dialogs, Popups, Status Indicators, Badges, Progress Bars, Dropdown, Calendar, Date Filter, People Picker, Summary Cards
+- **[components.md](components.md)** — Dialogs, Popups, Status Indicators, Badges, Progress Bars, Dropdown, Calendar, Date Filter, Mention Suggestions, People Picker, Summary Cards
 - **[utilities.md](utilities.md)** — Typography, Spacing, Color Schemes, Container Queries
 - **[patterns.md](patterns.md)** — Article Structure, Hero, Statistics Grid, Responsive Picture
 - **[theming.md](theming.md)** — Visual transformation workflow, color scales, typography, accessibility
@@ -235,3 +235,6 @@ or `applyResults`, and own fetching/authorization/save rejection. Use
 `refresh` for in-place markup and `dispose` before whole-root replacement.
 See `docs/combobox.md`, `/manual/components/combobox.html` and
 `/reference/forms/combobox.html` for the maintained contract and examples.
+The same stylesheet holds the `[data-mention-suggestions]` variant for `@` people
+suggestions in rich text editors. See `components.md` and
+`docs/superpowers/specs/mention-suggestions.md`.

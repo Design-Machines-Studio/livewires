@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mention suggestions deterministic checks — Live Wires</title>
+  <link rel="stylesheet" href="/dist/main.css">
+  <link rel="stylesheet" href="/dist/combobox.css">
+  <script type="module" src="/dist/main.js"></script>
+  <!-- In development, importing the entry injects combobox.css, which holds the mention variant. -->
+  <script type="module" src="/dist/combobox.js"></script>
+  <script type="module" src="/reference/components/mention-suggestions-tests.js"></script>
+</head>
+<body class="scheme-default">
+  <main class="section stack">
+    <h1>Mention suggestions deterministic checks</h1>
+    <p>These real-DOM checks drive the demonstration script with synthetic events. They prove the documented contract can be met with the shipped hooks. They do not replace keyboard, touch or screen reader testing.</p>
+    <button id="run-tests" type="button">Run checks</button>
+    <p id="test-status" role="status">Not run.</p>
+    <ol id="test-results"></ol>
+    <div id="fixtures"></div>
+  </main>
+</body>
+</html>

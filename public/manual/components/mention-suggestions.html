@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="/dist/main.js"></script>
+    <noscript><link rel="stylesheet" href="/dist/main.css"></noscript>
+    <html-include src="/_includes/head.html"></html-include>
+    <link rel="stylesheet" href="/dist/combobox.css">
+    <!-- In development, importing the entry injects combobox.css, which holds this variant. -->
+    <script type="module" src="/dist/combobox.js"></script>
+    <script type="module" src="/manual/_components/mention-suggestions-fixture.js"></script>
+    <title>Mention suggestions &ndash; Components &ndash; Live Wires</title>
+  </head>
+  <body class="scheme-default pg-components-mention-suggestions">
+    <html-include src="/_includes/header.html"></html-include>
+    <main class="main sidebar" id="main">
+      <html-include class="bg-subtle" src="../_includes/nav-components.html"></html-include>
+      <article class="prose">
+        <header class="section scheme-dark">
+          <h1>Mention suggestions</h1>
+          <p class="lead">Suggest people while someone types @ in a rich text editor.</p>
+        </header>
+
+        <section class="section stack">
+          <section class="stack">
+            <header>
+              <h2>Mention someone</h2>
+              <p>Type <kbd>@</kbd> and a few letters. Use the arrow keys and <kbd>Enter</kbd> or <kbd>Tab</kbd>, or click or tap a name. <kbd>Escape</kbd> closes the list and lets you keep typing. The editor keeps focus the whole time. <kbd>Enter</kbd> sends the message only when the list is closed.</p>
+              <p>Try <kbd>@sam</kbd> for two people with the same name, <kbd>@ma</kbd> for a long name, <kbd>@zz</kbd> for no results and <kbd>@ada</kbd> for one result. This page's script is a demonstration only. It simulates search and keeps everything on this page.</p>
+              <popup-dialog title="Mention suggestions HTML">
+                <p><a href="#" class="text-sm">Code</a></p>
+                <div slot="body">
+                  <pre><code>&lt;link rel="stylesheet" href="/dist/combobox.css"&gt;
+
+&lt;!-- The editor keeps textbox semantics. Add these while suggestions are attached. --&gt;
+&lt;div contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message"
+     aria-autocomplete="list" aria-haspopup="listbox" aria-controls="mentions-list"
+     aria-activedescendant="mentions-list-ada"&gt;…&lt;/div&gt;
+
+&lt;!-- Mount once, outside the editor. Keep it mounted while the editor exists. --&gt;
+&lt;div class="rounded scheme-default" data-mention-suggestions data-state="ready"
+     style="--mention-suggestions-top: 212px; --mention-suggestions-left: 48px"&gt;
+  &lt;ul role="listbox" id="mentions-list" aria-label="People"&gt;
+    &lt;li class="rounded-sm scheme-subtle" role="option" id="mentions-list-ada" aria-selected="true" data-active&gt;
+      &lt;span class="avatar" aria-hidden="true"&gt;&lt;span class="initials"&gt;AO&lt;/span&gt;&lt;/span&gt;
+      &lt;span&gt;
+        &lt;span data-mention-name&gt;Ada Okafor&lt;/span&gt;
+        &lt;span data-mention-detail&gt;Finance circle&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li role="option" id="mentions-list-di" aria-selected="false"&gt;
+      &lt;span&gt;&lt;span data-mention-name&gt;Di Ng&lt;/span&gt;&lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p role="status" aria-atomic="true"&gt;2 people found&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </popup-dialog>
+            </header>
+
+            <form class="stack" action="#">
+              <fieldset class="stack stack-compact">
+                <legend>Simulated search</legend>
+                <label class="radio"><input type="radio" name="mention-scenario" value="quick" checked> Quick replies</label>
+                <label class="radio"><input type="radio" name="mention-scenario" value="slow"> Slow replies (shows stale rows while you type)</label>
+                <label class="radio"><input type="radio" name="mention-scenario" value="error"> Failed replies</label>
+              </fieldset>
+              <p id="mention-editor-label">Message</p>
+              <div class="box border" id="mention-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="mention-editor-label" data-mention-demo="mention-popup"></div>
+              <p><button class="button" type="submit">Send</button></p>
+              <!-- Demo log only. The component itself uses exactly one status region, inside the root. -->
+              <p class="text-sm" data-mention-log role="status"></p>
+            </form>
+            <div class="rounded scheme-default" data-mention-suggestions id="mention-popup" data-state="closed">
+              <ul role="listbox" id="mention-popup-list" aria-label="People" hidden></ul>
+              <p role="status" aria-atomic="true"></p>
+            </div>
+          </section>
+
+          <section class="stack">
+            <header>
+              <h2>Right to left</h2>
+              <p>The list lines up with the start of the @ in the editor's direction. Pass the editor's <code>dir</code> to the root.</p>
+            </header>
+            <form class="stack" action="#" dir="rtl" lang="ar">
+              <p id="mention-rtl-label">رسالة</p>
+              <div class="box border" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="mention-rtl-label" data-mention-demo="mention-popup-rtl"></div>
+              <p class="text-sm" data-mention-log role="status"></p>
+            </form>
+            <div class="rounded scheme-default" data-mention-suggestions id="mention-popup-rtl" data-state="closed">
+              <ul role="listbox" id="mention-popup-rtl-list" aria-label="People" hidden></ul>
+              <p role="status" aria-atomic="true"></p>
+            </div>
+          </section>
+
+          <section class="stack">
+            <header>
+              <h2>States</h2>
+              <p>Set <code>data-state</code> on the root: <code>closed</code>, <code>loading</code>, <code>ready</code>, <code>empty</code> or <code>error</code>. The one status region shows loading, empty and error messages, and holds the result count out of sight when results are showing. While a new search loads, earlier rows can stay visible with <code>aria-busy="true"</code> on the listbox. They are dimmed and none is active. See the <a href="/reference/components/mention-suggestions.html">reference page</a> for static markup of each state.</p>
+            </header>
+          </section>
+
+          <section class="stack">
+            <header>
+              <h2>Keyboard, pointer and focus</h2>
+            </header>
+            <table class="table--lined">
+              <thead><tr><th scope="col">While open</th><th scope="col">Result</th></tr></thead>
+              <tbody>
+                <tr><td><span><kbd>ArrowDown</kbd>, <kbd>ArrowUp</kbd></span></td><td><span>Move the active person. Wraps at the ends and skips unavailable people. With no people listed, the caret moves as usual.</span></td></tr>
+                <tr><td><span><kbd>Enter</kbd></span></td><td><span>Inserts the active person. With no active person, or with <kbd>Shift</kbd>, <kbd>Ctrl</kbd>, <kbd>Cmd</kbd> or <kbd>Alt</kbd> held, it closes the list. It never sends or submits.</span></td></tr>
+                <tr><td><span><kbd>Tab</kbd></span></td><td><span>Inserts the active person. With no active person it closes the list and moves on as usual. <kbd>Shift</kbd>+<kbd>Tab</kbd> closes the list and moves back.</span></td></tr>
+                <tr><td><span><kbd>Escape</kbd></span></td><td><span>Closes the list. Typing continues as plain text until a new @.</span></td></tr>
+                <tr><td><span>Any other key</span></td><td><span>Goes to the editor.</span></td></tr>
+                <tr><td><span>Click or tap</span></td><td><span>Inserts that person. Focus stays in the editor. Hovering only highlights.</span></td></tr>
+              </tbody>
+            </table>
+            <p>The editor handles every key. The list never takes focus. The active row uses <code>rounded-sm scheme-subtle</code> with no border or outline. Hover only shades the background.</p>
+          </section>
+
+          <section class="stack">
+            <header>
+              <h2>Positioning</h2>
+              <p>Your script places the list near the caret through custom properties on the root. Live Wires sets the width, the maximum height and the internal scrolling.</p>
+            </header>
+            <ul>
+              <li><code>--mention-suggestions-top</code> places the list below the caret.</li>
+              <li><code>--mention-suggestions-bottom</code> places it above the caret when there is more room there. Set one or the other.</li>
+              <li><code>--mention-suggestions-left</code> is the physical left edge, kept inside the viewport and the editor's scroll container.</li>
+              <li><code>--mention-suggestions-max-block</code> optionally limits the height to the space available.</li>
+            </ul>
+            <p>Mount the root outside the editor and outside any element with a transform, filter or layout containment. Inside a modal dialog, mount it in that dialog.</p>
+          </section>
+
+          <section class="stack">
+            <header>
+              <h2>Content</h2>
+            </header>
+            <ul>
+              <li>Show the person's name. Avatars are optional and decorative.</li>
+              <li>Show a second line only when your application supplies a real identifier, such as a circle or role. Never make up a handle from a name.</li>
+              <li>Long names wrap. To truncate instead, add <code>truncate</code> to the name. The full name stays in the page and in the option's accessible name.</li>
+            </ul>
+          </section>
+        </section>
+      </article>
+    </main>
+    <html-include src="/_includes/footer.html"></html-include>
+  </body>
+</html>
