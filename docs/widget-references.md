@@ -50,7 +50,7 @@ The caller supplies formatted strings, locale, currency symbols, signs, units, p
 | `--font-metric` | `.font-metric` family | `var(--font-body)` |
 | `--font-metric-size` | Optional initial `font-size` via `.font-metric` | Underlying component/element size |
 | `--font-metric-width` | Optional `font-stretch` via `.font-metric` | Underlying component/element stretch |
-| `--widget-metric-size` | `font-size` on the value, before the initial metric setting | `--text-2xl`, or the selected short/long variation |
+| `--widget-metric-size` | `font-size` on the value, before the initial metric setting | Automatic width/length sizing for auto markup; legacy text-2xl or explicit short/long otherwise |
 | `--widget-metric-weight` | `font-weight` on the value | Existing `--font-bold` weight |
 | `--widget-metric-width` | `font-stretch` on the value | Inherited font stretch |
 
@@ -69,7 +69,7 @@ Width means glyph width (`wdth`), not widget columns. Percentage `font-stretch` 
 
 Do not add `text-*` or `font-*` size/weight utilities to hook-controlled values. Utilities intentionally win over components; adding one opts into that art direction instead of the corresponding hook. `.font-metric` and `.tnum` are compatible; the metric utility respects widget-specific size/width hooks before its optional generic initial settings. With both unset, `revert-layer` restores the underlying presentation. Keep generic initial size/width hooks unset on `:root` unless the caller deliberately configures them. Apply hooks directly to a value or to its owning widget; neither changes label/description styles.
 
-Choose `widget-metric-value--short` for a deliberately tall short value (text-4xl) and `widget-metric-value--long` for a compact long value (text-lg). The default is text-2xl. Each package includes its matching unitless line-height and tracking. Callers choose after formatting; these classes do not count digits, query data, squeeze text or guarantee one-line fit. Explicit size settings override these presentation defaults. Size hooks change only font-size, keeping the selected package’s leading and tracking. Pair token-sized overrides with the matching short/long variation, or set matching line-height and letter-spacing locally on the value. Use the value-specific hook to refine a long amount while retaining an initial size for other metrics:
+Choose `widget-metric-value--short` for a deliberately tall short value (text-4xl) and `widget-metric-value--long` for a compact long value (text-lg). Legacy markup without the auto marker remains text-2xl. Each package includes its matching unitless line-height and tracking. Callers choose after formatting; these classes do not count digits, query data, squeeze text or guarantee one-line fit. Explicit size settings override these presentation defaults. Size hooks change only font-size, keeping the selected package’s leading and tracking. Pair token-sized overrides with the matching short/long variation, or set matching line-height and letter-spacing locally on the value. Use the value-specific hook to refine a long amount while retaining an initial size for other metrics:
 
 ```html
 <dl class="widget-metrics" style="--font-metric-width: 75%;">
@@ -181,3 +181,32 @@ Additional exact producer reads at the recorded commits: Baseplate `internal/bas
 | Governance | Open proposal count | `gov.open_proposal_count` | Standalone prominent value + label/detail | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
 | Governance | Needs my input count | `gov.needs_my_input_count` | Standalone prominent value + label/detail | [Reference](/reference/components/widgets.html#mixed-wide-heading) |
 | Governance | Decisions this year | `gov.decisions_this_year` | Known zero metric | [Reference](/reference/components/widgets.html#default-values-heading) |
+
+## Automatic metric sizing (unreleased)
+
+Use `widget-metric-value--auto` with `data-widget-metric-length` set to the
+upper formatted-length band: 4, 8, 12, 20, 32 or 64. The Templ component emits
+both for its default/auto variant. Count Unicode code points in the complete
+formatted value, including separators, currency, signs and units; do not parse
+or reformat the number. Values longer than 32 use band 64 and may wrap.
+
+The metric definition list/group establishes its own inline-size container,
+so grouped metrics use each cell's available width rather than the entire card.
+CSS estimates room at 0.7em per character in the band, caps the default at
+`--text-3xl`, and keeps a 1rem floor. The same value grows in a wider cell;
+longer strings receive a smaller size in the same cell. Browsers without
+container units use text-3xl and ordinary wrapping.
+
+This is a conservative layout estimate, not glyph measurement. Wide fonts,
+full-width digits, combining sequences and large values can wrap. Every
+character stays in the DOM: no precision loss, ellipsis, transform scaling,
+JavaScript, storage, font downloads or measurement loop. Zoom and font changes
+use normal CSS layout. Labels, descriptions and unavailable states stay
+unchanged. An explicit widget size, generic metric size or size utility wins;
+weight and font-width overrides retain their existing behavior. Explicit
+short/long variants remain supported as deliberate fixed art direction.
+
+This contract requires the paired Live Wires CSS and Templ changes to be
+published and adopted together. Existing Baseplate/Atlas releases are unchanged.
+After adoption, consumers should remove their default text-size utility so the
+shared automatic rule can apply; explicit personal size choices still win.

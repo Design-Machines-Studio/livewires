@@ -350,3 +350,5 @@ application-owned. See the maintained [manual](public/manual/components/combobox
 and [form reference](public/reference/forms/combobox.html).
 
 Hardware loaders: [Ratchet and Torque](docs/loaders.md) work in buttons and loading/save regions. Driver Line is always standalone, centered in a container panel or full-page overlay.
+
+Automatic metric sizing is prepared but unreleased: the shared default adapts to its cell width and formatted-value length, with explicit size overrides preserved. See [the widget contract](docs/widget-references.md).

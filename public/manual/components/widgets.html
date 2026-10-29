@@ -50,7 +50,7 @@
   &lt;dd class="widget-metric-detail"&gt;Optional units or detail&lt;/dd&gt;
 &lt;/dl&gt;</code></pre>
         <table class="table--lined"><caption>Value-only typography hooks</caption><thead><tr><th scope="col">Hook</th><th scope="col">Property</th><th scope="col">Unset</th></tr></thead><tbody><tr><th scope="row"><code>--font-metric</code></th><td data-th="Property">font-family via <code>.font-metric</code></td><td data-th="Unset">Body font</td></tr><tr><th scope="row"><code>--font-metric-size</code></th><td data-th="Property">Initial font-size via <code>.font-metric</code></td><td data-th="Unset">Underlying value style</td></tr><tr><th scope="row"><code>--font-metric-width</code></th><td data-th="Property">Initial font-stretch via <code>.font-metric</code></td><td data-th="Unset">Underlying value style</td></tr><tr><th scope="row"><code>--widget-metric-size</code></th><td data-th="Property">font-size</td><td data-th="Unset">text-2xl, or the short/long variation</td></tr><tr><th scope="row"><code>--widget-metric-weight</code></th><td data-th="Property">font-weight</td><td data-th="Unset">Existing bold weight</td></tr><tr><th scope="row"><code>--widget-metric-width</code></th><td data-th="Property">font-stretch</td><td data-th="Unset">Inherited stretch</td></tr></tbody></table>
-        <p>Choose <code>widget-metric-value--short</code> for tall short values (text-4xl) or <code>widget-metric-value--long</code> for compact long values (text-lg). The default is text-2xl. Callers choose after formatting; CSS does not count digits or guarantee a single-line fit. Explicit hooks override these defaults. Size hooks do not change leading or tracking; pair token-sized overrides with the matching short/long variation, or set the matching line-height and letter-spacing locally on the value.</p>
+        <p>Choose <code>widget-metric-value--short</code> for tall short values (text-4xl) or <code>widget-metric-value--long</code> for compact long values (text-lg). Legacy markup without the auto marker remains text-2xl. The auto contract below uses formatted length and cell width; explicit short/long variants remain caller choices. CSS does not parse numbers or guarantee a single-line fit. Explicit hooks override these defaults. Size hooks do not change leading or tracking; pair token-sized overrides with the matching short/long variation, or set the matching line-height and letter-spacing locally on the value.</p>
         <p>Width means glyph width when the font supports its registered width axis, never widget columns. Static fonts remain readable. Long values wrap without clipping or hiding digits. No font is selected or downloaded.</p>
         <p><code>.font-metric</code> keeps the family expression matching Baseplate's <code>var(--font-metric, var(--font-body, sans-serif)), sans-serif</code> contract. Its optional <code>--font-metric-size</code> and <code>--font-metric-width</code> hooks provide initial value settings; widget-specific size/width hooks take precedence. Unset settings preserve the underlying styles through <code>revert-layer</code>. Labels, units, descriptions and ordinary numbers keep their typography. Callers supply locale, formatted values and units.</p>
         <p>Keep size/weight utilities off hook-controlled values: the utilities layer intentionally wins over component hooks. <code>.font-metric</code> and <code>.tnum</code> remain compatible.</p>
@@ -137,6 +137,16 @@
         <p><a class="button button--outline" href="/reference/components/widgets.html">Open narrow/wide references</a> <a href="https://github.com/Design-Machines-Studio/livewires/blob/main/docs/widget-references.md">Exact sources and full contract</a></p>
       </section>
     </article>
+
+    <section aria-labelledby="automatic-sizing-heading">
+      <h2 id="automatic-sizing-heading">Automatic metric sizing</h2>
+      <p>The same formatted value adapts to its own metric cell. Longer values step down without losing digits. Explicit size overrides still win.</p>
+      <div class="grid" style="--min-column-width: 12rem;">
+        <div class="widget"><dl class="widget-metric"><dt>Organizations</dt><dd class="widget-metric-value widget-metric-value--auto font-metric tnum" data-widget-metric-length="4">42</dd></dl></div>
+        <div class="widget"><dl class="widget-metric"><dt>Reported amount</dt><dd class="widget-metric-value widget-metric-value--auto font-metric tnum" data-widget-metric-length="20">−Rp 1.234.567.890,50</dd></dl></div>
+      </div>
+    </section>
+<p>Automatic values use their formatted-length band (4, 8, 12, 20, 32 or 64) and their own cell's inline width. The size stays between 1rem and text-3xl unless explicitly overridden. This estimates fit; unusual fonts and very long values wrap. No JavaScript or numeric parsing is involved. Requires the matching unreleased Templ producer.</p>
   </main>
   <html-include src="/_includes/footer.html"></html-include>
 </body>

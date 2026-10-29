@@ -268,6 +268,15 @@
       <p>Baseplate owns placement, permissions, formatting, saved overrides and editor draft/Save behavior. Templ emits semantic slots without baked layout utilities. These references add no chart runtime, widget registry or persistence.</p>
       <p>See <a href="/manual/components/widgets.html">the contract</a> and <a href="https://github.com/Design-Machines-Studio/livewires/issues/23">issue #23</a> for pinned producer sources and verification boundaries.</p>
     </section>
+
+    <section aria-labelledby="automatic-sizing-heading">
+      <h2 id="automatic-sizing-heading">Automatic metric sizing</h2>
+      <p>The same formatted value adapts to its own metric cell. Longer values step down without losing digits. Explicit size overrides still win.</p>
+      <div class="grid" style="--min-column-width: 12rem;">
+        <div class="widget"><dl class="widget-metric"><dt>Organizations</dt><dd class="widget-metric-value widget-metric-value--auto font-metric tnum" data-widget-metric-length="4">42</dd></dl></div>
+        <div class="widget"><dl class="widget-metric"><dt>Reported amount</dt><dd class="widget-metric-value widget-metric-value--auto font-metric tnum" data-widget-metric-length="20">−Rp 1.234.567.890,50</dd></dl></div>
+      </div>
+    </section>
   </main>
   <html-include src="/_includes/footer.html"></html-include>
 </body>
