@@ -72,6 +72,7 @@
     margin: 0;
   }
   .widget-metric {
+    container-type: inline-size;
     display: flex;
     flex-direction: column;
     gap: var(--line-025);
@@ -91,6 +92,28 @@
     line-height: var(--line-height-2xl);
     letter-spacing: var(--tracking-2xl);
   }
+  /* Templ supplies a bounded length band after caller formatting. Container
+     units use this metric's width, including individual cells of a metric group.
+     This estimates fit; wrapping preserves every character for unusual fonts. */
+  .widget-metric-value--auto {
+    --_widget-metric-fit-divisor: 5.6;
+    font-size: var(--widget-metric-size, var(--font-metric-size, var(--text-3xl)));
+    line-height: var(--line-height-3xl);
+    letter-spacing: var(--tracking-3xl);
+
+    &[data-widget-metric-length="4"] { --_widget-metric-fit-divisor: 2.8; }
+    &[data-widget-metric-length="8"] { --_widget-metric-fit-divisor: 5.6; }
+    &[data-widget-metric-length="12"] { --_widget-metric-fit-divisor: 8.4; }
+    &[data-widget-metric-length="20"] { --_widget-metric-fit-divisor: 14; }
+    &[data-widget-metric-length="32"] { --_widget-metric-fit-divisor: 22.4; }
+    &[data-widget-metric-length="64"] { --_widget-metric-fit-divisor: 44.8; }
+
+    @supports (font-size: 1cqi) {
+      font-size: var(--widget-metric-size, var(--font-metric-size,
+        clamp(1rem, calc(100cqi / var(--_widget-metric-fit-divisor)), var(--text-3xl))));
+    }
+  }
+
   /* Callers select presentation after formatting; these do not inspect data. */
   .widget-metric-value--short {
     font-size: var(--widget-metric-size, var(--text-4xl));
