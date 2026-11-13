@@ -24,7 +24,7 @@
     <div class="field">
       <p><strong>Space icon</strong></p>
 <div class="icon-picker" data-icon-picker data-demo-tiles="/manual/_includes/icon-picker-all.html" data-demo-value="house" id="space-picker">
-  <button type="button" class="icon-picker-trigger" popovertarget="space-panel" aria-label="Change icon, House">
+  <button type="button" class="button button--subtle button--icon icon-picker-trigger" popovertarget="space-panel" aria-label="Change icon, House">
     <span class="icon-picker-current"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#house"/></svg></span>
     <span class="icon-picker-placeholder" hidden><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#selection-plus"/></svg></span>
   </button>
@@ -50,12 +50,12 @@
 
 <section class="section stack">
   <h2>Subset with ghost tiles</h2>
-  <p>Your application renders only the icons it allows. This example offers 16 circle icons, has no value yet and uses <code>.icon-picker--ghost</code> to remove the resting borders.</p>
+  <p>Your application renders only the icons it allows. This example offers 16 circle icons, has no value yet and uses <code>.icon-picker--ghost</code> on the picker and <code>.button--ghost</code> on the trigger to remove the resting borders.</p>
   <form class="stack" action="" method="get" data-demo-form>
     <div class="field">
       <p><strong>Circle icon</strong></p>
 <div class="icon-picker icon-picker--ghost" data-icon-picker id="circle-picker">
-  <button type="button" class="icon-picker-trigger" popovertarget="circle-panel" aria-label="Choose circle icon" data-label-choose="Choose circle icon" data-label-change="Change circle icon">
+  <button type="button" class="button button--ghost button--icon icon-picker-trigger" popovertarget="circle-panel" aria-label="Choose circle icon" data-label-choose="Choose circle icon" data-label-change="Change circle icon">
     <span class="icon-picker-current" hidden></span>
     <span class="icon-picker-placeholder"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#selection-plus"/></svg></span>
   </button>
@@ -98,7 +98,7 @@
     <p class="hint" role="status" aria-atomic="true" data-demo-output></p>
   </form>
   <popup-dialog title="Icon picker HTML and JavaScript"><p><a href="#" class="text-sm">Code</a></p><div slot="body"><pre><code>&lt;div class="icon-picker" data-icon-picker&gt;
-  &lt;button type="button" class="icon-picker-trigger" popovertarget="space-panel" aria-label="Change icon, House"&gt;
+  &lt;button type="button" class="button button--subtle button--icon icon-picker-trigger" popovertarget="space-panel" aria-label="Change icon, House"&gt;
     &lt;span class="icon-picker-current"&gt;&lt;svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"&gt;&lt;use href="/icons/phosphor-bold.svg#house"/&gt;&lt;/svg&gt;&lt;/span&gt;
     &lt;span class="icon-picker-placeholder" hidden&gt;&lt;svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"&gt;&lt;use href="/icons/phosphor-bold.svg#selection-plus"/&gt;&lt;/svg&gt;&lt;/span&gt;
   &lt;/button&gt;

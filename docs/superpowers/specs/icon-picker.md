@@ -68,21 +68,26 @@ hidden when there is no value.
 
 ## Tiles
 
-Tiles match Assembly's header search trigger (Baseplate `.button--subtle` with
-`.icon--action`): square, `--color-border-muted` border, `--radius-tight`,
-`--line-025` padding, `--touch-target-min` block size and a 1rem icon. Hover
-uses `--color-subtle` and `--color-border`. Focus uses the shared focus ring.
+Live Wires adds two button variants from Assembly:
 
-- `icon-picker.css` copies the `.button--subtle` values for the trigger and
-  tiles. Live Wires does not add `.button--subtle` itself.
-- A ghost variant removes the resting border and keeps the hover fill. It is
-  set on the picker with `.icon-picker--ghost`. Bordered is the default.
-- The trigger uses the same tile style. `.icon-picker--ghost` applies to it too.
-- The checked tile uses `--color-accent` with `--color-white` icon colour,
+- `.button--subtle`: transparent with a `--color-border-muted` border and
+  `--radius-tight`. Hover fills with `--color-subtle` and darkens the border.
+- `.button--icon`: a square icon-only button with a 1.25rem icon and
+  `--line-0125` padding, about 30px in total. The minimum is 24px (WCAG 2.5.8).
+  It pairs with `.button--subtle` or `.button--ghost`. Ghost icon buttons fill
+  on hover instead of underlining.
+
+The trigger is a `.button.button--subtle.button--icon`, or `.button--ghost`
+for a borderless trigger. Tiles are labels around radios, so
+`icon-picker.css` repeats the same size, border and hover values for them.
+
+- `.icon-picker--ghost` removes the tiles' resting border and keeps the hover
+  fill. Bordered is the default.
+- The checked tile uses `--color-accent` with a `--color-white` icon,
   matching the people picker's pressed buttons.
-- The grid is `repeat(auto-fill, minmax(var(--touch-target-min), 1fr))` with
-  `--line-025` gaps.
-  Category sections render normally. `content-visibility: auto` made the
+- Icons ignore pointer events, so the tile takes the hover and pointer cursor.
+- The grid uses fixed tile-width columns, `space-between` and `--line-0125`
+  gaps. Category sections render normally. `content-visibility: auto` made the
   checked icon's scroll position wrong on open.
 
 ## Icon set and subsets

@@ -40,6 +40,55 @@
     --button-fg: color-mix(in srgb, var(--color-accent) 45%, var(--color-fg));
   }
 
+  /* Subtle actions: quiet outline, filled on hover. Matches Assembly. */
+  .button--subtle {
+    --button-bg: transparent;
+    --button-fg: var(--color-fg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--line-025);
+    border: var(--line-1px) solid var(--color-border-muted);
+    border-radius: var(--radius-tight);
+
+    &:hover,
+    &:active {
+      --button-bg: var(--color-subtle);
+      --button-fg: var(--color-fg);
+      border-color: var(--color-border);
+      opacity: 1;
+    }
+  }
+
+  /*
+   * Icon-only buttons: square, a slightly larger icon and tight padding.
+   * Pair with .button--subtle or .button--ghost and an aria-label.
+   */
+  .button--icon {
+    --button-icon-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    aspect-ratio: 1;
+    min-block-size: 24px; /* WCAG 2.5.8 target size */
+    padding: var(--line-0125);
+
+    & .icon,
+    & svg {
+      inline-size: var(--button-icon-size);
+      block-size: var(--button-icon-size);
+      pointer-events: none; /* The button, not the SVG, takes the hover and cursor. */
+    }
+  }
+
+  /* Ghost icon buttons fill on hover; an underline has nothing to mark. */
+  .button--ghost.button--icon:hover,
+  .button--ghost.button--icon:active {
+    --button-bg: var(--color-subtle);
+    text-decoration: none;
+  }
+
   /* Size variants */
   .button--small {
     --button-h-space: var(--line-025);

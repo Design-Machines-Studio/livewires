@@ -60,6 +60,46 @@
 
             <section class="stack">
               <header>
+                <h2>Subtle buttons</h2>
+                <p>Use <code>.button--subtle</code> for secondary actions that need an edge but no fill. The border darkens and the background fills on hover.</p>
+                <popup-dialog title="Subtle Buttons HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;button class="button button--small button--subtle" type="button"&gt;Rename&lt;/button&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="cluster cluster-compact">
+                <button class="button button--small button--subtle" type="button">Rename</button>
+                <button class="button button--small button--subtle" type="button">Duplicate</button>
+                <button class="button button--small button--subtle" type="button" disabled>Disabled</button>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
+                <h2>Icon-only buttons</h2>
+                <p>Add <code>.button--icon</code> to a subtle or ghost button for a square button holding one Phosphor icon. Give it an <code>aria-label</code>. Ghost icon buttons fill on hover instead of underlining.</p>
+                <popup-dialog title="Icon-only Buttons HTML">
+                  <p><a href="#" class="text-sm">Code</a></p>
+                  <div slot="body">
+                    <pre><code>&lt;button class="button button--subtle button--icon" type="button" aria-label="Search"&gt;
+  &lt;svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"&gt;&lt;use href="/icons/phosphor-bold.svg#magnifying-glass"/&gt;&lt;/svg&gt;
+&lt;/button&gt;
+&lt;button class="button button--ghost button--icon" type="button" aria-label="Delete"&gt;…&lt;/button&gt;</code></pre>
+                  </div>
+                </popup-dialog>
+              </header>
+              <div class="cluster cluster-compact">
+                <button class="button button--subtle button--icon" type="button" aria-label="Search"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#magnifying-glass"/></svg></button>
+                <button class="button button--subtle button--icon" type="button" aria-label="Settings"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#gear-six"/></svg></button>
+                <button class="button button--ghost button--icon" type="button" aria-label="Edit"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#pencil-simple"/></svg></button>
+                <button class="button button--ghost button--icon" type="button" aria-label="Delete"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#trash"/></svg></button>
+              </div>
+            </section>
+
+            <section class="stack">
+              <header>
                 <h2>Sizes</h2>
                 <p>Use <code>.button--small</code> or <code>.button--large</code> to adjust scale.</p>
                 <popup-dialog title="Button Sizes HTML">

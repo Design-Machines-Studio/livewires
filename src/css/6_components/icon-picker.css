@@ -5,13 +5,12 @@
  * value, so the picker opens and submits without JavaScript. The optional
  * /dist/icon-picker.js adds search, Recent, grid keys and anchoring.
  *
- * Trigger and tiles copy Assembly's header search button (Baseplate
- * .button--subtle with .icon--action). Add .icon-picker--ghost to drop the
- * resting border.
+ * The trigger uses .button--subtle.button--icon (or .button--ghost). Tiles
+ * match it. Add .icon-picker--ghost to drop the tiles' resting border.
  *
  * @example
  * <div class="icon-picker" data-icon-picker>
- *   <button type="button" class="icon-picker-trigger" popovertarget="p-panel" aria-label="Change icon, House">
+ *   <button type="button" class="button button--subtle button--icon icon-picker-trigger" popovertarget="p-panel" aria-label="Change icon, House">
  *     <span class="icon-picker-current"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#house"/></svg></span>
  *     <span class="icon-picker-placeholder" hidden><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#selection-plus"/></svg></span>
  *   </button>
@@ -38,24 +37,26 @@
 
 @layer components {
   .icon-picker {
+    /* 1.25rem icon, eighth-line padding and a 1px border, like .button--icon. */
+    --icon-picker-tile-size: calc(1.25rem + var(--line-0125) * 2 + var(--line-1px) * 2);
     display: inline-block;
   }
 
-  /* Shared square button look. */
-  .icon-picker-trigger,
+  /* Tiles match .button--subtle.button--icon. They are labels around
+   * radios, so they repeat its values instead of taking the classes. */
   .icon-picker-tile {
     --icon-picker-tile-bg: transparent;
     --icon-picker-tile-fg: var(--color-fg);
     --icon-picker-tile-border: var(--icon-picker-border, var(--color-border-muted));
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    position: relative;
     box-sizing: border-box;
-    min-block-size: var(--touch-target-min);
-    min-inline-size: var(--touch-target-min);
+    inline-size: var(--icon-picker-tile-size);
+    block-size: var(--icon-picker-tile-size);
     margin: 0;
-    padding: var(--line-025);
+    padding: var(--line-0125);
     border: var(--line-1px) solid var(--icon-picker-tile-border);
     border-radius: var(--radius-tight);
     background: var(--icon-picker-tile-bg);
@@ -68,27 +69,21 @@
     &:hover {
       --icon-picker-tile-bg: var(--color-subtle);
       --icon-picker-tile-border: var(--icon-picker-border-hover, var(--color-border));
-      opacity: 1;
     }
 
     & .icon {
-      inline-size: 1rem;
-      block-size: 1rem;
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+      pointer-events: none; /* The label takes the hover and pointer cursor. */
     }
   }
 
+  /* Trigger: add .button.button--subtle.button--icon, or .button--ghost. */
   .icon-picker-trigger {
-    inline-size: var(--touch-target-min);
-    block-size: var(--touch-target-min);
-
-    &:focus-visible {
-      outline: calc(var(--line-1px) * 2) solid var(--color-accent);
-      outline-offset: calc(var(--line-1px) * 2);
-    }
-
     & .icon-picker-current,
     & .icon-picker-placeholder {
       display: inline-flex;
+      pointer-events: none;
     }
 
     & [hidden] {
@@ -107,7 +102,7 @@
 
   .icon-picker-panel {
     box-sizing: border-box;
-    inline-size: min(calc(var(--line) * 15), calc(100vw - var(--line-05)));
+    inline-size: min(calc(var(--line) * 12), calc(100vw - var(--line-05)));
     max-block-size: min(calc(var(--line) * 20), calc(100dvh - var(--line-05)));
     margin: auto;
     padding: 0;
@@ -219,15 +214,12 @@
 
   .icon-picker-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--touch-target-min), 1fr));
-    gap: var(--line-025);
+    grid-template-columns: repeat(auto-fill, var(--icon-picker-tile-size));
+    justify-content: space-between;
+    gap: var(--line-0125);
   }
 
   .icon-picker-tile {
-    display: flex;
-    aspect-ratio: 1;
-    position: relative;
-
     &[hidden] {
       display: none;
     }
