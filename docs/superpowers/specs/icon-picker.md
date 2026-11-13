@@ -57,6 +57,11 @@ hidden when there is no value.
 - With JavaScript the panel is positioned like the action menu
   (`src/js/components/action-menu.js`). Below a 30em viewport it becomes a
   full-width sheet.
+- Tab and Shift+Tab cycle Remove, search and the grid without leaving the
+  panel. The grid's stop is the last focused icon, else the checked icon, else
+  the first visible one. Remove shares the icons' radio group, so the script
+  manages this order. Enter on Remove clears the value without submitting.
+  Recent copies are reached with arrow keys only.
 - Arrow keys move focus in two dimensions across the visible grid. Home and End
   go to the first and last visible icon. Tab leaves the grid.
 - Search matches icon names and Phosphor tags, stored in `data-tags`, so "home"

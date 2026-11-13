@@ -34,6 +34,8 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
     empty: status?.dataset.labelEmpty || 'No icons match “{query}”',
   };
   let tiles = [];
+  let gridFocus = null;
+  const remove = panel.querySelector('.icon-picker-remove input');
   let disposed = false;
   let frame = null;
   const controller = new AbortController();
@@ -76,6 +78,7 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
       radio.removeAttribute('name');
       radio.checked = false;
       radio.dataset.iconPickerRecent = '';
+      radio.tabIndex = -1; // Reached with arrow keys, not Tab.
       copy.hidden = false;
       return copy;
     }));
@@ -159,6 +162,7 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
   // next key press. The trigger keeps popovertarget for light-dismiss rules
   // and for pages without this script.
   function open() {
+    gridFocus = null;
     panel.showPopover();
     if (input) input.value = '';
     filter();
@@ -185,16 +189,47 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
 
   input?.addEventListener('input', filter, { signal });
   input?.addEventListener('keydown', (event) => {
-    // Tab and ArrowDown go to the checked icon, or the first one when it is hidden.
-    if ((event.key === 'Tab' && !event.shiftKey) || event.key === 'ArrowDown') {
-      if (focusTile(firstFocusTarget())) event.preventDefault();
-    }
+    // ArrowDown goes to the checked icon, or the first one when it is hidden.
+    if (event.key === 'ArrowDown' && focusTile(firstFocusTarget())) event.preventDefault();
     if (event.key === 'Enter') {
       // Enter chooses a lone match instead of submitting the form.
       event.preventDefault();
       const only = visibleTiles().filter((tile) => !recentSection?.contains(tile));
       if (only.length === 1) only[0].querySelector('input').click();
     }
+  }, { signal });
+
+  // Tab cycles Remove, search and the icon grid without leaving the panel.
+  // Native order cannot do this: Remove shares the icons' radio group, so it
+  // is never its own tab stop, and the grid would hand focus to the page.
+  body.addEventListener('focusin', (event) => {
+    const tile = event.target.closest?.('.icon-picker-tile');
+    if (tile && !recentSection?.contains(tile)) gridFocus = tile;
+  }, { signal });
+  function tabStops() {
+    const stops = [];
+    if (remove && remove.closest('label').getClientRects().length) stops.push(remove);
+    if (input) stops.push(input);
+    const grid = gridFocus && visible(gridFocus) ? gridFocus : firstFocusTarget();
+    if (grid) stops.push(grid.querySelector('input'));
+    return stops;
+  }
+  panel.addEventListener('keydown', (event) => {
+    if (event.target === remove && event.key === 'Enter') {
+      event.preventDefault();
+      remove.click();
+      return;
+    }
+    if (event.key !== 'Tab' || event.altKey || event.ctrlKey || event.metaKey) return;
+    const stops = tabStops();
+    if (!stops.length) return;
+    event.preventDefault();
+    const active = doc.activeElement;
+    let index = stops.indexOf(active);
+    if (index < 0 && active?.closest?.('.icon-picker-tile')) index = stops.length - 1;
+    const next = stops[(index + (event.shiftKey ? -1 : 1) + stops.length) % stops.length];
+    if (next.closest('.icon-picker-tile')) focusTile(next.closest('.icon-picker-tile'));
+    else next.focus();
   }, { signal });
 
   body.addEventListener('keydown', (event) => {
