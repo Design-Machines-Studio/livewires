@@ -72,10 +72,13 @@ Live Wires adds two button variants from Assembly:
 
 - `.button--subtle`: transparent with a `--color-border-muted` border and
   `--radius-tight`. Hover fills with `--color-subtle` and darkens the border.
-- `.button--icon`: a square icon-only button with a 1.25rem icon and
-  `--line-0125` padding, about 30px in total. The minimum is 24px (WCAG 2.5.8).
+- `.button--icon`: a square icon-only button with a five-eighths-line icon
+  and `--line-0125` padding, about 30px on desktop. Sizes use line tokens.
+  Only the 24px minimum (WCAG 2.5.8) stays in pixels.
   It pairs with `.button--subtle` or `.button--ghost`. Subtle icon buttons and
-  bordered tiles use a 1.125rem icon so it has room inside the border. Ghost icon buttons fill
+  bordered tiles use a nine-sixteenths-line icon and quarter-line padding,
+  about 36px on desktop, so the icon has room inside the border. Ghost tiles
+  stay about 30px. Ghost icon buttons fill
   on hover instead of underlining.
 
 The search field uses `.input--small`, also from Assembly: extra-small text,

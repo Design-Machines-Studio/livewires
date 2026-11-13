@@ -61,17 +61,17 @@
   }
 
   /*
-   * Icon-only buttons: square, a slightly larger icon and tight padding.
+   * Icon-only buttons: square, a five-eighths-line icon and eighth-line padding.
    * Pair with .button--subtle or .button--ghost and an aria-label.
    */
   .button--icon {
-    --button-icon-size: 1.25rem;
+    --button-icon-size: calc(var(--line-05) + var(--line-0125));
     display: inline-flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     aspect-ratio: 1;
-    min-block-size: 24px; /* WCAG 2.5.8 target size */
+    min-block-size: 24px; /* WCAG 2.5.8 target size, kept in pixels */
     padding: var(--line-0125);
 
     & .icon,
@@ -82,9 +82,11 @@
     }
   }
 
-  /* Bordered icon buttons use a slightly smaller icon for room inside the border. */
+  /* Bordered icon buttons: a slightly smaller icon and quarter-line padding
+   * give it room inside the border, as in Assembly. */
   .button--subtle.button--icon {
-    --button-icon-size: 1.125rem;
+    --button-icon-size: calc(var(--line-05) + var(--line-0125) / 2);
+    padding: var(--line-025);
   }
 
   /* Ghost icon buttons fill on hover; an underline has nothing to mark. */

@@ -37,8 +37,11 @@
 
 @layer components {
   .icon-picker {
-    /* 1.25rem icon, eighth-line padding and a 1px border, like .button--icon. */
-    --icon-picker-tile-size: calc(1.25rem + var(--line-0125) * 2 + var(--line-1px) * 2);
+    /* Bordered tiles match .button--subtle.button--icon: a nine-sixteenths-line
+     * icon, quarter-line padding and a 1px border. Ghost tiles are tighter.
+     * Tiles never drop below the 24px WCAG 2.5.8 target. */
+    --icon-picker-icon-size: calc(var(--line-05) + var(--line-0125) / 2);
+    --icon-picker-tile-size: max(24px, calc(var(--icon-picker-icon-size) + var(--line-025) * 2 + var(--line-1px) * 2));
     display: inline-block;
   }
 
@@ -56,7 +59,7 @@
     inline-size: var(--icon-picker-tile-size);
     block-size: var(--icon-picker-tile-size);
     margin: 0;
-    padding: var(--line-0125);
+    padding: 0; /* The fixed tile size sets the space around the icon. */
     border: var(--line-1px) solid var(--icon-picker-tile-border);
     border-radius: var(--radius-tight);
     background: var(--icon-picker-tile-bg);
@@ -73,8 +76,8 @@
 
     /* Bordered tiles use a slightly smaller icon so it has room inside the border. */
     & .icon {
-      inline-size: var(--icon-picker-icon-size, 1.125rem);
-      block-size: var(--icon-picker-icon-size, 1.125rem);
+      inline-size: var(--icon-picker-icon-size);
+      block-size: var(--icon-picker-icon-size);
       pointer-events: none; /* The label takes the hover and pointer cursor. */
     }
   }
@@ -97,7 +100,8 @@
   }
 
   .icon-picker--ghost {
-    --icon-picker-icon-size: 1.25rem;
+    --icon-picker-icon-size: calc(var(--line-05) + var(--line-0125));
+    --icon-picker-tile-size: max(24px, calc(var(--icon-picker-icon-size) + var(--line-0125) * 2 + var(--line-1px) * 2));
     --icon-picker-border: transparent;
     --icon-picker-border-hover: transparent;
   }
