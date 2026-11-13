@@ -77,6 +77,9 @@ Live Wires adds two button variants from Assembly:
   It pairs with `.button--subtle` or `.button--ghost`. Ghost icon buttons fill
   on hover instead of underlining.
 
+The search field uses `.input--small`, also from Assembly: extra-small text,
+quarter-line padding and `--radius-tight`, about 33px tall.
+
 The trigger is a `.button.button--subtle.button--icon`, or `.button--ghost`
 for a borderless trigger. Tiles are labels around radios, so
 `icon-picker.css` repeats the same size, border and hover values for them.

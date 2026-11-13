@@ -81,6 +81,18 @@
     field-sizing: content;
   }
 
+  /* Compact inputs for toolbars, filters and panels. Matches Assembly. */
+  input.input--small {
+    appearance: none;
+    block-size: calc(1em + (var(--line-025) * 2) + (var(--line-1px) * 2));
+    min-block-size: 24px; /* WCAG 2.5.8 target size */
+    padding: var(--line-025);
+    border-radius: var(--radius-tight);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-none);
+    letter-spacing: var(--tracking-xs);
+  }
+
   input[type="file"] {
     min-block-size: var(--touch-target-min);
     padding: var(--line-025);

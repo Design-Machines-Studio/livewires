@@ -20,7 +20,7 @@
  *         <h2 class="icon-picker-heading" id="p-heading">Icons</h2>
  *         <label class="icon-picker-remove button button--ghost button--small"><input type="radio" name="icon" value="" class="visually-hidden">Remove</label>
  *       </div>
- *       <div class="icon-picker-search" hidden><label class="visually-hidden" for="p-search">Filter icons</label><input type="search" id="p-search" placeholder="Filter icons…" autocomplete="off"></div>
+ *       <div class="icon-picker-search" hidden><label class="visually-hidden" for="p-search">Filter icons</label><input type="search" class="input--small" id="p-search" placeholder="Filter icons…" autocomplete="off"></div>
  *       <div class="icon-picker-body">
  *         <section class="icon-picker-section icon-picker-recent" hidden><h3 class="icon-picker-section-heading">Recent</h3><div class="icon-picker-grid"></div></section>
  *         <section class="icon-picker-section" aria-labelledby="p-maps"><h3 class="icon-picker-section-heading" id="p-maps">Maps &amp; travel</h3>
@@ -190,7 +190,6 @@
 
     & input {
       inline-size: 100%;
-      font-size: var(--text-sm);
     }
   }
 
