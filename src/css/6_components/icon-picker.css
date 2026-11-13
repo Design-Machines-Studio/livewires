@@ -71,9 +71,10 @@
       --icon-picker-tile-border: var(--icon-picker-border-hover, var(--color-border));
     }
 
+    /* Bordered tiles use a slightly smaller icon so it has room inside the border. */
     & .icon {
-      inline-size: 1.25rem;
-      block-size: 1.25rem;
+      inline-size: var(--icon-picker-icon-size, 1.125rem);
+      block-size: var(--icon-picker-icon-size, 1.125rem);
       pointer-events: none; /* The label takes the hover and pointer cursor. */
     }
   }
@@ -96,6 +97,7 @@
   }
 
   .icon-picker--ghost {
+    --icon-picker-icon-size: 1.25rem;
     --icon-picker-border: transparent;
     --icon-picker-border-hover: transparent;
   }

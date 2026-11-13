@@ -82,6 +82,11 @@
     }
   }
 
+  /* Bordered icon buttons use a slightly smaller icon for room inside the border. */
+  .button--subtle.button--icon {
+    --button-icon-size: 1.125rem;
+  }
+
   /* Ghost icon buttons fill on hover; an underline has nothing to mark. */
   .button--ghost.button--icon:hover,
   .button--ghost.button--icon:active {
