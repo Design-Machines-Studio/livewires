@@ -223,6 +223,7 @@
     --color-accent: var(--color-red-500);
     --color-accent2: var(--color-red-700);
     --color-muted: var(--color-red-400);
+    --focus-ring-color: var(--color-fg); /* Muted is below 3:1 here. */
     --color-subtle: var(--color-red-100);
     --color-border: var(--color-red-900);
     --color-border-muted: var(--color-red-500);
@@ -251,6 +252,7 @@
     --color-accent: var(--color-green-500);
     --color-accent2: var(--color-green-700);
     --color-muted: var(--color-green-400);
+    --focus-ring-color: var(--color-fg); /* Muted is below 3:1 here. */
     --color-subtle: var(--color-green-100);
     --color-border: var(--color-green-950);
     --color-border-muted: var(--color-green-500);

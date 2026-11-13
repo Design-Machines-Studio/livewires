@@ -180,8 +180,8 @@
     font-weight: var(--font-medium);
 
     &:has(:focus-visible) {
-      outline: calc(var(--line-1px) * 2) solid var(--color-accent);
-      outline-offset: calc(var(--line-1px) * 2);
+      outline: var(--focus-ring-width) solid var(--focus-ring-color, var(--color-muted));
+      outline-offset: var(--focus-ring-offset);
     }
 
     /* Nothing to remove. */
@@ -230,19 +230,14 @@
     }
 
     &:has(:focus-visible) {
-      outline: calc(var(--line-1px) * 2) solid var(--color-accent);
-      outline-offset: calc(var(--line-1px) * 2);
+      outline: var(--focus-ring-width) solid var(--focus-ring-color, var(--color-muted));
+      outline-offset: var(--focus-ring-offset);
     }
 
     &:has(:checked) {
       --icon-picker-tile-bg: var(--color-accent);
       --icon-picker-tile-fg: var(--color-white);
       --icon-picker-tile-border: var(--color-accent);
-
-      /* Keep the ring visible next to an accent tile. */
-      &:has(:focus-visible) {
-        outline-color: var(--color-fg);
-      }
     }
   }
 

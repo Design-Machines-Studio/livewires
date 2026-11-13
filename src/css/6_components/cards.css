@@ -141,7 +141,7 @@
       /* The line limit hides overflow, so draw the link's focus ring inside
          the text instead of outside it. */
       & a:focus-visible {
-        outline-offset: -2px;
+        outline-offset: calc(var(--focus-ring-width) * -1);
       }
     }
 
