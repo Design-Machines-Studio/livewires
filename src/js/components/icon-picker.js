@@ -35,6 +35,7 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
   };
   let tiles = [];
   let gridFocus = null;
+  let boundForm = null;
   const remove = panel.querySelector('.icon-picker-remove input');
   let disposed = false;
   let frame = null;
@@ -49,6 +50,23 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
 
   function collect() {
     tiles = [...body.querySelectorAll('.icon-picker-tile')].filter((tile) => !recentSection?.contains(tile));
+    const form = tiles[0]?.querySelector('input').form ?? remove?.form ?? null;
+    if (form !== boundForm) {
+      boundForm?.removeEventListener('reset', reset);
+      boundForm = form;
+      boundForm?.addEventListener('reset', reset, { signal });
+    }
+  }
+
+  function reset(event) {
+    // Reset fires before native controls restore their defaults. A later
+    // listener may also cancel it, so inspect the final event in the next task.
+    win.setTimeout(() => {
+      if (disposed || event.defaultPrevented || event.target !== boundForm) return;
+      gridFocus = null;
+      updateTrigger();
+      filter();
+    }, 0);
   }
 
   function updateTrigger() {
