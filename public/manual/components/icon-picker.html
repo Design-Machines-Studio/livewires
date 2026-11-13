@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Icon picker — Live Wires</title>
+  <script type="module" src="/dist/main.js"></script>
+  <html-include src="/_includes/head.html"></html-include>
+</head>
+<body class="scheme-default">
+<html-include src="/_includes/header.html"></html-include>
+<main class="main sidebar" id="main">
+<html-include class="bg-subtle" src="/manual/_includes/nav-components.html"></html-include>
+<article class="prose">
+<header class="section scheme-dark">
+  <h1>Icon picker</h1>
+  <p class="lead">Choose one Phosphor icon for a space, circle or document.</p>
+</header>
+
+<section class="section stack">
+  <h2>Full set</h2>
+  <p>Select the icon to open the picker. The current icon is selected, search matches names and tags (try “home” or “money”), and arrow keys move across the grid. Choosing an icon closes the picker. Remove clears the value.</p>
+  <form class="stack" action="" method="get" data-demo-form>
+    <div class="field">
+      <p><strong>Space icon</strong></p>
+<div class="icon-picker" data-icon-picker data-demo-tiles="/manual/_includes/icon-picker-all.html" data-demo-value="house" id="space-picker">
+  <button type="button" class="icon-picker-trigger" popovertarget="space-panel" aria-label="Change icon, House">
+    <span class="icon-picker-current"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#house"/></svg></span>
+    <span class="icon-picker-placeholder" hidden><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#selection-plus"/></svg></span>
+  </button>
+  <div class="icon-picker-panel" id="space-panel" popover>
+    <fieldset class="icon-picker-fieldset" aria-labelledby="space-heading">
+      <div class="icon-picker-header">
+        <h3 class="icon-picker-heading" id="space-heading">Icons</h3>
+        <label class="icon-picker-remove button button--ghost button--small"><input type="radio" name="icon" value="" class="visually-hidden">Remove</label>
+      </div>
+      <div class="icon-picker-search" hidden><label class="visually-hidden" for="space-search">Filter icons</label><input type="search" id="space-search" placeholder="Filter icons…" autocomplete="off"></div>
+      <div class="icon-picker-body">
+        <section class="icon-picker-section icon-picker-recent" hidden><h4 class="icon-picker-section-heading">Recent</h4><div class="icon-picker-grid"></div></section>
+      </div>
+      <p class="icon-picker-status" role="status" aria-atomic="true" hidden></p>
+    </fieldset>
+  </div>
+</div>
+    </div>
+    <div class="cluster"><button class="button" type="submit">Submit icon</button></div>
+    <p class="hint" role="status" aria-atomic="true" data-demo-output></p>
+  </form>
+</section>
+
+<section class="section stack">
+  <h2>Subset with ghost tiles</h2>
+  <p>Your application renders only the icons it allows. This example offers 16 circle icons, has no value yet and uses <code>.icon-picker--ghost</code> to remove the resting borders.</p>
+  <form class="stack" action="" method="get" data-demo-form>
+    <div class="field">
+      <p><strong>Circle icon</strong></p>
+<div class="icon-picker icon-picker--ghost" data-icon-picker id="circle-picker">
+  <button type="button" class="icon-picker-trigger" popovertarget="circle-panel" aria-label="Choose circle icon" data-label-choose="Choose circle icon" data-label-change="Change circle icon">
+    <span class="icon-picker-current" hidden></span>
+    <span class="icon-picker-placeholder"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#selection-plus"/></svg></span>
+  </button>
+  <div class="icon-picker-panel" id="circle-panel" popover>
+    <fieldset class="icon-picker-fieldset" aria-labelledby="circle-heading">
+      <div class="icon-picker-header">
+        <h3 class="icon-picker-heading" id="circle-heading">Circle icon</h3>
+        <label class="icon-picker-remove button button--ghost button--small"><input type="radio" name="circle_icon" value="" class="visually-hidden" checked>Remove</label>
+      </div>
+      <div class="icon-picker-search" hidden><label class="visually-hidden" for="circle-search">Filter icons</label><input type="search" id="circle-search" placeholder="Filter icons…" autocomplete="off"></div>
+      <div class="icon-picker-body">
+        <section class="icon-picker-section icon-picker-recent" hidden><h4 class="icon-picker-section-heading">Recent</h4><div class="icon-picker-grid"></div></section>
+        <section class="icon-picker-section" aria-labelledby="circle-all"><h4 class="icon-picker-section-heading" id="circle-all">Circle icons</h4>
+          <div class="icon-picker-grid">
+            <label class="icon-picker-tile" title="Users three" data-tags="user group team community people profiles accounts contacts"><input type="radio" name="circle_icon" value="users-three" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#users-three"/></svg><span class="visually-hidden">Users three</span></label>
+            <label class="icon-picker-tile" title="Gavel" data-tags="judge justice legal law court hammer government"><input type="radio" name="circle_icon" value="gavel" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#gavel"/></svg><span class="visually-hidden">Gavel</span></label>
+            <label class="icon-picker-tile" title="Scales" data-tags="measure balance law justice government"><input type="radio" name="circle_icon" value="scales" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#scales"/></svg><span class="visually-hidden">Scales</span></label>
+            <label class="icon-picker-tile" title="Handshake" data-tags="emoji deal agreement"><input type="radio" name="circle_icon" value="handshake" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#handshake"/></svg><span class="visually-hidden">Handshake</span></label>
+            <label class="icon-picker-tile" title="Calendar check" data-tags="dates times events schedule todo checklist"><input type="radio" name="circle_icon" value="calendar-check" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#calendar-check"/></svg><span class="visually-hidden">Calendar check</span></label>
+            <label class="icon-picker-tile" title="Megaphone" data-tags="bullhorn announcements loudspeaker broadcast"><input type="radio" name="circle_icon" value="megaphone" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#megaphone"/></svg><span class="visually-hidden">Megaphone</span></label>
+            <label class="icon-picker-tile" title="Chat circle text" data-tags="send sent messages messaging sms texting comment round bubble"><input type="radio" name="circle_icon" value="chat-circle-text" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#chat-circle-text"/></svg><span class="visually-hidden">Chat circle text</span></label>
+            <label class="icon-picker-tile" title="File text" data-tags="documents files save write"><input type="radio" name="circle_icon" value="file-text" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#file-text"/></svg><span class="visually-hidden">File text</span></label>
+            <label class="icon-picker-tile" title="Coins" data-tags="cents change money currency payment paying purchase price sell"><input type="radio" name="circle_icon" value="coins" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#coins"/></svg><span class="visually-hidden">Coins</span></label>
+            <label class="icon-picker-tile" title="Piggy bank" data-tags="savings deposit money coins"><input type="radio" name="circle_icon" value="piggy-bank" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#piggy-bank"/></svg><span class="visually-hidden">Piggy bank</span></label>
+            <label class="icon-picker-tile" title="Shield check" data-tags="badge security defense authentication authenticated guarded locked encrypted encryption"><input type="radio" name="circle_icon" value="shield-check" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#shield-check"/></svg><span class="visually-hidden">Shield check</span></label>
+            <label class="icon-picker-tile" title="Flag" data-tags="country countries finished completed flags"><input type="radio" name="circle_icon" value="flag" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#flag"/></svg><span class="visually-hidden">Flag</span></label>
+            <label class="icon-picker-tile" title="House line" data-tags="homes buildings places locations"><input type="radio" name="circle_icon" value="house-line" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#house-line"/></svg><span class="visually-hidden">House line</span></label>
+            <label class="icon-picker-tile" title="Leaf" data-tags="plants trees branches leaves nodes green environmental"><input type="radio" name="circle_icon" value="leaf" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#leaf"/></svg><span class="visually-hidden">Leaf</span></label>
+            <label class="icon-picker-tile" title="Lightbulb" data-tags="flashlight bulbs lighting led energy idea"><input type="radio" name="circle_icon" value="lightbulb" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#lightbulb"/></svg><span class="visually-hidden">Lightbulb</span></label>
+            <label class="icon-picker-tile" title="Star" data-tags="rate ratings favorites favorited"><input type="radio" name="circle_icon" value="star" class="visually-hidden"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#star"/></svg><span class="visually-hidden">Star</span></label>
+          </div>
+        </section>
+      </div>
+      <p class="icon-picker-status" role="status" aria-atomic="true" hidden></p>
+    </fieldset>
+  </div>
+</div>
+    </div>
+    <div class="cluster"><button class="button" type="submit">Submit icon</button></div>
+    <p class="hint" role="status" aria-atomic="true" data-demo-output></p>
+  </form>
+  <popup-dialog title="Icon picker HTML and JavaScript"><p><a href="#" class="text-sm">Code</a></p><div slot="body"><pre><code>&lt;div class="icon-picker" data-icon-picker&gt;
+  &lt;button type="button" class="icon-picker-trigger" popovertarget="space-panel" aria-label="Change icon, House"&gt;
+    &lt;span class="icon-picker-current"&gt;&lt;svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"&gt;&lt;use href="/icons/phosphor-bold.svg#house"/&gt;&lt;/svg&gt;&lt;/span&gt;
+    &lt;span class="icon-picker-placeholder" hidden&gt;&lt;svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"&gt;&lt;use href="/icons/phosphor-bold.svg#selection-plus"/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="icon-picker-panel" id="space-panel" popover&gt;
+    &lt;fieldset class="icon-picker-fieldset" aria-labelledby="space-heading"&gt;
+      &lt;div class="icon-picker-header"&gt;
+        &lt;h3 class="icon-picker-heading" id="space-heading"&gt;Icons&lt;/h3&gt;
+        &lt;label class="icon-picker-remove button button--ghost button--small"&gt;
+          &lt;input type="radio" name="icon" value="" class="visually-hidden"&gt;Remove
+        &lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class="icon-picker-search" hidden&gt;
+        &lt;label class="visually-hidden" for="space-search"&gt;Filter icons&lt;/label&gt;
+        &lt;input type="search" id="space-search" placeholder="Filter icons…" autocomplete="off"&gt;
+      &lt;/div&gt;
+      &lt;div class="icon-picker-body"&gt;
+        &lt;section class="icon-picker-section icon-picker-recent" hidden&gt;
+          &lt;h4 class="icon-picker-section-heading"&gt;Recent&lt;/h4&gt;&lt;div class="icon-picker-grid"&gt;&lt;/div&gt;
+        &lt;/section&gt;
+        &lt;section class="icon-picker-section" aria-labelledby="space-maps"&gt;
+          &lt;h4 class="icon-picker-section-heading" id="space-maps"&gt;Maps &amp;amp; travel&lt;/h4&gt;
+          &lt;div class="icon-picker-grid"&gt;
+            &lt;label class="icon-picker-tile" title="House" data-tags="homes buildings places locations"&gt;
+              &lt;input type="radio" name="icon" value="house" class="visually-hidden" checked&gt;
+              &lt;svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"&gt;&lt;use href="/icons/phosphor-bold.svg#house"/&gt;&lt;/svg&gt;
+              &lt;span class="visually-hidden"&gt;House&lt;/span&gt;
+            &lt;/label&gt;
+            &lt;!-- One label per icon in the configured set --&gt;
+          &lt;/div&gt;
+        &lt;/section&gt;
+      &lt;/div&gt;
+      &lt;p class="icon-picker-status" role="status" aria-atomic="true" hidden&gt;&lt;/p&gt;
+    &lt;/fieldset&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script type="module"&gt;
+  import { createIconPicker } from '/dist/icon-picker.js';
+  const picker = createIconPicker({ root: document.querySelector('[data-icon-picker]') });
+  // After replacing tiles in place: picker.refresh(). Before removing the root: picker.dispose().
+&lt;/script&gt;</code></pre></div></popup-dialog>
+</section>
+
+<section class="section stack">
+  <h2>Contract</h2>
+  <dl>
+    <dt>Value</dt><dd>The checked radio submits a Phosphor name such as <code>users-three</code>. Remove submits an empty value.</dd>
+    <dt>Subsets</dt><dd>Render only the allowed icons, chosen by name list, Phosphor category or exclusions. Validate the submitted name on the server against the same list.</dd>
+    <dt>Icons</dt><dd>Tiles reference <code>/icons/phosphor-bold.svg</code>, generated with <code>npm run icons</code> from <code>@phosphor-icons/core</code>. <code>/icons/phosphor-catalog.json</code> lists each name’s category and search tags.</dd>
+    <dt>Without JavaScript</dt><dd>The trigger opens the native popover and the radios submit with the form. Search, Recent and the count stay hidden, and the trigger updates after saving.</dd>
+    <dt>Script</dt><dd><code>createIconPicker({ root, recent, recentKey, recentLimit })</code> returns <code>refresh()</code> and <code>dispose()</code>. Recent is stored in <code>localStorage</code>. Saving belongs to your application.</dd>
+  </dl>
+  <p><a href="/reference/components/icon-picker.html">Standalone reference</a></p>
+</section>
+</article>
+</main>
+<html-include src="/_includes/footer.html"></html-include>
+<script type="module" src="/manual/_components/icon-picker-fixture.js"></script>
+</body>
+</html>

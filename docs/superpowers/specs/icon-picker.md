@@ -73,16 +73,17 @@ Tiles match Assembly's header search trigger (Baseplate `.button--subtle` with
 `--line-025` padding, `--touch-target-min` block size and a 1rem icon. Hover
 uses `--color-subtle` and `--color-border`. Focus uses the shared focus ring.
 
-- Live Wires does not have `.button--subtle` yet. Port it into
-  `src/css/6_components/buttons.css` with the Baseplate values, then use it for
-  the tiles.
+- `icon-picker.css` copies the `.button--subtle` values for the trigger and
+  tiles. Live Wires does not add `.button--subtle` itself.
 - A ghost variant removes the resting border and keeps the hover fill. It is
   set on the picker with `.icon-picker--ghost`. Bordered is the default.
 - The trigger uses the same tile style. `.icon-picker--ghost` applies to it too.
 - The checked tile uses `--color-accent` with `--color-white` icon colour,
   matching the people picker's pressed buttons.
 - The grid is `repeat(auto-fill, minmax(var(--touch-target-min), 1fr))` with
-  `--line-025` gaps. Category sections use `content-visibility: auto`.
+  `--line-025` gaps.
+  Category sections render normally. `content-visibility: auto` made the
+  checked icon's scroll position wrong on open.
 
 ## Icon set and subsets
 
@@ -105,9 +106,10 @@ rejects unknown names.
 
 ## Ownership
 
-Live Wires supplies CSS, the sprite and catalog build, a manual page, a
-reference page and a page-only fixture script. The fixture updates the trigger
-locally and saves nothing. The Templ component in `livewires-templ` and the
+Live Wires supplies CSS, the sprite and catalog build, an optional
+`/dist/icon-picker.js` entry (`createIconPicker`, like the combobox), a manual
+page, a reference page and a page-only fixture script. The fixture loads the
+full-set demo markup and saves nothing. The Templ component in `livewires-templ` and the
 Baseplate wiring are separate work.
 
 Use the class prefix `icon-picker` (`.icon-picker`, `.icon-picker-panel`,
