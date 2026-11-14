@@ -321,8 +321,8 @@
       letter-spacing: var(--tracking-sm);
 
       &:focus-visible {
-        outline: 2px solid var(--color-accent);
-        outline-offset: 2px;
+        outline: var(--focus-ring-width) solid var(--focus-ring-color, var(--color-muted));
+        outline-offset: var(--focus-ring-offset);
       }
     }
 

@@ -45,6 +45,7 @@ export default defineConfig({
       '/dist/action-menu.js': resolve(__dirname, 'src/js/action-menu.entry.js'),
       '/dist/inline-edit.js': resolve(__dirname, 'src/js/inline-edit.entry.js'),
       '/dist/combobox.js': resolve(__dirname, 'src/js/combobox.entry.js'),
+      '/dist/icon-picker.js': resolve(__dirname, 'src/js/icon-picker.entry.js'),
       '/dist/sortable-list.css': resolve(__dirname, 'src/css/6_components/sortable-list.css')
     }
   },
@@ -66,7 +67,8 @@ export default defineConfig({
         'toast-region': resolve(__dirname, 'src/js/toast-region.entry.js'),
         'action-menu': resolve(__dirname, 'src/js/action-menu.entry.js'),
         'inline-edit': resolve(__dirname, 'src/js/inline-edit.entry.js'),
-        combobox: resolve(__dirname, 'src/js/combobox.entry.js')
+        combobox: resolve(__dirname, 'src/js/combobox.entry.js'),
+        'icon-picker': resolve(__dirname, 'src/js/icon-picker.entry.js')
       },
       output: {
         // Fixed filenames (no hash) for easy HTML referencing

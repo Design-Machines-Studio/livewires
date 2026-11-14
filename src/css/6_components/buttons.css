@@ -40,6 +40,62 @@
     --button-fg: color-mix(in srgb, var(--color-accent) 45%, var(--color-fg));
   }
 
+  /* Subtle actions: quiet outline, filled on hover. Matches Assembly. */
+  .button--subtle {
+    --button-bg: transparent;
+    --button-fg: var(--color-fg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--line-025);
+    border: var(--line-1px) solid var(--color-border-muted);
+    border-radius: var(--radius-tight);
+
+    &:hover,
+    &:active {
+      --button-bg: var(--color-subtle);
+      --button-fg: var(--color-fg);
+      border-color: var(--color-border);
+      opacity: 1;
+    }
+  }
+
+  /*
+   * Icon-only buttons: square, a five-eighths-line icon and eighth-line padding.
+   * Pair with .button--subtle or .button--ghost and an aria-label.
+   */
+  .button--icon {
+    --button-icon-size: calc(var(--line-05) + var(--line-0125));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    aspect-ratio: 1;
+    min-block-size: 24px; /* WCAG 2.5.8 target size, kept in pixels */
+    padding: var(--line-0125);
+
+    & .icon,
+    & svg {
+      inline-size: var(--button-icon-size);
+      block-size: var(--button-icon-size);
+      pointer-events: none; /* The button, not the SVG, takes the hover and cursor. */
+    }
+  }
+
+  /* Bordered icon buttons: a slightly smaller icon and quarter-line padding
+   * give it room inside the border, as in Assembly. */
+  .button--subtle.button--icon {
+    --button-icon-size: calc(var(--line-05) + var(--line-0125) / 2);
+    padding: var(--line-025);
+  }
+
+  /* Ghost icon buttons fill on hover; an underline has nothing to mark. */
+  .button--ghost.button--icon:hover,
+  .button--ghost.button--icon:active {
+    --button-bg: var(--color-subtle);
+    text-decoration: none;
+  }
+
   /* Size variants */
   .button--small {
     --button-h-space: var(--line-025);

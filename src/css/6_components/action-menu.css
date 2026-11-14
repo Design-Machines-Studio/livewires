@@ -47,8 +47,8 @@
         &[data-menu-submenu]:dir(rtl)::after { rotate: 45deg; }
 
         &:focus-visible {
-          outline: calc(var(--line-1px) * 2) solid var(--color-fg);
-          outline-offset: calc(var(--line-1px) * -2);
+          outline: var(--focus-ring-width) solid var(--color-fg);
+          outline-offset: calc(var(--focus-ring-width) * -1);
           background: var(--color-subtle);
         }
       }

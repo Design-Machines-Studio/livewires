@@ -1,0 +1,256 @@
+/**
+ * Icon picker
+ *
+ * One Phosphor Bold icon per field. Native radios inside a popover own the
+ * value, so the picker opens and submits without JavaScript. The optional
+ * /dist/icon-picker.js adds search, Recent, grid keys and anchoring.
+ *
+ * The trigger uses .button--subtle.button--icon (or .button--ghost). Tiles
+ * match it. Add .icon-picker--ghost to drop the tiles' resting border.
+ *
+ * @example
+ * <div class="icon-picker" data-icon-picker>
+ *   <button type="button" class="button button--subtle button--icon icon-picker-trigger" popovertarget="p-panel" aria-label="Change icon, House">
+ *     <span class="icon-picker-current"><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#house"/></svg></span>
+ *     <span class="icon-picker-placeholder" hidden><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#selection-plus"/></svg></span>
+ *   </button>
+ *   <div class="icon-picker-panel" id="p-panel" popover>
+ *     <fieldset class="icon-picker-fieldset" aria-labelledby="p-heading">
+ *       <div class="icon-picker-header">
+ *         <h2 class="icon-picker-heading" id="p-heading">Icons</h2>
+ *         <label class="icon-picker-remove button button--ghost button--small"><input type="radio" name="icon" value="" class="visually-hidden">Remove</label>
+ *       </div>
+ *       <div class="icon-picker-search" hidden><label class="visually-hidden" for="p-search">Filter icons</label><input type="search" class="input--small" id="p-search" placeholder="Filter icons…" autocomplete="off"></div>
+ *       <div class="icon-picker-body">
+ *         <section class="icon-picker-section icon-picker-recent" hidden><h3 class="icon-picker-section-heading">Recent</h3><div class="icon-picker-grid"></div></section>
+ *         <section class="icon-picker-section" aria-labelledby="p-maps"><h3 class="icon-picker-section-heading" id="p-maps">Maps &amp; travel</h3>
+ *           <div class="icon-picker-grid">
+ *             <label class="icon-picker-tile" title="House" data-tags="homes buildings"><input type="radio" name="icon" value="house" class="visually-hidden" checked><svg class="icon" aria-hidden="true" focusable="false" fill="currentColor"><use href="/icons/phosphor-bold.svg#house"/></svg><span class="visually-hidden">House</span></label>
+ *           </div>
+ *         </section>
+ *       </div>
+ *       <p class="icon-picker-status" role="status" aria-atomic="true" hidden></p>
+ *     </fieldset>
+ *   </div>
+ * </div>
+ */
+
+@layer components {
+  .icon-picker {
+    /* Bordered tiles match .button--subtle.button--icon: a nine-sixteenths-line
+     * icon, quarter-line padding and a 1px border. Ghost tiles are tighter.
+     * Tiles never drop below the 24px WCAG 2.5.8 target. */
+    --icon-picker-icon-size: calc(var(--line-05) + var(--line-0125) / 2);
+    --icon-picker-tile-size: max(24px, calc(var(--icon-picker-icon-size) + var(--line-025) * 2 + var(--line-1px) * 2));
+    display: inline-block;
+  }
+
+  /* Tiles match .button--subtle.button--icon. They are labels around
+   * radios, so they repeat its values instead of taking the classes. */
+  .icon-picker-tile {
+    --icon-picker-tile-bg: transparent;
+    --icon-picker-tile-fg: var(--color-fg);
+    --icon-picker-tile-border: var(--icon-picker-border, var(--color-border-muted));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    inline-size: var(--icon-picker-tile-size);
+    block-size: var(--icon-picker-tile-size);
+    margin: 0;
+    padding: 0; /* The fixed tile size sets the space around the icon. */
+    border: var(--line-1px) solid var(--icon-picker-tile-border);
+    border-radius: var(--radius-tight);
+    background: var(--icon-picker-tile-bg);
+    color: var(--icon-picker-tile-fg);
+    font-weight: inherit;
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition-link);
+
+    &:hover {
+      --icon-picker-tile-bg: var(--color-subtle);
+      --icon-picker-tile-border: var(--icon-picker-border-hover, var(--color-border));
+    }
+
+    /* Bordered tiles use a slightly smaller icon so it has room inside the border. */
+    & .icon {
+      inline-size: var(--icon-picker-icon-size);
+      block-size: var(--icon-picker-icon-size);
+      pointer-events: none; /* The label takes the hover and pointer cursor. */
+    }
+  }
+
+  /* Trigger: add .button.button--subtle.button--icon, or .button--ghost. */
+  .icon-picker-trigger {
+    & .icon-picker-current,
+    & .icon-picker-placeholder {
+      display: inline-flex;
+      pointer-events: none;
+    }
+
+    & [hidden] {
+      display: none;
+    }
+
+    & .icon-picker-placeholder {
+      color: var(--color-muted);
+    }
+  }
+
+  .icon-picker--ghost {
+    --icon-picker-icon-size: calc(var(--line-05) + var(--line-0125));
+    --icon-picker-tile-size: max(24px, calc(var(--icon-picker-icon-size) + var(--line-0125) * 2 + var(--line-1px) * 2));
+    --icon-picker-border: transparent;
+    --icon-picker-border-hover: transparent;
+  }
+
+  .icon-picker-panel {
+    box-sizing: border-box;
+    inline-size: min(calc(var(--line) * 12), calc(100vw - var(--line-05)));
+    max-block-size: min(calc(var(--line) * 20), calc(100dvh - var(--line-05)));
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    border: var(--line-1px) solid var(--color-border-muted);
+    border-radius: var(--radius-loose);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    box-shadow: 0 var(--line-025) var(--line-05) var(--overlay-shadow);
+
+    /* Grid, not flex: a flex fieldset does not shrink its content in Chrome. */
+    &:popover-open {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr);
+    }
+  }
+
+  /* Enhanced: anchored to the trigger by script on wide viewports. */
+  [data-icon-picker-ready] .icon-picker-panel {
+    @media (width >= 30em) {
+      inset: auto;
+      margin: 0;
+    }
+  }
+
+  /* Narrow viewports: full-width sheet from the bottom. */
+  .icon-picker-panel {
+    @media (width < 30em) {
+      inset: auto 0 0;
+      inline-size: 100%;
+      max-inline-size: none;
+      max-block-size: 80dvh;
+      margin: 0;
+      border-end-start-radius: 0;
+      border-end-end-radius: 0;
+    }
+  }
+
+  .icon-picker-fieldset {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    min-block-size: 0;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .icon-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--line-05);
+    padding: var(--line-025) var(--line-025) var(--line-025) var(--line-05);
+    border-block-end: var(--line-1px) solid var(--color-border-muted);
+    grid-row: 1;
+  }
+
+  .icon-picker-heading {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--tracking-sm);
+    font-weight: var(--font-medium);
+  }
+
+  .icon-picker-remove {
+    margin: 0;
+    font-weight: var(--font-medium);
+
+    &:has(:focus-visible) {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color, var(--color-muted));
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    /* Nothing to remove. */
+    &:has(:checked) {
+      display: none;
+    }
+  }
+
+  .icon-picker-search {
+    grid-row: 2;
+    padding: var(--line-05) var(--line-05) 0;
+
+    & input {
+      inline-size: 100%;
+    }
+  }
+
+  .icon-picker-body {
+    grid-row: 3;
+    min-block-size: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-behavior: auto; /* Jump to the checked icon on open and during key repeat. */
+    padding: 0 var(--line-05) var(--line-05);
+  }
+
+  .icon-picker-section-heading {
+    margin: var(--line-05) 0 var(--line-025);
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-xs);
+    letter-spacing: var(--tracking-xs);
+    font-weight: var(--font-medium);
+  }
+
+  .icon-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, var(--icon-picker-tile-size));
+    justify-content: space-between;
+    gap: var(--line-0125);
+  }
+
+  .icon-picker-tile {
+    &[hidden] {
+      display: none;
+    }
+
+    &:has(:focus-visible) {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color, var(--color-muted));
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    &:has(:checked) {
+      --icon-picker-tile-bg: var(--color-accent);
+      --icon-picker-tile-fg: var(--color-white);
+      --icon-picker-tile-border: var(--color-accent);
+    }
+  }
+
+  /* Doubled class outranks prose and stack paragraph rules. */
+  .icon-picker-status.icon-picker-status {
+    grid-row: 4;
+    max-inline-size: none;
+    margin: 0;
+    padding: var(--line-025) var(--line-05);
+    border-block-start: var(--line-1px) solid var(--color-border-muted);
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    line-height: var(--line-height-xs);
+    letter-spacing: var(--tracking-xs);
+  }
+}

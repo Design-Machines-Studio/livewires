@@ -17,6 +17,14 @@
     */
 
     /*
+    * Focus ring. Colour defaults to each scheme's --color-muted at the use
+    * site; set --focus-ring-color to override. Themes should keep muted at 3:1
+    * contrast with the background (WCAG 1.4.11).
+    */
+    --focus-ring-width: var(--line-1px);
+    --focus-ring-offset: calc(var(--line-1px) * 2);
+
+    /*
     * Rounded corner radiuses 
     */
   }
