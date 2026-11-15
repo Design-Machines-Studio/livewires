@@ -2,6 +2,7 @@ import { matchesIcon, nextTileIndex, placePanel, rememberIcon } from './icon-pic
 
 const instances = new WeakMap();
 const NARROW = '(width < 30em)';
+const GRID_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'];
 
 /**
  * Enhances a server-rendered [data-icon-picker]. The native radios own the
@@ -47,6 +48,7 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
   const visibleTiles = () => [...panel.querySelectorAll('.icon-picker-tile')].filter(visible);
   const checkedTile = () => tiles.find((tile) => tile.querySelector('input').checked) ?? null;
   const tileFor = (value) => tiles.find((tile) => tile.querySelector('input').value === value) ?? null;
+  const tileControl = (tile) => tile?.matches('button') ? tile : tile?.querySelector('input');
 
   function collect() {
     tiles = [...body.querySelectorAll('.icon-picker-tile')].filter((tile) => !recentSection?.contains(tile));
@@ -86,21 +88,30 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
   }
   function renderRecent() {
     if (!recent || !recentSection || !recentGrid) return;
+    const focused = recentGrid.contains(doc.activeElement) ? doc.activeElement : null;
     recentSection.hidden = false;
     const columns = Math.max(1, win.getComputedStyle(recentGrid).gridTemplateColumns.split(' ').filter(Boolean).length);
     const items = readRecent().map(tileFor).filter(Boolean).slice(0, columns);
     recentGrid.replaceChildren(...items.map((tile) => {
-      const copy = tile.cloneNode(true);
-      const radio = copy.querySelector('input');
-      // Unnamed copies never submit; choosing one checks the original radio.
-      radio.removeAttribute('name');
-      radio.checked = false;
-      radio.dataset.iconPickerRecent = '';
-      radio.tabIndex = -1; // Reached with arrow keys, not Tab.
-      copy.hidden = false;
-      return copy;
+      const button = doc.createElement('button');
+      button.type = 'button';
+      button.className = 'icon-picker-tile';
+      button.value = tile.querySelector('input').value;
+      button.dataset.iconPickerRecent = '';
+      button.tabIndex = -1; // Reached with arrow keys, not Tab.
+      button.title = tileLabel(tile);
+      const label = doc.createElement('span');
+      label.className = 'visually-hidden';
+      label.textContent = tileLabel(tile);
+      button.append(tile.querySelector('svg').cloneNode(true), label);
+      return button;
     }));
     recentSection.hidden = !items.length || !!input?.value.trim();
+    if (focused) {
+      const replacement = [...recentGrid.children].find((button) => button.value === focused.value);
+      if (replacement && !recentSection.hidden) focusTile(replacement);
+      else if (!focusTile(firstFocusTarget())) (input ?? trigger).focus();
+    }
   }
 
   function filter() {
@@ -150,25 +161,23 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
     else if (rect.bottom > box.top + body.clientHeight) body.scrollTop += rect.bottom - box.top - body.clientHeight;
   }
   function focusTile(tile) {
-    const radio = tile?.querySelector('input');
-    if (!radio) return false;
-    radio.focus({ preventScroll: true });
+    const control = tileControl(tile);
+    if (!control) return false;
+    control.focus({ preventScroll: true });
     reveal(tile);
     return true;
   }
   function firstFocusTarget() {
     const checked = checkedTile();
-    return checked && visible(checked) ? checked : visibleTiles()[0];
+    return checked && visible(checked) ? checked : tiles.find(visible);
   }
 
   function choose(radio) {
     if (radio.hasAttribute('data-icon-picker-recent')) {
-      const original = tileFor(radio.value)?.querySelector('input');
-      if (!original) return;
-      original.checked = true;
-      original.dispatchEvent(new Event('input', { bubbles: true }));
-      original.dispatchEvent(new Event('change', { bubbles: true }));
-      radio = original;
+      // Activate the real radio so native checked state and input/change
+      // events stay identical to choosing it in the main grid.
+      tileFor(radio.value)?.querySelector('input').click();
+      return;
     }
     if (radio.value) writeRecent(radio.value);
     updateTrigger();
@@ -189,7 +198,7 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
     body.scrollTop = 0;
     const checked = checkedTile();
     if (checked && visible(checked)) reveal(checked, true);
-    (input ?? firstFocusTarget()?.querySelector('input'))?.focus({ preventScroll: true });
+    (input ?? tileControl(firstFocusTarget()))?.focus({ preventScroll: true });
   }
   trigger.addEventListener('click', (event) => {
     event.preventDefault();
@@ -202,7 +211,8 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
 
   // Click, not change, so choosing the already-checked icon also closes.
   panel.addEventListener('click', (event) => {
-    if (event.target.matches?.('input[type="radio"]')) choose(event.target);
+    const control = event.target.closest?.('input[type="radio"], button[data-icon-picker-recent]');
+    if (control) choose(control);
   }, { signal });
 
   input?.addEventListener('input', filter, { signal });
@@ -229,13 +239,21 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
     if (remove && remove.closest('label').getClientRects().length) stops.push(remove);
     if (input) stops.push(input);
     const grid = gridFocus && visible(gridFocus) ? gridFocus : firstFocusTarget();
-    if (grid) stops.push(grid.querySelector('input'));
+    if (grid) stops.push(tileControl(grid));
     return stops;
   }
   panel.addEventListener('keydown', (event) => {
     if (event.target === remove && event.key === 'Enter') {
       event.preventDefault();
       remove.click();
+      return;
+    }
+    if (event.target === remove && GRID_KEYS.includes(event.key)) {
+      // Remove shares the native radio group. Suppress its implicit choice
+      // when navigating, just as we do for the enhanced icon grid.
+      event.preventDefault();
+      if (input) input.focus();
+      else focusTile(firstFocusTarget());
       return;
     }
     if (event.key !== 'Tab' || event.altKey || event.ctrlKey || event.metaKey) return;
@@ -252,13 +270,13 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
 
   body.addEventListener('keydown', (event) => {
     const radio = event.target;
-    if (!radio.matches?.('.icon-picker-tile input')) return;
+    if (!radio.matches?.('.icon-picker-tile input, button.icon-picker-tile[data-icon-picker-recent]')) return;
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       radio.click();
       return;
     }
-    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    if (!GRID_KEYS.includes(event.key)) return;
     // Native radios would check each icon they pass; move focus only.
     event.preventDefault();
     const list = visibleTiles();
@@ -280,7 +298,6 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
   collect();
   search?.removeAttribute('hidden');
   status?.removeAttribute('hidden');
-  trigger.setAttribute('aria-haspopup', 'dialog');
   trigger.setAttribute('aria-expanded', String(panel.matches(':popover-open')));
   root.dataset.iconPickerReady = '';
   updateTrigger();
@@ -288,7 +305,13 @@ export function createIconPicker({ root, recent = true, recentKey = 'lw-icon-pic
 
   const api = {
     /** Re-read tiles after the application replaces them in place. */
-    refresh() { if (!disposed) { collect(); updateTrigger(); filter(); } },
+    refresh() {
+      if (disposed) return;
+      collect();
+      updateTrigger();
+      filter();
+      if (panel.matches(':popover-open')) renderRecent();
+    },
     dispose() {
       if (disposed) return;
       disposed = true;
