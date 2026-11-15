@@ -32,14 +32,16 @@ Its accessible name is `Change icon, {icon name}` or `Choose icon`.
 
 The panel header holds a heading at the start and a ghost Remove button at the
 end. Future tabs (Emoji, Upload) replace the heading in the same bar. Remove is
-hidden when there is no value.
+hidden when there is no value and enhancement is running. In the native
+fallback Remove stays visible so checking it never hides the focused radio.
 
 ## Markup and behavior
 
 - The trigger is a `<button>` with `popovertarget` pointing at the panel, so it
   opens without JavaScript. JavaScript adds `aria-expanded` and anchors the panel.
 - The panel's content is a `fieldset`. The header heading labels it through
-  `aria-labelledby`. Each icon is a visually hidden
+  `aria-labelledby`. The popover keeps these native group semantics; the
+  trigger does not declare a dialog popup. Each icon is a visually hidden
   `<input type="radio" name="{field}" value="{icon-name}">` with a label. The
   label contains the SVG and a visually hidden icon name. Icon names use
   Phosphor's kebab-case names, such as `users-three`.
@@ -60,8 +62,13 @@ hidden when there is no value.
 - Tab and Shift+Tab cycle Remove, search and the grid without leaving the
   panel. The grid's stop is the last focused icon, else the checked icon, else
   the first visible one. Remove shares the icons' radio group, so the script
-  manages this order. Enter on Remove clears the value without submitting.
-  Recent copies are reached with arrow keys only.
+  manages this order. Enter or Space on Remove clears the value without
+  submitting. Navigation keys on Remove return focus to search (or the grid
+  when search is absent) without changing the value.
+  Recent shortcuts are native `type="button"` controls reached with arrow keys
+  only. They activate the original radio, preserving native checked state and
+  input/change events. They do not introduce additional radio choices or form
+  values. Tab from a Recent shortcut returns to the normal panel cycle.
 - Arrow keys move focus in two dimensions across the visible grid. Home and End
   go to the first and last visible icon. Tab leaves the grid.
 - Search matches icon names and Phosphor tags, stored in `data-tags`, so "home"
@@ -69,7 +76,9 @@ hidden when there is no value.
   hide with them. The status region reports the visible count, or
   `No icons match "{query}"`.
 - Recent stores up to one row of names in `localStorage`, filtered to the
-  current subset. Consumers can turn it off.
+  current subset. Consumers can turn it off. Refreshing the choices rebuilds
+  shortcuts and preserves a focused shortcut when its icon still exists,
+  otherwise moving focus to a surviving tile, search or the trigger.
 
 ## Tiles
 
@@ -97,6 +106,8 @@ for a borderless trigger. Tiles are labels around radios, so
   fill. Bordered is the default.
 - The checked tile uses `--color-accent` with a `--color-white` icon,
   matching the people picker's pressed buttons.
+  In forced colors a thicker `CanvasText` border distinguishes selection while
+  the outer outline identifies keyboard focus.
 - Icons ignore pointer events, so the tile takes the hover and pointer cursor.
 - The grid uses fixed tile-width columns, `space-between` and `--line-0125`
   gaps. Category sections render normally. `content-visibility: auto` made the

@@ -58,6 +58,7 @@
     box-sizing: border-box;
     inline-size: var(--icon-picker-tile-size);
     block-size: var(--icon-picker-tile-size);
+    min-block-size: var(--icon-picker-tile-size); /* Override the base button minimum for Recent shortcuts. */
     margin: 0;
     padding: 0; /* The fixed tile size sets the space around the icon. */
     border: var(--line-1px) solid var(--icon-picker-tile-border);
@@ -183,11 +184,12 @@
       outline: var(--focus-ring-width) solid var(--focus-ring-color, var(--color-muted));
       outline-offset: var(--focus-ring-offset);
     }
+  }
 
-    /* Nothing to remove. */
-    &:has(:checked) {
-      display: none;
-    }
+  /* Native radio navigation can focus Remove while checking it. Keep that
+   * control visible until enhancement takes ownership of keyboard movement. */
+  [data-icon-picker-ready] .icon-picker-remove:has(:checked) {
+    display: none;
   }
 
   .icon-picker-search {
@@ -229,6 +231,7 @@
       display: none;
     }
 
+    &:focus-visible,
     &:has(:focus-visible) {
       outline: var(--focus-ring-width) solid var(--focus-ring-color, var(--color-muted));
       outline-offset: var(--focus-ring-offset);
@@ -238,6 +241,11 @@
       --icon-picker-tile-bg: var(--color-accent);
       --icon-picker-tile-fg: var(--color-white);
       --icon-picker-tile-border: var(--color-accent);
+
+      @media (forced-colors: active) {
+        /* Keep selection distinct while the outer outline identifies focus. */
+        border: calc(var(--line-1px) * 2) solid CanvasText;
+      }
     }
   }
 
